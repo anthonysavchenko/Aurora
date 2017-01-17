@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E35914B3-8BB6-4BCB-A85A-516BF2252422}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Taumis.EnterpriseLibrary.Win.Common</RootNamespace>
+    <AssemblyName>Taumis.EnterpriseLibrary.Win.Common</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <NoWarn>618</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Charts.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Printing.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Utils.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraCharts.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraGrid.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraPrinting.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraReports.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseViews\BaseItemView\BaseItemViewConstants.cs" />
+    <Compile Include="BaseViews\BaseItemView\BaseItemViewParams.cs" />
+    <Compile Include="BaseViews\BaseItemView\BaseMainItemViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForReportView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForReportViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForSimpleReportViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForSimpleReportView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseLayoutView\IBaseLayoutForReportView.cs" />
+    <Compile Include="BaseViews\BaseListView\BaseListViewParams.cs" />
+    <Compile Include="BaseViews\BaseListView\BaseListViewConstants.cs" />
+    <Compile Include="BaseViews\BaseSimpleListView\BaseSimplePositionsListViewPresenter.cs" />
+    <Compile Include="Constants\CommonActionNames.cs" />
+    <Compile Include="Constants\ListItemStatus.cs" />
+    <Compile Include="BaseViews\BaseTabbedView\BaseTabbedViewParams.cs" />
+    <Compile Include="BaseViews\BaseTabbedView\BaseTabbedViewConstants.cs" />
+    <Compile Include="BaseViews\ReportView\BaseReportForGridPresenter.cs" />
+    <Compile Include="BaseViews\ReportView\BaseReportForGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\ReportView\BaseReportForReportObjectPresenter.cs" />
+    <Compile Include="BaseViews\ReportView\BaseReportForReportObjectView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\ReportView\BaseReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BaseViews\ReportView\BaseReportViewPresenter.cs" />
+    <Compile Include="BaseViews\ReportView\IBaseReportForGridView.cs" />
+    <Compile Include="BaseViews\ReportView\IBaseReportForReportObjectView.cs" />
+    <Compile Include="BaseViews\ReportView\IBaseReportView.cs" />
+    <Compile Include="BaseViews\ReportView\IBaseReportViewPresenter.cs" />
+    <Compile Include="BaseViews\ReportView\StatusView\IStatusView.cs" />
+    <Compile Include="BaseViews\ReportView\StatusView\StatusView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\ReportView\StatusView\StatusView.Designer.cs">
+      <DependentUpon>StatusView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseViews\ReportView\StatusView\StatusViewPresenter.cs" />
+    <Compile Include="Constants\CommonEditItemStates.cs" />
+    <Compile Include="Constants\CommonItemStates.cs" />
+    <Compile Include="BaseViews\BaseItemView\BaseItemView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseItemView\BaseItemViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseItemView\IBaseItemView.cs" />
+    <Compile Include="BaseViews\BaseItemView\IBaseItemViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseItemView\IBaseItemViewPresenterOwner.cs" />
+    <Compile Include="BaseViews\BaseItemView\SimpleItemViewMapper.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForListViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForTabbedView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutForTabbedViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseLayoutView\BaseLayoutViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\BaseSimpleLayoutView\BaseSimpleLayoutView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseLayoutView\BaseSimpleLayoutView\BaseSimpleLayoutViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\IBaseLayoutView.cs" />
+    <Compile Include="BaseViews\BaseLayoutView\IBaseLayoutViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseListView\BaseListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseListView\BaseListViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseListView\BaseMultipleListView\BaseMultipleListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseListView\BaseMultipleListView\BaseMultipleListViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseListView\BaseMultipleListView\IBaseMultipleListView.cs" />
+    <Compile Include="BaseViews\BaseListView\IBaseListView.cs" />
+    <Compile Include="BaseViews\BaseListView\IBaseListViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseListView\IRefreshableListView.cs" />
+    <Compile Include="BaseViews\BaseSimpleListView\BaseSimpleListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseSimpleListView\BaseSimpleListViewMapper.cs" />
+    <Compile Include="BaseViews\BaseSimpleListView\BaseSimpleListViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseSimpleListView\IBaseSimpleListView.cs" />
+    <Compile Include="BaseViews\BaseSimpleListView\IBaseSimpleListViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseTabbedView\BaseTabbedView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\BaseTabbedView\BaseTabbedViewPresenter.cs" />
+    <Compile Include="BaseViews\BaseTabbedView\IBaseTabbedView.cs" />
+    <Compile Include="BaseViews\BaseTabbedView\IBaseTabbedViewPresenter.cs" />
+    <Compile Include="BaseViews\Common\BaseDomainPresenter.cs" />
+    <Compile Include="BaseViews\Common\BasePresenter.cs" />
+    <Compile Include="BaseViews\Common\BaseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseViews\Common\IBaseDomainPresenter.cs" />
+    <Compile Include="BaseViews\Common\IBasePresenter.cs" />
+    <Compile Include="BaseViews\Common\IBaseView.cs" />
+    <Compile Include="Constants\CommonStateNames.cs" />
+    <Compile Include="ControlledWorkItem.cs" />
+    <Compile Include="Forms\ReasonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReasonForm.Designer.cs">
+      <DependentUpon>ReasonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IWorkItemController.cs" />
+    <Compile Include="Modules\CommonModule\CommonControlledWorkItem.cs" />
+    <Compile Include="Modules\CommonModule\CommonModule.cs" />
+    <Compile Include="Modules\CommonModule\CommonModuleController.cs" />
+    <Compile Include="Modules\CommonModule\ICommonModuleController.cs" />
+    <Compile Include="Modules\CommonModule\UsecaseException.cs" />
+    <Compile Include="Modules\CommonModule\UsecaseNameAttribute.cs" />
+    <Compile Include="Modules\ReportModule\ModuleDataSet\ModuleDataSet.Designer.cs" />
+    <Compile Include="Modules\ReportModule\ReportModuleController.cs" />
+    <Compile Include="Modules\ReportModule\Views\LayoutView\LayoutView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modules\ReportModule\Views\LayoutView\LayoutView.Designer.cs">
+      <DependentUpon>LayoutView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StartUpParams\AnyStartUpParams.cs" />
+    <Compile Include="Modules\StartUpParams\BaseDataStartUpParams.cs" />
+    <Compile Include="Modules\StartUpParams\EmptyStartUpParams.cs" />
+    <Compile Include="Modules\StartUpParams\PrintDocStartUpParams.cs" />
+    <Compile Include="Modules\StartUpParams\ShowDetailsStartUpParams.cs" />
+    <Compile Include="Presenter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Constants\CommonCommandNames.cs" />
+    <Compile Include="Constants\CommonEventNames.cs" />
+    <Compile Include="Constants\CommonUIExtensionSiteNames.cs" />
+    <Compile Include="Constants\CommonWorkspaceNames.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ChangeEventHandlerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\DependentModuleInfo.cs" />
+    <Compile Include="Services\DependentModuleLoaderService.cs" />
+    <Compile Include="Services\IActionCondition.cs" />
+    <Compile Include="Services\IChangeEventHandlerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\IDependentModuleInfo.cs" />
+    <Compile Include="Services\IModuleInfoStore.cs" />
+    <Compile Include="Services\ISolutionProfileParser.cs" />
+    <Compile Include="Services\IWorkspaceLocatorService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\MenuExtendService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\ModuleMetadataReflectionHelper.cs" />
+    <Compile Include="Services\ProfileCatalogModuleInfoStore.cs" />
+    <Compile Include="Services\SolutionProfileV1.cs">
+      <DependentUpon>SolutionProfileV1.xsd</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="Services\SolutionProfileV1Parser.cs" />
+    <Compile Include="Services\SolutionProfileV2.cs">
+      <DependentUpon>SolutionProfileV2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Services\SolutionProfileV2Parser.cs" />
+    <Compile Include="Services\WorkspaceLocatorService.cs" />
+    <Compile Include="Services\XmlStreamDependentModuleEnumerator.cs" />
+    <Compile Include="Services\XmlValidationHelper.cs" />
+    <Compile Include="SmartClientApplication.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WorkItemController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Modules\ReportModule\ModuleDataSet\ModuleDataSet.xsc">
+      <DependentUpon>ModuleDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Modules\ReportModule\ModuleDataSet\ModuleDataSet.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Modules\ReportModule\ModuleDataSet\ModuleDataSet.xss">
+      <DependentUpon>ModuleDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="Services\SolutionProfileV2.xsd" />
+    <EmbeddedResource Include="Services\SolutionProfileV1.xsd" />
+    <None Include="Services\SolutionProfileV1.xsx">
+      <DependentUpon>SolutionProfileV1.xsd</DependentUpon>
+    </None>
+    <None Include="Services\SolutionProfileV2.xsx">
+      <DependentUpon>SolutionProfileV2.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BaseViews\ReportView\StatusView\StatusView.resx">
+      <DependentUpon>StatusView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReasonForm.resx">
+      <DependentUpon>ReasonForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ReportModule\Views\LayoutView\LayoutView.resx">
+      <DependentUpon>LayoutView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
+      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
+      <Name>CompositeUI.WinForms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI\CompositeUI.csproj">
+      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
+      <Name>CompositeUI</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
+      <Name>ObjectBuilder</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Common\Common.csproj">
+      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\ReportModule\Views\ReportObject\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

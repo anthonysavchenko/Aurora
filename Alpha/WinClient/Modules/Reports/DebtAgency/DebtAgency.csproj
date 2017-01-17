@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67DADE6D-C523-452F-98F4-7A05D79777C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAgency</RootNamespace>
+    <AssemblyName>Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAgency</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Build\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Build\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.Utils.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.XtraGrid.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\ModuleUIExtensionSiteNames.cs" />
+    <Compile Include="ModuleController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Layout\LayoutView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Layout\LayoutView.Designer.cs">
+      <DependentUpon>LayoutView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layout\LayoutViewPresenter.cs" />
+    <Compile Include="Views\List\IListView.cs" />
+    <Compile Include="Views\List\ListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\List\ListView.Designer.cs">
+      <DependentUpon>ListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\ListViewPresenter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
+      <Project>{8c62e512-6540-4ba6-860b-1ae6ae64821c}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\EnterpriseLibrary\Win\Common\Common.csproj">
+      <Project>{e35914b3-8bb6-4bcb-a85a-516bf2252422}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Win\Common%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
+      <Project>{073bcd60-f2fb-4db9-92fb-403c8f9e8dd0}</Project>
+      <Name>CompositeUI.WinForms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI\CompositeUI.csproj">
+      <Project>{c478e40b-a05e-4c69-9ab3-7a3bb374243f}</Project>
+      <Name>CompositeUI</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2ae49f19-392b-4c50-a13c-f49b2579849d}</Project>
+      <Name>ObjectBuilder</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DataBase\DataBase\DataBase.csproj">
+      <Project>{a68700e1-4190-442b-8033-cbcc995fbb1b}</Project>
+      <Name>DataBase</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Infrastructure\Interface\Interface.csproj">
+      <Project>{576d1311-ba67-4077-8489-7cfad06965f5}</Project>
+      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Interface\Interface.csproj">
+      <Project>{6afb9f99-fb46-49d6-b9bc-3a7937a136c9}</Project>
+      <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Layout\LayoutView.resx">
+      <DependentUpon>LayoutView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\List\ListView.resx">
+      <DependentUpon>ListView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

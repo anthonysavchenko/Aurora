@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ModuleDataSet" targetNamespace="http://tempuri.org/ModuleDataSet.xsd" xmlns:mstns="http://tempuri.org/ModuleDataSet.xsd" xmlns="http://tempuri.org/ModuleDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ModuleDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="ModuleDataSet" msprop:Generator_UserDSName="ModuleDataSet" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ModuleDataTable" msprop:Generator_UserTableName="ModuleDataTable" msprop:Generator_RowDeletedName="ModuleDataTableRowDeleted" msprop:Generator_TableClassName="ModuleDataTableDataTable" msprop:Generator_RowChangedName="ModuleDataTableRowChanged" msprop:Generator_RowClassName="ModuleDataTableRow" msprop:Generator_RowChangingName="ModuleDataTableRowChanging" msprop:Generator_RowEvArgName="ModuleDataTableRowChangeEvent" msprop:Generator_RowEvHandlerName="ModuleDataTableRowChangeEventHandler" msprop:Generator_TablePropName="ModuleDataTable" msprop:Generator_TableVarName="tableModuleDataTable" msprop:Generator_RowDeletingName="ModuleDataTableRowDeleting">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

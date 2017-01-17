@@ -1,0 +1,55 @@
+﻿<SolutionProfile xmlns="http://schemas.microsoft.com/pag/cab-profile/2.0">
+  <Section Name="Layout">
+    <Modules>
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Layout.dll"/>
+    </Modules>
+  </Section>
+  <Section Name="Services">
+    <Dependencies>
+      <Dependency Name="Layout" />
+    </Dependencies>
+    <Modules>
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Module.dll"/>
+    </Modules>
+  </Section>
+  <Section Name="Apps">
+    <Dependencies>
+      <Dependency Name="Layout" />
+      <Dependency Name="Services" />
+    </Dependencies>
+    <Modules>
+
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.dll" />
+
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.dll" />
+
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.ServiceTypes.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Contractors.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Intermediaries.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BenefitTypes.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Streets.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Users.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BankDetails.dll" />
+
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAgency.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.Benefits.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.Charges.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.PaymentsAndCharges.dll" />
+
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.dll" />
+
+    </Modules>
+  </Section>
+</SolutionProfile>

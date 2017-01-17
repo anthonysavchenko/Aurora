@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{576D1311-BA67-4077-8489-7CFAD06965F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Taumis.Alpha.Infrastructure.Interface</RootNamespace>
+    <AssemblyName>Taumis.Alpha.Infrastructure.Interface</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v13.1.Core">
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Sparkline.v13.1.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraBars.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraGrid.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessEntities\Common\ITransactionOwner.cs" />
+    <Compile Include="BusinessEntities\DocLine\BaseDocPos.cs" />
+    <Compile Include="BusinessEntities\Doc\ChargeSet.cs" />
+    <Compile Include="BusinessEntities\Doc\Customer.cs" />
+    <Compile Include="BusinessEntities\Doc\CustomerPos.cs" />
+    <Compile Include="BusinessEntities\Doc\Common\ITransDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\Common\TransDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\DebtBillDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\PaymentSet.cs" />
+    <Compile Include="BusinessEntities\Doc\Bill.cs" />
+    <Compile Include="BusinessEntities\Doc\BillSet.cs" />
+    <Compile Include="BusinessEntities\Doc\RechargeSet.cs" />
+    <Compile Include="BusinessEntities\Doc\RegularBillDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\RegularBillDocCounterPos.cs" />
+    <Compile Include="BusinessEntities\Doc\RegularBillDocSeviceTypePos.cs" />
+    <Compile Include="BusinessEntities\Doc\RegularBillDocSharedCounterPos.cs" />
+    <Compile Include="BusinessEntities\Doc\TotalBillDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\TotalBillDocPos.cs" />
+    <Compile Include="BusinessEntities\Oper\BaseChargeOper.cs" />
+    <Compile Include="BusinessEntities\Oper\BaseChargeOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\BasePaymentOper.cs" />
+    <Compile Include="BusinessEntities\Oper\BasePaymentOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\BenefitOper.cs" />
+    <Compile Include="BusinessEntities\Oper\BenefitOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\ChargeOper.cs" />
+    <Compile Include="BusinessEntities\Oper\ChargeOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\ChargeCorrectionOper.cs" />
+    <Compile Include="BusinessEntities\Oper\ChargeCorrectionOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\BenefitCorrectionOper.cs" />
+    <Compile Include="BusinessEntities\Oper\BenefitCorrectionOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\RebenefitOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\RebenefitOper.cs" />
+    <Compile Include="BusinessEntities\Oper\Operation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessEntities\Oper\OverpaymentCorrectionOper.cs" />
+    <Compile Include="BusinessEntities\Oper\OverpaymentCorrectionOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\OverpaymentOper.cs" />
+    <Compile Include="BusinessEntities\Oper\OverpaymentOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\Payment.cs" />
+    <Compile Include="BusinessEntities\Oper\PaymentCorrection.cs" />
+    <Compile Include="BusinessEntities\Oper\PaymentCorrectionOper.cs" />
+    <Compile Include="BusinessEntities\Oper\PaymentCorrectionOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\PaymentOper.cs" />
+    <Compile Include="BusinessEntities\Oper\PaymentOperPos.cs" />
+    <Compile Include="BusinessEntities\Oper\RechargeOper.cs" />
+    <Compile Include="BusinessEntities\Oper\RechargeOperPos.cs" />
+    <Compile Include="BusinessEntities\RefBooks\BankDetail.cs" />
+    <Compile Include="BusinessEntities\RefBooks\BenefitType.cs" />
+    <Compile Include="BusinessEntities\RefBooks\Building.cs" />
+    <Compile Include="BusinessEntities\RefBooks\CommonCounter.cs" />
+    <Compile Include="BusinessEntities\RefBooks\CommonCounterCoefficient.cs" />
+    <Compile Include="BusinessEntities\RefBooks\CommonCounterValue.cs" />
+    <Compile Include="BusinessEntities\RefBooks\Contractors.cs" />
+    <Compile Include="BusinessEntities\RefBooks\Intermediary.cs" />
+    <Compile Include="BusinessEntities\RefBooks\PaymentName.cs" />
+    <Compile Include="BusinessEntities\RefBooks\PrivateCounter.cs" />
+    <Compile Include="BusinessEntities\RefBooks\PrivateCounterValue.cs" />
+    <Compile Include="BusinessEntities\RefBooks\PublicPlace.cs" />
+    <Compile Include="BusinessEntities\RefBooks\Resident.cs" />
+    <Compile Include="BusinessEntities\RefBooks\Services.cs" />
+    <Compile Include="BusinessEntities\RefBooks\ServiceType.cs" />
+    <Compile Include="BusinessEntities\RefBooks\Street.cs" />
+    <Compile Include="BusinessEntities\RefBooks\User.cs" />
+    <Compile Include="Constants\ApplicationEventNames.cs" />
+    <Compile Include="Constants\ApplicationUIExtensionSiteNames.cs" />
+    <Compile Include="Constants\ApplicationUsecaseNames.cs" />
+    <Compile Include="Constants\StringFormats.cs" />
+    <Compile Include="Constants\IntermerdiaryConstants.cs" />
+    <Compile Include="DataMappers\Doc\IBaseBillDocDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\IChargeSetDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\ICustomerDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\ICustomerPosDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\IPaymentSetDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\IBillSetDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\IReceiptSetDataMapper.cs" />
+    <Compile Include="DataMappers\Oper\IRechargeOperPosDataMapper.cs" />
+    <Compile Include="DataMappers\Oper\IChargeOperPosDataMapper.cs" />
+    <Compile Include="DataMappers\Oper\IRechargeOperDataMapper.cs" />
+    <Compile Include="DataMappers\Oper\IChargeOperDataMapper.cs" />
+    <Compile Include="DataMappers\Oper\IPaymentCorrectionOperDataMapper.cs" />
+    <Compile Include="DataMappers\Oper\IPaymentOperDataMapper.cs" />
+    <Compile Include="DataMappers\Oper\IPaymentOperPosDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\IBuildingDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\IUserDataMapper.cs" />
+    <Compile Include="Enums\OperationTypes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\IEmailService.cs" />
+    <Compile Include="Services\ICryptoService.cs" />
+    <Compile Include="Services\ISettingsService.cs" />
+    <Compile Include="Services\LocalizerService.cs" />
+    <Compile Include="Services\PeriodBalances.cs" />
+    <Compile Include="Services\RussianBarLocalizer.cs" />
+    <Compile Include="Services\RussianEditorsLocalizer.cs" />
+    <Compile Include="Services\RussianGridLocalizer.cs" />
+    <Compile Include="Services\RussianPreviewLocalizer.cs" />
+    <Compile Include="Services\Settings\SmtpSetting.cs" />
+    <Compile Include="Services\StringWithNumbersComparer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
+      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

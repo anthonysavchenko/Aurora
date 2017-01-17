@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{361E59FF-79CC-4F3B-9198-5EDCE6762288}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{63E3B646-BDC8-4E67-B145-6C18A25B9232}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.Tests.NUnit", "..\UnitTest\NUnit\CompositeUI\CompositeUI.Tests.NUnit.csproj", "{9B112762-C2CC-4406-8ACA-12B51143CC6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.WinForms.Tests.NUnit", "..\UnitTest\NUnit\CompositeUI.WinForms\CompositeUI.WinForms.Tests.NUnit.csproj", "{BD409887-5D19-4679-8EA6-7EAC8CED77B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectBuilder.Tests.NUnit", "..\UnitTest\NUnit\ObjectBuilder\ObjectBuilder.Tests.NUnit.csproj", "{AA94DF49-2CB4-4A75-A6D8-C6BABDFBB490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI", "..\CompositeUI\CompositeUI.csproj", "{C478E40B-A05E-4C69-9AB3-7A3BB374243F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.WinForms", "..\CompositeUI.WinForms\CompositeUI.WinForms.csproj", "{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectBuilder", "..\ObjectBuilder\ObjectBuilder.csproj", "{2AE49F19-392B-4C50-A13C-F49B2579849D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B112762-C2CC-4406-8ACA-12B51143CC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B112762-C2CC-4406-8ACA-12B51143CC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B112762-C2CC-4406-8ACA-12B51143CC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B112762-C2CC-4406-8ACA-12B51143CC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD409887-5D19-4679-8EA6-7EAC8CED77B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD409887-5D19-4679-8EA6-7EAC8CED77B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD409887-5D19-4679-8EA6-7EAC8CED77B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD409887-5D19-4679-8EA6-7EAC8CED77B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA94DF49-2CB4-4A75-A6D8-C6BABDFBB490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA94DF49-2CB4-4A75-A6D8-C6BABDFBB490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA94DF49-2CB4-4A75-A6D8-C6BABDFBB490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA94DF49-2CB4-4A75-A6D8-C6BABDFBB490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F} = {361E59FF-79CC-4F3B-9198-5EDCE6762288}
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0} = {361E59FF-79CC-4F3B-9198-5EDCE6762288}
+		{2AE49F19-392B-4C50-A13C-F49B2579849D} = {361E59FF-79CC-4F3B-9198-5EDCE6762288}
+		{9B112762-C2CC-4406-8ACA-12B51143CC6D} = {63E3B646-BDC8-4E67-B145-6C18A25B9232}
+		{BD409887-5D19-4679-8EA6-7EAC8CED77B7} = {63E3B646-BDC8-4E67-B145-6C18A25B9232}
+		{AA94DF49-2CB4-4A75-A6D8-C6BABDFBB490} = {63E3B646-BDC8-4E67-B145-6C18A25B9232}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,10 @@
+﻿@Html.DevExpress().DocumentViewer(settings =>
+{
+    // The following settings are necessary for a Document Viewer.
+    settings.Name = "mutualsettlement";
+    settings.Report = (CustomerWebSite.PrintForms.MutualSettlement.Layout.LayoutReportObject)ViewData["Report"];
+    // Callback and export route values specify the corresponding controllers and their actions.
+    // These settings are necessary as well.
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "DocumentViewerPartial" };
+    settings.ExportRouteValues = new { Controller = "Home", Action = "ExportDocumentViewer" };
+}).GetHtml()

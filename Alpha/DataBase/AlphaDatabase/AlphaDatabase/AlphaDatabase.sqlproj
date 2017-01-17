@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>AlphaDatabase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{9e90492d-c5c7-4db6-992a-e1222e032b7c}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>AlphaDatabase</RootNamespace>
+    <AssemblyName>AlphaDatabase</AssemblyName>
+    <ModelCollation>1049,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Cyrillic_General_CI_AS</DefaultCollation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Streets.sql" />
+    <Build Include="dbo\Tables\ServiceTypes.sql" />
+    <Build Include="dbo\Tables\Services.sql" />
+    <Build Include="dbo\Tables\PaymentSets.sql" />
+    <Build Include="dbo\Tables\PaymentOpers.sql" />
+    <Build Include="dbo\Tables\PaymentOperPoses.sql" />
+    <Build Include="dbo\Tables\Intermediaries.sql" />
+    <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\CustomerPoses.sql" />
+    <Build Include="dbo\Tables\Contractors.sql" />
+    <Build Include="dbo\Tables\Buildings.sql" />
+    <Build Include="dbo\Tables\BenefitTypes.sql" />
+    <Build Include="dbo\Tables\PaymentCorrectionOpers.sql" />
+    <Build Include="dbo\Tables\PaymentCorrectionOperPoses.sql" />
+    <Build Include="dbo\Tables\OverpaymentOpers.sql" />
+    <Build Include="dbo\Tables\OverpaymentOperPoses.sql" />
+    <Build Include="dbo\Tables\BillSets.sql" />
+    <Build Include="dbo\Tables\OverpaymentCorrectionOpers.sql" />
+    <Build Include="dbo\Tables\OverpaymentCorrectionOperPoses.sql" />
+    <Build Include="dbo\Tables\ChargeSets.sql" />
+    <Build Include="dbo\Tables\ChargeOpers.sql" />
+    <Build Include="dbo\Tables\ChargeOperPoses.sql" />
+    <Build Include="dbo\Tables\BenefitOpers.sql" />
+    <Build Include="dbo\Tables\BenefitOperPoses.sql" />
+    <Build Include="dbo\Tables\RechargeSets.sql" />
+    <Build Include="dbo\Tables\RechargeOpers.sql" />
+    <Build Include="dbo\Tables\RechargeOperPoses.sql" />
+    <Build Include="dbo\Tables\TotalBillDocs.sql" />
+    <Build Include="dbo\Tables\TotalBillDocPoses.sql" />
+    <Build Include="dbo\Tables\RegularBillDocSharedCounterPoses.sql" />
+    <Build Include="dbo\Tables\RegularBillDocSeviceTypePoses.sql" />
+    <Build Include="dbo\Tables\RegularBillDocs.sql" />
+    <Build Include="dbo\Tables\RegularBillDocCounterPoses.sql" />
+    <Build Include="dbo\Tables\DebtBillDocs.sql" />
+    <Build Include="dbo\Tables\ChargeCorrectionOpers.sql" />
+    <Build Include="dbo\Tables\ChargeCorrectionOperPoses.sql" />
+    <Build Include="dbo\Tables\BenefitCorrectionOpers.sql" />
+    <Build Include="dbo\Tables\BenefitCorrectionOperPoses.sql" />
+    <Build Include="dbo\Tables\RebenefitOpers.sql" />
+    <Build Include="dbo\Tables\RebenefitOperPoses.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\PrivateCounterValues.sql" />
+    <Build Include="dbo\Tables\PrivateCounters.sql" />
+    <Build Include="dbo\Tables\CommonCounterValues.sql" />
+    <Build Include="dbo\Tables\CommonCounters.sql" />
+    <Build Include="dbo\Tables\CommonCounterCoefficients.sql" />
+    <Build Include="dbo\Tables\Settings.sql" />
+    <Build Include="dbo\Tables\Residents.sql" />
+    <Build Include="dbo\Stored Procedures\BackupDatabase.sql" />
+    <Build Include="dbo\Tables\PublicPlaces.sql" />
+    <Build Include="dbo\Tables\BankDetails.sql" />
+  </ItemGroup>
+</Project>

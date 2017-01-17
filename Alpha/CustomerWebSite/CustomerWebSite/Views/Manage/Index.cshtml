@@ -1,0 +1,43 @@
+﻿@model CustomerWebSite.Models.ManageViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Настройки";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Изменение настроек учетной записи</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Пароль:</dt>
+        <dd>
+            [ @Html.ActionLink("Изменить", "ChangePassword") ]
+        </dd>
+        <dt>Рассылка квитанций:</dt>
+        <dd>
+            <table class="table table-condensed table-bordered table-nonfluid">
+                <tbody>
+                    @foreach (var _info in Model.Accounts)
+                    {
+                        <tr>
+                            <td>@_info.Account</td>
+                            <td>
+                                [
+                                @if (_info.SendBill)
+                                {
+                                    @Html.ActionLink("Выключить", "DisableSendingBills", new { id = _info.Account });
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Включить", "EnableSendingBills", new { id = _info.Account });
+                                }
+                                ]
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+</div>

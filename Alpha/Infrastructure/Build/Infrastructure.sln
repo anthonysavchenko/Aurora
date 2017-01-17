@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Taumis.EnterpriseLibrary.Infrastructure", "Taumis.EnterpriseLibrary.Infrastructure", "{A2DA8129-83AB-41D5-A14B-5F26DE0B4382}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Taumis.Alpha.Infrastructure", "Taumis.Alpha.Infrastructure", "{B7B7C87A-BE86-4896-8E22-F717AA3E3F31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "..\Interface\Interface.csproj", "{576D1311-BA67-4077-8489-7CFAD06965F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "..\Library\Library.csproj", "{E2642606-8DA6-4411-8655-CC734359B165}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj", "{8C62E512-6540-4BA6-860B-1AE6AE64821C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLServerAccessProvider", "..\..\..\EnterpriseLibrary\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj", "{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "..\..\DataBase\DataBase\DataBase.csproj", "{A68700E1-4190-442B-8033-CBCC995FBB1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLServerAccessProvider", "..\SQLServerAccessProvider\SQLServerAccessProvider.csproj", "{01633058-914E-4C6C-BBE5-0793D90F3AC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{576D1311-BA67-4077-8489-7CFAD06965F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{576D1311-BA67-4077-8489-7CFAD06965F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{576D1311-BA67-4077-8489-7CFAD06965F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{576D1311-BA67-4077-8489-7CFAD06965F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2642606-8DA6-4411-8655-CC734359B165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2642606-8DA6-4411-8655-CC734359B165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2642606-8DA6-4411-8655-CC734359B165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2642606-8DA6-4411-8655-CC734359B165}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A68700E1-4190-442B-8033-CBCC995FBB1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A68700E1-4190-442B-8033-CBCC995FBB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A68700E1-4190-442B-8033-CBCC995FBB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A68700E1-4190-442B-8033-CBCC995FBB1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01633058-914E-4C6C-BBE5-0793D90F3AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01633058-914E-4C6C-BBE5-0793D90F3AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01633058-914E-4C6C-BBE5-0793D90F3AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01633058-914E-4C6C-BBE5-0793D90F3AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C} = {A2DA8129-83AB-41D5-A14B-5F26DE0B4382}
+		{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0} = {A2DA8129-83AB-41D5-A14B-5F26DE0B4382}
+		{A68700E1-4190-442B-8033-CBCC995FBB1B} = {A2DA8129-83AB-41D5-A14B-5F26DE0B4382}
+		{576D1311-BA67-4077-8489-7CFAD06965F5} = {B7B7C87A-BE86-4896-8E22-F717AA3E3F31}
+		{E2642606-8DA6-4411-8655-CC734359B165} = {B7B7C87A-BE86-4896-8E22-F717AA3E3F31}
+		{01633058-914E-4C6C-BBE5-0793D90F3AC5} = {B7B7C87A-BE86-4896-8E22-F717AA3E3F31}
+	EndGlobalSection
+EndGlobal

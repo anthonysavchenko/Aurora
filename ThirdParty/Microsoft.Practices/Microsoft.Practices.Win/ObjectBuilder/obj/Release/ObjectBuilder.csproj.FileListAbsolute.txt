@@ -1,0 +1,10 @@
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\Build\Bin\Release\Microsoft.Practices.ObjectBuilder.dll
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\ObjectBuilder.csprojResolveAssemblyReference.cache
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\Microsoft.Practices.ObjectBuilder.Properties.Resources.resources
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\ObjectBuilder.csproj.GenerateResource.Cache
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\Microsoft.Practices.ObjectBuilder.dll
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\Build\Bin\Release\Microsoft.Practices.ObjectBuilder.dll
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\ObjectBuilder.csprojResolveAssemblyReference.cache
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\Microsoft.Practices.ObjectBuilder.Properties.Resources.resources
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\ObjectBuilder.csproj.GenerateResource.Cache
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Release\Microsoft.Practices.ObjectBuilder.dll

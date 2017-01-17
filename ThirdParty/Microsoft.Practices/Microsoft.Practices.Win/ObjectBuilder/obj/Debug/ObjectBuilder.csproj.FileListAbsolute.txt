@@ -1,0 +1,14 @@
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\Build\Bin\Debug\Microsoft.Practices.ObjectBuilder.dll
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\Build\Bin\Debug\Microsoft.Practices.ObjectBuilder.pdb
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\ObjectBuilder.csprojResolveAssemblyReference.cache
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\Microsoft.Practices.ObjectBuilder.Properties.Resources.resources
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\ObjectBuilder.csproj.GenerateResource.Cache
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\Microsoft.Practices.ObjectBuilder.dll
+C:\Sources\Aurora\release\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\Microsoft.Practices.ObjectBuilder.pdb
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\Build\Bin\Debug\Microsoft.Practices.ObjectBuilder.dll
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\Build\Bin\Debug\Microsoft.Practices.ObjectBuilder.pdb
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\ObjectBuilder.csprojResolveAssemblyReference.cache
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\Microsoft.Practices.ObjectBuilder.Properties.Resources.resources
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\ObjectBuilder.csproj.GenerateResource.Cache
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\Microsoft.Practices.ObjectBuilder.dll
+C:\Sources\AuroraGit\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\obj\Debug\Microsoft.Practices.ObjectBuilder.pdb

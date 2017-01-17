@@ -1,0 +1,60 @@
+﻿@model CustomerWebSite.Models.PaymentsAndChargesModels.PaymentsAndChargesViewModel
+
+@{
+    ViewBag.Title = "Платежи и начисления";
+}
+
+@Html.Partial("_Years", Model.YearsViewModel)
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Тип операции</th>
+            <th>Дата создания</th>
+            <th>Сумма</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var _m in Model.PeriodTotals)
+        {
+            <tr>
+                <td colspan="4"><b>@Html.DisplayFor(m => _m.Period)</b></td>
+            </tr>
+            foreach (var _oper in _m.Opers)
+            {
+                <tr>
+                    <td>
+                        @(_oper.Type == CustomerWebSite.Models.PaymentsAndChargesModels.CommonOperation.OperationType.Charge ? "Начисление" : "Платеж")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => _oper.CreationDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => _oper.Value)
+                    </td>
+                    <td width="10%">
+                        @if (_oper.Type == CustomerWebSite.Models.PaymentsAndChargesModels.CommonOperation.OperationType.Charge)
+                        {
+                            @Html.ActionLink("Квитанция", "RegularBill", new { account = Model.YearsViewModel.Account, year = _oper.Period.Year, month = _oper.Period.Month }, new { @class = "btn btn-primary btn-xs" })
+                        }
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td>@Html.DisplayNameFor(m => _m.Overpayment)</td>
+                <td>@Html.DisplayFor(m => _m.Overpayment)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><b>@Html.DisplayNameFor(m => _m.Total)</b></td>
+                <td><b>@Html.DisplayFor(m => _m.Total)</b></td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Partial("_Years", Model.YearsViewModel)

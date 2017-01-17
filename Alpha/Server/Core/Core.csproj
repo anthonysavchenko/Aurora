@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{863998B6-69EE-4A6A-B061-DAF78E148C61}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Taumis.Alpha.Server.Core</RootNamespace>
+    <AssemblyName>Taumis.Alpha.Server.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\IEntity.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Enums\BenefitRuleTypes.cs" />
+    <Compile Include="Models\Enums\BillTypes.cs" />
+    <Compile Include="Models\Enums\ChargeRuleTypes.cs" />
+    <Compile Include="Models\Enums\OperationTypes.cs" />
+    <Compile Include="Models\Enums\OwnerTypes.cs" />
+    <Compile Include="Models\Opers\BenefitCorrectionOper.cs" />
+    <Compile Include="Models\Opers\BenefitCorrectionOperPos.cs" />
+    <Compile Include="Models\Opers\BenefitOper.cs" />
+    <Compile Include="Models\Opers\BenefitOperPos.cs" />
+    <Compile Include="Models\RefBooks\BenefitType.cs" />
+    <Compile Include="Models\Docs\BillSet.cs" />
+    <Compile Include="Models\RefBooks\Building.cs" />
+    <Compile Include="Models\Opers\ChargeCorrectionOper.cs" />
+    <Compile Include="Models\Opers\ChargeCorrectionOperPos.cs" />
+    <Compile Include="Models\Opers\ChargeOper.cs" />
+    <Compile Include="Models\Opers\ChargeOperPos.cs" />
+    <Compile Include="Models\Docs\ChargeSet.cs" />
+    <Compile Include="Models\RefBooks\CommonCounter.cs" />
+    <Compile Include="Models\RefBooks\CommonCounterCoefficient.cs" />
+    <Compile Include="Models\RefBooks\CommonCounterValue.cs" />
+    <Compile Include="Models\RefBooks\Contractor.cs" />
+    <Compile Include="Models\Docs\Customer.cs" />
+    <Compile Include="Models\Docs\CustomerPos.cs" />
+    <Compile Include="Models\Docs\DebtBillDoc.cs" />
+    <Compile Include="Models\RefBooks\Intermediary.cs" />
+    <Compile Include="Models\Opers\OverpaymentCorrectionOper.cs" />
+    <Compile Include="Models\Opers\OverpaymentCorrectionOperPos.cs" />
+    <Compile Include="Models\Opers\OverpaymentOper.cs" />
+    <Compile Include="Models\Opers\OverpaymentOperPos.cs" />
+    <Compile Include="Models\Opers\PaymentCorrectionOper.cs" />
+    <Compile Include="Models\Opers\PaymentCorrectionOperPos.cs" />
+    <Compile Include="Models\Opers\PaymentOper.cs" />
+    <Compile Include="Models\Opers\PaymentOperPos.cs" />
+    <Compile Include="Models\Docs\PaymentSet.cs" />
+    <Compile Include="Models\RefBooks\PrivateCounter.cs" />
+    <Compile Include="Models\RefBooks\PrivateCounterValue.cs" />
+    <Compile Include="Models\Opers\RebenefitOper.cs" />
+    <Compile Include="Models\Opers\RebenefitOperPos.cs" />
+    <Compile Include="Models\Opers\RechargeOper.cs" />
+    <Compile Include="Models\Opers\RechargeOperPos.cs" />
+    <Compile Include="Models\Docs\RechargeSet.cs" />
+    <Compile Include="Models\Docs\RegularBillDoc.cs" />
+    <Compile Include="Models\Docs\RegularBillDocCounterPos.cs" />
+    <Compile Include="Models\Docs\RegularBillDocSeviceTypePos.cs" />
+    <Compile Include="Models\Docs\RegularBillDocSharedCounterPos.cs" />
+    <Compile Include="Models\RefBooks\Resident.cs" />
+    <Compile Include="Models\RefBooks\Service.cs" />
+    <Compile Include="Models\RefBooks\ServiceType.cs" />
+    <Compile Include="Models\RefBooks\Setting.cs" />
+    <Compile Include="Models\RefBooks\Street.cs" />
+    <Compile Include="Models\Docs\TotalBillDoc.cs" />
+    <Compile Include="Models\Docs\TotalBillDocPos.cs" />
+    <Compile Include="Models\RefBooks\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Settings\ISettingsService.cs" />
+    <Compile Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.cs">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.Designer.cs">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Services\MutualSettlement\IMutualSettlementService.cs" />
+    <Compile Include="Services\RegularBill\DataSets\RegularBillDataSet.cs">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\RegularBill\DataSets\RegularBillDataSet.Designer.cs">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Services\RegularBill\IRegularBillService.cs" />
+    <Compile Include="Services\ServerTime\DateTimeInfo.cs" />
+    <Compile Include="Services\ServerTime\IServerTimeService.cs" />
+    <Compile Include="Services\ServerTime\PeriodInfo.cs" />
+    <Compile Include="Services\Settings\SmtpSetting.cs" />
+    <Compile Include="Services\StringWithNumbersComparer.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.xsc">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MutualSettlementDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.xss">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Services\RegularBill\DataSets\RegularBillDataSet.xsc">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Services\RegularBill\DataSets\RegularBillDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RegularBillDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Services\RegularBill\DataSets\RegularBillDataSet.xss">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

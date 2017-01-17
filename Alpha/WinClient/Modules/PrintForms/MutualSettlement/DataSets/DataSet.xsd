@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet" targetNamespace="http://tempuri.org/DataSet.xsd" xmlns:mstns="http://tempuri.org/DataSet.xsd" xmlns="http://tempuri.org/DataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet" msprop:Generator_UserDSName="DataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MutualSettlementPoses" msprop:Generator_UserTableName="MutualSettlementPoses" msprop:Generator_RowEvArgName="MutualSettlementPosesRowChangeEvent" msprop:Generator_TableVarName="tableMutualSettlementPoses" msprop:Generator_TablePropName="MutualSettlementPoses" msprop:Generator_RowDeletingName="MutualSettlementPosesRowDeleting" msprop:Generator_RowChangingName="MutualSettlementPosesRowChanging" msprop:Generator_RowDeletedName="MutualSettlementPosesRowDeleted" msprop:Generator_RowEvHandlerName="MutualSettlementPosesRowChangeEventHandler" msprop:Generator_TableClassName="MutualSettlementPosesDataTable" msprop:Generator_RowChangedName="MutualSettlementPosesRowChanged" msprop:Generator_RowClassName="MutualSettlementPosesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportNumber" msprop:Generator_ColumnVarNameInTable="columnReportNumber" msprop:Generator_ColumnPropNameInRow="ReportNumber" msprop:Generator_ColumnPropNameInTable="ReportNumberColumn" msprop:Generator_UserColumnName="ReportNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="GroupHeader" msprop:Generator_ColumnVarNameInTable="columnGroupHeader" msprop:Generator_ColumnPropNameInRow="GroupHeader" msprop:Generator_ColumnPropNameInTable="GroupHeaderColumn" msprop:Generator_UserColumnName="GroupHeader" type="xs:string" minOccurs="0" />
+              <xs:element name="GroupNumber" msprop:Generator_ColumnVarNameInTable="columnGroupNumber" msprop:Generator_ColumnPropNameInRow="GroupNumber" msprop:Generator_ColumnPropNameInTable="GroupNumberColumn" msprop:Generator_UserColumnName="GroupNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="ServiceTypeName" msprop:Generator_ColumnVarNameInTable="columnServiceTypeName" msprop:Generator_ColumnPropNameInRow="ServiceTypeName" msprop:Generator_ColumnPropNameInTable="ServiceTypeNameColumn" msprop:Generator_UserColumnName="ServiceTypeName" type="xs:string" minOccurs="0" />
+              <xs:element name="Charge" msprop:Generator_ColumnVarNameInTable="columnCharge" msprop:Generator_ColumnPropNameInRow="Charge" msprop:Generator_ColumnPropNameInTable="ChargeColumn" msprop:Generator_UserColumnName="Charge" type="xs:string" minOccurs="0" />
+              <xs:element name="Benefit" msprop:Generator_ColumnVarNameInTable="columnBenefit" msprop:Generator_ColumnPropNameInRow="Benefit" msprop:Generator_ColumnPropNameInTable="BenefitColumn" msprop:Generator_UserColumnName="Benefit" type="xs:string" />
+              <xs:element name="Correction" msprop:Generator_ColumnVarNameInTable="columnCorrection" msprop:Generator_ColumnPropNameInRow="Correction" msprop:Generator_ColumnPropNameInTable="CorrectionColumn" msprop:Generator_UserColumnName="Correction" type="xs:string" minOccurs="0" />
+              <xs:element name="Subtotal" msprop:Generator_ColumnVarNameInTable="columnSubtotal" msprop:Generator_ColumnPropNameInRow="Subtotal" msprop:Generator_ColumnPropNameInTable="SubtotalColumn" msprop:Generator_UserColumnName="Subtotal" type="xs:string" minOccurs="0" />
+              <xs:element name="Payment" msprop:Generator_ColumnVarNameInTable="columnPayment" msprop:Generator_ColumnPropNameInRow="Payment" msprop:Generator_ColumnPropNameInTable="PaymentColumn" msprop:Generator_UserColumnName="Payment" type="xs:string" minOccurs="0" />
+              <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MutualSettlement" msprop:Generator_UserTableName="MutualSettlement" msprop:Generator_RowEvArgName="MutualSettlementRowChangeEvent" msprop:Generator_TableVarName="tableMutualSettlement" msprop:Generator_TablePropName="MutualSettlement" msprop:Generator_RowDeletingName="MutualSettlementRowDeleting" msprop:Generator_RowChangingName="MutualSettlementRowChanging" msprop:Generator_RowDeletedName="MutualSettlementRowDeleted" msprop:Generator_RowEvHandlerName="MutualSettlementRowChangeEventHandler" msprop:Generator_TableClassName="MutualSettlementDataTable" msprop:Generator_RowChangedName="MutualSettlementRowChanged" msprop:Generator_RowClassName="MutualSettlementRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportNumber" msprop:Generator_ColumnVarNameInTable="columnReportNumber" msprop:Generator_ColumnPropNameInRow="ReportNumber" msprop:Generator_ColumnPropNameInTable="ReportNumberColumn" msprop:Generator_UserColumnName="ReportNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="SinceTillPeriods" msprop:Generator_ColumnVarNameInTable="columnSinceTillPeriods" msprop:Generator_ColumnPropNameInRow="SinceTillPeriods" msprop:Generator_ColumnPropNameInTable="SinceTillPeriodsColumn" msprop:Generator_UserColumnName="SinceTillPeriods" type="xs:string" minOccurs="0" />
+              <xs:element name="DateCreated" msprop:Generator_ColumnVarNameInTable="columnDateCreated" msprop:Generator_ColumnPropNameInRow="DateCreated" msprop:Generator_ColumnPropNameInTable="DateCreatedColumn" msprop:Generator_UserColumnName="DateCreated" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OwnerName" msprop:Generator_ColumnVarNameInTable="columnOwnerName" msprop:Generator_ColumnPropNameInRow="OwnerName" msprop:Generator_ColumnPropNameInTable="OwnerNameColumn" msprop:Generator_UserColumnName="OwnerName" type="xs:string" minOccurs="0" />
+              <xs:element name="Address" msprop:Generator_ColumnVarNameInTable="columnAddress" msprop:Generator_ColumnPropNameInRow="Address" msprop:Generator_ColumnPropNameInTable="AddressColumn" msprop:Generator_UserColumnName="Address" type="xs:string" minOccurs="0" />
+              <xs:element name="Square" msprop:Generator_ColumnVarNameInTable="columnSquare" msprop:Generator_ColumnPropNameInRow="Square" msprop:Generator_ColumnPropNameInTable="SquareColumn" msprop:Generator_UserColumnName="Square" type="xs:string" minOccurs="0" />
+              <xs:element name="ResidentsCount" msprop:Generator_ColumnVarNameInTable="columnResidentsCount" msprop:Generator_ColumnPropNameInRow="ResidentsCount" msprop:Generator_ColumnPropNameInTable="ResidentsCountColumn" msprop:Generator_UserColumnName="ResidentsCount" type="xs:string" minOccurs="0" />
+              <xs:element name="Author" msprop:Generator_ColumnVarNameInTable="columnAuthor" msprop:Generator_ColumnPropNameInRow="Author" msprop:Generator_ColumnPropNameInTable="AuthorColumn" msprop:Generator_UserColumnName="Author" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

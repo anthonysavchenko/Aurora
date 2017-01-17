@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Taumis.ThirdParty.Microsoft.Practices.Win", "Taumis.ThirdParty.Microsoft.Practices.Win", "{EF5E7D12-E8BD-49A2-BD67-4DE6653CDEFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Taumis.EnterpriseLibrary.Infrastructure", "Taumis.EnterpriseLibrary.Infrastructure", "{E36F2761-B67E-42DB-A403-52A7AD708619}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Taumis.EnterpriseLibrary.Win", "Taumis.EnterpriseLibrary.Win", "{66B00F4B-E9FC-4E7B-ADE7-93AC00629849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.csproj", "{E35914B3-8BB6-4BCB-A85A-516BF2252422}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI", "..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI\CompositeUI.csproj", "{C478E40B-A05E-4C69-9AB3-7A3BB374243F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectBuilder", "..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\ObjectBuilder.csproj", "{2AE49F19-392B-4C50-A13C-F49B2579849D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.WinForms", "..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI.WinForms\CompositeUI.WinForms.csproj", "{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\..\Infrastructure\Common\Common.csproj", "{8C62E512-6540-4BA6-860B-1AE6AE64821C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E35914B3-8BB6-4BCB-A85A-516BF2252422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E35914B3-8BB6-4BCB-A85A-516BF2252422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E35914B3-8BB6-4BCB-A85A-516BF2252422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E35914B3-8BB6-4BCB-A85A-516BF2252422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F} = {EF5E7D12-E8BD-49A2-BD67-4DE6653CDEFD}
+		{2AE49F19-392B-4C50-A13C-F49B2579849D} = {EF5E7D12-E8BD-49A2-BD67-4DE6653CDEFD}
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0} = {EF5E7D12-E8BD-49A2-BD67-4DE6653CDEFD}
+		{8C62E512-6540-4BA6-860B-1AE6AE64821C} = {E36F2761-B67E-42DB-A403-52A7AD708619}
+		{E35914B3-8BB6-4BCB-A85A-516BF2252422} = {66B00F4B-E9FC-4E7B-ADE7-93AC00629849}
+	EndGlobalSection
+EndGlobal

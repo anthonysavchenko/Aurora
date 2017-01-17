@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0691D7C9-45D2-41C7-88C9-94B2E04A82CE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Taumis.Alpha.WinClient.Aurora.Shell</RootNamespace>
+    <AssemblyName>Taumis.Alpha.WinClient.Aurora.Shell</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <ManifestCertificateThumbprint>330D488615A62DC525DA77BE7A5FEBF294DBB9EB</ManifestCertificateThumbprint>
+    <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <SignManifests>true</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>..\Build\Bin\Deploy\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://download.taumis.ru/aurora/</InstallUrl>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>Aurora</ProductName>
+    <PublisherName>Taumis</PublisherName>
+    <MinimumRequiredVersion>016.40.0.0</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>016.40.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="DevExpress.Charts.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Charts.v13.1.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Office.v13.1.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.PivotGrid.v13.1.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Printing.v13.1.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.RichEdit.v13.1.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v13.1.Core">
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Sparkline.v13.1.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Utils.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraBars.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraCharts.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraGrid.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraLayout.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraNavBar.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraPivotGrid.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraPrinting.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraReports.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraTreeList.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraWizard.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraWizard.v13.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <HintPath>..\..\..\ThirdParty\PIA\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <HintPath>..\..\..\ThirdParty\PIA\Microsoft.Vbe.Interop.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\..\ThirdParty\PIA\stdole.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DomainWithDataMapperHelperService.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ShellApplication.cs" />
+    <Compile Include="Config\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Config\WinConfigService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ShellForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="ShellForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShellForm.Designer.cs">
+      <DependentUpon>ShellForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logo.ico" />
+    <Content Include="ProfileCatalog.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Build\Bin\Release\Model.csdl">
+      <Link>Model.csdl</Link>
+    </Content>
+    <Content Include="..\Build\Bin\Release\Model.msl">
+      <Link>Model.msl</Link>
+    </Content>
+    <Content Include="..\Build\Bin\Release\Model.ssdl">
+      <Link>Model.ssdl</Link>
+    </Content>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Config\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\app.manifest" />
+    <None Include="Shell_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
+      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
+      <Project>{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}</Project>
+      <Name>SQLServerAccessProvider %28Taumis.EnterpriseLibrary.Infrastructure\SQLServerAccessProvider%29</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\EnterpriseLibrary\Win\Common\Common.csproj">
+      <Project>{E35914B3-8BB6-4BCB-A85A-516BF2252422}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Win\Common%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
+      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
+      <Name>CompositeUI.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI\CompositeUI.csproj">
+      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
+      <Name>CompositeUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
+      <Name>ObjectBuilder</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataBase\DataBase\DataBase.csproj">
+      <Project>{A68700E1-4190-442B-8033-CBCC995FBB1B}</Project>
+      <Name>DataBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Interface\Interface.csproj">
+      <Project>{576D1311-BA67-4077-8489-7CFAD06965F5}</Project>
+      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Library\Library.csproj">
+      <Project>{E2642606-8DA6-4411-8655-CC734359B165}</Project>
+      <Name>Library %28Taumis.Alpha.Infrastructure\Library%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
+      <Project>{01633058-914E-4C6C-BBE5-0793D90F3AC5}</Project>
+      <Name>SQLServerAccessProvider %28Taumis.Alpha.Infrastructure\SQLServerAccessProvider%29</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Interface\Interface.csproj">
+      <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
+      <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Layout\Layout.csproj">
+      <Project>{FACF9718-A705-4D54-A38D-314F1BEFA205}</Project>
+      <Name>Layout</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{E0D31CE8-A3AD-4BA5-AA23-0152750E42A0}</Project>
+      <Name>Library %28Taumis.Alpha.WinClient.Aurora\Library%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Accounting\Bills\Bills.csproj">
+      <Project>{c6775b8a-9ac7-484a-9a19-94030f29a46e}</Project>
+      <Name>Bills</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Accounting\Charges\Charges.csproj">
+      <Project>{09b1c60c-4cd5-4ae9-a9c1-109a304c56b0}</Project>
+      <Name>Charges %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Charges%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Accounting\Customers\Customers.csproj">
+      <Project>{4851aaa2-d26c-4a08-b6cf-5a347cf72560}</Project>
+      <Name>Customers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Accounting\Payments\Payments.csproj">
+      <Project>{a5cd4f63-a6bb-4589-8acf-00b232539603}</Project>
+      <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Payments%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\PrintForms\DebtBill\DebtBill.csproj">
+      <Project>{fd895b41-2d71-4fb5-9f65-27c1970e98b8}</Project>
+      <Name>DebtBill</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\PrintForms\MutualSettlement\MutualSettlement.csproj">
+      <Project>{12b5427e-6d00-4fb1-adea-a950888d66de}</Project>
+      <Name>MutualSettlement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\PrintForms\RegularBill\RegularBill.csproj">
+      <Project>{a82d2567-1d9e-41a5-a397-22d136001554}</Project>
+      <Name>RegularBill</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\PrintForms\TotalBill\TotalBill.csproj">
+      <Project>{001970e9-e49d-4f4e-871c-4409320edb3b}</Project>
+      <Name>TotalBill</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\BankDetails\BankDetails.csproj">
+      <Project>{a96b7314-5ad7-4a4e-bac5-c43195df7360}</Project>
+      <Name>BankDetails</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\BenefitTypes\BenefitTypes.csproj">
+      <Project>{4ea87d91-e392-4dcb-8bd0-cfebe211bf89}</Project>
+      <Name>BenefitTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\Buildings\Buildings.csproj">
+      <Project>{9bf25d97-62f6-45c4-b7c7-7df360cc5743}</Project>
+      <Name>Buildings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\Contractors\Contractors.csproj">
+      <Project>{2cfa7ad5-897f-484d-bd6d-cf94e2739b08}</Project>
+      <Name>Contractors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\Intermediaries\Intermediaries.csproj">
+      <Project>{0fd61dfb-3d9d-45ff-8c31-6a77ff791e68}</Project>
+      <Name>Intermediaries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\Services\Services.csproj">
+      <Project>{1b05faff-f5c7-4d47-a147-db8a53ad36dd}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\ServiceTypes\ServiceTypes.csproj">
+      <Project>{b2c3fa92-dcf7-42a4-bd6b-3d2e734d9f2b}</Project>
+      <Name>ServiceTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\Streets\Streets.csproj">
+      <Project>{1c5bf2fc-64a6-4c47-9fd4-e4b3b2c315e6}</Project>
+      <Name>Streets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\Users\Users.csproj">
+      <Project>{8cbfc566-7ef2-4434-80be-ca9472aa0068}</Project>
+      <Name>Users</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\Benefits\Benefits.csproj">
+      <Project>{398c79cd-5335-4c5a-bfc5-c0da190a2a27}</Project>
+      <Name>Benefits</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\Charges\Charges.csproj">
+      <Project>{03b4e356-b424-46f8-98b4-ebfccc713f31}</Project>
+      <Name>Charges %28Taumis.Alpha.WinClient.Aurora\Modules\Reports\Charges%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\DebtAgency\DebtAgency.csproj">
+      <Project>{67dade6d-c523-452f-98f4-7a05d79777c2}</Project>
+      <Name>DebtAgency</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\Debtors\Debtors.csproj">
+      <Project>{cafe202e-924c-427e-a2ba-9cc205c9b430}</Project>
+      <Name>Debtors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\PaymentsAndCharges\PaymentsAndCharges.csproj">
+      <Project>{3c8aef0c-930c-4ac2-9f40-33c7cc38d834}</Project>
+      <Name>PaymentsAndCharges</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\Payments\Payments.csproj">
+      <Project>{34de1895-e259-4d9a-bda3-ea1fa575839c}</Project>
+      <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Reports\Payments%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Service\Export\Export.csproj">
+      <Project>{afe2b538-d282-4bd5-baff-b95c4d48b5fa}</Project>
+      <Name>Export</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Service\Import\Import.csproj">
+      <Project>{a3b8700e-f478-4004-9d3a-714d2b041d8a}</Project>
+      <Name>Import</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Service\Settings\Settings.csproj">
+      <Project>{7a533ba4-4d51-49f5-a5d5-5a615dac0688}</Project>
+      <Name>Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module\Module.csproj">
+      <Project>{09CDE46C-0464-486D-B183-DAD497C7F19C}</Project>
+      <Name>Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="DevExpress.Office.v13.1.Core">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.RichEdit.v13.1.Core">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.XtraLayout.v13.1">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.Vbe.Interop">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.Web.Infrastructure">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ProfileCatalog.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="System.Web.Razor">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="System.Web.WebPages">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="System.Web.WebPages.Deployment">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
