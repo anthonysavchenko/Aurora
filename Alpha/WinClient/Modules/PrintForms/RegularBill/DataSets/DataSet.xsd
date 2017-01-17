@@ -44,6 +44,8 @@
               <xs:element name="BankBarCodeLabel" msprop:Generator_ColumnVarNameInTable="columnBankBarCodeLabel" msprop:Generator_ColumnPropNameInRow="BankBarCodeLabel" msprop:Generator_ColumnPropNameInTable="BankBarCodeLabelColumn" msprop:Generator_UserColumnName="BankBarCodeLabel" type="xs:string" minOccurs="0" />
               <xs:element name="OverpaymentLabel" msprop:Generator_ColumnVarNameInTable="columnOverpaymentLabel" msprop:Generator_ColumnPropNameInRow="OverpaymentLabel" msprop:Generator_ColumnPropNameInTable="OverpaymentLabelColumn" msprop:Generator_UserColumnName="OverpaymentLabel" type="xs:string" minOccurs="0" />
               <xs:element name="RightHeaderString" msprop:Generator_ColumnVarNameInTable="columnRightHeaderString" msprop:Generator_ColumnPropNameInRow="RightHeaderString" msprop:Generator_ColumnPropNameInTable="RightHeaderStringColumn" msprop:Generator_UserColumnName="RightHeaderString" type="xs:string" minOccurs="0" />
+              <xs:element name="BuildingArea" msprop:Generator_ColumnVarNameInTable="columnBuildingArea" msprop:Generator_ColumnPropNameInRow="BuildingArea" msprop:Generator_ColumnPropNameInTable="BuildingAreaColumn" msprop:Generator_UserColumnName="BuildingArea" type="xs:string" minOccurs="0" />
+              <xs:element name="BankQrCodeString" msprop:Generator_ColumnVarNameInTable="columnBankQrCodeString" msprop:Generator_ColumnPropNameInRow="BankQrCodeString" msprop:Generator_ColumnPropNameInTable="BankQrCodeStringColumn" msprop:Generator_UserColumnName="BankQrCodeString" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -68,6 +70,19 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="PublicPlaceData" msprop:Generator_TableClassName="PublicPlaceDataDataTable" msprop:Generator_TableVarName="tablePublicPlaceData" msprop:Generator_RowChangedName="PublicPlaceDataRowChanged" msprop:Generator_TablePropName="PublicPlaceData" msprop:Generator_RowDeletingName="PublicPlaceDataRowDeleting" msprop:Generator_RowChangingName="PublicPlaceDataRowChanging" msprop:Generator_RowEvHandlerName="PublicPlaceDataRowChangeEventHandler" msprop:Generator_RowDeletedName="PublicPlaceDataRowDeleted" msprop:Generator_RowClassName="PublicPlaceDataRow" msprop:Generator_UserTableName="PublicPlaceData" msprop:Generator_RowEvArgName="PublicPlaceDataRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Service" msprop:Generator_ColumnVarNameInTable="columnService" msprop:Generator_ColumnPropNameInRow="Service" msprop:Generator_ColumnPropNameInTable="ServiceColumn" msprop:Generator_UserColumnName="Service" type="xs:string" minOccurs="0" />
+              <xs:element name="PublicPlaceSquare" msdata:Caption="PayRate" msprop:Generator_ColumnVarNameInTable="columnPublicPlaceSquare" msprop:Generator_ColumnPropNameInRow="PublicPlaceSquare" msprop:Generator_ColumnPropNameInTable="PublicPlaceSquareColumn" msprop:Generator_UserColumnName="PublicPlaceSquare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Norm" msdata:Caption="Charge" msprop:Generator_ColumnVarNameInTable="columnNorm" msprop:Generator_ColumnPropNameInRow="Norm" msprop:Generator_ColumnPropNameInTable="NormColumn" msprop:Generator_UserColumnName="Norm" type="xs:string" minOccurs="0" />
+              <xs:element name="Rate" msdata:Caption="Benefit" msprop:Generator_ColumnVarNameInTable="columnRate" msprop:Generator_ColumnPropNameInRow="Rate" msprop:Generator_ColumnPropNameInTable="RateColumn" msprop:Generator_UserColumnName="Rate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Volume" msdata:Caption="Recalculation" msprop:Generator_ColumnVarNameInTable="columnVolume" msprop:Generator_ColumnPropNameInRow="Volume" msprop:Generator_ColumnPropNameInTable="VolumeColumn" msprop:Generator_UserColumnName="Volume" type="xs:string" minOccurs="0" />
+              <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CustomerId" msprop:Generator_ColumnVarNameInTable="columnCustomerId" msprop:Generator_ColumnPropNameInRow="CustomerId" msprop:Generator_ColumnPropNameInTable="CustomerIdColumn" msprop:Generator_UserColumnName="CustomerId" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -77,9 +92,10 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_Customers_ChargeData" msdata:parent="Customers" msdata:child="ChargeData" msdata:parentkey="CustomerId" msdata:childkey="CustomerId" msprop:Generator_UserChildTable="ChargeData" msprop:Generator_ChildPropName="GetChargeDataRows" msprop:Generator_UserRelationName="FK_Customers_ChargeData" msprop:Generator_ParentPropName="CustomersRow" msprop:Generator_RelationVarName="relationFK_Customers_ChargeData" msprop:Generator_UserParentTable="Customers" />
-      <msdata:Relationship name="Customers_CounterData" msdata:parent="Customers" msdata:child="CounterData" msdata:parentkey="CustomerId" msdata:childkey="CustomerId" msprop:Generator_UserChildTable="CounterData" msprop:Generator_ChildPropName="GetCounterDataRows" msprop:Generator_UserRelationName="Customers_CounterData" msprop:Generator_ParentPropName="CustomersRow" msprop:Generator_RelationVarName="relationCustomers_CounterData" msprop:Generator_UserParentTable="Customers" />
-      <msdata:Relationship name="Customers_SharedCounterData" msdata:parent="Customers" msdata:child="SharedCounterData" msdata:parentkey="CustomerId" msdata:childkey="CustomerId" msprop:Generator_UserChildTable="SharedCounterData" msprop:Generator_ChildPropName="GetSharedCounterDataRows" msprop:Generator_UserRelationName="Customers_SharedCounterData" msprop:Generator_ParentPropName="CustomersRow" msprop:Generator_RelationVarName="relationCustomers_SharedCounterData" msprop:Generator_UserParentTable="Customers" />
+      <msdata:Relationship name="FK_Customers_ChargeData" msdata:parent="Customers" msdata:child="ChargeData" msdata:parentkey="CustomerId" msdata:childkey="CustomerId" msprop:Generator_UserChildTable="ChargeData" msprop:Generator_ChildPropName="GetChargeDataRows" msprop:Generator_UserRelationName="FK_Customers_ChargeData" msprop:Generator_RelationVarName="relationFK_Customers_ChargeData" msprop:Generator_UserParentTable="Customers" msprop:Generator_ParentPropName="CustomersRow" />
+      <msdata:Relationship name="Customers_CounterData" msdata:parent="Customers" msdata:child="CounterData" msdata:parentkey="CustomerId" msdata:childkey="CustomerId" msprop:Generator_UserChildTable="CounterData" msprop:Generator_ChildPropName="GetCounterDataRows" msprop:Generator_UserRelationName="Customers_CounterData" msprop:Generator_RelationVarName="relationCustomers_CounterData" msprop:Generator_UserParentTable="Customers" msprop:Generator_ParentPropName="CustomersRow" />
+      <msdata:Relationship name="Customers_SharedCounterData" msdata:parent="Customers" msdata:child="SharedCounterData" msdata:parentkey="CustomerId" msdata:childkey="CustomerId" msprop:Generator_UserChildTable="SharedCounterData" msprop:Generator_ChildPropName="GetSharedCounterDataRows" msprop:Generator_UserRelationName="Customers_SharedCounterData" msprop:Generator_RelationVarName="relationCustomers_SharedCounterData" msprop:Generator_UserParentTable="Customers" msprop:Generator_ParentPropName="CustomersRow" />
+      <msdata:Relationship name="Customers_PublicPlaceData" msdata:parent="Customers" msdata:child="PublicPlaceData" msdata:parentkey="CustomerId" msdata:childkey="CustomerId" msprop:Generator_UserChildTable="PublicPlaceData" msprop:Generator_ChildPropName="GetPublicPlaceDataRows" msprop:Generator_UserRelationName="Customers_PublicPlaceData" msprop:Generator_RelationVarName="relationCustomers_PublicPlaceData" msprop:Generator_UserParentTable="Customers" msprop:Generator_ParentPropName="CustomersRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

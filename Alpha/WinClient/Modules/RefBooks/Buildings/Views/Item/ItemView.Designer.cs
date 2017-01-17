@@ -235,7 +235,7 @@
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Location = new System.Drawing.Point(540, 10);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(172, 73);
+            this.groupBox3.Size = new System.Drawing.Size(198, 73);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Площадь";
@@ -252,7 +252,7 @@
             this.nonResidentialPlaceAreaSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.nonResidentialPlaceAreaSpinEdit.Properties.Mask.EditMask = "n2";
-            this.nonResidentialPlaceAreaSpinEdit.Size = new System.Drawing.Size(60, 20);
+            this.nonResidentialPlaceAreaSpinEdit.Size = new System.Drawing.Size(85, 20);
             this.nonResidentialPlaceAreaSpinEdit.TabIndex = 19;
             // 
             // label12
@@ -267,7 +267,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(131, 43);
+            this.label11.Location = new System.Drawing.Point(156, 43);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(36, 13);
             this.label11.TabIndex = 18;
@@ -287,13 +287,13 @@
             this.squareTextBox.Location = new System.Drawing.Point(65, 14);
             this.squareTextBox.Name = "squareTextBox";
             this.squareTextBox.ReadOnly = true;
-            this.squareTextBox.Size = new System.Drawing.Size(60, 20);
+            this.squareTextBox.Size = new System.Drawing.Size(85, 20);
             this.squareTextBox.TabIndex = 14;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(131, 17);
+            this.label8.Location = new System.Drawing.Point(156, 16);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(36, 13);
             this.label8.TabIndex = 15;

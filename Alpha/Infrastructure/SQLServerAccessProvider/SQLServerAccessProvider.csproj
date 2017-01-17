@@ -69,6 +69,7 @@
     <Compile Include="DataMappers\Doc\RechargeSetDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RegularBillDocCounterPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RegularBillDocDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\RegularBillDocPublicPlacePosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RegularBillDocSeviceTypePosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RegularBillDocSharedCounterPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\TotalBillDocDataMapper.cs" />

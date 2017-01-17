@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -72,6 +73,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             /// Количество абонентов
             /// </summary>
             public int CustomersCount { get; set; }
+
+            /// <summary>
+            /// Общая площадь здания (жилая + нежилая)
+            /// </summary>
+            public decimal Area { get; set; }
+
+            /// <summary>
+            /// Площадь мест общего пользования по услугам
+            /// </summary>
+            public List<PublicPlaces> PublicPlaces { get; set; }
         }
 
         /// <summary>
@@ -623,33 +634,37 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 int _resultCount = 0;
                 decimal _totalSum = 0;
 
-                Dictionary<int, string> _contractorContactInfos;
-
                 using (Entities _entities = new Entities())
                 {
                     _zipCodes = _entities.Buildings
-                        .Select(building => new
+                        .Select(b => new
                         {
-                            ZipCode = building.ZipCode,
-                            BuildingID = building.ID,
-                            BuildingNumber = building.Number,
-                            StreetName = building.Streets.Name,
-                            CustomersCount = building.Customers.Count,
+                            b.ZipCode,
+                            BuildingID = b.ID,
+                            BuildingNumber = b.Number,
+                            StreetName = b.Streets.Name,
+                            CustomersCount = b.Customers.Count,
+                            Area = 
+                                b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= _currentPeriod)).Sum(c => (decimal?)c.Square) ?? 0 + b.NonResidentialPlaceArea,
+                            b.PublicPlaces
                         })
                         .GroupBy(building => building.ZipCode)
-                        .Select(groupedByZipCode => new ZipCodeInfo()
+                        .Select(groupedByZipCode => new ZipCodeInfo
                         {
                             ZipCode = groupedByZipCode.Key,
                             Buildings = groupedByZipCode
-                                .Select(building => new BuildingInfo()
+                                .Select(b => new BuildingInfo
                                 {
-                                    BuildingID = building.BuildingID,
-                                    BuildingNumber = building.BuildingNumber,
-                                    StreetName = building.StreetName,
-                                    CustomersCount = building.CustomersCount,
-                                }),
+                                    BuildingID = b.BuildingID,
+                                    BuildingNumber = b.BuildingNumber,
+                                    StreetName = b.StreetName,
+                                    CustomersCount = b.CustomersCount,
+                                    Area = b.Area,
+                                    PublicPlaces = b.PublicPlaces.ToList()
+                                })
                         })
                         .ToArray();
+
                     View.ResetProgressBar(_zipCodes.Sum(zipCode => zipCode.Buildings.Sum(building => building.CustomersCount)));
 
                     ChargeSets _chargeSet = new ChargeSets
@@ -662,16 +677,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                     _entities.AddToChargeSets(_chargeSet);
                     _entities.SaveChanges();
                     _chargeSetId = _chargeSet.ID;
-
-                    _contractorContactInfos =
-                        _entities.Contractors
-                            .Select(c =>
-                                new
-                                {
-                                    c.ID,
-                                    ContactInfo = c.Name + ", " + c.ContactInfo
-                                })
-                            .ToDictionary(c => c.ID, c => c.ContactInfo);
                 }
 
                 foreach (ZipCodeInfo _zipCode in _zipCodes)
@@ -700,7 +705,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 ChargeSets _chargeSet = _entities.ChargeSets.First(c => c.ID == _chargeSetId);
                                 BillSets _billSet = _entities.BillSets.First(b => b.ID == _billSetId);
 
-                                //Отдельная задача - использовать одно подключение к БД в функции и TransactionScope, чтобы избежать многократного подключения к БД и повторных запросов
                                 Dictionary<int, Services> _services = _entities.Services
                                     .Include("ServiceTypes")
                                     .ToDictionary(
@@ -726,17 +730,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             .Max(resident => resident.BenefitTypes.FixedPercent) ?? 0,
                                         //Отдельная задача - Новая структура данных для позиций абонента в виде регистра; выбирать данные по услугам один раз по всем абонентам вместе с данными по домам и улицам
                                         CustomerPoses = customer.CustomerPoses
-                                            .Where(customerPos =>
-                                                customerPos.Since <= _currentPeriod &&
-                                                customerPos.Till >= _currentPeriod)
+                                            .Where(p =>
+                                                p.Since <= _currentPeriod &&
+                                                p.Till >= _currentPeriod)
                                             .Select(customerPos => new
                                             {
                                                 ServiceID = customerPos.Services.ID,
                                                 ServiceTypeID = customerPos.Services.ServiceTypes.ID,
                                                 ContractorID = customerPos.Contractors.ID,
                                                 //Отдельная задача - Перенести правило начисления по услуге в тип услуги
-                                                customerPos.Services.ChargeRule,
-                                                customerPos.Rate,
+                                                customerPos.Rate
                                             }),
                                     })
                                     .ToList();
@@ -753,6 +756,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 {
                                     List<RegularBillDocCounterPoses> _counterBillPoses = new List<RegularBillDocCounterPoses>();
                                     List<RegularBillDocSharedCounterPoses> _sharedCounterPoses = new List<RegularBillDocSharedCounterPoses>();
+                                    List<RegularBillDocPublicPlacePoses> _publicPlacePoses = new List<RegularBillDocPublicPlacePoses>();
 
                                     //Отдельная задача - хранить все готовые вычисления в данных по абонентам, и при начислении их просто копировать
                                     decimal _benefitNormalSquare,
@@ -1000,7 +1004,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 _localBenefitValue = 0,
                                                 _federalBenefitValue = 0;
 
-                                        switch ((Service.ChargeRuleType)_customerPos.ChargeRule)
+                                        Services _service = _services[_customerPos.ServiceID];
+
+                                        switch ((Service.ChargeRuleType)_service.ChargeRule)
                                         {
                                             case Service.ChargeRuleType.FixedRate:
                                             default:
@@ -1060,6 +1066,45 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     }
                                                 }
                                                 break;
+
+                                            case Service.ChargeRuleType.PublicPlaceAreaRate:
+                                                PublicPlaces _pp = _building.PublicPlaces.FirstOrDefault(pp => pp.ServiceID == _service.ID);
+                                                RegularBillDocPublicPlacePoses _pos;
+
+                                                if (_pp != null && _service.Norm.HasValue && _building.Area > 0)
+                                                {
+                                                    decimal _serviceVolume = _service.Norm.Value * _pp.Area * _customer.Customer.Square / _building.Area;
+                                                    _chargeValue = _customerPos.Rate*_serviceVolume;
+
+                                                    _pos =
+                                                        new RegularBillDocPublicPlacePoses
+                                                        {
+                                                            Area = _pp.Area,
+                                                            Norm = _service.Norm.Value,
+                                                            NormMeasure = _service.NormMeasure,
+                                                            Rate = _customerPos.Rate,
+                                                            Service = _service.Name,
+                                                            ServiceVolume = _serviceVolume,
+                                                            Total = _chargeValue
+                                                        };
+                                                }
+                                                else
+                                                {
+                                                    _pos =
+                                                        new RegularBillDocPublicPlacePoses
+                                                        {
+                                                            Area = 0,
+                                                            Norm = 0,
+                                                            NormMeasure = _service.NormMeasure,
+                                                            Rate = _customerPos.Rate,
+                                                            Service = _service.Name,
+                                                            ServiceVolume = 0,
+                                                            Total = _chargeValue
+                                                        };
+                                                }
+
+                                                _publicPlacePoses.Add(_pos);
+                                                break;
                                         }
 
                                         if (_chargeValue > 0)
@@ -1071,7 +1116,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 Contractors = _contractors[_customerPos.ContractorID],
                                                 Value = _chargeValue
                                             };
-                                            _entities.AddToChargeOperPoses(_chargeOperPos);
+                                            _entities.ChargeOperPoses.AddObject(_chargeOperPos);
                                             _customerPeriodBalances.AddCharge(_chargeOperPos.ChargeOpers.ChargeSets.Period, _chargeOperPos.Services.ID, _chargeOperPos.Value);
 
                                             if (_federalBenefitValue < 0 || _localBenefitValue < 0)
@@ -1083,7 +1128,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         {
                                                             ChargeOpers = _chargeOper
                                                         };
-                                                    _entities.AddToBenefitOpers(_benefitOper);
+                                                    _entities.BenefitOpers.AddObject(_benefitOper);
                                                 }
 
                                                 if (_federalBenefitValue < 0)
@@ -1096,7 +1141,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         Contractors = _contractors[_customerPos.ContractorID],
                                                         Value = _federalBenefitValue
                                                     };
-                                                    _entities.AddToBenefitOperPoses(_federalBenefitOperPos);
+                                                    _entities.BenefitOperPoses.AddObject(_federalBenefitOperPos);
                                                     _customerPeriodBalances.AddBenefit(_federalBenefitOperPos.BenefitOpers.ChargeOpers.ChargeSets.Period, _federalBenefitOperPos.Services.ID, _federalBenefitOperPos.Value);
                                                 }
 
@@ -1110,7 +1155,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         Contractors = _contractors[_customerPos.ContractorID],
                                                         Value = _localBenefitValue
                                                     };
-                                                    _entities.AddToBenefitOperPoses(_localBenefitOperPos);
+                                                    _entities.BenefitOperPoses.AddObject(_localBenefitOperPos);
                                                     _customerPeriodBalances.AddBenefit(_localBenefitOperPos.BenefitOpers.ChargeOpers.ChargeSets.Period, _localBenefitOperPos.Services.ID, _localBenefitOperPos.Value);
                                                 }
                                             }
@@ -1144,11 +1189,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                     if (_customerPeriodBalances.Balances.ContainsKey(_lastChargedPeriod))
                                     {
-                                        ServiceBalances _overpaymentBalances = new ServiceBalances(_customerPeriodBalances.Balances[_lastChargedPeriod].Balances
-                                            .Where(serviceBalance => serviceBalance.Value.Total < 0)
-                                            .ToDictionary(
-                                                serviceBalance => serviceBalance.Key,
-                                                serviceBalance => serviceBalance.Value));
+                                        ServiceBalances _overpaymentBalances = 
+                                            new ServiceBalances(
+                                                _customerPeriodBalances.Balances[_lastChargedPeriod].Balances
+                                                    .Where(serviceBalance => serviceBalance.Value.Total < 0)
+                                                    .ToDictionary(
+                                                        serviceBalance => serviceBalance.Key,
+                                                        serviceBalance => serviceBalance.Value));
 
                                         if (_overpaymentBalances.Balances.Count > 0)
                                         {
@@ -1158,7 +1205,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 Value = -1 * _overpaymentBalances.TotalBalance.Total,
                                                 ChargeOpers = _chargeOper,
                                             };
-                                            _entities.AddToOverpaymentCorrectionOpers(_overpaymentCorrectionOper);
+                                            _entities.OverpaymentCorrectionOpers.AddObject(_overpaymentCorrectionOper);
 
                                             foreach (KeyValuePair<int, Balance> _balance in _overpaymentBalances.Balances)
                                             {
@@ -1168,7 +1215,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     Services = _services[_balance.Key],
                                                     Value = -1 * _balance.Value.Total,
                                                 };
-                                                _entities.AddToOverpaymentCorrectionOperPoses(_pos);
+                                                _entities.OverpaymentCorrectionOperPoses.AddObject(_pos);
                                                 _customerPeriodBalances.AddOverpaymentCorrection(_pos.OverpaymentCorrectionOpers.Period, _pos.Services.ID, _pos.Value);
                                             }
 
@@ -1182,7 +1229,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 OverpaymentCorrectionOpers = _overpaymentCorrectionOper,
                                                 Value = _overpaymentBalances.TotalBalance.Total,
                                             };
-                                            _entities.AddToOverpaymentOpers(_overpaymentOper);
+                                            _entities.OverpaymentOpers.AddObject(_overpaymentOper);
 
                                             foreach (KeyValuePair<DateTime, ServiceBalances> _periodBalance in _distribution.Balances)
                                             {
@@ -1195,7 +1242,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         Services = _services[_serviceBalance.Key],
                                                         Value = _serviceBalance.Value.Total,
                                                     };
-                                                    _entities.AddToOverpaymentOperPoses(_pos);
+                                                    _entities.OverpaymentOperPoses.AddObject(_pos);
                                                     _customerPeriodBalances.AddOverpayment(_pos.Period, _pos.Services.ID, _pos.Value);
                                                 }
                                             }
@@ -1206,18 +1253,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                     #region Создание квитанций
 
-                                    var _contractorPos = _customer.CustomerPoses.FirstOrDefault(p => p.ServiceID == CONTRACTOR_CONTACT_INFO_SERVICE_ID);
-
-                                    RegularBillDocs _billDoc = new RegularBillDocs()
+                                    RegularBillDocs _billDoc = new RegularBillDocs
                                     {
                                         CreationDateTime = _now,
                                         Account = _customer.Customer.Account,
-                                        Address = string.Format("ул. {0}, {1}, кв. {2}", _building.StreetName, _building.BuildingNumber, _customer.Customer.Apartment),
+                                        Address = $"ул. {_building.StreetName}, {_building.BuildingNumber}, кв. {_customer.Customer.Apartment}",
                                         Owner =
                                             _customer.Customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson
                                                 ? _customer.Customer.JuridicalPersonFullName
                                                 : _customer.Customer.PhysicalPersonShortName,
-                                        Square = string.Format("{0} кв.м.", _customer.Customer.Square),
+                                        Square = $"{_customer.Customer.Square} кв.м.",
                                         ResidentsCount = _customer.ResidentsCount,
                                         Customers = _customer.Customer,
                                         BillSets = _billSet,
@@ -1226,17 +1271,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             _customer.CustomerPoses.Any(pos => pos.ContractorID == MADIX_CONTRACTOR_ID)
                                                 ? "261-47-14"
                                                 : "298-09-81",
-                                        ContractorContactInfo =
-                                            _contractorPos != null
-                                                ? _contractorContactInfos[_contractorPos.ContractorID]
-                                                : string.Empty,
+                                        BuildingArea = _building.Area,
                                         PayBeforeDateTime = _payBefore,
                                         MonthChargeValue = _currentPeriodTotal,
                                         OverpaymentValue = _rest,
                                         Value = _currentPeriodTotal + _rest,
                                     };
 
-                                    _entities.AddToRegularBillDocs(_billDoc);
+                                    var _contractorPos = _customer.CustomerPoses.FirstOrDefault(p => p.ServiceID == CONTRACTOR_CONTACT_INFO_SERVICE_ID);
+                                    if (_contractorPos != null)
+                                    {
+                                        Contractors _cont = _contractors[_contractorPos.ContractorID];
+                                        _billDoc.ContractorContactInfo = $"{_cont.Name}, {_cont.ContactInfo}";
+                                    }
+                                    else
+                                    {
+                                        _billDoc.ContractorContactInfo = string.Empty;
+                                    }
+
+                                    _entities.RegularBillDocs.AddObject(_billDoc);
 
                                     _chargeOper.RegularBillDocs = _billDoc;
 
@@ -1250,7 +1303,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             })
                                             .Select(groupedByServiceType => new
                                             {
-                                                ServiceTypeName = groupedByServiceType.Key.ServiceTypeName,
+                                                groupedByServiceType.Key.ServiceTypeName,
                                                 Rate = groupedByServiceType.Sum(x => x.Value.Charge != 0 ? _customer.CustomerPoses.Single(y => y.ServiceID == x.Key).Rate : 0),
                                                 Charge = groupedByServiceType.Sum(x => x.Value.Charge),
                                                 Benefit = groupedByServiceType.Sum(x => x.Value.Benefit),
@@ -1259,29 +1312,36 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                         foreach (var _pos in _poses)
                                         {
-                                            _entities.AddToRegularBillDocSeviceTypePoses(new RegularBillDocSeviceTypePoses()
-                                            {
-                                                RegularBillDocs = _billDoc,
-                                                ServiceTypeName = _pos.ServiceTypeName,
-                                                PayRate = _pos.Rate,
-                                                Charge = _pos.Charge,
-                                                Benefit = _pos.Benefit,
-                                                Recalculation = _pos.Correction,
-                                                Payable = _pos.Charge + _pos.Benefit + _pos.Correction,
-                                            });
+                                            _entities.RegularBillDocSeviceTypePoses.AddObject(
+                                                new RegularBillDocSeviceTypePoses()
+                                                {
+                                                    RegularBillDocs = _billDoc,
+                                                    ServiceTypeName = _pos.ServiceTypeName,
+                                                    PayRate = _pos.Rate,
+                                                    Charge = _pos.Charge,
+                                                    Benefit = _pos.Benefit,
+                                                    Recalculation = _pos.Correction,
+                                                    Payable = _pos.Charge + _pos.Benefit + _pos.Correction,
+                                                });
                                         }
                                     }
 
                                     foreach (RegularBillDocCounterPoses _counterBillPos in _counterBillPoses)
                                     {
                                         _counterBillPos.RegularBillDocs = _billDoc;
-                                        _entities.AddToRegularBillDocCounterPoses(_counterBillPos);
+                                        _entities.RegularBillDocCounterPoses.AddObject(_counterBillPos);
                                     }
 
                                     foreach (RegularBillDocSharedCounterPoses _sharedCounterBillPos in _sharedCounterPoses)
                                     {
                                         _sharedCounterBillPos.RegularBillDocs = _billDoc;
-                                        _entities.AddToRegularBillDocSharedCounterPoses(_sharedCounterBillPos);
+                                        _entities.RegularBillDocSharedCounterPoses.AddObject(_sharedCounterBillPos);
+                                    }
+
+                                    foreach (RegularBillDocPublicPlacePoses _publicPlacePos in _publicPlacePoses)
+                                    {
+                                        _publicPlacePos.RegularBillDocs = _billDoc;
+                                        _entities.RegularBillDocPublicPlacePoses.AddObject(_publicPlacePos);
                                     }
 
                                     #endregion
@@ -1304,7 +1364,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             }
                             catch (Exception _ex)
                             {
-                                Logger.SimpleWrite(String.Format("Foreach building exception, Building: {0}, Exception: {1}\r\n", _building.BuildingID, _ex));
+                                Logger.SimpleWrite($"Foreach building exception, Building: {_building.BuildingID}, Exception: {_ex}\r\n");
                             }
                         }
                     }
@@ -1316,12 +1376,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             }
             catch (Exception _ex)
             {
-                Logger.SimpleWrite(String.Format("Register charges exception: {0}", _ex));
+                Logger.SimpleWrite($"Register charges exception: {_ex}");
                 View.ShowMessage("Начисления не выполнены", "Ошибка операции");
             }
 
             _stopwatch.Stop();
-            Logger.SimpleWrite(string.Format("Потрачено: {0}", _stopwatch.Elapsed));
+            Logger.SimpleWrite($"Потрачено: {_stopwatch.Elapsed}");
         }
 
         /// <summary>

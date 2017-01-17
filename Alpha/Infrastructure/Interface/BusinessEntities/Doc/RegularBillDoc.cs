@@ -142,6 +142,24 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
+        private decimal _buildingArea;
+        /// <summary>
+        /// Месячные начисления
+        /// </summary>
+        public decimal BuildingArea
+        {
+            get
+            {
+                Load();
+                return _buildingArea;
+            }
+            set
+            {
+                Load();
+                _buildingArea = value;
+            }
+        }
+
         private Dictionary<string, RegularBillDocSeviceTypePos> _regularBillDocSeviceTypePoses;
         /// <summary>
         /// Данные по начислениям

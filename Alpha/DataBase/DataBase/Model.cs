@@ -96,6 +96,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Customers_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Users), "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Customers), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "PublicPlaces", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaces), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Services), "PublicPlaces", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaces), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocs", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.RegularBillDocs), "RegularBillDocPublicPlacePoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RegularBillDocPublicPlacePoses), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_BankDetails", "BankDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.BankDetails), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DebtBillDocs_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "DebtBillDocs", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DebtBillDocs), true)]
 
@@ -933,6 +934,22 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<RegularBillDocPublicPlacePoses> RegularBillDocPublicPlacePoses
+        {
+            get
+            {
+                if ((_RegularBillDocPublicPlacePoses == null))
+                {
+                    _RegularBillDocPublicPlacePoses = base.CreateObjectSet<RegularBillDocPublicPlacePoses>("RegularBillDocPublicPlacePoses");
+                }
+                return _RegularBillDocPublicPlacePoses;
+            }
+        }
+        private ObjectSet<RegularBillDocPublicPlacePoses> _RegularBillDocPublicPlacePoses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<BankDetails> BankDetails
         {
             get
@@ -1340,6 +1357,14 @@ namespace Taumis.Alpha.DataBase
         public void AddToPublicPlaces(PublicPlaces publicPlaces)
         {
             base.AddObject("PublicPlaces", publicPlaces);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RegularBillDocPublicPlacePoses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRegularBillDocPublicPlacePoses(RegularBillDocPublicPlacePoses regularBillDocPublicPlacePoses)
+        {
+            base.AddObject("RegularBillDocPublicPlacePoses", regularBillDocPublicPlacePoses);
         }
     
         /// <summary>
@@ -10880,6 +10905,312 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="RegularBillDocPublicPlacePoses")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RegularBillDocPublicPlacePoses : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RegularBillDocPublicPlacePoses object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="service">Initial value of the Service property.</param>
+        /// <param name="norm">Initial value of the Norm property.</param>
+        /// <param name="normMeasure">Initial value of the NormMeasure property.</param>
+        /// <param name="rate">Initial value of the Rate property.</param>
+        /// <param name="area">Initial value of the Area property.</param>
+        /// <param name="serviceVolume">Initial value of the ServiceVolume property.</param>
+        /// <param name="total">Initial value of the Total property.</param>
+        /// <param name="regularBillDocID">Initial value of the RegularBillDocID property.</param>
+        public static RegularBillDocPublicPlacePoses CreateRegularBillDocPublicPlacePoses(global::System.Int32 id, global::System.String service, global::System.Decimal norm, global::System.String normMeasure, global::System.Decimal rate, global::System.Decimal area, global::System.Decimal serviceVolume, global::System.Decimal total, global::System.Int32 regularBillDocID)
+        {
+            RegularBillDocPublicPlacePoses regularBillDocPublicPlacePoses = new RegularBillDocPublicPlacePoses();
+            regularBillDocPublicPlacePoses.ID = id;
+            regularBillDocPublicPlacePoses.Service = service;
+            regularBillDocPublicPlacePoses.Norm = norm;
+            regularBillDocPublicPlacePoses.NormMeasure = normMeasure;
+            regularBillDocPublicPlacePoses.Rate = rate;
+            regularBillDocPublicPlacePoses.Area = area;
+            regularBillDocPublicPlacePoses.ServiceVolume = serviceVolume;
+            regularBillDocPublicPlacePoses.Total = total;
+            regularBillDocPublicPlacePoses.RegularBillDocID = regularBillDocID;
+            return regularBillDocPublicPlacePoses;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Service
+        {
+            get
+            {
+                return _Service;
+            }
+            set
+            {
+                OnServiceChanging(value);
+                ReportPropertyChanging("Service");
+                _Service = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Service");
+                OnServiceChanged();
+            }
+        }
+        private global::System.String _Service;
+        partial void OnServiceChanging(global::System.String value);
+        partial void OnServiceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Norm
+        {
+            get
+            {
+                return _Norm;
+            }
+            set
+            {
+                OnNormChanging(value);
+                ReportPropertyChanging("Norm");
+                _Norm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Norm");
+                OnNormChanged();
+            }
+        }
+        private global::System.Decimal _Norm;
+        partial void OnNormChanging(global::System.Decimal value);
+        partial void OnNormChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String NormMeasure
+        {
+            get
+            {
+                return _NormMeasure;
+            }
+            set
+            {
+                OnNormMeasureChanging(value);
+                ReportPropertyChanging("NormMeasure");
+                _NormMeasure = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("NormMeasure");
+                OnNormMeasureChanged();
+            }
+        }
+        private global::System.String _NormMeasure;
+        partial void OnNormMeasureChanging(global::System.String value);
+        partial void OnNormMeasureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Rate
+        {
+            get
+            {
+                return _Rate;
+            }
+            set
+            {
+                OnRateChanging(value);
+                ReportPropertyChanging("Rate");
+                _Rate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Rate");
+                OnRateChanged();
+            }
+        }
+        private global::System.Decimal _Rate;
+        partial void OnRateChanging(global::System.Decimal value);
+        partial void OnRateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Area
+        {
+            get
+            {
+                return _Area;
+            }
+            set
+            {
+                OnAreaChanging(value);
+                ReportPropertyChanging("Area");
+                _Area = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Area");
+                OnAreaChanged();
+            }
+        }
+        private global::System.Decimal _Area;
+        partial void OnAreaChanging(global::System.Decimal value);
+        partial void OnAreaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal ServiceVolume
+        {
+            get
+            {
+                return _ServiceVolume;
+            }
+            set
+            {
+                OnServiceVolumeChanging(value);
+                ReportPropertyChanging("ServiceVolume");
+                _ServiceVolume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ServiceVolume");
+                OnServiceVolumeChanged();
+            }
+        }
+        private global::System.Decimal _ServiceVolume;
+        partial void OnServiceVolumeChanging(global::System.Decimal value);
+        partial void OnServiceVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Total
+        {
+            get
+            {
+                return _Total;
+            }
+            set
+            {
+                OnTotalChanging(value);
+                ReportPropertyChanging("Total");
+                _Total = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Total");
+                OnTotalChanged();
+            }
+        }
+        private global::System.Decimal _Total;
+        partial void OnTotalChanging(global::System.Decimal value);
+        partial void OnTotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RegularBillDocID
+        {
+            get
+            {
+                return _RegularBillDocID;
+            }
+            set
+            {
+                OnRegularBillDocIDChanging(value);
+                ReportPropertyChanging("RegularBillDocID");
+                _RegularBillDocID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RegularBillDocID");
+                OnRegularBillDocIDChanged();
+            }
+        }
+        private global::System.Int32 _RegularBillDocID;
+        partial void OnRegularBillDocIDChanging(global::System.Int32 value);
+        partial void OnRegularBillDocIDChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocs")]
+        public RegularBillDocs RegularBillDocs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RegularBillDocs>("AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocs").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RegularBillDocs>("AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocs").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<RegularBillDocs> RegularBillDocsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RegularBillDocs>("AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocs");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RegularBillDocs>("AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocs", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="RegularBillDocs")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -10902,7 +11233,8 @@ namespace Taumis.Alpha.DataBase
         /// <param name="monthChargeValue">Initial value of the MonthChargeValue property.</param>
         /// <param name="value">Initial value of the Value property.</param>
         /// <param name="period">Initial value of the Period property.</param>
-        public static RegularBillDocs CreateRegularBillDocs(global::System.Int32 id, global::System.DateTime creationDateTime, global::System.DateTime payBeforeDateTime, global::System.String account, global::System.String owner, global::System.String address, global::System.String square, global::System.Int32 residentsCount, global::System.Decimal overpaymentValue, global::System.Decimal monthChargeValue, global::System.Decimal value, global::System.DateTime period)
+        /// <param name="buildingArea">Initial value of the BuildingArea property.</param>
+        public static RegularBillDocs CreateRegularBillDocs(global::System.Int32 id, global::System.DateTime creationDateTime, global::System.DateTime payBeforeDateTime, global::System.String account, global::System.String owner, global::System.String address, global::System.String square, global::System.Int32 residentsCount, global::System.Decimal overpaymentValue, global::System.Decimal monthChargeValue, global::System.Decimal value, global::System.DateTime period, global::System.Decimal buildingArea)
         {
             RegularBillDocs regularBillDocs = new RegularBillDocs();
             regularBillDocs.ID = id;
@@ -10917,6 +11249,7 @@ namespace Taumis.Alpha.DataBase
             regularBillDocs.MonthChargeValue = monthChargeValue;
             regularBillDocs.Value = value;
             regularBillDocs.Period = period;
+            regularBillDocs.BuildingArea = buildingArea;
             return regularBillDocs;
         }
 
@@ -11262,6 +11595,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _ContractorContactInfo;
         partial void OnContractorContactInfoChanging(global::System.String value);
         partial void OnContractorContactInfoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal BuildingArea
+        {
+            get
+            {
+                return _BuildingArea;
+            }
+            set
+            {
+                OnBuildingAreaChanging(value);
+                ReportPropertyChanging("BuildingArea");
+                _BuildingArea = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BuildingArea");
+                OnBuildingAreaChanged();
+            }
+        }
+        private global::System.Decimal _BuildingArea;
+        partial void OnBuildingAreaChanging(global::System.Decimal value);
+        partial void OnBuildingAreaChanged();
 
         #endregion
 
@@ -11427,6 +11784,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RegularBillDocSharedCounterPoses>("AlphaDataBaseModel.RegularBillDocSharedCounterPoses_fk", "RegularBillDocSharedCounterPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocPublicPlacePoses")]
+        public EntityCollection<RegularBillDocPublicPlacePoses> RegularBillDocPublicPlacePoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RegularBillDocPublicPlacePoses>("AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocPublicPlacePoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RegularBillDocPublicPlacePoses>("AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs", "RegularBillDocPublicPlacePoses", value);
                 }
             }
         }

@@ -112,6 +112,7 @@
     <Compile Include="BusinessEntities\Doc\RechargeSet.cs" />
     <Compile Include="BusinessEntities\Doc\RegularBillDoc.cs" />
     <Compile Include="BusinessEntities\Doc\RegularBillDocCounterPos.cs" />
+    <Compile Include="BusinessEntities\Doc\RegularBillDocPublicPlacePos.cs" />
     <Compile Include="BusinessEntities\Doc\RegularBillDocSeviceTypePos.cs" />
     <Compile Include="BusinessEntities\Doc\RegularBillDocSharedCounterPos.cs" />
     <Compile Include="BusinessEntities\Doc\TotalBillDoc.cs" />
