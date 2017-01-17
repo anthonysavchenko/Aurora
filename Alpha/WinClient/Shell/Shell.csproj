@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Taumis.Alpha.WinClient.Aurora.Shell</RootNamespace>
-    <AssemblyName>Taumis.Alpha.WinClient.Aurora.Shell</AssemblyName>
+    <AssemblyName>Taumis.Alpha.WinClient.Aurora.Shell2</AssemblyName>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>330D488615A62DC525DA77BE7A5FEBF294DBB9EB</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>F83D4299F0492C77DB18236BE76E93DB67DAC4E7</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -47,16 +47,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://download.taumis.ru/aurora/</InstallUrl>
+    <InstallUrl>http://download.taumis.ru/aurora2/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ProductName>Aurora</ProductName>
+    <ProductName>AuroraRepair</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>016.40.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>016.23.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>016.40.0.0</ApplicationVersion>
+    <ApplicationVersion>016.23.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

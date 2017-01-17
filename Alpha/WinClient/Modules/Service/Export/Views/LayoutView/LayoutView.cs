@@ -67,21 +67,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             }
         }
 
-        /// <summary>
-        /// Формат файла
-        /// </summary>
-        public bool IsSberbankFileFormat
-        {
-            set
-            {
-                FormatRadioGroup.EditValue = value;
-            }
-            get
-            {
-                return (bool)FormatRadioGroup.EditValue;
-            }
-        }
-
         public string BenefitInputFilePath
         {
             get { return benefitInputFileTextEdit.Text; }

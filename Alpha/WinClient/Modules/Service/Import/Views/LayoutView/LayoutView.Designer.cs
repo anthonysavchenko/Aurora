@@ -312,13 +312,12 @@
             // smartPartPlaceholder1
             // 
             this.smartPartPlaceholder1.BackColor = System.Drawing.Color.Transparent;
-            this.smartPartPlaceholder1.Location = new System.Drawing.Point(0, 525);
+            this.smartPartPlaceholder1.Location = new System.Drawing.Point(0, 438);
             this.smartPartPlaceholder1.Name = "smartPartPlaceholder1";
             this.smartPartPlaceholder1.Size = new System.Drawing.Size(560, 80);
             this.smartPartPlaceholder1.SmartPartName = "MigrationView";
             this.smartPartPlaceholder1.TabIndex = 40;
             this.smartPartPlaceholder1.Text = "smartPartPlaceholder1";
-            this.smartPartPlaceholder1.Visible = false;
             // 
             // groupBox4
             // 
@@ -327,7 +326,7 @@
             this.groupBox4.Controls.Add(this.gisZhkhInputFileTextEdit);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.gisZhkhSelectInputFileButton);
-            this.groupBox4.Location = new System.Drawing.Point(6, 438);
+            this.groupBox4.Location = new System.Drawing.Point(6, 524);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(554, 81);
             this.groupBox4.TabIndex = 41;
@@ -391,7 +390,7 @@
             this.Controls.Add(this.smartPartPlaceholder1);
             this.Controls.Add(this.panel1);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1469, 879);
+            this.Size = new System.Drawing.Size(980, 577);
             ((System.ComponentModel.ISupportInitialize)(this.FileTextEdit.Properties)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

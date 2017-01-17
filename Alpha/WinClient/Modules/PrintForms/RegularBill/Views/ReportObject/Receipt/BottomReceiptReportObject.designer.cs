@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BottomReceiptReportObject));
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BottomReceiptReportObject));
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
+            this.xrLabel20 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel18 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrPanel2 = new DevExpress.XtraReports.UI.XRPanel();
             this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel11 = new DevExpress.XtraReports.UI.XRLabel();
@@ -69,7 +71,6 @@
             this.xrLabel9 = new DevExpress.XtraReports.UI.XRLabel();
             this.payerAkaLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -78,7 +79,7 @@
             this.CustId = new DevExpress.XtraReports.Parameters.Parameter();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
-            this.bankDetailsLabel = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel16 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -86,7 +87,9 @@
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.bankDetailsLabel,
+            this.xrLabel20,
+            this.xrLabel16,
+            this.xrLabel18,
             this.xrPanel2,
             this.serviceTableSubreport,
             this.xrTable3,
@@ -104,13 +107,31 @@
             this.printDateLabel,
             this.xrLabel9,
             this.payerAkaLabel,
-            this.xrLabel3,
-            this.xrPictureBox1});
+            this.xrLabel3});
             resources.ApplyResources(this.Detail, "Detail");
             this.Detail.KeepTogether = true;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             this.Detail.StylePriority.UseTextAlignment = false;
+            // 
+            // xrLabel20
+            // 
+            resources.ApplyResources(this.xrLabel20, "xrLabel20");
+            this.xrLabel20.Multiline = true;
+            this.xrLabel20.Name = "xrLabel20";
+            this.xrLabel20.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel20.StylePriority.UseFont = false;
+            this.xrLabel20.StylePriority.UseForeColor = false;
+            this.xrLabel20.StylePriority.UseTextAlignment = false;
+            // 
+            // xrLabel18
+            // 
+            resources.ApplyResources(this.xrLabel18, "xrLabel18");
+            this.xrLabel18.Multiline = true;
+            this.xrLabel18.Name = "xrLabel18";
+            this.xrLabel18.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel18.StylePriority.UseFont = false;
+            this.xrLabel18.StylePriority.UseTextAlignment = false;
             // 
             // xrPanel2
             // 
@@ -203,7 +224,7 @@
             this.xrTableCell13.StylePriority.UseFont = false;
             this.xrTableCell13.StylePriority.UsePadding = false;
             this.xrTableCell13.StylePriority.UseTextAlignment = false;
-            this.xrTableCell13.Weight = 1.9238249053700183D;
+            this.xrTableCell13.Weight = 1.8165266449797519D;
             // 
             // monthChargeTableCell
             // 
@@ -219,7 +240,7 @@
             this.monthChargeTableCell.StylePriority.UseTextAlignment = false;
             resources.ApplyResources(xrSummary1, "xrSummary1");
             this.monthChargeTableCell.Summary = xrSummary1;
-            this.monthChargeTableCell.Weight = 0.43652011722132206D;
+            this.monthChargeTableCell.Weight = 0.54381837761158824D;
             // 
             // xrTableRow4
             // 
@@ -243,7 +264,7 @@
             this.OverpaymentLabel.StylePriority.UseFont = false;
             this.OverpaymentLabel.StylePriority.UsePadding = false;
             this.OverpaymentLabel.StylePriority.UseTextAlignment = false;
-            this.OverpaymentLabel.Weight = 1.9238249053700183D;
+            this.OverpaymentLabel.Weight = 1.8165266449797519D;
             // 
             // overpaymentValue
             // 
@@ -257,7 +278,7 @@
             this.overpaymentValue.StylePriority.UseBorders = false;
             this.overpaymentValue.StylePriority.UseFont = false;
             this.overpaymentValue.StylePriority.UseTextAlignment = false;
-            this.overpaymentValue.Weight = 0.43652011722132206D;
+            this.overpaymentValue.Weight = 0.54381837761158824D;
             // 
             // xrTableRow5
             // 
@@ -279,7 +300,7 @@
             this.xrTableCell17.StylePriority.UseFont = false;
             this.xrTableCell17.StylePriority.UsePadding = false;
             this.xrTableCell17.StylePriority.UseTextAlignment = false;
-            this.xrTableCell17.Weight = 1.9238249053700183D;
+            this.xrTableCell17.Weight = 1.8165266449797519D;
             // 
             // totalChargeTableCell
             // 
@@ -297,7 +318,7 @@
             xrSummary2.Func = DevExpress.XtraReports.UI.SummaryFunc.Custom;
             xrSummary2.IgnoreNullValues = true;
             this.totalChargeTableCell.Summary = xrSummary2;
-            this.totalChargeTableCell.Weight = 0.43652011722132206D;
+            this.totalChargeTableCell.Weight = 0.54381837761158824D;
             // 
             // xrTableRow6
             // 
@@ -319,7 +340,7 @@
             this.xrTableCell19.StylePriority.UseFont = false;
             this.xrTableCell19.StylePriority.UsePadding = false;
             this.xrTableCell19.StylePriority.UseTextAlignment = false;
-            this.xrTableCell19.Weight = 1.9238249053700183D;
+            this.xrTableCell19.Weight = 1.8165266449797519D;
             // 
             // xrTableCell20
             // 
@@ -331,7 +352,7 @@
             this.xrTableCell20.StylePriority.UseBorders = false;
             this.xrTableCell20.StylePriority.UseFont = false;
             this.xrTableCell20.StylePriority.UseTextAlignment = false;
-            this.xrTableCell20.Weight = 0.43652011722132206D;
+            this.xrTableCell20.Weight = 0.54381837761158824D;
             // 
             // xrLabel2
             // 
@@ -495,13 +516,6 @@
             this.xrLabel3.StylePriority.UseFont = false;
             this.xrLabel3.StylePriority.UseTextAlignment = false;
             // 
-            // xrPictureBox1
-            // 
-            resources.ApplyResources(this.xrPictureBox1, "xrPictureBox1");
-            this.xrPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("xrPictureBox1.Image")));
-            this.xrPictureBox1.Name = "xrPictureBox1";
-            this.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
-            // 
             // xrControlStyle1
             // 
             this.xrControlStyle1.BackColor = System.Drawing.Color.AliceBlue;
@@ -552,16 +566,16 @@
             resources.ApplyResources(this.bottomMarginBand1, "bottomMarginBand1");
             this.bottomMarginBand1.Name = "bottomMarginBand1";
             // 
-            // bankDetailsLabel
+            // xrLabel16
             // 
-            this.bankDetailsLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            this.xrLabel16.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
             new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.RightHeaderString")});
-            resources.ApplyResources(this.bankDetailsLabel, "bankDetailsLabel");
-            this.bankDetailsLabel.Multiline = true;
-            this.bankDetailsLabel.Name = "bankDetailsLabel";
-            this.bankDetailsLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.bankDetailsLabel.StylePriority.UseFont = false;
-            this.bankDetailsLabel.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.xrLabel16, "xrLabel16");
+            this.xrLabel16.Multiline = true;
+            this.xrLabel16.Name = "xrLabel16";
+            this.xrLabel16.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel16.StylePriority.UseFont = false;
+            this.xrLabel16.StylePriority.UseTextAlignment = false;
             // 
             // BottomReceiptReportObject
             // 
@@ -629,7 +643,6 @@
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell20;
         private DevExpress.XtraReports.UI.XRLine xrLine2;
         private DevExpress.XtraReports.UI.XRLabel xrLabel17;
-        private DevExpress.XtraReports.UI.XRPictureBox xrPictureBox1;
         private DevExpress.XtraReports.UI.XRLabel xrLabel3;
         private DevExpress.XtraReports.UI.XRLabel xrLabel2;
         private DevExpress.XtraReports.UI.XRSubreport serviceTableSubreport;
@@ -639,6 +652,8 @@
         private DevExpress.XtraReports.UI.XRPanel xrPanel2;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
-        private DevExpress.XtraReports.UI.XRLabel bankDetailsLabel;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel18;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel20;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel16;
     }
 }

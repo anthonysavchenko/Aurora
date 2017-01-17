@@ -12,4 +12,3 @@
     CONSTRAINT [DebtBillDocs_fk] FOREIGN KEY ([BillSet]) REFERENCES [dbo].[BillSets] ([ID]),
     CONSTRAINT [FK_DebtBillDocs_Customers] FOREIGN KEY ([CustomerID]) REFERENCES [dbo].[Customers] ([ID])
 );
-

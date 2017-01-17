@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Taumis.Alpha.DataBase;
@@ -17,11 +16,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         /// Номер счета
         /// </summary>
         private const string LS = "A";
-
-        /// <summary>
-        /// Тип услуги
-        /// </summary>
-        private const string GKU = "H";
 
         /// <summary>
         /// Площадь
@@ -67,34 +61,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         #endregion
 
-        private const int MAINTANCE_SERVICE_TYPE_ID = 2;
-        private const int REPAIR_SERVICE_TYPE_ID = 4;
-        private const int WASTE_SERVICE_TYPE_ID = 3;
-
-        private class ServiceTypeData
-        {
-            public int ID { get; set; }
-            public decimal Charge { get; set; }
-            public decimal Recharge { get; set; }
-            public decimal Benefit { get; set; }
-            public decimal Rate { get; set; }
-        }
-
         private class CustomerInfo
         {
             public int ID { get; set; }
             public decimal Square { get; set; }
             public int ResidentCount { get; set; }
             public bool DebtsRepayment { get; set; }
-            public int MaintanceDebtMonthCount { get; set; }
-            public int RepairDebtMonthCount { get; set; }
-            public List<ServiceTypeData> DataByServiceType { get; set; }
-        }
-
-        private class RowNumber
-        {
-            public int? Repair { get; set; }
-            public int? Maintance { get; set; }
+            public int DebtMonthCount { get; set; }
+            public decimal Charge { get; set; }
+            public decimal Recharge { get; set; }
+            public decimal Benefit { get; set; }
+            public decimal Rate { get; set; }
         }
 
         #region Help Methods
@@ -118,7 +95,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     string _accPart2 = _normalizedStr.Substring(4, 3);
                     string _accPart3 = _normalizedStr.Substring(7, 1);
 
-                    _goodAccountStr = string.Format("EG-{0}-{1}-{2}", _accPart1, _accPart2, _accPart3);
+                    _goodAccountStr = $"EG-{_accPart1}-{_accPart2}-{_accPart3}";
                 }
                 else
                 {
@@ -130,24 +107,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 _goodAccountStr = badAccountStr;
             }
             return _goodAccountStr;
-        }
-
-        private int ParseServiceType(string serviceType, int row)
-        {
-            const string MAINTANCE_SERVICE_TYPE_STR = "С";
-            const string REPAIR_SERVICE_TYPE_STR = "Р";
-
-            string _firstLetter = serviceType.Trim().Substring(0, 1).ToUpper();
-
-            switch (_firstLetter)
-            {
-                case MAINTANCE_SERVICE_TYPE_STR:
-                    return MAINTANCE_SERVICE_TYPE_ID;
-                case REPAIR_SERVICE_TYPE_STR:
-                    return REPAIR_SERVICE_TYPE_ID;
-                default:
-                    throw new ApplicationException(string.Format("Не удалось распознать вид услуги, строка {0}", row));
-            }
         }
 
         private DateTime GetPeriod(string periodStr)
@@ -196,9 +155,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             new
                             {
                                 CustomerID = o.ChargeOpers.Customers.ID,
-                                Period = o.ChargeOpers.ChargeSets.Period,
-                                Value = o.Value,
-                                ServiceType = o.Services.ServiceTypes.ID
+                                o.ChargeOpers.ChargeSets.Period,
+                                o.Value,
                             })
                         .Concat(_db.ChargeOperPoses
                             .Where(o => o.ChargeOpers.ChargeCorrectionOpers != null)
@@ -206,18 +164,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 new
                                 {
                                     CustomerID = o.ChargeOpers.Customers.ID,
-                                    Period = o.ChargeOpers.ChargeCorrectionOpers.Period,
+                                    o.ChargeOpers.ChargeCorrectionOpers.Period,
                                     Value = -1 * o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.RechargeOperPoses
                             .Select(o =>
                                 new
                                 {
                                     CustomerID = o.RechargeOpers.Customers.ID,
-                                    Period = o.RechargeOpers.RechargeSets.Period,
-                                    Value = o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
+                                    o.RechargeOpers.RechargeSets.Period,
+                                    o.Value,
                                 }))
                         .Concat(_db.RechargeOperPoses
                             .Where(o => o.RechargeOpers.ChildChargeCorrectionOpers != null)
@@ -225,18 +181,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 new
                                 {
                                     CustomerID = o.RechargeOpers.Customers.ID,
-                                    Period = o.RechargeOpers.RechargeSets.Period,
+                                    o.RechargeOpers.RechargeSets.Period,
                                     Value = -1 * o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.BenefitOperPoses
                             .Select(o =>
                                 new
                                 {
                                     CustomerID = o.BenefitOpers.ChargeOpers.Customers.ID,
-                                    Period = o.BenefitOpers.ChargeOpers.ChargeSets.Period,
-                                    Value = o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
+                                    o.BenefitOpers.ChargeOpers.ChargeSets.Period,
+                                    o.Value,
                                 }))
                         .Concat(_db.BenefitOperPoses
                             .Where(o => o.BenefitOpers.BenefitCorrectionOpers != null)
@@ -244,18 +198,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 new
                                 {
                                     CustomerID = o.BenefitOpers.ChargeOpers.Customers.ID,
-                                    Period = o.BenefitOpers.ChargeOpers.ChargeSets.Period,
+                                    o.BenefitOpers.ChargeOpers.ChargeSets.Period,
                                     Value = -1 * o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.RebenefitOperPoses
                             .Select(o =>
                                 new
                                 {
                                     CustomerID = o.RebenefitOpers.RechargeOpers.Customers.ID,
-                                    Period = o.RebenefitOpers.RechargeOpers.RechargeSets.Period,
-                                    Value = o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
+                                    o.RebenefitOpers.RechargeOpers.RechargeSets.Period,
+                                    o.Value,
                                 }))
                         .Concat(_db.RebenefitOperPoses
                             .Where(o => o.RebenefitOpers.BenefitCorrectionOpers != null)
@@ -263,9 +215,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 new
                                 {
                                     CustomerID = o.RebenefitOpers.RechargeOpers.Customers.ID,
-                                    Period = o.RebenefitOpers.RechargeOpers.RechargeSets.Period,
+                                    o.RebenefitOpers.RechargeOpers.RechargeSets.Period,
                                     Value = -1 * o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.PaymentOperPoses
                             .Where(o => o.PaymentOpers.PaymentPeriod <= period)
@@ -273,9 +224,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 new
                                 {
                                     CustomerID = o.PaymentOpers.Customers.ID,
-                                    Period = o.Period,
-                                    Value = o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
+                                    o.Period,
+                                    o.Value,
                                 }))
                         .Concat(_db.PaymentCorrectionOperPoses
                             .Select(o =>
@@ -284,7 +234,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     CustomerID = o.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
                                     o.PaymentCorrectionOpers.Period,
                                     o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.OverpaymentOperPoses
                             .Select(o =>
@@ -293,7 +242,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     CustomerID = o.OverpaymentOpers.Customers.ID,
                                     o.Period,
                                     o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.OverpaymentCorrectionOperPoses
                             .Select(o =>
@@ -302,19 +250,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     CustomerID = o.OverpaymentCorrectionOpers.ChargeOpers.Customers.ID,
                                     o.OverpaymentCorrectionOpers.Period,
                                     o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
-                        .Where(o =>
-                            _startPeriod <= o.Period && o.Period <= period &&
-                            (o.ServiceType == MAINTANCE_SERVICE_TYPE_ID ||
-                             o.ServiceType == REPAIR_SERVICE_TYPE_ID ||
-                             o.ServiceType == WASTE_SERVICE_TYPE_ID))
-                        .GroupBy(o => new { o.CustomerID, o.ServiceType })
+                        .Where(o => _startPeriod <= o.Period && o.Period <= period)
+                        .GroupBy(o => o.CustomerID)
                         .Select(g =>
                             new
                             {
-                                g.Key.CustomerID,
-                                g.Key.ServiceType,
+                                CustomerID = g.Key,
                                 Value = g.Sum(o => o.Value)
                             })
                         .Where(o => o.Value > 0)
@@ -329,85 +271,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         .Where(p => 
                             p.ChargeOpers.ChargeSets.Period == period && 
                             _customersWithDebts.Contains(p.ChargeOpers.Customers.ID))
-                        .GroupBy(p => 
-                            new
-                            {
-                                CustomerID = p.ChargeOpers.Customers.ID,
-                                ServiceTypeID = p.Services.ServiceTypes.ID
-                            })
+                        .GroupBy(p => p.ChargeOpers.Customers.ID)
                         .Select(g =>
                             new
                             {
-                                g.Key.CustomerID,
-                                g.Key.ServiceTypeID,
+                                CustomerID = g.Key,
                                 Value = g.Sum(p => p.Value)
-                            })
-                        .ToList()
-                        .GroupBy(p => p.CustomerID)
-                        .Select(byCustomer =>
-                            new
-                            {
-                                CustomerID = byCustomer.Key,
-                                ByServiceType = byCustomer
-                                    .GroupBy(p => p.ServiceTypeID)
-                                    .Select(byServiceType =>
-                                        new
-                                        {
-                                            ServiceTypeID = byServiceType.Key,
-                                            Value = byServiceType.Sum(p => p.Value)
-                                        })
                             })
                         .ToDictionary(
                             r => r.CustomerID,
-                            r => r.ByServiceType.ToDictionary(
-                                st => st.ServiceTypeID,
-                                st => st.Value));
+                            r => r.Value);
 
                 var _debts = _debtsRaw
-                        .GroupBy(o => o.CustomerID)
                         .Select(g =>
                             new
                             {
-                                CustomerID = g.Key,
-                                ByServiceType = g.GroupBy(x => x.ServiceType)
-                                    .Select(gServiceType =>
-                                        new
-                                        {
-                                            ServiceType = gServiceType.Key,
-                                            MonthCount = CalculateMonthCount(g.Key, gServiceType.Key, gServiceType.Sum(o => o.Value), _charges)
-                                        })
+                                g.CustomerID,
+                                MonthCount = CalculateMonthCount(g.CustomerID, g.Value, _charges)
                             })
-                        .ToDictionary(x => x.CustomerID, x => x.ByServiceType.ToDictionary(y => y.ServiceType, y => y.MonthCount));
+                        .ToDictionary(x => x.CustomerID, x => x.MonthCount);
 
                 var _rates =
                     _db.CustomerPoses
-                        .Where(p =>
-                            p.Since <= period && period <= p.Till &&
-                            (p.Services.ServiceTypes.ID == MAINTANCE_SERVICE_TYPE_ID ||
-                             p.Services.ServiceTypes.ID == REPAIR_SERVICE_TYPE_ID ||
-                             p.Services.ServiceTypes.ID == WASTE_SERVICE_TYPE_ID))
-                        .GroupBy(c => new { CustomerID = c.Customers.ID, ServiceTypeID = c.Services.ServiceTypes.ID })
-                        .Select(g =>
-                            new
-                            {
-                                g.Key.CustomerID,
-                                g.Key.ServiceTypeID,
-                                Rate = g.Sum(c => c.Rate)
-                            })
-                        .ToList()
-                        .GroupBy(c => c.CustomerID)
+                        .Where(p => p.Since <= period && period <= p.Till)
+                        .GroupBy(c => c.Customers.ID)
                         .Select(g =>
                             new
                             {
                                 CustomerID = g.Key,
-                                RatesByServiceType = g
-                                    .GroupBy(c => c.ServiceTypeID)
-                                    .Select(gServiceType =>
-                                        new
-                                        {
-                                            ServiceTypeID = gServiceType.Key,
-                                            Rate = gServiceType.Sum(c => c.Rate)
-                                        })
+                                Rate = g.Sum(c => c.Rate)
                             })
                         .ToList();
 
@@ -421,7 +313,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 Charge = o.Value,
                                 Recharge = (decimal)0,
                                 Benefit = (decimal)0,
-                                ServiceType = o.Services.ServiceTypes.ID
                             })
                         .Concat(_db.ChargeOperPoses
                             .Where(o => o.ChargeOpers.ChargeCorrectionOpers != null)
@@ -433,7 +324,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Charge = (decimal)0,
                                     Recharge = -1 * o.Value,
                                     Benefit = (decimal)0,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.RechargeOperPoses
                             .Select(o =>
@@ -444,7 +334,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Charge = (decimal)0,
                                     Recharge = o.Value,
                                     Benefit = (decimal)0,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.RechargeOperPoses
                             .Where(o => o.RechargeOpers.ChildChargeCorrectionOpers != null)
@@ -456,7 +345,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Charge = (decimal)0,
                                     Recharge = -1 * o.Value,
                                     Benefit = (decimal)0,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.BenefitOperPoses
                             .Select(o =>
@@ -467,7 +355,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Charge = (decimal)0,
                                     Recharge = (decimal)0,
                                     Benefit = o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.BenefitOperPoses
                             .Where(o => o.BenefitOpers.BenefitCorrectionOpers != null)
@@ -479,7 +366,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Charge = (decimal)0,
                                     Recharge = (decimal)0,
                                     Benefit = -1 * o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.RebenefitOperPoses
                             .Select(o =>
@@ -490,7 +376,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Charge = (decimal)0,
                                     Recharge = (decimal)0,
                                     Benefit = o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.RebenefitOperPoses
                             .Where(o => o.RebenefitOpers.BenefitCorrectionOpers != null)
@@ -502,41 +387,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Charge = (decimal)0,
                                     Recharge = (decimal)0,
                                     Benefit = -1 * o.Value,
-                                    ServiceType = o.Services.ServiceTypes.ID
                                 }))
-                        .Where(o =>
-                            o.Period == period &&
-                            (o.ServiceType == MAINTANCE_SERVICE_TYPE_ID ||
-                             o.ServiceType == REPAIR_SERVICE_TYPE_ID ||
-                             o.ServiceType == WASTE_SERVICE_TYPE_ID))
-                        .GroupBy(o => new { o.CustomerID, o.ServiceType })
+                        .Where(o => o.Period == period)
+                        .GroupBy(o => o.CustomerID)
                         .Select(g =>
                             new
                             {
-                                g.Key.CustomerID,
-                                g.Key.ServiceType,
+                                CustomerID = g.Key,
                                 Charge = g.Sum(o => o.Charge),
                                 Recharge = g.Sum(o => o.Recharge),
                                 Benefit = g.Sum(o => o.Benefit)
                             })
                         .ToList()
                         .Where(c => customerIds.Contains(c.CustomerID))
-                        .GroupBy(o => o.CustomerID)
-                        .Select(gCustomer =>
-                            new
-                            {
-                                CustomerID = gCustomer.Key,
-                                ByServiceType = gCustomer
-                                    .GroupBy(o => o.ServiceType)
-                                    .Select(gServiceType =>
-                                        new
-                                        {
-                                            ID = gServiceType.Key,
-                                            Charge = gServiceType.Sum(o => o.Charge),
-                                            Recharge = gServiceType.Sum(o => o.Recharge),
-                                            Benefit = gServiceType.Sum(o => o.Benefit)
-                                        })
-                            })
                         .Join(
                             _customers,
                             c1 => c1.CustomerID,
@@ -548,7 +411,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     c2.Square,
                                     c2.ResidentCount,
                                     c2.DebtsRepayment,
-                                    DataByServiceType = c1.ByServiceType
+                                    c1.Charge,
+                                    c1.Recharge,
+                                    c1.Benefit
                                 })
                         .Join(
                             _rates,
@@ -561,47 +426,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Square = c.Square,
                                     ResidentCount = c.ResidentCount,
                                     DebtsRepayment = c.DebtsRepayment,
-                                    DataByServiceType =
-                                        c.DataByServiceType
-                                            .Join(
-                                                r.RatesByServiceType,
-                                                dst => dst.ID,
-                                                rst => rst.ServiceTypeID,
-                                                (dst, rst) =>
-                                                    new ServiceTypeData
-                                                    {
-                                                        ID = dst.ID,
-                                                        Charge = dst.Charge,
-                                                        Recharge = dst.Recharge,
-                                                        Benefit = dst.Benefit,
-                                                        Rate = rst.Rate
-                                                    })
-                                                .ToList()
+                                    Charge = c.Charge,
+                                    Recharge = c.Recharge,
+                                    Benefit = c.Benefit,
+                                    Rate = r.Rate
                                 })
                         .ToList();
 
                 _result.ForEach(x =>
-                    {
-                        if (_debts.ContainsKey(x.ID))
-                        {
-                            if (_debts[x.ID].ContainsKey(MAINTANCE_SERVICE_TYPE_ID))
-                            {
-                                x.MaintanceDebtMonthCount = _debts[x.ID][MAINTANCE_SERVICE_TYPE_ID];
-                            }
-
-                            if (_debts[x.ID].ContainsKey(WASTE_SERVICE_TYPE_ID) && x.MaintanceDebtMonthCount < _debts[x.ID][WASTE_SERVICE_TYPE_ID])
-                            {
-                                x.MaintanceDebtMonthCount = _debts[x.ID][WASTE_SERVICE_TYPE_ID];
-                            }
-                           
-                            x.RepairDebtMonthCount = _debts[x.ID].ContainsKey(REPAIR_SERVICE_TYPE_ID)
-                                ? _debts[x.ID][REPAIR_SERVICE_TYPE_ID] : 0;
-                        }
-                        else
-                        {
-                            x.MaintanceDebtMonthCount = x.RepairDebtMonthCount = 0;
-                        }
-                    });
+                {
+                    x.DebtMonthCount = _debts.ContainsKey(x.ID)
+                        ? _debts[x.ID]
+                        : 0;
+                });
 
                 #endregion
             }
@@ -609,19 +446,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             return _result;
         }
 
-        private int CalculateMonthCount(int customerID, int serviceTypeID, decimal debtValue, Dictionary<int, Dictionary<int, decimal>> charges)
+        private int CalculateMonthCount(int customerID, decimal debtValue, Dictionary<int, decimal> charges)
         {
-            int _debtMonthCount = 0;
-
-            if(charges.ContainsKey(customerID) && charges[customerID].ContainsKey(serviceTypeID))
-            {
-                _debtMonthCount = Convert.ToInt32(Math.Round(debtValue / charges[customerID][serviceTypeID], 0, MidpointRounding.AwayFromZero));
-            }
-
-            return _debtMonthCount;
+            return
+                charges.ContainsKey(customerID)
+                    ? Convert.ToInt32(Math.Round(debtValue/charges[customerID], 0, MidpointRounding.AwayFromZero))
+                    : 0;
         }
 
-        private void FillAccountsDictionaries(Dictionary<int, RowNumber> accRowDict, ExcelSheet sheet)
+        private void FillAccountsDictionaries(Dictionary<int, int> accRowDict, ExcelSheet sheet)
         {
             Dictionary<string, int> _customerIdByAccount;
 
@@ -645,24 +478,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 if (!string.IsNullOrEmpty(_account) && _customerIdByAccount.ContainsKey(_account))
                 {
                     int _customerId = _customerIdByAccount[_account];
-                    string _serviceType = sheet.GetCell(GKU, i);
-                    int _serviceTypeId = ParseServiceType(_serviceType, i);
 
-                    if (_serviceTypeId == MAINTANCE_SERVICE_TYPE_ID || _serviceTypeId == REPAIR_SERVICE_TYPE_ID)
+                    if (!accRowDict.ContainsKey(_customerId))
                     {
-                        if (!accRowDict.ContainsKey(_customerId))
-                        {
-                            accRowDict.Add(_customerId, new RowNumber());
-                        }
-
-                        if (_serviceTypeId == MAINTANCE_SERVICE_TYPE_ID)
-                        {
-                            accRowDict[_customerId].Maintance = i;
-                        }
-                        else
-                        {
-                            accRowDict[_customerId].Repair = i;
-                        }
+                        accRowDict.Add(_customerId, i);
                     }
                 }
             }
@@ -670,68 +489,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         private void FillSheet(
             List<CustomerInfo> data,
-            Dictionary<int, RowNumber> accRowDict,
+            Dictionary<int, int> accRowDict,
             ExcelSheet sheet)
         {
             foreach (CustomerInfo _customerInfo in data)
             {
-                string _squareStr = _customerInfo.Square.ToString().Replace(",", ".");
-                string _residentCountStr = _customerInfo.ResidentCount.ToString();
-                string _restrDebt = _customerInfo.DebtsRepayment ? "1" : "0";
-
                 if (accRowDict.ContainsKey(_customerInfo.ID))
                 {
-                    RowNumber _row = accRowDict[_customerInfo.ID];
-
-                    if (_row.Maintance.HasValue)
-                    {
-                        FillRow(
-                            _row.Maintance.Value,
-                            _customerInfo.DataByServiceType.Where(s => s.ID == MAINTANCE_SERVICE_TYPE_ID || s.ID == WASTE_SERVICE_TYPE_ID),
-                            _squareStr,
-                            _residentCountStr,
-                            _restrDebt,
-                            _customerInfo.MaintanceDebtMonthCount.ToString(),
-                            sheet);
-                    }
-
-                    if (_row.Repair.HasValue)
-                    {
-                        FillRow(
-                            _row.Repair.Value,
-                            _customerInfo.DataByServiceType.Where(s => s.ID == REPAIR_SERVICE_TYPE_ID),
-                            _squareStr,
-                            _residentCountStr,
-                            _restrDebt,
-                            _customerInfo.RepairDebtMonthCount.ToString(),
-                            sheet);
-                    }
+                    FillRow(
+                        accRowDict[_customerInfo.ID],
+                        _customerInfo,
+                        sheet);
                 }
             }
         }
 
-        private void FillRow(int row, IEnumerable<ServiceTypeData> data, string square, string residentCount, string restrDebt, string monthCount, ExcelSheet sheet)
+        private void FillRow(int row, CustomerInfo customer, ExcelSheet sheet)
         {
-            sheet.SetCell(PL, row, square);
-            sheet.SetCell(NORM, row, square);
-            sheet.SetCell(KOLP, row, residentCount);
-            sheet.SetCell(RESTRDOLG, row, restrDebt);
-            sheet.SetCell(MESD, row, monthCount);
+            string _squareStr = customer.Square.ToString().Replace(",", ".");
+            string _residentCountStr = customer.ResidentCount.ToString();
+            string _restrDebt = customer.DebtsRepayment ? "1" : "0";
 
-            decimal _charge = 0,
-                    _recharge = 0,
-                    _rate = 0;
+            sheet.SetCell(PL, row, _squareStr);
+            sheet.SetCell(NORM, row, _squareStr);
+            sheet.SetCell(KOLP, row, _residentCountStr);
+            sheet.SetCell(RESTRDOLG, row, _restrDebt);
+            sheet.SetCell(MESD, row, customer.DebtMonthCount.ToString());
 
-            foreach (ServiceTypeData _data in data)
-            {
-                _charge += _data.Charge;
-                _recharge += _data.Recharge + _data.Charge;
-                _rate += _data.Rate;
-            }
+            decimal _recharge = customer.Recharge + customer.Charge;
 
-            sheet.SetCell(FAKTP, row, _charge.ToString(CultureInfo.InvariantCulture));
+            sheet.SetCell(FAKTP, row, customer.Charge.ToString(CultureInfo.InvariantCulture));
             sheet.SetCell(FAKTPER, row, _recharge.ToString(CultureInfo.InvariantCulture));
-            sheet.SetCell(TARIF, row, _rate.ToString(CultureInfo.InvariantCulture));
+            sheet.SetCell(TARIF, row, customer.Rate.ToString(CultureInfo.InvariantCulture));
         }
 
         #endregion
@@ -748,7 +537,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     string _periodStr = _sheet.GetCell(PERIOD_COLUMN, 2);
                     DateTime _period = GetPeriod(_periodStr);
 
-                    Dictionary<int, RowNumber> _accRowDict = new Dictionary<int, RowNumber>();
+                    Dictionary<int, int> _accRowDict = new Dictionary<int, int>();
                     FillAccountsDictionaries(_accRowDict, _sheet);
 
                     List<CustomerInfo> _data = GetCustomerInfoList(_period, _accRowDict.Keys.ToList());

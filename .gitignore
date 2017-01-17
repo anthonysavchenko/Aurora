@@ -56,3 +56,7 @@
 /EnterpriseLibrary/Win/Build/Bin
 /EnterpriseLibrary/Win/Common/obj
 /ThirdParty/Packages
+/ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/ObjectBuilder/obj
+/ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/CompositeUI.WinForms/obj
+/ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/CompositeUI/obj
+/ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/Build/Bin

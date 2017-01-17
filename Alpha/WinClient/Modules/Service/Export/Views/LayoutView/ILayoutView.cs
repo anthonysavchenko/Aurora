@@ -18,11 +18,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         /// </summary>
         DateTime Period { set; get; }
 
-        /// <summary>
-        /// Формат файла
-        /// </summary>
-        bool IsSberbankFileFormat { set; get; }
-
         string BenefitInputFilePath { get; }
 
         /// <summary>

@@ -13,8 +13,3 @@
     CONSTRAINT [FK_Buildings_BankDetails] FOREIGN KEY ([BankDetailID]) REFERENCES [dbo].[BankDetails] ([ID]),
     CONSTRAINT [FK_Buildings_Streets] FOREIGN KEY ([Street]) REFERENCES [dbo].[Streets] ([ID])
 );
-
-
-
-
-

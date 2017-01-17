@@ -1,4 +1,4 @@
-п»їusing System.Drawing.Printing;
+using System.Drawing.Printing;
 using System;
 using System.Data;
 using System.Linq;
@@ -12,12 +12,12 @@ using Taumis.EnterpriseLibrary.Win.Services;
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
 {
     /// <summary>
-    /// РџСЂРµР·РµРЅС‚РµСЂ РІРёРґР° СЃ РѕС‚С‡РµС‚РѕРј
+    /// Презентер вида с отчетом
     /// </summary>
     public class ReportViewPresenter : BaseReportForReportObjectPresenter<IReportView, EmptyReportParams>
     {
         /// <summary>
-        /// Р”Р°РЅРЅС‹Рµ
+        /// Данные
         /// </summary>
         private DataSets.DataSet _data;
 
@@ -25,7 +25,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
         public IBillService BillService { get; set; }
 
         /// <summary>
-        /// Р’С‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё Р·Р°РіСЂСѓР·РєРµ РІРёРґР°
+        /// Выполняет действия при загрузке вида
         /// </summary>
         public override void OnViewReady()
         {
@@ -65,7 +65,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РґР°РЅРЅС‹Рµ С‚Р°Р±Р»РёС‡РЅРѕР№ С‡Р°СЃС‚Рё РѕС‚С‡РµС‚Р° 
+        /// Обрабатывает данные табличной части отчета 
         /// </summary>
         protected override void ProcessGridData()
         {
@@ -77,10 +77,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
         }
 
         /// <summary>
-        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ РґР»СЏ С‚Р°Р±Р»РёС‡РЅРѕР№ С‡Р°СЃС‚Рё РѕС‚С‡РµС‚Р°
+        /// Возвращает данные для табличной части отчета
         /// </summary>
-        /// <param name="_params">РџР°СЂР°РјРµС‚СЂС‹ РѕС‚С‡РµС‚Р°</param>
-        /// <returns>Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС‡РЅРѕР№ С‡Р°СЃС‚Рё РѕС‚С‡РµС‚Р°</returns>
+        /// <param name="_params">Параметры отчета</param>
+        /// <returns>Данные табличной части отчета</returns>
         protected override DataTable GetGridData(EmptyReportParams _params)
         {
             try
@@ -136,7 +136,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
             }
             catch (Exception _ex)
             {
-                Logger.SimpleWrite($"РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РґР»СЏ РїРµС‡Р°С‚Рё РєРІРёС‚Р°РЅС†РёРё.\r\n{_ex}");
+                Logger.SimpleWrite($"Не удалось загрузить данные для печати квитанции.\r\n{_ex}");
             }
 
             return null;

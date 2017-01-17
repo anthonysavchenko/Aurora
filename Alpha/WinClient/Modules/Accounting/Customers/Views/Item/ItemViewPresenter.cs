@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +26,7 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views;
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
     /// <summary>
-    /// РџСЂРµР·РµРЅС‚Р°С‚РѕСЂ Р’РёРґР° С„РѕСЂРјС‹ РІРІРѕРґР° Р–Р” РЅР°РєР»Р°РґРЅС‹С….
+    /// Презентатор Вида формы ввода ЖД накладных.
     /// </summary>
     public class ItemViewPresenter : BaseMainItemViewPresenter<IItemView, DomItem>
     {
@@ -34,7 +34,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private string _errorMessage = string.Empty;
 
         /// <summary>
-        /// Р•РґРёРЅРёС†Р° СЂР°Р±РѕС‚С‹
+        /// Единица работы
         /// </summary>
         [ServiceDependency]
         public IUnitOfWork UOW { protected get; set; }
@@ -46,11 +46,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         public IEmailService EmailService { get; set; }
 
         /// <summary>
-        /// РџСЂРѕРёР·РІРѕРґРёС‚ СЃРѕС…СЂР°РЅРµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ Р‘Р”
+        /// Производит сохранение элемента в БД
         /// </summary>
-        /// <param name="_domItem">РћР±СЉРµРєС‚ РґРѕРјРµРЅР°</param>
-        /// <param name="_updateMode">Р РµР¶РёРј РёР·РјРµРЅРµРЅРёСЏ СЌР»РµРјРµРЅС‚Р°</param>
-        /// <returns>РџСЂРёР·РЅР°Рє СѓСЃРїРµС€РЅРѕСЃС‚Рё РёР·РјРµРЅРµРЅРёСЏ</returns>
+        /// <param name="_domItem">Объект домена</param>
+        /// <param name="_updateMode">Режим изменения элемента</param>
+        /// <returns>Признак успешности изменения</returns>
         protected override bool AddOrUpdateItem(DomItem _domItem, UpdateMode _updateMode)
         {
             bool _result;
@@ -139,7 +139,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                                         : domItem.JuridicalPersonFullName,
                             };
 
-                        EmailService.SendCredentials(domItem.User.Login, domItem.User.Aka, _password);
+                        //EmailService.SendCredentials(domItem.User.Login, domItem.User.Aka, _password);
                     }
 
                     domItem.BillSendingSubscription = true;
@@ -153,9 +153,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         }
 
         /// <summary>
-        /// РџРѕР»СѓС‡РёС‚СЊ Р°С‚СЂРёР±СѓС‚С‹ РґРѕРјРµРЅР° РёР· РІСЃРµС… "РІРёРґРѕРІ (Views)" СЋР·РєРµР№СЃР°.
+        /// Получить атрибуты домена из всех "видов (Views)" юзкейса.
         /// </summary>
-        /// <param name="_domItem">Р РµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РґРѕРјРµРЅР°</param>
+        /// <param name="_domItem">Результирующий объект домена</param>
         protected override void FillDomainFromAllViews(DomItem _domItem)
         {
             _domItem.OwnerType = View.OwnerType;
@@ -194,11 +194,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         }
 
         /// <summary>
-        /// РџСЂРѕРІРµСЂРёС‚СЊ РїСЂРµРґСѓСЃР»РѕРІРёСЏ РїРµСЂРµРґ РѕРїРµСЂР°С†РёРµР№ СЃРѕС…СЂР°РЅРµРЅРёСЏ
+        /// Проверить предусловия перед операцией сохранения
         /// </summary>
-        /// <param name="_domItem">РћР±СЉРµРєС‚ РґРѕРјРµРЅР°</param>
-        /// <param name="_errorMessage">РЎРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ</param>
-        /// <returns>true, РµСЃР»Рё СЃРѕС…СЂР°РЅРµРЅРёРµ РІРѕР·РјРѕР¶РЅРѕ; РёРЅР°С‡Рµ - false</returns>
+        /// <param name="_domItem">Объект домена</param>
+        /// <param name="_errorMessage">Сообщение об ошибке</param>
+        /// <returns>true, если сохранение возможно; иначе - false</returns>
         protected override bool CheckPreSaveConditions(DomItem _domItem, out string _errorMessage)
         {
             StringBuilder _errorMsg = new StringBuilder();
@@ -207,7 +207,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 
             if (string.IsNullOrEmpty(_domItem.Account))
             {
-                _errorMsg.AppendLine(" - РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ РЅРѕРјРµСЂР° Р»РёС†РµРІРѕРіРѕ СЃС‡РµС‚Р°");
+                _errorMsg.AppendLine(" - Не заполнено поле номера лицевого счета");
             }
             else
             {
@@ -215,57 +215,57 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                 {
                     if (_entities.Customers.Any(customer => customer.Account == _domItem.Account && customer.ID != _customerId))
                     {
-                        _errorMsg.AppendLine(" - РђР±РѕРЅРµРЅС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РЅРѕРјРµСЂРѕРј Р»РёС†РµРІРѕРіРѕ СЃС‡РµС‚Р° СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
+                        _errorMsg.AppendLine(" - Абонент с указанным номером лицевого счета уже существует");
                     }
                 }
             }
 
             if (_domItem.Building == null || _domItem.Square <= 0)
             {
-                _errorMsg.AppendLine(" - РќРµ Р·Р°РїРѕР»РЅРµРЅС‹ РїРѕР»СЏ Р°РґСЂРµСЃР°");
+                _errorMsg.AppendLine(" - Не заполнены поля адреса");
             }
 
             if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson && String.IsNullOrEmpty(_domItem.PhysicalPersonFullName))
             {
-                _errorMsg.AppendLine(" - РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ \"РџРѕР»РЅРѕРµ РёРјСЏ С„РёР·РёС‡РµСЃРєРѕРіРѕ Р»РёС†Р°\"");
+                _errorMsg.AppendLine(" - Не заполнено поле \"Полное имя физического лица\"");
             }
 
             if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson && String.IsNullOrEmpty(_domItem.PhysicalPersonShortName))
             {
-                _errorMsg.AppendLine(" - РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ \"РљСЂР°С‚РєРѕРµ РёРјСЏ С„РёР·РёС‡РµСЃРєРѕРіРѕ Р»РёС†Р°\"");
+                _errorMsg.AppendLine(" - Не заполнено поле \"Краткое имя физического лица\"");
             }
 
             if (_domItem.OwnerType == DomItem.OwnerTypes.JuridicalPerson && String.IsNullOrEmpty(_domItem.JuridicalPersonFullName))
             {
-                _errorMsg.AppendLine(" - РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ \"РџРѕР»РЅРѕРµ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ СЋСЂРёРґРёС‡РµСЃРєРѕРіРѕ Р»РёС†Р°\"");
+                _errorMsg.AppendLine(" - Не заполнено поле \"Полное наименование юридического лица\"");
             }
 
             if (string.IsNullOrEmpty(View.Email) && View.WebAccess)
             {
-                _errorMsg.AppendLine(" - РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ \"Email\"");
+                _errorMsg.AppendLine(" - Не заполнено поле \"Email\"");
             }
 
             _errorMessage = _errorMsg.Length > 0
-                                ? string.Format("РћС€РёР±РєРё Р·Р°РїРѕР»РЅРµРЅРёСЏ С„РѕСЂРјС‹:\n{0}", _errorMsg)
+                                ? string.Format("Ошибки заполнения формы:\n{0}", _errorMsg)
                                 : string.Empty;
 
             return string.IsNullOrEmpty(_errorMessage);
         }
 
         /// <summary>
-        /// Р’С‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё РЅРµСѓСЃРїРµС€РЅРѕСЃС‚Рё СЃРѕС…СЂР°РЅРµРЅРёСЏ
+        /// Выполняет действия при неуспешности сохранения
         /// </summary>
-        /// <param name="_errorMessage">РЎРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ</param>
+        /// <param name="_errorMessage">Сообщение об ошибке</param>
         protected override void OnSaveFailed(out string errorMessage)
         {
-            errorMessage = string.Format("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё. {0}", _errorMessage);
+            errorMessage = string.Format("Произошла ошибка при сохранении. {0}", _errorMessage);
             _errorMessage = string.Empty;
         }
 
         /// <summary>
-        /// РћС‚РѕР±СЂР°Р¶Р°РµС‚ РґРѕРјРµРЅ РЅР° РІСЃРµС… РІРёРґР°С…
+        /// Отображает домен на всех видах
         /// </summary>
-        /// <param name="_domItem">РћР±СЉРµРєС‚ РґРѕРјРµРЅР°</param>
+        /// <param name="_domItem">Объект домена</param>
         protected override void ShowDomainOnAllViews(DomItem _domItem)
         {
             View.OwnerType = _domItem.OwnerType;
@@ -343,7 +343,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         }
 
         /// <summary>
-        /// Р’РєР»СЋС‡РёС‚СЊ РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РёР·РјРµРЅРµРЅРёР№ СЌР»РµРјРµРЅС‚РѕРІ СѓРїСЂР°РІР»РµРЅРёСЏ РЅР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РІСЊСЋ
+        /// Включить отслеживание изменений элементов управления на дополнительных вью
         /// </summary>
         protected override void BindAdditionalViewsControls()
         {
@@ -355,7 +355,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         }
 
         /// <summary>
-        /// Р’С‹РєР»СЋС‡РёС‚СЊ РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РёР·РјРµРЅРµРЅРёР№ СЌР»РµРјРµРЅС‚РѕРІ СѓРїСЂР°РІР»РµРЅРёСЏ РЅР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РІСЊСЋ
+        /// Выключить отслеживание изменений элементов управления на дополнительных вью
         /// </summary>
         protected override void UnbindAdditionalViewsControls()
         {
@@ -438,9 +438,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 
             DataSet _ds = new DataSet();
             _ds.Customer.Rows.Add(
-                string.Format("{0}, РїСЂРѕР¶РёРІР°СЋС‰РёР№(Р°СЏ) РїРѕ Р°РґСЂРµСЃСѓ:", _customer.PhysicalPersonFullName),
+                string.Format("{0}, проживающий(ая) по адресу:", _customer.PhysicalPersonFullName),
                 string.Format(
-                    "Рі. Р’Р»Р°РґРёРІРѕСЃС‚РѕРє, СѓР». {0}, {1}, РєРІ. {2}",
+                    "г. Владивосток, ул. {0}, {1}, кв. {2}",
                     _customer.Building.Street.Name,
                     _customer.Building.Number,
                     _customer.Apartment),

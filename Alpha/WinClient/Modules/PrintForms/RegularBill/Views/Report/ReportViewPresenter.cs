@@ -33,6 +33,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             public DateTime Period { get; set; }
         }
 
+        private const string BARCODE_SERVICE_CODE = "23";
+
         /// <summary>
         /// Данные
         /// </summary>
@@ -117,7 +119,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                         var _bills =
                             _entities.RegularBillDocs
-                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue > 0))
+                                .Where(
+                                    b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue > 0))
                                 .Select(b =>
                                     new
                                     {
@@ -134,13 +137,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                         b.ContractorContactInfo,
                                         CustomerID = b.Customers.ID,
                                         Street = b.Customers.Buildings.Streets.Name,
+                                        BuildingID = b.Customers.Buildings.ID,
                                         Building = b.Customers.Buildings.Number,
                                         b.Customers.Apartment,
                                         b.Customers.BillSendingSubscription,
                                         Email = b.Customers.User.Login,
                                         b.Customers.Buildings.BankDetails,
                                         FullName =
-                                            b.Customers.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson
+                                            b.Customers.OwnerType == (int) Customer.OwnerTypes.PhysicalPerson
                                                 ? b.Customers.PhysicalPersonFullName
                                                 : b.Customers.JuridicalPersonFullName,
                                         b.RegularBillDocSeviceTypePoses,
@@ -187,13 +191,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _chargeDataTable.Rows.Add(_row);
                             }
 
-                            string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                            string _barcode = GenerateBarCodeString(_bill.Account, _bill.BuildingID, _bill.Period);
 
                             _customersTable.Rows.Add(
                                 _bill.CustomerID,
                                 _now.ToString("dd.MM.yyyy"),
-                                _bill.Period.ToString("MMMM yyyy (MM.yy)"),
-                                new DateTime(_bill.Period.Year, _bill.Period.Month, 10).AddMonths(1).ToString("dd.MM.yyyy"),
+                                _bill.Period.ToString("MMMM yyyy\n(MM.yy)"),
+                                new DateTime(_bill.Period.Year, _bill.Period.Month, 20).AddMonths(1).ToString("dd.MM.yyyy"),
                                 _bill.Account,
                                 _bill.Owner,
                                 _bill.Address,
@@ -229,7 +233,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
             return null;
         }
-        
+
+        /// <summary>
+        /// Генерирует строку для штрих кода
+        /// </summary>
+        /// <param name="account">Лицевой счет абонента</param>
+        /// <param name="period">Дата квитанции</param>
+        /// <returns>Строка для штрих кода</returns>
+        private string GenerateBarCodeString(string account, int buildingID, DateTime period)
+        {
+            string _accountNum = $"{account.Substring(3, 4)}{account.Substring(8, 3)}{account.Substring(12, 1)}";
+            string _providerCode = $"K061{buildingID:000000000}";
+
+            string _barcode =
+                $"{_providerCode}0{_accountNum}{period:yyyyMM}{BARCODE_SERVICE_CODE}";
+
+            return _barcode;
+        }
+
         public void SendBills()
         {
             if (_subscriptedCustomers.Count > 0)
@@ -350,6 +371,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             return _dataSet;
         }
 
+        
         /// <summary>
         /// Открывает вкладку "Начисление" после запуска модуля "Начисления" из другого модуля
         /// </summary>

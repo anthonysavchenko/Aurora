@@ -94,10 +94,10 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BenefitOperPoses_Contractors", "Contractors", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Contractors), "BenefitOperPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BenefitOperPoses))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RebenefitOperPoses_Contractors", "Contractors", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Contractors), "RebenefitOperPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RebenefitOperPoses))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Customers_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Users), "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Customers), true)]
-[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "PublicPlaces", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaces), true)]
-[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Services), "PublicPlaces", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaces), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_BankDetails", "BankDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.BankDetails), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "PublicPlaces", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaces), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DebtBillDocs_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "DebtBillDocs", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DebtBillDocs), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Services), "PublicPlaces", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaces), true)]
 
 #endregion
 
@@ -917,22 +917,6 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PublicPlaces> PublicPlaces
-        {
-            get
-            {
-                if ((_PublicPlaces == null))
-                {
-                    _PublicPlaces = base.CreateObjectSet<PublicPlaces>("PublicPlaces");
-                }
-                return _PublicPlaces;
-            }
-        }
-        private ObjectSet<PublicPlaces> _PublicPlaces;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<BankDetails> BankDetails
         {
             get
@@ -945,6 +929,22 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<BankDetails> _BankDetails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PublicPlaces> PublicPlaces
+        {
+            get
+            {
+                if ((_PublicPlaces == null))
+                {
+                    _PublicPlaces = base.CreateObjectSet<PublicPlaces>("PublicPlaces");
+                }
+                return _PublicPlaces;
+            }
+        }
+        private ObjectSet<PublicPlaces> _PublicPlaces;
 
         #endregion
 
@@ -1335,19 +1335,19 @@ namespace Taumis.Alpha.DataBase
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PublicPlaces EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPublicPlaces(PublicPlaces publicPlaces)
-        {
-            base.AddObject("PublicPlaces", publicPlaces);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the BankDetails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToBankDetails(BankDetails bankDetails)
         {
             base.AddObject("BankDetails", bankDetails);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PublicPlaces EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPublicPlaces(PublicPlaces publicPlaces)
+        {
+            base.AddObject("PublicPlaces", publicPlaces);
         }
 
         #endregion
@@ -3249,28 +3249,6 @@ namespace Taumis.Alpha.DataBase
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Buildings", "PublicPlaces")]
-        public EntityCollection<PublicPlaces> PublicPlaces
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PublicPlaces>("AlphaDataBaseModel.FK_PublicPlaces_Buildings", "PublicPlaces");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaces>("AlphaDataBaseModel.FK_PublicPlaces_Buildings", "PublicPlaces", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Buildings_BankDetails", "BankDetails")]
         public BankDetails BankDetails
         {
@@ -3299,6 +3277,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BankDetails>("AlphaDataBaseModel.FK_Buildings_BankDetails", "BankDetails", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Buildings", "PublicPlaces")]
+        public EntityCollection<PublicPlaces> PublicPlaces
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PublicPlaces>("AlphaDataBaseModel.FK_PublicPlaces_Buildings", "PublicPlaces");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaces>("AlphaDataBaseModel.FK_PublicPlaces_Buildings", "PublicPlaces", value);
                 }
             }
         }

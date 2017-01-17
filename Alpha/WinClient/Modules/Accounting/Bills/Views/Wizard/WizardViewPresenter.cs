@@ -1,4 +1,4 @@
-п»їusing System.Data.Entity.Core;
+using System.Data.Entity.Core;
 using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI;
 using System;
@@ -17,17 +17,17 @@ using OperationTypes = Taumis.Alpha.Infrastructure.Interface.Enums.OperationType
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
 {
     /// <summary>
-    /// РџСЂРµР·РµРЅС‚РµСЂ
+    /// Презентер
     /// </summary>
     public class WizardViewPresenter : BasePresenter<IWizardView>
     {
         /// <summary>
-        /// РђР±РѕРЅРµРЅС‚ Рё СЃСѓРјРјР° РґРѕР»РіР°
+        /// Абонент и сумма долга
         /// </summary>
         private class CustomerValue
         {
             /// <summary>
-            /// РЎСѓРјРјР°
+            /// Сумма
             /// </summary>
             public decimal Value
             {
@@ -36,7 +36,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
             }
 
             /// <summary>
-            /// РђР±РѕРЅРµРЅС‚
+            /// Абонент
             /// </summary>
             public int CustomerID
             {
@@ -119,7 +119,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
         }
 
         /// <summary>
-        /// РЎРµСЂРІРёСЃ СЂР°Р±РѕС‚С‹ СЃ РґРѕРјРµРЅР°РјРё, СѓРјРµСЋС‰РёРјРё СЂР°Р±РѕС‚Р°С‚СЊ СЃ РґР°С‚Р°РјР°РїРїРµСЂРѕРј
+        /// Сервис работы с доменами, умеющими работать с датамаппером
         /// </summary>
         [ServiceDependency]
         public IDomainWithDataMapperHelperService DomainWithDataMapperHelperServ
@@ -129,7 +129,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
         }
 
         /// <summary>
-        /// Р—Р°РІРµСЂС€Р°РµС‚ СЂР°Р±РѕС‚Сѓ РјР°СЃС‚РµСЂР°
+        /// Завершает работу мастера
         /// </summary>
         internal void FinishWizard()
         {
@@ -141,7 +141,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
         }
 
         /// <summary>
-        /// РќР°С‡РёРЅР°РµС‚ СЂР°Р±РѕС‚Сѓ РјР°СЃС‚РµСЂР°
+        /// Начинает работу мастера
         /// </summary>
         internal void StartWizard()
         {
@@ -159,12 +159,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РёР·РјРµРЅРµРЅРёРµ С€Р°РіР° РјР°СЃС‚РµСЂР°
+        /// Обрабатывает изменение шага мастера
         /// </summary>
-        /// <param name="prevPage">РџСЂРµРґС‹РґСѓС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°</param>
-        /// <param name="page">РћС‚РєСЂС‹РІР°РµРјР°СЏ СЃС‚СЂР°РЅРёС†Р°</param>
-        /// <param name="direction">РќР°Р·Р°Рґ / Р”Р°Р»РµРµ</param>
-        /// <returns>РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р° РјР°СЃС‚РµСЂР°</returns>
+        /// <param name="prevPage">Предыдущая страница</param>
+        /// <param name="page">Открываемая страница</param>
+        /// <param name="direction">Назад / Далее</param>
+        /// <returns>Следующая страница мастера</returns>
         internal WizardSteps OnSelectedPageChanging(BaseWizardPage prevPage, BaseWizardPage page, Direction direction)
         {
             WizardSteps _next = WizardSteps.Unknown;
@@ -186,7 +186,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
 
                                 if (!_isCustomerExists)
                                 {
-                                    View.ShowMessage("РџРѕ РІРІРµРґРµРЅРЅРѕРјСѓ Р»РёС†РµРІРѕРјСѓ СЃС‡РµС‚Сѓ Р°Р±РѕРЅРµРЅС‚ РЅРµ РЅР°Р№РґРµРЅ", "РћС€РёР±РєР° РІРІРѕРґР° Р»РёС†РµРІРѕРіРѕ СЃС‡РµС‚Р°");
+                                    View.ShowMessage("По введенному лицевому счету абонент не найден", "Ошибка ввода лицевого счета");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else
@@ -228,11 +228,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ СЃРѕР±С‹С‚РёРµ РїРµСЂРµС…РѕРґР° РЅР° РЅРѕРІСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
+        /// Обрабатывает событие перехода на новую страницу
         /// </summary>
-        /// <param name="page">РЎС‚СЂР°РЅРёС†Р°, РЅР° РєРѕС‚РѕСЂСѓСЋ Р±С‹Р» РѕСЃСѓС‰РµСЃС‚РІР»РµРЅ РїРµСЂРµС…РѕРґ</param>
-        /// <param name="prevPage">РЎС‚СЂР°РЅРёС†Р° РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ</param>
-        /// <param name="direction">РќР°Р·Р°Рґ / Р”Р°Р»РµРµ</param>
+        /// <param name="page">Страница, на которую был осуществлен переход</param>
+        /// <param name="prevPage">Страница предыдущего состояния</param>
+        /// <param name="direction">Назад / Далее</param>
         internal void OnSelectedPageChanged(BaseWizardPage page, BaseWizardPage prevPage, Direction direction)
         {
             if (direction == Direction.Forward)
@@ -260,7 +260,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
         }
 
         /// <summary>
-        /// Р¤РѕСЂРјРёСЂСѓРµС‚ РґРѕР»РіРѕРІС‹Рµ РєРІРёС‚Р°РЅС†РёРё
+        /// Формирует долговые квитанции
         /// </summary>
         private void GenerateDebtBills()
         {
@@ -292,7 +292,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
 
                 DateTime _filterPeriod = new DateTime(View.TillDate.Year, View.TillDate.Month, 1);
 
-                #region Р—Р°РїСЂРѕСЃ
+                #region Запрос
 
                 _customerValues =
                     _entities.ChargeOpers
@@ -459,7 +459,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                                 CreationDateTime = _now,
                                 Account = _customer.Account,
                                 Address = _customer.Buildings != null 
-                                    ? ($"СѓР». {_customer.Buildings.Streets.Name}, {_customer.Buildings.Number}, РєРІ. {_customer.Apartment}")
+                                    ? ($"ул. {_customer.Buildings.Streets.Name}, {_customer.Buildings.Number}, кв. {_customer.Apartment}")
                                     : string.Empty,
                                 Owner = _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson ?
                                         _customer.JuridicalPersonFullName :
@@ -480,7 +480,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                     catch (Exception _ex)
                     {
                         _errorsCount++;
-                        Logger.SimpleWrite($"РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РґРѕР»РіРѕРІРѕР№ РєРІРёС‚Р°РЅС†РёРё.\r\n{_ex}");
+                        Logger.SimpleWrite($"Ошибка при сохранении долговой квитанции.\r\n{_ex}");
                     }
                     finally
                     {
@@ -499,7 +499,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
         }
 
         /// <summary>
-        /// Р¤РѕСЂРјРёСЂСѓРµС‚ РєРІРёС‚Р°РЅС†РёРё Рѕ РґРѕРїР»Р°С‚Рµ Р·Р° РїРµСЂРёРѕРґ
+        /// Формирует квитанции о доплате за период
         /// </summary>
         private void GenerateTotalBills()
         {
@@ -529,7 +529,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                     View.ResetProgressBar(1);
                     Application.DoEvents();
 
-                    #region Р—Р°РїСЂРѕСЃС‹
+                    #region Запросы
 
                     var _customer =
                         _entities.Customers
@@ -773,7 +773,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                     {
                         KeyValuePair<DateTime, ServiceBalances> _periodBalance = _customerPeriodBalances.ElementAt(i);
 
-                        // Р—Р°РїРѕР»РµРЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹ РѕС‚С‡РµС‚РѕРІ
+                        // Заполенение таблицы отчетов
                         if (_previousPeriod == DateTime.MinValue || _periodBalance.Key != _previousPeriod.AddMonths(1))
                         {
                             _currentBill = 
@@ -785,13 +785,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                                         : (DateTime?)null,
                                     CreationDateTime = _now,
                                     Account = _customer.Account,
-                                    Address = $"СѓР». {_customer.Buildings.Streets.Name}, {_customer.Buildings.Number}, РєРІ. {_customer.Apartment}",
+                                    Address = $"ул. {_customer.Buildings.Streets.Name}, {_customer.Buildings.Number}, кв. {_customer.Apartment}",
                                     Owner = _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson 
                                         ? _customer.JuridicalPersonFullName 
                                         : _customer.PhysicalPersonShortName,
                                     Customers = _customer,
                                     ResidentsCount = _customer.Residents.Count(),
-                                    Square = $"{_customer.Square} РєРІ.Рј.",
+                                    Square = $"{_customer.Square} кв.м.",
                                 };
 
                             _entities.AddToTotalBillDocs(_currentBill);
@@ -837,7 +837,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
             catch (Exception _ex)
             {
                 _errorsCount++;
-                Logger.SimpleWrite(string.Format("РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё РєРІРёС‚Р°РЅС†РёРё РїРѕ РґРѕРїР»Р°С‚Рµ.\r\n{0}", _ex));
+                Logger.SimpleWrite(string.Format("Ошибка при создании квитанции по доплате.\r\n{0}", _ex));
             }
             finally
             {
