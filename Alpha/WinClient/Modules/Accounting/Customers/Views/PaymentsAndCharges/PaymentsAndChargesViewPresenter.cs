@@ -237,7 +237,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         o =>
                                         o.OperationType == (int)OperTypes.Benefit ||
                                         o.OperationType == (int)OperTypes.BenefitCorrection ||
-                                        o.OperationType == (int)OperTypes.Rebenefit
+                                        o.OperationType == (int)OperTypes.Rebenefit ||
+                                        o.OperationType == (int)OperTypes.RebenefitCorrection
                                             ? o.Value : 0),
                                 Recharged =
                                     g.Sum(
