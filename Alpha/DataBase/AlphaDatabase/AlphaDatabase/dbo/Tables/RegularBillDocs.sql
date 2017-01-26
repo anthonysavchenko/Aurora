@@ -15,7 +15,6 @@
     [Period]                DATE           NOT NULL,
     [EmergencyPhoneNumber]  NCHAR (10)     NULL,
     [ContractorContactInfo] NVARCHAR (100) NULL,
-    [BuildingArea]          DECIMAL (9, 2) CONSTRAINT [DF_RegularBillDocs_BuildingArea] DEFAULT ((0)) NOT NULL,
     PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [RegularBillDocs_fk] FOREIGN KEY ([BillSet]) REFERENCES [dbo].[BillSets] ([ID]),
     CONSTRAINT [RegularBillDocs_fk2] FOREIGN KEY ([Customer]) REFERENCES [dbo].[Customers] ([ID])

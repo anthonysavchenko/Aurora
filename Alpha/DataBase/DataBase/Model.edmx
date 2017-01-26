@@ -451,7 +451,6 @@
           <Property Name="Period" Type="date" Nullable="false" />
           <Property Name="EmergencyPhoneNumber" Type="nchar" MaxLength="10" />
           <Property Name="ContractorContactInfo" Type="nvarchar" MaxLength="100" />
-          <Property Name="BuildingArea" Type="decimal" Precision="9" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="RegularBillDocSeviceTypePoses">
           <Key>
@@ -2731,7 +2730,6 @@
           <NavigationProperty Name="RegularBillDocSharedCounterPoses" Relationship="AlphaDataBaseModel.RegularBillDocSharedCounterPoses_fk" FromRole="RegularBillDocs" ToRole="RegularBillDocSharedCounterPoses" />
           <Property Name="EmergencyPhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ContractorContactInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BuildingArea" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
         </EntityType>
         <EntityType Name="RegularBillDocSeviceTypePoses">
           <Key>
@@ -3625,7 +3623,6 @@
           <EntitySetMapping Name="RegularBillDocs">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.RegularBillDocs)">
               <MappingFragment StoreEntitySet="RegularBillDocs">
-                <ScalarProperty Name="BuildingArea" ColumnName="BuildingArea" />
                 <ScalarProperty Name="ContractorContactInfo" ColumnName="ContractorContactInfo" />
                 <ScalarProperty Name="EmergencyPhoneNumber" ColumnName="EmergencyPhoneNumber" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

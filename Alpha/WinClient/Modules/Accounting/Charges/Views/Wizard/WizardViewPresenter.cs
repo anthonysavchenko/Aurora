@@ -1313,7 +1313,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             _customerPoses.Any(pos => pos.ContractorID == MADIX_CONTRACTOR_ID)
                                                 ? "261-47-14"
                                                 : "298-09-81",
-                                        BuildingArea = _building.Area,
                                         PayBeforeDateTime = _payBefore,
                                         MonthChargeValue = _currentPeriodTotal,
                                         OverpaymentValue = _rest,

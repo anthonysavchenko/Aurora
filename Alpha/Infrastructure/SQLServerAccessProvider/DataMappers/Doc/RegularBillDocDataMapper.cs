@@ -55,7 +55,6 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _dbItem.MonthChargeValue = domObj.MonthChargeValue;
                 _dbItem.Value = domObj.Value;
                 _dbItem.ContractorContactInfo = domObj.ContractorContactInfo;
-                _dbItem.BuildingArea = domObj.BuildingArea;
 
                 int _propId = Int32.Parse(domObj.BillSet.ID);
                 _dbItem.BillSets = _entities.BillSets.First(p => p.ID == _propId);
@@ -102,7 +101,6 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.MonthChargeValue = _dbItem.MonthChargeValue;
                 _domItem.Value = _dbItem.Value;
                 _domItem.ContractorContactInfo = _dbItem.ContractorContactInfo;
-                _domItem.BuildingArea = _dbItem.BuildingArea;
                 _domItem.BillSet = (DomBillSet)DataMapperService.get(typeof(DomBillSet)).find(_dbItem.BillSets.ID.ToString());
                 _domItem.Customer = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(_dbItem.Customers.ID.ToString());
 
