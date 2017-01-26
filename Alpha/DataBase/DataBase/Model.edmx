@@ -431,20 +431,6 @@
           <Property Name="Rate" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="RegularBillDoc" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="RegularBillDocPublicPlacePoses">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Service" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Norm" Type="decimal" Precision="9" Scale="3" Nullable="false" />
-          <Property Name="NormMeasure" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Rate" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="Area" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="ServiceVolume" Type="decimal" Precision="9" Scale="3" Nullable="false" />
-          <Property Name="Total" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="RegularBillDocID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="RegularBillDocs">
           <Key>
             <PropertyRef Name="ID" />
@@ -512,7 +498,7 @@
           <Property Name="ServiceType" Type="int" Nullable="false" />
           <Property Name="ChargeRule" Type="tinyint" Nullable="false" />
           <Property Name="Norm" Type="decimal" Precision="9" Scale="3" />
-          <Property Name="NormMeasure" Type="nvarchar" MaxLength="10" />
+          <Property Name="Measure" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -1398,18 +1384,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RegularBillDocPublicPlacePoses_RegularBillDocs">
-          <End Role="RegularBillDocs" Type="Self.RegularBillDocs" Multiplicity="1" />
-          <End Role="RegularBillDocPublicPlacePoses" Type="Self.RegularBillDocPublicPlacePoses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RegularBillDocs">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RegularBillDocPublicPlacePoses">
-              <PropertyRef Name="RegularBillDocID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Residents_BenefitTypes">
           <End Role="BenefitTypes" Type="Self.BenefitTypes" Multiplicity="0..1" />
           <End Role="Residents" Type="Self.Residents" Multiplicity="*" />
@@ -1587,7 +1561,6 @@
           <EntitySet Name="RechargeOpers" EntityType="Self.RechargeOpers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RechargeSets" EntityType="Self.RechargeSets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegularBillDocCounterPoses" EntityType="Self.RegularBillDocCounterPoses" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RegularBillDocPublicPlacePoses" EntityType="Self.RegularBillDocPublicPlacePoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegularBillDocs" EntityType="Self.RegularBillDocs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegularBillDocSeviceTypePoses" EntityType="Self.RegularBillDocSeviceTypePoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegularBillDocSharedCounterPoses" EntityType="Self.RegularBillDocSharedCounterPoses" Schema="dbo" store:Type="Tables" />
@@ -1870,10 +1843,6 @@
           <AssociationSet Name="FK_RechargeSets_Users" Association="Self.FK_RechargeSets_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="RechargeSets" EntitySet="RechargeSets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegularBillDocPublicPlacePoses_RegularBillDocs" Association="Self.FK_RegularBillDocPublicPlacePoses_RegularBillDocs">
-            <End Role="RegularBillDocs" EntitySet="RegularBillDocs" />
-            <End Role="RegularBillDocPublicPlacePoses" EntitySet="RegularBillDocPublicPlacePoses" />
           </AssociationSet>
           <AssociationSet Name="FK_Residents_BenefitTypes" Association="Self.FK_Residents_BenefitTypes">
             <End Role="BenefitTypes" EntitySet="BenefitTypes" />
@@ -2281,11 +2250,6 @@
           <AssociationSet Name="FK_PublicPlaces_Services" Association="AlphaDataBaseModel.FK_PublicPlaces_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="PublicPlaces" EntitySet="PublicPlaces" />
-          </AssociationSet>
-          <EntitySet Name="RegularBillDocPublicPlacePoses" EntityType="AlphaDataBaseModel.RegularBillDocPublicPlacePoses" />
-          <AssociationSet Name="FK_RegularBillDocPublicPlacePoses_RegularBillDocs" Association="AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs">
-            <End Role="RegularBillDocs" EntitySet="RegularBillDocs" />
-            <End Role="RegularBillDocPublicPlacePoses" EntitySet="RegularBillDocPublicPlacePoses" />
           </AssociationSet>
           <EntitySet Name="BankDetails" EntityType="AlphaDataBaseModel.BankDetails" />
           <AssociationSet Name="FK_Buildings_BankDetails" Association="AlphaDataBaseModel.FK_Buildings_BankDetails">
@@ -2767,7 +2731,6 @@
           <NavigationProperty Name="RegularBillDocSharedCounterPoses" Relationship="AlphaDataBaseModel.RegularBillDocSharedCounterPoses_fk" FromRole="RegularBillDocs" ToRole="RegularBillDocSharedCounterPoses" />
           <Property Name="EmergencyPhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ContractorContactInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RegularBillDocPublicPlacePoses" Relationship="AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs" FromRole="RegularBillDocs" ToRole="RegularBillDocPublicPlacePoses" />
           <Property Name="BuildingArea" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
         </EntityType>
         <EntityType Name="RegularBillDocSeviceTypePoses">
@@ -2814,8 +2777,8 @@
           <NavigationProperty Name="RechargeOperPoses" Relationship="AlphaDataBaseModel.FK_RechargeOperPoses_Services" FromRole="Services" ToRole="RechargeOperPoses" />
           <NavigationProperty Name="ServiceTypes" Relationship="AlphaDataBaseModel.FK_Services_ServiceTypes" FromRole="Services" ToRole="ServiceTypes" />
           <Property Name="Norm" Type="Decimal" Precision="9" Scale="3" />
-          <Property Name="NormMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Services" FromRole="Services" ToRole="PublicPlaces" />
+          <Property Name="Measure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -3245,33 +3208,6 @@
             </Principal>
             <Dependent Role="PublicPlaces">
               <PropertyRef Name="ServiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="RegularBillDocPublicPlacePoses">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Service" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Norm" Type="Decimal" Nullable="false" Precision="9" Scale="3" />
-          <Property Name="NormMeasure" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="Area" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="ServiceVolume" Type="Decimal" Nullable="false" Precision="9" Scale="3" />
-          <Property Name="Total" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="RegularBillDocID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="RegularBillDocs" Relationship="AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs" FromRole="RegularBillDocPublicPlacePoses" ToRole="RegularBillDocs" />
-        </EntityType>
-        <Association Name="FK_RegularBillDocPublicPlacePoses_RegularBillDocs">
-          <End Type="AlphaDataBaseModel.RegularBillDocs" Role="RegularBillDocs" Multiplicity="1" />
-          <End Type="AlphaDataBaseModel.RegularBillDocPublicPlacePoses" Role="RegularBillDocPublicPlacePoses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RegularBillDocs">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RegularBillDocPublicPlacePoses">
-              <PropertyRef Name="RegularBillDocID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3732,7 +3668,7 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Services)">
               <MappingFragment StoreEntitySet="Services">
-                <ScalarProperty Name="NormMeasure" ColumnName="NormMeasure" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
                 <ScalarProperty Name="Norm" ColumnName="Norm" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -4425,21 +4361,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RegularBillDocPublicPlacePoses">
-            <EntityTypeMapping TypeName="AlphaDataBaseModel.RegularBillDocPublicPlacePoses">
-              <MappingFragment StoreEntitySet="RegularBillDocPublicPlacePoses">
-                <ScalarProperty Name="RegularBillDocID" ColumnName="RegularBillDocID" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="ServiceVolume" ColumnName="ServiceVolume" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="NormMeasure" ColumnName="NormMeasure" />
-                <ScalarProperty Name="Norm" ColumnName="Norm" />
-                <ScalarProperty Name="Service" ColumnName="Service" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BankDetails">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.BankDetails">
               <MappingFragment StoreEntitySet="BankDetails">
@@ -5076,8 +4997,6 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PublicPlaces" Width="1.5" PointX="11.75" PointY="25" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaces_Buildings" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaces_Services" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RegularBillDocPublicPlacePoses" Width="1.5" PointX="3.75" PointY="53.125" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RegularBillDocPublicPlacePoses_RegularBillDocs" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BankDetails" Width="1.5" PointX="4.375" PointY="1" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_BankDetails" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers" /></edmx:Diagram></edmx:Diagrams>

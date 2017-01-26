@@ -32,15 +32,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
         
         private SharedCounterDataDataTable tableSharedCounterData;
         
-        private PublicPlaceDataDataTable tablePublicPlaceData;
-        
         private global::System.Data.DataRelation relationFK_Customers_ChargeData;
         
         private global::System.Data.DataRelation relationCustomers_CounterData;
         
         private global::System.Data.DataRelation relationCustomers_SharedCounterData;
-        
-        private global::System.Data.DataRelation relationCustomers_PublicPlaceData;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -81,9 +77,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                 }
                 if ((ds.Tables["SharedCounterData"] != null)) {
                     base.Tables.Add(new SharedCounterDataDataTable(ds.Tables["SharedCounterData"]));
-                }
-                if ((ds.Tables["PublicPlaceData"] != null)) {
-                    base.Tables.Add(new PublicPlaceDataDataTable(ds.Tables["PublicPlaceData"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -140,16 +133,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
         public SharedCounterDataDataTable SharedCounterData {
             get {
                 return this.tableSharedCounterData;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public PublicPlaceDataDataTable PublicPlaceData {
-            get {
-                return this.tablePublicPlaceData;
             }
         }
         
@@ -232,9 +215,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                 if ((ds.Tables["SharedCounterData"] != null)) {
                     base.Tables.Add(new SharedCounterDataDataTable(ds.Tables["SharedCounterData"]));
                 }
-                if ((ds.Tables["PublicPlaceData"] != null)) {
-                    base.Tables.Add(new PublicPlaceDataDataTable(ds.Tables["PublicPlaceData"]));
-                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -292,16 +272,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                     this.tableSharedCounterData.InitVars();
                 }
             }
-            this.tablePublicPlaceData = ((PublicPlaceDataDataTable)(base.Tables["PublicPlaceData"]));
-            if ((initTable == true)) {
-                if ((this.tablePublicPlaceData != null)) {
-                    this.tablePublicPlaceData.InitVars();
-                }
-            }
             this.relationFK_Customers_ChargeData = this.Relations["FK_Customers_ChargeData"];
             this.relationCustomers_CounterData = this.Relations["Customers_CounterData"];
             this.relationCustomers_SharedCounterData = this.Relations["Customers_SharedCounterData"];
-            this.relationCustomers_PublicPlaceData = this.Relations["Customers_PublicPlaceData"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -320,8 +293,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             base.Tables.Add(this.tableCounterData);
             this.tableSharedCounterData = new SharedCounterDataDataTable();
             base.Tables.Add(this.tableSharedCounterData);
-            this.tablePublicPlaceData = new PublicPlaceDataDataTable();
-            base.Tables.Add(this.tablePublicPlaceData);
             this.relationFK_Customers_ChargeData = new global::System.Data.DataRelation("FK_Customers_ChargeData", new global::System.Data.DataColumn[] {
                         this.tableCustomers.CustomerIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableChargeData.CustomerIdColumn}, false);
@@ -334,10 +305,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                         this.tableCustomers.CustomerIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableSharedCounterData.CustomerIdColumn}, false);
             this.Relations.Add(this.relationCustomers_SharedCounterData);
-            this.relationCustomers_PublicPlaceData = new global::System.Data.DataRelation("Customers_PublicPlaceData", new global::System.Data.DataColumn[] {
-                        this.tableCustomers.CustomerIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tablePublicPlaceData.CustomerIdColumn}, false);
-            this.Relations.Add(this.relationCustomers_PublicPlaceData);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -361,12 +328,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeSharedCounterData() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializePublicPlaceData() {
             return false;
         }
         
@@ -436,9 +397,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void SharedCounterDataRowChangeEventHandler(object sender, SharedCounterDataRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void PublicPlaceDataRowChangeEventHandler(object sender, PublicPlaceDataRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -814,8 +772,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             
             private global::System.Data.DataColumn columnRightHeaderString;
             
-            private global::System.Data.DataColumn columnBuildingArea;
-            
             private global::System.Data.DataColumn columnBankQrCodeString;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -981,14 +937,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn BuildingAreaColumn {
-                get {
-                    return this.columnBuildingArea;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn BankQrCodeStringColumn {
                 get {
                     return this.columnBankQrCodeString;
@@ -1049,7 +997,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                         string BankBarCodeLabel, 
                         string OverpaymentLabel, 
                         string RightHeaderString, 
-                        string BuildingArea, 
                         string BankQrCodeString) {
                 CustomersRow rowCustomersRow = ((CustomersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
@@ -1069,7 +1016,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                         BankBarCodeLabel,
                         OverpaymentLabel,
                         RightHeaderString,
-                        BuildingArea,
                         BankQrCodeString};
                 rowCustomersRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCustomersRow);
@@ -1116,7 +1062,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                 this.columnBankBarCodeLabel = base.Columns["BankBarCodeLabel"];
                 this.columnOverpaymentLabel = base.Columns["OverpaymentLabel"];
                 this.columnRightHeaderString = base.Columns["RightHeaderString"];
-                this.columnBuildingArea = base.Columns["BuildingArea"];
                 this.columnBankQrCodeString = base.Columns["BankQrCodeString"];
             }
             
@@ -1155,8 +1100,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                 base.Columns.Add(this.columnOverpaymentLabel);
                 this.columnRightHeaderString = new global::System.Data.DataColumn("RightHeaderString", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRightHeaderString);
-                this.columnBuildingArea = new global::System.Data.DataColumn("BuildingArea", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildingArea);
                 this.columnBankQrCodeString = new global::System.Data.DataColumn("BankQrCodeString", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBankQrCodeString);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -1888,345 +1831,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
         }
         
         /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PublicPlaceDataDataTable : global::System.Data.TypedTableBase<PublicPlaceDataRow> {
-            
-            private global::System.Data.DataColumn columnService;
-            
-            private global::System.Data.DataColumn columnPublicPlaceSquare;
-            
-            private global::System.Data.DataColumn columnNorm;
-            
-            private global::System.Data.DataColumn columnRate;
-            
-            private global::System.Data.DataColumn columnVolume;
-            
-            private global::System.Data.DataColumn columnTotal;
-            
-            private global::System.Data.DataColumn columnCustomerId;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PublicPlaceDataDataTable() {
-                this.TableName = "PublicPlaceData";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal PublicPlaceDataDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected PublicPlaceDataDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ServiceColumn {
-                get {
-                    return this.columnService;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PublicPlaceSquareColumn {
-                get {
-                    return this.columnPublicPlaceSquare;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NormColumn {
-                get {
-                    return this.columnNorm;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn RateColumn {
-                get {
-                    return this.columnRate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn VolumeColumn {
-                get {
-                    return this.columnVolume;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TotalColumn {
-                get {
-                    return this.columnTotal;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CustomerIdColumn {
-                get {
-                    return this.columnCustomerId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PublicPlaceDataRow this[int index] {
-                get {
-                    return ((PublicPlaceDataRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event PublicPlaceDataRowChangeEventHandler PublicPlaceDataRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event PublicPlaceDataRowChangeEventHandler PublicPlaceDataRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event PublicPlaceDataRowChangeEventHandler PublicPlaceDataRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event PublicPlaceDataRowChangeEventHandler PublicPlaceDataRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddPublicPlaceDataRow(PublicPlaceDataRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PublicPlaceDataRow AddPublicPlaceDataRow(string Service, decimal PublicPlaceSquare, string Norm, decimal Rate, string Volume, decimal Total, CustomersRow parentCustomersRowByCustomers_PublicPlaceData) {
-                PublicPlaceDataRow rowPublicPlaceDataRow = ((PublicPlaceDataRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        Service,
-                        PublicPlaceSquare,
-                        Norm,
-                        Rate,
-                        Volume,
-                        Total,
-                        null};
-                if ((parentCustomersRowByCustomers_PublicPlaceData != null)) {
-                    columnValuesArray[6] = parentCustomersRowByCustomers_PublicPlaceData[0];
-                }
-                rowPublicPlaceDataRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowPublicPlaceDataRow);
-                return rowPublicPlaceDataRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                PublicPlaceDataDataTable cln = ((PublicPlaceDataDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new PublicPlaceDataDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columnService = base.Columns["Service"];
-                this.columnPublicPlaceSquare = base.Columns["PublicPlaceSquare"];
-                this.columnNorm = base.Columns["Norm"];
-                this.columnRate = base.Columns["Rate"];
-                this.columnVolume = base.Columns["Volume"];
-                this.columnTotal = base.Columns["Total"];
-                this.columnCustomerId = base.Columns["CustomerId"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columnService = new global::System.Data.DataColumn("Service", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnService);
-                this.columnPublicPlaceSquare = new global::System.Data.DataColumn("PublicPlaceSquare", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPublicPlaceSquare);
-                this.columnNorm = new global::System.Data.DataColumn("Norm", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNorm);
-                this.columnRate = new global::System.Data.DataColumn("Rate", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRate);
-                this.columnVolume = new global::System.Data.DataColumn("Volume", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnVolume);
-                this.columnTotal = new global::System.Data.DataColumn("Total", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotal);
-                this.columnCustomerId = new global::System.Data.DataColumn("CustomerId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCustomerId);
-                this.columnPublicPlaceSquare.Caption = "PayRate";
-                this.columnNorm.Caption = "Charge";
-                this.columnRate.Caption = "Benefit";
-                this.columnVolume.Caption = "Recalculation";
-                this.columnCustomerId.AllowDBNull = false;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PublicPlaceDataRow NewPublicPlaceDataRow() {
-                return ((PublicPlaceDataRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new PublicPlaceDataRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(PublicPlaceDataRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.PublicPlaceDataRowChanged != null)) {
-                    this.PublicPlaceDataRowChanged(this, new PublicPlaceDataRowChangeEvent(((PublicPlaceDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.PublicPlaceDataRowChanging != null)) {
-                    this.PublicPlaceDataRowChanging(this, new PublicPlaceDataRowChangeEvent(((PublicPlaceDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.PublicPlaceDataRowDeleted != null)) {
-                    this.PublicPlaceDataRowDeleted(this, new PublicPlaceDataRowChangeEvent(((PublicPlaceDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.PublicPlaceDataRowDeleting != null)) {
-                    this.PublicPlaceDataRowDeleting(this, new PublicPlaceDataRowChangeEvent(((PublicPlaceDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemovePublicPlaceDataRow(PublicPlaceDataRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DataSet ds = new DataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "PublicPlaceDataDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class ChargeDataRow : global::System.Data.DataRow {
@@ -2698,22 +2302,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string BuildingArea {
-                get {
-                    try {
-                        return ((string)(this[this.tableCustomers.BuildingAreaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BuildingArea\' in table \'Customers\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCustomers.BuildingAreaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string BankQrCodeString {
                 get {
                     try {
@@ -2910,18 +2498,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsBuildingAreaNull() {
-                return this.IsNull(this.tableCustomers.BuildingAreaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetBuildingAreaNull() {
-                this[this.tableCustomers.BuildingAreaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsBankQrCodeStringNull() {
                 return this.IsNull(this.tableCustomers.BankQrCodeStringColumn);
             }
@@ -2962,17 +2538,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                 }
                 else {
                     return ((SharedCounterDataRow[])(base.GetChildRows(this.Table.ChildRelations["Customers_SharedCounterData"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PublicPlaceDataRow[] GetPublicPlaceDataRows() {
-                if ((this.Table.ChildRelations["Customers_PublicPlaceData"] == null)) {
-                    return new PublicPlaceDataRow[0];
-                }
-                else {
-                    return ((PublicPlaceDataRow[])(base.GetChildRows(this.Table.ChildRelations["Customers_PublicPlaceData"])));
                 }
             }
         }
@@ -3283,211 +2848,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
         }
         
         /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class PublicPlaceDataRow : global::System.Data.DataRow {
-            
-            private PublicPlaceDataDataTable tablePublicPlaceData;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal PublicPlaceDataRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tablePublicPlaceData = ((PublicPlaceDataDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Service {
-                get {
-                    try {
-                        return ((string)(this[this.tablePublicPlaceData.ServiceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Service\' in table \'PublicPlaceData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePublicPlaceData.ServiceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal PublicPlaceSquare {
-                get {
-                    try {
-                        return ((decimal)(this[this.tablePublicPlaceData.PublicPlaceSquareColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PublicPlaceSquare\' in table \'PublicPlaceData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePublicPlaceData.PublicPlaceSquareColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Norm {
-                get {
-                    try {
-                        return ((string)(this[this.tablePublicPlaceData.NormColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Norm\' in table \'PublicPlaceData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePublicPlaceData.NormColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal Rate {
-                get {
-                    try {
-                        return ((decimal)(this[this.tablePublicPlaceData.RateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Rate\' in table \'PublicPlaceData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePublicPlaceData.RateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Volume {
-                get {
-                    try {
-                        return ((string)(this[this.tablePublicPlaceData.VolumeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Volume\' in table \'PublicPlaceData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePublicPlaceData.VolumeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal Total {
-                get {
-                    try {
-                        return ((decimal)(this[this.tablePublicPlaceData.TotalColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Total\' in table \'PublicPlaceData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePublicPlaceData.TotalColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int CustomerId {
-                get {
-                    return ((int)(this[this.tablePublicPlaceData.CustomerIdColumn]));
-                }
-                set {
-                    this[this.tablePublicPlaceData.CustomerIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CustomersRow CustomersRow {
-                get {
-                    return ((CustomersRow)(this.GetParentRow(this.Table.ParentRelations["Customers_PublicPlaceData"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["Customers_PublicPlaceData"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsServiceNull() {
-                return this.IsNull(this.tablePublicPlaceData.ServiceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetServiceNull() {
-                this[this.tablePublicPlaceData.ServiceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPublicPlaceSquareNull() {
-                return this.IsNull(this.tablePublicPlaceData.PublicPlaceSquareColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPublicPlaceSquareNull() {
-                this[this.tablePublicPlaceData.PublicPlaceSquareColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNormNull() {
-                return this.IsNull(this.tablePublicPlaceData.NormColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNormNull() {
-                this[this.tablePublicPlaceData.NormColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsRateNull() {
-                return this.IsNull(this.tablePublicPlaceData.RateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetRateNull() {
-                this[this.tablePublicPlaceData.RateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsVolumeNull() {
-                return this.IsNull(this.tablePublicPlaceData.VolumeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetVolumeNull() {
-                this[this.tablePublicPlaceData.VolumeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTotalNull() {
-                return this.IsNull(this.tablePublicPlaceData.TotalColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTotalNull() {
-                this[this.tablePublicPlaceData.TotalColumn] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -3609,40 +2969,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SharedCounterDataRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class PublicPlaceDataRowChangeEvent : global::System.EventArgs {
-            
-            private PublicPlaceDataRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PublicPlaceDataRowChangeEvent(PublicPlaceDataRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PublicPlaceDataRow Row {
                 get {
                     return this.eventRow;
                 }

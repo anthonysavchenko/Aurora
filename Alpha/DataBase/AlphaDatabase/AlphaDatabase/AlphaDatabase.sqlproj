@@ -112,7 +112,6 @@
     <Build Include="dbo\Tables\Residents.sql" />
     <Build Include="dbo\Stored Procedures\BackupDatabase.sql" />
     <Build Include="dbo\Tables\PublicPlaces.sql" />
-    <Build Include="dbo\Tables\RegularBillDocPublicPlacePoses.sql" />
     <Build Include="dbo\Tables\BankDetails.sql" />
   </ItemGroup>
 </Project>

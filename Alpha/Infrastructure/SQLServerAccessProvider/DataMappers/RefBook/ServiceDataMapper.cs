@@ -53,7 +53,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _domItem.ServiceType = (DomServiceType)DataMapperService.get(typeof(DomServiceType)).find(service.ServiceTypes.ID.ToString());
                 _domItem.ChargeRule = (DomItem.ChargeRuleType)service.ChargeRule;
                 _domItem.Norm = service.Norm;
-                _domItem.NormMeasure = service.NormMeasure;
+                _domItem.Measure = service.Measure;
             }
 
             return _domItem;
@@ -88,7 +88,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _dbItem.ServiceTypes = _entities.ServiceTypes.First(serviceType => serviceType.ID == _serviceTypeId);
                 _dbItem.ChargeRule = (byte)domObj.ChargeRule;
                 _dbItem.Norm = domObj.Norm;
-                _dbItem.NormMeasure = domObj.NormMeasure;
+                _dbItem.Measure = domObj.Measure;
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();

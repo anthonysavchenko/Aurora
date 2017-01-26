@@ -202,7 +202,7 @@
     <value>254</value>
   </data>
   <data name="xrTable2.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1631, 42</value>
+    <value>1600, 42</value>
   </data>
   <data name="Detail.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -299,7 +299,7 @@
     <value>254</value>
   </data>
   <data name="xrTable3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1630, 64</value>
+    <value>1599.99988, 64</value>
   </data>
   <data name="ReportHeader.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -332,7 +332,7 @@
     <value>108</value>
   </data>
   <data name="$this.PageWidth" type="System.Int32, mscorlib">
-    <value>1632</value>
+    <value>1600</value>
   </data>
   <data name="$this.PaperKind" type="System.Drawing.Printing.PaperKind, System.Drawing">
     <value>Custom</value>

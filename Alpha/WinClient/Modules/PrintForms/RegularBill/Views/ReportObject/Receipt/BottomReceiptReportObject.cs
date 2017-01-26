@@ -17,7 +17,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             set
             {
                 CustId.Value = value;
-                ((PublicPlaceTableReportObject)publicPlaceTableSubreport.ReportSource).CustId.Value = value;
+                ((ServiceTableReportObject)serviceTableSubreport.ReportSource).CustId.Value = value;
             }
         }
 
@@ -26,7 +26,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             set
             {
                 DataSource = value;
-                ((PublicPlaceTableReportObject)publicPlaceTableSubreport.ReportSource).DataSource = value;
+                ((ServiceTableReportObject)serviceTableSubreport.ReportSource).DataSource = value;
             }
         }
 

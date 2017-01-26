@@ -58,7 +58,6 @@ namespace Taumis.Infrastructure.Module
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.RegularBillDocSeviceTypePosDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.RegularBillDocCounterPosDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.RegularBillDocSharedCounterPosDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.RegularBillDocPublicPlacePosDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.TotalBillDocDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.TotalBillDocPosDataMapper());
         }
