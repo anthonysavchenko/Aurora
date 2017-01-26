@@ -155,7 +155,7 @@
             this.xrTableCell13.StylePriority.UseFont = false;
             this.xrTableCell13.StylePriority.UsePadding = false;
             this.xrTableCell13.StylePriority.UseTextAlignment = false;
-            this.xrTableCell13.Weight = 1.9238249053700183D;
+            this.xrTableCell13.Weight = 1.8896880114120758D;
             // 
             // monthChargeTableCell
             // 
@@ -171,7 +171,7 @@
             this.monthChargeTableCell.StylePriority.UseTextAlignment = false;
             resources.ApplyResources(xrSummary1, "xrSummary1");
             this.monthChargeTableCell.Summary = xrSummary1;
-            this.monthChargeTableCell.Weight = 0.43652011722132206D;
+            this.monthChargeTableCell.Weight = 0.47065701117926467D;
             // 
             // xrTableRow4
             // 
@@ -195,7 +195,7 @@
             this.OverpaymentLabel.StylePriority.UseFont = false;
             this.OverpaymentLabel.StylePriority.UsePadding = false;
             this.OverpaymentLabel.StylePriority.UseTextAlignment = false;
-            this.OverpaymentLabel.Weight = 1.9238249053700183D;
+            this.OverpaymentLabel.Weight = 1.8896880114120758D;
             // 
             // overpaymentValue
             // 
@@ -209,7 +209,7 @@
             this.overpaymentValue.StylePriority.UseBorders = false;
             this.overpaymentValue.StylePriority.UseFont = false;
             this.overpaymentValue.StylePriority.UseTextAlignment = false;
-            this.overpaymentValue.Weight = 0.43652011722132206D;
+            this.overpaymentValue.Weight = 0.47065701117926467D;
             // 
             // xrTableRow5
             // 
@@ -231,7 +231,7 @@
             this.xrTableCell17.StylePriority.UseFont = false;
             this.xrTableCell17.StylePriority.UsePadding = false;
             this.xrTableCell17.StylePriority.UseTextAlignment = false;
-            this.xrTableCell17.Weight = 1.9238249053700183D;
+            this.xrTableCell17.Weight = 1.8896880114120758D;
             // 
             // totalChargeTableCell
             // 
@@ -249,7 +249,7 @@
             xrSummary2.Func = DevExpress.XtraReports.UI.SummaryFunc.Custom;
             xrSummary2.IgnoreNullValues = true;
             this.totalChargeTableCell.Summary = xrSummary2;
-            this.totalChargeTableCell.Weight = 0.43652011722132206D;
+            this.totalChargeTableCell.Weight = 0.47065701117926467D;
             // 
             // xrTableRow6
             // 
@@ -271,7 +271,7 @@
             this.xrTableCell19.StylePriority.UseFont = false;
             this.xrTableCell19.StylePriority.UsePadding = false;
             this.xrTableCell19.StylePriority.UseTextAlignment = false;
-            this.xrTableCell19.Weight = 1.9238249053700183D;
+            this.xrTableCell19.Weight = 1.8896880114120758D;
             // 
             // xrTableCell20
             // 
@@ -283,7 +283,7 @@
             this.xrTableCell20.StylePriority.UseBorders = false;
             this.xrTableCell20.StylePriority.UseFont = false;
             this.xrTableCell20.StylePriority.UseTextAlignment = false;
-            this.xrTableCell20.Weight = 0.43652011722132206D;
+            this.xrTableCell20.Weight = 0.47065701117926467D;
             // 
             // xrPictureBox1
             // 

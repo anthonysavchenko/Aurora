@@ -451,6 +451,7 @@
           <Property Name="Period" Type="date" Nullable="false" />
           <Property Name="EmergencyPhoneNumber" Type="nchar" MaxLength="10" />
           <Property Name="ContractorContactInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="BuildingArea" Type="decimal" Precision="9" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="RegularBillDocSeviceTypePoses">
           <Key>
@@ -497,7 +498,7 @@
           <Property Name="ServiceType" Type="int" Nullable="false" />
           <Property Name="ChargeRule" Type="tinyint" Nullable="false" />
           <Property Name="Norm" Type="decimal" Precision="9" Scale="3" />
-          <Property Name="NormMeasure" Type="nvarchar" MaxLength="10" />
+          <Property Name="Measure" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -2730,6 +2731,7 @@
           <NavigationProperty Name="RegularBillDocSharedCounterPoses" Relationship="AlphaDataBaseModel.RegularBillDocSharedCounterPoses_fk" FromRole="RegularBillDocs" ToRole="RegularBillDocSharedCounterPoses" />
           <Property Name="EmergencyPhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ContractorContactInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingArea" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
         </EntityType>
         <EntityType Name="RegularBillDocSeviceTypePoses">
           <Key>
@@ -2775,8 +2777,8 @@
           <NavigationProperty Name="RechargeOperPoses" Relationship="AlphaDataBaseModel.FK_RechargeOperPoses_Services" FromRole="Services" ToRole="RechargeOperPoses" />
           <NavigationProperty Name="ServiceTypes" Relationship="AlphaDataBaseModel.FK_Services_ServiceTypes" FromRole="Services" ToRole="ServiceTypes" />
           <Property Name="Norm" Type="Decimal" Precision="9" Scale="3" />
-          <Property Name="NormMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Services" FromRole="Services" ToRole="PublicPlaces" />
+          <Property Name="Measure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -3623,6 +3625,7 @@
           <EntitySetMapping Name="RegularBillDocs">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.RegularBillDocs)">
               <MappingFragment StoreEntitySet="RegularBillDocs">
+                <ScalarProperty Name="BuildingArea" ColumnName="BuildingArea" />
                 <ScalarProperty Name="ContractorContactInfo" ColumnName="ContractorContactInfo" />
                 <ScalarProperty Name="EmergencyPhoneNumber" ColumnName="EmergencyPhoneNumber" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -3665,7 +3668,7 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Services)">
               <MappingFragment StoreEntitySet="Services">
-                <ScalarProperty Name="NormMeasure" ColumnName="NormMeasure" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
                 <ScalarProperty Name="Norm" ColumnName="Norm" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -4994,7 +4997,7 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PublicPlaces" Width="1.5" PointX="11.75" PointY="25" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaces_Buildings" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaces_Services" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BankDetails" Width="1.5" PointX="0.75" PointY="17.375" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BankDetails" Width="1.5" PointX="4.375" PointY="1" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_BankDetails" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>

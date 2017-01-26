@@ -34,7 +34,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
             View.ServiceType = _domItem.ServiceType;
             View.ChargeRule = _domItem.ChargeRule;
             View.Norm = _domItem.Norm ?? 0;
-            View.NormMeasure = _domItem.NormMeasure;
+            View.Measure = _domItem.Measure;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
             _domItem.ServiceType = View.ServiceType;
             _domItem.ChargeRule = View.ChargeRule;
             _domItem.Norm = View.Norm == 0 ? (decimal?)null : View.Norm;
-            _domItem.NormMeasure = View.NormMeasure;
+            _domItem.Measure = View.Measure;
         }
 
         /// <summary>

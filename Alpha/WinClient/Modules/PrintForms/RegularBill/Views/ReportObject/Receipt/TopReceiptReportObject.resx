@@ -127,7 +127,7 @@
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="bankDetailsLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1184.99988, 27.5000057</value>
+    <value>1187, 27.5000057</value>
   </data>
   <data name="bankDetailsLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>804, 169.5</value>
@@ -142,7 +142,7 @@
     <value>254</value>
   </data>
   <data name="xrTable3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>910, 326</value>
+    <value>988.0001, 409.999939</value>
   </data>
   <data name="xrTableCell13.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -256,7 +256,7 @@
     <value>254</value>
   </data>
   <data name="xrTable3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1081, 168</value>
+    <value>1003, 168</value>
   </data>
   <data name="xrPictureBox1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -1295,7 +1295,7 @@
     <value>254</value>
   </data>
   <data name="xrPanel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 358</value>
+    <value>0, 424.999969</value>
   </data>
   <data name="xrPanel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>889, 153</value>
@@ -1304,10 +1304,10 @@
     <value>254</value>
   </data>
   <data name="serviceTableSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>360, 220</value>
+    <value>391, 220</value>
   </data>
   <data name="serviceTableSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1630, 106</value>
+    <value>1600, 190</value>
   </data>
   <data name="xrLabel2.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -1316,7 +1316,7 @@
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>360, 50</value>
+    <value>391, 50</value>
   </data>
   <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>190, 34</value>
@@ -1331,7 +1331,7 @@
     <value>Arial, 6.75pt, style=Bold</value>
   </data>
   <data name="xrLabel15.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1397, 0</value>
+    <value>1399, 0</value>
   </data>
   <data name="xrLabel15.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>592, 27.5</value>
@@ -1349,7 +1349,7 @@
     <value>Arial, 6.75pt</value>
   </data>
   <data name="xrLabel14.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1185, 0</value>
+    <value>1187, 0</value>
   </data>
   <data name="xrLabel14.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>212, 27.5</value>
@@ -1412,7 +1412,7 @@
     <value>Arial, 8.25pt</value>
   </data>
   <data name="peopleCountLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>926.9999, 163</value>
+    <value>957.9999, 163</value>
   </data>
   <data name="peopleCountLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>216, 34</value>
@@ -1430,7 +1430,7 @@
     <value>Arial, 8.25pt</value>
   </data>
   <data name="xrLabel7.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>752, 163</value>
+    <value>783, 163</value>
   </data>
   <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>175, 34</value>
@@ -1448,7 +1448,7 @@
     <value>Arial, 8.25pt</value>
   </data>
   <data name="areaLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>500.000031, 163</value>
+    <value>531, 163</value>
   </data>
   <data name="areaLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>252.000092, 34</value>
@@ -1466,7 +1466,7 @@
     <value>Arial, 8.25pt</value>
   </data>
   <data name="xrLabel5.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>360, 163</value>
+    <value>391, 163</value>
   </data>
   <data name="xrLabel5.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>140, 34</value>
@@ -1484,7 +1484,7 @@
     <value>Arial, 9.75pt, style=Bold</value>
   </data>
   <data name="payerAddressLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>360, 118</value>
+    <value>391, 118</value>
   </data>
   <data name="payerAddressLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>783, 45</value>
@@ -1499,7 +1499,7 @@
     <value>Verdana, 11.25pt, style=Bold</value>
   </data>
   <data name="payerAccountLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>423, 8</value>
+    <value>454, 8</value>
   </data>
   <data name="payerAccountLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>720, 42</value>
@@ -1517,7 +1517,7 @@
     <value>Arial, 8.25pt</value>
   </data>
   <data name="xrLabel1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>360, 16</value>
+    <value>391, 16</value>
   </data>
   <data name="xrLabel1.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>63, 34</value>
@@ -1571,7 +1571,7 @@
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="payerAkaLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>550, 50</value>
+    <value>581, 50</value>
   </data>
   <data name="payerAkaLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>593, 34</value>
@@ -1586,7 +1586,7 @@
     <value>Arial, 8.25pt</value>
   </data>
   <data name="xrLabel3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>360, 84</value>
+    <value>391, 84</value>
   </data>
   <data name="xrLabel3.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>783, 34</value>
@@ -1598,7 +1598,7 @@
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>511</value>
+    <value>578</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

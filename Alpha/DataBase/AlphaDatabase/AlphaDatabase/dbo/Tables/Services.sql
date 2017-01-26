@@ -5,10 +5,12 @@
     [ServiceType] INT            NOT NULL,
     [ChargeRule]  TINYINT        NOT NULL,
     [Norm]        DECIMAL (9, 3) NULL,
-    [NormMeasure] NVARCHAR (10)  NULL,
+    [Measure]     NVARCHAR (10)  NULL,
     CONSTRAINT [PK_Service] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_Services_ServiceTypes] FOREIGN KEY ([ServiceType]) REFERENCES [dbo].[ServiceTypes] ([ID])
 );
+
+
 
 
 

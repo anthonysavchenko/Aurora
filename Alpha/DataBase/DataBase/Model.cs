@@ -10902,7 +10902,8 @@ namespace Taumis.Alpha.DataBase
         /// <param name="monthChargeValue">Initial value of the MonthChargeValue property.</param>
         /// <param name="value">Initial value of the Value property.</param>
         /// <param name="period">Initial value of the Period property.</param>
-        public static RegularBillDocs CreateRegularBillDocs(global::System.Int32 id, global::System.DateTime creationDateTime, global::System.DateTime payBeforeDateTime, global::System.String account, global::System.String owner, global::System.String address, global::System.String square, global::System.Int32 residentsCount, global::System.Decimal overpaymentValue, global::System.Decimal monthChargeValue, global::System.Decimal value, global::System.DateTime period)
+        /// <param name="buildingArea">Initial value of the BuildingArea property.</param>
+        public static RegularBillDocs CreateRegularBillDocs(global::System.Int32 id, global::System.DateTime creationDateTime, global::System.DateTime payBeforeDateTime, global::System.String account, global::System.String owner, global::System.String address, global::System.String square, global::System.Int32 residentsCount, global::System.Decimal overpaymentValue, global::System.Decimal monthChargeValue, global::System.Decimal value, global::System.DateTime period, global::System.Decimal buildingArea)
         {
             RegularBillDocs regularBillDocs = new RegularBillDocs();
             regularBillDocs.ID = id;
@@ -10917,6 +10918,7 @@ namespace Taumis.Alpha.DataBase
             regularBillDocs.MonthChargeValue = monthChargeValue;
             regularBillDocs.Value = value;
             regularBillDocs.Period = period;
+            regularBillDocs.BuildingArea = buildingArea;
             return regularBillDocs;
         }
 
@@ -11262,6 +11264,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _ContractorContactInfo;
         partial void OnContractorContactInfoChanging(global::System.String value);
         partial void OnContractorContactInfoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal BuildingArea
+        {
+            get
+            {
+                return _BuildingArea;
+            }
+            set
+            {
+                OnBuildingAreaChanging(value);
+                ReportPropertyChanging("BuildingArea");
+                _BuildingArea = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BuildingArea");
+                OnBuildingAreaChanged();
+            }
+        }
+        private global::System.Decimal _BuildingArea;
+        partial void OnBuildingAreaChanging(global::System.Decimal value);
+        partial void OnBuildingAreaChanged();
 
         #endregion
 
@@ -12262,24 +12288,24 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String NormMeasure
+        public global::System.String Measure
         {
             get
             {
-                return _NormMeasure;
+                return _Measure;
             }
             set
             {
-                OnNormMeasureChanging(value);
-                ReportPropertyChanging("NormMeasure");
-                _NormMeasure = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("NormMeasure");
-                OnNormMeasureChanged();
+                OnMeasureChanging(value);
+                ReportPropertyChanging("Measure");
+                _Measure = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Measure");
+                OnMeasureChanged();
             }
         }
-        private global::System.String _NormMeasure;
-        partial void OnNormMeasureChanging(global::System.String value);
-        partial void OnNormMeasureChanged();
+        private global::System.String _Measure;
+        partial void OnMeasureChanging(global::System.String value);
+        partial void OnMeasureChanged();
 
         #endregion
 

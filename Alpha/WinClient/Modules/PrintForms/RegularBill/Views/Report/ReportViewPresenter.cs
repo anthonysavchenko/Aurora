@@ -4,7 +4,6 @@ using System.Data;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Taumis.Alpha.DataBase;
@@ -121,6 +120,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 .Select(b =>
                                     new
                                     {
+                                        b.ID,
                                         b.Period,
                                         b.Account,
                                         b.Owner,
@@ -138,10 +138,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                         b.Customers.Apartment,
                                         b.Customers.BillSendingSubscription,
                                         Email = b.Customers.User.Login,
+                                        b.Customers.OwnerType,
                                         b.Customers.Buildings.BankDetails,
-                                        FullName =
-                                            b.Customers.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson
-                                                ? b.Customers.PhysicalPersonFullName
+                                        FullName = 
+                                            b.Customers.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
+                                                ? b.Customers.PhysicalPersonFullName 
                                                 : b.Customers.JuridicalPersonFullName,
                                         b.RegularBillDocSeviceTypePoses,
                                         b.RegularBillDocCounterPoses,
@@ -173,7 +174,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                     _bill.CustomerID);
                             }
 
-                            foreach (var _chargeData in _bill.RegularBillDocSeviceTypePoses.OrderBy(p => p.ServiceTypeName))
+                            foreach (var _chargeData in _bill.RegularBillDocSeviceTypePoses)
                             {
                                 DataRow _row = _chargeDataTable.NewRow();
                                 _row["Service"] = _chargeData.ServiceTypeName;
@@ -188,6 +189,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                             }
 
                             string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                            string _qrCode = BillService.GenerateQrCodeString(
+                                _bill.Account, 
+                                _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
+                                    ? _bill.FullName
+                                    : string.Empty,
+                                _bill.Address,
+                                _bill.Period,
+                                _bill.Value);
 
                             _customersTable.Rows.Add(
                                 _bill.CustomerID,
@@ -205,12 +214,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _barcode,
                                 BillService.FormatBarcodeString(_barcode),
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
-                                BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber));
+                                BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
+                                _qrCode);
 
                             if (_bill.BillSendingSubscription)
                             {
                                 _subscriptedCustomers.Add(
-                                    _bill.CustomerID,
+                                    _bill.CustomerID, 
                                     new CustomerInfo
                                     {
                                         Email = _bill.Email,
@@ -229,7 +239,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
             return null;
         }
-        
+
         public void SendBills()
         {
             if (_subscriptedCustomers.Count > 0)
@@ -240,13 +250,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 {
                     var _rows =
                         _data.Tables["Customers"].AsEnumerable()
-                            .Where(r => _subscriptedCustomers.Keys.Contains((int)r["CustomerID"]));
+                            .Where(r => _subscriptedCustomers.Keys.Contains((int) r["CustomerID"]));
 
                     foreach (DataRow _row in _rows)
                     {
                         DataSets.DataSet _dataSet = CreateDataSet(_row);
 
-                        int _customerID = (int)_row["CustomerID"];
+                        int _customerID = (int) _row["CustomerID"];
 
                         CustomerInfo _customerInfo = _subscriptedCustomers[_customerID];
 
@@ -273,7 +283,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 }
                 else if (_data.Tables["Customers"].Rows.Count != 0)
                 {
-                    int _customerID = (int)_data.Tables["Customers"].Rows[0]["CustomerID"];
+                    int _customerID = (int) _data.Tables["Customers"].Rows[0]["CustomerID"];
                     CustomerInfo _customerInfo = _subscriptedCustomers[_customerID];
 
                     MemoryStream _pdf = View.GeneratePdf();
@@ -298,7 +308,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 }
 
                 View.ShowMessage(
-                    $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}",
+                    $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}", 
                     "Результаты отправки");
             }
         }

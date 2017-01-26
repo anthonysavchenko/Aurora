@@ -22,6 +22,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Interface.Services
         string GenerateBarCodeString(string account, DateTime period);
 
         /// <summary>
+        /// Генерирует строку для QR-кода
+        /// </summary>
+        /// <param name="account">Лицевой счет</param>
+        /// <param name="fullName">ФИО</param>
+        /// <param name="address">Адрес</param>
+        /// <param name="period">Учетный период</param>
+        /// <param name="sum">Сумма платежа</param>
+        /// <returns>Строка для QR-кода</returns>
+        string GenerateQrCodeString(string account, string fullName, string address, DateTime period, decimal sum);
+
+        /// <summary>
         /// Форматирует строку для штрих кода
         /// </summary>
         /// <param name="barcode">Строка штих кода</param>
