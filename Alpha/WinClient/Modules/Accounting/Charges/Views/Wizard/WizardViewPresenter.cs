@@ -653,7 +653,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 using (Entities _db = new Entities())
                 {
                     _zipCodes = _db.Buildings
-                        .Where(b => b.ID == 686)
                         .Select(b => new
                         {
                             b.ZipCode,
