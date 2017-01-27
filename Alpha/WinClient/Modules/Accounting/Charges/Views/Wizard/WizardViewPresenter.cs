@@ -1124,7 +1124,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         .FirstOrDefault(pp => pp.ServiceID == _service.ID);
                                                     if (_pp != null && _service.Norm.HasValue && _building.Area > 0)
                                                     {
-                                                        decimal _rate = _service.Norm.Value * _pp.Area / _building.Area * _customerPos.Rate;
+                                                        decimal _rate = 
+                                                            Math.Round(_service.Norm.Value * _pp.Area / _building.Area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                         _chargeValue = _customer.Square * _rate;
                                                         // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                         _customerPos.Rate = _rate;
@@ -1139,7 +1140,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                             p.ChargeRule ==
                                                             (byte) Service.ChargeRuleType.PublicPlaceAreaRate)
                                                         .Sum(p => p.Rate);
-                                                    decimal _rate = _publicPlaceAreaRateSum * _customerPos.Rate / 100;
+                                                    decimal _rate = Math.Round(_publicPlaceAreaRateSum * _customerPos.Rate / 100, 2, MidpointRounding.AwayFromZero);
                                                     _chargeValue = _rate * _customer.Square;
                                                     // Заменяем тариф для внесения в квитанцию 
                                                     _customerPos.Rate = _rate;
@@ -1683,8 +1684,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 _db.CustomerPoses
                                     .Where(p =>
                                         p.Customers.ID == _customer.ID &&
-                                        p.Since <= _currentPeriod &&
-                                        p.Till >= _currentPeriod)
+                                        _period >= p.Since &&
+                                        _period <= p.Till)
                                     .Select(p =>
                                         new CustomerPosInfo
                                         {
@@ -1842,7 +1843,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                         if (_pp != null && _norm.HasValue && _area > 0)
                                         {
-                                            decimal _rate = _norm.Value * _pp.Area / _area * _customerPos.Rate;
+                                            decimal _rate = Math.Round(_norm.Value * _pp.Area / _area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                             _value = _customer.Square * _rate;
                                             // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                             _customerPos.Rate = _rate;
@@ -1854,7 +1855,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             decimal _publicPlaceAreaRateSum = _customerPoses
                                                 .Where(p => p.ChargeRule == (byte)Service.ChargeRuleType.PublicPlaceAreaRate)
                                                 .Sum(p => p.Rate);
-                                            decimal _rate = _publicPlaceAreaRateSum * _customerPos.Rate / 100;
+                                            decimal _rate = Math.Round(_publicPlaceAreaRateSum * _customerPos.Rate / 100, 2, MidpointRounding.AwayFromZero);
                                             _value = _rate * _customer.Square;
                                             // Заменяем тариф для внесения в квитанцию 
                                             _customerPos.Rate = _rate;
@@ -2217,7 +2218,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                             if (_pp != null && _norm.HasValue && _area > 0)
                                             {
-                                                decimal _rate = _norm.Value * _pp.Area / _area * _customerPos.Rate;
+                                                decimal _rate = Math.Round(_norm.Value * _pp.Area / _area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                 _value = _customer.Square * _rate;
                                                 // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                 _customerPos.Rate = _rate;
@@ -2229,7 +2230,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 decimal _publicPlaceAreaRateSum = _customerPoses
                                                     .Where(p => p.ChargeRule == (byte)Service.ChargeRuleType.PublicPlaceAreaRate)
                                                     .Sum(p => p.Rate);
-                                                decimal _rate = _publicPlaceAreaRateSum * _customerPos.Rate / 100;
+                                                decimal _rate = Math.Round(_publicPlaceAreaRateSum * _customerPos.Rate / 100, 2, MidpointRounding.AwayFromZero);
                                                 _value = _rate * _customer.Square;
                                                 // Заменяем тариф для внесения в квитанцию 
                                                 _customerPos.Rate = _rate;
