@@ -1506,6 +1506,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             c.ID,
                                             c.Square,
                                             BuildingID = c.Buildings.ID,
+                                            BuildingNonResidentialPlaceArea = c.Buildings.NonResidentialPlaceArea,
                                             ResidentsCount = c.Residents.Count(),
                                             FederalBenefitResidentsCount = c.Residents
                                                     .Count(resident => resident.BenefitTypes != null && resident.BenefitTypes.BenefitRule == 0),
@@ -1831,7 +1832,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 .Where(c =>
                                                     c.Buildings.ID == _customer.BuildingID &&
                                                     c.CustomerPoses.Any(p => p.Till >= _period))
-                                                .Sum(c => (decimal?)c.Square) ?? 0;
+                                                .Sum(c => (decimal?)c.Square) ?? 0 + _customer.BuildingNonResidentialPlaceArea;
 
                                         PublicPlaces _pp = _db.PublicPlaces
                                             .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
@@ -2103,6 +2104,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             c.Square,
                                             c.Account,
                                             BuildingID = c.Buildings.ID,
+                                            BuildingNonResidentialPlaceArea = c.Buildings.NonResidentialPlaceArea,
                                             ResidentsCount = c.Residents.Count(),
                                             FederalBenefitResidentsCount = c.Residents
                                                     .Count(resident => resident.BenefitTypes != null && resident.BenefitTypes.BenefitRule == 0),
@@ -2202,7 +2204,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     .Where(c =>
                                                         c.Buildings.ID == _customer.BuildingID &&
                                                         c.CustomerPoses.Any(p => p.Till >= _period))
-                                                    .Sum(c => (decimal?)c.Square) ?? 0;
+                                                    .Sum(c => (decimal?)c.Square) ?? 0 + _customer.BuildingNonResidentialPlaceArea;
 
                                             PublicPlaces _pp = _db.PublicPlaces
                                                 .FirstOrDefault(pp => 
