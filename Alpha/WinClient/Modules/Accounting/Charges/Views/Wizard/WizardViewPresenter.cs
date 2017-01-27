@@ -1827,12 +1827,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         }
                                         break;
                                     case Service.ChargeRuleType.PublicPlaceAreaRate:
-                                        decimal _area =
+                                        decimal _livingArea =
                                             _db.Customers
                                                 .Where(c =>
                                                     c.Buildings.ID == _customer.BuildingID &&
                                                     c.CustomerPoses.Any(p => p.Till >= _period))
-                                                .Sum(c => (decimal?)c.Square) ?? 0 + _customer.BuildingNonResidentialPlaceArea;
+                                                .Sum(c => (decimal?) c.Square) ?? 0;
+                                        decimal _area = _livingArea + _customer.BuildingNonResidentialPlaceArea;
 
                                         PublicPlaces _pp = _db.PublicPlaces
                                             .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
@@ -2199,12 +2200,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             break;
 
                                         case Service.ChargeRuleType.PublicPlaceAreaRate:
-                                            decimal _area =
+                                            decimal _livingArea =
                                                 _db.Customers
                                                     .Where(c =>
                                                         c.Buildings.ID == _customer.BuildingID &&
                                                         c.CustomerPoses.Any(p => p.Till >= _period))
-                                                    .Sum(c => (decimal?)c.Square) ?? 0 + _customer.BuildingNonResidentialPlaceArea;
+                                                    .Sum(c => (decimal?)c.Square) ?? 0;
+
+                                            decimal _area = _livingArea + _customer.BuildingNonResidentialPlaceArea;
 
                                             PublicPlaces _pp = _db.PublicPlaces
                                                 .FirstOrDefault(pp => 
