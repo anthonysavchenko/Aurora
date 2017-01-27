@@ -1046,7 +1046,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                     BenefitOpers _benefitOper = null;
 
-                                    var _customerPoses = _customerPosByCustomer[_customer.ID];
+                                    List<CustomerPosInfo> _customerPoses =
+                                        _customerPosByCustomer.ContainsKey(_customer.ID)
+                                            ? _customerPosByCustomer[_customer.ID]
+                                            : new List<CustomerPosInfo>();
 
                                     foreach (var _customerPos in _customerPoses)
                                     {
