@@ -661,7 +661,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             StreetName = b.Streets.Name,
                             CustomersCount = b.Customers.Count,
                             Area = 
-                                b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= _currentPeriod)).Sum(c => (decimal?)c.Square) ?? 0 + b.NonResidentialPlaceArea,
+                                (b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= _currentPeriod)).Sum(c => (decimal?)c.Square) ?? 0) + b.NonResidentialPlaceArea,
                             b.PublicPlaces
                         })
                         .GroupBy(building => building.ZipCode)
