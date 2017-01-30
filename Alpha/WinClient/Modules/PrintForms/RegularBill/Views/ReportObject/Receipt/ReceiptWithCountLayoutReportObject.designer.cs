@@ -62,7 +62,7 @@
             resources.ApplyResources(this.countSubreport, "countSubreport");
             this.countSubreport.Id = 0;
             this.countSubreport.Name = "countSubreport";
-            this.countSubreport.ReportSource = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject.CountReport.CountReportObject();
+            this.countSubreport.ReportSource = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject.CountReport.TableCountReportObject();
             // 
             // ButtomReceiptSubreport
             // 

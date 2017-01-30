@@ -99,11 +99,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         {
             message = string.Empty;
 
-            if (curItem.Period != ServerTime.GetPeriodInfo().FirstUncharged)
-            {
-                message = "- Разрешено вводить данные только за первый период без начислений\r\n";
-            }
-
             if (curItem.Value <= 0)
             {
                 message = string.Format("{0}- Показание должно быть больше 0", message);

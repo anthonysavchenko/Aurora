@@ -4,7 +4,7 @@ using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportO
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject.Receipt
 {
-    public partial class ReceiptWithCountLayoutReportObject : XtraReport, ISubReportObject
+    public partial class ReceiptWithCountLayoutReportObject : XtraReport, ISubReportObject, IReceiptLayoutReportObject
     {
         public ReceiptWithCountLayoutReportObject()
         {
@@ -17,7 +17,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             {
                 ((TopReceiptReportObject)TopReceiptSubreport.ReportSource).CustomerId = value;
                 ((BottomReceiptReportObject)ButtomReceiptSubreport.ReportSource).CustomerId = value;
-                ((CountReportObject)countSubreport.ReportSource).CustomerId = value;
+                ((TableCountReportObject)countSubreport.ReportSource).CustomerId = value;
             }
         }
 
@@ -27,7 +27,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             {
                 ((TopReceiptReportObject)TopReceiptSubreport.ReportSource).ReportDataSource = value;
                 ((BottomReceiptReportObject)ButtomReceiptSubreport.ReportSource).ReportDataSource = value;
-                ((CountReportObject)countSubreport.ReportSource).ReportDataSource = value;
+                ((TableCountReportObject)countSubreport.ReportSource).ReportDataSource = value;
+            }
+        }
+
+        public bool ReportVisible
+        {
+            set
+            {
+                Detail.Visible = value;
             }
         }
     }

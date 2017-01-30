@@ -34,9 +34,11 @@
             this.numberColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.rateColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ContainerTypeLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.rateSpinEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateSpinEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // counterGridControl
@@ -47,7 +49,8 @@
             this.counterGridControl.MainView = this.counterGridView;
             this.counterGridControl.Name = "counterGridControl";
             this.counterGridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.ContainerTypeLookUpEdit});
+            this.ContainerTypeLookUpEdit,
+            this.rateSpinEdit});
             this.counterGridControl.Size = new System.Drawing.Size(736, 336);
             this.counterGridControl.TabIndex = 1;
             this.counterGridControl.UseEmbeddedNavigator = true;
@@ -84,7 +87,8 @@
             // rateColumn
             // 
             this.rateColumn.Caption = "Тариф";
-            this.rateColumn.DisplayFormat.FormatString = "{0:c2}";
+            this.rateColumn.ColumnEdit = this.rateSpinEdit;
+            this.rateColumn.DisplayFormat.FormatString = "n2";
             this.rateColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.rateColumn.FieldName = "Rate";
             this.rateColumn.Name = "rateColumn";
@@ -102,6 +106,18 @@
             this.ContainerTypeLookUpEdit.Name = "ContainerTypeLookUpEdit";
             this.ContainerTypeLookUpEdit.NullText = "";
             // 
+            // rateSpinEdit
+            // 
+            this.rateSpinEdit.AutoHeight = false;
+            this.rateSpinEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.rateSpinEdit.DisplayFormat.FormatString = "n2";
+            this.rateSpinEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rateSpinEdit.EditFormat.FormatString = "n2";
+            this.rateSpinEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rateSpinEdit.Mask.EditMask = "n2";
+            this.rateSpinEdit.Name = "rateSpinEdit";
+            // 
             // CounterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +128,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.counterGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateSpinEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -124,5 +141,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn idColumn;
         private DevExpress.XtraGrid.Columns.GridColumn numberColumn;
         private DevExpress.XtraGrid.Columns.GridColumn rateColumn;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit rateSpinEdit;
     }
 }

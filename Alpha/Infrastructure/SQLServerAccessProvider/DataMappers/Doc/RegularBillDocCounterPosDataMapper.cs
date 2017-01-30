@@ -41,8 +41,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _dbItem.CurValue = domObj.CurValue;
                 _dbItem.Consumption = domObj.Consumption;
                 _dbItem.Rate = domObj.Rate;
+                _dbItem.Measure = domObj.Measure;
+                _dbItem.ServiceName = domObj.ServiceName;
 
-                int _propId = Int32.Parse(domObj.RegularBillDoc.ID);
+                int _propId = int.Parse(domObj.RegularBillDoc.ID);
                 _dbItem.RegularBillDocs = _entities.RegularBillDocs.First(p => p.ID == _propId);
 
                 _entities.SaveChanges();
@@ -72,6 +74,8 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.CurValue = _dbItem.CurValue;
                 _domItem.Consumption = _dbItem.Consumption;
                 _domItem.Rate = _dbItem.Rate;
+                _domItem.Measure = _dbItem.Measure;
+                _domItem.ServiceName = _dbItem.ServiceName;
                 _domItem.RegularBillDoc = (DomPaymentBill)DataMapperService.get(typeof(DomPaymentBill)).find(_dbItem.RegularBillDocs.ID.ToString());
             }
 

@@ -196,11 +196,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             get
             {
-                return Convert.ToInt16(floorSpinEdit.EditValue);
+                return Convert.ToInt16(floorSpinEdit.Value);
             }
             set
             {
-                floorSpinEdit.EditValue = value;
+                floorSpinEdit.Value = value;
             }
         }
 
@@ -211,11 +211,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             get
             {
-                return Convert.ToByte(entranceSpinEdit.EditValue);
+                return Convert.ToByte(entranceNumericUpDown.Value);
             }
             set
             {
-                entranceSpinEdit.EditValue = value;
+                entranceNumericUpDown.Value = value;
             }
         }
 
@@ -226,7 +226,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             set
             {
-                floorSpinEdit.Properties.MaxValue = value;
+                floorSpinEdit.Maximum = value;
             }
         }
 
@@ -237,7 +237,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             set
             {
-                entranceSpinEdit.Properties.MaxValue = value;
+                entranceNumericUpDown.Maximum = value;
             }
         }
 
@@ -263,11 +263,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             get
             {
-                return Convert.ToDecimal(GetSimpleItemViewMapper.ViewToDomain(SquareTextEdit));
+                return areaNumericUpDown.Value;
             }
             set
             {
-                GetSimpleItemViewMapper.DomainToView(value.ToString(), SquareTextEdit);
+                areaNumericUpDown.Value = value;
             }
         }
 
@@ -278,11 +278,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             set
             {
-                GetSimpleItemViewMapper.DomainToView<int>(value, RoomsCountSpinEdit);
+                roomsCountNumericUpDown.Value = value;
             }
             get
             {
-                return Convert.ToInt32(GetSimpleItemViewMapper.ViewToDomain(RoomsCountSpinEdit));
+                return (int)roomsCountNumericUpDown.Value;
             }
         }
 

@@ -158,11 +158,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                             foreach (var _pos in _bill.RegularBillDocCounterPoses)
                             {
                                 _counterDataTable.Rows.Add(
+                                    _pos.ServiceName,
                                     _pos.Number,
                                     _pos.PrevValue,
                                     _pos.CurValue,
                                     _pos.Consumption,
                                     _pos.Rate,
+                                    _pos.Measure,
                                     _bill.CustomerID);
                             }
 
@@ -188,15 +190,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _chargeDataTable.Rows.Add(_row);
                             }
 
-                            string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
-                            string _qrCode = BillService.GenerateQrCodeString(
+                            string _barcode = string.Empty;//BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                            string _qrCode = string.Empty;/*BillService.GenerateQrCodeString(
                                 _bill.Account, 
                                 _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
                                     ? _bill.FullName
                                     : string.Empty,
                                 _bill.Address,
                                 _bill.Period,
-                                _bill.Value);
+                                _bill.Value);*/
 
                             _customersTable.Rows.Add(
                                 _bill.CustomerID,
@@ -212,7 +214,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.MonthChargeValue,
                                 _bill.Value,
                                 _barcode,
-                                BillService.FormatBarcodeString(_barcode),
+                                string.Empty,//BillService.FormatBarcodeString(_barcode),
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
                                 BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
                                 _qrCode);

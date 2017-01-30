@@ -61,6 +61,7 @@
             this.countersTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.publicPlacePlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.publicPlaceAndCountersSplitContainer = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,6 +73,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.floorCountSpinEdit.Properties)).BeginInit();
             this.countersTableLayoutPanel.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.publicPlaceAndCountersSplitContainer)).BeginInit();
+            this.publicPlaceAndCountersSplitContainer.Panel1.SuspendLayout();
+            this.publicPlaceAndCountersSplitContainer.Panel2.SuspendLayout();
+            this.publicPlaceAndCountersSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -137,7 +142,7 @@
             this.counterViewPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.counterViewPlaceholder.Location = new System.Drawing.Point(3, 16);
             this.counterViewPlaceholder.Name = "counterViewPlaceholder";
-            this.counterViewPlaceholder.Size = new System.Drawing.Size(360, 95);
+            this.counterViewPlaceholder.Size = new System.Drawing.Size(360, 66);
             this.counterViewPlaceholder.SmartPartName = "CounterView";
             this.counterViewPlaceholder.TabIndex = 2;
             // 
@@ -147,7 +152,7 @@
             this.counterValueViewPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.counterValueViewPlaceholder.Location = new System.Drawing.Point(3, 16);
             this.counterValueViewPlaceholder.Name = "counterValueViewPlaceholder";
-            this.counterValueViewPlaceholder.Size = new System.Drawing.Size(360, 95);
+            this.counterValueViewPlaceholder.Size = new System.Drawing.Size(360, 66);
             this.counterValueViewPlaceholder.SmartPartName = "CounterValueView";
             this.counterValueViewPlaceholder.TabIndex = 3;
             // 
@@ -157,7 +162,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(366, 114);
+            this.groupBox1.Size = new System.Drawing.Size(366, 85);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Приборы учета";
@@ -168,7 +173,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(375, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(366, 114);
+            this.groupBox2.Size = new System.Drawing.Size(366, 85);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Показания";
@@ -408,12 +413,12 @@
             this.countersTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.countersTableLayoutPanel.Controls.Add(this.groupBox2, 1, 0);
             this.countersTableLayoutPanel.Controls.Add(this.groupBox1, 0, 0);
-            this.countersTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.countersTableLayoutPanel.Location = new System.Drawing.Point(0, 279);
+            this.countersTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.countersTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.countersTableLayoutPanel.Name = "countersTableLayoutPanel";
             this.countersTableLayoutPanel.RowCount = 1;
             this.countersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.countersTableLayoutPanel.Size = new System.Drawing.Size(744, 120);
+            this.countersTableLayoutPanel.Size = new System.Drawing.Size(744, 91);
             this.countersTableLayoutPanel.TabIndex = 9;
             // 
             // publicPlacePlaceholder
@@ -422,7 +427,7 @@
             this.publicPlacePlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.publicPlacePlaceholder.Location = new System.Drawing.Point(3, 16);
             this.publicPlacePlaceholder.Name = "publicPlacePlaceholder";
-            this.publicPlacePlaceholder.Size = new System.Drawing.Size(738, 50);
+            this.publicPlacePlaceholder.Size = new System.Drawing.Size(738, 75);
             this.publicPlacePlaceholder.SmartPartName = "PublicPlaceView";
             this.publicPlacePlaceholder.TabIndex = 10;
             // 
@@ -430,19 +435,36 @@
             // 
             this.groupBox4.Controls.Add(this.publicPlacePlaceholder);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(0, 210);
+            this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(744, 69);
+            this.groupBox4.Size = new System.Drawing.Size(744, 94);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Площадь МОП";
+            // 
+            // publicPlaceAndCountersSplitContainer
+            // 
+            this.publicPlaceAndCountersSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.publicPlaceAndCountersSplitContainer.Location = new System.Drawing.Point(0, 210);
+            this.publicPlaceAndCountersSplitContainer.Name = "publicPlaceAndCountersSplitContainer";
+            this.publicPlaceAndCountersSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // publicPlaceAndCountersSplitContainer.Panel1
+            // 
+            this.publicPlaceAndCountersSplitContainer.Panel1.Controls.Add(this.groupBox4);
+            // 
+            // publicPlaceAndCountersSplitContainer.Panel2
+            // 
+            this.publicPlaceAndCountersSplitContainer.Panel2.Controls.Add(this.countersTableLayoutPanel);
+            this.publicPlaceAndCountersSplitContainer.Size = new System.Drawing.Size(744, 189);
+            this.publicPlaceAndCountersSplitContainer.SplitterDistance = 94;
+            this.publicPlaceAndCountersSplitContainer.TabIndex = 12;
             // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.countersTableLayoutPanel);
+            this.Controls.Add(this.publicPlaceAndCountersSplitContainer);
             this.Controls.Add(this.panel1);
             this.Name = "ItemView";
             this.Size = new System.Drawing.Size(744, 399);
@@ -459,6 +481,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.floorCountSpinEdit.Properties)).EndInit();
             this.countersTableLayoutPanel.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.publicPlaceAndCountersSplitContainer.Panel1.ResumeLayout(false);
+            this.publicPlaceAndCountersSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.publicPlaceAndCountersSplitContainer)).EndInit();
+            this.publicPlaceAndCountersSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -498,5 +524,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private DevExpress.XtraEditors.LookUpEdit bankDetailsLookUpEdit;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.SplitContainer publicPlaceAndCountersSplitContainer;
     }
 }

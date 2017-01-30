@@ -129,6 +129,18 @@
   <data name="xrTable2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>0, 0</value>
   </data>
+  <data name="xrTableCell7.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrTableCell7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 6.75pt</value>
+  </data>
+  <data name="xrTableCell7.Text" xml:space="preserve">
+    <value>xrTableCell7</value>
+  </data>
+  <data name="xrTableCell7.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleLeft</value>
+  </data>
   <data name="xrTableCell11.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
@@ -177,23 +189,23 @@
   <data name="xrTableCell17.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
   </data>
-  <data name="xrTableCell19.Dpi" type="System.Single, mscorlib">
+  <data name="xrTableCell9.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
-  <data name="xrTableCell19.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="xrTableCell9.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 6.75pt</value>
   </data>
-  <data name="xrTableCell19.Text" xml:space="preserve">
-    <value>xrTableCell19</value>
+  <data name="xrTableCell9.Text" xml:space="preserve">
+    <value>xrTableCell9</value>
   </data>
-  <data name="xrTableCell19.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell9.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableRow3.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrTable2.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1206, 50</value>
+    <value>1998, 50</value>
   </data>
   <data name="Detail.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -204,6 +216,21 @@
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="xrLabel4.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrLabel4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 8.25pt</value>
+  </data>
+  <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>0, 0</value>
+  </data>
+  <data name="xrLabel4.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>245.729187, 41.9999962</value>
+  </data>
+  <data name="xrLabel4.Text" xml:space="preserve">
+    <value>Приборы учета:</value>
+  </data>
   <data name="xrTable1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
@@ -211,7 +238,19 @@
     <value>Arial, 8.25pt</value>
   </data>
   <data name="xrTable1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 0</value>
+    <value>0, 41.9999962</value>
+  </data>
+  <data name="xrTableCell6.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrTableCell6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 6.75pt</value>
+  </data>
+  <data name="xrTableCell6.Text" xml:space="preserve">
+    <value>Услуга</value>
+  </data>
+  <data name="xrTableCell6.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -261,29 +300,29 @@
   <data name="xrTableCell4.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
   </data>
-  <data name="xrTableCell5.Dpi" type="System.Single, mscorlib">
+  <data name="xrTableCell8.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
-  <data name="xrTableCell5.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="xrTableCell8.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 6.75pt</value>
   </data>
-  <data name="xrTableCell5.Text" xml:space="preserve">
-    <value>Тариф</value>
+  <data name="xrTableCell8.Text" xml:space="preserve">
+    <value>Ед. изм.</value>
   </data>
-  <data name="xrTableCell5.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableRow1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrTable1.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1206, 50</value>
+    <value>1998, 50</value>
   </data>
   <data name="ReportHeader.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="ReportHeader.HeightF" type="System.Single, mscorlib">
-    <value>50</value>
+    <value>92</value>
   </data>
   <data name="topMarginBand1.Dpi" type="System.Single, mscorlib">
     <value>254</value>

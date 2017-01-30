@@ -21,7 +21,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         {
             StringBuilder _builder = new StringBuilder();
 
-            _builder.AppendLine("Директор Слаутенко А.В. г. Владивосток, ул. Рылеева, 8.");
+            _builder.AppendLine("Председатель ТСЖ Садардинов И.В.");
 
             if (bankDetail != null)
             {
@@ -47,9 +47,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
                 _builder.AppendLine(bankDetail.Name);
             }
 
-            _builder.AppendLine("Юр. от. 279-15-81, отд. по раб. с нас. 279-15-85, ПТО 279-15-84,");
-            _builder.Append(
-                $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72, адрес: Рылеева, 8");
+            _builder.Append("Телефон бухгалтерии 241-11-43, +7-914-714-33-05");
+            /*_builder.Append(
+                $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72, адрес: Рылеева, 8");*/
 
             if (!string.IsNullOrEmpty(contractorInfo))
             {

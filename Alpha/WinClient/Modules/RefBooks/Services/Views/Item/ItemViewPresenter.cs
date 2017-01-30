@@ -15,20 +15,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         #region Overrides of BaseMainItemViewPresenter<IItemView,Service>
 
         /// <summary>
-        /// Обработка загрузки вида.
-        /// </summary>
-        public override void OnViewReady()
-        {
-            base.OnViewReady();
-            View.ServiceTypes = GetList<ServiceType>();
-        }
-
-        /// <summary>
         /// Отображает домен на всех видах
         /// </summary>
         /// <param name="_domItem">Объект домена</param>
         protected override void ShowDomainOnAllViews(Service _domItem)
         {
+            View.ServiceTypes = GetList<ServiceType>();
             View.ServiceName = _domItem.Name;
             View.ServiceCode = _domItem.Code;
             View.ServiceType = _domItem.ServiceType;

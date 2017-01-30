@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BottomReceiptReportObject));
-            DevExpress.XtraPrinting.BarCode.QRCodeGenerator qrCodeGenerator1 = new DevExpress.XtraPrinting.BarCode.QRCodeGenerator();
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
+            this.xrPanel1 = new DevExpress.XtraReports.UI.XRPanel();
+            this.billDateLabel = new DevExpress.XtraReports.UI.XRLabel();
+            this.repNameLbl = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.payerAkaLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
@@ -43,11 +46,8 @@
             this.xrLabel7 = new DevExpress.XtraReports.UI.XRLabel();
             this.peopleCountLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
-            this.bankQrCode = new DevExpress.XtraReports.UI.XRBarCode();
             this.bankDetailsLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
-            this.xrLabel15 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel14 = new DevExpress.XtraReports.UI.XRLabel();
             this.printDateLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel9 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTable3 = new DevExpress.XtraReports.UI.XRTable();
@@ -83,6 +83,8 @@
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrPanel1,
+            this.xrLabel6,
             this.xrLabel3,
             this.payerAkaLabel,
             this.xrLabel1,
@@ -93,11 +95,8 @@
             this.xrLabel7,
             this.peopleCountLabel,
             this.xrLabel2,
-            this.bankQrCode,
             this.bankDetailsLabel,
             this.serviceTableSubreport,
-            this.xrLabel15,
-            this.xrLabel14,
             this.printDateLabel,
             this.xrLabel9,
             this.xrTable3,
@@ -111,6 +110,53 @@
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             this.Detail.StylePriority.UseTextAlignment = false;
+            // 
+            // xrPanel1
+            // 
+            this.xrPanel1.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+            | DevExpress.XtraPrinting.BorderSide.Right) 
+            | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrPanel1.CanGrow = false;
+            this.xrPanel1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.billDateLabel,
+            this.repNameLbl});
+            resources.ApplyResources(this.xrPanel1, "xrPanel1");
+            this.xrPanel1.Name = "xrPanel1";
+            this.xrPanel1.StylePriority.UseBorders = false;
+            this.xrPanel1.StylePriority.UseBorderWidth = false;
+            // 
+            // billDateLabel
+            // 
+            this.billDateLabel.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.billDateLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BillDateTime")});
+            resources.ApplyResources(this.billDateLabel, "billDateLabel");
+            this.billDateLabel.Multiline = true;
+            this.billDateLabel.Name = "billDateLabel";
+            this.billDateLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.billDateLabel.StylePriority.UseBorders = false;
+            this.billDateLabel.StylePriority.UseFont = false;
+            this.billDateLabel.StylePriority.UseTextAlignment = false;
+            // 
+            // repNameLbl
+            // 
+            this.repNameLbl.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            resources.ApplyResources(this.repNameLbl, "repNameLbl");
+            this.repNameLbl.Name = "repNameLbl";
+            this.repNameLbl.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.repNameLbl.StylePriority.UseBorders = false;
+            this.repNameLbl.StylePriority.UseFont = false;
+            this.repNameLbl.StylePriority.UseTextAlignment = false;
+            // 
+            // xrLabel6
+            // 
+            resources.ApplyResources(this.xrLabel6, "xrLabel6");
+            this.xrLabel6.Name = "xrLabel6";
+            this.xrLabel6.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 15, 0, 0, 254F);
+            this.xrLabel6.StylePriority.UseFont = false;
+            this.xrLabel6.StylePriority.UseForeColor = false;
+            this.xrLabel6.StylePriority.UsePadding = false;
+            this.xrLabel6.StylePriority.UseTextAlignment = false;
             // 
             // xrLabel3
             // 
@@ -204,26 +250,6 @@
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.StylePriority.UseTextAlignment = false;
             // 
-            // bankQrCode
-            // 
-            this.bankQrCode.AutoModule = true;
-            this.bankQrCode.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
-            | DevExpress.XtraPrinting.BorderSide.Right) 
-            | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.bankQrCode.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BankQrCodeString")});
-            resources.ApplyResources(this.bankQrCode, "bankQrCode");
-            this.bankQrCode.Module = 5F;
-            this.bankQrCode.Name = "bankQrCode";
-            this.bankQrCode.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 10, 10, 10, 254F);
-            this.bankQrCode.ShowText = false;
-            this.bankQrCode.StylePriority.UseBorders = false;
-            this.bankQrCode.StylePriority.UseFont = false;
-            this.bankQrCode.StylePriority.UsePadding = false;
-            this.bankQrCode.StylePriority.UseTextAlignment = false;
-            qrCodeGenerator1.CompactionMode = DevExpress.XtraPrinting.BarCode.QRCodeCompactionMode.Byte;
-            this.bankQrCode.Symbology = qrCodeGenerator1;
-            // 
             // bankDetailsLabel
             // 
             this.bankDetailsLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
@@ -242,22 +268,6 @@
             this.serviceTableSubreport.Id = 0;
             this.serviceTableSubreport.Name = "serviceTableSubreport";
             this.serviceTableSubreport.ReportSource = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject.Receipt.ServiceTableReportObject();
-            // 
-            // xrLabel15
-            // 
-            resources.ApplyResources(this.xrLabel15, "xrLabel15");
-            this.xrLabel15.Name = "xrLabel15";
-            this.xrLabel15.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel15.StylePriority.UseFont = false;
-            this.xrLabel15.StylePriority.UseTextAlignment = false;
-            // 
-            // xrLabel14
-            // 
-            resources.ApplyResources(this.xrLabel14, "xrLabel14");
-            this.xrLabel14.Name = "xrLabel14";
-            this.xrLabel14.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel14.StylePriority.UseFont = false;
-            this.xrLabel14.StylePriority.UseTextAlignment = false;
             // 
             // printDateLabel
             // 
@@ -565,15 +575,12 @@
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
         private DevExpress.XtraReports.UI.XRLabel printDateLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel9;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel15;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel14;
         private DevExpress.XtraReports.UI.XRSubreport serviceTableSubreport;
         public DevExpress.XtraReports.Parameters.Parameter CustId;
         private Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets.DataSet dataSet1;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
         private DevExpress.XtraReports.UI.XRLabel bankDetailsLabel;
-        private DevExpress.XtraReports.UI.XRBarCode bankQrCode;
         private DevExpress.XtraReports.UI.XRLabel xrLabel3;
         private DevExpress.XtraReports.UI.XRLabel payerAkaLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
@@ -602,5 +609,9 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel11;
         private DevExpress.XtraReports.UI.XRLine xrLine2;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel6;
+        private DevExpress.XtraReports.UI.XRPanel xrPanel1;
+        private DevExpress.XtraReports.UI.XRLabel billDateLabel;
+        private DevExpress.XtraReports.UI.XRLabel repNameLbl;
     }
 }

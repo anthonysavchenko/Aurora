@@ -37,7 +37,12 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             /// <summary>
             /// Начисление банковской коммисси в виде процента от расходов СОД
             /// </summary>
-            PublicPlaceBankCommission
+            PublicPlaceBankCommission,
+
+            /// <summary>
+            /// Начисление по общему счетчику пропорционально площади помещения
+            /// </summary>
+            CommonCounterByAreaRate
         }
 
         private string _name;

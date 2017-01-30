@@ -128,6 +128,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
                     return Service.ChargeRuleType.PublicPlaceBankCommission;
                 }
 
+                if (commonCounterByAreaRadioButton.Checked)
+                {
+                    return Service.ChargeRuleType.CommonCounterByAreaRate;
+                }
+
                 throw new ApplicationException("Не выбрано правило начисления");
             }
             set
@@ -156,6 +161,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
 
                     case Service.ChargeRuleType.PublicPlaceBankCommission:
                         publicPlaceBankCommissionRadioButton.Checked = true;
+                        break;
+
+                    case Service.ChargeRuleType.CommonCounterByAreaRate:
+                        commonCounterByAreaRadioButton.Checked = true;
                         break;
 
                     default:

@@ -10668,7 +10668,9 @@ namespace Taumis.Alpha.DataBase
         /// <param name="curValue">Initial value of the CurValue property.</param>
         /// <param name="consumption">Initial value of the Consumption property.</param>
         /// <param name="rate">Initial value of the Rate property.</param>
-        public static RegularBillDocCounterPoses CreateRegularBillDocCounterPoses(global::System.Int32 id, global::System.String number, global::System.Decimal prevValue, global::System.Decimal curValue, global::System.Decimal consumption, global::System.Decimal rate)
+        /// <param name="serviceName">Initial value of the ServiceName property.</param>
+        /// <param name="measure">Initial value of the Measure property.</param>
+        public static RegularBillDocCounterPoses CreateRegularBillDocCounterPoses(global::System.Int32 id, global::System.String number, global::System.Decimal prevValue, global::System.Decimal curValue, global::System.Decimal consumption, global::System.Decimal rate, global::System.String serviceName, global::System.String measure)
         {
             RegularBillDocCounterPoses regularBillDocCounterPoses = new RegularBillDocCounterPoses();
             regularBillDocCounterPoses.ID = id;
@@ -10677,6 +10679,8 @@ namespace Taumis.Alpha.DataBase
             regularBillDocCounterPoses.CurValue = curValue;
             regularBillDocCounterPoses.Consumption = consumption;
             regularBillDocCounterPoses.Rate = rate;
+            regularBillDocCounterPoses.ServiceName = serviceName;
+            regularBillDocCounterPoses.Measure = measure;
             return regularBillDocCounterPoses;
         }
 
@@ -10830,6 +10834,54 @@ namespace Taumis.Alpha.DataBase
         private global::System.Decimal _Rate;
         partial void OnRateChanging(global::System.Decimal value);
         partial void OnRateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ServiceName
+        {
+            get
+            {
+                return _ServiceName;
+            }
+            set
+            {
+                OnServiceNameChanging(value);
+                ReportPropertyChanging("ServiceName");
+                _ServiceName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ServiceName");
+                OnServiceNameChanged();
+            }
+        }
+        private global::System.String _ServiceName;
+        partial void OnServiceNameChanging(global::System.String value);
+        partial void OnServiceNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Measure
+        {
+            get
+            {
+                return _Measure;
+            }
+            set
+            {
+                OnMeasureChanging(value);
+                ReportPropertyChanging("Measure");
+                _Measure = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Measure");
+                OnMeasureChanged();
+            }
+        }
+        private global::System.String _Measure;
+        partial void OnMeasureChanging(global::System.String value);
+        partial void OnMeasureChanged();
 
         #endregion
 

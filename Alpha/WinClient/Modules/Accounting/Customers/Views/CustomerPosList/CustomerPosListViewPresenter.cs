@@ -8,6 +8,7 @@ using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Doc;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Counter;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
@@ -47,7 +48,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         public override DataTable GetElemList()
         {
             DataTable _table;
-            string[] _selectedIDs = (string[])WorkItem.State[ModuleStateNames.SELECTED_ITEM_IDS];
 
             if (WorkItem.State[ModuleStateNames.EDIT_ITEM_MODE].ToString() == ModuleEditItemModes.Multiple)
             {

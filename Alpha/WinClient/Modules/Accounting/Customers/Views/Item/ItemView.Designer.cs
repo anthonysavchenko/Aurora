@@ -34,13 +34,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.HouseLabelControl = new DevExpress.XtraEditors.LabelControl();
             this.StreetNumberLabel = new DevExpress.XtraEditors.LabelControl();
             this.AddressGroupBox = new System.Windows.Forms.GroupBox();
-            this.entranceSpinEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.entranceNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.floorSpinEdit = new System.Windows.Forms.NumericUpDown();
+            this.areaNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.floorSpinEdit = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.buildingLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.streetLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.SquareTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.ApartmentTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.SquareLabelControl = new DevExpress.XtraEditors.LabelControl();
             this.ApartmentLabelControl = new DevExpress.XtraEditors.LabelControl();
@@ -51,7 +51,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.RoomsCountLabelControl = new DevExpress.XtraEditors.LabelControl();
             this.IsPrivateLabelControl = new DevExpress.XtraEditors.LabelControl();
             this.IsPrivateCheckEdit = new DevExpress.XtraEditors.CheckEdit();
-            this.RoomsCountSpinEdit = new DevExpress.XtraEditors.SpinEdit();
             this.OwnerGroupBox = new System.Windows.Forms.GroupBox();
             this.JuridicalPersonRadioButton = new System.Windows.Forms.RadioButton();
             this.UnknownRadioButton = new System.Windows.Forms.RadioButton();
@@ -75,17 +74,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.debtsRepaymentChkBox = new System.Windows.Forms.CheckBox();
+            this.roomsCountNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.AddressGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.entranceSpinEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.floorSpinEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entranceNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.floorSpinEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areaNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buildingLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SquareTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ApartmentTextEdit.Properties)).BeginInit();
             this.ResidentsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AccountTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IsPrivateCheckEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RoomsCountSpinEdit.Properties)).BeginInit();
             this.OwnerGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.JuridicalPersonFullNameTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PhysicalPersonShortNameTextEdit.Properties)).BeginInit();
@@ -94,6 +93,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsCountNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // HouseLabelControl
@@ -114,14 +114,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // 
             // AddressGroupBox
             // 
-            this.AddressGroupBox.Controls.Add(this.entranceSpinEdit);
-            this.AddressGroupBox.Controls.Add(this.labelControl2);
+            this.AddressGroupBox.Controls.Add(this.entranceNumericUpDown);
             this.AddressGroupBox.Controls.Add(this.floorSpinEdit);
+            this.AddressGroupBox.Controls.Add(this.areaNumericUpDown);
+            this.AddressGroupBox.Controls.Add(this.labelControl2);
             this.AddressGroupBox.Controls.Add(this.labelControl1);
             this.AddressGroupBox.Controls.Add(this.buildingLookUpEdit);
             this.AddressGroupBox.Controls.Add(this.streetLookUpEdit);
             this.AddressGroupBox.Controls.Add(this.StreetNumberLabel);
-            this.AddressGroupBox.Controls.Add(this.SquareTextEdit);
             this.AddressGroupBox.Controls.Add(this.ApartmentTextEdit);
             this.AddressGroupBox.Controls.Add(this.SquareLabelControl);
             this.AddressGroupBox.Controls.Add(this.ApartmentLabelControl);
@@ -133,30 +133,45 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.AddressGroupBox.TabStop = false;
             this.AddressGroupBox.Text = "Адрес";
             // 
-            // entranceSpinEdit
+            // entranceNumericUpDown
             // 
-            this.entranceSpinEdit.EditValue = new decimal(new int[] {
+            this.entranceNumericUpDown.Location = new System.Drawing.Point(259, 72);
+            this.entranceNumericUpDown.Name = "entranceNumericUpDown";
+            this.entranceNumericUpDown.Size = new System.Drawing.Size(63, 20);
+            this.entranceNumericUpDown.TabIndex = 6;
+            this.entranceNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.entranceNumericUpDown.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.entranceSpinEdit.Location = new System.Drawing.Point(259, 72);
-            this.entranceSpinEdit.Name = "entranceSpinEdit";
-            this.entranceSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.entranceSpinEdit.Properties.Mask.EditMask = "n0";
-            this.entranceSpinEdit.Properties.MaxValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.entranceSpinEdit.Properties.MinValue = new decimal(new int[] {
+            // 
+            // floorSpinEdit
+            // 
+            this.floorSpinEdit.Location = new System.Drawing.Point(125, 72);
+            this.floorSpinEdit.Name = "floorSpinEdit";
+            this.floorSpinEdit.Size = new System.Drawing.Size(63, 20);
+            this.floorSpinEdit.TabIndex = 5;
+            this.floorSpinEdit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.floorSpinEdit.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.entranceSpinEdit.Size = new System.Drawing.Size(63, 20);
-            this.entranceSpinEdit.TabIndex = 31;
+            // 
+            // areaNumericUpDown
+            // 
+            this.areaNumericUpDown.DecimalPlaces = 2;
+            this.areaNumericUpDown.Location = new System.Drawing.Point(125, 125);
+            this.areaNumericUpDown.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.areaNumericUpDown.Name = "areaNumericUpDown";
+            this.areaNumericUpDown.Size = new System.Drawing.Size(63, 20);
+            this.areaNumericUpDown.TabIndex = 8;
+            this.areaNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelControl2
             // 
@@ -165,26 +180,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.labelControl2.Size = new System.Drawing.Size(45, 13);
             this.labelControl2.TabIndex = 30;
             this.labelControl2.Text = "Подъезд";
-            // 
-            // floorSpinEdit
-            // 
-            this.floorSpinEdit.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.floorSpinEdit.Location = new System.Drawing.Point(125, 72);
-            this.floorSpinEdit.Name = "floorSpinEdit";
-            this.floorSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.floorSpinEdit.Properties.Mask.EditMask = "n0";
-            this.floorSpinEdit.Properties.MaxValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.floorSpinEdit.Size = new System.Drawing.Size(63, 20);
-            this.floorSpinEdit.TabIndex = 29;
             // 
             // labelControl1
             // 
@@ -205,7 +200,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.buildingLookUpEdit.Properties.DisplayMember = "Number";
             this.buildingLookUpEdit.Properties.ValueMember = "ID";
             this.buildingLookUpEdit.Size = new System.Drawing.Size(197, 20);
-            this.buildingLookUpEdit.TabIndex = 5;
+            this.buildingLookUpEdit.TabIndex = 4;
             this.buildingLookUpEdit.EditValueChanged += new System.EventHandler(this.buildingLookUpEdit_EditValueChanged);
             // 
             // streetLookUpEdit
@@ -219,17 +214,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.streetLookUpEdit.Properties.DisplayMember = "Name";
             this.streetLookUpEdit.Properties.ValueMember = "ID";
             this.streetLookUpEdit.Size = new System.Drawing.Size(197, 20);
-            this.streetLookUpEdit.TabIndex = 5;
+            this.streetLookUpEdit.TabIndex = 3;
             this.streetLookUpEdit.EditValueChanged += new System.EventHandler(this.streetLookUpEdit_EditValueChanged);
-            // 
-            // SquareTextEdit
-            // 
-            this.SquareTextEdit.EditValue = "";
-            this.SquareTextEdit.Location = new System.Drawing.Point(125, 125);
-            this.SquareTextEdit.Name = "SquareTextEdit";
-            this.SquareTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.SquareTextEdit.Size = new System.Drawing.Size(63, 20);
-            this.SquareTextEdit.TabIndex = 5;
             // 
             // ApartmentTextEdit
             // 
@@ -238,7 +224,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.ApartmentTextEdit.Name = "ApartmentTextEdit";
             this.ApartmentTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.ApartmentTextEdit.Size = new System.Drawing.Size(63, 20);
-            this.ApartmentTextEdit.TabIndex = 5;
+            this.ApartmentTextEdit.TabIndex = 7;
             // 
             // SquareLabelControl
             // 
@@ -286,7 +272,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.AccountTextEdit.Name = "AccountTextEdit";
             this.AccountTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.AccountTextEdit.Size = new System.Drawing.Size(197, 20);
-            this.AccountTextEdit.TabIndex = 5;
+            this.AccountTextEdit.TabIndex = 0;
             // 
             // AccountLabelControl
             // 
@@ -318,28 +304,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.IsPrivateCheckEdit.Name = "IsPrivateCheckEdit";
             this.IsPrivateCheckEdit.Properties.Caption = "";
             this.IsPrivateCheckEdit.Size = new System.Drawing.Size(75, 19);
-            this.IsPrivateCheckEdit.TabIndex = 6;
-            // 
-            // RoomsCountSpinEdit
-            // 
-            this.RoomsCountSpinEdit.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.RoomsCountSpinEdit.Location = new System.Drawing.Point(128, 46);
-            this.RoomsCountSpinEdit.Name = "RoomsCountSpinEdit";
-            this.RoomsCountSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.RoomsCountSpinEdit.Properties.Mask.EditMask = "n0";
-            this.RoomsCountSpinEdit.Properties.MaxValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.RoomsCountSpinEdit.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.RoomsCountSpinEdit.Size = new System.Drawing.Size(63, 20);
-            this.RoomsCountSpinEdit.TabIndex = 28;
+            this.IsPrivateCheckEdit.TabIndex = 2;
             // 
             // OwnerGroupBox
             // 
@@ -367,7 +332,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.JuridicalPersonRadioButton.Location = new System.Drawing.Point(9, 125);
             this.JuridicalPersonRadioButton.Name = "JuridicalPersonRadioButton";
             this.JuridicalPersonRadioButton.Size = new System.Drawing.Size(120, 17);
-            this.JuridicalPersonRadioButton.TabIndex = 28;
+            this.JuridicalPersonRadioButton.TabIndex = 14;
             this.JuridicalPersonRadioButton.Text = "Юридическое лицо";
             this.JuridicalPersonRadioButton.UseVisualStyleBackColor = true;
             this.JuridicalPersonRadioButton.CheckedChanged += new System.EventHandler(this.JuridicalPersonRadioButton_CheckedChanged);
@@ -379,7 +344,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.UnknownRadioButton.Location = new System.Drawing.Point(9, 19);
             this.UnknownRadioButton.Name = "UnknownRadioButton";
             this.UnknownRadioButton.Size = new System.Drawing.Size(86, 17);
-            this.UnknownRadioButton.TabIndex = 28;
+            this.UnknownRadioButton.TabIndex = 10;
             this.UnknownRadioButton.TabStop = true;
             this.UnknownRadioButton.Text = "Неизвестен";
             this.UnknownRadioButton.UseVisualStyleBackColor = true;
@@ -391,7 +356,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.PhysicalPersonRadioButton.Location = new System.Drawing.Point(9, 47);
             this.PhysicalPersonRadioButton.Name = "PhysicalPersonRadioButton";
             this.PhysicalPersonRadioButton.Size = new System.Drawing.Size(116, 17);
-            this.PhysicalPersonRadioButton.TabIndex = 28;
+            this.PhysicalPersonRadioButton.TabIndex = 11;
             this.PhysicalPersonRadioButton.Text = "Физическое лицо";
             this.PhysicalPersonRadioButton.UseVisualStyleBackColor = true;
             this.PhysicalPersonRadioButton.CheckedChanged += new System.EventHandler(this.PhysicalPersonRadioButton_CheckedChanged);
@@ -412,7 +377,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.JuridicalPersonFullNameTextEdit.Name = "JuridicalPersonFullNameTextEdit";
             this.JuridicalPersonFullNameTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.JuridicalPersonFullNameTextEdit.Size = new System.Drawing.Size(197, 20);
-            this.JuridicalPersonFullNameTextEdit.TabIndex = 5;
+            this.JuridicalPersonFullNameTextEdit.TabIndex = 15;
             // 
             // PhysicalPersonShortNameTextEdit
             // 
@@ -422,7 +387,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.PhysicalPersonShortNameTextEdit.Name = "PhysicalPersonShortNameTextEdit";
             this.PhysicalPersonShortNameTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.PhysicalPersonShortNameTextEdit.Size = new System.Drawing.Size(197, 20);
-            this.PhysicalPersonShortNameTextEdit.TabIndex = 5;
+            this.PhysicalPersonShortNameTextEdit.TabIndex = 13;
             this.PhysicalPersonShortNameTextEdit.Enter += new System.EventHandler(this.PhysicalPersonShortNameTextEdit_Enter);
             this.PhysicalPersonShortNameTextEdit.Leave += new System.EventHandler(this.PhysicalPersonShortNameTextEdit_Leave);
             // 
@@ -434,7 +399,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.PhysicalPersonFullNameTextEdit.Name = "PhysicalPersonFullNameTextEdit";
             this.PhysicalPersonFullNameTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.PhysicalPersonFullNameTextEdit.Size = new System.Drawing.Size(197, 20);
-            this.PhysicalPersonFullNameTextEdit.TabIndex = 5;
+            this.PhysicalPersonFullNameTextEdit.TabIndex = 12;
             this.PhysicalPersonFullNameTextEdit.Enter += new System.EventHandler(this.PhysicalPersonFullNameTextEdit_Enter);
             this.PhysicalPersonFullNameTextEdit.Leave += new System.EventHandler(this.PhysicalPersonFullNameTextEdit_Leave);
             // 
@@ -473,7 +438,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.emailTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(198, 20);
-            this.emailTextBox.TabIndex = 1;
+            this.emailTextBox.TabIndex = 19;
             // 
             // label1
             // 
@@ -527,7 +492,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.rubbishChuteCheckBox.Location = new System.Drawing.Point(143, 26);
             this.rubbishChuteCheckBox.Name = "rubbishChuteCheckBox";
             this.rubbishChuteCheckBox.Size = new System.Drawing.Size(151, 17);
-            this.rubbishChuteCheckBox.TabIndex = 1;
+            this.rubbishChuteCheckBox.TabIndex = 17;
             this.rubbishChuteCheckBox.Text = "Наличие мусоропровода";
             this.rubbishChuteCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -537,7 +502,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.liftPresenceCheckBox.Location = new System.Drawing.Point(9, 26);
             this.liftPresenceCheckBox.Name = "liftPresenceCheckBox";
             this.liftPresenceCheckBox.Size = new System.Drawing.Size(103, 17);
-            this.liftPresenceCheckBox.TabIndex = 0;
+            this.liftPresenceCheckBox.TabIndex = 16;
             this.liftPresenceCheckBox.Text = "Наличие лифта";
             this.liftPresenceCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -565,7 +530,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.webAccessCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.webAccessCheckBox.Name = "webAccessCheckBox";
             this.webAccessCheckBox.Size = new System.Drawing.Size(135, 17);
-            this.webAccessCheckBox.TabIndex = 49;
+            this.webAccessCheckBox.TabIndex = 18;
             this.webAccessCheckBox.Text = "Предоставить доступ";
             this.webAccessCheckBox.UseVisualStyleBackColor = true;
             this.webAccessCheckBox.CheckedChanged += new System.EventHandler(this.webAccessCheckBox_CheckedChanged);
@@ -599,9 +564,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.debtsRepaymentChkBox.Location = new System.Drawing.Point(9, 19);
             this.debtsRepaymentChkBox.Name = "debtsRepaymentChkBox";
             this.debtsRepaymentChkBox.Size = new System.Drawing.Size(146, 17);
-            this.debtsRepaymentChkBox.TabIndex = 0;
+            this.debtsRepaymentChkBox.TabIndex = 9;
             this.debtsRepaymentChkBox.Text = "Соглашение заключено";
             this.debtsRepaymentChkBox.UseVisualStyleBackColor = true;
+            // 
+            // roomsCountNumericUpDown
+            // 
+            this.roomsCountNumericUpDown.Location = new System.Drawing.Point(128, 46);
+            this.roomsCountNumericUpDown.Name = "roomsCountNumericUpDown";
+            this.roomsCountNumericUpDown.Size = new System.Drawing.Size(63, 20);
+            this.roomsCountNumericUpDown.TabIndex = 1;
+            this.roomsCountNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.roomsCountNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // ItemView
             // 
@@ -609,9 +587,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.Controls.Add(this.roomsCountNumericUpDown);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.RoomsCountSpinEdit);
             this.Controls.Add(this.IsPrivateCheckEdit);
             this.Controls.Add(this.OwnerGroupBox);
             this.Controls.Add(this.AddressGroupBox);
@@ -626,16 +604,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.Size = new System.Drawing.Size(754, 548);
             this.AddressGroupBox.ResumeLayout(false);
             this.AddressGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.entranceSpinEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.floorSpinEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entranceNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.floorSpinEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areaNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buildingLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SquareTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ApartmentTextEdit.Properties)).EndInit();
             this.ResidentsGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AccountTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IsPrivateCheckEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RoomsCountSpinEdit.Properties)).EndInit();
             this.OwnerGroupBox.ResumeLayout(false);
             this.OwnerGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.JuridicalPersonFullNameTextEdit.Properties)).EndInit();
@@ -649,6 +626,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsCountNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -664,13 +642,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private DevExpress.XtraEditors.TextEdit AccountTextEdit;
         private DevExpress.XtraEditors.LabelControl AccountLabelControl;
         private DevExpress.XtraEditors.TextEdit ApartmentTextEdit;
-        private DevExpress.XtraEditors.TextEdit SquareTextEdit;
         private DevExpress.XtraEditors.LabelControl SquareLabelControl;
         private DevExpress.XtraEditors.LabelControl ApartmentLabelControl;
         private DevExpress.XtraEditors.LabelControl RoomsCountLabelControl;
         private DevExpress.XtraEditors.LabelControl IsPrivateLabelControl;
         private DevExpress.XtraEditors.CheckEdit IsPrivateCheckEdit;
-        private DevExpress.XtraEditors.SpinEdit RoomsCountSpinEdit;
         private System.Windows.Forms.GroupBox OwnerGroupBox;
         private DevExpress.XtraEditors.LabelControl PhysicalPersonFullNameLabelControl;
         private DevExpress.XtraEditors.TextEdit JuridicalPersonFullNameTextEdit;
@@ -685,7 +661,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private DevExpress.XtraEditors.LookUpEdit streetLookUpEdit;
         private System.Windows.Forms.GroupBox CommonGroupBox;
         private System.Windows.Forms.TextBox CommentTextBox;
-        private DevExpress.XtraEditors.SpinEdit floorSpinEdit;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox rubbishChuteCheckBox;
@@ -698,8 +673,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox debtsRepaymentChkBox;
-        private DevExpress.XtraEditors.SpinEdit entranceSpinEdit;
         private DevExpress.XtraEditors.LabelControl labelControl2;
+        private System.Windows.Forms.NumericUpDown entranceNumericUpDown;
+        private System.Windows.Forms.NumericUpDown floorSpinEdit;
+        private System.Windows.Forms.NumericUpDown areaNumericUpDown;
+        private System.Windows.Forms.NumericUpDown roomsCountNumericUpDown;
     }
 }
 

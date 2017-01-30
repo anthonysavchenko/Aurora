@@ -34,10 +34,12 @@
             this.periodColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.periodRepositoryItemDateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.valueColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.valueSpinEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.VistaTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valueSpinEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // counterValueGridControl
@@ -48,7 +50,8 @@
             this.counterValueGridControl.MainView = this.counterValueGridView;
             this.counterValueGridControl.Name = "counterValueGridControl";
             this.counterValueGridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.periodRepositoryItemDateEdit});
+            this.periodRepositoryItemDateEdit,
+            this.valueSpinEdit});
             this.counterValueGridControl.Size = new System.Drawing.Size(803, 458);
             this.counterValueGridControl.TabIndex = 2;
             this.counterValueGridControl.UseEmbeddedNavigator = true;
@@ -89,23 +92,39 @@
             this.periodRepositoryItemDateEdit.AutoHeight = false;
             this.periodRepositoryItemDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.periodRepositoryItemDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.periodRepositoryItemDateEdit.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.periodRepositoryItemDateEdit.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
             this.periodRepositoryItemDateEdit.DisplayFormat.FormatString = "MM.yyyy";
             this.periodRepositoryItemDateEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.periodRepositoryItemDateEdit.EditFormat.FormatString = "MM.yyyy";
             this.periodRepositoryItemDateEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.periodRepositoryItemDateEdit.Mask.EditMask = "MM.yyyy";
             this.periodRepositoryItemDateEdit.Name = "periodRepositoryItemDateEdit";
-            this.periodRepositoryItemDateEdit.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
             // 
             // valueColumn
             // 
             this.valueColumn.Caption = "Показания";
+            this.valueColumn.ColumnEdit = this.valueSpinEdit;
+            this.valueColumn.DisplayFormat.FormatString = "n2";
             this.valueColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.valueColumn.FieldName = "Value";
             this.valueColumn.Name = "valueColumn";
             this.valueColumn.Visible = true;
             this.valueColumn.VisibleIndex = 1;
+            // 
+            // valueSpinEdit
+            // 
+            this.valueSpinEdit.AutoHeight = false;
+            this.valueSpinEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.valueSpinEdit.DisplayFormat.FormatString = "n2";
+            this.valueSpinEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.valueSpinEdit.EditFormat.FormatString = "n2";
+            this.valueSpinEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.valueSpinEdit.Mask.EditMask = "n2";
+            this.valueSpinEdit.Name = "valueSpinEdit";
             // 
             // CounterValueView
             // 
@@ -116,8 +135,9 @@
             this.Size = new System.Drawing.Size(803, 458);
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.VistaTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valueSpinEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,6 +150,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn periodColumn;
         private DevExpress.XtraGrid.Columns.GridColumn valueColumn;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit periodRepositoryItemDateEdit;
-
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit valueSpinEdit;
     }
 }

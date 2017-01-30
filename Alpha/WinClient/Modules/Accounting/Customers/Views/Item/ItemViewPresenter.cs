@@ -291,23 +291,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 
             string _account = _domItem.Account;
 
-            if (String.IsNullOrEmpty(_account))
-            {
-                using (Entities _entities = new Entities())
-                {
-                    Taumis.Alpha.DataBase.Customers _lastCustomer = _entities.Customers.OrderByDescending(customer => customer.Account).FirstOrDefault();
-                    if (_lastCustomer != null)
-                    {
-                        long _lastAccount = Convert.ToInt64(String.Format("{0}{1}{2}", _lastCustomer.Account.Substring(3, 4), _lastCustomer.Account.Substring(8, 3), _lastCustomer.Account.Substring(12, 1)));
-                        _account = (_lastAccount + 1).ToString().Insert(7, "-").Insert(4, "-").Insert(0, "EG-");
-                    }
-                    else
-                    {
-                        _account = "EG-1111-111-1";
-                    }
-                }
-            }
-
             View.Account = _account;
             View.RoomsCount = _domItem.RoomsCount;
             View.IsPrivate = _domItem.IsPrivate;

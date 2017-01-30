@@ -35,21 +35,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             ICounterValueView _counterValueView =
                 ((ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW]);
+            CustomerPos _currentCustomerPos = ((CustomerPos) WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS]);
+            
+            WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER] = null;
+
             _counterValueView.NavigationButtonsEnabled = false;
+            View.NavigationButtonsEnabled =
+                WorkItem.State[ModuleStateNames.EDIT_ITEM_MODE].ToString() == ModuleEditItemModes.Single &&
+                _currentCustomerPos.Service.ChargeRule == Service.ChargeRuleType.CounterRate;
 
-            if (WorkItem.State[ModuleStateNames.EDIT_ITEM_MODE].ToString() == ModuleEditItemModes.Single &&
-                ((CustomerPos)WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS]).Service.ChargeRule == Service.ChargeRuleType.CounterRate)
-            {
-                View.NavigationButtonsEnabled = true;
-            }
-            else
-            {
-                WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER] = null;
-                _counterValueView.RefreshList();
-
-                View.NavigationButtonsEnabled = false;
-            }
-
+            _counterValueView.RefreshList();
             base.RefreshList();
         }
 

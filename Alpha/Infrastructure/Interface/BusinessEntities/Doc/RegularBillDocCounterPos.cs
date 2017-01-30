@@ -114,5 +114,43 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
                 _rate = value;
             }
         }
+
+        private string _ServiceName;
+
+        /// <summary>
+        /// Наименование услуги
+        /// </summary>
+        public string ServiceName
+        {
+            get
+            {
+                Load();
+                return _ServiceName;
+            }
+            set
+            {
+                Load();
+                _ServiceName = value;
+            }
+        }
+
+        private string _measure;
+
+        /// <summary>
+        /// Единица измерения
+        /// </summary>
+        public string Measure
+        {
+            get
+            {
+                Load();
+                return _measure;
+            }
+            set
+            {
+                Load();
+                _measure = value;
+            }
+        }
     }
 }

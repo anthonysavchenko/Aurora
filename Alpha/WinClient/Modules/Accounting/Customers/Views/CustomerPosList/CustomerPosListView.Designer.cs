@@ -42,12 +42,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.ContractorGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ContractorRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.RateGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.rateSpinEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfServicesListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOfServicesListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ServiceRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.VistaTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContractorRepositoryItemLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateSpinEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // gridControlOfServicesListView
@@ -59,8 +61,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.gridControlOfServicesListView.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.ServiceRepositoryItemLookUpEdit,
             this.ContractorRepositoryItemLookUpEdit,
-            this.SinceAndTillRepositoryItemDateEdit});
-            this.gridControlOfServicesListView.Size = new System.Drawing.Size(707, 203);
+            this.SinceAndTillRepositoryItemDateEdit,
+            this.rateSpinEdit});
+            this.gridControlOfServicesListView.Size = new System.Drawing.Size(707, 379);
             this.gridControlOfServicesListView.TabIndex = 0;
             this.gridControlOfServicesListView.UseEmbeddedNavigator = true;
             this.gridControlOfServicesListView.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -85,8 +88,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.ServiceGridColumn, DevExpress.Data.ColumnSortOrder.Ascending),
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.SinceGridColumn, DevExpress.Data.ColumnSortOrder.Ascending),
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.TillGridColumn, DevExpress.Data.ColumnSortOrder.Ascending)});
-            this.gridViewOfServicesListView.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridViewOfServicesListView_FocusedRowChanged);
             this.gridViewOfServicesListView.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridViewOfServicesListView_RowStyle);
+            this.gridViewOfServicesListView.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridViewOfServicesListView_FocusedRowChanged);
             // 
             // IDGridColumn
             // 
@@ -131,14 +134,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.SinceAndTillRepositoryItemDateEdit.AutoHeight = false;
             this.SinceAndTillRepositoryItemDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
             this.SinceAndTillRepositoryItemDateEdit.DisplayFormat.FormatString = "MM.yyyy";
             this.SinceAndTillRepositoryItemDateEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.SinceAndTillRepositoryItemDateEdit.EditFormat.FormatString = "MM.yyyy";
             this.SinceAndTillRepositoryItemDateEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.SinceAndTillRepositoryItemDateEdit.Mask.EditMask = "MM.yyyy";
             this.SinceAndTillRepositoryItemDateEdit.Name = "SinceAndTillRepositoryItemDateEdit";
-            this.SinceAndTillRepositoryItemDateEdit.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
             // 
             // TillGridColumn
             // 
@@ -174,10 +179,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // RateGridColumn
             // 
             this.RateGridColumn.Caption = "Тариф";
+            this.RateGridColumn.ColumnEdit = this.rateSpinEdit;
+            this.RateGridColumn.DisplayFormat.FormatString = "{0:n2}";
+            this.RateGridColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.RateGridColumn.FieldName = "Rate";
             this.RateGridColumn.Name = "RateGridColumn";
             this.RateGridColumn.Visible = true;
             this.RateGridColumn.VisibleIndex = 4;
+            // 
+            // rateSpinEdit
+            // 
+            this.rateSpinEdit.AutoHeight = false;
+            this.rateSpinEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.rateSpinEdit.DisplayFormat.FormatString = "{0:n2}";
+            this.rateSpinEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rateSpinEdit.Mask.EditMask = "n2";
+            this.rateSpinEdit.Name = "rateSpinEdit";
             // 
             // CustomerPosListView
             // 
@@ -185,13 +203,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gridControlOfServicesListView);
             this.Name = "CustomerPosListView";
-            this.Size = new System.Drawing.Size(707, 203);
+            this.Size = new System.Drawing.Size(707, 379);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfServicesListView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOfServicesListView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ServiceRepositoryItemLookUpEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.VistaTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContractorRepositoryItemLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateSpinEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -209,6 +228,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private DevExpress.XtraGrid.Columns.GridColumn SinceGridColumn;
         private DevExpress.XtraGrid.Columns.GridColumn TillGridColumn;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit SinceAndTillRepositoryItemDateEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit rateSpinEdit;
     }
 }
 

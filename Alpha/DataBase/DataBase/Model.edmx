@@ -430,6 +430,8 @@
           <Property Name="Consumption" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="Rate" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="RegularBillDoc" Type="int" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Measure" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="RegularBillDocs">
           <Key>
@@ -2705,6 +2707,8 @@
           <Property Name="Consumption" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="Rate" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <NavigationProperty Name="RegularBillDocs" Relationship="AlphaDataBaseModel.RegularBillDocCounterPoses_fk" FromRole="RegularBillDocCounterPoses" ToRole="RegularBillDocs" />
+          <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Measure" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RegularBillDocs">
           <Key>
@@ -3611,6 +3615,8 @@
           <EntitySetMapping Name="RegularBillDocCounterPoses">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.RegularBillDocCounterPoses)">
               <MappingFragment StoreEntitySet="RegularBillDocCounterPoses">
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
