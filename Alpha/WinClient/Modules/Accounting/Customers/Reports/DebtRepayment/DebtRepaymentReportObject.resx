@@ -314,7 +314,7 @@
     <value>872.29126, 64.16675</value>
   </data>
   <data name="xrLabel21.Text" xml:space="preserve">
-    <value>Директор ООО «УК Фрунзенского района»</value>
+    <value>Председатель ТСЖ «Инженерный»</value>
   </data>
   <data name="xrLabel21.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>TopLeft</value>
@@ -404,7 +404,7 @@
     <value>373.0631, 63</value>
   </data>
   <data name="xrLabel17.Text" xml:space="preserve">
-    <value>Слаутенко А.В.</value>
+    <value>_________________</value>
   </data>
   <data name="xrLabel17.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>TopLeft</value>
@@ -458,9 +458,8 @@
     <value>872.29126, 246.729248</value>
   </data>
   <data name="xrLabel7.Text" xml:space="preserve">
-    <value>ООО «УК Фрунзенского района»
-690003, г. Владивосток, ул. Рылеева, 8
-ИНН 2540165515 КПП 254001001</value>
+    <value>ТСЖ «Инженерный»
+690091, г. Владивосток, ул. Инженерный переулок, 14а, ИНН 2540103325 КПП 254001001</value>
   </data>
   <data name="xrLabel7.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>TopLeft</value>

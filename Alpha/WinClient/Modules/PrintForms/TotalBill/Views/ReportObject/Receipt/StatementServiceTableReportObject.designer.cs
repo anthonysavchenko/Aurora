@@ -208,6 +208,7 @@
             this.xrTableCell18});
             resources.ApplyResources(this.xrTableRow3, "xrTableRow3");
             this.xrTableRow3.Name = "xrTableRow3";
+            this.xrTableRow3.StylePriority.UseFont = false;
             this.xrTableRow3.Weight = 1D;
             // 
             // xrTableCell13

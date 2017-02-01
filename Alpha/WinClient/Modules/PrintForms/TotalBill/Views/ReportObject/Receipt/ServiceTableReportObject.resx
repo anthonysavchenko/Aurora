@@ -130,7 +130,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="xrTableCell7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell7.Text" xml:space="preserve">
     <value>xrTableCell7</value>
@@ -141,11 +141,14 @@
   <data name="xrTableCell21.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell21.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
   <data name="xrTableCell8.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrTableCell8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
@@ -153,11 +156,14 @@
   <data name="xrTableCell22.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell22.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
   <data name="xrTableCell9.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrTableCell9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell9.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
@@ -166,7 +172,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell10.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
@@ -174,11 +180,14 @@
   <data name="xrTableCell23.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell23.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
   <data name="xrTableCell11.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrTableCell11.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell11.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
@@ -187,7 +196,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell12.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt, style=Bold</value>
+    <value>Tahoma, 6.75pt, style=Bold</value>
   </data>
   <data name="xrTableCell12.Text" xml:space="preserve">
     <value>xrTableCell12</value>
@@ -220,7 +229,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 7.75pt</value>
+    <value>Tahoma, 7.75pt</value>
   </data>
   <data name="xrTableCell13.Text" xml:space="preserve">
     <value>Вид услуги</value>
@@ -232,7 +241,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell14.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell14.Text" xml:space="preserve">
     <value>Тариф</value>
@@ -244,7 +253,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell15.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell15.Text" xml:space="preserve">
     <value>Уров. опл.</value>
@@ -268,7 +277,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell16.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 7.75pt</value>
+    <value>Tahoma, 7.75pt</value>
   </data>
   <data name="xrTableCell16.Text" xml:space="preserve">
     <value>Льготы,</value>
@@ -280,7 +289,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell17.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell17.Text" xml:space="preserve">
     <value>Перерасчеты</value>
@@ -292,7 +301,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell18.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 7.75pt</value>
+    <value>Tahoma, 7.75pt</value>
   </data>
   <data name="xrTableCell18.Text" xml:space="preserve">
     <value>К ОПЛАТЕ</value>
@@ -310,7 +319,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell2.Text" xml:space="preserve">
     <value>на 1 кв.м. или 1 чел.</value>
@@ -322,7 +331,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell20.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell20.Text" xml:space="preserve">
     <value>по соц. норме</value>
@@ -334,7 +343,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell3.Text" xml:space="preserve">
     <value>излишки площади</value>
@@ -349,7 +358,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell5.Text" xml:space="preserve">
     <value>(дней, сумма)</value>
@@ -376,7 +385,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell29.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 7.75pt</value>
+    <value>Tahoma, 7.75pt</value>
   </data>
   <data name="xrTableCell29.Text" xml:space="preserve">
     <value>ВСЕГО ЗА КОММУНАЛЬНЫЕ ПЛАТЕЖИ    </value>
@@ -388,7 +397,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell30.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt, style=Bold</value>
+    <value>Tahoma, 6.75pt, style=Bold</value>
   </data>
   <data name="xrTableCell30.Text" xml:space="preserve">
     <value>xrTableCell30</value>
@@ -403,7 +412,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell31.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell31.Text" xml:space="preserve">
     <value>Пеня</value>
@@ -414,26 +423,50 @@
   <data name="xrTableCell32.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell32.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
   <data name="xrTableCell33.Dpi" type="System.Single, mscorlib">
     <value>254</value>
+  </data>
+  <data name="xrTableCell33.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="xrTableCell34.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell34.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
   <data name="xrTableCell35.Dpi" type="System.Single, mscorlib">
     <value>254</value>
+  </data>
+  <data name="xrTableCell35.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="xrTableCell36.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell36.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
   <data name="xrTableCell24.Dpi" type="System.Single, mscorlib">
     <value>254</value>
+  </data>
+  <data name="xrTableCell24.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="xrTableCell37.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell37.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
   <data name="xrTableCell38.Dpi" type="System.Single, mscorlib">
     <value>254</value>
+  </data>
+  <data name="xrTableCell38.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="xrTableRow5.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -445,7 +478,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell45.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 9.75pt, style=Bold</value>
+    <value>Tahoma, 9.75pt, style=Bold</value>
   </data>
   <data name="xrTableCell45.Text" xml:space="preserve">
     <value>ИТОГО</value>
@@ -457,7 +490,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell46.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt, style=Bold</value>
+    <value>Tahoma, 6.75pt, style=Bold</value>
   </data>
   <data name="xrTableCell46.Text" xml:space="preserve">
     <value>xrTableCell46</value>

@@ -137,6 +137,7 @@
             this.xrLabel7.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel7.StylePriority.UseFont = false;
             this.xrLabel7.StylePriority.UseTextAlignment = false;
+            this.xrLabel7.WordWrap = false;
             // 
             // areaLabel
             // 

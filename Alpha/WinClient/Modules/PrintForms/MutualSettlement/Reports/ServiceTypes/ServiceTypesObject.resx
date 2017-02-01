@@ -130,7 +130,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="xrTableCell1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell1.Text" xml:space="preserve">
     <value>xrTableCell1</value>
@@ -142,7 +142,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell2.Text" xml:space="preserve">
     <value>xrTableCell2</value>
@@ -154,7 +154,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell3.Text" xml:space="preserve">
     <value>xrTableCell3</value>
@@ -166,7 +166,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell4.Text" xml:space="preserve">
     <value>0,00</value>
@@ -178,7 +178,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell5.Text" xml:space="preserve">
     <value>xrTableCell5</value>
@@ -190,7 +190,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell8.Text" xml:space="preserve">
     <value>xrTableCell8</value>
@@ -202,7 +202,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell10.Text" xml:space="preserve">
     <value>xrTableCell10</value>
@@ -214,7 +214,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell11.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell11.Text" xml:space="preserve">
     <value>xrTableCell11</value>
@@ -265,7 +265,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell17.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell17.Text" xml:space="preserve">
     <value>Услуга</value>
@@ -280,7 +280,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell19.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell19.Text" xml:space="preserve">
     <value>Начисл.</value>
@@ -295,7 +295,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell21.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell21.Text" xml:space="preserve">
     <value>Льготы</value>
@@ -310,7 +310,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell22.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell22.Text" xml:space="preserve">
     <value>Акты</value>
@@ -325,7 +325,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell23.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell23.Text" xml:space="preserve">
     <value>Перерас.</value>
@@ -340,7 +340,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell24.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell24.Text" xml:space="preserve">
     <value>К оплате</value>
@@ -355,7 +355,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell25.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell25.Text" xml:space="preserve">
     <value>Оплачено</value>
@@ -370,7 +370,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell20.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell20.Text" xml:space="preserve">
     <value>Долг</value>
@@ -388,7 +388,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
+    <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>150.895828, 0</value>
@@ -406,7 +406,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
+    <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>418.291656, 0</value>
@@ -430,7 +430,7 @@
     <value>254</value>
   </data>
   <data name="debtLabel3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
+    <value>Tahoma, 12pt</value>
   </data>
   <data name="debtLabel3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>150.895889, 0</value>
@@ -448,7 +448,7 @@
     <value>254</value>
   </data>
   <data name="debtLabel2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
+    <value>Tahoma, 12pt</value>
   </data>
   <data name="debtLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>418.291626, 0</value>
@@ -481,7 +481,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell9.Text" xml:space="preserve">
     <value>Услуга</value>
@@ -496,7 +496,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell12.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell12.Text" xml:space="preserve">
     <value>Начисл.</value>
@@ -511,7 +511,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell13.Text" xml:space="preserve">
     <value>Льготы</value>
@@ -526,7 +526,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell15.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell15.Text" xml:space="preserve">
     <value>Акты</value>
@@ -541,7 +541,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell16.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell16.Text" xml:space="preserve">
     <value>Перерас.</value>
@@ -556,7 +556,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell18.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell18.Text" xml:space="preserve">
     <value>К оплате</value>
@@ -571,7 +571,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell26.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell26.Text" xml:space="preserve">
     <value>Оплачено</value>
@@ -586,7 +586,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell27.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 10pt</value>
+    <value>Tahoma, 10pt</value>
   </data>
   <data name="xrTableCell27.Text" xml:space="preserve">
     <value>Долг</value>
@@ -610,7 +610,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
+    <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel10.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>150.895889, 58.2083321</value>
@@ -625,7 +625,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
+    <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>418.291656, 58.2083321</value>
@@ -647,6 +647,9 @@
   </data>
   <data name="xrLabel4.Dpi" type="System.Single, mscorlib">
     <value>254</value>
+  </data>
+  <data name="xrLabel4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>150.895645, 0</value>

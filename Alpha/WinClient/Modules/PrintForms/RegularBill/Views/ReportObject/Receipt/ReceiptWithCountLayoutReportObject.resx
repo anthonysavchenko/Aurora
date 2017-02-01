@@ -118,25 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="xrLabel5.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="xrLabel5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="xrLabel5.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>0, 652</value>
+  </data>
+  <data name="xrLabel5.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>225.480759, 34</value>
+  </data>
+  <data name="xrLabel5.Text" xml:space="preserve">
+    <value>Приборы учета:</value>
+  </data>
+  <data name="xrLabel5.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleLeft</value>
+  </data>
   <data name="countSubreport.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
-  <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="countSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 1439</value>
+    <value>0, 686</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="countSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 212</value>
+    <value>1997.99988, 84</value>
   </data>
   <data name="ButtomReceiptSubreport.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="ButtomReceiptSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 720</value>
+    <value>0, 329</value>
   </data>
   <data name="ButtomReceiptSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 714</value>
+    <value>1998, 323</value>
   </data>
   <data name="TopReceiptSubreport.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -145,13 +163,13 @@
     <value>0, 0</value>
   </data>
   <data name="TopReceiptSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 714</value>
+    <value>1998, 323</value>
   </data>
   <data name="xrLine1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrLine1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 714</value>
+    <value>0, 323</value>
   </data>
   <data name="xrLine1.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>1998, 6</value>
@@ -160,7 +178,7 @@
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>1651</value>
+    <value>770</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

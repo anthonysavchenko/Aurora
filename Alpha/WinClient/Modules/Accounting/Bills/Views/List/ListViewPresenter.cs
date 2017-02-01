@@ -60,6 +60,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.List
         [EventSubscription(CommonEventNames.PrintItemFired, ThreadOption.UserInterface)]
         public void PrintItemFired(object sender, EventArgs eventArgs)
         {
+            if (WorkItem.Status == WorkItemStatus.Inactive) return;
+
             ITabbedView _tabbedView = (ITabbedView)WorkItem.SmartParts[ModuleViewNames.TABBED_VIEW];
 
             if (_tabbedView.CurrentTab == "tabList")

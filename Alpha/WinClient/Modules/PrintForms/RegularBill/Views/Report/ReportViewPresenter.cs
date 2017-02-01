@@ -155,7 +155,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                         foreach (var _bill in _bills)
                         {
-                            foreach (var _pos in _bill.RegularBillDocCounterPoses)
+                            foreach (var _pos in _bill.RegularBillDocCounterPoses.OrderBy(p => p.ServiceName))
                             {
                                 _counterDataTable.Rows.Add(
                                     _pos.ServiceName,
@@ -176,7 +176,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                     _bill.CustomerID);
                             }
 
-                            foreach (var _chargeData in _bill.RegularBillDocSeviceTypePoses)
+                            foreach (var _chargeData in _bill.RegularBillDocSeviceTypePoses.OrderBy(p => p.ServiceTypeName))
                             {
                                 DataRow _row = _chargeDataTable.NewRow();
                                 _row["Service"] = _chargeData.ServiceTypeName;

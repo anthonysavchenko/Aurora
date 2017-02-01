@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.WinClient.Aurora.Interface.Services;
@@ -8,8 +7,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
 {
     public class BillService : IBillService
     {
-        private const string BARCODE_COMPANY_CODE = "133";
-        private const string BARCODE_SERVICE_CODE = "21";
+        /*private const string BARCODE_COMPANY_CODE = "133";
+        private const string BARCODE_SERVICE_CODE = "21";*/
 
         /// <summary>
         /// Создает строку с данными об обслуживающей организации
@@ -68,12 +67,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <returns>Строка для штрих кода</returns>
         public string GenerateBarCodeString(string account, DateTime period)
         {
-            string _accountNum = $"{account.Substring(3, 4)}{account.Substring(8, 3)}{account.Substring(12, 1)}";
+            /*string _accountNum = $"{account.Substring(3, 4)}{account.Substring(8, 3)}{account.Substring(12, 1)}";
             string _barcode = $"{BARCODE_COMPANY_CODE}{_accountNum}{period:yyyyMM}{BARCODE_SERVICE_CODE}";
 
             int _barcodeSum = _barcode.Sum(c => int.Parse(c.ToString()));
 
-            return $"{_barcode}{_barcodeSum % 10}";
+            return $"{_barcode}{_barcodeSum % 10}";*/
+            return string.Empty;
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <returns>Строка для QR-кода</returns>
         public string GenerateQrCodeString(string account, string fullName, string address, DateTime period, decimal sum)
         {
-            string _accountNum = account.Substring(3);
+            /*string _accountNum = account.Substring(3);
             // Сумма в копейках
             int _sum = Convert.ToInt32(sum * 100);
 
@@ -118,7 +118,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
                 }
             }
 
-            return _qrStr;
+            return _qrStr;*/
+            return string.Empty;
         }
 
         /// <summary>
@@ -127,7 +128,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <param name="barcode">Строка штих кода</param>
         public string FormatBarcodeString(string barcode)
         {
-            StringBuilder _builder = new StringBuilder();
+            /*StringBuilder _builder = new StringBuilder();
             _builder.Append("*   ");
 
             foreach (char _c in barcode)
@@ -137,7 +138,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
 
             _builder.Append("*");
 
-            return _builder.ToString();
+            return _builder.ToString();*/
+            return string.Empty;
         }
     }
 }

@@ -60,14 +60,9 @@
             this.xrTableRow5 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell17 = new DevExpress.XtraReports.UI.XRTableCell();
             this.totalChargeTableCell = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableRow6 = new DevExpress.XtraReports.UI.XRTableRow();
-            this.xrTableCell19 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell20 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel11 = new DevExpress.XtraReports.UI.XRLabel();
             this.payBeforeDateLabel = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel17 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLine2 = new DevExpress.XtraReports.UI.XRLine();
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -102,9 +97,7 @@
             this.xrTable3,
             this.xrLabel4,
             this.xrLabel11,
-            this.payBeforeDateLabel,
-            this.xrLabel17,
-            this.xrLine2});
+            this.payBeforeDateLabel});
             resources.ApplyResources(this.Detail, "Detail");
             this.Detail.KeepTogether = true;
             this.Detail.Name = "Detail";
@@ -147,6 +140,7 @@
             this.repNameLbl.StylePriority.UseBorders = false;
             this.repNameLbl.StylePriority.UseFont = false;
             this.repNameLbl.StylePriority.UseTextAlignment = false;
+            this.repNameLbl.WordWrap = false;
             // 
             // xrLabel6
             // 
@@ -165,6 +159,7 @@
             this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel3.StylePriority.UseFont = false;
             this.xrLabel3.StylePriority.UseTextAlignment = false;
+            this.xrLabel3.WordWrap = false;
             // 
             // payerAkaLabel
             // 
@@ -175,6 +170,7 @@
             this.payerAkaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAkaLabel.StylePriority.UseFont = false;
             this.payerAkaLabel.StylePriority.UseTextAlignment = false;
+            this.payerAkaLabel.WordWrap = false;
             // 
             // xrLabel1
             // 
@@ -193,6 +189,7 @@
             this.payerAccountLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAccountLabel.StylePriority.UseFont = false;
             this.payerAccountLabel.StylePriority.UseTextAlignment = false;
+            this.payerAccountLabel.WordWrap = false;
             // 
             // payerAddressLabel
             // 
@@ -203,6 +200,7 @@
             this.payerAddressLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAddressLabel.StylePriority.UseFont = false;
             this.payerAddressLabel.StylePriority.UseTextAlignment = false;
+            this.payerAddressLabel.WordWrap = false;
             // 
             // xrLabel5
             // 
@@ -222,6 +220,7 @@
             this.areaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.areaLabel.StylePriority.UseFont = false;
             this.areaLabel.StylePriority.UseTextAlignment = false;
+            this.areaLabel.WordWrap = false;
             // 
             // xrLabel7
             // 
@@ -230,6 +229,7 @@
             this.xrLabel7.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel7.StylePriority.UseFont = false;
             this.xrLabel7.StylePriority.UseTextAlignment = false;
+            this.xrLabel7.WordWrap = false;
             // 
             // peopleCountLabel
             // 
@@ -249,6 +249,7 @@
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.StylePriority.UseTextAlignment = false;
+            this.xrLabel2.WordWrap = false;
             // 
             // bankDetailsLabel
             // 
@@ -271,6 +272,7 @@
             // 
             // printDateLabel
             // 
+            this.printDateLabel.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Top;
             this.printDateLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
             new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.PrintDateTime")});
             resources.ApplyResources(this.printDateLabel, "printDateLabel");
@@ -278,15 +280,18 @@
             this.printDateLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.printDateLabel.StylePriority.UseFont = false;
             this.printDateLabel.StylePriority.UseTextAlignment = false;
+            this.printDateLabel.WordWrap = false;
             // 
             // xrLabel9
             // 
+            this.xrLabel9.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Top;
             resources.ApplyResources(this.xrLabel9, "xrLabel9");
             this.xrLabel9.Name = "xrLabel9";
             this.xrLabel9.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 254F);
             this.xrLabel9.StylePriority.UseFont = false;
             this.xrLabel9.StylePriority.UsePadding = false;
             this.xrLabel9.StylePriority.UseTextAlignment = false;
+            this.xrLabel9.WordWrap = false;
             // 
             // xrTable3
             // 
@@ -295,8 +300,7 @@
             this.xrTable3.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow3,
             this.xrTableRow4,
-            this.xrTableRow5,
-            this.xrTableRow6});
+            this.xrTableRow5});
             // 
             // xrTableRow3
             // 
@@ -414,40 +418,6 @@
             this.totalChargeTableCell.Summary = xrSummary2;
             this.totalChargeTableCell.Weight = 0.47065701117926467D;
             // 
-            // xrTableRow6
-            // 
-            this.xrTableRow6.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
-            this.xrTableCell19,
-            this.xrTableCell20});
-            resources.ApplyResources(this.xrTableRow6, "xrTableRow6");
-            this.xrTableRow6.Name = "xrTableRow6";
-            this.xrTableRow6.Weight = 1.0079365079365079D;
-            // 
-            // xrTableCell19
-            // 
-            this.xrTableCell19.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
-            | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            resources.ApplyResources(this.xrTableCell19, "xrTableCell19");
-            this.xrTableCell19.Name = "xrTableCell19";
-            this.xrTableCell19.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 20, 0, 0, 254F);
-            this.xrTableCell19.StylePriority.UseBorders = false;
-            this.xrTableCell19.StylePriority.UseFont = false;
-            this.xrTableCell19.StylePriority.UsePadding = false;
-            this.xrTableCell19.StylePriority.UseTextAlignment = false;
-            this.xrTableCell19.Weight = 1.8896880114120758D;
-            // 
-            // xrTableCell20
-            // 
-            this.xrTableCell20.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
-            | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            resources.ApplyResources(this.xrTableCell20, "xrTableCell20");
-            this.xrTableCell20.Name = "xrTableCell20";
-            this.xrTableCell20.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrTableCell20.StylePriority.UseBorders = false;
-            this.xrTableCell20.StylePriority.UseFont = false;
-            this.xrTableCell20.StylePriority.UseTextAlignment = false;
-            this.xrTableCell20.Weight = 0.47065701117926467D;
-            // 
             // xrLabel4
             // 
             resources.ApplyResources(this.xrLabel4, "xrLabel4");
@@ -464,6 +434,7 @@
             this.xrLabel11.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel11.StylePriority.UseFont = false;
             this.xrLabel11.StylePriority.UseTextAlignment = false;
+            this.xrLabel11.WordWrap = false;
             // 
             // payBeforeDateLabel
             // 
@@ -474,20 +445,7 @@
             this.payBeforeDateLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payBeforeDateLabel.StylePriority.UseFont = false;
             this.payBeforeDateLabel.StylePriority.UseTextAlignment = false;
-            // 
-            // xrLabel17
-            // 
-            resources.ApplyResources(this.xrLabel17, "xrLabel17");
-            this.xrLabel17.Name = "xrLabel17";
-            this.xrLabel17.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel17.StylePriority.UseFont = false;
-            this.xrLabel17.StylePriority.UseTextAlignment = false;
-            // 
-            // xrLine2
-            // 
-            resources.ApplyResources(this.xrLine2, "xrLine2");
-            this.xrLine2.LineWidth = 3;
-            this.xrLine2.Name = "xrLine2";
+            this.payBeforeDateLabel.WordWrap = false;
             // 
             // xrControlStyle1
             // 
@@ -601,13 +559,8 @@
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow5;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell17;
         private DevExpress.XtraReports.UI.XRTableCell totalChargeTableCell;
-        private DevExpress.XtraReports.UI.XRTableRow xrTableRow6;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell19;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell20;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel17;
         private DevExpress.XtraReports.UI.XRLabel payBeforeDateLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel11;
-        private DevExpress.XtraReports.UI.XRLine xrLine2;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
         private DevExpress.XtraReports.UI.XRLabel xrLabel6;
         private DevExpress.XtraReports.UI.XRPanel xrPanel1;
