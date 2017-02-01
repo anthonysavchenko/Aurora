@@ -77,6 +77,51 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         }
 
         /// <summary>
+        /// Генерирует строку для QR-кода
+        /// </summary>
+        /// <param name="account">Лицевой счет</param>
+        /// <param name="fullName">ФИО</param>
+        /// <param name="address">Адрес</param>
+        /// <param name="period">Учетный период</param>
+        /// <param name="sum">Сумма платежа</param>
+        /// <returns>Строка для QR-кода</returns>
+        public string GenerateQrCodeString(string account, string fullName, string address, DateTime period, decimal sum)
+        {
+            string _accountNum = account.Substring(3);
+            // Сумма в копейках
+            int _sum = Convert.ToInt32(sum * 100);
+
+            string _qrStr =
+                $"ST00012|Name=ООО \"УК Фрунзенского района\"|PersonalAcc=40702810900100001650|BankName=ОАО \"Дальневосточный банк\" г.Владивосток|BIC=040507705|CorrespAcc=30101810900000000705|PayeeINN=2540165515|Category=Квартплата|PersAcc={_accountNum}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
+
+            if (!string.IsNullOrEmpty(fullName))
+            {
+                string[] _parsedFullName = fullName.Split(' ');
+                if (_parsedFullName.Length >= 1)
+                {
+                    _qrStr = $"{_qrStr}|LastName={_parsedFullName[0]}";
+
+                    if (_parsedFullName.Length >= 2)
+                    {
+                        _qrStr = $"{_qrStr}|FirstName={_parsedFullName[1]}";
+                        string _patronymic = string.Empty;
+                        for (int i = 2; i < _parsedFullName.Length; i++)
+                        {
+                            _patronymic += _parsedFullName[i];
+                        }
+
+                        if (!string.IsNullOrEmpty(_patronymic))
+                        {
+                            _qrStr = $"{_qrStr}|MiddleName={_patronymic}";
+                        }
+                    }
+                }
+            }
+
+            return _qrStr;
+        }
+
+        /// <summary>
         /// Форматирует строку для штрих кода
         /// </summary>
         /// <param name="barcode">Строка штих кода</param>

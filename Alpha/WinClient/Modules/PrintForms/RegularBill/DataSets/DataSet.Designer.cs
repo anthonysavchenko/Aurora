@@ -772,6 +772,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             
             private global::System.Data.DataColumn columnRightHeaderString;
             
+            private global::System.Data.DataColumn columnBankQrCodeString;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CustomersDataTable() {
@@ -935,6 +937,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BankQrCodeStringColumn {
+                get {
+                    return this.columnBankQrCodeString;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -986,7 +996,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                         string BankBarCodeString, 
                         string BankBarCodeLabel, 
                         string OverpaymentLabel, 
-                        string RightHeaderString) {
+                        string RightHeaderString, 
+                        string BankQrCodeString) {
                 CustomersRow rowCustomersRow = ((CustomersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CustomerId,
@@ -1004,7 +1015,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                         BankBarCodeString,
                         BankBarCodeLabel,
                         OverpaymentLabel,
-                        RightHeaderString};
+                        RightHeaderString,
+                        BankQrCodeString};
                 rowCustomersRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCustomersRow);
                 return rowCustomersRow;
@@ -1050,6 +1062,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                 this.columnBankBarCodeLabel = base.Columns["BankBarCodeLabel"];
                 this.columnOverpaymentLabel = base.Columns["OverpaymentLabel"];
                 this.columnRightHeaderString = base.Columns["RightHeaderString"];
+                this.columnBankQrCodeString = base.Columns["BankQrCodeString"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1087,6 +1100,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
                 base.Columns.Add(this.columnOverpaymentLabel);
                 this.columnRightHeaderString = new global::System.Data.DataColumn("RightHeaderString", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRightHeaderString);
+                this.columnBankQrCodeString = new global::System.Data.DataColumn("BankQrCodeString", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBankQrCodeString);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnCustomerId}, true));
                 this.columnCustomerId.AllowDBNull = false;
@@ -2287,6 +2302,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BankQrCodeString {
+                get {
+                    try {
+                        return ((string)(this[this.tableCustomers.BankQrCodeStringColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BankQrCodeString\' in table \'Customers\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCustomers.BankQrCodeStringColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPrintDateTimeNull() {
                 return this.IsNull(this.tableCustomers.PrintDateTimeColumn);
             }
@@ -2463,6 +2494,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets 
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetRightHeaderStringNull() {
                 this[this.tableCustomers.RightHeaderStringColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBankQrCodeStringNull() {
+                return this.IsNull(this.tableCustomers.BankQrCodeStringColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBankQrCodeStringNull() {
+                this[this.tableCustomers.BankQrCodeStringColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

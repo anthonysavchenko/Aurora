@@ -44,6 +44,7 @@
               <xs:element name="BankBarCodeLabel" msprop:Generator_ColumnVarNameInTable="columnBankBarCodeLabel" msprop:Generator_ColumnPropNameInRow="BankBarCodeLabel" msprop:Generator_ColumnPropNameInTable="BankBarCodeLabelColumn" msprop:Generator_UserColumnName="BankBarCodeLabel" type="xs:string" minOccurs="0" />
               <xs:element name="OverpaymentLabel" msprop:Generator_ColumnVarNameInTable="columnOverpaymentLabel" msprop:Generator_ColumnPropNameInRow="OverpaymentLabel" msprop:Generator_ColumnPropNameInTable="OverpaymentLabelColumn" msprop:Generator_UserColumnName="OverpaymentLabel" type="xs:string" minOccurs="0" />
               <xs:element name="RightHeaderString" msprop:Generator_ColumnVarNameInTable="columnRightHeaderString" msprop:Generator_ColumnPropNameInRow="RightHeaderString" msprop:Generator_ColumnPropNameInTable="RightHeaderStringColumn" msprop:Generator_UserColumnName="RightHeaderString" type="xs:string" minOccurs="0" />
+              <xs:element name="BankQrCodeString" msprop:Generator_ColumnVarNameInTable="columnBankQrCodeString" msprop:Generator_ColumnPropNameInRow="BankQrCodeString" msprop:Generator_ColumnPropNameInTable="BankQrCodeStringColumn" msprop:Generator_UserColumnName="BankQrCodeString" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

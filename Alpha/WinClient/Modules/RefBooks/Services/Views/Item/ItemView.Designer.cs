@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.chargeRuleGroupBox = new System.Windows.Forms.GroupBox();
+            this.publicPlaceBankCommissionRadioButton = new System.Windows.Forms.RadioButton();
             this.publicPlaceRadioButton = new System.Windows.Forms.RadioButton();
             this.counterRuleRadioButton = new System.Windows.Forms.RadioButton();
             this.ResidentsRateRadioButton = new System.Windows.Forms.RadioButton();
@@ -51,6 +52,7 @@
             // 
             // chargeRuleGroupBox
             // 
+            this.chargeRuleGroupBox.Controls.Add(this.publicPlaceBankCommissionRadioButton);
             this.chargeRuleGroupBox.Controls.Add(this.publicPlaceRadioButton);
             this.chargeRuleGroupBox.Controls.Add(this.counterRuleRadioButton);
             this.chargeRuleGroupBox.Controls.Add(this.ResidentsRateRadioButton);
@@ -58,19 +60,29 @@
             this.chargeRuleGroupBox.Controls.Add(this.squareRuleRadioButton);
             this.chargeRuleGroupBox.Location = new System.Drawing.Point(3, 107);
             this.chargeRuleGroupBox.Name = "chargeRuleGroupBox";
-            this.chargeRuleGroupBox.Size = new System.Drawing.Size(419, 136);
+            this.chargeRuleGroupBox.Size = new System.Drawing.Size(419, 159);
             this.chargeRuleGroupBox.TabIndex = 3;
             this.chargeRuleGroupBox.TabStop = false;
             this.chargeRuleGroupBox.Text = "Правило начисления";
+            // 
+            // publicPlaceBankCommissionRadioButton
+            // 
+            this.publicPlaceBankCommissionRadioButton.AutoSize = true;
+            this.publicPlaceBankCommissionRadioButton.Location = new System.Drawing.Point(6, 135);
+            this.publicPlaceBankCommissionRadioButton.Name = "publicPlaceBankCommissionRadioButton";
+            this.publicPlaceBankCommissionRadioButton.Size = new System.Drawing.Size(237, 17);
+            this.publicPlaceBankCommissionRadioButton.TabIndex = 8;
+            this.publicPlaceBankCommissionRadioButton.Text = "Банковская комиссия расходов при СОД";
+            this.publicPlaceBankCommissionRadioButton.UseVisualStyleBackColor = true;
             // 
             // publicPlaceRadioButton
             // 
             this.publicPlaceRadioButton.AutoSize = true;
             this.publicPlaceRadioButton.Location = new System.Drawing.Point(6, 112);
             this.publicPlaceRadioButton.Name = "publicPlaceRadioButton";
-            this.publicPlaceRadioButton.Size = new System.Drawing.Size(213, 17);
+            this.publicPlaceRadioButton.Size = new System.Drawing.Size(246, 17);
             this.publicPlaceRadioButton.TabIndex = 7;
-            this.publicPlaceRadioButton.Text = "Содержание общедового имущества";
+            this.publicPlaceRadioButton.Text = "Содержание общедового имущества (СОД)";
             this.publicPlaceRadioButton.UseVisualStyleBackColor = true;
             this.publicPlaceRadioButton.CheckedChanged += new System.EventHandler(this.publicPlaceRadioButton_CheckedChanged);
             // 
@@ -224,7 +236,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chargeRuleGroupBox);
             this.Name = "ItemView";
-            this.Size = new System.Drawing.Size(425, 252);
+            this.Size = new System.Drawing.Size(425, 287);
             this.chargeRuleGroupBox.ResumeLayout(false);
             this.chargeRuleGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.serviceTypeLookUpEdit.Properties)).EndInit();
@@ -252,5 +264,6 @@
         private System.Windows.Forms.NumericUpDown normNumericUpDown;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox normMeasureTextBox;
+        private System.Windows.Forms.RadioButton publicPlaceBankCommissionRadioButton;
     }
 }

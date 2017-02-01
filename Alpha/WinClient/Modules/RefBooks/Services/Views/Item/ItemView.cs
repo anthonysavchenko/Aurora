@@ -123,6 +123,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
                     return Service.ChargeRuleType.PublicPlaceAreaRate;
                 }
 
+                if (publicPlaceBankCommissionRadioButton.Checked)
+                {
+                    return Service.ChargeRuleType.PublicPlaceBankCommission;
+                }
+
                 throw new ApplicationException("Не выбрано правило начисления");
             }
             set
@@ -149,6 +154,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
                         publicPlaceRadioButton.Checked = true;
                         break;
 
+                    case Service.ChargeRuleType.PublicPlaceBankCommission:
+                        publicPlaceBankCommissionRadioButton.Checked = true;
+                        break;
+
                     default:
                         throw  new ApplicationException("Неизвестный тип правила начисления");
                 }
@@ -173,7 +182,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <summary>
         /// Единица измерения норматива
         /// </summary>
-        public string NormMeasure
+        public string Measure
         {
             get
             {

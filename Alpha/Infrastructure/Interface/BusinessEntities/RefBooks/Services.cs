@@ -30,9 +30,14 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             CounterRate,
 
             /// <summary>
-            /// Начиление за квадратный метр только за содержание общедомового имещества
+            /// Начиление за квадратный метр только за содержание общедомового имещества (СОД)
             /// </summary>
-            PublicPlaceAreaRate
+            PublicPlaceAreaRate,
+
+            /// <summary>
+            /// Начисление банковской коммисси в виде процента от расходов СОД
+            /// </summary>
+            PublicPlaceBankCommission
         }
 
         private string _name;
@@ -132,21 +137,21 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             }
         }
 
-        private string _normMeasure;
+        private string _measure;
         /// <summary>
         /// Единица измерения норматива
         /// </summary>
-        public string NormMeasure
+        public string Measure
         {
             get
             {
                 Load();
-                return _normMeasure;
+                return _measure;
             }
             set
             {
                 Load();
-                _normMeasure = value;
+                _measure = value;
             }
         }
     }

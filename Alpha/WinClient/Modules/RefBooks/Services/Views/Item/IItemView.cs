@@ -39,6 +39,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <summary>
         /// Единица измерения норматива
         /// </summary>
-        string NormMeasure { get; set; }
+        string Measure { get; set; }
     }
 }

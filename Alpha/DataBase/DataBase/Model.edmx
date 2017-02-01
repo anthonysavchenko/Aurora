@@ -10,7 +10,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="BIK" Type="char" MaxLength="9" Nullable="false" />
           <Property Name="KPP" Type="varchar" MaxLength="9" />
           <Property Name="CorrAccount" Type="varchar" MaxLength="20" />
@@ -496,8 +496,8 @@
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ServiceType" Type="int" Nullable="false" />
           <Property Name="ChargeRule" Type="tinyint" Nullable="false" />
-          <Property Name="Norm" Type="decimal" Precision="9" Scale="2" />
-          <Property Name="NormMeasure" Type="nvarchar" MaxLength="10" />
+          <Property Name="Norm" Type="decimal" Precision="9" Scale="3" />
+          <Property Name="Measure" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -2241,25 +2241,24 @@
             <Parameter Name="path" Mode="In" Type="String" />
             <Parameter Name="step" Mode="In" Type="Byte" />
           </FunctionImport>
-          <EntitySet Name="BankDetails" EntityType="AlphaDataBaseModel.BankDetails" />
           <EntitySet Name="PublicPlaces" EntityType="AlphaDataBaseModel.PublicPlaces" />
-          <AssociationSet Name="FK_Buildings_BankDetails" Association="AlphaDataBaseModel.FK_Buildings_BankDetails">
-            <End Role="BankDetails" EntitySet="BankDetails" />
-            <End Role="Buildings" EntitySet="Buildings" />
-          </AssociationSet>
           <AssociationSet Name="FK_PublicPlaces_Buildings" Association="AlphaDataBaseModel.FK_PublicPlaces_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
             <End Role="PublicPlaces" EntitySet="PublicPlaces" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DebtBillDocs_Customers" Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="DebtBillDocs" EntitySet="DebtBillDocs" />
           </AssociationSet>
           <AssociationSet Name="FK_PublicPlaces_Services" Association="AlphaDataBaseModel.FK_PublicPlaces_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="PublicPlaces" EntitySet="PublicPlaces" />
           </AssociationSet>
-          </EntityContainer>
+          <EntitySet Name="BankDetails" EntityType="AlphaDataBaseModel.BankDetails" />
+          <AssociationSet Name="FK_Buildings_BankDetails" Association="AlphaDataBaseModel.FK_Buildings_BankDetails">
+            <End Role="BankDetails" EntitySet="BankDetails" />
+            <End Role="Buildings" EntitySet="Buildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebtBillDocs_Customers" Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="DebtBillDocs" EntitySet="DebtBillDocs" />
+          </AssociationSet></EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
             <PropertyRef Name="ID" />
@@ -2342,9 +2341,9 @@
           <Property Type="String" Name="Note" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FiasID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
           <Property Name="NonResidentialPlaceArea" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Buildings" FromRole="Buildings" ToRole="PublicPlaces" />
           <Property Name="BankDetailID" Type="Int32" />
           <NavigationProperty Name="BankDetails" Relationship="AlphaDataBaseModel.FK_Buildings_BankDetails" FromRole="Buildings" ToRole="BankDetails" />
-          <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Buildings" FromRole="Buildings" ToRole="PublicPlaces" />
         </EntityType>
         <EntityType Name="ChargeCorrectionOperPoses">
           <Key>
@@ -2775,9 +2774,9 @@
           <NavigationProperty Name="RebenefitOperPoses" Relationship="AlphaDataBaseModel.FK_RebenefitOperPoses_Services" FromRole="Services" ToRole="RebenefitOperPoses" />
           <NavigationProperty Name="RechargeOperPoses" Relationship="AlphaDataBaseModel.FK_RechargeOperPoses_Services" FromRole="Services" ToRole="RechargeOperPoses" />
           <NavigationProperty Name="ServiceTypes" Relationship="AlphaDataBaseModel.FK_Services_ServiceTypes" FromRole="Services" ToRole="ServiceTypes" />
-          <Property Name="Norm" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="NormMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Norm" Type="Decimal" Precision="9" Scale="3" />
           <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Services" FromRole="Services" ToRole="PublicPlaces" />
+          <Property Name="Measure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -3175,19 +3174,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="BankDetails">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BIK" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
-          <Property Name="KPP" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="CorrAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Account" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="INN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_Buildings_BankDetails" FromRole="BankDetails" ToRole="Buildings" />
-        </EntityType>
         <EntityType Name="PublicPlaces">
           <Key>
             <PropertyRef Name="ID" />
@@ -3199,22 +3185,8 @@
           <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Buildings" FromRole="PublicPlaces" ToRole="Buildings" />
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Services" FromRole="PublicPlaces" ToRole="Services" />
         </EntityType>
-        <Association Name="FK_Buildings_BankDetails">
-          <End Type="AlphaDataBaseModel.BankDetails" Role="BankDetails" Multiplicity="0..1" />
-          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BankDetails">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Buildings">
-              <PropertyRef Name="BankDetailID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PublicPlaces_Buildings">
-          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.PublicPlaces" Role="PublicPlaces" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Buildings">
@@ -3222,18 +3194,6 @@
             </Principal>
             <Dependent Role="PublicPlaces">
               <PropertyRef Name="BuildingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DebtBillDocs_Customers">
-          <End Type="AlphaDataBaseModel.Customers" Role="Customers" Multiplicity="0..1" />
-          <End Type="AlphaDataBaseModel.DebtBillDocs" Role="DebtBillDocs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DebtBillDocs">
-              <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3249,7 +3209,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityType Name="BankDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="BIK" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="KPP" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="CorrAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="INN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_Buildings_BankDetails" FromRole="BankDetails" ToRole="Buildings" />
+        </EntityType>
+        <Association Name="FK_Buildings_BankDetails">
+          <End Type="AlphaDataBaseModel.BankDetails" Role="BankDetails" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankDetails">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Buildings">
+              <PropertyRef Name="BankDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebtBillDocs_Customers">
+          <End Type="AlphaDataBaseModel.Customers" Role="Customers" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.DebtBillDocs" Role="DebtBillDocs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DebtBillDocs">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association></Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -3669,7 +3665,7 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Services)">
               <MappingFragment StoreEntitySet="Services">
-                <ScalarProperty Name="NormMeasure" ColumnName="NormMeasure" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
                 <ScalarProperty Name="Norm" ColumnName="Norm" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -4352,6 +4348,16 @@
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="BackupDatabase" FunctionName="AlphaDataBaseModel.Store.BackupDatabase" />
+          <EntitySetMapping Name="PublicPlaces">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.PublicPlaces">
+              <MappingFragment StoreEntitySet="PublicPlaces">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="BankDetails">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.BankDetails">
               <MappingFragment StoreEntitySet="BankDetails">
@@ -4361,16 +4367,6 @@
                 <ScalarProperty Name="KPP" ColumnName="KPP" />
                 <ScalarProperty Name="BIK" ColumnName="BIK" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PublicPlaces">
-            <EntityTypeMapping TypeName="AlphaDataBaseModel.PublicPlaces">
-              <MappingFragment StoreEntitySet="PublicPlaces">
-                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
-                <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4995,12 +4991,11 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BenefitOperPoses_Contractors" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RebenefitOperPoses_Contractors" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Customers_Users" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BankDetails" Width="1.5" PointX="0.75" PointY="17.375" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PublicPlaces" Width="1.5" PointX="11.25" PointY="25" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_BankDetails" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PublicPlaces" Width="1.5" PointX="11.75" PointY="25" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaces_Buildings" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaces_Services" />
-        </edmx:Diagram></edmx:Diagrams>
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BankDetails" Width="1.5" PointX="4.375" PointY="1" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_BankDetails" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
