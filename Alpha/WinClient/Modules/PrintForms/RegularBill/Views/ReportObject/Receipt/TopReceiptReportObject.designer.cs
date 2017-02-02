@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TopReceiptReportObject));
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraPrinting.BarCode.Code39Generator code39Generator1 = new DevExpress.XtraPrinting.BarCode.Code39Generator();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TopReceiptReportObject));
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.bankDetailsLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTable3 = new DevExpress.XtraReports.UI.XRTable();
@@ -47,6 +47,7 @@
             this.xrTableRow6 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell19 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell20 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
             this.xrPanel2 = new DevExpress.XtraReports.UI.XRPanel();
             this.bankBarCode = new DevExpress.XtraReports.UI.XRBarCode();
             this.xrLabel17 = new DevExpress.XtraReports.UI.XRLabel();
@@ -80,8 +81,6 @@
             this.CustId = new DevExpress.XtraReports.Parameters.Parameter();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
-            this.xrLabel19 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel18 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -89,10 +88,9 @@
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.xrLabel18,
-            this.xrLabel19,
             this.bankDetailsLabel,
             this.xrTable3,
+            this.xrPictureBox1,
             this.xrPanel2,
             this.serviceTableSubreport,
             this.xrLabel2,
@@ -287,6 +285,13 @@
             this.xrTableCell20.StylePriority.UseTextAlignment = false;
             this.xrTableCell20.Weight = 0.47065701117926467D;
             // 
+            // xrPictureBox1
+            // 
+            resources.ApplyResources(this.xrPictureBox1, "xrPictureBox1");
+            this.xrPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("xrPictureBox1.Image")));
+            this.xrPictureBox1.Name = "xrPictureBox1";
+            this.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
+            // 
             // xrPanel2
             // 
             this.xrPanel2.CanGrow = false;
@@ -373,6 +378,7 @@
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.StylePriority.UseTextAlignment = false;
+            this.xrLabel2.WordWrap = false;
             // 
             // xrLabel15
             // 
@@ -435,6 +441,7 @@
             this.peopleCountLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.peopleCountLabel.StylePriority.UseFont = false;
             this.peopleCountLabel.StylePriority.UseTextAlignment = false;
+            this.peopleCountLabel.WordWrap = false;
             // 
             // xrLabel7
             // 
@@ -443,6 +450,7 @@
             this.xrLabel7.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel7.StylePriority.UseFont = false;
             this.xrLabel7.StylePriority.UseTextAlignment = false;
+            this.xrLabel7.WordWrap = false;
             // 
             // areaLabel
             // 
@@ -453,6 +461,7 @@
             this.areaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.areaLabel.StylePriority.UseFont = false;
             this.areaLabel.StylePriority.UseTextAlignment = false;
+            this.areaLabel.WordWrap = false;
             // 
             // xrLabel5
             // 
@@ -482,6 +491,7 @@
             this.payerAccountLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAccountLabel.StylePriority.UseFont = false;
             this.payerAccountLabel.StylePriority.UseTextAlignment = false;
+            this.payerAccountLabel.WordWrap = false;
             // 
             // xrLabel1
             // 
@@ -490,6 +500,7 @@
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel1.StylePriority.UseFont = false;
             this.xrLabel1.StylePriority.UseTextAlignment = false;
+            this.xrLabel1.WordWrap = false;
             // 
             // printDateLabel
             // 
@@ -519,6 +530,7 @@
             this.payerAkaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAkaLabel.StylePriority.UseFont = false;
             this.payerAkaLabel.StylePriority.UseTextAlignment = false;
+            this.payerAkaLabel.WordWrap = false;
             // 
             // xrLabel3
             // 
@@ -527,6 +539,7 @@
             this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel3.StylePriority.UseFont = false;
             this.xrLabel3.StylePriority.UseTextAlignment = false;
+            this.xrLabel3.WordWrap = false;
             // 
             // xrControlStyle1
             // 
@@ -577,25 +590,6 @@
             // 
             resources.ApplyResources(this.bottomMarginBand1, "bottomMarginBand1");
             this.bottomMarginBand1.Name = "bottomMarginBand1";
-            // 
-            // xrLabel19
-            // 
-            resources.ApplyResources(this.xrLabel19, "xrLabel19");
-            this.xrLabel19.Multiline = true;
-            this.xrLabel19.Name = "xrLabel19";
-            this.xrLabel19.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel19.StylePriority.UseFont = false;
-            this.xrLabel19.StylePriority.UseForeColor = false;
-            this.xrLabel19.StylePriority.UseTextAlignment = false;
-            // 
-            // xrLabel18
-            // 
-            resources.ApplyResources(this.xrLabel18, "xrLabel18");
-            this.xrLabel18.Multiline = true;
-            this.xrLabel18.Name = "xrLabel18";
-            this.xrLabel18.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel18.StylePriority.UseFont = false;
-            this.xrLabel18.StylePriority.UseTextAlignment = false;
             // 
             // TopReceiptReportObject
             // 
@@ -671,10 +665,9 @@
         public DevExpress.XtraReports.Parameters.Parameter CustId;
         private Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets.DataSet dataSet1;
         private DevExpress.XtraReports.UI.XRPanel xrPanel2;
+        private DevExpress.XtraReports.UI.XRPictureBox xrPictureBox1;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
         private DevExpress.XtraReports.UI.XRLabel bankDetailsLabel;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel18;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel19;
     }
 }

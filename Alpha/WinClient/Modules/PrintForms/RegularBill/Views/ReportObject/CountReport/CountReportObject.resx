@@ -133,7 +133,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 8.25pt</value>
+    <value>Tahoma, 8.25pt</value>
   </data>
   <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>0, 0</value>
@@ -148,7 +148,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 8.25pt, style=Bold</value>
+    <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
   <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>1249, 64</value>
@@ -163,13 +163,13 @@
     <value>254</value>
   </data>
   <data name="xrLabel10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 8.25pt, style=Bold</value>
+    <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
   <data name="xrLabel10.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>1249, 106</value>
   </data>
   <data name="xrLabel10.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>360, 42</value>
+    <value>365, 42</value>
   </data>
   <data name="xrLabel10.Text" xml:space="preserve">
     <value>учету в целом по дому:</value>
@@ -178,13 +178,13 @@
     <value>254</value>
   </data>
   <data name="lblSharedCounterValue.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 8.25pt, style=Bold</value>
+    <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
   <data name="lblSharedCounterValue.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1609, 106</value>
+    <value>1614, 105.999992</value>
   </data>
   <data name="lblSharedCounterValue.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>360, 42</value>
+    <value>355, 41.9999924</value>
   </data>
   <data name="lblSharedCounterValue.Text" xml:space="preserve">
     <value>lblSharedCounterValue</value>
@@ -196,13 +196,13 @@
     <value>254</value>
   </data>
   <data name="xrLabel13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 8.25pt, style=Bold</value>
+    <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
   <data name="xrLabel13.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1249, 148</value>
+    <value>1249, 148.000015</value>
   </data>
   <data name="xrLabel13.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>560, 42</value>
+    <value>588.8126, 41.99997</value>
   </data>
   <data name="xrLabel13.Text" xml:space="preserve">
     <value>Начисление за общедомовые нужды:</value>
@@ -211,13 +211,13 @@
     <value>254</value>
   </data>
   <data name="lblSharedCharge.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 8.25pt, style=Bold</value>
+    <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
   <data name="lblSharedCharge.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1809, 148</value>
+    <value>1837.81262, 148.000015</value>
   </data>
   <data name="lblSharedCharge.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>185, 42</value>
+    <value>156.187378, 41.99997</value>
   </data>
   <data name="lblSharedCharge.Text" xml:space="preserve">
     <value>lblSharedCharge</value>
