@@ -378,6 +378,7 @@
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.StylePriority.UseTextAlignment = false;
+            this.xrLabel2.WordWrap = false;
             // 
             // xrLabel15
             // 
@@ -440,6 +441,7 @@
             this.peopleCountLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.peopleCountLabel.StylePriority.UseFont = false;
             this.peopleCountLabel.StylePriority.UseTextAlignment = false;
+            this.peopleCountLabel.WordWrap = false;
             // 
             // xrLabel7
             // 
@@ -448,6 +450,7 @@
             this.xrLabel7.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel7.StylePriority.UseFont = false;
             this.xrLabel7.StylePriority.UseTextAlignment = false;
+            this.xrLabel7.WordWrap = false;
             // 
             // areaLabel
             // 
@@ -458,6 +461,7 @@
             this.areaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.areaLabel.StylePriority.UseFont = false;
             this.areaLabel.StylePriority.UseTextAlignment = false;
+            this.areaLabel.WordWrap = false;
             // 
             // xrLabel5
             // 
@@ -487,6 +491,7 @@
             this.payerAccountLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAccountLabel.StylePriority.UseFont = false;
             this.payerAccountLabel.StylePriority.UseTextAlignment = false;
+            this.payerAccountLabel.WordWrap = false;
             // 
             // xrLabel1
             // 
@@ -495,6 +500,7 @@
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel1.StylePriority.UseFont = false;
             this.xrLabel1.StylePriority.UseTextAlignment = false;
+            this.xrLabel1.WordWrap = false;
             // 
             // printDateLabel
             // 
@@ -524,6 +530,7 @@
             this.payerAkaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAkaLabel.StylePriority.UseFont = false;
             this.payerAkaLabel.StylePriority.UseTextAlignment = false;
+            this.payerAkaLabel.WordWrap = false;
             // 
             // xrLabel3
             // 
@@ -532,6 +539,7 @@
             this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel3.StylePriority.UseFont = false;
             this.xrLabel3.StylePriority.UseTextAlignment = false;
+            this.xrLabel3.WordWrap = false;
             // 
             // xrControlStyle1
             // 

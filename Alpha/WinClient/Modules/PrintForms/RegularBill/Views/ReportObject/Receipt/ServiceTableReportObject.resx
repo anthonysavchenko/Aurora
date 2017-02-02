@@ -130,7 +130,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="xrTableCell7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell7.Text" xml:space="preserve">
     <value>xrTableCell7</value>
@@ -142,7 +142,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell8.Text" xml:space="preserve">
     <value>xrTableCell8</value>
@@ -154,7 +154,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell9.Text" xml:space="preserve">
     <value>xrTableCell9</value>
@@ -166,7 +166,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell10.Text" xml:space="preserve">
     <value>xrTableCell10</value>
@@ -178,7 +178,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell11.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell11.Text" xml:space="preserve">
     <value>xrTableCell11</value>
@@ -190,7 +190,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell12.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell12.Text" xml:space="preserve">
     <value>xrTableCell12</value>
@@ -223,7 +223,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell13.Text" xml:space="preserve">
     <value>Вид услуги</value>
@@ -235,7 +235,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell14.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell14.Text" xml:space="preserve">
     <value>Ставка оплаты, руб.</value>
@@ -247,7 +247,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell15.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell15.Text" xml:space="preserve">
     <value>Начисления, 
@@ -260,7 +260,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell16.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell16.Text" xml:space="preserve">
     <value>Льготы,
@@ -273,7 +273,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell17.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell17.Text" xml:space="preserve">
     <value>Перерасчеты, 
@@ -286,7 +286,7 @@
     <value>254</value>
   </data>
   <data name="xrTableCell18.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
+    <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell18.Text" xml:space="preserve">
     <value>К оплате, 
