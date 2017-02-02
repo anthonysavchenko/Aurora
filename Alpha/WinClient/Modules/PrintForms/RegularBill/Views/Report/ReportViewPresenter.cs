@@ -192,7 +192,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _chargeDataTable.Rows.Add(_row);
                             }
 
-                            string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                            string _barcode = GenerateBarCodeString(_bill.Account, _bill.BuildingID, _bill.Period);
                             string _qrCode = BillService.GenerateQrCodeString(
                                 _bill.Account, 
                                 _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
