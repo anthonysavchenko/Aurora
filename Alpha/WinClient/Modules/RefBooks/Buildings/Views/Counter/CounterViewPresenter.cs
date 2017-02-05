@@ -161,20 +161,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
             _table.Columns.Add("ID", typeof(int));
             _table.Columns.Add("Name", typeof(string));
 
+            int[] _rules = 
+                new int[]
+                {
+                    (int)Service.ChargeRuleType.CounterRate,
+                    (int)Service.ChargeRuleType.CommonCounterByAreaRate,
+                    (int)Service.ChargeRuleType.CommonCounterByHeatedAreaRate
+                };
+
             using (Entities _entities = new Entities())
             {
                 var _services =
                     _entities.Services
-                        .Where(s => 
-                            s.ChargeRule == (int)Service.ChargeRuleType.CounterRate ||
-                            s.ChargeRule == (int)Service.ChargeRuleType.CommonCounterByAreaRate)
-                        .Select(
-                            s =>
-                            new
-                            {
-                                s.ID,
-                                s.Name
-                            });
+                        .Where(s => _rules.Contains(s.ChargeRule))
+                        .ToList();
 
                 foreach (var _service in _services)
                 {

@@ -205,6 +205,7 @@
           <Property Name="RoomsCount" Type="int" Nullable="false" />
           <Property Name="Apartment" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Square" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="HeatedArea" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="PhysicalPersonFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhysicalPersonShortName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="JuridicalPersonFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -2490,6 +2491,7 @@
           <Property Name="Entrance" Type="Byte" Nullable="false" />
           <Property Name="GisZhkhID" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DebtBillDocs" Relationship="AlphaDataBaseModel.FK_DebtBillDocs_Customers" FromRole="Customers" ToRole="DebtBillDocs" />
+          <Property Name="HeatedArea" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
         </EntityType>
         <EntityType Name="DebtBillDocs">
           <Key>
@@ -3414,6 +3416,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Customers)">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="HeatedArea" ColumnName="HeatedArea" />
                 <ScalarProperty Name="GisZhkhID" ColumnName="GisZhkhID" />
                 <ScalarProperty Name="Entrance" ColumnName="Entrance" />
                 <ScalarProperty Name="DebtsRepayment" ColumnName="DebtsRepayment" />

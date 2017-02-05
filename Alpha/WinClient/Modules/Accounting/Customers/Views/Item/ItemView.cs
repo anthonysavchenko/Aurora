@@ -272,6 +272,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         }
 
         /// <summary>
+        /// Общая площадь
+        /// </summary>
+        public decimal HeatedArea
+        {
+            get
+            {
+                return heatedAreaNumericUpDown.Value;
+            }
+            set
+            {
+                heatedAreaNumericUpDown.Value = value;
+            }
+        }
+
+        /// <summary>
         /// Количество комнат
         /// </summary>
         public int RoomsCount

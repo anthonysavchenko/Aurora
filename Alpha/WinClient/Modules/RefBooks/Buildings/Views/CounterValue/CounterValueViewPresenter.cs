@@ -41,7 +41,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
 
             if (_counter != null)
             {
-                foreach (CommonCounterValue _counterValue in _counter.Values.Values)
+                foreach (CommonCounterValue _counterValue in _counter.Values.Values.OrderBy(v => v.Period))
                 {
                     _table.Rows.Add(
                         _counterValue.ID,

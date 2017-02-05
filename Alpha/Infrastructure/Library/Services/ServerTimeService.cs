@@ -37,10 +37,14 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
                 {
                     _lastChagedPeriod = _entities.ChargeSets.Max(c => c.Period);
                 }
-                else
+                else if (_entities.RechargeSets.Any())
+                {
+                    _lastChagedPeriod = _entities.RechargeSets.Max(r => r.Period);
+                }
+                else 
                 {
                     DateTime _now = _entities.CreateQuery<DateTime>("CurrentDateTime()").AsEnumerable().First();
-                    _lastChagedPeriod = new DateTime(_now.Year, _now.Month, 1);
+                    _lastChagedPeriod = new DateTime(_now.Year, _now.Month, 1).AddMonths(-1);
                 }
             }
 

@@ -133,6 +133,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
                     return Service.ChargeRuleType.CommonCounterByAreaRate;
                 }
 
+                if (commonCounterByHeatedAreaRadioButton.Checked)
+                {
+                    return Service.ChargeRuleType.CommonCounterByHeatedAreaRate;
+                }
+
                 throw new ApplicationException("Не выбрано правило начисления");
             }
             set
@@ -165,6 +170,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
 
                     case Service.ChargeRuleType.CommonCounterByAreaRate:
                         commonCounterByAreaRadioButton.Checked = true;
+                        break;
+
+                    case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
+                        commonCounterByHeatedAreaRadioButton.Checked = true;
                         break;
 
                     default:

@@ -221,7 +221,7 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
 
         private decimal _square;
         /// <summary>
-        /// Площадь квартиры
+        /// Общая площадь квартиры
         /// </summary>
         public decimal Square
         {
@@ -234,6 +234,25 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             {
                 Load();
                 _square = value;
+            }
+        }
+
+        private decimal _heatedArea;
+
+        /// <summary>
+        /// Отапливаемая площадь квартиры
+        /// </summary>
+        public decimal HeatedArea
+        {
+            get
+            {
+                Load();
+                return _heatedArea;
+            }
+            set
+            {
+                Load();
+                _heatedArea = value;
             }
         }
 

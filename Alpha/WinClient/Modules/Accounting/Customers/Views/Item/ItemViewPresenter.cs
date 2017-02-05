@@ -9,18 +9,15 @@ using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Counter;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
-using Taumis.EnterpriseLibrary.Win.Services;
 using Taumis.Infrastructure.Interface.Services;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports.PersonalData;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports.DebtRepayment;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
@@ -187,6 +184,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             _domItem.Entrance = View.Entrance;
             _domItem.Apartment = View.Apartment;
             _domItem.Square = View.Square > 0 ? View.Square : 0;
+            _domItem.HeatedArea = View.HeatedArea;
             _domItem.Comment = View.Comment;
             _domItem.LiftPresence = View.LiftPresence;
             _domItem.RubbishChutePresence = View.RubbishChutePresence;
@@ -220,9 +218,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                 }
             }
 
-            if (_domItem.Building == null || _domItem.Square <= 0)
+            if (_domItem.Building == null)
             {
                 _errorMsg.AppendLine(" - Не заполнены поля адреса");
+            }
+
+            if (_domItem.Square <= 0)
+            {
+                _errorMsg.AppendLine(" - Не заполнена общая площадь");
             }
 
             if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson && String.IsNullOrEmpty(_domItem.PhysicalPersonFullName))
@@ -314,6 +317,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             View.Entrance = _domItem.Entrance;
             View.Apartment = _domItem.Apartment;
             View.Square = _domItem.Square;
+            View.HeatedArea = _domItem.HeatedArea;
             View.Comment = _domItem.Comment;
             View.LiftPresence = _domItem.LiftPresence;
             View.RubbishChutePresence = _domItem.RubbishChutePresence;

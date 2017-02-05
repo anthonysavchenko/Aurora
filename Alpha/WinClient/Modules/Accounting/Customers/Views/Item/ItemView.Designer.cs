@@ -75,6 +75,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.debtsRepaymentChkBox = new System.Windows.Forms.CheckBox();
             this.roomsCountNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.heatedAreaNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.AddressGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entranceNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floorSpinEdit)).BeginInit();
@@ -94,6 +97,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.roomsCountNumericUpDown)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.heatedAreaNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // HouseLabelControl
@@ -116,26 +121,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // 
             this.AddressGroupBox.Controls.Add(this.entranceNumericUpDown);
             this.AddressGroupBox.Controls.Add(this.floorSpinEdit);
-            this.AddressGroupBox.Controls.Add(this.areaNumericUpDown);
             this.AddressGroupBox.Controls.Add(this.labelControl2);
             this.AddressGroupBox.Controls.Add(this.labelControl1);
             this.AddressGroupBox.Controls.Add(this.buildingLookUpEdit);
             this.AddressGroupBox.Controls.Add(this.streetLookUpEdit);
             this.AddressGroupBox.Controls.Add(this.StreetNumberLabel);
             this.AddressGroupBox.Controls.Add(this.ApartmentTextEdit);
-            this.AddressGroupBox.Controls.Add(this.SquareLabelControl);
             this.AddressGroupBox.Controls.Add(this.ApartmentLabelControl);
             this.AddressGroupBox.Controls.Add(this.HouseLabelControl);
             this.AddressGroupBox.Location = new System.Drawing.Point(3, 94);
             this.AddressGroupBox.Name = "AddressGroupBox";
-            this.AddressGroupBox.Size = new System.Drawing.Size(366, 157);
+            this.AddressGroupBox.Size = new System.Drawing.Size(366, 124);
             this.AddressGroupBox.TabIndex = 4;
             this.AddressGroupBox.TabStop = false;
             this.AddressGroupBox.Text = "Адрес";
             // 
             // entranceNumericUpDown
             // 
-            this.entranceNumericUpDown.Location = new System.Drawing.Point(259, 72);
+            this.entranceNumericUpDown.Location = new System.Drawing.Point(297, 72);
             this.entranceNumericUpDown.Name = "entranceNumericUpDown";
             this.entranceNumericUpDown.Size = new System.Drawing.Size(63, 20);
             this.entranceNumericUpDown.TabIndex = 6;
@@ -162,7 +165,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // areaNumericUpDown
             // 
             this.areaNumericUpDown.DecimalPlaces = 2;
-            this.areaNumericUpDown.Location = new System.Drawing.Point(125, 125);
+            this.areaNumericUpDown.Location = new System.Drawing.Point(125, 17);
             this.areaNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -175,7 +178,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(208, 75);
+            this.labelControl2.Location = new System.Drawing.Point(246, 75);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(45, 13);
             this.labelControl2.TabIndex = 30;
@@ -199,7 +202,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Number", "Номер дома")});
             this.buildingLookUpEdit.Properties.DisplayMember = "Number";
             this.buildingLookUpEdit.Properties.ValueMember = "ID";
-            this.buildingLookUpEdit.Size = new System.Drawing.Size(197, 20);
+            this.buildingLookUpEdit.Size = new System.Drawing.Size(235, 20);
             this.buildingLookUpEdit.TabIndex = 4;
             this.buildingLookUpEdit.EditValueChanged += new System.EventHandler(this.buildingLookUpEdit_EditValueChanged);
             // 
@@ -213,7 +216,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Название")});
             this.streetLookUpEdit.Properties.DisplayMember = "Name";
             this.streetLookUpEdit.Properties.ValueMember = "ID";
-            this.streetLookUpEdit.Size = new System.Drawing.Size(197, 20);
+            this.streetLookUpEdit.Size = new System.Drawing.Size(235, 20);
             this.streetLookUpEdit.TabIndex = 3;
             this.streetLookUpEdit.EditValueChanged += new System.EventHandler(this.streetLookUpEdit_EditValueChanged);
             // 
@@ -228,11 +231,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // 
             // SquareLabelControl
             // 
-            this.SquareLabelControl.Location = new System.Drawing.Point(20, 128);
+            this.SquareLabelControl.Location = new System.Drawing.Point(20, 21);
             this.SquareLabelControl.Name = "SquareLabelControl";
-            this.SquareLabelControl.Size = new System.Drawing.Size(84, 13);
+            this.SquareLabelControl.Size = new System.Drawing.Size(35, 13);
             this.SquareLabelControl.TabIndex = 2;
-            this.SquareLabelControl.Text = "Общая площадь";
+            this.SquareLabelControl.Text = "Общая";
             // 
             // ApartmentLabelControl
             // 
@@ -271,7 +274,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.AccountTextEdit.Location = new System.Drawing.Point(128, 20);
             this.AccountTextEdit.Name = "AccountTextEdit";
             this.AccountTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.AccountTextEdit.Size = new System.Drawing.Size(197, 20);
+            this.AccountTextEdit.Size = new System.Drawing.Size(235, 20);
             this.AccountTextEdit.TabIndex = 0;
             // 
             // AccountLabelControl
@@ -456,7 +459,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CommonGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.CommonGroupBox.Controls.Add(this.CommentTextBox);
-            this.CommonGroupBox.Location = new System.Drawing.Point(6, 323);
+            this.CommonGroupBox.Location = new System.Drawing.Point(3, 329);
             this.CommonGroupBox.Name = "CommonGroupBox";
             this.CommonGroupBox.Size = new System.Drawing.Size(748, 70);
             this.CommonGroupBox.TabIndex = 43;
@@ -539,9 +542,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // 
             this.groupBox3.Controls.Add(this.linkLabel1);
             this.groupBox3.Controls.Add(this.debtsRepaymentChkBox);
-            this.groupBox3.Location = new System.Drawing.Point(3, 257);
+            this.groupBox3.Location = new System.Drawing.Point(3, 275);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(366, 67);
+            this.groupBox3.Size = new System.Drawing.Size(366, 49);
             this.groupBox3.TabIndex = 46;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Реструктуризация долга";
@@ -549,13 +552,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(6, 39);
+            this.linkLabel1.Location = new System.Drawing.Point(156, 20);
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(255, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(205, 13);
             this.linkLabel1.TabIndex = 48;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Соглашение о реструктуризации задолженности";
+            this.linkLabel1.Text = "Соглашение о реструктуризации долга";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // debtsRepaymentChkBox
@@ -581,12 +584,48 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             0,
             0});
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.heatedAreaNumericUpDown);
+            this.groupBox4.Controls.Add(this.labelControl3);
+            this.groupBox4.Controls.Add(this.SquareLabelControl);
+            this.groupBox4.Controls.Add(this.areaNumericUpDown);
+            this.groupBox4.Location = new System.Drawing.Point(3, 224);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(366, 45);
+            this.groupBox4.TabIndex = 47;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Площадь";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(217, 21);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(74, 13);
+            this.labelControl3.TabIndex = 9;
+            this.labelControl3.Text = "Отапливаемая";
+            // 
+            // heatedAreaNumericUpDown
+            // 
+            this.heatedAreaNumericUpDown.DecimalPlaces = 2;
+            this.heatedAreaNumericUpDown.Location = new System.Drawing.Point(297, 17);
+            this.heatedAreaNumericUpDown.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.heatedAreaNumericUpDown.Name = "heatedAreaNumericUpDown";
+            this.heatedAreaNumericUpDown.Size = new System.Drawing.Size(63, 20);
+            this.heatedAreaNumericUpDown.TabIndex = 10;
+            this.heatedAreaNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // ItemView
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.roomsCountNumericUpDown);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -627,6 +666,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.roomsCountNumericUpDown)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.heatedAreaNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -678,6 +720,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private System.Windows.Forms.NumericUpDown floorSpinEdit;
         private System.Windows.Forms.NumericUpDown areaNumericUpDown;
         private System.Windows.Forms.NumericUpDown roomsCountNumericUpDown;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.NumericUpDown heatedAreaNumericUpDown;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
     }
 }
 

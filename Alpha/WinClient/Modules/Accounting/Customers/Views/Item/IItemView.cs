@@ -81,9 +81,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         string Apartment { set; get; }
 
         /// <summary>
-        /// Площадь
+        /// Общая площадь
         /// </summary>
         decimal Square { set; get; }
+
+        /// <summary>
+        /// Отапливаемая площадь
+        /// </summary>
+        decimal HeatedArea { get; set; }
 
         /// <summary>
         /// Количество комнат

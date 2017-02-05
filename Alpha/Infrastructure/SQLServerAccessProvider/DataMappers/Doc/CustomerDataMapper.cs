@@ -53,6 +53,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.Entrance = _customer.Entrance;
                 _domItem.Apartment = _customer.Apartment;
                 _domItem.Square = _customer.Square;
+                _domItem.HeatedArea = _customer.HeatedArea;
                 _domItem.Comment = _customer.Comment;
                 _domItem.LiftPresence = _customer.LiftPresence;
                 _domItem.RubbishChutePresence = _customer.RubbishChutePresence;
@@ -114,6 +115,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _dbItem.RoomsCount = domObj.RoomsCount;
                 _dbItem.Apartment = domObj.Apartment;
                 _dbItem.Square = domObj.Square;
+                _dbItem.HeatedArea = domObj.HeatedArea;
                 _dbItem.Comment = domObj.Comment;
                 _dbItem.Floor = domObj.Floor;
                 _dbItem.Entrance = domObj.Entrance;

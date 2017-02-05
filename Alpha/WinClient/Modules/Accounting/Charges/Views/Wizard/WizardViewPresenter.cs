@@ -81,6 +81,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             public decimal Area { get; set; }
 
             /// <summary>
+            /// Общая отапливаемая площадь здания
+            /// </summary>
+            public decimal HeatedArea { get; set; }
+
+            /// <summary>
             /// Площадь мест общего пользования по услугам
             /// </summary>
             public List<PublicPlaces> PublicPlaces { get; set; }
@@ -108,91 +113,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 set;
                 get;
             }
-        }
-
-        /// <summary>
-        /// Данные счетчика по дому 
-        /// </summary>
-        private class CommonCounterInfo
-        {
-            public CommonCounterInfo()
-            {
-                PrivateCounterInfoByCustomer = new Dictionary<int, Dictionary<string, PrivateCounterInfo>>();
-            }
-
-            /// <summary>
-            /// ID общедомового счетчика
-            /// </summary>
-            public int CommonCounterId { get; set; }
-
-            /// <summary>
-            /// Коэффициент
-            /// </summary>
-            public decimal Coefficient { get; set; }
-
-            /// <summary>
-            /// Сумма частей общедомового потребления абонентов
-            /// </summary>
-            public decimal ConsumptionCustomerSum { get; set; }
-
-            /// <summary>
-            /// Расход
-            /// </summary>
-            public decimal Consumption { get; set; }
-
-            /// <summary>
-            /// Текущее показание
-            /// </summary>
-            public decimal CurrentValue { get; set; }
-
-            /// <summary>
-            /// Показания и расход, сгруппированные по абоненту и счетчику
-            /// </summary>
-            public Dictionary<int, Dictionary<string, PrivateCounterInfo>> PrivateCounterInfoByCustomer { get; private set; }
-        }
-
-        /// <summary>
-        /// Данные частного счетчика
-        /// </summary>
-        private class PrivateCounterInfo
-        {
-            /// <summary>
-            /// Конструктор
-            /// </summary>
-            /// <param name="previousValue">Показание за предыдущий период</param>
-            /// <param name="currentValue">Показание за текущий период</param>
-            public PrivateCounterInfo(decimal previousValue, decimal currentValue, decimal rate)
-            {
-                PreviousValue = previousValue;
-                CurrentValue = currentValue;
-                Consumption = currentValue - previousValue;
-                Rate = rate;
-            }
-
-            /// <summary>
-            /// Показание за предыдущий период
-            /// </summary>
-            public decimal PreviousValue { get; private set; }
-
-            /// <summary>
-            /// Показание за текущий период
-            /// </summary>
-            public decimal CurrentValue { get; private set; }
-
-            /// <summary>
-            /// Расход
-            /// </summary>
-            public decimal Consumption { get; private set; }
-
-            /// <summary>
-            /// Доля в общедомовом потреблении
-            /// </summary>
-            public decimal CommonConsumptionPart { get; set; }
-
-            /// <summary>
-            /// Тариф
-            /// </summary>
-            public decimal Rate { get; private set; }
         }
 
         private class CustomerPosInfo
@@ -659,6 +579,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             CustomersCount = b.Customers.Count,
                             Area = 
                                 (b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= _currentPeriod)).Sum(c => (decimal?)c.Square) ?? 0) + b.NonResidentialPlaceArea,
+                            HeatedArea =
+                                b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= _currentPeriod)).Sum(c => (decimal?)c.HeatedArea) ?? 0,
                             b.PublicPlaces
                         })
                         .GroupBy(building => building.ZipCode)
@@ -673,6 +595,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     StreetName = b.StreetName,
                                     CustomersCount = b.CustomersCount,
                                     Area = b.Area,
+                                    HeatedArea = b.HeatedArea,
                                     PublicPlaces = b.PublicPlaces.ToList()
                                 })
                         })
@@ -737,6 +660,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             {
                                                 c.ID,
                                                 c.Square,
+                                                c.HeatedArea,
                                                 c.Account,
                                                 c.OwnerType,
                                                 c.JuridicalPersonFullName,
@@ -1135,6 +1059,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 }
                                                 break;
 
+                                            case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
+                                                if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                                {
+                                                    var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                    decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                    decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                    _chargeValue = _consumption * _customerPos.Rate * _customer.HeatedArea / _building.HeatedArea;
+                                                }
+                                                break;
+
                                             case Service.ChargeRuleType.PublicPlaceAreaRate:
                                                 {
                                                     PublicPlaces _pp = _building.PublicPlaces
@@ -1488,7 +1422,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 _rechargeSetId = _rechargeSet.ID;
             }
 
-            Dictionary<int, decimal> _buidingLivingAreaDict = new Dictionary<int, decimal>();
+            Dictionary<int, decimal> _buidingAreaDict = new Dictionary<int, decimal>();
+            Dictionary<int, decimal> _buidingHeatedAreaDict = new Dictionary<int, decimal>();
 
             while (_period <= _tillCorrectionPeriod)
             {
@@ -1511,6 +1446,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         {
                                             c.ID,
                                             c.Square,
+                                            c.HeatedArea,
                                             BuildingID = c.Buildings.ID,
                                             BuildingNonResidentialPlaceArea = c.Buildings.NonResidentialPlaceArea,
                                             ResidentsCount = c.Residents.Count(),
@@ -1714,6 +1650,36 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         contractor => contractor.ID,
                                         contractor => contractor);
 
+                            decimal _buildingArea;
+                            if (_buidingAreaDict.ContainsKey(_customer.BuildingID))
+                            {
+                                _buildingArea = _buidingAreaDict[_customer.BuildingID];
+                            }
+                            else
+                            {
+                                _buildingArea = _db.Customers
+                                    .Where(c =>
+                                        c.Buildings.ID == _customer.BuildingID &&
+                                        c.CustomerPoses.Any(p => p.Till >= _period))
+                                    .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea;
+                                _buidingAreaDict.Add(_customer.BuildingID, _buildingArea);
+                            }
+
+                            decimal _buildingHeatedArea;
+                            if (_buidingHeatedAreaDict.ContainsKey(_customer.BuildingID))
+                            {
+                                _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
+                            }
+                            else
+                            {
+                                _buildingHeatedArea = _db.Customers
+                                    .Where(c =>
+                                        c.Buildings.ID == _customer.BuildingID &&
+                                        c.CustomerPoses.Any(p => p.Till >= _period))
+                                    .Sum(c => c.HeatedArea);
+                                _buidingHeatedAreaDict.Add(_customer.BuildingID, _buildingArea);
+                            }
+
                             RechargeOpers _rechargeOper =
                                 new RechargeOpers
                                 {
@@ -1816,55 +1782,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         break;
 
                                     case Service.ChargeRuleType.CommonCounterByAreaRate:
+                                        if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
                                         {
-                                            decimal _livingArea;
-                                            if (_buidingLivingAreaDict.ContainsKey(_customer.BuildingID))
-                                            {
-                                                _livingArea = _buidingLivingAreaDict[_customer.BuildingID];
-                                            }
-                                            else
-                                            {
-                                                _livingArea = _db.Customers
-                                                    .Where(c =>
-                                                        c.Buildings.ID == _customer.BuildingID &&
-                                                        c.CustomerPoses.Any(p => p.Till >= _period))
-                                                    .Sum(c => c.Square);
-                                                _buidingLivingAreaDict.Add(_customer.BuildingID, _livingArea);
-                                            }
+                                            var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                            _value = _consumption * _customerPos.Rate * _customer.Square / _buildingArea;
+                                        }
+                                        break;
 
-                                            if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
-                                            {
-                                                var _counter = _commonCountersByService[_customerPos.ServiceID];
-                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                _value = _consumption * _customerPos.Rate * _customer.Square / (_customer.BuildingNonResidentialPlaceArea + _livingArea);
-                                            }
+                                    case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
+                                        if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                        {
+                                            var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                            _value = _consumption * _customerPos.Rate * _customer.HeatedArea / _buildingHeatedArea;
                                         }
                                         break;
 
                                     case Service.ChargeRuleType.PublicPlaceAreaRate:
-                                        { 
-                                            decimal _livingArea =
-                                                _db.Customers
-                                                    .Where(c =>
-                                                        c.Buildings.ID == _customer.BuildingID &&
-                                                        c.CustomerPoses.Any(p => p.Till >= _period))
-                                                    .Sum(c => (decimal?) c.Square) ?? 0;
-                                            decimal _area = _livingArea + _customer.BuildingNonResidentialPlaceArea;
-
                                             PublicPlaces _pp = _db.PublicPlaces
                                                 .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
 
-                                            decimal? _norm = _services[_customerPos.ServiceID].Norm;
+                                            decimal _norm = _services[_customerPos.ServiceID].Norm ?? 0;
 
-                                            if (_pp != null && _norm.HasValue && _area > 0)
+                                            if (_pp != null)
                                             {
-                                                decimal _rate = Math.Round(_norm.Value * _pp.Area / _area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                decimal _rate = Math.Round(_norm * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                 _value = _customer.Square * _rate;
                                                 // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                 _customerPos.Rate = _rate;
                                             }
-                                        }
                                         break;
 
                                     case Service.ChargeRuleType.PublicPlaceBankCommission:
@@ -2022,20 +1971,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             decimal _totalValue = 0;
 
             DateTime _now = ServerTime.GetDateTimeInfo().Now;
-            PeriodInfo _periodInfo = ServerTime.GetPeriodInfo();
-            DateTime _period = _periodInfo.FirstUncharged;
-            DateTime _previousPeriod = _periodInfo.LastCharged;
+            DateTime _period = View.DebtPeriod;
+            DateTime _previousPeriod = _period.AddMonths(-1);
             List<RechargeOperPoses> _posesToRegister = new List<RechargeOperPoses>();
             RechargeSets _rechargeSet = null;
             Dictionary<int, decimal> _customerDebt = new Dictionary<int, decimal>();
 
             try
             {
+                if (!IsAllCounterValuesPresent(_period, _previousPeriod))
+                    return;
+
                 using (Entities _db = new Entities())
                 {
-                    using (ExcelSheet _sheet = new ExcelSheet(View.DebtFileName, "внести долг"))
+                    using (ExcelSheet _sheet = new ExcelSheet(View.DebtFileName))
                     {
-                        for (int _row = 1; _row < _sheet.RowsCount; _row++)
+                        for (int _row = 1; _row <= _sheet.RowsCount; _row++)
                         {
                             try
                             {
@@ -2101,7 +2052,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 View.ResetProgressBar(_customerDebt.Keys.Count);
                 Application.DoEvents();
 
-                Dictionary<int, decimal> _buidingLivingAreaDict = new Dictionary<int, decimal>();
+                Dictionary<int, decimal> _buidingAreaDict = new Dictionary<int, decimal>();
+                Dictionary<int, decimal> _buidingHeatedAreaDict = new Dictionary<int, decimal>();
 
                 foreach (KeyValuePair<int, decimal> _pair in _customerDebt)
                 {
@@ -2123,6 +2075,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         {
                                             c.ID,
                                             c.Square,
+                                            c.HeatedArea,
                                             c.Account,
                                             BuildingID = c.Buildings.ID,
                                             BuildingNonResidentialPlaceArea = c.Buildings.NonResidentialPlaceArea,
@@ -2156,18 +2109,48 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                      .OrderBy(p => p.ChargeRule)
                                      .ToList();
 
-                            Dictionary<int, Services> _services =
-                                _db.Services
-                                    .Include(s => s.ServiceTypes)
-                                    .ToDictionary(s => s.ID, s => s);
-
-                            Dictionary<int, Contractors> _contractors = _db.Contractors
-                                    .ToDictionary(
-                                        contractor => contractor.ID,
-                                        contractor => contractor);
-
                             if (_customerPoses.Any())
                             {
+                                Dictionary<int, Services> _services =
+                                    _db.Services
+                                        .Include(s => s.ServiceTypes)
+                                        .ToDictionary(s => s.ID, s => s);
+
+                                Dictionary<int, Contractors> _contractors = _db.Contractors
+                                        .ToDictionary(
+                                            contractor => contractor.ID,
+                                            contractor => contractor);
+
+                                decimal _buildingArea;
+                                if (_buidingAreaDict.ContainsKey(_customer.BuildingID))
+                                {
+                                    _buildingArea = _buidingAreaDict[_customer.BuildingID];
+                                }
+                                else
+                                {
+                                    _buildingArea = _db.Customers
+                                        .Where(c =>
+                                            c.Buildings.ID == _customer.BuildingID &&
+                                            c.CustomerPoses.Any(p => p.Till >= _period))
+                                        .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea;
+                                    _buidingAreaDict.Add(_customer.BuildingID, _buildingArea);
+                                }
+
+                                decimal _buildingHeatedArea;
+                                if (_buidingHeatedAreaDict.ContainsKey(_customer.BuildingID))
+                                {
+                                    _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
+                                }
+                                else
+                                {
+                                    _buildingHeatedArea = _db.Customers
+                                        .Where(c =>
+                                            c.Buildings.ID == _customer.BuildingID &&
+                                            c.CustomerPoses.Any(p => p.Till >= _period))
+                                        .Sum(c => c.HeatedArea);
+                                    _buidingHeatedAreaDict.Add(_customer.BuildingID, _buildingArea);
+                                }
+
                                 int[] _customerPosIDs = _customerPoses.Select(p => p.ID).ToArray();
 
                                 var _privateCountersByCustomerPos =
@@ -2226,28 +2209,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             break;
 
                                         case Service.ChargeRuleType.CommonCounterByAreaRate:
+                                            if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
                                             {
-                                                decimal _livingArea;
-                                                if (_buidingLivingAreaDict.ContainsKey(_customer.BuildingID))
-                                                {
-                                                    _livingArea = _buidingLivingAreaDict[_customer.BuildingID];
-                                                }
-                                                else
-                                                {
-                                                    _livingArea = _db.Customers
-                                                        .Where(c =>
-                                                            c.Buildings.ID == _customer.BuildingID &&
-                                                            c.CustomerPoses.Any(p => p.Till >= _period))
-                                                        .Sum(c => c.Square);
-                                                    _buidingLivingAreaDict.Add(_customer.BuildingID, _livingArea);
-                                                }
+                                                var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                _value = _consumption * _customerPos.Rate * _customer.Square / _buildingArea;
+                                            }
+                                            break;
 
-                                                if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                        case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
+                                            if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                            {
+                                                var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                _value = _consumption * _customerPos.Rate * _customer.HeatedArea / _buildingHeatedArea;
+                                            }
+                                            break;
+
+                                        case Service.ChargeRuleType.PublicPlaceAreaRate:
+                                            {
+                                                PublicPlaces _pp = _db.PublicPlaces
+                                                    .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
+                                                decimal _norm = _services[_customerPos.ServiceID].Norm ?? 0;
+
+                                                if (_pp != null && _norm > 0 && _buildingArea > 0)
                                                 {
-                                                    var _counter = _commonCountersByService[_customerPos.ServiceID];
-                                                    decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                                    decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                    _value = _consumption * _customerPos.Rate * _customer.Square / (_customer.BuildingNonResidentialPlaceArea + _livingArea);
+                                                    decimal _rate =
+                                                        Math.Round(_norm * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                    _value = _customer.Square * _rate;
+                                                    // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
+                                                    _customerPos.Rate = _rate;
                                                 }
                                             }
                                             break;
@@ -2394,212 +2387,91 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
             using (Entities _entities = new Entities())
             {
-                var _commonCounters =
-                    _entities.CommonCounters
-                        .Where(
-                            c =>
-                            !_entities.CommonCounterValues
-                                .Any(
-                                    v =>
-                                    v.Period == currentPeriod &&
-                                    v.CommonCounters.ID == c.ID))
-                        .ToList();
+                bool _prevValueNotExist =
+                    _entities.CommonCounters.Any(c => c.CommonCounterValues.All(v => v.Period != previousPeriod)) ||
+                    _entities.PrivateCounters.Any(p => p.PrivateCounterValues.All(v => v.Period != previousPeriod));
 
-                var _privateCounters =
-                    _entities.PrivateCounters
-                        .Where(
-                            c =>
-                            !_entities.PrivateCounterValues
-                                .Any(
-                                    v =>
-                                    v.Period == currentPeriod &&
-                                    v.PrivateCounters.ID == c.ID))
-                        .ToList();
-
-                if (_commonCounters.Any() || _privateCounters.Any())
+                if (!_prevValueNotExist)
                 {
-                    DialogResult _dialogResult = MessageBox.Show(
-                        "Введены показания не всех приборов учета за текущий учетный период. Использовать показания предыдущего учетного периода?",
-                        "Отсутствуют показания по некоторым приборам учета",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question);
+                    var _commonCounters =
+                        _entities.CommonCounters
+                            .Where(c => c.CommonCounterValues.All(v => v.Period != currentPeriod))
+                            .ToList();
 
-                    if (_dialogResult == DialogResult.Yes)
+                    var _privateCounters =
+                        _entities.PrivateCounters
+                            .Where(c => c.PrivateCounterValues.All(v => v.Period != currentPeriod))
+                            .ToList();
+
+                    if (_commonCounters.Any() || _privateCounters.Any())
                     {
-                        foreach (CommonCounters _commonCounter in _commonCounters)
+                        DialogResult _dialogResult = MessageBox.Show(
+                            "Введены показания не всех приборов учета за текущий учетный период. Использовать показания предыдущего учетного периода?",
+                            "Отсутствуют показания по некоторым приборам учета",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (_dialogResult == DialogResult.Yes)
                         {
-                            decimal _value =
-                                _entities.CommonCounterValues
-                                    .Where(
-                                        v =>
-                                        v.CommonCounters.ID == _commonCounter.ID &&
-                                        v.Period == previousPeriod)
-                                    .Select(v => v.Value)
-                                    .FirstOrDefault();
+                            foreach (CommonCounters _commonCounter in _commonCounters)
+                            {
+                                decimal _value =
+                                    _entities.CommonCounterValues
+                                        .Where(
+                                            v =>
+                                                v.CommonCounters.ID == _commonCounter.ID &&
+                                                v.Period == previousPeriod)
+                                        .Select(v => v.Value)
+                                        .FirstOrDefault();
 
-                            _entities.AddToCommonCounterValues(
-                                new CommonCounterValues
-                                {
-                                    Period = currentPeriod,
-                                    Value = _value,
-                                    CommonCounters = _commonCounter
-                                });
-                        }
-
-                        foreach (PrivateCounters _privateCounter in _privateCounters)
-                        {
-                            decimal _value =
-                                _entities.PrivateCounterValues
-                                    .Where(
-                                        v =>
-                                        v.PrivateCounters.ID == _privateCounter.ID &&
-                                        v.Period == previousPeriod)
-                                    .Select(v => v.Value)
-                                    .FirstOrDefault();
-
-                            _entities.AddToPrivateCounterValues(
-                                new PrivateCounterValues
-                                {
-                                    Period = currentPeriod,
-                                    Value = _value,
-                                    PrivateCounters = _privateCounter
-                                });
-                        }
-
-                        _entities.SaveChanges();
-                    }
-                    else
-                    {
-                        _result = false;
-                        View.ShowMessage("Выполнение начислений невозможно, введите показания всех приборов учета за текущий период", "Ошибка");
-                    }
-                }
-            }
-
-            return _result;
-        }
-
-        /// <summary>
-        /// Вычисляет необходимые данные для учета по счетчикам
-        /// </summary>
-        /// <param name="customersInBuilding">Жильцы</param>
-        /// <param name="currentPeriod">Предыдущий период</param>
-        /// <param name="previousPeriod">Текущий период</param>
-        /// <returns>Данные по счетчикам, сгруппированные по услуге</returns>
-        private Dictionary<int, CommonCounterInfo> GetBuildingCountersInfo(
-            int buildingID,
-            IEnumerable<int> customersInBuilding,
-            DateTime currentPeriod,
-            DateTime previousPeriod)
-        {
-            Dictionary<int, CommonCounterInfo> _result = new Dictionary<int, CommonCounterInfo>();
-
-            using (Entities _entities = new Entities())
-            {
-                var _commonCounter =
-                    _entities.CommonCounters
-                        .Include("Services")
-                        .Where(c => c.Buildings.ID == buildingID);
-
-                foreach (var _counter in _commonCounter)
-                {
-                    decimal _totalConsumption = 0;
-                    CommonCounterInfo _commonCounterInfo = new CommonCounterInfo();
-
-                    foreach (int _customerID in customersInBuilding)
-                    {
-                        var _privateCounters =
-                            _entities.PrivateCounters
-                                .Where(
-                                    p =>
-                                    p.CustomerPoses.Customers.ID == _customerID &&
-                                    p.CustomerPoses.Services.ID == _counter.Services.ID)
-                                .Select(
-                                    p =>
-                                    new
+                                _entities.AddToCommonCounterValues(
+                                    new CommonCounterValues
                                     {
-                                        p.ID,
-                                        p.Rate,
-                                        p.Number
-                                    })
-                                .ToList();
+                                        Period = currentPeriod,
+                                        Value = _value,
+                                        CommonCounters = _commonCounter
+                                    });
+                            }
 
-                        Dictionary<string, PrivateCounterInfo> _privateCounterInfoByNumber =
-                            new Dictionary<string, PrivateCounterInfo>(_privateCounters.Count);
+                            foreach (PrivateCounters _privateCounter in _privateCounters)
+                            {
+                                decimal _value =
+                                    _entities.PrivateCounterValues
+                                        .Where(
+                                            v =>
+                                                v.PrivateCounters.ID == _privateCounter.ID &&
+                                                v.Period == previousPeriod)
+                                        .Select(v => v.Value)
+                                        .FirstOrDefault();
 
-                        foreach (var _privateCounter in _privateCounters)
-                        {
-                            decimal _previousValue =
-                                _entities.PrivateCounterValues
-                                    .Where(
-                                        v =>
-                                        v.PrivateCounters.ID == _privateCounter.ID &&
-                                        v.Period == previousPeriod)
-                                    .Sum(v => (decimal?)v.Value) ?? 0;
+                                _entities.AddToPrivateCounterValues(
+                                    new PrivateCounterValues
+                                    {
+                                        Period = currentPeriod,
+                                        Value = _value,
+                                        PrivateCounters = _privateCounter
+                                    });
+                            }
 
-                            decimal _currentValue =
-                                _entities.PrivateCounterValues
-                                    .Where(
-                                        v =>
-                                        v.PrivateCounters.ID == _privateCounter.ID &&
-                                        v.Period == currentPeriod)
-                                    .Sum(v => (decimal?)v.Value) ?? 0;
-
-                            PrivateCounterInfo _privateCounterInfo =
-                                new PrivateCounterInfo(_previousValue, _currentValue, _privateCounter.Rate);
-
-                            _totalConsumption += _privateCounterInfo.Consumption;
-
-                            _privateCounterInfoByNumber.Add(_privateCounter.Number, _privateCounterInfo);
+                            _entities.SaveChanges();
                         }
-
-                        _commonCounterInfo.PrivateCounterInfoByCustomer.Add(_customerID, _privateCounterInfoByNumber);
-                    }
-
-                    decimal _pValue =
-                        _entities.CommonCounterValues
-                            .Where(
-                                v =>
-                                v.CommonCounters.ID == _counter.ID &&
-                                v.Period == previousPeriod)
-                            .Sum(v => (decimal?)v.Value) ?? 0;
-
-                    decimal _cValue =
-                        _entities.CommonCounterValues
-                            .Where(
-                                v =>
-                                v.CommonCounters.ID == _counter.ID &&
-                                v.Period == currentPeriod)
-                            .Sum(v => (decimal?)v.Value) ?? 0;
-
-                    _commonCounterInfo.CurrentValue = _cValue;
-                    _commonCounterInfo.Consumption = _cValue - _pValue;
-                    _commonCounterInfo.Coefficient = Math.Round(_commonCounterInfo.Consumption / _totalConsumption, 9, MidpointRounding.AwayFromZero);
-                    decimal _commonCoefficient = _commonCounterInfo.Coefficient - 1;
-
-                    _entities.AddToCommonCounterCoefficients(
-                        new CommonCounterCoefficients
+                        else
                         {
-                            Period = currentPeriod,
-                            Coefficient = _commonCounterInfo.Coefficient,
-                            CommonCounters = _counter
-                        });
-
-                    foreach (Dictionary<string, PrivateCounterInfo> _value in _commonCounterInfo.PrivateCounterInfoByCustomer.Values)
-                    {
-                        foreach (PrivateCounterInfo _info in _value.Values)
-                        {
-                            _info.CommonConsumptionPart = _info.Consumption * _commonCoefficient;
-                            _commonCounterInfo.ConsumptionCustomerSum += _info.CommonConsumptionPart;
+                            View.ShowMessage(
+                                "Выполнение начислений невозможно, введите показания всех приборов учета за текущий период", 
+                                "Ошибка");
+                            _result = false;
                         }
                     }
-
-                    _result.Add(_counter.Services.ID, _commonCounterInfo);
                 }
-
-                _entities.SaveChanges();
+                else
+                {
+                    View.ShowMessage(
+                        "Внесены показания не всех приборов учета за прошлый период. Выполнение начислений невозможно.", 
+                        "Ошибка");
+                    _result = false;
+                }
             }
-
             return _result;
         }
 

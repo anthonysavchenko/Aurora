@@ -35,10 +35,12 @@
             this._id = new DevExpress.XtraGrid.Columns.GridColumn();
             this._name = new DevExpress.XtraGrid.Columns.GridColumn();
             this._code = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ContainerTypeLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this._rate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            this.ContainerTypeLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this._listItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._listView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +51,8 @@
             this._listItems.MainView = this._listView;
             this._listItems.Name = "_listItems";
             this._listItems.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.ContainerTypeLookUpEdit});
+            this.ContainerTypeLookUpEdit,
+            this.repositoryItemSpinEdit1});
             this._listItems.Size = new System.Drawing.Size(626, 448);
             this._listItems.TabIndex = 0;
             this._listItems.UseEmbeddedNavigator = true;
@@ -92,6 +95,27 @@
             this._code.VisibleIndex = 0;
             this._code.Width = 87;
             // 
+            // _rate
+            // 
+            this._rate.Caption = "Процент";
+            this._rate.ColumnEdit = this.repositoryItemSpinEdit1;
+            this._rate.DisplayFormat.FormatString = "0.00";
+            this._rate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this._rate.FieldName = "Rate";
+            this._rate.Name = "_rate";
+            this._rate.Visible = true;
+            this._rate.VisibleIndex = 2;
+            // 
+            // repositoryItemSpinEdit1
+            // 
+            this.repositoryItemSpinEdit1.AutoHeight = false;
+            this.repositoryItemSpinEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemSpinEdit1.DisplayFormat.FormatString = "n2";
+            this.repositoryItemSpinEdit1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemSpinEdit1.Mask.EditMask = "n2";
+            this.repositoryItemSpinEdit1.Name = "repositoryItemSpinEdit1";
+            // 
             // ContainerTypeLookUpEdit
             // 
             this.ContainerTypeLookUpEdit.AutoHeight = false;
@@ -101,16 +125,6 @@
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Aka", 35, "Наименование")});
             this.ContainerTypeLookUpEdit.Name = "ContainerTypeLookUpEdit";
             this.ContainerTypeLookUpEdit.NullText = "";
-            // 
-            // _rate
-            // 
-            this._rate.Caption = "Процент";
-            this._rate.DisplayFormat.FormatString = "0.00";
-            this._rate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this._rate.FieldName = "Rate";
-            this._rate.Name = "_rate";
-            this._rate.Visible = true;
-            this._rate.VisibleIndex = 2;
             // 
             // ListView
             // 
@@ -122,6 +136,7 @@
             this.Size = new System.Drawing.Size(626, 448);
             ((System.ComponentModel.ISupportInitialize)(this._listItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._listView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).EndInit();
             this.ResumeLayout(false);
 
@@ -136,6 +151,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit ContainerTypeLookUpEdit;
         private DevExpress.XtraGrid.Columns.GridColumn _id;
         private DevExpress.XtraGrid.Columns.GridColumn _rate;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit1;
     }
 }
 

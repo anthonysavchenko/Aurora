@@ -56,13 +56,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Intermediaries
         /// <summary>
         /// Процент
         /// </summary>
-        public decimal Rate
-        {
-            get
-            {
-                return decimal.Parse(GetBaseSimpleListViewMapper.ViewToDomain(_listView, "Rate"));
-            }
-        }
+        public decimal Rate => GetBaseSimpleListViewMapper.ViewToDomainSimpleType<decimal>(_listView, "Rate");
 
         #endregion
     }

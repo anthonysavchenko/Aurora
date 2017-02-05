@@ -5672,7 +5672,8 @@ namespace Taumis.Alpha.DataBase
         /// <param name="billSendingSubscription">Initial value of the BillSendingSubscription property.</param>
         /// <param name="debtsRepayment">Initial value of the DebtsRepayment property.</param>
         /// <param name="entrance">Initial value of the Entrance property.</param>
-        public static Customers CreateCustomers(global::System.Int32 id, global::System.String account, global::System.Int32 ownerType, global::System.Boolean isPrivate, global::System.Int32 roomsCount, global::System.String apartment, global::System.Decimal square, global::System.String physicalPersonFullName, global::System.String physicalPersonShortName, global::System.String juridicalPersonFullName, global::System.Int16 floor, global::System.Boolean liftPresence, global::System.Boolean rubbishChutePresence, global::System.Boolean billSendingSubscription, global::System.Boolean debtsRepayment, global::System.Byte entrance)
+        /// <param name="heatedArea">Initial value of the HeatedArea property.</param>
+        public static Customers CreateCustomers(global::System.Int32 id, global::System.String account, global::System.Int32 ownerType, global::System.Boolean isPrivate, global::System.Int32 roomsCount, global::System.String apartment, global::System.Decimal square, global::System.String physicalPersonFullName, global::System.String physicalPersonShortName, global::System.String juridicalPersonFullName, global::System.Int16 floor, global::System.Boolean liftPresence, global::System.Boolean rubbishChutePresence, global::System.Boolean billSendingSubscription, global::System.Boolean debtsRepayment, global::System.Byte entrance, global::System.Decimal heatedArea)
         {
             Customers customers = new Customers();
             customers.ID = id;
@@ -5691,6 +5692,7 @@ namespace Taumis.Alpha.DataBase
             customers.BillSendingSubscription = billSendingSubscription;
             customers.DebtsRepayment = debtsRepayment;
             customers.Entrance = entrance;
+            customers.HeatedArea = heatedArea;
             return customers;
         }
 
@@ -6156,6 +6158,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _GisZhkhID;
         partial void OnGisZhkhIDChanging(global::System.String value);
         partial void OnGisZhkhIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal HeatedArea
+        {
+            get
+            {
+                return _HeatedArea;
+            }
+            set
+            {
+                OnHeatedAreaChanging(value);
+                ReportPropertyChanging("HeatedArea");
+                _HeatedArea = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("HeatedArea");
+                OnHeatedAreaChanged();
+            }
+        }
+        private global::System.Decimal _HeatedArea;
+        partial void OnHeatedAreaChanging(global::System.Decimal value);
+        partial void OnHeatedAreaChanged();
 
         #endregion
 

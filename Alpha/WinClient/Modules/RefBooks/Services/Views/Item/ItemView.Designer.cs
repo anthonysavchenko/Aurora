@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.chargeRuleGroupBox = new System.Windows.Forms.GroupBox();
+            this.commonCounterByAreaRadioButton = new System.Windows.Forms.RadioButton();
+            this.commonCounterByHeatedAreaRadioButton = new System.Windows.Forms.RadioButton();
             this.publicPlaceBankCommissionRadioButton = new System.Windows.Forms.RadioButton();
             this.publicPlaceRadioButton = new System.Windows.Forms.RadioButton();
             this.counterRuleRadioButton = new System.Windows.Forms.RadioButton();
@@ -45,7 +47,6 @@
             this.normNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.normMeasureTextBox = new System.Windows.Forms.TextBox();
-            this.commonCounterByAreaRadioButton = new System.Windows.Forms.RadioButton();
             this.chargeRuleGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.serviceTypeLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.normNumericUpDown)).BeginInit();
@@ -54,6 +55,7 @@
             // chargeRuleGroupBox
             // 
             this.chargeRuleGroupBox.Controls.Add(this.commonCounterByAreaRadioButton);
+            this.chargeRuleGroupBox.Controls.Add(this.commonCounterByHeatedAreaRadioButton);
             this.chargeRuleGroupBox.Controls.Add(this.publicPlaceBankCommissionRadioButton);
             this.chargeRuleGroupBox.Controls.Add(this.publicPlaceRadioButton);
             this.chargeRuleGroupBox.Controls.Add(this.counterRuleRadioButton);
@@ -62,15 +64,35 @@
             this.chargeRuleGroupBox.Controls.Add(this.squareRuleRadioButton);
             this.chargeRuleGroupBox.Location = new System.Drawing.Point(3, 107);
             this.chargeRuleGroupBox.Name = "chargeRuleGroupBox";
-            this.chargeRuleGroupBox.Size = new System.Drawing.Size(419, 182);
+            this.chargeRuleGroupBox.Size = new System.Drawing.Size(419, 206);
             this.chargeRuleGroupBox.TabIndex = 3;
             this.chargeRuleGroupBox.TabStop = false;
             this.chargeRuleGroupBox.Text = "Правило начисления";
             // 
+            // commonCounterByAreaRadioButton
+            // 
+            this.commonCounterByAreaRadioButton.AutoSize = true;
+            this.commonCounterByAreaRadioButton.Location = new System.Drawing.Point(6, 112);
+            this.commonCounterByAreaRadioButton.Name = "commonCounterByAreaRadioButton";
+            this.commonCounterByAreaRadioButton.Size = new System.Drawing.Size(306, 17);
+            this.commonCounterByAreaRadioButton.TabIndex = 10;
+            this.commonCounterByAreaRadioButton.Text = "По общему счетчику пропорционально общей площади";
+            this.commonCounterByAreaRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // commonCounterByHeatedAreaRadioButton
+            // 
+            this.commonCounterByHeatedAreaRadioButton.AutoSize = true;
+            this.commonCounterByHeatedAreaRadioButton.Location = new System.Drawing.Point(6, 135);
+            this.commonCounterByHeatedAreaRadioButton.Name = "commonCounterByHeatedAreaRadioButton";
+            this.commonCounterByHeatedAreaRadioButton.Size = new System.Drawing.Size(346, 17);
+            this.commonCounterByHeatedAreaRadioButton.TabIndex = 9;
+            this.commonCounterByHeatedAreaRadioButton.Text = "По общему счетчику пропорционально отапливаемой площади";
+            this.commonCounterByHeatedAreaRadioButton.UseVisualStyleBackColor = true;
+            // 
             // publicPlaceBankCommissionRadioButton
             // 
             this.publicPlaceBankCommissionRadioButton.AutoSize = true;
-            this.publicPlaceBankCommissionRadioButton.Location = new System.Drawing.Point(6, 158);
+            this.publicPlaceBankCommissionRadioButton.Location = new System.Drawing.Point(6, 181);
             this.publicPlaceBankCommissionRadioButton.Name = "publicPlaceBankCommissionRadioButton";
             this.publicPlaceBankCommissionRadioButton.Size = new System.Drawing.Size(237, 17);
             this.publicPlaceBankCommissionRadioButton.TabIndex = 8;
@@ -80,7 +102,7 @@
             // publicPlaceRadioButton
             // 
             this.publicPlaceRadioButton.AutoSize = true;
-            this.publicPlaceRadioButton.Location = new System.Drawing.Point(6, 135);
+            this.publicPlaceRadioButton.Location = new System.Drawing.Point(6, 158);
             this.publicPlaceRadioButton.Name = "publicPlaceRadioButton";
             this.publicPlaceRadioButton.Size = new System.Drawing.Size(246, 17);
             this.publicPlaceRadioButton.TabIndex = 7;
@@ -222,16 +244,6 @@
             this.normMeasureTextBox.Size = new System.Drawing.Size(70, 20);
             this.normMeasureTextBox.TabIndex = 7;
             // 
-            // commonCounterByAreaRadioButton
-            // 
-            this.commonCounterByAreaRadioButton.AutoSize = true;
-            this.commonCounterByAreaRadioButton.Location = new System.Drawing.Point(6, 112);
-            this.commonCounterByAreaRadioButton.Name = "commonCounterByAreaRadioButton";
-            this.commonCounterByAreaRadioButton.Size = new System.Drawing.Size(254, 17);
-            this.commonCounterByAreaRadioButton.TabIndex = 9;
-            this.commonCounterByAreaRadioButton.Text = "По общему счетчику пропорционально кв. м.";
-            this.commonCounterByAreaRadioButton.UseVisualStyleBackColor = true;
-            // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,7 +260,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chargeRuleGroupBox);
             this.Name = "ItemView";
-            this.Size = new System.Drawing.Size(425, 300);
+            this.Size = new System.Drawing.Size(425, 324);
             this.chargeRuleGroupBox.ResumeLayout(false);
             this.chargeRuleGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.serviceTypeLookUpEdit.Properties)).EndInit();
@@ -277,6 +289,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox normMeasureTextBox;
         private System.Windows.Forms.RadioButton publicPlaceBankCommissionRadioButton;
+        private System.Windows.Forms.RadioButton commonCounterByHeatedAreaRadioButton;
         private System.Windows.Forms.RadioButton commonCounterByAreaRadioButton;
     }
 }
