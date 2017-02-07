@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyDescription("AuroraAssembly")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Taumis")]
-[assembly: AssemblyProduct("Aurora")]
+[assembly: AssemblyProduct("Aurora Tszh")]
 [assembly: AssemblyCopyright("Copyright © Taumis")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
