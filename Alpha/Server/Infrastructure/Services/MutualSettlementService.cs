@@ -5,12 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using Taumis.Alpha.Server.Core.Models.Docs;
 using Taumis.Alpha.Server.Core.Models.Enums;
-using Taumis.Alpha.Server.Core.Services.MutualSettlement;
-using Taumis.Alpha.Server.Core.Services.MutualSettlement.DataSets;
+using Taumis.Alpha.Server.Core.Services;
 using Taumis.Alpha.Server.Core.Services.ServerTime;
 using Taumis.Alpha.Server.Infrastructure.Data;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 
-namespace Taumis.Alpha.Server.Infrastructure.Services.MutualSettlement
+namespace Taumis.Alpha.Server.Infrastructure.Services
 {
     public class MutualSettlementService : IMutualSettlementService
     {
@@ -125,7 +125,7 @@ namespace Taumis.Alpha.Server.Infrastructure.Services.MutualSettlement
             _sts = sts;
         }
 
-        public MutualSettlementDataSet GetDataForReport(int customerId)
+        public DataSet GetDataForReport(int customerId)
         {
             MutualSettlementDataSet _data = new MutualSettlementDataSet();
             DataTable _settlementTable = _data.Tables["MutualSettlement"];

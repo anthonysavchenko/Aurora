@@ -60,3 +60,5 @@
 /ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/CompositeUI/obj
 /ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/CompositeUI.WinForms/obj
 /ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/ObjectBuilder/obj
+/Alpha/Server/Build/Bin
+/Alpha/Server/PrintForms/obj

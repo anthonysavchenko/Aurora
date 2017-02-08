@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B7FD1B
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Taumis.Alpha.Server", "Taumis.Alpha.Server", "{F6942749-C3FC-42A0-B98A-DD4A29A3C57B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintForms", "..\Server\PrintForms\PrintForms.csproj", "{D9952A9A-8E35-4E0F-875C-047F577E8C75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,8 +38,17 @@ Global
 		{33BEBE72-9913-41D4-A612-A95DA434CC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33BEBE72-9913-41D4-A612-A95DA434CC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33BEBE72-9913-41D4-A612-A95DA434CC98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9952A9A-8E35-4E0F-875C-047F577E8C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9952A9A-8E35-4E0F-875C-047F577E8C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9952A9A-8E35-4E0F-875C-047F577E8C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9952A9A-8E35-4E0F-875C-047F577E8C75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{863998B6-69EE-4A6A-B061-DAF78E148C61} = {F6942749-C3FC-42A0-B98A-DD4A29A3C57B}
+		{33BEBE72-9913-41D4-A612-A95DA434CC98} = {F6942749-C3FC-42A0-B98A-DD4A29A3C57B}
+		{D9952A9A-8E35-4E0F-875C-047F577E8C75} = {F6942749-C3FC-42A0-B98A-DD4A29A3C57B}
 	EndGlobalSection
 EndGlobal

@@ -1,13 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web.Mvc;
 using CustomerWebSite.Constants;
 using CustomerWebSite.Models.PaymentsAndChargesModels;
-using CustomerWebSite.PrintForms.MutualSettlement;
-using CustomerWebSite.PrintForms.RegularBill;
 using CustomerWebSite.Services.Home;
 using Microsoft.AspNet.Identity;
-using Taumis.Alpha.Server.Core.Services.MutualSettlement;
-using Taumis.Alpha.Server.Core.Services.RegularBill;
+using Taumis.Alpha.Server.Core.Services;
+using Taumis.Alpha.Server.PrintForms.Constants;
+using MutualSettlementReportObject = Taumis.Alpha.Server.PrintForms.Reports.MutualSettlementBills.Layout.LayoutReportObject;
+using RegularBillReportObject = Taumis.Alpha.Server.PrintForms.Reports.RegularBills.LayoutReportObject;
 
 namespace CustomerWebSite.Controllers
 {
@@ -115,7 +116,9 @@ namespace CustomerWebSite.Controllers
             MemoryStream _stream = new MemoryStream();
             _report.ExportToPdf(_stream);
 
-            return File(_stream.GetBuffer(), "application/pdf");
+            DateTime _now = DateTime.Now;
+
+            return File(_stream.GetBuffer(), "application/pdf", $"Справка_взаиморасчетов_{_now:yyyy-MM-dd}.pdf");
         }
 
         /// <summary>
@@ -145,7 +148,7 @@ namespace CustomerWebSite.Controllers
             MemoryStream _stream = new MemoryStream();
             _report.ExportToPdf(_stream);
 
-            return File(_stream.GetBuffer(), "application/pdf");
+            return File(_stream.GetBuffer(), "application/pdf", $"Квитанция_{year}-{month}.pdf");
         }
     }
 }

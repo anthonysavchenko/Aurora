@@ -49,7 +49,7 @@
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.formattingRule1 = new DevExpress.XtraReports.UI.FormattingRule();
-            this.dataSet1 = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.DataSets.DataSet();
+            this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.MutualSettlementDataSet();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -213,7 +213,7 @@
             resources.ApplyResources(this.ServiceTypesXRSubreport, "ServiceTypesXRSubreport");
             this.ServiceTypesXRSubreport.Id = 0;
             this.ServiceTypesXRSubreport.Name = "ServiceTypesXRSubreport";
-            this.ServiceTypesXRSubreport.ReportSource = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Reports.ServiceTypes.ServiceTypesReportObject();
+            this.ServiceTypesXRSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.MutualSettlementBills.ServiceTypes.ServiceTypesReportObject();
             // 
             // xrControlStyle1
             // 
@@ -287,7 +287,7 @@
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle2;
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle3;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
-        private Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.DataSets.DataSet dataSet1;
+        private Taumis.Alpha.Server.PrintForms.DataSets.MutualSettlementDataSet dataSet1;
         public DevExpress.XtraReports.UI.XRSubreport ServiceTypesXRSubreport;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
