@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using Taumis.Alpha.Server.PrintForms.Reports.TotalBills;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;

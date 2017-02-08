@@ -1,6 +1,4 @@
-﻿using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.ReportObject.Receipt;
-
-namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.ReportObject
+﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.ReportObject
 {
     partial class LayoutReportObject
     {
@@ -37,7 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.formattingRule1 = new DevExpress.XtraReports.UI.FormattingRule();
-            this.dataSet1 = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.DataSets.DataSet();
+            this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.TotalBillDataSet();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -58,7 +56,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
             resources.ApplyResources(this.ReceiptSubreport, "ReceiptSubreport");
             this.ReceiptSubreport.Id = 0;
             this.ReceiptSubreport.Name = "ReceiptSubreport";
-            this.ReceiptSubreport.ReportSource = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.ReportObject.Receipt.ReceiptLayoutReportObject();
+            this.ReceiptSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.TotalBills.Receipt.ReceiptLayoutReportObject();
             this.ReceiptSubreport.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.Receipt1Subreport_BeforePrint);
             // 
             // xrControlStyle1
@@ -133,7 +131,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle2;
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle3;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
-        private Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.DataSets.DataSet dataSet1;
+        private Taumis.Alpha.Server.PrintForms.DataSets.TotalBillDataSet dataSet1;
         public DevExpress.XtraReports.UI.XRSubreport ReceiptSubreport;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;

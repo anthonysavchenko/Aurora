@@ -1,9 +1,8 @@
 ﻿using System.Data;
 using System.IO;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets;
+using Taumis.Alpha.Server.PrintForms.Constants;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
-using DataSet = Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets.DataSet;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Report
 {
@@ -15,7 +14,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         /// <summary>
         /// Источник данных
         /// </summary>
-        DataSet DataSource { set; }
+        RegularBillDataSet DataSource { set; }
 
         /// <summary>
         /// Печатает отчет
@@ -72,7 +71,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         /// </summary>
         bool ShowLineBetweenBills { set; }
 
-        MemoryStream GeneratePdf(DataSet dataSet);
+        MemoryStream GeneratePdf(RegularBillDataSet dataSet);
         MemoryStream GeneratePdf();
     }
 }

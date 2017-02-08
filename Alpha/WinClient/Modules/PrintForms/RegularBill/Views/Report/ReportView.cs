@@ -7,10 +7,13 @@ using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraReports.UI;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
+using Taumis.Alpha.Server.PrintForms.Constants;
+using Taumis.Alpha.Server.PrintForms.DataSets;
+using Taumis.Alpha.Server.PrintForms.Reports.RegularBills;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 using DataSet = Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets.DataSet;
+using LayoutReportObject = Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject.LayoutReportObject;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Report
 {
@@ -60,7 +63,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         /// <summary>
         /// Источник данных
         /// </summary>
-        public DataSet DataSource
+        public RegularBillDataSet DataSource
         {
             set
             {
@@ -283,7 +286,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             UpdateReport();
         }
 
-        public MemoryStream GeneratePdf(DataSet dataSet)
+        public MemoryStream GeneratePdf(RegularBillDataSet dataSet)
         {
             LayoutReportObject _report = new LayoutReportObject();
             _report.ReceiptType =

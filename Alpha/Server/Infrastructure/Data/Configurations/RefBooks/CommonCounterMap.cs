@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 using Taumis.Alpha.Server.Core.Models.RefBooks;
 
 namespace Taumis.Alpha.Server.Core.Models.Mapping
@@ -27,9 +26,6 @@ namespace Taumis.Alpha.Server.Core.Models.Mapping
             HasRequired(t => t.Building)
                 .WithMany(t => t.CommonCounters)
                 .HasForeignKey(d => d.BuildingID);
-            HasRequired(t => t.Service)
-                .WithMany(t => t.CommonCounters)
-                .HasForeignKey(d => d.ServiceID);
         }
     }
 }

@@ -5,10 +5,10 @@ using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.Services;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 using Taumis.EnterpriseLibrary.Win.Services;
-using OperationTypes = Taumis.Alpha.Infrastructure.Interface.Enums.OperationTypes;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Views.Report
 {
@@ -118,7 +118,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
         /// <summary>
         /// Данные
         /// </summary>
-        private DataSets.DataSet _data;
+        private MutualSettlementDataSet _data;
 
         /// <summary>
         /// Выполняет действия при загрузке вида
@@ -146,7 +146,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
         {
             try
             {
-                _data = new DataSets.DataSet();
+                _data = new MutualSettlementDataSet();
                 DataTable _settlementTable = _data.Tables["MutualSettlement"];
                 DataTable _posesTable = _data.Tables["MutualSettlementPoses"];
                 int _customerId = int.Parse(WorkItem.State[ModuleStateNames.START_UP_PARAMS_CUSTOMER_ID].ToString());

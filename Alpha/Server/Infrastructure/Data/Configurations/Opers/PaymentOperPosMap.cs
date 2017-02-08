@@ -24,9 +24,6 @@ namespace Taumis.Alpha.Server.Core.Models.Mapping
             HasRequired(t => t.PaymentOper)
                 .WithMany(t => t.PaymentOperPoses)
                 .HasForeignKey(d => d.PaymentOperID);
-            HasRequired(t => t.Service)
-                .WithMany(t => t.PaymentOperPoses)
-                .HasForeignKey(d => d.ServiceID);
         }
     }
 }

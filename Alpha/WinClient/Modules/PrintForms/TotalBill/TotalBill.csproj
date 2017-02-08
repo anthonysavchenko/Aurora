@@ -92,14 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ModuleStateNames.cs" />
-    <Compile Include="DataSets\DataSet.cs">
-      <DependentUpon>DataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSets\DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Layout\LayoutView.cs">
@@ -108,42 +100,11 @@
     <Compile Include="Views\Layout\LayoutView.Designer.cs">
       <DependentUpon>LayoutView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReportObject\ILayoutReportObject.cs" />
-    <Compile Include="Views\ReportObject\Receipt\StatementServiceTableReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\StatementServiceTableReportObject.designer.cs">
-      <DependentUpon>StatementServiceTableReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\StatementReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\StatementReportObject.designer.cs">
-      <DependentUpon>StatementReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\TotalBillReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\TotalBillReportObject.designer.cs">
-      <DependentUpon>TotalBillReportObject.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\ReportObject\LayoutReportObject.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\ReportObject\LayoutReportObject.designer.cs">
       <DependentUpon>LayoutReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\ServiceTableReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\ServiceTableReportObject.designer.cs">
-      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\ReceiptLayoutReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\ReportObject\Receipt\ReceiptLayoutReportObject.designer.cs">
-      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Report\IReportView.cs" />
     <Compile Include="Views\Report\ReportView.cs">
@@ -159,28 +120,8 @@
       <DependentUpon>LayoutView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReportObject\Receipt\StatementServiceTableReportObject.resx">
-      <DependentUpon>StatementServiceTableReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReportObject\Receipt\StatementReportObject.resx">
-      <DependentUpon>StatementReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReportObject\Receipt\TotalBillReportObject.resx">
-      <DependentUpon>TotalBillReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\ReportObject\LayoutReportObject.resx">
       <DependentUpon>LayoutReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReportObject\Receipt\ServiceTableReportObject.resx">
-      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReportObject\Receipt\ReceiptLayoutReportObject.resx">
-      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\ReportView.resx">
@@ -224,6 +165,10 @@
       <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Server\PrintForms\PrintForms.csproj">
+      <Project>{D9952A9A-8E35-4E0F-875C-047F577E8C75}</Project>
+      <Name>PrintForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Interface\Interface.csproj">
       <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
       <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
@@ -233,19 +178,6 @@
       <Project>{E0D31CE8-A3AD-4BA5-AA23-0152750E42A0}</Project>
       <Name>Library</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DataSets\DataSet.xsc">
-      <DependentUpon>DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="DataSets\DataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSets\DataSet.xss">
-      <DependentUpon>DataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

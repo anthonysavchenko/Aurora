@@ -36,7 +36,7 @@
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.formattingRule1 = new DevExpress.XtraReports.UI.FormattingRule();
-            this.dataSet1 = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.DataSets.DataSet();
+            this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.DebtBillDataSet();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -58,7 +58,7 @@
             resources.ApplyResources(this.BillSubreport, "BillSubreport");
             this.BillSubreport.Id = 0;
             this.BillSubreport.Name = "BillSubreport";
-            this.BillSubreport.ReportSource = new Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.ReportObject.Receipt.BillLayoutReportObject();
+            this.BillSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.DebtBills.Receipt.BillLayoutReportObject();
             this.BillSubreport.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.Bill1Subreport_BeforePrint);
             // 
             // cutLine
@@ -142,7 +142,7 @@
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle3;
         private DevExpress.XtraReports.UI.XRLine cutLine;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
-        private Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.DataSets.DataSet dataSet1;
+        private Taumis.Alpha.Server.PrintForms.DataSets.DebtBillDataSet dataSet1;
         public DevExpress.XtraReports.UI.XRSubreport BillSubreport;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;

@@ -2,7 +2,9 @@
 using System.Data;
 using System.Drawing;
 using DevExpress.XtraReports.UI;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.ReportObject.Receipt;
+using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
+using Taumis.Alpha.Server.PrintForms.Reports.DebtBills.Receipt;
+using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;

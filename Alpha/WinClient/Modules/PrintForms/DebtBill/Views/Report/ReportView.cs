@@ -6,9 +6,10 @@ using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraReports.UI;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.ReportObject;
+using Taumis.Alpha.Server.PrintForms.DataSets;
+using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
+using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
-using DataSet = Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.DataSets.DataSet;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
 {
@@ -16,7 +17,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
     /// Вид с отчетом
     /// </summary>
     [SmartPart]
-    public partial class ReportView : /*System.Windows.Forms.UserControl//*/ BaseReportForReportObjectView<ReportObject.LayoutReportObject>, IReportView
+    public partial class ReportView : /*System.Windows.Forms.UserControl//*/ 
+        BaseReportForReportObjectView<ReportObject.LayoutReportObject>, 
+        IReportView
     {
         /// <summary>
         /// Конструктор
@@ -58,7 +61,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
         /// <summary>
         /// Источник данных
         /// </summary>
-        public DataSet DataSource
+        public DebtBillDataSet DataSource
         {
             set
             {

@@ -1,4 +1,5 @@
-﻿using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
+﻿using Taumis.Alpha.Server.PrintForms.DataSets;
+using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Views.Report
 {
@@ -10,7 +11,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
         /// <summary>
         /// »сточник данных
         /// </summary>
-        DataSets.DataSet DataSource { set; }
+        MutualSettlementDataSet DataSource { set; }
 
         /// <summary>
         /// ѕечатает отчет

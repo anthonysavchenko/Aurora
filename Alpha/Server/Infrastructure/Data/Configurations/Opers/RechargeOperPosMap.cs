@@ -27,9 +27,6 @@ namespace Taumis.Alpha.Server.Core.Models.Mapping
             HasRequired(t => t.RechargeOper)
                 .WithMany(t => t.RechargeOperPoses)
                 .HasForeignKey(d => d.RechargeOperID);
-            HasRequired(t => t.Service)
-                .WithMany(t => t.RechargeOperPoses)
-                .HasForeignKey(d => d.ServiceID);
         }
     }
 }

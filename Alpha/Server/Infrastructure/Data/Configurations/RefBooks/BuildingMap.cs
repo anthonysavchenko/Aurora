@@ -8,9 +8,6 @@ namespace Taumis.Alpha.Server.Infrastructure.Data.Mapping
     {
         public BuildingMap()
         {
-            // Primary Key
-            HasKey(t => t.ID);
-
             // Properties
             Property(t => t.Number)
                 .IsRequired()
@@ -23,20 +20,23 @@ namespace Taumis.Alpha.Server.Infrastructure.Data.Mapping
             Property(t => t.Note)
                 .IsRequired();
 
-            // Table & Column Mappings
-            ToTable("Buildings");
-            Property(t => t.ID).HasColumnName("ID");
+            Property(t => t.BankDetailID)
+                .IsRequired();
+
+            Property(t => t.NonResidentialPlaceArea)
+                .IsRequired()
+                .HasPrecision(9, 2);
+
             Property(t => t.StreetID).HasColumnName("Street");
-            Property(t => t.Number).HasColumnName("Number");
-            Property(t => t.ZipCode).HasColumnName("ZipCode");
-            Property(t => t.FloorCount).HasColumnName("FloorCount");
-            Property(t => t.EntranceCount).HasColumnName("EntranceCount");
-            Property(t => t.Note).HasColumnName("Note");
 
             // Relationships
             HasRequired(t => t.Street)
                 .WithMany(t => t.Buildings)
-                .HasForeignKey(d => d.StreetID);
+                .HasForeignKey(t => t.StreetID);
+
+            HasRequired(p => p.BankDetail)
+                .WithMany(p => p.Buildings)
+                .HasForeignKey(p => p.BankDetailID);
         }
     }
 }
