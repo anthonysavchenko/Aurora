@@ -66,17 +66,17 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
-      <Project>{8C62E512-6540-4BA6-860B-1AE6AE64821C}</Project>
-      <Name>Common</Name>
+      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
       <Project>{d1ce4803-ef0a-40b7-bb2c-7153c63f5fe0}</Project>
-      <Name>SQLServerAccessProvider</Name>
+      <Name>SQLServerAccessProvider %28Taumis.EnterpriseLibrary.Infrastructure\SQLServerAccessProvider%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Win\Common\Common.csproj">
       <Project>{E35914B3-8BB6-4BCB-A85A-516BF2252422}</Project>
-      <Name>Common</Name>
+      <Name>Common %28Taumis.EnterpriseLibrary.Win\Common%29</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI\CompositeUI.csproj">
@@ -91,11 +91,11 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Interface\Interface.csproj">
       <Project>{576d1311-ba67-4077-8489-7cfad06965f5}</Project>
-      <Name>Interface</Name>
+      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
       <Project>{01633058-914E-4C6C-BBE5-0793D90F3AC5}</Project>
-      <Name>SQLServerAccessProvider</Name>
+      <Name>SQLServerAccessProvider %28Taumis.Alpha.Infrastructure\SQLServerAccessProvider%29</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
