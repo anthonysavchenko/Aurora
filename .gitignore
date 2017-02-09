@@ -62,3 +62,6 @@
 /ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/ObjectBuilder/obj
 /Alpha/Server/Build/Bin
 /Alpha/Server/PrintForms/obj
+/Alpha/CustomerWebSite/CustomerWebSite/obj
+/Alpha/Server/Core/obj
+/Alpha/Server/Infrastructure/obj
