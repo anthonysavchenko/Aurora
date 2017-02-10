@@ -168,6 +168,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         }
 
         /// <summary>
+        /// Удаление текущего элемента домена из базы данных.
+        /// </summary>
+        public override void DeleteElem()
+        {
+            UnitOfWork.registerRemoved(GetCurrentItem());
+        }
+
+        /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>
         public void BindChangeHandlers(Control.ControlCollection coll, EventHandler handler)

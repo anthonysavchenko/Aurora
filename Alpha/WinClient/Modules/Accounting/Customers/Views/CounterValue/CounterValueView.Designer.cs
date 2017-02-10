@@ -45,7 +45,6 @@
             // counterValueGridControl
             // 
             this.counterValueGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.counterValueGridControl.EmbeddedNavigator.Buttons.Remove.Enabled = false;
             this.counterValueGridControl.Location = new System.Drawing.Point(0, 0);
             this.counterValueGridControl.MainView = this.counterValueGridView;
             this.counterValueGridControl.Name = "counterValueGridControl";

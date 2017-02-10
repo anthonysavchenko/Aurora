@@ -271,6 +271,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         /// <param name="_domItem">Объект домена</param>
         protected override void ShowDomainOnAllViews(DomItem _domItem)
         {
+            UOW.Clear();
             View.OwnerType = _domItem.OwnerType;
 
             if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson)

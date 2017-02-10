@@ -33,18 +33,17 @@
             this.idColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.numberColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.rateColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ContainerTypeLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.rateSpinEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            this.ContainerTypeLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rateSpinEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // counterGridControl
             // 
             this.counterGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.counterGridControl.EmbeddedNavigator.Buttons.Remove.Enabled = false;
             this.counterGridControl.Location = new System.Drawing.Point(0, 0);
             this.counterGridControl.MainView = this.counterGridView;
             this.counterGridControl.Name = "counterGridControl";
@@ -96,16 +95,6 @@
             this.rateColumn.Visible = true;
             this.rateColumn.VisibleIndex = 1;
             // 
-            // ContainerTypeLookUpEdit
-            // 
-            this.ContainerTypeLookUpEdit.AutoHeight = false;
-            this.ContainerTypeLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ContainerTypeLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Aka", 35, "Наименование")});
-            this.ContainerTypeLookUpEdit.Name = "ContainerTypeLookUpEdit";
-            this.ContainerTypeLookUpEdit.NullText = "";
-            // 
             // rateSpinEdit
             // 
             this.rateSpinEdit.AutoHeight = false;
@@ -118,6 +107,16 @@
             this.rateSpinEdit.Mask.EditMask = "n2";
             this.rateSpinEdit.Name = "rateSpinEdit";
             // 
+            // ContainerTypeLookUpEdit
+            // 
+            this.ContainerTypeLookUpEdit.AutoHeight = false;
+            this.ContainerTypeLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ContainerTypeLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Aka", 35, "Наименование")});
+            this.ContainerTypeLookUpEdit.Name = "ContainerTypeLookUpEdit";
+            this.ContainerTypeLookUpEdit.NullText = "";
+            // 
             // CounterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,8 +126,8 @@
             this.Size = new System.Drawing.Size(736, 336);
             ((System.ComponentModel.ISupportInitialize)(this.counterGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rateSpinEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).EndInit();
             this.ResumeLayout(false);
 
         }

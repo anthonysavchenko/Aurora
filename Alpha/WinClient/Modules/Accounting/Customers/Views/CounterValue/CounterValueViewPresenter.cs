@@ -13,6 +13,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
 {
     public class CounterValueViewPresenter : BaseSimpleListViewPresenter<ICounterValueView, PrivateCounterValue>
     {
+        private EventHandler _onAnyAttributeChangedEventHandler;
+
         /// <summary>
         /// Единица работы
         /// </summary>
@@ -149,12 +151,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
             return true;
         }
 
+        #region Overrides of BaseSimpleListViewPresenter<ICounterValueView,PrivateCounterValue>
+
+        /// <summary>
+        /// Удаление текущего элемента домена из базы данных.
+        /// </summary>
+        public override void DeleteElem()
+        {
+            UnitOfWork.registerRemoved(GetCurrentItem());
+            _onAnyAttributeChangedEventHandler.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
         /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>
         public void BindChangeHandlers(Control.ControlCollection coll, EventHandler handler)
         {
             WorkItem.RootWorkItem.Services.Get<IChangeEventHandlerService>().Bind(coll, handler);
+            _onAnyAttributeChangedEventHandler = handler;
         }
 
         /// <summary>

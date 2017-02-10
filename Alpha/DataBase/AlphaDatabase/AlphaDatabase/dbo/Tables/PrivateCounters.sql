@@ -4,6 +4,8 @@
     [Rate]        DECIMAL (9, 2) NOT NULL,
     [CustomerPos] INT            NOT NULL,
     CONSTRAINT [PK_PrivateCounters] PRIMARY KEY CLUSTERED ([ID] ASC),
-    CONSTRAINT [FK_PrivateCounters_CustomerPoses] FOREIGN KEY ([CustomerPos]) REFERENCES [dbo].[CustomerPoses] ([ID])
+    CONSTRAINT [FK_PrivateCounters_CustomerPoses] FOREIGN KEY ([CustomerPos]) REFERENCES [dbo].[CustomerPoses] ([ID]) ON DELETE CASCADE
 );
+
+
 

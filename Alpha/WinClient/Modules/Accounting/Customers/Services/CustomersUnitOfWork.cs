@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI;
 using System;
 using System.Linq;
+using DevExpress.XtraPrinting.Native;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
@@ -75,35 +76,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Services
             }
             else
             {
-                Type _residentType = typeof(Resident);
-                Type _customerPosType = typeof(CustomerPos);
-                Type _privateCounterType = typeof(PrivateCounter);
-                Type _privateCounterValueType = typeof(PrivateCounterValue);
-
-                IDataMapper _dmResident = DatMapServ.get(_residentType);
-                IDataMapper _dmCustomerPos = DatMapServ.get(_customerPosType);
-                IDataMapper _dmPrivateCounter = DatMapServ.get(_privateCounterType);
-                IDataMapper _dmPrivateCounterValue = DatMapServ.get(_privateCounterValueType);
-
-                foreach (DomainObject _domObj in newObjects.Values)
+                Type[] _typeArray =
                 {
-                    Type _type = _domObj.GetType();
+                    typeof(Resident),
+                    typeof(CustomerPos),
+                    typeof(PrivateCounter),
+                    typeof(PrivateCounterValue)
+                };
 
-                    if (_type == _residentType)
+                IDataMapper[] _dmArray =
+                {
+                    DatMapServ.get(_typeArray[0]),
+                    DatMapServ.get(_typeArray[1]),
+                    DatMapServ.get(_typeArray[2]),
+                    DatMapServ.get(_typeArray[3])
+                };
+
+                for (int i = 0; i < _typeArray.Length; i++)
+                {
+                    var _domObjList = newObjects.Values.Where(v => v.GetType() == _typeArray[i]);
+                    foreach (DomainObject _domObj in _domObjList)
                     {
-                        _result = _dmResident.update(_domObj);
-                    }
-                    else if (_type == _customerPosType)
-                    {
-                        _result = _dmCustomerPos.update(_domObj);
-                    }
-                    else if (_type == _privateCounterType)
-                    {
-                        _result = _dmPrivateCounter.update(_domObj);
-                    }
-                    else if (_type == _privateCounterValueType)
-                    {
-                        _result = _dmPrivateCounterValue.update(_domObj);
+                        _result = _dmArray[i].update(_domObj);
+                        if (!_result)
+                        {
+                            break;
+                        }
                     }
 
                     if (!_result)
@@ -218,7 +216,45 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Services
             }
             else
             {
-                _result = base.deleteRemoved();
+                bool _res = true;
+
+                Type[] _typeArray =
+                {
+                    typeof(PrivateCounterValue),
+                    typeof(PrivateCounter),
+                    typeof(CustomerPos),
+                    typeof(Resident)
+                };
+
+                IDataMapper[] _dmArray = 
+                {
+                    DatMapServ.get(_typeArray[0]),
+                    DatMapServ.get(_typeArray[1]),
+                    DatMapServ.get(_typeArray[2]),
+                    DatMapServ.get(_typeArray[3])
+                };
+
+                try
+                {
+                    for (int i = 0; i < _typeArray.Length; i++)
+                    {
+                        removedObjects.Values
+                            .Where(o => o.GetType() == _typeArray[i])
+                            .ForEach(o =>
+                            {
+                                if (!_dmArray[i].delete(o.ID))
+                                {
+                                    throw new ApplicationException("Delete failed");
+                                }
+                            });
+                    }
+                }
+                catch(ApplicationException)
+                {
+                    _res = false;
+                }
+
+                return _res;
             }
 
             return _result;

@@ -54,8 +54,9 @@ namespace Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider
             bool _result = int.TryParse(id, out _id);
             if (_result)
             {
+                string _typeName = typeof(TDBEntity).Name;
                 EntityKey _key =
-                    new EntityKey(string.Format("Entities.{0}", typeof(TDBEntity).Name), "ID", int.Parse(id));
+                    new EntityKey($"Entities.{_typeName}", "ID", int.Parse(id));
                 try
                 {
                     using (Entities _entities = new Entities())
@@ -65,8 +66,9 @@ namespace Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider
                         _entities.SaveChanges();
                     }
                 }
-                catch
+                catch(Exception _ex)
                 {
+                    Logger.SimpleWrite($"Delete domain error: type - {_typeName}, id = {id}. Exception: {_ex}");
                     _result = false;
                 }
             }
@@ -92,7 +94,7 @@ namespace Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider
                 }
                 catch (Exception _ex)
                 {
-                    Logger.SimpleWrite(String.Format("Update domain error: {0} {1}", _ex.ToString(), _ex.InnerException != null ? _ex.InnerException.ToString() : String.Empty));
+                    Logger.SimpleWrite($"Update domain error: type - {typeof(TDBEntity).Name}, id = {_domainObject.ID}. Exception: {_ex}");
                     throw _ex;
                 }
             }
