@@ -126,6 +126,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             this.BackupWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.backupProgressBar = new DevExpress.XtraEditors.ProgressBarControl();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label10 = new System.Windows.Forms.Label();
+            this.debtPeriodDateEdit = new DevExpress.XtraEditors.DateEdit();
             ((System.ComponentModel.ISupportInitialize)(this.PaymentWizardControl)).BeginInit();
             this.PaymentWizardControl.SuspendLayout();
             this.ProcessingWizardPage.SuspendLayout();
@@ -171,6 +173,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             ((System.ComponentModel.ISupportInitialize)(this.PercentRepositoryItemSpinEdit)).BeginInit();
             this.BackupWizardPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backupProgressBar.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debtPeriodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debtPeriodDateEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // PaymentWizardControl
@@ -318,12 +322,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             // fileGroupBox
             // 
             this.fileGroupBox.BackColor = System.Drawing.Color.Transparent;
+            this.fileGroupBox.Controls.Add(this.debtPeriodDateEdit);
+            this.fileGroupBox.Controls.Add(this.label10);
             this.fileGroupBox.Controls.Add(this.fileOpenButtonEdit);
             this.fileGroupBox.Controls.Add(this.label1);
             this.fileGroupBox.Enabled = false;
             this.fileGroupBox.Location = new System.Drawing.Point(19, 169);
             this.fileGroupBox.Name = "fileGroupBox";
-            this.fileGroupBox.Size = new System.Drawing.Size(489, 51);
+            this.fileGroupBox.Size = new System.Drawing.Size(489, 67);
             this.fileGroupBox.TabIndex = 41;
             this.fileGroupBox.TabStop = false;
             // 
@@ -332,11 +338,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             this.fileOpenButtonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fileOpenButtonEdit.Location = new System.Drawing.Point(51, 19);
+            this.fileOpenButtonEdit.Location = new System.Drawing.Point(60, 39);
             this.fileOpenButtonEdit.Name = "fileOpenButtonEdit";
             this.fileOpenButtonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.fileOpenButtonEdit.Size = new System.Drawing.Size(427, 20);
+            this.fileOpenButtonEdit.Size = new System.Drawing.Size(418, 20);
             this.fileOpenButtonEdit.TabIndex = 6;
             this.fileOpenButtonEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.fileOpenButtonEdit_ButtonClick);
             // 
@@ -344,7 +350,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Location = new System.Drawing.Point(15, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 39;
@@ -1271,6 +1277,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             this.OpenFileDialog.RestoreDirectory = true;
             this.OpenFileDialog.Title = "Открыть файл";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Location = new System.Drawing.Point(6, 16);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(48, 13);
+            this.label10.TabIndex = 40;
+            this.label10.Text = "Период:";
+            // 
+            // debtPeriodDateEdit
+            // 
+            this.debtPeriodDateEdit.EditValue = null;
+            this.debtPeriodDateEdit.Location = new System.Drawing.Point(60, 13);
+            this.debtPeriodDateEdit.Name = "debtPeriodDateEdit";
+            this.debtPeriodDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.debtPeriodDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.debtPeriodDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.debtPeriodDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
+            this.debtPeriodDateEdit.Properties.DisplayFormat.FormatString = "MM.yyyy";
+            this.debtPeriodDateEdit.Properties.Mask.EditMask = "MM.yyyy";
+            this.debtPeriodDateEdit.Size = new System.Drawing.Size(150, 20);
+            this.debtPeriodDateEdit.TabIndex = 41;
+            // 
             // WizardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1330,6 +1362,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             ((System.ComponentModel.ISupportInitialize)(this.PercentRepositoryItemSpinEdit)).EndInit();
             this.BackupWizardPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.backupProgressBar.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debtPeriodDateEdit.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debtPeriodDateEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1431,6 +1465,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit PercentRepositoryItemSpinEdit;
         private DevExpress.XtraWizard.WizardPage BackupWizardPage;
         private DevExpress.XtraEditors.ProgressBarControl backupProgressBar;
+        private DevExpress.XtraEditors.DateEdit debtPeriodDateEdit;
+        private System.Windows.Forms.Label label10;
     }
 }
 

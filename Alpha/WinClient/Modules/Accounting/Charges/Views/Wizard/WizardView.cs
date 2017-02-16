@@ -210,6 +210,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             set
             {
                 chargePeriodLabel.Text = string.Format("{0:MMMM yyyy} года", value);
+                debtPeriodDateEdit.DateTime = value;
             }
         }
 
@@ -227,6 +228,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 fileOpenButtonEdit.Text = value;
             }
         }
+
+        /// <summary>
+        /// Период внесения задолжностей
+        /// </summary>
+        public DateTime DebtPeriod
+        {
+            get
+            {
+                DateTime _date = debtPeriodDateEdit.DateTime;
+                return new DateTime(_date.Year, _date.Month, 1);
+            }
+        } 
 
         /// <summary>
         /// Таблица с информацией об абонентах

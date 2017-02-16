@@ -2012,9 +2012,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             decimal _totalValue = 0;
 
             DateTime _now = ServerTime.GetDateTimeInfo().Now;
-            PeriodInfo _periodInfo = ServerTime.GetPeriodInfo();
-            DateTime _period = _periodInfo.FirstUncharged;
-            DateTime _previousPeriod = _periodInfo.LastCharged;
+            DateTime _period = View.DebtPeriod;
+            DateTime _previousPeriod = _period.AddMonths(-1);
+
             List<RechargeOperPoses> _posesToRegister = new List<RechargeOperPoses>();
             RechargeSets _rechargeSet = null;
             Dictionary<int, decimal> _customerDebt = new Dictionary<int, decimal>();
@@ -2025,7 +2025,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 {
                     using (ExcelSheet _sheet = new ExcelSheet(View.DebtFileName, "внести долг"))
                     {
-                        for (int _row = 1; _row < _sheet.RowsCount; _row++)
+                        for (int _row = 1; _row <= _sheet.RowsCount; _row++)
                         {
                             try
                             {

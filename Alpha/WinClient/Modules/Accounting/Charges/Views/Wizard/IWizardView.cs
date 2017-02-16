@@ -23,6 +23,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         string DebtFileName { get; set; }
 
         /// <summary>
+        /// Период внесения задолжностей
+        /// </summary>
+        DateTime DebtPeriod { get; }
+
+        /// <summary>
         /// Строка целиком
         /// </summary>
         bool WholeWord { get; set; }
