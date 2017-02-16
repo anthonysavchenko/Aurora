@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Taumis.Alpha.DataBase;
@@ -67,9 +66,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         #endregion
 
-        private const int MAINTANCE_SERVICE_TYPE_ID = 2;
-        private const int REPAIR_SERVICE_TYPE_ID = 4;
-        private const int WASTE_SERVICE_TYPE_ID = 3;
+        private const string MAINTANCE_SERVICE_TYPE_STR = "С";
+        private const string PP_COLD_WATER_SERVICE_TYPE_STR = "Х";
+        private const string PP_HOT_WATER_SERVICE_TYPE_STR = "Г";
+        private const string PP_ELECTRICITY_WATER_SERVICE_TYPE_STR = "Э";
+
+        private const int MAINTANCE_SERVICE_TYPE_ID = 36;
+        private const int PP_COLD_WATER_SERVICE_TYPE_ID = 38;
+        private const int PP_HOT_WATER_SERVICE_TYPE_ID = 35;
+        private const int PP_ELECTRICITY_WATER_SERVICE_TYPE_ID = 39;
+
+        private readonly int[] _serivceTypeIDs =
+            new[]
+            {
+                MAINTANCE_SERVICE_TYPE_ID,
+                PP_COLD_WATER_SERVICE_TYPE_ID,
+                PP_HOT_WATER_SERVICE_TYPE_ID,
+                PP_ELECTRICITY_WATER_SERVICE_TYPE_ID
+            };
 
         private class ServiceTypeData
         {
@@ -86,15 +100,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public decimal Square { get; set; }
             public int ResidentCount { get; set; }
             public bool DebtsRepayment { get; set; }
-            public int MaintanceDebtMonthCount { get; set; }
-            public int RepairDebtMonthCount { get; set; }
+            public Dictionary<int, int> DebtMonthCount { get; set; }
             public List<ServiceTypeData> DataByServiceType { get; set; }
-        }
-
-        private class RowNumber
-        {
-            public int? Repair { get; set; }
-            public int? Maintance { get; set; }
         }
 
         #region Help Methods
@@ -118,7 +125,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     string _accPart2 = _normalizedStr.Substring(4, 3);
                     string _accPart3 = _normalizedStr.Substring(7, 1);
 
-                    _goodAccountStr = string.Format("EG-{0}-{1}-{2}", _accPart1, _accPart2, _accPart3);
+                    _goodAccountStr = $"EG-{_accPart1}-{_accPart2}-{_accPart3}";
                 }
                 else
                 {
@@ -132,21 +139,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             return _goodAccountStr;
         }
 
-        private int ParseServiceType(string serviceType, int row)
+        private int? ParseServiceType(string serviceType)
         {
-            const string MAINTANCE_SERVICE_TYPE_STR = "С";
-            const string REPAIR_SERVICE_TYPE_STR = "Р";
-
             string _firstLetter = serviceType.Trim().Substring(0, 1).ToUpper();
 
             switch (_firstLetter)
             {
                 case MAINTANCE_SERVICE_TYPE_STR:
                     return MAINTANCE_SERVICE_TYPE_ID;
-                case REPAIR_SERVICE_TYPE_STR:
-                    return REPAIR_SERVICE_TYPE_ID;
+                case PP_COLD_WATER_SERVICE_TYPE_STR:
+                    return PP_COLD_WATER_SERVICE_TYPE_ID;
+                case PP_HOT_WATER_SERVICE_TYPE_STR:
+                    return PP_HOT_WATER_SERVICE_TYPE_ID;
+                case PP_ELECTRICITY_WATER_SERVICE_TYPE_STR:
+                    return PP_ELECTRICITY_WATER_SERVICE_TYPE_ID;
                 default:
-                    throw new ApplicationException(string.Format("Не удалось распознать вид услуги, строка {0}", row));
+                    return null;
             }
         }
 
@@ -160,7 +168,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             DateTime _period;
             if (!DateTime.TryParse(periodStr, out _period))
             {
-                throw new ApplicationException(string.Format("Не удалось распознать период отчета: {0}", periodStr));
+                throw new ApplicationException($"Не удалось распознать период отчета: {periodStr}");
             }
 
             return _period;
@@ -306,9 +314,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 }))
                         .Where(o =>
                             _startPeriod <= o.Period && o.Period <= period &&
-                            (o.ServiceType == MAINTANCE_SERVICE_TYPE_ID ||
-                             o.ServiceType == REPAIR_SERVICE_TYPE_ID ||
-                             o.ServiceType == WASTE_SERVICE_TYPE_ID))
+                            _serivceTypeIDs.Contains(o.ServiceType))
                         .GroupBy(o => new { o.CustomerID, o.ServiceType })
                         .Select(g =>
                             new
@@ -326,10 +332,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                 var _charges =
                     _db.ChargeOperPoses
-                        .Where(p => 
-                            p.ChargeOpers.ChargeSets.Period == period && 
+                        .Where(p =>
+                            p.ChargeOpers.ChargeSets.Period == period &&
                             _customersWithDebts.Contains(p.ChargeOpers.Customers.ID))
-                        .GroupBy(p => 
+                        .GroupBy(p =>
                             new
                             {
                                 CustomerID = p.ChargeOpers.Customers.ID,
@@ -383,9 +389,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     _db.CustomerPoses
                         .Where(p =>
                             p.Since <= period && period <= p.Till &&
-                            (p.Services.ServiceTypes.ID == MAINTANCE_SERVICE_TYPE_ID ||
-                             p.Services.ServiceTypes.ID == REPAIR_SERVICE_TYPE_ID ||
-                             p.Services.ServiceTypes.ID == WASTE_SERVICE_TYPE_ID))
+                            _serivceTypeIDs.Contains(p.Services.ServiceTypes.ID))
                         .GroupBy(c => new { CustomerID = c.Customers.ID, ServiceTypeID = c.Services.ServiceTypes.ID })
                         .Select(g =>
                             new
@@ -504,11 +508,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Benefit = -1 * o.Value,
                                     ServiceType = o.Services.ServiceTypes.ID
                                 }))
-                        .Where(o =>
-                            o.Period == period &&
-                            (o.ServiceType == MAINTANCE_SERVICE_TYPE_ID ||
-                             o.ServiceType == REPAIR_SERVICE_TYPE_ID ||
-                             o.ServiceType == WASTE_SERVICE_TYPE_ID))
+                        .Where(o => o.Period == period && _serivceTypeIDs.Contains(o.ServiceType))
                         .GroupBy(o => new { o.CustomerID, o.ServiceType })
                         .Select(g =>
                             new
@@ -584,22 +584,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     {
                         if (_debts.ContainsKey(x.ID))
                         {
-                            if (_debts[x.ID].ContainsKey(MAINTANCE_SERVICE_TYPE_ID))
-                            {
-                                x.MaintanceDebtMonthCount = _debts[x.ID][MAINTANCE_SERVICE_TYPE_ID];
-                            }
-
-                            if (_debts[x.ID].ContainsKey(WASTE_SERVICE_TYPE_ID) && x.MaintanceDebtMonthCount < _debts[x.ID][WASTE_SERVICE_TYPE_ID])
-                            {
-                                x.MaintanceDebtMonthCount = _debts[x.ID][WASTE_SERVICE_TYPE_ID];
-                            }
-                           
-                            x.RepairDebtMonthCount = _debts[x.ID].ContainsKey(REPAIR_SERVICE_TYPE_ID)
-                                ? _debts[x.ID][REPAIR_SERVICE_TYPE_ID] : 0;
-                        }
-                        else
-                        {
-                            x.MaintanceDebtMonthCount = x.RepairDebtMonthCount = 0;
+                            x.DebtMonthCount = _debts[x.ID];
                         }
                     });
 
@@ -613,7 +598,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         {
             int _debtMonthCount = 0;
 
-            if(charges.ContainsKey(customerID) && charges[customerID].ContainsKey(serviceTypeID))
+            if (charges.ContainsKey(customerID) && charges[customerID].ContainsKey(serviceTypeID))
             {
                 _debtMonthCount = Convert.ToInt32(Math.Round(debtValue / charges[customerID][serviceTypeID], 0, MidpointRounding.AwayFromZero));
             }
@@ -621,7 +606,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             return _debtMonthCount;
         }
 
-        private void FillAccountsDictionaries(Dictionary<int, RowNumber> accRowDict, ExcelSheet sheet)
+        private void FillAccountsDictionaries(Dictionary<int, Dictionary<int, int>> accRowDict, ExcelSheet sheet)
         {
             Dictionary<string, int> _customerIdByAccount;
 
@@ -646,22 +631,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 {
                     int _customerId = _customerIdByAccount[_account];
                     string _serviceType = sheet.GetCell(GKU, i);
-                    int _serviceTypeId = ParseServiceType(_serviceType, i);
-
-                    if (_serviceTypeId == MAINTANCE_SERVICE_TYPE_ID || _serviceTypeId == REPAIR_SERVICE_TYPE_ID)
+                    int? _serviceTypeId = ParseServiceType(_serviceType);
+                    if (_serviceTypeId.HasValue)
                     {
-                        if (!accRowDict.ContainsKey(_customerId))
+                        if (_serivceTypeIDs.Contains(_serviceTypeId.Value))
                         {
-                            accRowDict.Add(_customerId, new RowNumber());
-                        }
+                            if (!accRowDict.ContainsKey(_customerId))
+                            {
+                                accRowDict.Add(_customerId, new Dictionary<int, int>(4));
+                            }
 
-                        if (_serviceTypeId == MAINTANCE_SERVICE_TYPE_ID)
-                        {
-                            accRowDict[_customerId].Maintance = i;
-                        }
-                        else
-                        {
-                            accRowDict[_customerId].Repair = i;
+                            if (accRowDict[_customerId].ContainsKey(_serviceTypeId.Value))
+                            {
+                                accRowDict[_customerId][_serviceTypeId.Value] = i;
+                            }
+                            else
+                            {
+                                accRowDict[_customerId].Add(_serviceTypeId.Value, i);
+                            }
                         }
                     }
                 }
@@ -670,7 +657,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         private void FillSheet(
             List<CustomerInfo> data,
-            Dictionary<int, RowNumber> accRowDict,
+            Dictionary<int, Dictionary<int, int>> accRowDict,
             ExcelSheet sheet)
         {
             foreach (CustomerInfo _customerInfo in data)
@@ -681,30 +668,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                 if (accRowDict.ContainsKey(_customerInfo.ID))
                 {
-                    RowNumber _row = accRowDict[_customerInfo.ID];
+                    Dictionary<int, int> _rowsByServiceType = accRowDict[_customerInfo.ID];
 
-                    if (_row.Maintance.HasValue)
+                    for (int i = 0; i < _serivceTypeIDs.Length; i++)
                     {
-                        FillRow(
-                            _row.Maintance.Value,
-                            _customerInfo.DataByServiceType.Where(s => s.ID == MAINTANCE_SERVICE_TYPE_ID || s.ID == WASTE_SERVICE_TYPE_ID),
-                            _squareStr,
-                            _residentCountStr,
-                            _restrDebt,
-                            _customerInfo.MaintanceDebtMonthCount.ToString(),
-                            sheet);
-                    }
-
-                    if (_row.Repair.HasValue)
-                    {
-                        FillRow(
-                            _row.Repair.Value,
-                            _customerInfo.DataByServiceType.Where(s => s.ID == REPAIR_SERVICE_TYPE_ID),
-                            _squareStr,
-                            _residentCountStr,
-                            _restrDebt,
-                            _customerInfo.RepairDebtMonthCount.ToString(),
-                            sheet);
+                        int _serviceTypeID = _serivceTypeIDs[i];
+                        if (_rowsByServiceType.ContainsKey(_serviceTypeID))
+                        {
+                            FillRow(
+                                _rowsByServiceType[_serviceTypeID],
+                                _customerInfo.DataByServiceType.Where(s => s.ID == _serviceTypeID),
+                                _squareStr,
+                                _residentCountStr,
+                                _restrDebt,
+                                _customerInfo.DebtMonthCount != null && _customerInfo.DebtMonthCount.ContainsKey(_serviceTypeID)
+                                    ? _customerInfo.DebtMonthCount[_serviceTypeID].ToString()
+                                    : "0",
+                                sheet);
+                        }
                     }
                 }
             }
@@ -748,7 +729,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     string _periodStr = _sheet.GetCell(PERIOD_COLUMN, 2);
                     DateTime _period = GetPeriod(_periodStr);
 
-                    Dictionary<int, RowNumber> _accRowDict = new Dictionary<int, RowNumber>();
+                    Dictionary<int, Dictionary<int, int>> _accRowDict = new Dictionary<int, Dictionary<int, int>>();
                     FillAccountsDictionaries(_accRowDict, _sheet);
 
                     List<CustomerInfo> _data = GetCustomerInfoList(_period, _accRowDict.Keys.ToList());
@@ -762,7 +743,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             }
             catch (Exception _ex)
             {
-                Logger.SimpleWrite(string.Format("Benefit Export error: {0} {1}", _ex, _ex.InnerException != null ? _ex.InnerException.ToString() : string.Empty));
+                Logger.SimpleWrite(
+                    $"Benefit Export error: {_ex}");
                 _result = "Произошла ошибка. Операция не выполнена";
             }
 
