@@ -107,7 +107,7 @@
             // 
             this.valueColumn.Caption = "Показания";
             this.valueColumn.ColumnEdit = this.valueSpinEdit;
-            this.valueColumn.DisplayFormat.FormatString = "n2";
+            this.valueColumn.DisplayFormat.FormatString = "n3";
             this.valueColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.valueColumn.FieldName = "Value";
             this.valueColumn.Name = "valueColumn";
@@ -119,11 +119,11 @@
             this.valueSpinEdit.AutoHeight = false;
             this.valueSpinEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.valueSpinEdit.DisplayFormat.FormatString = "n2";
+            this.valueSpinEdit.DisplayFormat.FormatString = "n3";
             this.valueSpinEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.valueSpinEdit.EditFormat.FormatString = "n2";
+            this.valueSpinEdit.EditFormat.FormatString = "n3";
             this.valueSpinEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.valueSpinEdit.Mask.EditMask = "n2";
+            this.valueSpinEdit.Mask.EditMask = "n3";
             this.valueSpinEdit.Name = "valueSpinEdit";
             // 
             // CounterValueView

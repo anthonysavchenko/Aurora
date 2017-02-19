@@ -170,7 +170,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Period" Type="date" Nullable="false" />
-          <Property Name="Value" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="CommonCounter" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Contractors">
@@ -353,7 +353,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Period" Type="date" Nullable="false" />
-          <Property Name="Value" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="PrivateCounter" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PublicPlaces">
@@ -1181,7 +1181,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PrivateCounters_CustomerPoses">
-          <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="1" />
+          <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerPoses">
@@ -1193,7 +1195,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PrivateCounterValues_PrivateCounters">
-          <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="1" />
+          <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PrivateCounterValues" Type="Self.PrivateCounterValues" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PrivateCounters">
@@ -2425,7 +2429,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Value" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
           <NavigationProperty Name="CommonCounters" Relationship="AlphaDataBaseModel.FK_CommonCounterValues_CommonCounters" FromRole="CommonCounterValues" ToRole="CommonCounters" />
         </EntityType>
         <EntityType Name="Contractors">
@@ -2637,7 +2641,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Value" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" FromRole="PrivateCounterValues" ToRole="PrivateCounters" />
         </EntityType>
         <EntityType Name="RebenefitOperPoses">
