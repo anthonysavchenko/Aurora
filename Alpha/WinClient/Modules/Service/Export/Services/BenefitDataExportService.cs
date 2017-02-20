@@ -385,36 +385,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             })
                         .ToDictionary(x => x.CustomerID, x => x.ByServiceType.ToDictionary(y => y.ServiceType, y => y.MonthCount));
 
-                var _rates =
-                    _db.CustomerPoses
-                        .Where(p =>
-                            p.Since <= period && period <= p.Till &&
-                            _serivceTypeIDs.Contains(p.Services.ServiceTypes.ID))
-                        .GroupBy(c => new { CustomerID = c.Customers.ID, ServiceTypeID = c.Services.ServiceTypes.ID })
-                        .Select(g =>
-                            new
-                            {
-                                g.Key.CustomerID,
-                                g.Key.ServiceTypeID,
-                                Rate = g.Sum(c => c.Rate)
-                            })
-                        .ToList()
-                        .GroupBy(c => c.CustomerID)
-                        .Select(g =>
-                            new
-                            {
-                                CustomerID = g.Key,
-                                RatesByServiceType = g
-                                    .GroupBy(c => c.ServiceTypeID)
-                                    .Select(gServiceType =>
-                                        new
-                                        {
-                                            ServiceTypeID = gServiceType.Key,
-                                            Rate = gServiceType.Sum(c => c.Rate)
-                                        })
-                            })
-                        .ToList();
-
                 _result =
                     _db.ChargeOperPoses
                         .Select(o =>
@@ -542,41 +512,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             c1 => c1.CustomerID,
                             c2 => c2.ID,
                             (c1, c2) =>
-                                new
-                                {
-                                    c2.ID,
-                                    c2.Square,
-                                    c2.ResidentCount,
-                                    c2.DebtsRepayment,
-                                    DataByServiceType = c1.ByServiceType
-                                })
-                        .Join(
-                            _rates,
-                            c => c.ID,
-                            r => r.CustomerID,
-                            (c, r) =>
                                 new CustomerInfo
                                 {
-                                    ID = c.ID,
-                                    Square = c.Square,
-                                    ResidentCount = c.ResidentCount,
-                                    DebtsRepayment = c.DebtsRepayment,
-                                    DataByServiceType =
-                                        c.DataByServiceType
-                                            .Join(
-                                                r.RatesByServiceType,
-                                                dst => dst.ID,
-                                                rst => rst.ServiceTypeID,
-                                                (dst, rst) =>
-                                                    new ServiceTypeData
-                                                    {
-                                                        ID = dst.ID,
-                                                        Charge = dst.Charge,
-                                                        Recharge = dst.Recharge,
-                                                        Benefit = dst.Benefit,
-                                                        Rate = rst.Rate
-                                                    })
-                                                .ToList()
+                                    ID = c2.ID,
+                                    Square = c2.Square,
+                                    ResidentCount = c2.ResidentCount,
+                                    DebtsRepayment = c2.DebtsRepayment,
+                                    DataByServiceType = c1.ByServiceType
+                                        .Select(s =>
+                                            new ServiceTypeData
+                                            {
+                                                ID = s.ID,
+                                                Charge = s.Charge,
+                                                Recharge = s.Recharge,
+                                                Benefit = s.Benefit,
+                                                Rate = Math.Round(s.Charge / c2.Square, 2, MidpointRounding.AwayFromZero)
+                                            })
+                                        .ToList()
                                 })
                         .ToList();
 
