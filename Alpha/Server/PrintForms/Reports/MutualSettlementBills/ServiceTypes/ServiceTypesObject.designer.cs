@@ -33,6 +33,7 @@
             this.xrTable2 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.BoldTotalFormattingRule = new DevExpress.XtraReports.UI.FormattingRule();
             this.xrTableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell4 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -43,7 +44,6 @@
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
-            this.BoldTotalFormattingRule = new DevExpress.XtraReports.UI.FormattingRule();
             this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.MutualSettlementDataSet();
             this.ReportNumberParam = new DevExpress.XtraReports.Parameters.Parameter();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
@@ -134,6 +134,15 @@
             this.xrTableCell1.StylePriority.UsePadding = false;
             this.xrTableCell1.StylePriority.UseTextAlignment = false;
             this.xrTableCell1.Weight = 14.317408147231857D;
+            // 
+            // BoldTotalFormattingRule
+            // 
+            this.BoldTotalFormattingRule.Condition = "Len([GroupHeader])  <=  5";
+            // 
+            // 
+            // 
+            this.BoldTotalFormattingRule.Formatting.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.BoldTotalFormattingRule.Name = "BoldTotalFormattingRule";
             // 
             // xrTableCell2
             // 
@@ -254,15 +263,6 @@
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrControlStyle3.Name = "xrControlStyle3";
             this.xrControlStyle3.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
-            // 
-            // BoldTotalFormattingRule
-            // 
-            this.BoldTotalFormattingRule.Condition = "Len([GroupHeader])  <=  5";
-            // 
-            // 
-            // 
-            this.BoldTotalFormattingRule.Formatting.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
-            this.BoldTotalFormattingRule.Name = "BoldTotalFormattingRule";
             // 
             // dataSet1
             // 
@@ -658,6 +658,7 @@
             this.xrLabel4.Name = "xrLabel4";
             this.xrLabel4.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel4.StylePriority.UseBorders = false;
+            this.xrLabel4.StylePriority.UseFont = false;
             this.xrLabel4.StylePriority.UseTextAlignment = false;
             this.xrLabel4.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.xrLabel4_BeforePrint);
             // 

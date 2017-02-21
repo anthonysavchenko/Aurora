@@ -41,12 +41,14 @@
             this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel5,
             this.countSubreport,
             this.ButtomReceiptSubreport,
             this.TopReceiptSubreport,
@@ -62,7 +64,7 @@
             resources.ApplyResources(this.countSubreport, "countSubreport");
             this.countSubreport.Id = 0;
             this.countSubreport.Name = "countSubreport";
-            this.countSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.CountReport.CountReportObject();
+            this.countSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.CountReport.TableCountReportObject();
             // 
             // ButtomReceiptSubreport
             // 
@@ -127,6 +129,15 @@
             resources.ApplyResources(this.bottomMarginBand1, "bottomMarginBand1");
             this.bottomMarginBand1.Name = "bottomMarginBand1";
             // 
+            // xrLabel5
+            // 
+            resources.ApplyResources(this.xrLabel5, "xrLabel5");
+            this.xrLabel5.Name = "xrLabel5";
+            this.xrLabel5.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel5.StylePriority.UseFont = false;
+            this.xrLabel5.StylePriority.UseTextAlignment = false;
+            this.xrLabel5.WordWrap = false;
+            // 
             // ReceiptWithCountLayoutReportObject
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -162,5 +173,6 @@
         private DevExpress.XtraReports.UI.XRSubreport countSubreport;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel5;
     }
 }

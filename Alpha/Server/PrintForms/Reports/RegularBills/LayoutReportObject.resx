@@ -127,13 +127,13 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ReceiptSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 1434</value>
+    <value>1998, 700</value>
   </data>
   <data name="cutLine.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="cutLine.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 1434</value>
+    <value>0, 700</value>
   </data>
   <data name="cutLine.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>1990, 6</value>
@@ -142,7 +142,7 @@
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>1440</value>
+    <value>706</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -151,13 +151,13 @@
     <value>254</value>
   </data>
   <data name="topMarginBand1.HeightF" type="System.Single, mscorlib">
-    <value>51</value>
+    <value>42</value>
   </data>
   <data name="bottomMarginBand1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="bottomMarginBand1.HeightF" type="System.Single, mscorlib">
-    <value>51</value>
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -166,7 +166,7 @@
     <value>254</value>
   </data>
   <data name="$this.Margins" type="System.Drawing.Printing.Margins, System.Drawing">
-    <value>51, 51, 51, 51</value>
+    <value>51, 51, 42, 0</value>
   </data>
   <data name="$this.PageHeight" type="System.Int32, mscorlib">
     <value>2970</value>

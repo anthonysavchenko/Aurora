@@ -1259,7 +1259,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson
                                                 ? _customer.JuridicalPersonFullName
                                                 : _customer.PhysicalPersonShortName,
-                                        Square = $"{_customer.Square} кв.м.",
+                                        Square = $"{_customer.Square} / {_customer.HeatedArea} кв.м.",
                                         ResidentsCount = _customer.ResidentsCount,
                                         Customers = _dbCustomer,
                                         BillSets = _billSet,

@@ -78,7 +78,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         {
             bool _showReport = _data.Tables["Customers"].Rows.Count > 0;
 
-            View.ReceiptType = _data.Tables["CounterData"].Rows.Count == 0 && _data.Tables["SharedCounterData"].Rows.Count == 0
+            View.ReceiptType = _data.Tables["CounterData"].Rows.Count == 0
                                    ? ReceiptTypes.Standart
                                    : ReceiptTypes.WithCountsData;
 

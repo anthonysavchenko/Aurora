@@ -30,13 +30,9 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
         
         private CounterDataDataTable tableCounterData;
         
-        private SharedCounterDataDataTable tableSharedCounterData;
-        
         private global::System.Data.DataRelation relationFK_Customers_ChargeData;
         
         private global::System.Data.DataRelation relationCustomers_CounterData;
-        
-        private global::System.Data.DataRelation relationCustomers_SharedCounterData;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -74,9 +70,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 }
                 if ((ds.Tables["CounterData"] != null)) {
                     base.Tables.Add(new CounterDataDataTable(ds.Tables["CounterData"]));
-                }
-                if ((ds.Tables["SharedCounterData"] != null)) {
-                    base.Tables.Add(new SharedCounterDataDataTable(ds.Tables["SharedCounterData"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -123,16 +116,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
         public CounterDataDataTable CounterData {
             get {
                 return this.tableCounterData;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SharedCounterDataDataTable SharedCounterData {
-            get {
-                return this.tableSharedCounterData;
             }
         }
         
@@ -212,9 +195,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 if ((ds.Tables["CounterData"] != null)) {
                     base.Tables.Add(new CounterDataDataTable(ds.Tables["CounterData"]));
                 }
-                if ((ds.Tables["SharedCounterData"] != null)) {
-                    base.Tables.Add(new SharedCounterDataDataTable(ds.Tables["SharedCounterData"]));
-                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -266,15 +246,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                     this.tableCounterData.InitVars();
                 }
             }
-            this.tableSharedCounterData = ((SharedCounterDataDataTable)(base.Tables["SharedCounterData"]));
-            if ((initTable == true)) {
-                if ((this.tableSharedCounterData != null)) {
-                    this.tableSharedCounterData.InitVars();
-                }
-            }
             this.relationFK_Customers_ChargeData = this.Relations["FK_Customers_ChargeData"];
             this.relationCustomers_CounterData = this.Relations["Customers_CounterData"];
-            this.relationCustomers_SharedCounterData = this.Relations["Customers_SharedCounterData"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -291,8 +264,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             base.Tables.Add(this.tableCustomers);
             this.tableCounterData = new CounterDataDataTable();
             base.Tables.Add(this.tableCounterData);
-            this.tableSharedCounterData = new SharedCounterDataDataTable();
-            base.Tables.Add(this.tableSharedCounterData);
             this.relationFK_Customers_ChargeData = new global::System.Data.DataRelation("FK_Customers_ChargeData", new global::System.Data.DataColumn[] {
                         this.tableCustomers.CustomerIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableChargeData.CustomerIdColumn}, false);
@@ -301,10 +272,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                         this.tableCustomers.CustomerIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableCounterData.CustomerIdColumn}, false);
             this.Relations.Add(this.relationCustomers_CounterData);
-            this.relationCustomers_SharedCounterData = new global::System.Data.DataRelation("Customers_SharedCounterData", new global::System.Data.DataColumn[] {
-                        this.tableCustomers.CustomerIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableSharedCounterData.CustomerIdColumn}, false);
-            this.Relations.Add(this.relationCustomers_SharedCounterData);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -322,12 +289,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeCounterData() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeSharedCounterData() {
             return false;
         }
         
@@ -394,9 +355,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void CounterDataRowChangeEventHandler(object sender, CounterDataRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void SharedCounterDataRowChangeEventHandler(object sender, SharedCounterDataRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1239,6 +1197,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class CounterDataDataTable : global::System.Data.TypedTableBase<CounterDataRow> {
             
+            private global::System.Data.DataColumn columnService;
+            
             private global::System.Data.DataColumn columnNumber;
             
             private global::System.Data.DataColumn columnPrevValue;
@@ -1248,6 +1208,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             private global::System.Data.DataColumn columnConsumption;
             
             private global::System.Data.DataColumn columnRate;
+            
+            private global::System.Data.DataColumn columnMeasure;
             
             private global::System.Data.DataColumn columnCustomerId;
             
@@ -1282,6 +1244,14 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             protected CounterDataDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ServiceColumn {
+                get {
+                    return this.columnService;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1321,6 +1291,14 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             public global::System.Data.DataColumn RateColumn {
                 get {
                     return this.columnRate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn MeasureColumn {
+                get {
+                    return this.columnMeasure;
                 }
             }
             
@@ -1369,17 +1347,19 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CounterDataRow AddCounterDataRow(string Number, decimal PrevValue, decimal CurValue, decimal Consumption, decimal Rate, CustomersRow parentCustomersRowByCustomers_CounterData) {
+            public CounterDataRow AddCounterDataRow(string Service, string Number, decimal PrevValue, decimal CurValue, decimal Consumption, decimal Rate, string Measure, CustomersRow parentCustomersRowByCustomers_CounterData) {
                 CounterDataRow rowCounterDataRow = ((CounterDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        Service,
                         Number,
                         PrevValue,
                         CurValue,
                         Consumption,
                         Rate,
+                        Measure,
                         null};
                 if ((parentCustomersRowByCustomers_CounterData != null)) {
-                    columnValuesArray[5] = parentCustomersRowByCustomers_CounterData[0];
+                    columnValuesArray[7] = parentCustomersRowByCustomers_CounterData[0];
                 }
                 rowCounterDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCounterDataRow);
@@ -1403,17 +1383,21 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.columnService = base.Columns["Service"];
                 this.columnNumber = base.Columns["Number"];
                 this.columnPrevValue = base.Columns["PrevValue"];
                 this.columnCurValue = base.Columns["CurValue"];
                 this.columnConsumption = base.Columns["Consumption"];
                 this.columnRate = base.Columns["Rate"];
+                this.columnMeasure = base.Columns["Measure"];
                 this.columnCustomerId = base.Columns["CustomerId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.columnService = new global::System.Data.DataColumn("Service", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnService);
                 this.columnNumber = new global::System.Data.DataColumn("Number", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNumber);
                 this.columnPrevValue = new global::System.Data.DataColumn("PrevValue", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -1424,6 +1408,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 base.Columns.Add(this.columnConsumption);
                 this.columnRate = new global::System.Data.DataColumn("Rate", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRate);
+                this.columnMeasure = new global::System.Data.DataColumn("Measure", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMeasure);
                 this.columnCustomerId = new global::System.Data.DataColumn("CustomerId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCustomerId);
             }
@@ -1512,284 +1498,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "CounterDataDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SharedCounterDataDataTable : global::System.Data.TypedTableBase<SharedCounterDataRow> {
-            
-            private global::System.Data.DataColumn columnSharedCounterValue;
-            
-            private global::System.Data.DataColumn columnSharedCharge;
-            
-            private global::System.Data.DataColumn columnCustomerId;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SharedCounterDataDataTable() {
-                this.TableName = "SharedCounterData";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal SharedCounterDataDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected SharedCounterDataDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SharedCounterValueColumn {
-                get {
-                    return this.columnSharedCounterValue;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SharedChargeColumn {
-                get {
-                    return this.columnSharedCharge;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CustomerIdColumn {
-                get {
-                    return this.columnCustomerId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SharedCounterDataRow this[int index] {
-                get {
-                    return ((SharedCounterDataRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event SharedCounterDataRowChangeEventHandler SharedCounterDataRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event SharedCounterDataRowChangeEventHandler SharedCounterDataRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event SharedCounterDataRowChangeEventHandler SharedCounterDataRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event SharedCounterDataRowChangeEventHandler SharedCounterDataRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddSharedCounterDataRow(SharedCounterDataRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SharedCounterDataRow AddSharedCounterDataRow(decimal SharedCounterValue, decimal SharedCharge, CustomersRow parentCustomersRowByCustomers_SharedCounterData) {
-                SharedCounterDataRow rowSharedCounterDataRow = ((SharedCounterDataRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        SharedCounterValue,
-                        SharedCharge,
-                        null};
-                if ((parentCustomersRowByCustomers_SharedCounterData != null)) {
-                    columnValuesArray[2] = parentCustomersRowByCustomers_SharedCounterData[0];
-                }
-                rowSharedCounterDataRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSharedCounterDataRow);
-                return rowSharedCounterDataRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                SharedCounterDataDataTable cln = ((SharedCounterDataDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new SharedCounterDataDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columnSharedCounterValue = base.Columns["SharedCounterValue"];
-                this.columnSharedCharge = base.Columns["SharedCharge"];
-                this.columnCustomerId = base.Columns["CustomerId"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columnSharedCounterValue = new global::System.Data.DataColumn("SharedCounterValue", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSharedCounterValue);
-                this.columnSharedCharge = new global::System.Data.DataColumn("SharedCharge", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSharedCharge);
-                this.columnCustomerId = new global::System.Data.DataColumn("CustomerId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCustomerId);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SharedCounterDataRow NewSharedCounterDataRow() {
-                return ((SharedCounterDataRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SharedCounterDataRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(SharedCounterDataRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.SharedCounterDataRowChanged != null)) {
-                    this.SharedCounterDataRowChanged(this, new SharedCounterDataRowChangeEvent(((SharedCounterDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.SharedCounterDataRowChanging != null)) {
-                    this.SharedCounterDataRowChanging(this, new SharedCounterDataRowChangeEvent(((SharedCounterDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.SharedCounterDataRowDeleted != null)) {
-                    this.SharedCounterDataRowDeleted(this, new SharedCounterDataRowChangeEvent(((SharedCounterDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.SharedCounterDataRowDeleting != null)) {
-                    this.SharedCounterDataRowDeleting(this, new SharedCounterDataRowChangeEvent(((SharedCounterDataRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveSharedCounterDataRow(SharedCounterDataRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                RegularBillDataSet ds = new RegularBillDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SharedCounterDataDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -2529,17 +2237,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                     return ((CounterDataRow[])(base.GetChildRows(this.Table.ChildRelations["Customers_CounterData"])));
                 }
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SharedCounterDataRow[] GetSharedCounterDataRows() {
-                if ((this.Table.ChildRelations["Customers_SharedCounterData"] == null)) {
-                    return new SharedCounterDataRow[0];
-                }
-                else {
-                    return ((SharedCounterDataRow[])(base.GetChildRows(this.Table.ChildRelations["Customers_SharedCounterData"])));
-                }
-            }
         }
         
         /// <summary>
@@ -2554,6 +2251,22 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             internal CounterDataRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableCounterData = ((CounterDataDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Service {
+                get {
+                    try {
+                        return ((string)(this[this.tableCounterData.ServiceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Service\' in table \'CounterData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCounterData.ServiceColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2638,6 +2351,22 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Measure {
+                get {
+                    try {
+                        return ((string)(this[this.tableCounterData.MeasureColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Measure\' in table \'CounterData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCounterData.MeasureColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int CustomerId {
                 get {
                     try {
@@ -2661,6 +2390,18 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Customers_CounterData"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsServiceNull() {
+                return this.IsNull(this.tableCounterData.ServiceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetServiceNull() {
+                this[this.tableCounterData.ServiceColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2725,6 +2466,18 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMeasureNull() {
+                return this.IsNull(this.tableCounterData.MeasureColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMeasureNull() {
+                this[this.tableCounterData.MeasureColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCustomerIdNull() {
                 return this.IsNull(this.tableCounterData.CustomerIdColumn);
             }
@@ -2733,117 +2486,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCustomerIdNull() {
                 this[this.tableCounterData.CustomerIdColumn] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class SharedCounterDataRow : global::System.Data.DataRow {
-            
-            private SharedCounterDataDataTable tableSharedCounterData;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal SharedCounterDataRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableSharedCounterData = ((SharedCounterDataDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal SharedCounterValue {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableSharedCounterData.SharedCounterValueColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SharedCounterValue\' in table \'SharedCounterData\' is DBNull." +
-                                "", e);
-                    }
-                }
-                set {
-                    this[this.tableSharedCounterData.SharedCounterValueColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal SharedCharge {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableSharedCounterData.SharedChargeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SharedCharge\' in table \'SharedCounterData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSharedCounterData.SharedChargeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int CustomerId {
-                get {
-                    try {
-                        return ((int)(this[this.tableSharedCounterData.CustomerIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CustomerId\' in table \'SharedCounterData\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSharedCounterData.CustomerIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CustomersRow CustomersRow {
-                get {
-                    return ((CustomersRow)(this.GetParentRow(this.Table.ParentRelations["Customers_SharedCounterData"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["Customers_SharedCounterData"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSharedCounterValueNull() {
-                return this.IsNull(this.tableSharedCounterData.SharedCounterValueColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSharedCounterValueNull() {
-                this[this.tableSharedCounterData.SharedCounterValueColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSharedChargeNull() {
-                return this.IsNull(this.tableSharedCounterData.SharedChargeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSharedChargeNull() {
-                this[this.tableSharedCounterData.SharedChargeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCustomerIdNull() {
-                return this.IsNull(this.tableSharedCounterData.CustomerIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCustomerIdNull() {
-                this[this.tableSharedCounterData.CustomerIdColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2935,40 +2577,6 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CounterDataRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class SharedCounterDataRowChangeEvent : global::System.EventArgs {
-            
-            private SharedCounterDataRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SharedCounterDataRowChangeEvent(SharedCounterDataRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SharedCounterDataRow Row {
                 get {
                     return this.eventRow;
                 }
