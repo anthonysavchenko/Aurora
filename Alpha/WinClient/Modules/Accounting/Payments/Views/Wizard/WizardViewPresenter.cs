@@ -241,7 +241,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                             else if (!IsDistributionAvailable())
                             {
                                 View.ShowMessage(
-                                    "Не по всем абонентам уже были сделаны начисления. Невозможно внести платеж по абоненту, если по нему не сделано ни одного начисления.",
+                                    "Не по всем абонентам были сделаны начисления. Невозможно внести платеж по абоненту, если по нему не сделано ни одного начисления или перерасчета.",
                                     "Невозможно выполнить операцию");
                                 _next = WizardSteps.Unknown;
                             }
@@ -295,7 +295,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             using (Entities _entities = new Entities())
             {
                 _result =
-                    Payments.Values.Select(p => p.Account).Distinct().All(c => _entities.ChargeOpers.Any(co => co.Customers.Account == c));
+                    Payments.Values
+                        .Select(p => p.Account)
+                        .Distinct()
+                        .All(c => 
+                            _entities.ChargeOpers.Any(co => co.Customers.Account == c) || 
+                            _entities.RechargeOpers.Any(co => co.Customers.Account == c));
             }
 
             return _result;
