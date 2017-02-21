@@ -1081,6 +1081,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                         _customerPos.Rate = _rate;
                                                     }
+                                                    else
+                                                    {
+                                                        _customerPos.Rate = 0;
+                                                    }
                                                 }
                                                 break;
 
@@ -1950,7 +1954,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             out decimal localBenefitValue)
         {
 
-            if (serviceTypeID == 2 || serviceTypeID == 3 || serviceTypeID == 4)
+            if (serviceTypeID == 36)
             {
                 federalBenefitValue = 0;//Math.Round(-1 * rate * benefitSquare / 100 * 50, 2, MidpointRounding.AwayFromZero);
                 localBenefitValue = Math.Round(-1 * rate * extraSquare / 100 * localBenefitCoefficient, 2, MidpointRounding.AwayFromZero);

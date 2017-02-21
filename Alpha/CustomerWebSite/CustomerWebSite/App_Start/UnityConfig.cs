@@ -8,13 +8,11 @@ using CustomerWebSite.Services.Home;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Practices.Unity;
-using Taumis.Alpha.Server.Core.Services.MutualSettlement;
-using Taumis.Alpha.Server.Core.Services.RegularBill;
+using Taumis.Alpha.Server.Core.Services;
 using Taumis.Alpha.Server.Core.Services.ServerTime;
 using Taumis.Alpha.Server.Core.Services.Settings;
 using Taumis.Alpha.Server.Infrastructure.Data;
 using Taumis.Alpha.Server.Infrastructure.Services;
-using Taumis.Alpha.Server.Infrastructure.Services.MutualSettlement;
 
 namespace CustomerWebSite.App_Start
 {
@@ -55,6 +53,7 @@ namespace CustomerWebSite.App_Start
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<IUserStore<ApplicationUser, int>, UserStore>();
             container.RegisterType<IServerTimeService, ServerTimeService>();
+            container.RegisterType<IBillService, BillService>();
             container.RegisterType<IMutualSettlementService, MutualSettlementService>();
             container.RegisterType<IRegularBillService, RegularBillService>();
             container.RegisterType<ISettingsService, SettingsService>();

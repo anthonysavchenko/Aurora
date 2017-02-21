@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>016.53.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>016.54.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>016.53.0.0</ApplicationVersion>
+    <ApplicationVersion>016.54.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -330,6 +330,10 @@
       <Project>{01633058-914E-4C6C-BBE5-0793D90F3AC5}</Project>
       <Name>SQLServerAccessProvider %28Taumis.Alpha.Infrastructure\SQLServerAccessProvider%29</Name>
       <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Server\PrintForms\PrintForms.csproj">
+      <Project>{d9952a9a-8e35-4e0f-875c-047f577e8c75}</Project>
+      <Name>PrintForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>

@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
@@ -11,7 +12,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
         /// <summary>
         /// Источник данных
         /// </summary>
-        DataSets.DataSet DataSource { set; }
+        DebtBillDataSet DataSource { set; }
 
         /// <summary>
         /// Печатает отчет

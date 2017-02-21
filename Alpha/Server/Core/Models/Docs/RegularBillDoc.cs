@@ -28,6 +28,7 @@ namespace Taumis.Alpha.Server.Core.Models.Docs
         public int BillSetID { get; set; }
         public DateTime Period { get; set; }
         public string EmergencyPhoneNumber { get; set; }
+        public string ContractorContactInfo { get; set; }
         public virtual BillSet BillSet { get; set; }
         public virtual ICollection<ChargeOper> ChargeOpers { get; set; }
         public virtual Customer Customer { get; set; }

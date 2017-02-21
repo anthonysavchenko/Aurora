@@ -2,8 +2,9 @@
 using System.Data;
 using System.Drawing;
 using DevExpress.XtraReports.UI;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject.Receipt;
+using Taumis.Alpha.Server.PrintForms.Constants;
+using Taumis.Alpha.Server.PrintForms.Reports.RegularBills;
+using Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;

@@ -2,32 +2,30 @@
 using System.Data;
 using System.Linq;
 using System.Text;
+using Taumis.Alpha.Server.Core.Models.Enums;
 using Taumis.Alpha.Server.Core.Services;
-using Taumis.Alpha.Server.Core.Services.RegularBill;
-using Taumis.Alpha.Server.Core.Services.RegularBill.DataSets;
-using Taumis.Alpha.Server.Core.Services.ServerTime;
 using Taumis.Alpha.Server.Infrastructure.Data;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 
 namespace Taumis.Alpha.Server.Infrastructure.Services
 {
     public class RegularBillService : IRegularBillService
     {
-        private const string BARCODE_COMPANY_CODE = "133";
-        private const string BARCODE_SERVICE_CODE = "21";
-
         private readonly IAlphaDbContext _db;
+        private IBillService BillService { get; }
 
-        public RegularBillService(IAlphaDbContext db)
+        public RegularBillService(IAlphaDbContext db, IBillService billService)
         {
             _db = db;
+            BillService = billService;
         }
 
-        public RegularBillDataSet GetDataForReport(int billID)
+        public DataSet GetDataForReport(int billID)
         {
             return GetDataForReport(new[] { billID }, false);
         }
 
-        public RegularBillDataSet GetDataForReport(int[] billIDs, bool removeEmptyBills)
+        public DataSet GetDataForReport(int[] billIDs, bool removeEmptyBills)
         {
             RegularBillDataSet _data = new RegularBillDataSet();
             DataTable _customersTable = _data.Tables["Customers"];
@@ -43,6 +41,7 @@ namespace Taumis.Alpha.Server.Infrastructure.Services
                         .Select(b =>
                             new
                             {
+                                b.ID,
                                 b.CreationDateTime,
                                 b.Period,
                                 b.Account,
@@ -54,41 +53,22 @@ namespace Taumis.Alpha.Server.Infrastructure.Services
                                 b.MonthChargeValue,
                                 b.Value,
                                 b.EmergencyPhoneNumber,
+                                b.ContractorContactInfo,
                                 b.CustomerID,
                                 Street = b.Customer.Building.Street.Name,
                                 Building = b.Customer.Building.Number,
                                 b.Customer.Apartment,
-                                RegularBillDocSeviceTypePoses =
-                                    b.RegularBillDocSeviceTypePoses
-                                        .Select(p =>
-                                            new
-                                            {
-                                                p.ServiceTypeName,
-                                                p.PayRate,
-                                                p.Charge,
-                                                p.Benefit,
-                                                p.Recalculation,
-                                                p.Payable
-                                            }),
-                                RegularBillDocCounterPoses =
-                                    b.RegularBillDocCounterPoses
-                                        .Select(p =>
-                                            new
-                                            {
-                                                p.Number,
-                                                p.PrevValue,
-                                                p.CurValue,
-                                                p.Consumption,
-                                                p.Rate
-                                            }),
-                                RegularBillDocSharedCounterPoses =
-                                    b.RegularBillDocSharedCounterPoses
-                                        .Select(p =>
-                                            new
-                                            {
-                                                p.SharedCounterValue,
-                                                p.SharedCharge
-                                            })
+                                b.Customer.BillSendingSubscription,
+                                Email = b.Customer.User.Login,
+                                b.Customer.OwnerType,
+                                b.Customer.Building.BankDetail,
+                                FullName =
+                                    b.Customer.OwnerType == OwnerTypes.PhysicalPerson
+                                        ? b.Customer.PhysicalPersonFullName
+                                        : b.Customer.JuridicalPersonFullName,
+                                b.RegularBillDocSeviceTypePoses,
+                                b.RegularBillDocCounterPoses,
+                                b.RegularBillDocSharedCounterPoses
                             })
                         .ToList()
                         .OrderBy(b => b.Street)
@@ -97,38 +77,48 @@ namespace Taumis.Alpha.Server.Infrastructure.Services
 
                 foreach (var _bill in _bills)
                 {
-                    foreach (var _counterData in _bill.RegularBillDocCounterPoses)
+                    foreach (var _pos in _bill.RegularBillDocCounterPoses)
                     {
                         _counterDataTable.Rows.Add(
-                            _counterData.Number,
-                            _counterData.PrevValue,
-                            _counterData.CurValue,
-                            _counterData.Consumption,
-                            _counterData.Rate,
+                            _pos.Number,
+                            _pos.PrevValue,
+                            _pos.CurValue,
+                            _pos.Consumption,
+                            _pos.Rate,
                             _bill.CustomerID);
                     }
 
-                    foreach (var _sharedCounterData in _bill.RegularBillDocSharedCounterPoses)
+                    foreach (var _pos in _bill.RegularBillDocSharedCounterPoses)
                     {
                         _sharedCounterDataTable.Rows.Add(
-                            _sharedCounterData.SharedCounterValue,
-                            _sharedCounterData.SharedCharge,
+                            _pos.SharedCounterValue,
+                            _pos.SharedCharge,
                             _bill.CustomerID);
                     }
 
                     foreach (var _chargeData in _bill.RegularBillDocSeviceTypePoses)
                     {
-                        _chargeDataTable.Rows.Add(
-                            _chargeData.ServiceTypeName,
-                            _chargeData.PayRate > 0 ? _chargeData.PayRate.ToString("0.00") : string.Empty,
-                            _chargeData.Charge,
-                            _chargeData.Benefit,
-                            _chargeData.Recalculation,
-                            _chargeData.Payable,
-                            _bill.CustomerID);
+                        DataRow _row = _chargeDataTable.NewRow();
+                        _row["Service"] = _chargeData.ServiceTypeName;
+                        _row["PayRate"] = _chargeData.PayRate;
+                        _row["Charge"] = _chargeData.Charge;
+                        _row["Benefit"] = _chargeData.Benefit;
+                        _row["Recalculation"] = _chargeData.Recalculation;
+                        _row["Payable"] = _chargeData.Payable;
+                        _row["CustomerId"] = _bill.CustomerID;
+
+                        _chargeDataTable.Rows.Add(_row);
                     }
 
-                    string _barcode = GenerateBarCodeString(_bill.Account, _bill.Period);
+                    string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                    string _qrCode = BillService.GenerateQrCodeString(
+                        _bill.Account,
+                        _bill.OwnerType == OwnerTypes.PhysicalPerson
+                            ? _bill.FullName
+                            : string.Empty,
+                        _bill.Address,
+                        _bill.Period,
+                        _bill.Value);
 
                     _customersTable.Rows.Add(
                         _bill.CustomerID,
@@ -144,9 +134,18 @@ namespace Taumis.Alpha.Server.Infrastructure.Services
                         _bill.MonthChargeValue,
                         _bill.Value,
                         _barcode,
-                        FormatBarcodeString(_barcode),
-                        string.Format("Переплата(-)/Недоплата(+) на {0:dd.MM.yyyy}", _bill.CreationDateTime),
-                        _bill.EmergencyPhoneNumber);
+                        BillService.FormatBarcodeString(_barcode),
+                        $"Переплата(-)/Недоплата(+) на {_bill.CreationDateTime:dd.MM.yyyy}",
+                        BillService.OrganizationDetails(
+                            _bill.BankDetail.Account,
+                            _bill.BankDetail.CorrAccount,
+                            _bill.BankDetail.INN,
+                            _bill.BankDetail.KPP,
+                            _bill.BankDetail.BIK,
+                            _bill.BankDetail.Name, 
+                            _bill.ContractorContactInfo, 
+                            _bill.EmergencyPhoneNumber),
+                        _qrCode);
                 }
             }
             catch (Exception _ex)
@@ -155,51 +154,6 @@ namespace Taumis.Alpha.Server.Infrastructure.Services
             }
 
             return _data;
-        }
-
-        /// <summary>
-        /// Генерирует строку для штрих кода
-        /// </summary>
-        /// <param name="account">Лицевой счет абонента</param>
-        /// <param name="period">Дата квитанции</param>
-        /// <returns>Строка для штрих кода</returns>
-        private string GenerateBarCodeString(string account, DateTime period)
-        {
-            string _accountNum = string.Format("{0}{1}{2}",
-                                               account.Substring(3, 4),
-                                               account.Substring(8, 3),
-                                               account.Substring(12, 1));
-            string _barcode =
-                        string.Format(
-                            "{0}{1}{2:yyyyMM}{3}",
-                            BARCODE_COMPANY_CODE,
-                            _accountNum,
-                            period,
-                            BARCODE_SERVICE_CODE);
-
-            int _barcodeSum = 0;
-
-            foreach (char _c in _barcode)
-            {
-                _barcodeSum += int.Parse(_c.ToString());
-            }
-
-            return string.Format("{0}{1}", _barcode, _barcodeSum % 10);
-        }
-
-        private string FormatBarcodeString(string barcode)
-        {
-            StringBuilder _builder = new StringBuilder();
-            _builder.Append("*   ");
-
-            foreach (char _c in barcode)
-            {
-                _builder.AppendFormat("{0}   ", _c);
-            }
-
-            _builder.Append("*");
-
-            return _builder.ToString();
         }
     }
 }

@@ -25,7 +25,6 @@ namespace Taumis.Alpha.Server.Core.Models.Mapping
             // Relationships
             HasRequired(t => t.Contractor).WithMany(t => t.CustomerPoses).HasForeignKey(d => d.ContractorID);
             HasRequired(t => t.Customer).WithMany(t => t.CustomerPoses).HasForeignKey(d => d.CustomerID);
-            HasRequired(t => t.Service).WithMany(t => t.CustomerPoses).HasForeignKey(d => d.ServiceID);
         }
     }
 }

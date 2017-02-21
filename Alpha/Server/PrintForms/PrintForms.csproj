@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9952A9A-8E35-4E0F-875C-047F577E8C75}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Taumis.Alpha.Server.PrintForms</RootNamespace>
+    <AssemblyName>Taumis.Alpha.Server.PrintForms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Printing.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraReports.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1.Design, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraReports.v13.1.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\ReceiptTypes.cs" />
+    <Compile Include="DataSets\TotalBillDataSet.cs">
+      <DependentUpon>TotalBillDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\TotalBillDataSet.Designer.cs">
+      <DependentUpon>TotalBillDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataSets\RegularBillDataSet.cs">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\RegularBillDataSet.Designer.cs">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataSets\MutualSettlementDataSet.cs">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\MutualSettlementDataSet.Designer.cs">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataSets\DebtBillDataSet.cs">
+      <DependentUpon>DebtBillDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DebtBillDataSet.Designer.cs">
+      <DependentUpon>DebtBillDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\DebtBills\ILayoutReportObject.cs" />
+    <Compile Include="Reports\DebtBills\LayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DebtBills\LayoutReportObject.designer.cs">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DebtBills\Receipt\BillLayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DebtBills\Receipt\BillLayoutReportObject.designer.cs">
+      <DependentUpon>BillLayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DebtBills\Receipt\DebtBillReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DebtBills\Receipt\DebtBillReportObject.designer.cs">
+      <DependentUpon>DebtBillReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DebtBills\Receipt\IBillLayoutReportObject.cs" />
+    <Compile Include="Reports\DebtBills\Receipt\IReceiptReportObject.cs" />
+    <Compile Include="Reports\MutualSettlementBills\LayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MutualSettlementBills\LayoutReportObject.designer.cs">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MutualSettlementBills\ServiceTypes\IServiceTypesObject.cs" />
+    <Compile Include="Reports\MutualSettlementBills\ServiceTypes\ServiceTypesObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MutualSettlementBills\ServiceTypes\ServiceTypesObject.designer.cs">
+      <DependentUpon>ServiceTypesObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\CountReport\CountReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\CountReport\CountReportObject.Designer.cs">
+      <DependentUpon>CountReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\CountReport\TableCountReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\CountReport\TableCountReportObject.Designer.cs">
+      <DependentUpon>TableCountReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\ILayoutReportObject.cs" />
+    <Compile Include="Reports\RegularBills\IReceiptLayoutReportObject.cs" />
+    <Compile Include="Reports\RegularBills\ISubReportObject.cs" />
+    <Compile Include="Reports\RegularBills\LayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\LayoutReportObject.designer.cs">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\BottomReceiptReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\BottomReceiptReportObject.designer.cs">
+      <DependentUpon>BottomReceiptReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\ReceiptLayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\ReceiptLayoutReportObject.designer.cs">
+      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\ReceiptWithCountLayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\ReceiptWithCountLayoutReportObject.designer.cs">
+      <DependentUpon>ReceiptWithCountLayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\ServiceTableReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\ServiceTableReportObject.designer.cs">
+      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\TopReceiptReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\TopReceiptReportObject.designer.cs">
+      <DependentUpon>TopReceiptReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TotalBills\ILayoutReportObject.cs" />
+    <Compile Include="Reports\TotalBills\LayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TotalBills\LayoutReportObject.designer.cs">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\ReceiptLayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\ReceiptLayoutReportObject.designer.cs">
+      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\ServiceTableReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\ServiceTableReportObject.designer.cs">
+      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\StatementReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\StatementReportObject.designer.cs">
+      <DependentUpon>StatementReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\StatementServiceTableReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\StatementServiceTableReportObject.designer.cs">
+      <DependentUpon>StatementServiceTableReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\TotalBillReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TotalBills\Receipt\TotalBillReportObject.designer.cs">
+      <DependentUpon>TotalBillReportObject.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="DataSets\TotalBillDataSet.xsc">
+      <DependentUpon>TotalBillDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\TotalBillDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TotalBillDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSets\TotalBillDataSet.xss">
+      <DependentUpon>TotalBillDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\RegularBillDataSet.xsc">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\RegularBillDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RegularBillDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSets\RegularBillDataSet.xss">
+      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\MutualSettlementDataSet.xsc">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\MutualSettlementDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MutualSettlementDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSets\MutualSettlementDataSet.xss">
+      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DebtBillDataSet.xsc">
+      <DependentUpon>DebtBillDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DebtBillDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DebtBillDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSets\DebtBillDataSet.xss">
+      <DependentUpon>DebtBillDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\DebtBills\LayoutReportObject.resx">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DebtBills\Receipt\BillLayoutReportObject.resx">
+      <DependentUpon>BillLayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DebtBills\Receipt\DebtBillReportObject.resx">
+      <DependentUpon>DebtBillReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MutualSettlementBills\LayoutReportObject.resx">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MutualSettlementBills\ServiceTypes\ServiceTypesObject.resx">
+      <DependentUpon>ServiceTypesObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\CountReport\CountReportObject.resx">
+      <DependentUpon>CountReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\CountReport\TableCountReportObject.resx">
+      <DependentUpon>TableCountReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\LayoutReportObject.resx">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\Receipt\BottomReceiptReportObject.resx">
+      <DependentUpon>BottomReceiptReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\Receipt\ReceiptLayoutReportObject.resx">
+      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\Receipt\ReceiptWithCountLayoutReportObject.resx">
+      <DependentUpon>ReceiptWithCountLayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\Receipt\ServiceTableReportObject.resx">
+      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\Receipt\TopReceiptReportObject.resx">
+      <DependentUpon>TopReceiptReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TotalBills\LayoutReportObject.resx">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TotalBills\Receipt\ReceiptLayoutReportObject.resx">
+      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TotalBills\Receipt\ServiceTableReportObject.resx">
+      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TotalBills\Receipt\StatementReportObject.resx">
+      <DependentUpon>StatementReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TotalBills\Receipt\StatementServiceTableReportObject.resx">
+      <DependentUpon>StatementServiceTableReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TotalBills\Receipt\TotalBillReportObject.resx">
+      <DependentUpon>TotalBillReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
