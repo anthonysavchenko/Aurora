@@ -57,32 +57,29 @@
       <HintPath>..\..\..\ThirdParty\Packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\..\ThirdParty\DevExpress 14.1\DevExpress.Data.v14.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\..\ThirdParty\DevExpress 14.1\DevExpress.Printing.v14.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Web.Mvc5.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ThirdParty\DevExpress 14.1\DevExpress.Web.Mvc5.v14.1.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ThirdParty\DevExpress 14.1\DevExpress.Web.v14.1.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Printing.v13.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\..\ThirdParty\DevExpress 14.1\DevExpress.XtraReports.v14.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v14.1.Web, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.Mvc.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ThirdParty\DevExpress 14.1\DevExpress.XtraReports.v14.1.Web.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Web.Mvc.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Web.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraReports.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1.Web, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraReports.v13.1.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -304,70 +301,6 @@
     <Compile Include="Models\PaymentsAndChargesModels\PaymentsAndChargesViewModel.cs" />
     <Compile Include="Models\PaymentsAndChargesModels\PeriodTotal.cs" />
     <Compile Include="Models\YearsViewModel.cs" />
-    <Compile Include="PrintForms\MutualSettlement\MutualSettlementReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\MutualSettlement\MutualSettlementReportObject.designer.cs">
-      <DependentUpon>MutualSettlementReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\MutualSettlement\ServiceTypes\IServiceTypesObject.cs" />
-    <Compile Include="PrintForms\MutualSettlement\ServiceTypes\ServiceTypesObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\MutualSettlement\ServiceTypes\ServiceTypesObject.designer.cs">
-      <DependentUpon>ServiceTypesObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\IRegularBillReportObject.cs" />
-    <Compile Include="PrintForms\RegularBill\IReceiptLayoutReportObject.cs" />
-    <Compile Include="PrintForms\RegularBill\ISubReportObject.cs" />
-    <Compile Include="PrintForms\RegularBill\Receipt\BottomReceiptReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\BottomReceiptReportObject.designer.cs">
-      <DependentUpon>BottomReceiptReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\ReceiptWithCountLayoutReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\ReceiptWithCountLayoutReportObject.designer.cs">
-      <DependentUpon>ReceiptWithCountLayoutReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\TopReceiptReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\TopReceiptReportObject.designer.cs">
-      <DependentUpon>TopReceiptReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\RegularBillReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\RegularBillReportObject.designer.cs">
-      <DependentUpon>RegularBillReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\CountReport\CountReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\CountReport\CountReportObject.Designer.cs">
-      <DependentUpon>CountReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\CountReport\TableCountReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\CountReport\TableCountReportObject.Designer.cs">
-      <DependentUpon>TableCountReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\ServiceTableReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\ServiceTableReportObject.designer.cs">
-      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\ReceiptLayoutReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PrintForms\RegularBill\Receipt\ReceiptLayoutReportObject.designer.cs">
-      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\Home\AuthorizationService.cs" />
@@ -390,16 +323,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\Release Publish.pubxml" />
-    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.0.js" />
-    <Content Include="Scripts\jquery-2.2.0.min.js" />
-    <Content Include="Scripts\jquery-2.2.0.min.map" />
+    <Content Include="Scripts\jquery-2.2.1.js" />
+    <Content Include="Scripts\jquery-2.2.1.min.js" />
+    <Content Include="Scripts\jquery-2.2.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.7.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -445,48 +377,10 @@
       <Project>{33bebe72-9913-41d4-a612-a95da434cc98}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PrintForms\MutualSettlement\MutualSettlementReportObject.resx">
-      <DependentUpon>MutualSettlementReportObject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\MutualSettlement\ServiceTypes\ServiceTypesObject.resx">
-      <DependentUpon>ServiceTypesObject.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PrintForms\RegularBill\Receipt\BottomReceiptReportObject.resx">
-      <DependentUpon>BottomReceiptReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\RegularBill\Receipt\ReceiptWithCountLayoutReportObject.resx">
-      <DependentUpon>ReceiptWithCountLayoutReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\RegularBill\Receipt\TopReceiptReportObject.resx">
-      <DependentUpon>TopReceiptReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\RegularBill\RegularBillReportObject.resx">
-      <DependentUpon>RegularBillReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\RegularBill\CountReport\CountReportObject.resx">
-      <DependentUpon>CountReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\RegularBill\CountReport\TableCountReportObject.resx">
-      <DependentUpon>TableCountReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\RegularBill\Receipt\ServiceTableReportObject.resx">
-      <DependentUpon>ServiceTableReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintForms\RegularBill\Receipt\ReceiptLayoutReportObject.resx">
-      <DependentUpon>ReceiptLayoutReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <ProjectReference Include="..\..\Server\PrintForms\PrintForms.csproj">
+      <Project>{d9952a9a-8e35-4e0f-875c-047f577e8c75}</Project>
+      <Name>PrintForms</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

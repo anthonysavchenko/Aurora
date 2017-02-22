@@ -54,6 +54,7 @@
     <Compile Include="Models\Opers\BenefitCorrectionOperPos.cs" />
     <Compile Include="Models\Opers\BenefitOper.cs" />
     <Compile Include="Models\Opers\BenefitOperPos.cs" />
+    <Compile Include="Models\RefBooks\BankDetail.cs" />
     <Compile Include="Models\RefBooks\BenefitType.cs" />
     <Compile Include="Models\Docs\BillSet.cs" />
     <Compile Include="Models\RefBooks\Building.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Models\Docs\RegularBillDocCounterPos.cs" />
     <Compile Include="Models\Docs\RegularBillDocSeviceTypePos.cs" />
     <Compile Include="Models\Docs\RegularBillDocSharedCounterPos.cs" />
+    <Compile Include="Models\RefBooks\PublicPlace.cs" />
     <Compile Include="Models\RefBooks\Resident.cs" />
     <Compile Include="Models\RefBooks\Service.cs" />
     <Compile Include="Models\RefBooks\ServiceType.cs" />
@@ -99,27 +101,10 @@
     <Compile Include="Models\Docs\TotalBillDocPos.cs" />
     <Compile Include="Models\RefBooks\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IBillService.cs" />
     <Compile Include="Services\Settings\ISettingsService.cs" />
-    <Compile Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.cs">
-      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.Designer.cs">
-      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Services\MutualSettlement\IMutualSettlementService.cs" />
-    <Compile Include="Services\RegularBill\DataSets\RegularBillDataSet.cs">
-      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Services\RegularBill\DataSets\RegularBillDataSet.Designer.cs">
-      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Services\RegularBill\IRegularBillService.cs" />
+    <Compile Include="Services\IMutualSettlementService.cs" />
+    <Compile Include="Services\IRegularBillService.cs" />
     <Compile Include="Services\ServerTime\DateTimeInfo.cs" />
     <Compile Include="Services\ServerTime\IServerTimeService.cs" />
     <Compile Include="Services\ServerTime\PeriodInfo.cs" />
@@ -129,32 +114,6 @@
   <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.xsc">
-      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MutualSettlementDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Services\MutualSettlement\DataSets\MutualSettlementDataSet.xss">
-      <DependentUpon>MutualSettlementDataSet.xsd</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Services\RegularBill\DataSets\RegularBillDataSet.xsc">
-      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Services\RegularBill\DataSets\RegularBillDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RegularBillDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Services\RegularBill\DataSets\RegularBillDataSet.xss">
-      <DependentUpon>RegularBillDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,9 +28,6 @@ namespace Taumis.Alpha.Server.Core.Models.Mapping
             HasRequired(t => t.Contractor)
                 .WithMany(t => t.BenefitOperPoses)
                 .HasForeignKey(d => d.ContractorID);
-            HasRequired(t => t.Service)
-                .WithMany(t => t.BenefitOperPoses)
-                .HasForeignKey(d => d.ServiceID);
         }
     }
 }

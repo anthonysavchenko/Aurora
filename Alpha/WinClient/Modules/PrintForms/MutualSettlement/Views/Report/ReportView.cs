@@ -2,7 +2,7 @@
 using DevExpress.XtraReports.UI;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.DataSets;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Reports.Layout;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
@@ -54,7 +54,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
         /// <summary>
         /// Источник данных
         /// </summary>
-        public DataSet DataSource
+        public MutualSettlementDataSet DataSource
         {
             set
             {

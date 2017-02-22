@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Reports.ServiceTypes;
+using Taumis.Alpha.Server.PrintForms.Reports.MutualSettlementBills.ServiceTypes;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 //using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;
 

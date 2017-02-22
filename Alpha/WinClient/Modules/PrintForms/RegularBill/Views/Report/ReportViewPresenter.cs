@@ -9,6 +9,8 @@ using Microsoft.Practices.CompositeUI.EventBroker;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.Services;
+using Taumis.Alpha.Server.PrintForms.Constants;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.WinClient.Aurora.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Constants;
 using Taumis.EnterpriseLibrary.Win;
@@ -37,7 +39,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         /// <summary>
         /// Данные
         /// </summary>
-        private DataSets.DataSet _data;
+        private RegularBillDataSet _data;
         private readonly Dictionary<int, CustomerInfo> _subscriptedCustomers = new Dictionary<int, CustomerInfo>();
 
         [ServiceDependency]
@@ -97,7 +99,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         {
             try
             {
-                _data = new DataSets.DataSet();
+                _data = new RegularBillDataSet();
                 string[] _billIDStrings = ((string[])WorkItem.State[ModuleStateNames.START_UP_PARAMS_BILL_IDS]);
 
                 if (_billIDStrings.Length > 0)
@@ -275,7 +277,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                     foreach (DataRow _row in _rows)
                     {
-                        DataSets.DataSet _dataSet = CreateDataSet(_row);
+                        RegularBillDataSet _dataSet = CreateDataSet(_row);
 
                         int _customerID = (int) _row["CustomerID"];
 
@@ -334,9 +336,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
         }
 
-        private DataSets.DataSet CreateDataSet(DataRow _row)
+        private RegularBillDataSet CreateDataSet(DataRow _row)
         {
-            DataSets.DataSet _dataSet = new DataSets.DataSet();
+            RegularBillDataSet _dataSet = new RegularBillDataSet();
             DataTable _customersTable = _dataSet.Tables["Customers"];
             DataTable _chargeDataTable = _dataSet.Tables["ChargeData"];
             DataTable _counterDataTable = _dataSet.Tables["CounterData"];

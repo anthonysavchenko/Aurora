@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using Microsoft.Practices.CompositeUI;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.WinClient.Aurora.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
@@ -18,7 +19,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
         /// <summary>
         /// Данные
         /// </summary>
-        private DataSets.DataSet _data;
+        private TotalBillDataSet _data;
 
         [ServiceDependency]
         public IBillService BillService { get; set; }
@@ -49,7 +50,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
         {
             try
             {
-                _data = new DataSets.DataSet();
+                _data = new TotalBillDataSet();
                 DataTable _billsTable = _data.Tables["TotalBillDocs"];
                 DataTable _posesTable = _data.Tables["TotalBillPoses"];
                 string[] _billIDStrings = ((string[])WorkItem.State[ModuleStateNames.START_UP_PARAMS_BILL_IDS]);
