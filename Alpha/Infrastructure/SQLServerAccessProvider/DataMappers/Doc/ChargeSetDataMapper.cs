@@ -112,7 +112,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
             _table.Columns.Add("TypeAka", typeof(string));
             _table.Columns.Add("CreationDateTime", typeof(DateTime));
             _table.Columns.Add("Number", typeof(int));
-            _table.Columns.Add("Quantity", typeof(short));
+            _table.Columns.Add("Quantity", typeof(int));
             _table.Columns.Add("ValueSum", typeof(decimal));
             _table.Columns.Add("Comment", typeof(string));
             _table.Columns.Add("Period", typeof(DateTime));
