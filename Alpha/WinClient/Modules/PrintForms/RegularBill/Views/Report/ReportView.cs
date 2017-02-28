@@ -290,7 +290,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         {
             LayoutReportObject _report = new LayoutReportObject();
             _report.ReceiptType =
-                dataSet.Tables["CounterData"].Rows.Count == 0 && dataSet.Tables["SharedCounterData"].Rows.Count == 0
+                dataSet.Tables["CounterData"].Rows.Count == 0
                     ? ReceiptTypes.Standart
                     : ReceiptTypes.WithCountsData;
 

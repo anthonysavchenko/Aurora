@@ -196,7 +196,7 @@
     <value>391.000244, 33.9999771</value>
   </data>
   <data name="xrLabel3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>107.89035, 34.0000076</value>
+    <value>100, 34.0000076</value>
   </data>
   <data name="xrLabel3.Text" xml:space="preserve">
     <value>Адрес:</value>
@@ -211,10 +211,10 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="payerAkaLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>831.000244, 0</value>
+    <value>854.000244, 0</value>
   </data>
   <data name="payerAkaLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>343.000122, 34.0000076</value>
+    <value>320, 34.0000076</value>
   </data>
   <data name="payerAkaLabel.Text" xml:space="preserve">
     <value>payerAkaLabel</value>
@@ -247,10 +247,10 @@
     <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
   <data name="payerAccountLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>454.000183, 3.81469727E-06</value>
+    <value>454.000153, 0</value>
   </data>
   <data name="payerAccountLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>187, 33.9999962</value>
+    <value>215.000092, 33.9999962</value>
   </data>
   <data name="payerAccountLabel.Text" xml:space="preserve">
     <value>payerAccountLabel</value>
@@ -265,10 +265,10 @@
     <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
   <data name="payerAddressLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>498.8906, 34.00001</value>
+    <value>491.000183, 34.00001</value>
   </data>
   <data name="payerAddressLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>675.109741, 34.0000076</value>
+    <value>683.000061, 34.0000038</value>
   </data>
   <data name="payerAddressLabel.Text" xml:space="preserve">
     <value>payerAddressLabel</value>
@@ -355,10 +355,10 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>641.000244, 0</value>
+    <value>669.000244, 0</value>
   </data>
   <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>190, 34</value>
+    <value>185, 34</value>
   </data>
   <data name="xrLabel2.Text" xml:space="preserve">
     <value>Плательщик:</value>

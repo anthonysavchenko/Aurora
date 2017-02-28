@@ -1254,7 +1254,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     {
                                         CreationDateTime = _now,
                                         Account = _customer.Account,
-                                        Address = $"ул. {_building.StreetName}, {_building.BuildingNumber}, кв. {_customer.Apartment}",
+                                        Address =
+                                            string.IsNullOrEmpty(_customer.Apartment)
+                                            ? $"ул. {_building.StreetName}, {_building.BuildingNumber}"
+                                            : $"ул. {_building.StreetName}, {_building.BuildingNumber}, кв. {_customer.Apartment}",
                                         Owner =
                                             _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson
                                                 ? _customer.JuridicalPersonFullName

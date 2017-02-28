@@ -123,7 +123,7 @@
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="ReceiptSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 0</value>
+    <value>0, 30</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ReceiptSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
@@ -133,7 +133,7 @@
     <value>254</value>
   </data>
   <data name="cutLine.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 700</value>
+    <value>0, 760</value>
   </data>
   <data name="cutLine.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>1990, 6</value>
@@ -142,7 +142,7 @@
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>706</value>
+    <value>766</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

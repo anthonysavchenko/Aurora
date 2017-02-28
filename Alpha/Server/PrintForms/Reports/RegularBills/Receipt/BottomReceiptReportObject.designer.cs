@@ -200,7 +200,6 @@
             this.payerAddressLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.payerAddressLabel.StylePriority.UseFont = false;
             this.payerAddressLabel.StylePriority.UseTextAlignment = false;
-            this.payerAddressLabel.WordWrap = false;
             // 
             // xrLabel5
             // 

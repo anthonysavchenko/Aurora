@@ -123,11 +123,11 @@
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="ButtomReceiptSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 720</value>
+    <value>0, 405</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ButtomReceiptSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 714</value>
+    <value>1998, 340</value>
   </data>
   <data name="TopReceiptSubreport.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -136,13 +136,13 @@
     <value>0, 0</value>
   </data>
   <data name="TopReceiptSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 714</value>
+    <value>1998, 340</value>
   </data>
   <data name="xrLine1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrLine1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 714</value>
+    <value>0, 370</value>
   </data>
   <data name="xrLine1.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>1998, 6</value>
@@ -151,7 +151,7 @@
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>1434</value>
+    <value>745</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
