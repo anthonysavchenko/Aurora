@@ -117,13 +117,16 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
                     result.Balances.Add(lastChargedPeriod, new ServiceBalances());
                 }
 
-                ServiceBalances _lastServiceBalance =
-                    periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Charge > 0);
+                bool _distributeByCharge = true;
+                ServiceBalances _lastServiceBalance = periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Charge > 0);
 
-                if (_lastServiceBalance != null)
+                if (_lastServiceBalance == null)
                 {
-                    Distribute(paymentValue, _lastServiceBalance, result.Balances[lastChargedPeriod], true);
+                    _lastServiceBalance = periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Total > 0);
+                    _distributeByCharge = false;
                 }
+
+                Distribute(paymentValue, _lastServiceBalance, result.Balances[lastChargedPeriod], _distributeByCharge);
             }
         }
 
