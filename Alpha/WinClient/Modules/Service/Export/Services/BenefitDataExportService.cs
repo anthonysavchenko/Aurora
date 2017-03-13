@@ -66,23 +66,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         #endregion
 
-        private const string MAINTANCE_SERVICE_TYPE_STR = "С";
-        private const string PP_COLD_WATER_SERVICE_TYPE_STR = "Х";
-        private const string PP_HOT_WATER_SERVICE_TYPE_STR = "Г";
-        private const string PP_ELECTRICITY_WATER_SERVICE_TYPE_STR = "Э";
+        private const string REPAIR_SERVICE_TYPE_STR = "К";
 
-        private const int MAINTANCE_SERVICE_TYPE_ID = 36;
-        private const int PP_COLD_WATER_SERVICE_TYPE_ID = 38;
-        private const int PP_HOT_WATER_SERVICE_TYPE_ID = 35;
-        private const int PP_ELECTRICITY_WATER_SERVICE_TYPE_ID = 39;
+        private const int REPAIR_SERVICE_TYPE_ID = 1;
 
         private readonly int[] _serivceTypeIDs =
             new[]
             {
-                MAINTANCE_SERVICE_TYPE_ID,
-                PP_COLD_WATER_SERVICE_TYPE_ID,
-                PP_HOT_WATER_SERVICE_TYPE_ID,
-                PP_ELECTRICITY_WATER_SERVICE_TYPE_ID
+                REPAIR_SERVICE_TYPE_ID
             };
 
         private class ServiceTypeData
@@ -145,14 +136,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
             switch (_firstLetter)
             {
-                case MAINTANCE_SERVICE_TYPE_STR:
-                    return MAINTANCE_SERVICE_TYPE_ID;
-                case PP_COLD_WATER_SERVICE_TYPE_STR:
-                    return PP_COLD_WATER_SERVICE_TYPE_ID;
-                case PP_HOT_WATER_SERVICE_TYPE_STR:
-                    return PP_HOT_WATER_SERVICE_TYPE_ID;
-                case PP_ELECTRICITY_WATER_SERVICE_TYPE_STR:
-                    return PP_ELECTRICITY_WATER_SERVICE_TYPE_ID;
+                case REPAIR_SERVICE_TYPE_STR:
+                    return REPAIR_SERVICE_TYPE_ID;
                 default:
                     return null;
             }
