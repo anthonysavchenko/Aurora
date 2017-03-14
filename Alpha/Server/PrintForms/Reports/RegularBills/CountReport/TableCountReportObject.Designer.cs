@@ -120,7 +120,7 @@
             this.xrTableCell11.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
             this.xrTableCell11.StylePriority.UseFont = false;
             this.xrTableCell11.StylePriority.UseTextAlignment = false;
-            this.xrTableCell11.Weight = 0.44774100857377724D;
+            this.xrTableCell11.Weight = 0.42389696606790223D;
             // 
             // xrTableCell12
             // 
@@ -131,7 +131,7 @@
             this.xrTableCell12.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
             this.xrTableCell12.StylePriority.UseFont = false;
             this.xrTableCell12.StylePriority.UseTextAlignment = false;
-            this.xrTableCell12.Weight = 0.30467613046255876D;
+            this.xrTableCell12.Weight = 0.31792272866223636D;
             // 
             // xrTableCell13
             // 
@@ -142,7 +142,7 @@
             this.xrTableCell13.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
             this.xrTableCell13.StylePriority.UseFont = false;
             this.xrTableCell13.StylePriority.UseTextAlignment = false;
-            this.xrTableCell13.Weight = 0.30467577615200553D;
+            this.xrTableCell13.Weight = 0.31527322045820294D;
             // 
             // xrTableCell10
             // 
@@ -262,7 +262,7 @@
             this.xrTableCell1.StylePriority.UseBorders = false;
             this.xrTableCell1.StylePriority.UseFont = false;
             this.xrTableCell1.StylePriority.UseTextAlignment = false;
-            this.xrTableCell1.Weight = 0.4477411702776361D;
+            this.xrTableCell1.Weight = 0.42389696606790223D;
             // 
             // xrTableCell2
             // 
@@ -274,7 +274,7 @@
             this.xrTableCell2.StylePriority.UseBorders = false;
             this.xrTableCell2.StylePriority.UseFont = false;
             this.xrTableCell2.StylePriority.UseTextAlignment = false;
-            this.xrTableCell2.Weight = 0.30467594854571722D;
+            this.xrTableCell2.Weight = 0.31792272866223603D;
             this.xrTableCell2.WordWrap = false;
             // 
             // xrTableCell3
@@ -288,7 +288,7 @@
             this.xrTableCell3.StylePriority.UseBorders = false;
             this.xrTableCell3.StylePriority.UseFont = false;
             this.xrTableCell3.StylePriority.UseTextAlignment = false;
-            this.xrTableCell3.Weight = 0.30467593303179585D;
+            this.xrTableCell3.Weight = 0.31527335712501092D;
             this.xrTableCell3.WordWrap = false;
             // 
             // xrTableCell4

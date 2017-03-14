@@ -48,7 +48,6 @@
             this.xrTableRow5 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell17 = new DevExpress.XtraReports.UI.XRTableCell();
             this.totalChargeTableCell = new DevExpress.XtraReports.UI.XRTableCell();
-            this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.peopleCountLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel7 = new DevExpress.XtraReports.UI.XRLabel();
@@ -71,6 +70,7 @@
             this.CustId = new DevExpress.XtraReports.Parameters.Parameter();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -298,14 +298,6 @@
             this.totalChargeTableCell.Summary = xrSummary2;
             this.totalChargeTableCell.Weight = 0.47065701117926467D;
             // 
-            // serviceTableSubreport
-            // 
-            this.serviceTableSubreport.CanShrink = true;
-            resources.ApplyResources(this.serviceTableSubreport, "serviceTableSubreport");
-            this.serviceTableSubreport.Id = 0;
-            this.serviceTableSubreport.Name = "serviceTableSubreport";
-            this.serviceTableSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.ServiceTableReportObject();
-            // 
             // xrLabel2
             // 
             resources.ApplyResources(this.xrLabel2, "xrLabel2");
@@ -498,6 +490,14 @@
             // 
             resources.ApplyResources(this.bottomMarginBand1, "bottomMarginBand1");
             this.bottomMarginBand1.Name = "bottomMarginBand1";
+            // 
+            // serviceTableSubreport
+            // 
+            this.serviceTableSubreport.CanShrink = true;
+            resources.ApplyResources(this.serviceTableSubreport, "serviceTableSubreport");
+            this.serviceTableSubreport.Id = 0;
+            this.serviceTableSubreport.Name = "serviceTableSubreport";
+            this.serviceTableSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.ServiceTableReportObject();
             // 
             // TopReceiptReportObject
             // 
