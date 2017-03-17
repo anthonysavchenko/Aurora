@@ -129,6 +129,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         }
 
         /// <summary>
+        /// Отапливаемая площадь
+        /// </summary>
+        public decimal HeatedArea
+        {
+            set
+            {
+                heatedAreaTextBox.Text = value.ToString("0.00");
+            }
+        }
+
+        /// <summary>
         /// Площадь нежлых помещений
         /// </summary>
         public decimal NonResidentialPlaceArea

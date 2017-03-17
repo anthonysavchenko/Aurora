@@ -42,6 +42,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         decimal Area { set; }
 
         /// <summary>
+        /// Отапливаемая площадь
+        /// </summary>
+        decimal HeatedArea { set; }
+
+        /// <summary>
         /// Площадь нежлых помещений
         /// </summary>
         decimal NonResidentialPlaceArea { get; set; }

@@ -45,6 +45,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
             if (_domItem.IsNew)
             {
                 View.Area = 0;
+                View.HeatedArea = 0;
+                View.ResindentsCount = 0;
             }
             else
             {
@@ -57,7 +59,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
                             .Where(c => 
                                 c.Buildings.ID == _id &&
                                 _entities.CustomerPoses.Any(p => p.Customers.ID == c.ID && p.Till >= _period))
-                                .Sum(c => (decimal?)c.Square) ?? 0;
+                            .Sum(c => (decimal?)c.Square) ?? 0;
+
+                    View.HeatedArea =
+                        _entities.Customers
+                            .Where(c =>
+                                c.Buildings.ID == _id &&
+                                _entities.CustomerPoses.Any(p => p.Customers.ID == c.ID && p.Till >= _period))
+                            .Sum(c => (decimal?)c.HeatedArea) ?? 0;
 
                     View.ResindentsCount =
                         _entities.Residents
