@@ -1055,7 +1055,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     var _counter = _commonCountersByService[_customerPos.ServiceID];
                                                     decimal _prevValue = _counter.PrevValue?.Value ?? 0;
                                                     decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                    _chargeValue = _consumption * _customerPos.Rate * _customer.Square / _building.Area;
+                                                    decimal _rate = Math.Round(_consumption * _customerPos.Rate / _building.Area, 2, MidpointRounding.AwayFromZero);
+                                                    _chargeValue = _rate * _customer.Square;
+                                                    // Заменяем тариф для внесения в квитанцию
+                                                    _customerPos.Rate = _rate;
+                                                }
+                                                else
+                                                {
+                                                    _customerPos.Rate = 0;
                                                 }
                                                 break;
 
@@ -1065,7 +1072,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     var _counter = _commonCountersByService[_customerPos.ServiceID];
                                                     decimal _prevValue = _counter.PrevValue?.Value ?? 0;
                                                     decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                    _chargeValue = _consumption * _customerPos.Rate * _customer.HeatedArea / _building.HeatedArea;
+                                                    decimal _rate = Math.Round(_consumption * _customerPos.Rate / _building.HeatedArea, 2, MidpointRounding.AwayFromZero);
+                                                    _chargeValue = _rate * _customer.HeatedArea;
+                                                    // Заменяем тариф для внесения в квитанцию
+                                                    _customerPos.Rate = _rate;
+                                                }
+                                                else
+                                                {
+                                                    _customerPos.Rate = 0;
                                                 }
                                                 break;
 
@@ -1075,8 +1089,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         .FirstOrDefault(pp => pp.ServiceID == _service.ID);
                                                     if (_pp != null && _service.Norm.HasValue && _building.Area > 0)
                                                     {
-                                                        decimal _rate = 
-                                                            Math.Round(_service.Norm.Value * _pp.Area / _building.Area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                        decimal _rate = Math.Round(_service.Norm.Value * _pp.Area / _building.Area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                         _chargeValue = _customer.Square * _rate;
                                                         // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                         _customerPos.Rate = _rate;
@@ -1794,7 +1807,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             var _counter = _commonCountersByService[_customerPos.ServiceID];
                                             decimal _prevValue = _counter.PrevValue?.Value ?? 0;
                                             decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                            _value = _consumption * _customerPos.Rate * _customer.Square / _buildingArea;
+                                            decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingArea, 2, MidpointRounding.AwayFromZero);
+                                            _value = _rate * _customer.Square;
                                         }
                                         break;
 
@@ -1804,7 +1818,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             var _counter = _commonCountersByService[_customerPos.ServiceID];
                                             decimal _prevValue = _counter.PrevValue?.Value ?? 0;
                                             decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                            _value = _consumption * _customerPos.Rate * _customer.HeatedArea / _buildingHeatedArea;
+                                            decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingHeatedArea, 2, MidpointRounding.AwayFromZero);
+                                            _value = _rate * _customer.HeatedArea;
                                         }
                                         break;
 
@@ -2221,7 +2236,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 var _counter = _commonCountersByService[_customerPos.ServiceID];
                                                 decimal _prevValue = _counter.PrevValue?.Value ?? 0;
                                                 decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                _value = _consumption * _customerPos.Rate * _customer.Square / _buildingArea;
+                                                decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingArea, 2, MidpointRounding.AwayFromZero);
+                                                _value = _rate * _customer.Square;
                                             }
                                             break;
 
@@ -2231,7 +2247,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 var _counter = _commonCountersByService[_customerPos.ServiceID];
                                                 decimal _prevValue = _counter.PrevValue?.Value ?? 0;
                                                 decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                _value = _consumption * _customerPos.Rate * _customer.HeatedArea / _buildingHeatedArea;
+                                                decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingHeatedArea, 2, MidpointRounding.AwayFromZero);
+                                                _value = _rate * _customer.HeatedArea;
                                             }
                                             break;
 
