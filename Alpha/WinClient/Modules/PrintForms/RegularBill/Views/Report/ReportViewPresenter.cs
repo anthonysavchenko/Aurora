@@ -202,7 +202,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.BankDetails.BIK,
                                 _bill.BankDetails.CorrAccount,
                                 _bill.BankDetails.INN,
-                                "Квартплата",
+                                "Капремонт",
                                 _bill.Account, 
                                 _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
                                     ? _bill.FullName
