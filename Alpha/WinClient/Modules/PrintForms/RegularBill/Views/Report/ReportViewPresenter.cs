@@ -192,6 +192,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                             string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
                             string _qrCode = BillService.GenerateQrCodeString(
+                                "ООО \"УК Фрунзенского района\"",
+                                _bill.BankDetails.Account,
+                                _bill.BankDetails.Name,
+                                _bill.BankDetails.BIK,
+                                _bill.BankDetails.CorrAccount,
+                                _bill.BankDetails.INN,
+                                "Квартплата",
                                 _bill.Account, 
                                 _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
                                     ? _bill.FullName
