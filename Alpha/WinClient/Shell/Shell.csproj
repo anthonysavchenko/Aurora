@@ -37,7 +37,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PublishUrl>..\Build\Bin\Deploy\</PublishUrl>
+    <PublishUrl>..\Build\Bin\Deploy\aurora\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
