@@ -1670,35 +1670,30 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         contractor => contractor.ID,
                                         contractor => contractor);
 
-                            decimal _buildingArea;
-                            if (_buidingAreaDict.ContainsKey(_customer.BuildingID))
+                            if (!_buidingAreaDict.ContainsKey(_customer.BuildingID))
                             {
-                                _buildingArea = _buidingAreaDict[_customer.BuildingID];
-                            }
-                            else
-                            {
-                                _buildingArea = _db.Customers
-                                    .Where(c =>
-                                        c.Buildings.ID == _customer.BuildingID &&
-                                        c.CustomerPoses.Any(p => p.Till >= _period))
-                                    .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea;
-                                _buidingAreaDict.Add(_customer.BuildingID, _buildingArea);
-                            }
+                                _buidingAreaDict.Add(
+                                    _customer.BuildingID,
+                                    _db.Customers
+                                        .Where(c =>
+                                            c.Buildings.ID == _customer.BuildingID &&
+                                            c.CustomerPoses.Any(p => p.Till >= _period))
+                                        .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea);
 
-                            decimal _buildingHeatedArea;
-                            if (_buidingHeatedAreaDict.ContainsKey(_customer.BuildingID))
-                            {
-                                _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
                             }
-                            else
+                            decimal _buildingArea = _buidingAreaDict[_customer.BuildingID];
+
+                            if (!_buidingHeatedAreaDict.ContainsKey(_customer.BuildingID))
                             {
-                                _buildingHeatedArea = _db.Customers
-                                    .Where(c =>
-                                        c.Buildings.ID == _customer.BuildingID &&
-                                        c.CustomerPoses.Any(p => p.Till >= _period))
-                                    .Sum(c => c.HeatedArea);
-                                _buidingHeatedAreaDict.Add(_customer.BuildingID, _buildingArea);
+                                _buidingHeatedAreaDict.Add(
+                                    _customer.BuildingID,
+                                    _db.Customers
+                                        .Where(c =>
+                                            c.Buildings.ID == _customer.BuildingID &&
+                                            c.CustomerPoses.Any(p => p.Till >= _period))
+                                        .Sum(c => c.HeatedArea));
                             }
+                            decimal _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
 
                             RechargeOpers _rechargeOper =
                                 new RechargeOpers
@@ -2143,35 +2138,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             contractor => contractor.ID,
                                             contractor => contractor);
 
-                                decimal _buildingArea;
-                                if (_buidingAreaDict.ContainsKey(_customer.BuildingID))
+                                if (!_buidingAreaDict.ContainsKey(_customer.BuildingID))
                                 {
-                                    _buildingArea = _buidingAreaDict[_customer.BuildingID];
+                                    _buidingAreaDict.Add(
+                                        _customer.BuildingID,
+                                        _db.Customers
+                                            .Where(c =>
+                                                c.Buildings.ID == _customer.BuildingID &&
+                                                c.CustomerPoses.Any(p => p.Till >= _period))
+                                            .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea);
                                 }
-                                else
-                                {
-                                    _buildingArea = _db.Customers
-                                        .Where(c =>
-                                            c.Buildings.ID == _customer.BuildingID &&
-                                            c.CustomerPoses.Any(p => p.Till >= _period))
-                                        .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea;
-                                    _buidingAreaDict.Add(_customer.BuildingID, _buildingArea);
-                                }
+                                decimal _buildingArea = _buidingAreaDict[_customer.BuildingID];
 
-                                decimal _buildingHeatedArea;
-                                if (_buidingHeatedAreaDict.ContainsKey(_customer.BuildingID))
+                                if (!_buidingHeatedAreaDict.ContainsKey(_customer.BuildingID))
                                 {
-                                    _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
+                                    _buidingHeatedAreaDict.Add(
+                                        _customer.BuildingID,
+                                        _db.Customers
+                                            .Where(c =>
+                                                c.Buildings.ID == _customer.BuildingID &&
+                                                c.CustomerPoses.Any(p => p.Till >= _period))
+                                            .Sum(c => c.HeatedArea));
                                 }
-                                else
-                                {
-                                    _buildingHeatedArea = _db.Customers
-                                        .Where(c =>
-                                            c.Buildings.ID == _customer.BuildingID &&
-                                            c.CustomerPoses.Any(p => p.Till >= _period))
-                                        .Sum(c => c.HeatedArea);
-                                    _buidingHeatedAreaDict.Add(_customer.BuildingID, _buildingArea);
-                                }
+                                decimal _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
 
                                 int[] _customerPosIDs = _customerPoses.Select(p => p.ID).ToArray();
 
