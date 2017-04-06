@@ -436,7 +436,7 @@
     <value>454.000061, 0</value>
   </data>
   <data name="payerAccountLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>214.999756, 34</value>
+    <value>720.000061, 34</value>
   </data>
   <data name="payerAccountLabel.Text" xml:space="preserve">
     <value>payerAccountLabel</value>
@@ -469,10 +469,10 @@
     <value>Tahoma, 7pt</value>
   </data>
   <data name="printDateLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>153, 0</value>
+    <value>153.000015, 0</value>
   </data>
   <data name="printDateLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>128.70842, 34.0000076</value>
+    <value>150, 34.0000076</value>
   </data>
   <data name="printDateLabel.Text" xml:space="preserve">
     <value>printDateLabel</value>

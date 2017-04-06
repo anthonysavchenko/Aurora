@@ -46,7 +46,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
                 _builder.AppendLine(bankDetail.Name);
             }
 
-            _builder.Append("Телефон бухгалтерии 241-11-43, +7-914-714-33-05");
+            _builder.Append("Телефон бухгалтерии 241-11-43");
             /*_builder.Append(
                 $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72, адрес: Рылеева, 8");*/
 

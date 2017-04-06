@@ -22,7 +22,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
         /// <param name="password">Пароль</param>
         public void SendCredentials(string customerEmail, string customerName, string password)
         {
-            try
+            /*try
             {
                 MailMessage _mailMsg = new MailMessage();
                 SmtpSettings _set = SettingsSrv.GetSmtpSettings();
@@ -92,7 +92,7 @@ Qvitex.ru - сервис для управляющих организаций и
                 string _errMsg = string.Format("Не удалось отправить Email на {0}", customerEmail);
                 Logger.SimpleWrite(_errMsg + " " + _ex);
                 throw new ApplicationException(_errMsg, _ex);
-            }
+            }*/
         }
 
         public void SendRegularBills(MemoryStream pdf, string customerEmail, string customerName, DateTime period)
@@ -105,48 +105,35 @@ Qvitex.ru - сервис для управляющих организаций и
                 _mailMsg.To.Add(new MailAddress(customerEmail, customerName));
                 _mailMsg.From = new MailAddress(_set.SenderEmail, _set.SenderName);
 
-                _mailMsg.Subject = string.Format("Квитанция за {0:MMMM yyyy}", period);
+                _mailMsg.Subject = $"Квитанция за {period:MMMM yyyy}";
 
-                string _plainText =
-                    string.Format(
-@"Уважаемый абонент!
+                string _plainText = $@"Уважаемый абонент!
 
-Ваша квитанция за {0:MMMM yyyy} года находится в приложении к этому письму.
+Ваша квитанция за {period:MMMM yyyy} года находится в приложении к этому письму.
 Если у Вас возникли вопросы, Вы можете обратиться абонентский отдел Вашей управляющей организации: 
-ООО ""Управляющая компания Фрунзенского района"", г. Владивосток, ул. Рылеева, д. 8; +7 (423) 230-27-72.
+ТСЖ ""Инженерный"", г. Владивосток, ул. Инженерный переулок, д. 14а; +7 (423) 241-11-43.
 
-Чтобы открыть личный кабинет, перейдите по ссылке: www.qvitex.ru
+Это письмо создано автоматически и не требует ответа!";
 
-Это письмо создано автоматически и не требует ответа!
-
-Qvitex.ru - сервис для управляющих организаций и их абонентов", 
-                        period);
-
-                string _htmlText =
-                    string.Format(
-@"<!DOCTYPE html>
+                string _htmlText = $@"<!DOCTYPE html>
 <html>
     <body>
         <p>Уважаемый абонент!</p>
-        <p>Ваша квитанция за {0:MMMM yyyy} года находится в приложении к этому письму.</p>
+        <p>Ваша квитанция за {period:MMMM yyyy} года находится в приложении к этому письму.</p>
         <p>
             Если у Вас возникли вопросы, Вы можете обратиться абонентский отдел Вашей управляющей организации: 
-            ООО ""Управляющая компания Фрунзенского района"", г. Владивосток, ул. Рылеева, д. 8; +7 (423) 230-27-72.
+            ТСЖ ""Инженерный"", г. Владивосток, ул. Инженерный переулок, д. 14а; +7 (423) 241-11-43.
         </p>
-        <p>Чтобы открыть личный кабинет, перейдите по <a href=""http://www.qvitex.ru/"">ссылке</a>.</p>
 		<strong>Это письмо создано автоматически и не требует ответа!</strong>
-        <br />
-        <p><a href=""http://www.qvitex.ru/"">Qvitex.ru</a> - сервис для управляющих организаций и их абонентов</p>
     </body>
-</html>",
-                        period);
+</html>";
 
                 _mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(_plainText, null, MediaTypeNames.Text.Plain));
                 _mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(_htmlText, null, MediaTypeNames.Text.Html));
 
                 ContentType _ct = new ContentType(MediaTypeNames.Application.Pdf);
                 Attachment _attachment = new Attachment(pdf, _ct);
-                _attachment.ContentDisposition.FileName = string.Format("bill_{0:MM-yyyy}.pdf", period);
+                _attachment.ContentDisposition.FileName = $"bill_{period:MM-yyyy}.pdf";
                 _mailMsg.Attachments.Add(_attachment);
 
 

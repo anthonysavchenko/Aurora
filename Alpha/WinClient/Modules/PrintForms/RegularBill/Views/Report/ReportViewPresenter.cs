@@ -108,7 +108,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     DataTable _chargeDataTable = _data.Tables["ChargeData"];
                     DataTable _counterDataTable = _data.Tables["CounterData"];
                     DataTable _sharedCounterDataTable = _data.Tables["SharedCounterData"];
-                    DateTime _now = ServerTime.GetDateTimeInfo().Now;
+                    DateTime _now = ServerTime.GetDateTimeInfo().Now.Date;
 
                     using (Entities _entities = new Entities())
                     {
@@ -206,7 +206,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.CustomerID,
                                 _now.ToString("dd.MM.yyyy"),
                                 _bill.Period.ToString("MMMM yyyy (MM.yy)"),
-                                new DateTime(_bill.Period.Year, _bill.Period.Month, 10).AddMonths(1).ToString("dd.MM.yyyy"),
+                                _now.AddDays(10).ToString("dd.MM.yyyy"),
                                 _bill.Account,
                                 _bill.Owner,
                                 _bill.Address,
@@ -331,34 +331,43 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
             int _customerID = (int)_row["CustomerID"];
 
-            var _chargeRows =
-                _data.Tables["ChargeData"].AsEnumerable().Where(r => (int)r["CustomerID"] == _customerID);
-
-            foreach (DataRow _chargeRow in _chargeRows)
+            if (_data.Tables["ChargeData"] != null)
             {
-                DataRow _newChargeRow = _chargeDataTable.NewRow();
-                _newChargeRow.ItemArray = _chargeRow.ItemArray;
-                _chargeDataTable.Rows.Add(_newChargeRow);
+                var _chargeRows =
+                    _data.Tables["ChargeData"].AsEnumerable().Where(r => (int) r["CustomerID"] == _customerID);
+
+                foreach (DataRow _chargeRow in _chargeRows)
+                {
+                    DataRow _newChargeRow = _chargeDataTable.NewRow();
+                    _newChargeRow.ItemArray = _chargeRow.ItemArray;
+                    _chargeDataTable.Rows.Add(_newChargeRow);
+                }
             }
 
-            var _counterRows =
-                _data.Tables["CounterData"].AsEnumerable().Where(r => (int)r["CustomerID"] == _customerID);
-
-            foreach (DataRow _counterRow in _counterRows)
+            if (_data.Tables["CounterData"] != null)
             {
-                DataRow _newCounterRow = _counterDataTable.NewRow();
-                _newCounterRow.ItemArray = _counterRow.ItemArray;
-                _counterDataTable.Rows.Add(_newCounterRow);
+                var _counterRows =
+                    _data.Tables["CounterData"].AsEnumerable().Where(r => (int) r["CustomerID"] == _customerID);
+
+                foreach (DataRow _counterRow in _counterRows)
+                {
+                    DataRow _newCounterRow = _counterDataTable.NewRow();
+                    _newCounterRow.ItemArray = _counterRow.ItemArray;
+                    _counterDataTable.Rows.Add(_newCounterRow);
+                }
             }
 
-            var _sharedCounterRows =
-                _data.Tables["SharedCounterData"].AsEnumerable().Where(r => (int)r["CustomerID"] == _customerID);
-
-            foreach (DataRow _sharedCounterRow in _sharedCounterRows)
+            if (_data.Tables["SharedCounterData"] != null)
             {
-                DataRow _newSharedCounterRow = _sharedCounterDataTable.NewRow();
-                _newSharedCounterRow.ItemArray = _sharedCounterRow.ItemArray;
-                _sharedCounterDataTable.Rows.Add(_newSharedCounterRow);
+                var _sharedCounterRows =
+                    _data.Tables["SharedCounterData"].AsEnumerable().Where(r => (int) r["CustomerID"] == _customerID);
+
+                foreach (DataRow _sharedCounterRow in _sharedCounterRows)
+                {
+                    DataRow _newSharedCounterRow = _sharedCounterDataTable.NewRow();
+                    _newSharedCounterRow.ItemArray = _sharedCounterRow.ItemArray;
+                    _sharedCounterDataTable.Rows.Add(_newSharedCounterRow);
+                }
             }
 
             return _dataSet;
