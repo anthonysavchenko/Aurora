@@ -166,7 +166,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
                 {
                     (int)Service.ChargeRuleType.CounterRate,
                     (int)Service.ChargeRuleType.CommonCounterByAreaRate,
-                    (int)Service.ChargeRuleType.CommonCounterByHeatedAreaRate
+                    (int)Service.ChargeRuleType.CommonCounterByHeatedAreaRate,
+                    (int)Service.ChargeRuleType.CommonCounterByAssignedCustomerAreaRate
                 };
 
             using (Entities _entities = new Entities())

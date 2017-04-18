@@ -1,9 +1,12 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
+using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 //using BaseItemView = System.Windows.Forms.UserControl;
 
@@ -31,6 +34,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         public ItemView()
         {
             InitializeComponent();
+            Dictionary<byte, string> _chargeRuleDict =
+                new Dictionary<byte, string>
+                {
+                    { (byte)ChargeRuleType.FixedRate, "Фиксированное" },
+                    { (byte)ChargeRuleType.SquareRate, "По тарифу за кв. м" },
+                    { (byte)ChargeRuleType.ResidentsRate, "По тарифу на количество жильцов" },
+                    { (byte)ChargeRuleType.CounterRate, "По счетчику" },
+                    { (byte)ChargeRuleType.CommonCounterByAreaRate, "По общему счетчику пропорционально общей площади" },
+                    { (byte)ChargeRuleType.CommonCounterByHeatedAreaRate, "По общему счетчику пропорционально отапливаемой площади" },
+                    { (byte)ChargeRuleType.CommonCounterByAssignedCustomerAreaRate, "По общему счетчику пропорционально сумме площадей абонентов, которым назначена услуга" },
+                    { (byte)ChargeRuleType.PublicPlaceAreaRate, "Содержание общедового имущества (СОД)" },
+                    { (byte)ChargeRuleType.PublicPlaceBankCommission, "Банковская комиссия расходов при СОД" }
+                };
+
+            chargeRuleComboBox.DataSource = new BindingSource(_chargeRuleDict, null);
+            chargeRuleComboBox.DisplayMember = "Value";
+            chargeRuleComboBox.ValueMember = "Key";
         }
 
         #region Implementation of IItemView
@@ -94,91 +114,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <summary>
         /// Правило начисления
         /// </summary>
-        public Service.ChargeRuleType ChargeRule
+        public ChargeRuleType ChargeRule
         {
             get
             {
-                if (fixedRuleRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.FixedRate;
-                }
-
-                if (ResidentsRateRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.ResidentsRate;
-                }
-
-                if (squareRuleRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.SquareRate;
-                }
-
-                if(counterRuleRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.CounterRate;
-                }
-
-                if (publicPlaceRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.PublicPlaceAreaRate;
-                }
-
-                if (publicPlaceBankCommissionRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.PublicPlaceBankCommission;
-                }
-
-                if (commonCounterByAreaRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.CommonCounterByAreaRate;
-                }
-
-                if (commonCounterByHeatedAreaRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.CommonCounterByHeatedAreaRate;
-                }
-
-                throw new ApplicationException("Не выбрано правило начисления");
+                return (ChargeRuleType)chargeRuleComboBox.SelectedValue;
             }
             set
             {
-                switch (value)
-                {
-                    case Service.ChargeRuleType.FixedRate:
-                        fixedRuleRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.SquareRate:
-                        squareRuleRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.ResidentsRate:
-                        ResidentsRateRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.CounterRate:
-                        counterRuleRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.PublicPlaceAreaRate:
-                        publicPlaceRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.PublicPlaceBankCommission:
-                        publicPlaceBankCommissionRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.CommonCounterByAreaRate:
-                        commonCounterByAreaRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
-                        commonCounterByHeatedAreaRadioButton.Checked = true;
-                        break;
-
-                    default:
-                        throw  new ApplicationException("Неизвестный тип правила начисления");
-                }
+                chargeRuleComboBox.SelectedValue = (byte)value;
             }
         }
 
@@ -213,15 +157,5 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         }
 
         #endregion
-
-        private void counterRuleRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            Presenter.CheckForCounters(counterRuleRadioButton.Checked);
-        }
-
-        private void publicPlaceRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            Presenter.CheckPublicPlacesOnSave(publicPlaceRadioButton.Checked);
-        }
     }
 }

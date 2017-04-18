@@ -47,7 +47,12 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             /// <summary>
             /// Начисление по общему счетчику пропорционально отапливаемой площади помещения
             /// </summary>
-            CommonCounterByHeatedAreaRate
+            CommonCounterByHeatedAreaRate,
+
+            /// <summary>
+            /// Начисление по общему счетчику пропорционально сумме площадей абонентов, которым назначена услуга
+            /// </summary>
+            CommonCounterByAssignedCustomerAreaRate
         }
 
         private string _name;

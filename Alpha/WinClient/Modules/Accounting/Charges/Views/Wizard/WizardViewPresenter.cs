@@ -567,6 +567,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 int _resultCount = 0;
                 decimal _totalSum = 0;
 
+                Dictionary<int, Dictionary<int, decimal>> _areaByServiceAndBuilding = new Dictionary<int, Dictionary<int, decimal>>();
+
                 using (Entities _db = new Entities())
                 {
                     _zipCodes = _db.Buildings
@@ -737,7 +739,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     List<RegularBillDocCounterPoses> _counterBillPoses = new List<RegularBillDocCounterPoses>();
                                     List<RegularBillDocSharedCounterPoses> _sharedCounterPoses = new List<RegularBillDocSharedCounterPoses>();
 
-                                    //Отдельная задача - хранить все готовые вычисления в данных по абонентам, и при начислении их просто копировать
+                                    // Отдельная задача - хранить все готовые вычисления в данных по абонентам, и при начислении их просто копировать
                                     decimal _benefitNormalSquare,
                                             _benefitSquare,
                                             _extraSquare;
@@ -1114,6 +1116,45 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     _customerPos.Rate = _rate;
                                                 }
                                                 break;
+
+                                            case Service.ChargeRuleType.CommonCounterByAssignedCustomerAreaRate:
+                                                decimal _serviceArea;
+
+                                                if (!_areaByServiceAndBuilding.ContainsKey(_customerPos.ServiceID))
+                                                {
+                                                    _areaByServiceAndBuilding.Add(_customerPos.ServiceID, new Dictionary<int, decimal>());
+                                                }
+
+                                                if (!_areaByServiceAndBuilding[_customerPos.ServiceID].ContainsKey(_building.BuildingID))
+                                                {
+                                                    _areaByServiceAndBuilding[_customerPos.ServiceID].Add(
+                                                        _building.BuildingID,
+                                                        _db.CustomerPoses
+                                                            .Where(p =>
+                                                                p.Customers.Buildings.ID == _building.BuildingID &&
+                                                                p.Services.ID == _customerPos.ServiceID)
+                                                            .GroupBy(p => new { p.Customers.ID, p.Customers.Square })
+                                                            .Select(p => p.Key.Square)
+                                                            .Sum());
+                                                }
+
+                                                _serviceArea = _areaByServiceAndBuilding[_customerPos.ServiceID][_building.BuildingID];
+
+                                                if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                                {
+                                                    var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                    decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                    decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                    decimal _rate = Math.Round(_consumption * _customerPos.Rate / _serviceArea, 2, MidpointRounding.AwayFromZero);
+                                                    _chargeValue = _rate * _customer.Square;
+                                                    // Заменяем тариф для внесения в квитанцию
+                                                    _customerPos.Rate = _rate;
+                                                }
+                                                else
+                                                {
+                                                    _customerPos.Rate = 0;
+                                                }
+                                                break;
                                         }
 
                                         if (_chargeValue > 0)
@@ -1444,6 +1485,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
             Dictionary<int, decimal> _buidingAreaDict = new Dictionary<int, decimal>();
             Dictionary<int, decimal> _buidingHeatedAreaDict = new Dictionary<int, decimal>();
+            Dictionary<int, Dictionary<int, decimal>> _areaByServiceAndBuilding = new Dictionary<int, Dictionary<int, decimal>>();
 
             while (_period <= _tillCorrectionPeriod)
             {
@@ -1844,6 +1886,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             _customerPos.Rate = _rate;
                                         }
                                         break;
+                                    case Service.ChargeRuleType.CommonCounterByAssignedCustomerAreaRate:
+                                        decimal _serviceArea;
+
+                                        if (!_areaByServiceAndBuilding.ContainsKey(_customerPos.ServiceID))
+                                        {
+                                            _areaByServiceAndBuilding.Add(_customerPos.ServiceID, new Dictionary<int, decimal>());
+                                        }
+
+                                        if(!_areaByServiceAndBuilding[_customerPos.ServiceID].ContainsKey(_customer.BuildingID))
+                                        {
+                                            _areaByServiceAndBuilding[_customerPos.ServiceID].Add(
+                                                _customer.BuildingID,
+                                                _db.CustomerPoses
+                                                    .Where(p => 
+                                                        p.Customers.Buildings.ID == _customer.BuildingID && 
+                                                        p.Services.ID == _customerPos.ServiceID)
+                                                    .GroupBy(p => new { p.Customers.ID, p.Customers.Square })
+                                                    .Select(p => p.Key.Square)
+                                                    .Sum());
+                                        }
+
+                                        _serviceArea = _areaByServiceAndBuilding[_customerPos.ServiceID][_customer.BuildingID];
+
+                                        if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                        {
+                                            var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                            decimal _rate = Math.Round(_consumption * _customerPos.Rate / _serviceArea, 2, MidpointRounding.AwayFromZero);
+                                            _value = _rate * _customer.Square;
+                                        }
+                                        break;
                                     case Service.ChargeRuleType.FixedRate:
                                     default:
                                         _value = _customerPos.Rate;
@@ -2071,6 +2145,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                 Dictionary<int, decimal> _buidingAreaDict = new Dictionary<int, decimal>();
                 Dictionary<int, decimal> _buidingHeatedAreaDict = new Dictionary<int, decimal>();
+                Dictionary<int, Dictionary<int, decimal>> _areaByServiceAndBuilding = new Dictionary<int, Dictionary<int, decimal>>();
 
                 foreach (KeyValuePair<int, decimal> _pair in _customerDebt)
                 {
@@ -2267,6 +2342,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 _value = _rate * _customer.Square;
                                                 // Заменяем тариф для внесения в квитанцию 
                                                 _customerPos.Rate = _rate;
+                                            }
+                                            break;
+                                        case Service.ChargeRuleType.CommonCounterByAssignedCustomerAreaRate:
+                                            decimal _serviceArea;
+
+                                            if (!_areaByServiceAndBuilding.ContainsKey(_customerPos.ServiceID))
+                                            {
+                                                _areaByServiceAndBuilding.Add(_customerPos.ServiceID, new Dictionary<int, decimal>());
+                                            }
+
+                                            if (!_areaByServiceAndBuilding[_customerPos.ServiceID].ContainsKey(_customer.BuildingID))
+                                            {
+                                                _areaByServiceAndBuilding[_customerPos.ServiceID].Add(
+                                                    _customer.BuildingID,
+                                                    _db.CustomerPoses
+                                                        .Where(p =>
+                                                            p.Customers.Buildings.ID == _customer.BuildingID &&
+                                                            p.Services.ID == _customerPos.ServiceID)
+                                                        .GroupBy(p => new { p.Customers.ID, p.Customers.Square })
+                                                        .Select(p => p.Key.Square)
+                                                        .Sum());
+                                            }
+
+                                            _serviceArea = _areaByServiceAndBuilding[_customerPos.ServiceID][_customer.BuildingID];
+
+                                            if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                            {
+                                                var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                decimal _rate = Math.Round(_consumption * _customerPos.Rate / _serviceArea, 2, MidpointRounding.AwayFromZero);
+                                                _value = _rate * _customer.Square;
                                             }
                                             break;
                                         case Service.ChargeRuleType.FixedRate:
