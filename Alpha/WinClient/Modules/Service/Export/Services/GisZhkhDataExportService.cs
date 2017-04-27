@@ -20,7 +20,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         #region Sheets & Columns
 
         private const string BASIC_SHEET = "Основные сведения";
-        private const string ROOM_SHEET = "Помещение";
+        private const string ROOM_SHEET = "Помещения";
 
         // BASIC_SHEET
 
@@ -72,7 +72,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         // ROOM_SHEET
 
         private const string ROOM_FIRST_COLUMN = "A";
-        private const string ROOM_LAST_COLUMN = "D";
+        private const string ROOM_LAST_COLUMN = "E";
 
         private const int ROOM_REC_NUM_INDEX = 0;
 
@@ -84,7 +84,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         /// <summary>
         /// Номер помещения
         /// </summary>
-        private const int APARTMENT_INDEX = 3;
+        private const int APARTMENT_INDEX = 4;
 
         #endregion
 

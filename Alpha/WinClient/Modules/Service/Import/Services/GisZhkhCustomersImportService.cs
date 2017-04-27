@@ -1,105 +1,147 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Library.Services;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 {
-    public class GisZhkhCustomersImportService : IGisZhkhCustomersImportService
+    public class GisZhkhCustomersImportService : IImportService
     {
         private const int FIRST_ROW_INDEX = 3;
+        private const string SHEET_NAME = "ЕЛС";
 
-        #region Sheets & Columns
-
-        private const string ACCOUNT_SHEET = "ЕЛС";
-
-        private const string ACCOUNT_FIRST_COLUMN = "A";
-        private const string ACCOUNT_LAST_COLUMN = "D";
-
-        /// <summary>
-        /// Номер ЛС
-        /// </summary>
-        private const int ACCOUNT_INDEX = 1;
-
-        /// <summary>
-        /// Идентификатор ЖКУ
-        /// </summary>
-        private const int GIS_ZHKH_ID_INDEX = 3;
-
-        #endregion
-
-        private class CustomerInfo
+        private class Columns
         {
+            public const int ACCOUNT = 2;
+            public const int GIS_ZHKH_ID = 4;
+        }
+
+        private class ParsedRow
+        {
+            public int RowNumber { get; set; }
             public string Account { get; set; }
             public string GisZhkhID { get; set; }
         }
 
-        #region Help Methods
+        #region Implementation of IGisZhkhDataImportService
 
-        private List<CustomerInfo> GetCustomerInfoList(ExcelSheet sheet)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
         {
-            object[,] _range = sheet.GetRange(ACCOUNT_FIRST_COLUMN, FIRST_ROW_INDEX, ACCOUNT_LAST_COLUMN, sheet.RowsCount);
-            List<CustomerInfo> _result = new List<CustomerInfo>();
+            string _resultMessage;
 
-            for (int i = 0; i < _range.GetLength(0); i++)
+            List<ParsedRow> _rows = ParseFile(inputFileName, reportProgressAction, out _resultMessage);
+
+            if(_rows != null && _rows.Count > 0)
             {
-                _result.Add(new CustomerInfo
-                {
-                    Account = (string)_range[i, ACCOUNT_INDEX],
-                    GisZhkhID = (string)_range[i, GIS_ZHKH_ID_INDEX]
-                });
+                Process(_rows, reportProgressAction, out _resultMessage);
             }
 
-            return _result;
+            return _resultMessage;
         }
-
-        private void UpdateCustomerZhkhIDs(List<CustomerInfo> customerInfos)
-        {
-            using (Entities _db = new Entities())
-            {
-                List<string> _accounts = customerInfos.Select(ci => ci.Account).ToList();
-                List<Customers> _customers = _db.Customers.Where(c => _accounts.Contains(c.Account)).ToList();
-
-                foreach (var _customer in _customers)
-                {
-                    CustomerInfo _customerInfo = customerInfos.FirstOrDefault(ci => ci.Account == _customer.Account);
-
-                    if (_customerInfo != null && _customer.GisZhkhID != _customerInfo.GisZhkhID)
-                    {
-                        _customer.GisZhkhID = _customerInfo.GisZhkhID;
-                    }
-                }
-
-                _db.SaveChanges();
-            }
-        } 
 
         #endregion
 
-        #region Implementation of IGisZhkhDataImportService
+        #region Help Methods
 
-        public string ProcessFile(string inputFileName)
+        private List<ParsedRow> ParseFile(string fileName, Action<int> reportProgressAction, out string resultMessage)
         {
-            string _result;
+            int _currentRow = FIRST_ROW_INDEX - 1;
+            List<ParsedRow> _rows = null;
 
             try
             {
-                using (ExcelSheet _sheet = new ExcelSheet(inputFileName, ACCOUNT_SHEET))
+                using (XLWorkbook _xwb = new XLWorkbook(fileName))
                 {
-                    var _customerInfos = GetCustomerInfoList(_sheet);
-                    UpdateCustomerZhkhIDs(_customerInfos);
+                    IXLWorksheet _xws = _xwb.Worksheet(SHEET_NAME);
+                    int _rowCount = _xws.LastRowUsed().RowNumber();
+                    _rows = new List<ParsedRow>(_rowCount);
+
+                    while (_currentRow < _rowCount)
+                    {
+                        _rows.Add(ParseRow(_xws.Row(++_currentRow)));
+                        reportProgressAction(_currentRow * 50 / _rowCount);
+                    }
                 }
-                _result = "Операция выполнена успешно";
+                resultMessage = string.Empty;
             }
             catch (Exception _ex)
             {
-                Logger.SimpleWrite($"GisZhkhDataImportService.ProcessFile() error: {_ex} {(_ex.InnerException?.ToString() ?? string.Empty)}");
-                _result = "Произошла ошибка. Операция не выполнена";
+                resultMessage = $"Не удалось прочитать строку {0}.\r\n\r\n{_ex.Message}";
+                Logger.SimpleWrite($"Не удалось прочитать строку {0}.\r\n\r\n{_ex}");
             }
 
-            return _result;
+            return _rows;
+        }
+
+        private ParsedRow ParseRow(IXLRow row)
+        {
+            return new ParsedRow
+            {
+                Account = row.Cell(Columns.ACCOUNT).GetString(),
+                GisZhkhID = row.Cell(Columns.GIS_ZHKH_ID).GetString()
+            };
+        }
+
+        private void Process(List<ParsedRow> rows, Action<int> reportProgressAction, out string resultMessage)
+        {
+            resultMessage = string.Empty;
+            StringBuilder _errors = new StringBuilder();
+            int _count = 1;
+            int _processedCount = 0;
+
+            List<string> _accounts = rows.Select(r => r.Account).ToList();
+            Dictionary<string, int> _customers;
+            using (Entities _db = new Entities())
+            {
+                _customers = _db.Customers
+                    .Where(c => _accounts.Contains(c.Account))
+                    .Select(c => 
+                        new
+                        {
+                            c.Account,
+                            c.ID
+                        })
+                    .ToDictionary(c => c.Account, c => c.ID);
+            }
+
+            foreach (ParsedRow _row in rows)
+            {
+                using (Entities _db = new Entities())
+                {
+                    try
+                    {
+                        if(_customers.ContainsKey(_row.Account))
+                        {
+                            Customers _customer = new Customers { ID = _customers[_row.Account] };
+                            _db.Customers.Attach(_customer);
+
+                            _customer.GisZhkhID = _row.GisZhkhID;
+                            _db.SaveChanges();
+                            _processedCount++;
+                        }
+                        else
+                        {
+                            _errors.AppendLine($"Строка {_row.RowNumber}: Не найден абонент с номером л/с {_row.Account}");
+                        }
+                    }
+                    catch (Exception _ex)
+                    {
+                        _errors.AppendLine($"Строка {_row.RowNumber}: Ошибка");
+                        Logger.SimpleWrite($"Произошла ошибка при импорте из ГИС ЖКХ. Строка {_row.RowNumber}: {_ex}");
+                    }
+                }
+
+                reportProgressAction(_count++ * 50 / rows.Count + 50);
+            }
+
+            string _processedMessage = $"\r\n\r\nОбработано {_processedCount} из {rows.Count}\r\n\r\n";
+
+            resultMessage = _errors.Length > 0
+                ? $"Импорт завершен с ошибками. {_processedMessage} Подробности:\r\n\r\n{_errors}"
+                : $"Импорт успешно завершен. {_processedMessage}";
         }
 
         #endregion

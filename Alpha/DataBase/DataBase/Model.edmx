@@ -492,8 +492,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="ServiceType" Type="int" Nullable="false" />
           <Property Name="ChargeRule" Type="tinyint" Nullable="false" />
           <Property Name="Norm" Type="decimal" Precision="9" Scale="3" />
@@ -2758,8 +2758,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
           <Property Name="ChargeRule" Type="Byte" Nullable="false" />
           <NavigationProperty Name="BenefitCorrectionOperPoses" Relationship="AlphaDataBaseModel.FK_BenefitCorrectionOperPoses_Services" FromRole="Services" ToRole="BenefitCorrectionOperPoses" />
           <NavigationProperty Name="BenefitOperPoses" Relationship="AlphaDataBaseModel.FK_BenefitOperPoses_Services" FromRole="Services" ToRole="BenefitOperPoses" />

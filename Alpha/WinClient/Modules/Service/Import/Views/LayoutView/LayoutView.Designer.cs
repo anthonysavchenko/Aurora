@@ -28,358 +28,198 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ImportButton = new System.Windows.Forms.Button();
-            this.BrowseButton = new System.Windows.Forms.Button();
-            this.FileTextEdit = new DevExpress.XtraEditors.TextEdit();
-            this.FileLabel = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.IsPrivateCheckEdit = new DevExpress.XtraEditors.CheckEdit();
-            this.RateSpinEdit = new DevExpress.XtraEditors.SpinEdit();
-            this.ContractorLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.ServiceLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.IsPrivateLabel = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.AddServicesForCustomersButton = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.ImportCustomersImportButton = new System.Windows.Forms.Button();
-            this.ImportCustomersFileTextEdit = new DevExpress.XtraEditors.TextEdit();
-            this.ImportCustomersBrowseButton = new System.Windows.Forms.Button();
+            this.ImportWizardControl = new DevExpress.XtraWizard.WizardControl();
+            this.ProcessingWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.smartPartPlaceholder1 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.gisZhkhProgressBar = new System.Windows.Forms.ProgressBar();
-            this.gisZhkhImportButton = new System.Windows.Forms.Button();
-            this.gisZhkhInputFileTextEdit = new DevExpress.XtraEditors.TextEdit();
-            this.label5 = new System.Windows.Forms.Label();
-            this.gisZhkhSelectInputFileButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.FileTextEdit.Properties)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.IsPrivateCheckEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RateSpinEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ContractorLookUpEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ServiceLookUpEdit.Properties)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportCustomersFileTextEdit.Properties)).BeginInit();
+            this.ProgressBarControl = new DevExpress.XtraEditors.ProgressBarControl();
+            this.progressProcentLabel = new System.Windows.Forms.Label();
+            this.ChooseMethodWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.importNewCustomersRadioButton = new System.Windows.Forms.RadioButton();
+            this.importGisZhkhCustomerIDsRadioButton = new System.Windows.Forms.RadioButton();
+            this.importCustomerPosesRadioButton = new System.Windows.Forms.RadioButton();
+            this.FileWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.filePathTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.selectFileButton = new System.Windows.Forms.Button();
+            this.FinishWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.resultTextBox = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ImportWizardControl)).BeginInit();
+            this.ImportWizardControl.SuspendLayout();
+            this.ProcessingWizardPage.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gisZhkhInputFileTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProgressBarControl.Properties)).BeginInit();
+            this.ChooseMethodWizardPage.SuspendLayout();
+            this.FileWizardPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.filePathTextEdit.Properties)).BeginInit();
+            this.FinishWizardPage.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ImportButton
+            // ImportWizardControl
             // 
-            this.ImportButton.Location = new System.Drawing.Point(443, 77);
-            this.ImportButton.Name = "ImportButton";
-            this.ImportButton.Size = new System.Drawing.Size(100, 23);
-            this.ImportButton.TabIndex = 33;
-            this.ImportButton.Text = "Импортировать";
-            this.ImportButton.UseVisualStyleBackColor = true;
-            this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
+            this.ImportWizardControl.CancelText = "Отмена";
+            this.ImportWizardControl.Controls.Add(this.ProcessingWizardPage);
+            this.ImportWizardControl.Controls.Add(this.ChooseMethodWizardPage);
+            this.ImportWizardControl.Controls.Add(this.FileWizardPage);
+            this.ImportWizardControl.Controls.Add(this.FinishWizardPage);
+            this.ImportWizardControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ImportWizardControl.FinishText = "Завершить";
+            this.ImportWizardControl.Location = new System.Drawing.Point(0, 0);
+            this.ImportWizardControl.Name = "ImportWizardControl";
+            this.ImportWizardControl.NextText = "&Далее>";
+            this.ImportWizardControl.Pages.AddRange(new DevExpress.XtraWizard.BaseWizardPage[] {
+            this.ChooseMethodWizardPage,
+            this.FileWizardPage,
+            this.ProcessingWizardPage,
+            this.FinishWizardPage});
+            this.ImportWizardControl.PreviousText = "< &Назад";
+            this.ImportWizardControl.Size = new System.Drawing.Size(1464, 879);
+            this.ImportWizardControl.Text = "Мастер импорта данных";
+            this.ImportWizardControl.UseAcceptButton = false;
+            this.ImportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ImportWizardControl_SelectedPageChanged);
+            this.ImportWizardControl.SelectedPageChanging += new DevExpress.XtraWizard.WizardPageChangingEventHandler(this.ImportWizardControl_SelectedPageChanging);
+            this.ImportWizardControl.CancelClick += new System.ComponentModel.CancelEventHandler(this.ImportWizardControl_FinishClick);
+            this.ImportWizardControl.FinishClick += new System.ComponentModel.CancelEventHandler(this.ImportWizardControl_FinishClick);
             // 
-            // BrowseButton
+            // ProcessingWizardPage
             // 
-            this.BrowseButton.Location = new System.Drawing.Point(443, 48);
-            this.BrowseButton.Name = "BrowseButton";
-            this.BrowseButton.Size = new System.Drawing.Size(100, 23);
-            this.BrowseButton.TabIndex = 34;
-            this.BrowseButton.Text = "Выбрать...";
-            this.BrowseButton.UseVisualStyleBackColor = true;
-            this.BrowseButton.Click += new System.EventHandler(this.BrowseButton_Click);
-            // 
-            // FileTextEdit
-            // 
-            this.FileTextEdit.Location = new System.Drawing.Point(6, 50);
-            this.FileTextEdit.Name = "FileTextEdit";
-            this.FileTextEdit.Properties.Mask.EditMask = "\\d+";
-            this.FileTextEdit.Properties.ReadOnly = true;
-            this.FileTextEdit.Size = new System.Drawing.Size(431, 20);
-            this.FileTextEdit.TabIndex = 32;
-            // 
-            // FileLabel
-            // 
-            this.FileLabel.AutoSize = true;
-            this.FileLabel.Location = new System.Drawing.Point(6, 35);
-            this.FileLabel.Name = "FileLabel";
-            this.FileLabel.Size = new System.Drawing.Size(228, 13);
-            this.FileLabel.TabIndex = 31;
-            this.FileLabel.Text = "Файл с таблицей адресов, услуг и тарифов";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.FileLabel);
-            this.groupBox1.Controls.Add(this.ImportButton);
-            this.groupBox1.Controls.Add(this.FileTextEdit);
-            this.groupBox1.Controls.Add(this.BrowseButton);
-            this.groupBox1.Location = new System.Drawing.Point(3, 128);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(554, 118);
-            this.groupBox1.TabIndex = 35;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Добавление услуг и тарифов по адресам";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.IsPrivateCheckEdit);
-            this.groupBox2.Controls.Add(this.RateSpinEdit);
-            this.groupBox2.Controls.Add(this.ContractorLookUpEdit);
-            this.groupBox2.Controls.Add(this.ServiceLookUpEdit);
-            this.groupBox2.Controls.Add(this.IsPrivateLabel);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.AddServicesForCustomersButton);
-            this.groupBox2.Location = new System.Drawing.Point(3, 252);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(554, 174);
-            this.groupBox2.TabIndex = 36;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Добавление услуг и тарифов всем абонентам";
-            // 
-            // IsPrivateCheckEdit
-            // 
-            this.IsPrivateCheckEdit.Location = new System.Drawing.Point(229, 110);
-            this.IsPrivateCheckEdit.Name = "IsPrivateCheckEdit";
-            this.IsPrivateCheckEdit.Properties.Caption = "";
-            this.IsPrivateCheckEdit.Size = new System.Drawing.Size(75, 19);
-            this.IsPrivateCheckEdit.TabIndex = 36;
-            // 
-            // RateSpinEdit
-            // 
-            this.RateSpinEdit.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.RateSpinEdit.Location = new System.Drawing.Point(231, 84);
-            this.RateSpinEdit.Name = "RateSpinEdit";
-            this.RateSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.RateSpinEdit.Properties.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.RateSpinEdit.Properties.MaxValue = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.RateSpinEdit.Size = new System.Drawing.Size(63, 20);
-            this.RateSpinEdit.TabIndex = 35;
-            // 
-            // ContractorLookUpEdit
-            // 
-            this.ContractorLookUpEdit.Location = new System.Drawing.Point(231, 58);
-            this.ContractorLookUpEdit.Name = "ContractorLookUpEdit";
-            this.ContractorLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ContractorLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ID", "ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Название")});
-            this.ContractorLookUpEdit.Properties.DisplayMember = "Name";
-            this.ContractorLookUpEdit.Properties.NullText = "<Введите значение>";
-            this.ContractorLookUpEdit.Properties.ValueMember = "ID";
-            this.ContractorLookUpEdit.Size = new System.Drawing.Size(312, 20);
-            this.ContractorLookUpEdit.TabIndex = 34;
-            // 
-            // ServiceLookUpEdit
-            // 
-            this.ServiceLookUpEdit.Location = new System.Drawing.Point(231, 32);
-            this.ServiceLookUpEdit.Name = "ServiceLookUpEdit";
-            this.ServiceLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ServiceLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ID", "ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Название")});
-            this.ServiceLookUpEdit.Properties.DisplayMember = "Name";
-            this.ServiceLookUpEdit.Properties.NullText = "<Введите значение>";
-            this.ServiceLookUpEdit.Properties.ValueMember = "ID";
-            this.ServiceLookUpEdit.Size = new System.Drawing.Size(312, 20);
-            this.ServiceLookUpEdit.TabIndex = 34;
-            // 
-            // IsPrivateLabel
-            // 
-            this.IsPrivateLabel.AutoSize = true;
-            this.IsPrivateLabel.Location = new System.Drawing.Point(6, 113);
-            this.IsPrivateLabel.Name = "IsPrivateLabel";
-            this.IsPrivateLabel.Size = new System.Drawing.Size(197, 13);
-            this.IsPrivateLabel.TabIndex = 31;
-            this.IsPrivateLabel.Text = "Только для квартир в собственности";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 87);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 13);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "Тариф";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
-            this.label3.TabIndex = 31;
-            this.label3.Text = "Подрядчик";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 31;
-            this.label1.Text = "Услуга";
-            // 
-            // AddServicesForCustomersButton
-            // 
-            this.AddServicesForCustomersButton.Location = new System.Drawing.Point(231, 135);
-            this.AddServicesForCustomersButton.Name = "AddServicesForCustomersButton";
-            this.AddServicesForCustomersButton.Size = new System.Drawing.Size(100, 23);
-            this.AddServicesForCustomersButton.TabIndex = 33;
-            this.AddServicesForCustomersButton.Text = "Добавить";
-            this.AddServicesForCustomersButton.UseVisualStyleBackColor = true;
-            this.AddServicesForCustomersButton.Click += new System.EventHandler(this.AddServicesForCustomersButton_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.ImportCustomersImportButton);
-            this.groupBox3.Controls.Add(this.ImportCustomersFileTextEdit);
-            this.groupBox3.Controls.Add(this.ImportCustomersBrowseButton);
-            this.groupBox3.Location = new System.Drawing.Point(3, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(554, 119);
-            this.groupBox3.TabIndex = 36;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Добавление абонентов";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(151, 13);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "Файл с таблицей абонентов";
-            // 
-            // ImportCustomersImportButton
-            // 
-            this.ImportCustomersImportButton.Location = new System.Drawing.Point(443, 77);
-            this.ImportCustomersImportButton.Name = "ImportCustomersImportButton";
-            this.ImportCustomersImportButton.Size = new System.Drawing.Size(100, 23);
-            this.ImportCustomersImportButton.TabIndex = 33;
-            this.ImportCustomersImportButton.Text = "Импортировать";
-            this.ImportCustomersImportButton.UseVisualStyleBackColor = true;
-            this.ImportCustomersImportButton.Click += new System.EventHandler(this.ImportCustomersImportButton_Click);
-            // 
-            // ImportCustomersFileTextEdit
-            // 
-            this.ImportCustomersFileTextEdit.Location = new System.Drawing.Point(6, 50);
-            this.ImportCustomersFileTextEdit.Name = "ImportCustomersFileTextEdit";
-            this.ImportCustomersFileTextEdit.Properties.Mask.EditMask = "\\d+";
-            this.ImportCustomersFileTextEdit.Properties.ReadOnly = true;
-            this.ImportCustomersFileTextEdit.Size = new System.Drawing.Size(431, 20);
-            this.ImportCustomersFileTextEdit.TabIndex = 32;
-            // 
-            // ImportCustomersBrowseButton
-            // 
-            this.ImportCustomersBrowseButton.Location = new System.Drawing.Point(443, 48);
-            this.ImportCustomersBrowseButton.Name = "ImportCustomersBrowseButton";
-            this.ImportCustomersBrowseButton.Size = new System.Drawing.Size(100, 23);
-            this.ImportCustomersBrowseButton.TabIndex = 34;
-            this.ImportCustomersBrowseButton.Text = "Выбрать...";
-            this.ImportCustomersBrowseButton.UseVisualStyleBackColor = true;
-            this.ImportCustomersBrowseButton.Click += new System.EventHandler(this.ImportCustomersBrowseButton_Click);
+            this.ProcessingWizardPage.AllowBack = false;
+            this.ProcessingWizardPage.AllowCancel = false;
+            this.ProcessingWizardPage.AllowNext = false;
+            this.ProcessingWizardPage.Controls.Add(this.panel1);
+            this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания обработки данных...";
+            this.ProcessingWizardPage.Name = "ProcessingWizardPage";
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.ProcessingWizardPage.Text = "Обработка данных";
             // 
             // panel1
             // 
-            this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.ProgressBarControl);
+            this.panel1.Controls.Add(this.progressProcentLabel);
+            this.panel1.Location = new System.Drawing.Point(0, 329);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(560, 432);
-            this.panel1.TabIndex = 38;
+            this.panel1.Size = new System.Drawing.Size(1432, 55);
+            this.panel1.TabIndex = 2;
             // 
-            // smartPartPlaceholder1
+            // ProgressBarControl
             // 
-            this.smartPartPlaceholder1.BackColor = System.Drawing.Color.Transparent;
-            this.smartPartPlaceholder1.Location = new System.Drawing.Point(0, 525);
-            this.smartPartPlaceholder1.Name = "smartPartPlaceholder1";
-            this.smartPartPlaceholder1.Size = new System.Drawing.Size(560, 80);
-            this.smartPartPlaceholder1.SmartPartName = "MigrationView";
-            this.smartPartPlaceholder1.TabIndex = 40;
-            this.smartPartPlaceholder1.Text = "smartPartPlaceholder1";
-            this.smartPartPlaceholder1.Visible = false;
+            this.ProgressBarControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProgressBarControl.Location = new System.Drawing.Point(0, 0);
+            this.ProgressBarControl.Name = "ProgressBarControl";
+            this.ProgressBarControl.Size = new System.Drawing.Size(1432, 34);
+            this.ProgressBarControl.TabIndex = 0;
             // 
-            // groupBox4
+            // progressProcentLabel
             // 
-            this.groupBox4.Controls.Add(this.gisZhkhProgressBar);
-            this.groupBox4.Controls.Add(this.gisZhkhImportButton);
-            this.groupBox4.Controls.Add(this.gisZhkhInputFileTextEdit);
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.gisZhkhSelectInputFileButton);
-            this.groupBox4.Location = new System.Drawing.Point(6, 438);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(554, 81);
-            this.groupBox4.TabIndex = 41;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Импорт абонентов из ГИС ЖКХ";
+            this.progressProcentLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressProcentLabel.Location = new System.Drawing.Point(0, 34);
+            this.progressProcentLabel.Name = "progressProcentLabel";
+            this.progressProcentLabel.Size = new System.Drawing.Size(1432, 21);
+            this.progressProcentLabel.TabIndex = 1;
+            this.progressProcentLabel.Text = "Обработано 0%";
+            this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // gisZhkhProgressBar
+            // ChooseMethodWizardPage
             // 
-            this.gisZhkhProgressBar.Location = new System.Drawing.Point(225, 45);
-            this.gisZhkhProgressBar.Name = "gisZhkhProgressBar";
-            this.gisZhkhProgressBar.Size = new System.Drawing.Size(317, 23);
-            this.gisZhkhProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.gisZhkhProgressBar.TabIndex = 41;
-            this.gisZhkhProgressBar.Visible = false;
+            this.ChooseMethodWizardPage.Controls.Add(this.importNewCustomersRadioButton);
+            this.ChooseMethodWizardPage.Controls.Add(this.importGisZhkhCustomerIDsRadioButton);
+            this.ChooseMethodWizardPage.Controls.Add(this.importCustomerPosesRadioButton);
+            this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
+            this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.ChooseMethodWizardPage.Text = "Мастер импорта данных";
             // 
-            // gisZhkhImportButton
+            // importNewCustomersRadioButton
             // 
-            this.gisZhkhImportButton.Location = new System.Drawing.Point(119, 45);
-            this.gisZhkhImportButton.Name = "gisZhkhImportButton";
-            this.gisZhkhImportButton.Size = new System.Drawing.Size(100, 23);
-            this.gisZhkhImportButton.TabIndex = 39;
-            this.gisZhkhImportButton.Text = "Импортировать";
-            this.gisZhkhImportButton.UseVisualStyleBackColor = true;
-            this.gisZhkhImportButton.Click += new System.EventHandler(this.gisZhkhImportButton_Click);
+            this.importNewCustomersRadioButton.AutoSize = true;
+            this.importNewCustomersRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.importNewCustomersRadioButton.Checked = true;
+            this.importNewCustomersRadioButton.Location = new System.Drawing.Point(23, 21);
+            this.importNewCustomersRadioButton.Name = "importNewCustomersRadioButton";
+            this.importNewCustomersRadioButton.Size = new System.Drawing.Size(195, 17);
+            this.importNewCustomersRadioButton.TabIndex = 1;
+            this.importNewCustomersRadioButton.TabStop = true;
+            this.importNewCustomersRadioButton.Text = "Импортировать новых абонентов";
+            this.importNewCustomersRadioButton.UseVisualStyleBackColor = false;
             // 
-            // gisZhkhInputFileTextEdit
+            // importGisZhkhCustomerIDsRadioButton
             // 
-            this.gisZhkhInputFileTextEdit.Location = new System.Drawing.Point(119, 19);
-            this.gisZhkhInputFileTextEdit.Name = "gisZhkhInputFileTextEdit";
-            this.gisZhkhInputFileTextEdit.Properties.Mask.EditMask = "\\d+";
-            this.gisZhkhInputFileTextEdit.Properties.ReadOnly = true;
-            this.gisZhkhInputFileTextEdit.Size = new System.Drawing.Size(318, 20);
-            this.gisZhkhInputFileTextEdit.TabIndex = 38;
+            this.importGisZhkhCustomerIDsRadioButton.AutoSize = true;
+            this.importGisZhkhCustomerIDsRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.importGisZhkhCustomerIDsRadioButton.Location = new System.Drawing.Point(23, 67);
+            this.importGisZhkhCustomerIDsRadioButton.Name = "importGisZhkhCustomerIDsRadioButton";
+            this.importGisZhkhCustomerIDsRadioButton.Size = new System.Drawing.Size(317, 17);
+            this.importGisZhkhCustomerIDsRadioButton.TabIndex = 42;
+            this.importGisZhkhCustomerIDsRadioButton.Text = "Импортировать идентификаторы абонентов из ГИС ЖКХ";
+            this.importGisZhkhCustomerIDsRadioButton.UseVisualStyleBackColor = false;
             // 
-            // label5
+            // importCustomerPosesRadioButton
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
-            this.label5.TabIndex = 36;
-            this.label5.Text = "Файл";
+            this.importCustomerPosesRadioButton.AutoSize = true;
+            this.importCustomerPosesRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.importCustomerPosesRadioButton.Location = new System.Drawing.Point(23, 44);
+            this.importCustomerPosesRadioButton.Name = "importCustomerPosesRadioButton";
+            this.importCustomerPosesRadioButton.Size = new System.Drawing.Size(254, 17);
+            this.importCustomerPosesRadioButton.TabIndex = 2;
+            this.importCustomerPosesRadioButton.Text = "Импортировать услуги и тарифы по адресам";
+            this.importCustomerPosesRadioButton.UseVisualStyleBackColor = false;
             // 
-            // gisZhkhSelectInputFileButton
+            // FileWizardPage
             // 
-            this.gisZhkhSelectInputFileButton.Location = new System.Drawing.Point(443, 17);
-            this.gisZhkhSelectInputFileButton.Name = "gisZhkhSelectInputFileButton";
-            this.gisZhkhSelectInputFileButton.Size = new System.Drawing.Size(100, 23);
-            this.gisZhkhSelectInputFileButton.TabIndex = 37;
-            this.gisZhkhSelectInputFileButton.Text = "Выбрать...";
-            this.gisZhkhSelectInputFileButton.UseVisualStyleBackColor = true;
-            this.gisZhkhSelectInputFileButton.Click += new System.EventHandler(this.gisZhkhSelectInputFileButton_Click);
+            this.FileWizardPage.Controls.Add(this.label7);
+            this.FileWizardPage.Controls.Add(this.filePathTextEdit);
+            this.FileWizardPage.Controls.Add(this.selectFileButton);
+            this.FileWizardPage.DescriptionText = "Выберите файл, из которого будут импортированны данные";
+            this.FileWizardPage.Name = "FileWizardPage";
+            this.FileWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.FileWizardPage.Text = "Выбор файла";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 26);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Файл";
+            // 
+            // filePathTextEdit
+            // 
+            this.filePathTextEdit.Location = new System.Drawing.Point(70, 23);
+            this.filePathTextEdit.Name = "filePathTextEdit";
+            this.filePathTextEdit.Properties.Mask.EditMask = "\\d+";
+            this.filePathTextEdit.Properties.ReadOnly = true;
+            this.filePathTextEdit.Size = new System.Drawing.Size(431, 20);
+            this.filePathTextEdit.TabIndex = 36;
+            // 
+            // selectFileButton
+            // 
+            this.selectFileButton.Location = new System.Drawing.Point(507, 21);
+            this.selectFileButton.Name = "selectFileButton";
+            this.selectFileButton.Size = new System.Drawing.Size(100, 23);
+            this.selectFileButton.TabIndex = 37;
+            this.selectFileButton.Text = "Выбрать...";
+            this.selectFileButton.UseVisualStyleBackColor = true;
+            this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
+            // 
+            // FinishWizardPage
+            // 
+            this.FinishWizardPage.Controls.Add(this.resultTextBox);
+            this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
+            this.FinishWizardPage.Name = "FinishWizardPage";
+            this.FinishWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.FinishWizardPage.Text = "Обработка данных завершена";
+            // 
+            // resultTextBox
+            // 
+            this.resultTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultTextBox.Location = new System.Drawing.Point(0, 0);
+            this.resultTextBox.Multiline = true;
+            this.resultTextBox.Name = "resultTextBox";
+            this.resultTextBox.ReadOnly = true;
+            this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.resultTextBox.Size = new System.Drawing.Size(1432, 734);
+            this.resultTextBox.TabIndex = 16;
             // 
             // LayoutView
             // 
@@ -387,61 +227,40 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.smartPartPlaceholder1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.ImportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1469, 879);
-            ((System.ComponentModel.ISupportInitialize)(this.FileTextEdit.Properties)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.IsPrivateCheckEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RateSpinEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ContractorLookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ServiceLookUpEdit.Properties)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ImportCustomersFileTextEdit.Properties)).EndInit();
+            this.Size = new System.Drawing.Size(1464, 879);
+            ((System.ComponentModel.ISupportInitialize)(this.ImportWizardControl)).EndInit();
+            this.ImportWizardControl.ResumeLayout(false);
+            this.ProcessingWizardPage.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gisZhkhInputFileTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProgressBarControl.Properties)).EndInit();
+            this.ChooseMethodWizardPage.ResumeLayout(false);
+            this.ChooseMethodWizardPage.PerformLayout();
+            this.FileWizardPage.ResumeLayout(false);
+            this.FileWizardPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.filePathTextEdit.Properties)).EndInit();
+            this.FinishWizardPage.ResumeLayout(false);
+            this.FinishWizardPage.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ImportButton;
-        private System.Windows.Forms.Button BrowseButton;
-        private DevExpress.XtraEditors.TextEdit FileTextEdit;
-        private System.Windows.Forms.Label FileLabel;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button AddServicesForCustomersButton;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button ImportCustomersImportButton;
-        private System.Windows.Forms.Button ImportCustomersBrowseButton;
-        private DevExpress.XtraEditors.LookUpEdit ServiceLookUpEdit;
-        private DevExpress.XtraEditors.LookUpEdit ContractorLookUpEdit;
-        private DevExpress.XtraEditors.SpinEdit RateSpinEdit;
-        private System.Windows.Forms.Label IsPrivateLabel;
-        private DevExpress.XtraEditors.CheckEdit IsPrivateCheckEdit;
-        private DevExpress.XtraEditors.TextEdit ImportCustomersFileTextEdit;
+        private DevExpress.XtraWizard.WizardControl ImportWizardControl;
+        private DevExpress.XtraWizard.WizardPage ProcessingWizardPage;
+        private DevExpress.XtraEditors.ProgressBarControl ProgressBarControl;
+        private DevExpress.XtraWizard.WizardPage ChooseMethodWizardPage;
+        private System.Windows.Forms.RadioButton importNewCustomersRadioButton;
+        private System.Windows.Forms.RadioButton importGisZhkhCustomerIDsRadioButton;
+        private System.Windows.Forms.RadioButton importCustomerPosesRadioButton;
+        private DevExpress.XtraWizard.WizardPage FileWizardPage;
+        private System.Windows.Forms.Label label7;
+        private DevExpress.XtraEditors.TextEdit filePathTextEdit;
+        private System.Windows.Forms.Button selectFileButton;
+        private System.Windows.Forms.Label progressProcentLabel;
+        private DevExpress.XtraWizard.WizardPage FinishWizardPage;
         private System.Windows.Forms.Panel panel1;
-        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ProgressBar gisZhkhProgressBar;
-        private System.Windows.Forms.Button gisZhkhImportButton;
-        private DevExpress.XtraEditors.TextEdit gisZhkhInputFileTextEdit;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button gisZhkhSelectInputFileButton;
+        private System.Windows.Forms.TextBox resultTextBox;
     }
 }

@@ -1,7 +1,5 @@
-﻿using System.Data;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+﻿using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
-using RefBook = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
 {
@@ -10,58 +8,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
     /// </summary>
     public interface ILayoutView : IBaseLayoutView
     {
+        WizardAction WizardAction { get; }
+
         /// <summary>
         /// Полное имя файла
         /// </summary>
-        string FilePath { set; get; }
+        string FilePath { get; }
+
+        void ResetProgress();
+        void SetProgress(int percent);
 
         /// <summary>
-        /// Полное имя файла для импорта абонентов
+        /// Отображает страницу мастера
         /// </summary>
-        string ImportCustomersFilePath { set; get; }
+        /// <param name="page">Шаг</param>
+        void SelectPage(WizardPages page);
 
-        /// <summary>
-        /// Услуга
-        /// </summary>
-        RefBook.Service Service { get; }
-
-        /// <summary>
-        /// Подрядчик
-        /// </summary>
-        Contractor Contractor { get; }
-
-        /// <summary>
-        /// Тариф
-        /// </summary>
-        decimal Rate { get; }
-
-        /// <summary>
-        /// Только для квартир в собственности
-        /// </summary>
-        bool IsPrivate { get; }
-
-        /// <summary>
-        /// Услуги
-        /// </summary>
-        DataTable Services
-        {
-            set;
-        }
-
-        /// <summary>
-        /// Подрядчики
-        /// </summary>
-        DataTable Contractors
-        {
-            set;
-        }
-
-        /// <summary>
-        /// Путь к файлу шаблона
-        /// </summary>
-        string GisZhkhInputFilePath { get; }
-
-        void ShowGisZhkhProgressBar();
-        void HideGisZhkhProgressBar();
+        string ResultText { set; }
     }
 }

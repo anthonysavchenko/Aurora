@@ -450,16 +450,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 switch (prevPage)
                 {
                     case WizardPages.CustomersPage:
+                    case WizardPages.FinishPage:
                         _next = WizardPages.ChooseMethodPage;
                         break;
                     case WizardPages.ChoosePeriodPage:
-                        _next = WizardPages.CustomersPage;
-                        break;
                     case WizardPages.PercentPage:
                         _next = WizardPages.CustomersPage;
-                        break;
-                    case WizardPages.FinishPage:
-                        _next = WizardPages.ChooseMethodPage;
                         break;
                 }
             }

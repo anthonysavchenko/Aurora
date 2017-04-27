@@ -12,32 +12,32 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             /// <summary>
             /// Фиксированное начиление
             /// </summary>
-            FixedRate,
+            FixedRate = 0,
 
             /// <summary>
             /// Начисление за квадратный метр площади
             /// </summary>
-            SquareRate,
+            SquareRate = 1,
 
             /// <summary>
             /// Начисление по тарифу за количество жильцов
             /// </summary>
-            ResidentsRate,
+            ResidentsRate = 2,
 
             /// <summary>
             /// Начисление по счетчику
             /// </summary>
-            CounterRate,
+            CounterRate = 3,
 
             /// <summary>
             /// Начиление за квадратный метр только за содержание общедомового имещества (СОД)
             /// </summary>
-            PublicPlaceAreaRate,
+            PublicPlaceAreaRate = 4,
 
             /// <summary>
             /// Начисление банковской коммисси в виде процента от расходов СОД
             /// </summary>
-            PublicPlaceBankCommission
+            PublicPlaceBankCommission = 5
         }
 
         private string _name;

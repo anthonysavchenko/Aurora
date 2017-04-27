@@ -1,11 +1,11 @@
-﻿using Microsoft.Practices.CompositeUI.SmartParts;
+﻿using DevExpress.XtraWizard;
+using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
 using System.Data;
 using System.Windows.Forms;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
-using RefBook = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 //using BaseLayoutView = System.Windows.Forms.UserControl;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
@@ -41,193 +41,60 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             }
         }
 
+        public WizardAction WizardAction
+        {
+            get
+            {
+                WizardAction _action = WizardAction.ImportNewCustomers;
+
+                if (importCustomerPosesRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportCustomerPoses;
+                }
+                else if(importGisZhkhCustomerIDsRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportGisZhkhCustomerIDs;
+                }
+
+                return _action;
+            }
+        }
+
         /// <summary>
         /// Полное имя файла
         /// </summary>
         public string FilePath
         {
-            set
-            {
-                FileTextEdit.Text = value;
-            }
             get
             {
-                return FileTextEdit.Text;
+                return filePathTextEdit.Text;
             }
         }
 
         /// <summary>
-        /// Полное имя файла для импорта абонентов
+        /// Отображает страницу мастера
         /// </summary>
-        public string ImportCustomersFilePath
+        /// <param name="page">Шаг</param>
+        public void SelectPage(WizardPages page)
         {
-            set
+            switch (page)
             {
-                ImportCustomersFileTextEdit.Text = value;
-            }
-            get
-            {
-                return ImportCustomersFileTextEdit.Text;
-            }
-        }
-
-        /// <summary>
-        /// Услуга
-        /// </summary>
-        public RefBook.Service Service
-        {
-            get
-            {
-                RefBook.Service _res = null;
-
-                if (ServiceLookUpEdit.ItemIndex != -1)
-                {
-                    string _id = ServiceLookUpEdit.GetColumnValue("ID").ToString();
-                    _res = Presenter.GetItem<RefBook.Service>(_id);
-                }
-
-                return _res;
+                case WizardPages.ChooseMethodPage:
+                    ImportWizardControl.SelectedPage = ChooseMethodWizardPage;
+                    break;
+                case WizardPages.FilePage:
+                    ImportWizardControl.SelectedPage = FileWizardPage;
+                    break;
+                case WizardPages.ProcessingPage:
+                    ImportWizardControl.SelectedPage = ProcessingWizardPage;
+                    break;
+                case WizardPages.FinishPage:
+                    ImportWizardControl.SelectedPage = FinishWizardPage;
+                    break;
             }
         }
 
-        /// <summary>
-        /// Подрядчик
-        /// </summary>
-        public Contractor Contractor
-        {
-            get
-            {
-                Contractor _res = null;
-
-                if (ContractorLookUpEdit.ItemIndex != -1)
-                {
-                    string _id = ContractorLookUpEdit.GetColumnValue("ID").ToString();
-                    _res = Presenter.GetItem<Contractor>(_id);
-                }
-
-                return _res;
-            }
-        }
-
-        /// <summary>
-        /// Тариф
-        /// </summary>
-        public decimal Rate
-        {
-            get
-            {
-                return (decimal)RateSpinEdit.EditValue;
-            }
-        }
-
-        /// <summary>
-        /// Только для квартир в собственности
-        /// </summary>
-        public bool IsPrivate
-        {
-            get
-            {
-                return IsPrivateCheckEdit.Checked;
-            }
-        }
-
-        /// <summary>
-        /// Услуги
-        /// </summary>
-        public DataTable Services
-        {
-            set
-            {
-                ServiceLookUpEdit.Properties.DataSource = value;
-                ServiceLookUpEdit.Properties.ForceInitialize();
-            }
-        }
-
-        /// <summary>
-        /// Подрядчики
-        /// </summary>
-        public DataTable Contractors
-        {
-            set
-            {
-                ContractorLookUpEdit.Properties.DataSource = value;
-                ContractorLookUpEdit.Properties.ForceInitialize();
-            }
-        }
-
-        /// <summary>
-        /// Путь к файлу шаблона
-        /// </summary>
-        public string GisZhkhInputFilePath {
-            get
-            {
-                return gisZhkhInputFileTextEdit.Text;
-            }
-        }
-
-        public void ShowGisZhkhProgressBar()
-        {
-            gisZhkhImportButton.Enabled = false;
-            gisZhkhProgressBar.Visible = true;
-        }
-
-        public void HideGisZhkhProgressBar()
-        {
-            gisZhkhImportButton.Enabled = true;
-            gisZhkhProgressBar.Visible = false;
-        }
-
-        /// <summary>
-        /// Найти файл
-        /// </summary>
-        /// <param name="sender">Отправитель</param>
-        /// <param name="e">Аргументы</param>
-        private void BrowseButton_Click(object sender, System.EventArgs e)
-        {
-            Presenter.FindFile();
-        }
-
-        /// <summary>
-        /// Импортировать файл
-        /// </summary>
-        /// <param name="sender">Отправитель</param>
-        /// <param name="e">Аргументы</param>
-        private void ImportButton_Click(object sender, System.EventArgs e)
-        {
-            Presenter.ImportFile();
-        }
-
-        /// <summary>
-        /// Добавить услугу и тариф всем абонентам
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddServicesForCustomersButton_Click(object sender, EventArgs e)
-        {
-            Presenter.CreateServicesForCustomers();
-        }
-
-        /// <summary>
-        /// Находит файл для импорта абонентов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ImportCustomersBrowseButton_Click(object sender, EventArgs e)
-        {
-            Presenter.ImportCustomersFindFile();
-        }
-
-        /// <summary>
-        /// Импортирует файл для импорта абонентов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ImportCustomersImportButton_Click(object sender, EventArgs e)
-        {
-            Presenter.ImportCustomersImport();
-        }
-
-        private void gisZhkhSelectInputFileButton_Click(object sender, EventArgs e)
+        private void selectFileButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog _openFileDialog = new OpenFileDialog
             {
@@ -239,14 +106,101 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 RestoreDirectory = true,
             };
 
-            gisZhkhInputFileTextEdit.Text = _openFileDialog.ShowDialog() == DialogResult.OK
+            filePathTextEdit.Text = _openFileDialog.ShowDialog() == DialogResult.OK
                 ? _openFileDialog.FileName
                 : string.Empty;
         }
 
-        private void gisZhkhImportButton_Click(object sender, EventArgs e)
+        private WizardPages ConvertWizardPage(BaseWizardPage page)
         {
-            Presenter.GisZhkhImport();
+            switch (page.Name)
+            {
+                case "ChooseMethodWizardPage":
+                    return WizardPages.ChooseMethodPage;
+                case "FileWizardPage":
+                    return WizardPages.FilePage;
+                case "ProcessingWizardPage":
+                    return WizardPages.ProcessingPage;
+                case "FinishWizardPage":
+                    return WizardPages.FinishPage;
+                default:
+                    return WizardPages.Unknown;
+            }
+        }
+
+        private BaseWizardPage ConvertWizardPage(WizardPages page)
+        {
+            switch (page)
+            {
+                case WizardPages.ChooseMethodPage:
+                    return ChooseMethodWizardPage;
+                case WizardPages.FilePage:
+                    return FileWizardPage;
+                case WizardPages.ProcessingPage:
+                    return ProcessingWizardPage;
+                case WizardPages.FinishPage:
+                    return FinishWizardPage;
+                default:
+                    return null;
+            }
+        }
+
+        private void ImportWizardControl_SelectedPageChanged(object sender, WizardPageChangedEventArgs e)
+        {
+            Presenter.OnSelectedPageChanged(ConvertWizardPage(e.Page), e.Direction == Direction.Forward);
+        }
+
+        private void ImportWizardControl_SelectedPageChanging(object sender, WizardPageChangingEventArgs e)
+        {
+            BaseWizardPage _page = ConvertWizardPage(
+                Presenter.OnSelectingPageChanging(ConvertWizardPage(e.PrevPage), e.Direction == Direction.Forward));
+
+            e.Cancel = _page == null;
+            if(!e.Cancel)
+            {
+                e.Page = _page;
+            }
+        }
+
+        public void ResetProgress()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetProgress(int value)
+        {
+            ProgressBarControl.Invoke(new MethodInvoker(() =>
+            {
+                ProgressBarControl.EditValue = value;
+                progressProcentLabel.Text = $"Обработано {value}%";
+            }));
+        }
+
+        public string ResultText
+        {
+            set
+            {
+                resultTextBox.Text = value;
+            }
+        }
+
+        private void CleanUp()
+        {
+            filePathTextEdit.Text = string.Empty;
+            resultTextBox.Text = string.Empty;
+            ProgressBarControl.EditValue = 0;
+            progressProcentLabel.Text = "Обработано 0%";
+        }
+
+        private void ImportWizardControl_FinishClick(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            CleanUp();
+            SelectPage(WizardPages.ChooseMethodPage);
+        }
+
+        private void ImportWizardControl_CustomizeCommandButtons(object sender, CustomizeCommandButtonsEventArgs e)
+        {
+            e.CancelButton.Visible = false;
         }
     }
 }
