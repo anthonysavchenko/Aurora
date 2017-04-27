@@ -145,12 +145,6 @@
     <Compile Include="Reports\RegularBills\LayoutReportObject.designer.cs">
       <DependentUpon>LayoutReportObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\RegularBills\Receipt\BottomReceiptReportObject.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\RegularBills\Receipt\BottomReceiptReportObject.designer.cs">
-      <DependentUpon>BottomReceiptReportObject.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\RegularBills\Receipt\ReceiptLayoutReportObject.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -289,10 +283,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RegularBills\LayoutReportObject.resx">
       <DependentUpon>LayoutReportObject.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\RegularBills\Receipt\BottomReceiptReportObject.resx">
-      <DependentUpon>BottomReceiptReportObject.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RegularBills\Receipt\ReceiptLayoutReportObject.resx">

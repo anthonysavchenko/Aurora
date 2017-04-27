@@ -142,7 +142,7 @@
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>1440</value>
+    <value>1484.97913</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -157,7 +157,7 @@
     <value>254</value>
   </data>
   <data name="bottomMarginBand1.HeightF" type="System.Single, mscorlib">
-    <value>51</value>
+    <value>50.9792862</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

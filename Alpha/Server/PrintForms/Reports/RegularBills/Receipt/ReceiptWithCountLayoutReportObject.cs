@@ -16,7 +16,6 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt
             set
             {
                 ((TopReceiptReportObject)TopReceiptSubreport.ReportSource).CustomerId = value;
-                ((BottomReceiptReportObject)ButtomReceiptSubreport.ReportSource).CustomerId = value;
                 ((CountReportObject)countSubreport.ReportSource).CustomerId = value;
             }
         }
@@ -26,7 +25,6 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt
             set
             {
                 ((TopReceiptReportObject)TopReceiptSubreport.ReportSource).ReportDataSource = value;
-                ((BottomReceiptReportObject)ButtomReceiptSubreport.ReportSource).ReportDataSource = value;
                 ((CountReportObject)countSubreport.ReportSource).ReportDataSource = value;
             }
         }

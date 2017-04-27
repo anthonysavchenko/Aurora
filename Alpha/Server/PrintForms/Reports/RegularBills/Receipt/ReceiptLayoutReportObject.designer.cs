@@ -30,9 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptLayoutReportObject));
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
-            this.ButtomReceiptSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             this.TopReceiptSubreport = new DevExpress.XtraReports.UI.XRSubreport();
-            this.xrLine1 = new DevExpress.XtraReports.UI.XRLine();
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -46,21 +44,12 @@
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.ButtomReceiptSubreport,
-            this.TopReceiptSubreport,
-            this.xrLine1});
+            this.TopReceiptSubreport});
             resources.ApplyResources(this.Detail, "Detail");
             this.Detail.KeepTogether = true;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             this.Detail.StylePriority.UseTextAlignment = false;
-            // 
-            // ButtomReceiptSubreport
-            // 
-            resources.ApplyResources(this.ButtomReceiptSubreport, "ButtomReceiptSubreport");
-            this.ButtomReceiptSubreport.Id = 0;
-            this.ButtomReceiptSubreport.Name = "ButtomReceiptSubreport";
-            this.ButtomReceiptSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.BottomReceiptReportObject();
             // 
             // TopReceiptSubreport
             // 
@@ -68,12 +57,6 @@
             this.TopReceiptSubreport.Id = 0;
             this.TopReceiptSubreport.Name = "TopReceiptSubreport";
             this.TopReceiptSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.TopReceiptReportObject();
-            // 
-            // xrLine1
-            // 
-            resources.ApplyResources(this.xrLine1, "xrLine1");
-            this.xrLine1.LineWidth = 3;
-            this.xrLine1.Name = "xrLine1";
             // 
             // xrControlStyle1
             // 
@@ -145,9 +128,7 @@
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle1;
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle2;
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle3;
-        private DevExpress.XtraReports.UI.XRLine xrLine1;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
-        private DevExpress.XtraReports.UI.XRSubreport ButtomReceiptSubreport;
         private DevExpress.XtraReports.UI.XRSubreport TopReceiptSubreport;
         private Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet dataSet1;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
