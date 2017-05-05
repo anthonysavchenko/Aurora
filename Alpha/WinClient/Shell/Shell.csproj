@@ -37,7 +37,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PublishUrl>..\Build\Bin\Deploy\aurora\</PublishUrl>
+    <PublishUrl>..\Build\Bin\Deploy\aurora-zhilusl\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -47,7 +47,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://download.taumis.ru/aurora/</InstallUrl>
+    <InstallUrl>http://download.taumis.ru/aurora-zhilusl/</InstallUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora</ProductName>
     <PublisherName>Taumis</PublisherName>

@@ -21,7 +21,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         {
             StringBuilder _builder = new StringBuilder();
 
-            _builder.AppendLine("Директор Слаутенко А.В. г. Владивосток, ул. Рылеева, 8.");
+            _builder.AppendLine("г. Владивосток, пр-т Острякова, 38. Директор Кривец Г.Н. ");
 
             if (bankDetail != null)
             {
@@ -47,9 +47,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
                 _builder.AppendLine(bankDetail.Name);
             }
 
-            _builder.AppendLine("Юр. от. 279-15-81, отд. по раб. с нас. 279-15-85, ПТО 279-15-84,");
-            _builder.Append(
-                $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72, адрес: Рылеева, 8");
+            _builder.AppendLine("Расчетный центр: 246-92-40, 261-95-84, Пн-Пт 8:00-17:00, обед 12-13, среда не приемный день");
+            _builder.AppendLine($"Главный офис: 246-46-01. Авар. служба 261-47-14, 298-09-81");
+            _builder.Append($"www.dom-vl.ru");
 
             if (!string.IsNullOrEmpty(contractorInfo))
             {
@@ -66,14 +66,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <param name="account">Лицевой счет абонента</param>
         /// <param name="period">Дата квитанции</param>
         /// <returns>Строка для штрих кода</returns>
-        public string GenerateBarCodeString(string account, DateTime period)
+        public string GenerateBarCodeString(string account, string inn, DateTime period, decimal value)
         {
-            string _accountNum = $"{account.Substring(3, 4)}{account.Substring(8, 3)}{account.Substring(12, 1)}";
-            string _barcode = $"{BARCODE_COMPANY_CODE}{_accountNum}{period:yyyyMM}{BARCODE_SERVICE_CODE}";
-
-            int _barcodeSum = _barcode.Sum(c => int.Parse(c.ToString()));
-
-            return $"{_barcode}{_barcodeSum % 10}";
+            if(account.Length > 7)
+            {
+                account = account.Substring(1, 7);
+            }
+            return $"{inn}1L{account}9*{period:MMyy}{value}";
         }
 
         /// <summary>
@@ -106,12 +105,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
             DateTime period, 
             decimal sum)
         {
-            string _accountNum = account.Substring(3);
+            if (account.Length > 7)
+            {
+                account = account.Substring(1, 7);
+            }
             // Сумма в копейках
             int _sum = Convert.ToInt32(sum * 100);
 
             string _qrStr =
-                $"ST00012|Name={name}|PersonalAcc={bankAccount}|BankName={bankName}|BIC={bic}|CorrespAcc={corrAccount}|PayeeINN={inn}|Category={category}|PersAcc={_accountNum}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
+                $"ST00012|Name={name}|PersonalAcc={bankAccount}|BankName={bankName}|BIC={bic}|CorrespAcc={corrAccount}|PayeeINN={inn}|Category={category}|PersAcc={account}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
 
             if (!string.IsNullOrEmpty(fullName))
             {

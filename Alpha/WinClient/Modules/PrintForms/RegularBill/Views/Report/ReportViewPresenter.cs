@@ -190,9 +190,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _chargeDataTable.Rows.Add(_row);
                             }
 
-                            string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                            string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.BankDetails.INN, _bill.Period, _bill.Value);
                             string _qrCode = BillService.GenerateQrCodeString(
-                                "ООО \"УК Фрунзенского района\"",
+                                "ООО \"Жилищные услуги\"",
                                 _bill.BankDetails.Account,
                                 _bill.BankDetails.Name,
                                 _bill.BankDetails.BIK,

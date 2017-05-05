@@ -78,15 +78,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             _table.Columns.Add("ID", typeof(int));
             _table.Columns.Add("Name", typeof(string));
 
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                IQueryable<DataBase.Services> _query = from services in _entities.Services select services;
+                var _services = _db.Services
+                    .Select(s =>
+                        new
+                        {
+                            s.ID,
+                            s.Name
+                        })
+                    .ToList();
 
-                foreach (DataBase.Services _service in _query)
+                foreach (var _s in _services)
                 {
-                    _table.Rows.Add(
-                        _service.ID,
-                        _service.Name);
+                    _table.Rows.Add(_s.ID, _s.Name);
                 }
             }
 
@@ -99,15 +104,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             _table.Columns.Add("ID", typeof(int));
             _table.Columns.Add("Name", typeof(string));
 
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                IQueryable<Contractors> _query = from _contractors in _entities.Contractors select _contractors;
+                var _contractors = _db.Contractors
+                    .Select(c =>
+                        new
+                        {
+                            c.ID,
+                            c.Name
+                        })
+                    .ToList();
 
-                foreach (Contractors _contractor in _query)
+                foreach (var _c in _contractors)
                 {
-                    _table.Rows.Add(
-                        _contractor.ID,
-                        _contractor.Name);
+                    _table.Rows.Add(_c.ID, _c.Name);
                 }
             }
 
@@ -177,7 +187,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             {
                 message += "- Услуга\r\n";
             }
-            else if (curItem.Service.ChargeRule != Service.ChargeRuleType.CounterRate && curItem.Rate <= 0)
+            else if (curItem.Service.ChargeRule != Service.ChargeRuleType.CounterRate && curItem.Rate < 0)
             {
                 message += "- Тариф\r\n";
             }

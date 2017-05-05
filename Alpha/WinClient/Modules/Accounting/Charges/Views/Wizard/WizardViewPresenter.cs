@@ -625,9 +625,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public void RegisterCharges()
         {
-            const int CONTRACTOR_CONTACT_INFO_SERVICE_ID = 6;
-            const int MADIX_CONTRACTOR_ID = 8; /* ООО "Мадикс" */
-
             Stopwatch _stopwatch = new Stopwatch();
             _stopwatch.Start();
 
@@ -1312,26 +1309,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         Customers = _dbCustomer,
                                         BillSets = _billSet,
                                         Period = _currentPeriod,
-                                        EmergencyPhoneNumber =
-                                            _customerPoses.Any(pos => pos.ContractorID == MADIX_CONTRACTOR_ID)
-                                                ? "261-47-14"
-                                                : "298-09-81",
+                                        EmergencyPhoneNumber = string.Empty,
+                                        ContractorContactInfo = string.Empty,
                                         PayBeforeDateTime = _payBefore,
                                         MonthChargeValue = _currentPeriodTotal,
                                         OverpaymentValue = _rest,
                                         Value = _currentPeriodTotal + _rest,
                                     };
-
-                                    var _contractorPos = _customerPoses.FirstOrDefault(p => p.ServiceID == CONTRACTOR_CONTACT_INFO_SERVICE_ID);
-                                    if (_contractorPos != null)
-                                    {
-                                        Contractors _cont = _contractors[_contractorPos.ContractorID];
-                                        _billDoc.ContractorContactInfo = $"{_cont.Name}, {_cont.ContactInfo}";
-                                    }
-                                    else
-                                    {
-                                        _billDoc.ContractorContactInfo = string.Empty;
-                                    }
 
                                     _db.RegularBillDocs.AddObject(_billDoc);
 
@@ -2021,7 +2005,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 {
                     using (ExcelSheet _sheet = new ExcelSheet(View.DebtFileName, "внести долг"))
                     {
-                        for (int _row = 1; _row < _sheet.RowsCount; _row++)
+                        for (int _row = 1; _row <= _sheet.RowsCount; _row++)
                         {
                             try
                             {

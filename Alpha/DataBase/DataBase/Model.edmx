@@ -458,7 +458,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RegularBillDoc" Type="int" Nullable="false" />
-          <Property Name="ServiceTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ServiceTypeName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="PayRate" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="Charge" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="Benefit" Type="decimal" Precision="9" Scale="2" Nullable="false" />
@@ -504,8 +504,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -2736,7 +2736,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="ServiceTypeName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ServiceTypeName" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
           <Property Name="PayRate" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="Charge" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="Benefit" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
@@ -2783,8 +2783,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_Services_ServiceTypes" FromRole="ServiceTypes" ToRole="Services" />
         </EntityType>
         <EntityType Name="Streets">

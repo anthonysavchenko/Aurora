@@ -82,6 +82,7 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView
         /// </summary>
         public virtual void RefreshList()
         {
+            RefreshRefBooks();
             string curItemId = View.GetCurrentItemId();
 
             View.ElemList = GetElemList();

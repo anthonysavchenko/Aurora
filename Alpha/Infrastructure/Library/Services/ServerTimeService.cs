@@ -39,8 +39,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
                 }
                 else
                 {
-                    DateTime _now = _entities.CreateQuery<DateTime>("CurrentDateTime()").AsEnumerable().First();
-                    _lastChagedPeriod = new DateTime(_now.Year, _now.Month, 1);
+                    //DateTime _now = _entities.CreateQuery<DateTime>("CurrentDateTime()").AsEnumerable().First();
+                    _lastChagedPeriod = new DateTime(2017, 4, 1);//new DateTime(_now.Year, _now.Month, 1);
                 }
             }
 
