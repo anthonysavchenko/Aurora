@@ -351,16 +351,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                                             _customer.Apartment,
                                             _customer.Account,
                                             _record.Value.ToString().Replace(',', '.'));
-                                        /*
-                                        _file.WriteLine(
-                                            "{0}|{1}|{2}, {3}{4}|{5}",
-                                            _customer.Account,
-                                            _owner, _building.StreetName,
-                                            _building.Number,
-                                            String.IsNullOrEmpty(_customer.Apartment)
-                                                ? String.Empty
-                                                : String.Format(", {0}", _customer.Apartment),
-                                            _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));*/
                                     }
                                 }
                             }
