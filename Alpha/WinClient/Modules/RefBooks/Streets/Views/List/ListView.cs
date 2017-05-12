@@ -1,4 +1,6 @@
-﻿using Microsoft.Practices.CompositeUI.SmartParts;
+﻿using System;
+using System.Data;
+using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 
@@ -35,14 +37,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Streets.Views.List
         /// <summary>
         /// Название
         /// </summary>
-        public string StreetName
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomain(_listView, "Name");
-            }
-        }
+        public string StreetName => GetBaseSimpleListViewMapper.ViewToDomain(_listView, "Name");
 
+        /// <summary>
+        /// Наименование в квитанции
+        /// </summary>
+        public string StreetBillName => GetBaseSimpleListViewMapper.ViewToDomain(_listView, "BillName");
+        
         #endregion
     }
 }

@@ -34,6 +34,7 @@
             this._listView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this._id = new DevExpress.XtraGrid.Columns.GridColumn();
             this._name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this._billName = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this._listItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._listView)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +57,8 @@
             this._listView.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this._listView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this._id,
-            this._name});
+            this._name,
+            this._billName});
             this._listView.GridControl = this._listItems;
             this._listView.Name = "_listView";
             // 
@@ -73,7 +75,16 @@
             this._name.Name = "_name";
             this._name.Visible = true;
             this._name.VisibleIndex = 0;
-            this._name.Width = 195;
+            this._name.Width = 295;
+            // 
+            // _billName
+            // 
+            this._billName.Caption = "Название в квитанции";
+            this._billName.FieldName = "BillName";
+            this._billName.Name = "_billName";
+            this._billName.Visible = true;
+            this._billName.VisibleIndex = 1;
+            this._billName.Width = 313;
             // 
             // ListView
             // 
@@ -95,6 +106,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView _listView;
         private DevExpress.XtraGrid.Columns.GridColumn _name;
         private DevExpress.XtraGrid.Columns.GridColumn _id;
+        private DevExpress.XtraGrid.Columns.GridColumn _billName;
     }
 }
 

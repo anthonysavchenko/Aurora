@@ -7,9 +7,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Streets.Views.List
         /// <summary>
         /// Наименование
         /// </summary>
-        string StreetName
-        {
-            get;
-        }
+        string StreetName { get; }
+
+        /// <summary>
+        /// Наименование в квитанции
+        /// </summary>
+        string StreetBillName { get; }
     }
 }

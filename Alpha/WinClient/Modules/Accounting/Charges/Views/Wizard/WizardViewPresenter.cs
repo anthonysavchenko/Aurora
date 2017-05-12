@@ -26,6 +26,7 @@ using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
+using ClosedXML.Excel;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 {
@@ -651,7 +652,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             b.ZipCode,
                             BuildingID = b.ID,
                             BuildingNumber = b.Number,
-                            StreetName = b.Streets.Name,
+                            StreetName = b.Streets.BillName,
                             CustomersCount = b.Customers.Count,
                             Area = 
                                 (b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= _currentPeriod)).Sum(c => (decimal?)c.Square) ?? 0) + b.NonResidentialPlaceArea,
@@ -1148,7 +1149,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 break;
                                         }
 
-                                        if (_chargeValue > 0)
+                                        if (_chargeValue >= 0)
                                         {
                                             ChargeOperPoses _chargeOperPos = 
                                                 new ChargeOperPoses()
@@ -1299,7 +1300,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     {
                                         CreationDateTime = _now,
                                         Account = _customer.Account,
-                                        Address = $"ул. {_building.StreetName}, {_building.BuildingNumber}, кв. {_customer.Apartment}",
+                                        Address = $"{_building.StreetName}, {_building.BuildingNumber}, кв. {_customer.Apartment}",
                                         Owner =
                                             _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson
                                                 ? _customer.JuridicalPersonFullName
@@ -1995,25 +1996,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             PeriodInfo _periodInfo = ServerTime.GetPeriodInfo();
             DateTime _period = _periodInfo.FirstUncharged;
             DateTime _previousPeriod = _periodInfo.LastCharged;
-            List<RechargeOperPoses> _posesToRegister = new List<RechargeOperPoses>();
             RechargeSets _rechargeSet = null;
+            PaymentSets _paymentSet = null;
             Dictionary<int, decimal> _customerDebt = new Dictionary<int, decimal>();
+            Dictionary<int, int> _contractorByService = null;
 
             try
             {
                 using (Entities _db = new Entities())
                 {
-                    using (ExcelSheet _sheet = new ExcelSheet(View.DebtFileName, "внести долг"))
+                    using (XLWorkbook _xwb = new XLWorkbook(View.DebtFileName))
                     {
-                        for (int _row = 1; _row <= _sheet.RowsCount; _row++)
+                        IXLWorksheet _xws = _xwb.Worksheet(1);
+                        int _rowCount = _xws.LastRowUsed().RowNumber();
+                        for (int _row = 1; _row <= _rowCount; _row++)
                         {
                             try
                             {
-                                string _account = _sheet.GetCell("A", _row).Trim();
+                                string _account = _xws.Cell(_row, 1).GetString().Trim();
+                                string _value = _xws.Cell(_row, 2).GetString().Trim();
 
-                                if (!string.IsNullOrEmpty(_account))
+                                if (!string.IsNullOrEmpty(_account) && !string.IsNullOrEmpty(_value))
                                 {
-                                    decimal _debt = decimal.Parse(_sheet.GetCell("B", _row).Trim());
+                                    decimal _debt = decimal.Parse(_value);
 
                                     var _customer =
                                         _db.Customers
@@ -2045,7 +2050,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     }
                                 }
                             }
-                            catch (Exception _ex)
+                            catch(Exception _ex)
                             {
                                 Logger.SimpleWrite($"Исключение при разборе строки {_row} : {_ex}");
                                 _failCount++;
@@ -2053,7 +2058,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         }
                     }
 
-                    if (_customerDebt.Count > 0)
+                    if (_customerDebt.Values.Any(v => v > 0))
                     {
                         _rechargeSet =
                             new RechargeSets
@@ -2064,6 +2069,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 Author = (Users)_db.GetObjectByKey(new EntityKey("Entities.Users", "ID", int.Parse(UserHolder.User.ID)))
                             };
                         _db.AddToRechargeSets(_rechargeSet);
+                        _db.SaveChanges();
+                    }
+
+                    if(_customerDebt.Values.Any(v => v < 0))
+                    {
+                        _paymentSet =
+                            new PaymentSets
+                            {
+                                CreationDateTime = _now,
+                                PaymentDate = _now,
+                                Number = _db.PaymentSets.Any() ? _db.PaymentSets.Max(c => c.Number) + 1 : 1,
+                                Author = (Users)_db.GetObjectByKey(new EntityKey("Entities.Users", "ID", int.Parse(UserHolder.User.ID)))
+                            };
+                        _db.AddToPaymentSets(_paymentSet);
                         _db.SaveChanges();
                     }
                 }
@@ -2083,64 +2102,60 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             Customers _dbCustomer = new Customers { ID = _customerID };
                             _db.Customers.Attach(_dbCustomer);
 
-                            var _customer =
-                                _db.Customers
-                                    .Where(c => c.ID == _customerID)
-                                    .Select(c =>
-                                        new
-                                        {
-                                            c.ID,
-                                            c.Square,
-                                            c.Account,
-                                            BuildingID = c.Buildings.ID,
-                                            BuildingNonResidentialPlaceArea = c.Buildings.NonResidentialPlaceArea,
-                                            ResidentsCount = c.Residents.Count(),
-                                            FederalBenefitResidentsCount = c.Residents
-                                                    .Count(resident => resident.BenefitTypes != null && resident.BenefitTypes.BenefitRule == 0),
-                                            LocalBenefitCoefficient = c.Residents
-                                                    .Where(resident => resident.BenefitTypes != null && resident.BenefitTypes.BenefitRule != 0)
-                                                    .Max(resident => resident.BenefitTypes.FixedPercent) ?? 0,
-                                        })
-                                    .First();
+                            Dictionary<int, Services> _services = _db.Services.ToDictionary(s => s.ID);
+                            Dictionary<int, Contractors> _contractors = _db.Contractors.ToDictionary(c => c.ID);
 
-                            IList<CustomerPosValue> _distribution = new List<CustomerPosValue>();
+                            bool _chargeExist =
+                                _db.ChargeOpers.Any(o => o.Customers.ID == _customerID) || 
+                                _db.RechargeOpers.Any(o => o.Customers.ID == _customerID);
 
-                            var _customerPoses =
-                                 _db.CustomerPoses
-                                     .Where(p =>
-                                         p.Customers.ID == _customer.ID &&
-                                         p.Since <= _rechargeSet.Period &&
-                                         p.Till >= _rechargeSet.Period)
-                                     .Select(p =>
-                                         new CustomerPosInfo
-                                         {
-                                             ID = p.ID,
-                                             ServiceID = p.Services.ID,
-                                             ContractorID = p.Contractors.ID,
-                                             ChargeRule = p.Services.ChargeRule,
-                                             Rate = p.Rate
-                                         })
-                                     // Необходимо для вычисления банковской комиссии расходов по сод. общ. им. после вычисления суммы начисления самих расходов
-                                     .OrderBy(p => p.ChargeRule)
-                                     .ToList();
+                            PeriodBalances _pb = new PeriodBalances();
 
-                            Dictionary<int, Services> _services =
-                                _db.Services
-                                    .Include(s => s.ServiceTypes)
-                                    .ToDictionary(s => s.ID, s => s);
-
-                            Dictionary<int, Contractors> _contractors = _db.Contractors
-                                    .ToDictionary(
-                                        contractor => contractor.ID,
-                                        contractor => contractor);
-
-                            if (_customerPoses.Any())
+                            if ((_debt < 0 && !_chargeExist) || _debt > 0)
                             {
+                                var _customer =
+                                    _db.Customers
+                                        .Where(c => c.ID == _customerID)
+                                        .Select(c =>
+                                            new
+                                            {
+                                                c.ID,
+                                                c.Square,
+                                                c.Account,
+                                                BuildingID = c.Buildings.ID,
+                                                BuildingNonResidentialPlaceArea = c.Buildings.NonResidentialPlaceArea,
+                                                ResidentsCount = c.Residents.Count(),
+                                                FederalBenefitResidentsCount = c.Residents
+                                                        .Count(resident => resident.BenefitTypes != null && resident.BenefitTypes.BenefitRule == 0),
+                                                LocalBenefitCoefficient = c.Residents
+                                                        .Where(resident => resident.BenefitTypes != null && resident.BenefitTypes.BenefitRule != 0)
+                                                        .Max(resident => resident.BenefitTypes.FixedPercent) ?? 0,
+                                            })
+                                        .First();
+
+                                var _customerPoses =
+                                     _db.CustomerPoses
+                                         .Where(p =>
+                                             p.Customers.ID == _customer.ID &&
+                                             p.Since <= _rechargeSet.Period &&
+                                             p.Till >= _rechargeSet.Period)
+                                         .Select(p =>
+                                             new
+                                             {
+                                                 ID = p.ID,
+                                                 ServiceID = p.Services.ID,
+                                                 ContractorID = p.Contractors.ID,
+                                                 ChargeRule = p.Services.ChargeRule,
+                                                 Rate = p.Rate
+                                             })
+                                         // Необходимо для вычисления банковской комиссии расходов по сод. общ. им. после вычисления суммы начисления самих расходов
+                                         .OrderBy(p => p.ChargeRule)
+                                         .ToList();
+
                                 foreach (var _customerPos in _customerPoses)
                                 {
                                     decimal _value = 0;
 
-                                    //Перенести правило начисления по услуге в тип услуги
                                     switch ((Service.ChargeRuleType)_customerPos.ChargeRule)
                                     {
                                         case Service.ChargeRuleType.SquareRate:
@@ -2198,7 +2213,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             decimal _area = _livingArea + _customer.BuildingNonResidentialPlaceArea;
 
                                             PublicPlaces _pp = _db.PublicPlaces
-                                                .FirstOrDefault(pp => 
+                                                .FirstOrDefault(pp =>
                                                     pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
 
                                             decimal? _norm = _services[_customerPos.ServiceID].Norm;
@@ -2207,8 +2222,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             {
                                                 decimal _rate = Math.Round(_norm.Value * _pp.Area / _area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                 _value = _customer.Square * _rate;
-                                                // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
-                                                _customerPos.Rate = _rate;
                                             }
                                             break;
 
@@ -2219,8 +2232,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     .Sum(p => p.Rate);
                                                 decimal _rate = Math.Round(_publicPlaceAreaRateSum * _customerPos.Rate / 100, 2, MidpointRounding.AwayFromZero);
                                                 _value = _rate * _customer.Square;
-                                                // Заменяем тариф для внесения в квитанцию 
-                                                _customerPos.Rate = _rate;
                                             }
                                             break;
                                         case Service.ChargeRuleType.FixedRate:
@@ -2231,40 +2242,264 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                     if (_value > 0)
                                     {
-                                        _distribution.Add(
-                                            new CustomerPosValue
-                                            {
-                                                CustomerPos = _customerPos,
-                                                Value = _value
-                                            });
+                                        _pb.AddCharge(_period, _customerPos.ServiceID, _value);
                                     }
                                 }
 
-                                decimal _distributionSum = _distribution.Sum(p => p.Value);
-
-                                if (_distributionSum > 0)
-                                {
-                                    decimal _coefficient = _debt / _distributionSum;
-
-                                    _distributionSum = 0;
-
-                                    foreach (CustomerPosValue _customerPosValue in _distribution)
-                                    {
-                                        _customerPosValue.Value = _coefficient * _customerPosValue.Value;
-
-                                        _distributionSum += _customerPosValue.Value;
-
-                                        if (_distributionSum > _debt)
+                                _contractorByService = _customerPoses
+                                    .GroupBy(p => p.ServiceID)
+                                    .Select(g =>
+                                        new
                                         {
-                                            _customerPosValue.Value -= _distributionSum - _debt;
-                                            _distributionSum = _debt;
+                                            ServiceID = g.Key,
+                                            ContractorID = g.First().ContractorID
+                                        })
+                                    .ToDictionary(r => r.ServiceID, r => r.ContractorID);
+                            }
+                            else
+                            {
+                                _pb = 
+                                    new PeriodBalances(_db.ChargeOperPoses
+                                        .Select(p =>
+                                            new
+                                            {
+                                                CustomerID = p.ChargeOpers.Customers.ID,
+                                                p.ChargeOpers.ChargeSets.Period,
+                                                ServiceID = p.Services.ID,
+                                                Charge = p.Value,
+                                                Benefit = (decimal)0,
+                                                Correction = (decimal)0,
+                                                Payment = (decimal)0,
+                                                Overpayment = (decimal)0,
+                                                OverpaymentCorrection = (decimal)0,
+                                                Total = p.Value,
+                                            })
+                                        .Concat(_db.RechargeOperPoses
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.RechargeOpers.Customers.ID,
+                                                    p.RechargeOpers.RechargeSets.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = p.Value,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = p.Value,
+                                                }))
+                                        .Concat(_db.ChargeOperPoses
+                                            .Where(p => p.ChargeOpers.ChargeCorrectionOpers != null)
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.ChargeOpers.Customers.ID,
+                                                    p.ChargeOpers.ChargeCorrectionOpers.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = -1 * p.Value,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = -1 * p.Value,
+                                                }))
+                                        .Concat(_db.RechargeOperPoses
+                                            .Where(p => p.RechargeOpers.ChildChargeCorrectionOpers != null)
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.RechargeOpers.Customers.ID,
+                                                    p.RechargeOpers.ChildChargeCorrectionOpers.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = -1 * p.Value,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = -1 * p.Value,
+                                                }))
+                                        .Concat(_db.BenefitOperPoses
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.BenefitOpers.ChargeOpers.Customers.ID,
+                                                    p.BenefitOpers.ChargeOpers.ChargeSets.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = p.Value,
+                                                    Correction = (decimal)0,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = p.Value,
+                                                }))
+                                        .Concat(_db.BenefitOperPoses
+                                            .Where(p => p.BenefitOpers.BenefitCorrectionOpers != null)
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.BenefitOpers.ChargeOpers.Customers.ID,
+                                                    p.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = -1 * p.Value,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = -1 * p.Value,
+                                                }))
+                                        .Concat(_db.RebenefitOperPoses
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.RebenefitOpers.RechargeOpers.Customers.ID,
+                                                    p.RebenefitOpers.RechargeOpers.RechargeSets.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = p.Value,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = p.Value,
+                                                }))
+                                        .Concat(_db.RebenefitOperPoses
+                                            .Where(p => p.RebenefitOpers.BenefitCorrectionOpers != null)
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.RebenefitOpers.RechargeOpers.Customers.ID,
+                                                    p.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = -1 * p.Value,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = -1 * p.Value,
+                                                }))
+                                        .Concat(_db.PaymentOperPoses
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.PaymentOpers.Customers.ID,
+                                                    p.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = (decimal)0,
+                                                    Payment = p.Value,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = p.Value,
+                                                }))
+                                        .Concat(_db.PaymentCorrectionOperPoses
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
+                                                    p.PaymentCorrectionOpers.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = p.Value,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = p.Value,
+                                                }))
+                                        .Concat(_db.OverpaymentOperPoses
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.OverpaymentOpers.Customers.ID,
+                                                    p.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = (decimal)0,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = p.Value,
+                                                    OverpaymentCorrection = (decimal)0,
+                                                    Total = p.Value,
+                                                }))
+                                        .Concat(_db.OverpaymentCorrectionOperPoses
+                                            .Select(p =>
+                                                new
+                                                {
+                                                    CustomerID = p.OverpaymentCorrectionOpers.ChargeOpers.Customers.ID,
+                                                    p.OverpaymentCorrectionOpers.Period,
+                                                    ServiceID = p.Services.ID,
+                                                    Charge = (decimal)0,
+                                                    Benefit = (decimal)0,
+                                                    Correction = (decimal)0,
+                                                    Payment = (decimal)0,
+                                                    Overpayment = (decimal)0,
+                                                    OverpaymentCorrection = p.Value,
+                                                    Total = p.Value,
+                                                }))
+                                        .Where(p => p.CustomerID == _customerID)
+                                        .GroupBy(p => p.Period)
+                                        .Select(groupedByPeriod => new
+                                        {
+                                            Period = groupedByPeriod.Key,
+                                            Balance = groupedByPeriod
+                                                .GroupBy(b => b.ServiceID)
+                                                .Select(groupedByService => new
+                                                {
+                                                    ServiceID = groupedByService.Key,
+                                                    Charge = groupedByService.Sum(b => b.Charge),
+                                                    Benefit = groupedByService.Sum(b => b.Benefit),
+                                                    Correction = groupedByService.Sum(b => b.Correction),
+                                                    Payment = groupedByService.Sum(b => b.Payment),
+                                                    Overpayment = groupedByService.Sum(b => b.Overpayment),
+                                                    OverpaymentCorrection = groupedByService.Sum(b => b.OverpaymentCorrection),
+                                                    Total = groupedByService.Sum(b => b.Total),
+                                                }),
+                                        })
+                                        .ToDictionary(
+                                            periodBalance => periodBalance.Period,
+                                            periodBalance => new ServiceBalances(periodBalance.Balance
+                                                .ToDictionary(
+                                                    serviceBalance => serviceBalance.ServiceID,
+                                                    serviceBalance => new Balance(
+                                                        serviceBalance.Charge,
+                                                        serviceBalance.Benefit,
+                                                        serviceBalance.Correction,
+                                                        serviceBalance.Payment,
+                                                        serviceBalance.Overpayment,
+                                                        serviceBalance.OverpaymentCorrection,
+                                                        serviceBalance.Total
+                                                    )))));
+                            }
+
+                            if(_debt > 0)
+                            {
+                                ServiceBalances _balance = _pb.Balances[_period];
+                                ServiceBalances _distribution = new ServiceBalances();
+
+                                if (_balance.TotalBalance.Total > 0)
+                                {
+                                    decimal _coefficient = _debt / _balance.TotalBalance.Total;
+
+                                    foreach (var _serviceBalance in _balance.Balances)
+                                    {
+                                        _distribution.AddCharge(_serviceBalance.Key, _coefficient * _serviceBalance.Value.Charge);
+
+                                        if (_distribution.TotalBalance.Total > _debt)
+                                        {
+                                            _distribution.AddCharge(_serviceBalance.Key, _debt - _distribution.TotalBalance.Total);
                                         }
                                     }
 
-                                    if (_distributionSum < _debt)
+                                    if (_distribution.TotalBalance.Total < _debt)
                                     {
-                                        _distribution.First().Value += _debt - _distributionSum;
-                                        _distributionSum = _debt;
+                                        _distribution.AddCharge(_distribution.Balances.Keys.First(), _debt - _distribution.TotalBalance.Total);
                                     }
 
                                     #region Дополнительные начисления
@@ -2277,44 +2512,69 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             RechargeSets = _rechargeSet,
                                             CreationDateTime = _now,
                                             Customers = _dbCustomer,
-                                            Value = Math.Round(_distributionSum, 2, MidpointRounding.AwayFromZero)
+                                            Value = Math.Round(_distribution.TotalBalance.Total, 2, MidpointRounding.AwayFromZero)
                                         };
                                     _db.AddToRechargeOpers(_rechargeOper);
 
-                                    foreach (CustomerPosValue _customerPosValue in _distribution)
+                                    foreach (var _sb in _distribution.Balances)
                                     {
                                         RechargeOperPoses _pos = new RechargeOperPoses
                                         {
-                                            Services = _services[_customerPosValue.CustomerPos.ServiceID],
-                                            Contractors = _contractors[_customerPosValue.CustomerPos.ContractorID],
+                                            Services = _services[_sb.Key],
+                                            Contractors = _contractors[_contractorByService[_sb.Key]],
                                             RechargeOpers = _rechargeOper,
-                                            Value = Math.Round(_customerPosValue.Value, 2, MidpointRounding.AwayFromZero)
+                                            Value = Math.Round(_sb.Value.Charge, 2, MidpointRounding.AwayFromZero)
                                         };
                                         _db.AddToRechargeOperPoses(_pos);
-                                        _posesToRegister.Add(_pos);
                                     }
-
-                                    _db.SaveChanges();
 
                                     _rechargeSet.Quantity++;
                                     _rechargeSet.ValueSum += _rechargeOper.Value;
-
-                                    _db.SaveChanges();
-
-                                    _totalValue = _rechargeSet.ValueSum;
-
-                                    _posesToRegister.Clear();
+                                    _totalValue += _rechargeOper.Value;
 
                                     #endregion
                                 }
-
-                                _processed++;
                             }
                             else
                             {
-                                Logger.SimpleWrite($"Отсутствуют услуги у абонента с л/с {_customer.Account}");
-                                _failCount++;
+                                PeriodBalances _distribution =
+                                    PaymentDistributionSrv.DistributePayment(_pb, _now, _period, _previousPeriod, _debt, _customerID);
+
+                                _paymentSet = (PaymentSets)_db.GetObjectByKey(new EntityKey("Entities.PaymentSets", "ID", _paymentSet.ID));
+
+                                PaymentOpers _paymentOper = new PaymentOpers()
+                                {
+                                    CreationDateTime = _now,
+                                    PaymentSets = _paymentSet,
+                                    Customers = _dbCustomer,
+                                    PaymentPeriod = _period,
+                                    Value = _debt,
+                                };
+                                _db.PaymentOpers.AddObject(_paymentOper);
+
+                                foreach (KeyValuePair<DateTime, ServiceBalances> _periodBalance in _distribution.Balances)
+                                {
+                                    foreach (KeyValuePair<int, Balance> _serviceBalance in _periodBalance.Value.Balances)
+                                    {
+                                        PaymentOperPoses _pos = new PaymentOperPoses()
+                                        {
+                                            PaymentOpers = _paymentOper,
+                                            Period = _periodBalance.Key,
+                                            Services = _services[_serviceBalance.Key],
+                                            Value = _serviceBalance.Value.Payment,
+                                        };
+
+                                        _db.AddToPaymentOperPoses(_pos);
+                                    }
+                                }
+
+                                _paymentSet.Quantity++;
+                                _paymentSet.ValueSum += _debt;
                             }
+
+                            _db.SaveChanges();
+
+                            _processed++;
                         }
                         catch (Exception _ex)
                         {

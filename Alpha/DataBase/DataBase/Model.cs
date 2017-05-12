@@ -12870,11 +12870,13 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="name">Initial value of the Name property.</param>
-        public static Streets CreateStreets(global::System.Int32 id, global::System.String name)
+        /// <param name="billName">Initial value of the BillName property.</param>
+        public static Streets CreateStreets(global::System.Int32 id, global::System.String name, global::System.String billName)
         {
             Streets streets = new Streets();
             streets.ID = id;
             streets.Name = name;
+            streets.BillName = billName;
             return streets;
         }
 
@@ -12932,6 +12934,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String BillName
+        {
+            get
+            {
+                return _BillName;
+            }
+            set
+            {
+                OnBillNameChanging(value);
+                ReportPropertyChanging("BillName");
+                _BillName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("BillName");
+                OnBillNameChanged();
+            }
+        }
+        private global::System.String _BillName;
+        partial void OnBillNameChanging(global::System.String value);
+        partial void OnBillNameChanged();
 
         #endregion
 

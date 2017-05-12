@@ -78,232 +78,294 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                 }
                 else
                 {
+                    string _dirPath = Path.GetDirectoryName(View.FilePath);
+                    string _postfix = View.IsSberbankFileFormat ? "UTF_Сбербанк" : "Примсоцбанк";
                     Encoding _encoding = View.IsSberbankFileFormat ? Encoding.UTF8 : Encoding.GetEncoding(1251);
+                    DateTime _period = new DateTime(View.Period.Year, View.Period.Month, 1);
 
-                    using (StreamWriter _file = new StreamWriter(View.FilePath, false, _encoding))
+                    using (Entities _entities = new Entities())
                     {
-                        _file.AutoFlush = true;
-                        DateTime _period = new DateTime(View.Period.Year, View.Period.Month, 1);
+                        _entities.CommandTimeout = 3600;
 
-                        using (Entities _entities = new Entities())
-                        {
-                            _entities.CommandTimeout = 3600;
-
-                            var _list = 
-                                _entities.ChargeOpers
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.Customers.ID,
-                                            BuildingID = c.Customers.Buildings.ID,
-                                            c.ChargeSets.Period,
-                                            c.Value
-                                        })
-                                    .Concat(
-                                        _entities.ChargeOpers
-                                            .Where(c => c.ChargeCorrectionOpers != null)
-                                            .Select(
-                                                c =>
-                                                new
-                                                {
-                                                    CustomerID = c.Customers.ID,
-                                                    BuildingID = c.Customers.Buildings.ID,
-                                                    c.ChargeCorrectionOpers.Period,
-                                                    Value = -1 * c.Value
-                                                }))
-                                    .Concat(
-                                        _entities.RechargeOpers
+                        var _list = 
+                            _entities.ChargeOpers
+                                .Select(
+                                    c =>
+                                    new
+                                    {
+                                        CustomerID = c.Customers.ID,
+                                        BuildingID = c.Customers.Buildings.ID,
+                                        c.Customers.Buildings.BankDetailID,
+                                        c.ChargeSets.Period,
+                                        c.Value
+                                    })
+                                .Concat(
+                                    _entities.ChargeOpers
+                                        .Where(c => c.ChargeCorrectionOpers != null)
                                         .Select(
                                             c =>
                                             new
                                             {
                                                 CustomerID = c.Customers.ID,
                                                 BuildingID = c.Customers.Buildings.ID,
-                                                c.RechargeSets.Period,
-                                                c.Value
+                                                c.Customers.Buildings.BankDetailID,
+                                                c.ChargeCorrectionOpers.Period,
+                                                Value = -1 * c.Value
                                             }))
-                                    .Concat(
-                                        _entities.RechargeOpers
-                                            .Where(c => c.ChildChargeCorrectionOpers != null)
-                                            .Select(
-                                                c =>
-                                                new
-                                                {
-                                                    CustomerID = c.Customers.ID,
-                                                    BuildingID = c.Customers.Buildings.ID,
-                                                    c.ChildChargeCorrectionOpers.Period,
-                                                    Value = -1 * c.Value
-                                                }))
-                                    .Concat(
-                                        _entities.BenefitOpers
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.ChargeOpers.Customers.ID,
-                                                    BuildingID = b.ChargeOpers.Customers.Buildings.ID,
-                                                    b.ChargeOpers.ChargeSets.Period,
-                                                    b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.BenefitOpers
-                                            .Where(b => b.BenefitCorrectionOpers != null)
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.ChargeOpers.Customers.ID,
-                                                    BuildingID = b.ChargeOpers.Customers.Buildings.ID,
-                                                    b.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                                    Value = -1 * b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.RebenefitOpers
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.RechargeOpers.Customers.ID,
-                                                    BuildingID = b.RechargeOpers.Customers.Buildings.ID,
-                                                    b.RechargeOpers.RechargeSets.Period,
-                                                    b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.RebenefitOpers
-                                            .Where(b => b.BenefitCorrectionOpers != null)
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.RechargeOpers.Customers.ID,
-                                                    BuildingID = b.RechargeOpers.Customers.Buildings.ID,
-                                                    b.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                                    Value = -1 * b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.PaymentOperPoses
-                                            .Select(p =>
-                                                new
-                                                {
-                                                    CustomerID = p.PaymentOpers.Customers.ID,
-                                                    BuildingID = p.PaymentOpers.Customers.Buildings.ID,
-                                                    p.Period,
-                                                    p.Value
-                                                }))
-                                    .Concat(
-                                        _entities.PaymentCorrectionOpers
-                                            .Select(p =>
-                                                new
-                                                {
-                                                    CustomerID = p.PaymentOpers.Customers.ID,
-                                                    BuildingID = p.PaymentOpers.Customers.Buildings.ID,
-                                                    p.Period,
-                                                    p.Value
-                                                }))
-                                    .Concat(
-                                        _entities.OverpaymentOperPoses
-                                            .Select(o =>
-                                                new
-                                                {
-                                                    CustomerID = o.OverpaymentOpers.Customers.ID,
-                                                    BuildingID = o.OverpaymentOpers.Customers.Buildings.ID,
-                                                    o.Period,
-                                                    o.Value
-                                                }))
-                                    .Concat(
-                                        _entities.OverpaymentCorrectionOpers
-                                            .Select(o =>
-                                                new
-                                                {
-                                                    CustomerID = o.ChargeOpers.Customers.ID,
-                                                    BuildingID = o.ChargeOpers.Customers.Buildings.ID,
-                                                    o.Period,
-                                                    o.Value
-                                                }))
-                                    .Where(c => c.Period <= _period)
-                                    .GroupBy(
+                                .Concat(
+                                    _entities.RechargeOpers
+                                    .Select(
                                         c =>
                                         new
                                         {
-                                            c.CustomerID,
-                                            c.BuildingID
-                                        })
-                                    .Select(
-                                        g =>
-                                        new
-                                        {
-                                            g.Key.CustomerID,
-                                            g.Key.BuildingID,
-                                            Value = g.Sum(c => c.Value) 
-                                        })
-                                .ToList();
-
-                            var _customers = 
-                                _entities.Customers
-                                    .Select(
-                                        c => 
-                                        new
+                                            CustomerID = c.Customers.ID,
+                                            BuildingID = c.Customers.Buildings.ID,
+                                            c.Customers.Buildings.BankDetailID,
+                                            c.RechargeSets.Period,
+                                            c.Value
+                                        }))
+                                .Concat(
+                                    _entities.RechargeOpers
+                                        .Where(c => c.ChildChargeCorrectionOpers != null)
+                                        .Select(
+                                            c =>
+                                            new
+                                            {
+                                                CustomerID = c.Customers.ID,
+                                                BuildingID = c.Customers.Buildings.ID,
+                                                c.Customers.Buildings.BankDetailID,
+                                                c.ChildChargeCorrectionOpers.Period,
+                                                Value = -1 * c.Value
+                                            }))
+                                .Concat(
+                                    _entities.BenefitOpers
+                                        .Select(
+                                            b =>
+                                            new
+                                            {
+                                                CustomerID = b.ChargeOpers.Customers.ID,
+                                                BuildingID = b.ChargeOpers.Customers.Buildings.ID,
+                                                b.ChargeOpers.Customers.Buildings.BankDetailID,
+                                                b.ChargeOpers.ChargeSets.Period,
+                                                b.Value
+                                            }))
+                                .Concat(
+                                    _entities.BenefitOpers
+                                        .Where(b => b.BenefitCorrectionOpers != null)
+                                        .Select(
+                                            b =>
+                                            new
+                                            {
+                                                CustomerID = b.ChargeOpers.Customers.ID,
+                                                BuildingID = b.ChargeOpers.Customers.Buildings.ID,
+                                                b.ChargeOpers.Customers.Buildings.BankDetailID,
+                                                b.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
+                                                Value = -1 * b.Value
+                                            }))
+                                .Concat(
+                                    _entities.RebenefitOpers
+                                        .Select(
+                                            b =>
+                                            new
+                                            {
+                                                CustomerID = b.RechargeOpers.Customers.ID,
+                                                BuildingID = b.RechargeOpers.Customers.Buildings.ID,
+                                                b.RechargeOpers.Customers.Buildings.BankDetailID,
+                                                b.RechargeOpers.RechargeSets.Period,
+                                                b.Value
+                                            }))
+                                .Concat(
+                                    _entities.RebenefitOpers
+                                        .Where(b => b.BenefitCorrectionOpers != null)
+                                        .Select(
+                                            b =>
+                                            new
+                                            {
+                                                CustomerID = b.RechargeOpers.Customers.ID,
+                                                BuildingID = b.RechargeOpers.Customers.Buildings.ID,
+                                                b.RechargeOpers.Customers.Buildings.BankDetailID,
+                                                b.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
+                                                Value = -1 * b.Value
+                                            }))
+                                .Concat(
+                                    _entities.PaymentOperPoses
+                                        .Select(p =>
+                                            new
+                                            {
+                                                CustomerID = p.PaymentOpers.Customers.ID,
+                                                BuildingID = p.PaymentOpers.Customers.Buildings.ID,
+                                                p.PaymentOpers.Customers.Buildings.BankDetailID,
+                                                p.Period,
+                                                p.Value
+                                            }))
+                                .Concat(
+                                    _entities.PaymentCorrectionOpers
+                                        .Select(p =>
+                                            new
+                                            {
+                                                CustomerID = p.PaymentOpers.Customers.ID,
+                                                BuildingID = p.PaymentOpers.Customers.Buildings.ID,
+                                                p.PaymentOpers.Customers.Buildings.BankDetailID,
+                                                p.Period,
+                                                p.Value
+                                            }))
+                                .Concat(
+                                    _entities.OverpaymentOperPoses
+                                        .Select(o =>
+                                            new
+                                            {
+                                                CustomerID = o.OverpaymentOpers.Customers.ID,
+                                                BuildingID = o.OverpaymentOpers.Customers.Buildings.ID,
+                                                o.OverpaymentOpers.Customers.Buildings.BankDetailID,
+                                                o.Period,
+                                                o.Value
+                                            }))
+                                .Concat(
+                                    _entities.OverpaymentCorrectionOpers
+                                        .Select(o =>
+                                            new
+                                            {
+                                                CustomerID = o.ChargeOpers.Customers.ID,
+                                                BuildingID = o.ChargeOpers.Customers.Buildings.ID,
+                                                o.ChargeOpers.Customers.Buildings.BankDetailID,
+                                                o.Period,
+                                                o.Value
+                                            }))
+                                .Where(c => c.Period <= _period)
+                                .GroupBy(
+                                    c =>
+                                    new
+                                    {
+                                        c.CustomerID,
+                                        c.BuildingID,
+                                        c.BankDetailID,
+                                    })
+                                .Select(
+                                    g =>
+                                    new
+                                    {
+                                        g.Key.CustomerID,
+                                        g.Key.BuildingID,
+                                        g.Key.BankDetailID,
+                                        Value = g.Sum(c => c.Value) 
+                                    })
+                            .ToList()
+                            .GroupBy(r => r.BankDetailID)
+                            .Select(gBankDetail =>
+                                new
                                 {
-                                            c.ID,
-                                            c.OwnerType,
-                                            c.Account,
-                                            c.PhysicalPersonFullName,
-                                            c.JuridicalPersonFullName,
-                                            c.Apartment,
+                                    BankDetailID = gBankDetail.Key.Value,
+                                    Data = gBankDetail
+                                        .Select(r => 
+                                            new
+                                            {
+                                                r.CustomerID,
+                                                r.BuildingID,
+                                                Value = r.Value < 0 ? 0 : r.Value
+                                            })
+                                        .ToList()
                                 })
-                                    .ToDictionary(c => c.ID);
+                            .ToDictionary(r => r.BankDetailID, r => r.Data);
 
-                            var _buildings = 
-                                _entities.Buildings
-                                    .Select(
-                                        b => 
-                                        new
-                                {
-                                            b.ID,
-                                            StreetName = b.Streets.Name, 
-                                            b.Number,
-                                })
-                                    .ToDictionary(b => b.ID);
+                        var _customers = 
+                            _entities.Customers
+                                .Select(c => 
+                                    new
+                                    {
+                                        c.ID,
+                                        c.OwnerType,
+                                        c.Account,
+                                        c.PhysicalPersonFullName,
+                                        c.JuridicalPersonFullName,
+                                        c.Apartment,
+                                    })
+                                .ToDictionary(c => c.ID);
 
-                            foreach (var _record in _list)
+                        var _buildings = 
+                            _entities.Buildings
+                                .Select(b => 
+                                    new
+                                    {
+                                        b.ID,
+                                        StreetName = b.Streets.Name, 
+                                        b.Number,
+                                    })
+                                .ToDictionary(b => b.ID);
+
+                        var _bankDetails =
+                            _entities.BankDetails
+                                .Select(b =>
+                                    new
+                                    {
+                                        b.ID,
+                                        b.INN,
+                                        b.Account
+                                    })
+                                .ToDictionary(b => b.ID);
+
+                        foreach(var _pair in _list)
+                        {
+                            var _bd = _bankDetails[_pair.Key];
+                            string _fileName = $"{_dirPath}\\{_bd.INN}_{_bd.Account}_{_postfix}.txt";
+                            using (StreamWriter _file = new StreamWriter(_fileName, false, _encoding))
                             {
-                                var _customer = _customers[_record.CustomerID];
-                                var _building = _buildings[_record.BuildingID];
+                                _file.AutoFlush = true;
 
-                                string _owner = "Неизвестен";
-
-                                if (_customer.OwnerType == (int) Customer.OwnerTypes.PhysicalPerson)
+                                if(!View.IsSberbankFileFormat)
                                 {
-                                    _owner = _customer.PhysicalPersonFullName;
-                                }
-                                else if (_customer.OwnerType == (int) Customer.OwnerTypes.JuridicalPerson)
-                                {
-                                    _owner = _customer.JuridicalPersonFullName;
+                                    _file.WriteLine($"#FILESUM {_pair.Value.Sum(x => x.Value)}");
+                                    _file.WriteLine("#TYPE 7");
+                                    _file.WriteLine("#SERVICE 63350");
                                 }
 
-                                if (View.IsSberbankFileFormat)
+                                foreach (var _record in _pair.Value)
                                 {
-                                    _file.WriteLine("{0}|{1}|{2}|{3}",
-                                        _customer.Account.Replace("EG-", String.Empty),
-                                        _owner,
-                                        _period.ToString("MM.yyyy"),
-                                        _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
-                                }
-                                else
-                                {
-                                    _file.WriteLine(
-                                        "EG|{0}|{1}|{2}, {3}{4}|{5}",
-                                        _customer.Account.Replace("EG-", String.Empty),
-                                        _owner, _building.StreetName,
-                                        _building.Number,
-                                        String.IsNullOrEmpty(_customer.Apartment)
-                                            ? String.Empty
-                                            : String.Format(", {0}", _customer.Apartment),
-                                        _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
+                                    var _customer = _customers[_record.CustomerID];
+                                    var _building = _buildings[_record.BuildingID];
+
+                                    string _owner = "Неизвестен";
+
+                                    if (_customer.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson)
+                                    {
+                                        _owner = _customer.PhysicalPersonFullName;
+                                    }
+                                    else if (_customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson)
+                                    {
+                                        _owner = _customer.JuridicalPersonFullName;
+                                    }
+
+                                    if (View.IsSberbankFileFormat)
+                                    {
+                                        _file.WriteLine("{0}|{1}|{2}",
+                                            _customer.Account,
+                                            _owner,
+                                            _record.Value.ToString().Replace(',', '.'));
+                                    }
+                                    else
+                                    {
+                                        _file.WriteLine(
+                                            "{0};Владивосток,{1},{2},{3};{4};{5}",
+                                            _owner, 
+                                            _building.StreetName,
+                                            _building.Number,
+                                            _customer.Apartment,
+                                            _customer.Account,
+                                            _record.Value.ToString().Replace(',', '.'));
+                                        /*
+                                        _file.WriteLine(
+                                            "{0}|{1}|{2}, {3}{4}|{5}",
+                                            _customer.Account,
+                                            _owner, _building.StreetName,
+                                            _building.Number,
+                                            String.IsNullOrEmpty(_customer.Apartment)
+                                                ? String.Empty
+                                                : String.Format(", {0}", _customer.Apartment),
+                                            _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));*/
+                                    }
                                 }
                             }
                         }
+                            
                     }
 
                     View.ShowMessage("Операция выполнена успешно", "Экспорт");

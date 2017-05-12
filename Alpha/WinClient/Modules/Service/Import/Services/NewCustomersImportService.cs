@@ -214,7 +214,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             Streets _street = _db.Streets.FirstOrDefault(s => s.Name == _row.StreetName);
                             if (_street == null)
                             {
-                                _street = new Streets { Name = _row.StreetName };
+                                _street = new Streets
+                                {
+                                    Name = _row.StreetName,
+                                    BillName = $"ул. {_row.StreetName}"
+                                };
                                 _db.Streets.AddObject(_street);
                             }
 

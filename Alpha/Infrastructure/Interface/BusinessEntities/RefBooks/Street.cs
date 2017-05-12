@@ -24,5 +24,23 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
                 _name = value;
             }
         }
+
+        private string _billName;
+        /// <summary>
+        /// Наименование в квитанции
+        /// </summary>
+        public string BillName
+        {
+            get
+            {
+                Load();
+                return _billName;
+            }
+            set
+            {
+                Load();
+                _billName = value;
+            }
+        }
     }
 }

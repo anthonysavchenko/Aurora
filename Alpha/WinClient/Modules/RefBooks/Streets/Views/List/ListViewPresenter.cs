@@ -13,6 +13,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Streets.Views.List
             DataTable _table = new DataTable();
             _table.Columns.Add("ID", typeof(int));
             _table.Columns.Add("Name", typeof(string));
+            _table.Columns.Add("BillName", typeof(string));
 
             using (Entities _entities = new Entities())
             {
@@ -20,7 +21,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Streets.Views.List
                 {
                     _table.Rows.Add(
                         _street.ID,
-                        _street.Name);
+                        _street.Name,
+                        _street.BillName);
                 }
             }
 
@@ -42,7 +44,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Streets.Views.List
                 _message = "Не указано полное название";
                 _res = false;
             }
-            else
+            else if(string.IsNullOrEmpty(_dom.BillName.Trim()))
+            {
+                _message = "Не указано название в квитанции";
+                _res = false;
+            }
+            else if(_dom.IsNew)
             {
                 using (Entities _entities = new Entities())
                 {
@@ -64,6 +71,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Streets.Views.List
         protected override void GetItemFromView(DomItem _curItem)
         {
             _curItem.Name = View.StreetName;
+            _curItem.BillName = View.StreetBillName;
         }
     }
 }

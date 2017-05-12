@@ -44,12 +44,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.benefitInputSelectFileBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gisZhkhProgressBar = new System.Windows.Forms.ProgressBar();
             this.gisZhkhOnlyNewRadioGroup = new DevExpress.XtraEditors.RadioGroup();
             this.gisZhkhExportButton = new System.Windows.Forms.Button();
             this.gisZhkhInputFileTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.label5 = new System.Windows.Forms.Label();
             this.gisZhkhSelectInputFileButton = new System.Windows.Forms.Button();
-            this.gisZhkhProgressBar = new System.Windows.Forms.ProgressBar();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FormatRadioGroup.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PeriodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
@@ -241,6 +241,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Экспорт абонентов в ГИС ЖКХ";
             // 
+            // gisZhkhProgressBar
+            // 
+            this.gisZhkhProgressBar.Location = new System.Drawing.Point(224, 77);
+            this.gisZhkhProgressBar.Name = "gisZhkhProgressBar";
+            this.gisZhkhProgressBar.Size = new System.Drawing.Size(317, 23);
+            this.gisZhkhProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.gisZhkhProgressBar.TabIndex = 41;
+            this.gisZhkhProgressBar.Visible = false;
+            // 
             // gisZhkhOnlyNewRadioGroup
             // 
             this.gisZhkhOnlyNewRadioGroup.EditValue = true;
@@ -290,15 +299,6 @@
             this.gisZhkhSelectInputFileButton.UseVisualStyleBackColor = true;
             this.gisZhkhSelectInputFileButton.Click += new System.EventHandler(this.gisZhkhSelectInputFileButton_Click);
             // 
-            // gisZhkhProgressBar
-            // 
-            this.gisZhkhProgressBar.Location = new System.Drawing.Point(224, 77);
-            this.gisZhkhProgressBar.Name = "gisZhkhProgressBar";
-            this.gisZhkhProgressBar.Size = new System.Drawing.Size(317, 23);
-            this.gisZhkhProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.gisZhkhProgressBar.TabIndex = 41;
-            this.gisZhkhProgressBar.Visible = false;
-            // 
             // LayoutView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -307,7 +307,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1062, 577);
+            this.Size = new System.Drawing.Size(1550, 879);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FormatRadioGroup.Properties)).EndInit();

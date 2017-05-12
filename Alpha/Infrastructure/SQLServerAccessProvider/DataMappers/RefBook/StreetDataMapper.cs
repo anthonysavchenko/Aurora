@@ -41,6 +41,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
             {
                 DBItem _dbItem = _entities.Streets.First(x => x.ID == _id);
                 _domItem.Name = _dbItem.Name;
+                _domItem.BillName = _dbItem.BillName;
             }
 
             return _domItem;
@@ -69,6 +70,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 }
 
                 _dbItem.Name = domObj.Name;
+                _dbItem.BillName = domObj.BillName;
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();

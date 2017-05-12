@@ -521,6 +521,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="TotalBillDocPoses">
           <Key>
@@ -2794,6 +2795,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_Buildings_Streets" FromRole="Streets" ToRole="Buildings" />
+          <Property Name="BillName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TotalBillDocPoses">
           <Key>
@@ -3686,6 +3688,7 @@
           <EntitySetMapping Name="Streets">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Streets)">
               <MappingFragment StoreEntitySet="Streets">
+                <ScalarProperty Name="BillName" ColumnName="BillName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
