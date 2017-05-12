@@ -94,7 +94,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
             using (var _entities = new Entities())
             {
                 _entities.CommandTimeout = 3600;
-                decimal MinValue = 5000;
 
                 var _result =
                     _entities.ChargeOpers
@@ -215,8 +214,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                             {
                                 CustomerID = g.Key,
                                 Value = g.Sum(c => (decimal?)c.Value) ?? 0
-                            })
-                        .Where(c => c.Value >= MinValue);
+                            });
 
                 var _customers =
                     _entities.Customers
