@@ -214,7 +214,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                             {
                                 CustomerID = g.Key,
                                 Value = g.Sum(c => (decimal?)c.Value) ?? 0
-                            });
+                            })
+                        .Where(c => c.Value > 0);
 
                 var _customers =
                     _entities.Customers
