@@ -111,7 +111,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
                                         b.Value,
                                         b.Address,
                                         b.Owner,
-                                        b.Customers.Buildings.BankDetails
+                                        b.Customers.Buildings.BankDetails,
+                                        BuildingID = b.Customers.Buildings.ID
                                     })
                                 .ToList();
 
@@ -130,7 +131,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
                                 _bill.Address,
                                 _bill.Owner,
                                 _bill.ID,
-                                BillService.OrganizationDetails(_bill.BankDetails));
+                                BillService.OrganizationDetails(_bill.BankDetails, _bill.BuildingID));
                         }
                     }
                 }

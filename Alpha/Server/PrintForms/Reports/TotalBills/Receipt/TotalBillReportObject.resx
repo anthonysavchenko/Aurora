@@ -127,10 +127,10 @@
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="xrLabel16.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1122, 154.5</value>
+    <value>1122, 127</value>
   </data>
   <data name="xrLabel16.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>804.999756, 170</value>
+    <value>804.999756, 197.5</value>
   </data>
   <data name="xrLabel16.Text" xml:space="preserve">
     <value>xrLabel16</value>
@@ -338,36 +338,6 @@
   </data>
   <data name="peopleCountLabel.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
-  </data>
-  <data name="xrLabel14.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="xrLabel14.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt</value>
-  </data>
-  <data name="xrLabel14.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1122, 127</value>
-  </data>
-  <data name="xrLabel14.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>212, 27.5</value>
-  </data>
-  <data name="xrLabel14.Text" xml:space="preserve">
-    <value>Вас обслуживает</value>
-  </data>
-  <data name="xrLabel15.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="xrLabel15.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 6.75pt, style=Bold</value>
-  </data>
-  <data name="xrLabel15.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1333.99988, 127</value>
-  </data>
-  <data name="xrLabel15.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>593, 27.5</value>
-  </data>
-  <data name="xrLabel15.Text" xml:space="preserve">
-    <value>ООО "УК Фрунзенского района"</value>
   </data>
   <data name="xrLabel2.Dpi" type="System.Single, mscorlib">
     <value>254</value>

@@ -17,47 +17,76 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <param name="bankDetail">Банковские реквизиты</param>
         /// <param name="contractorInfo">Данные подрядчика</param>
         /// <param name="emergencyPhoneNumber">Телефон аварийных служб</param>
-        public string OrganizationDetails(BankDetails bankDetail, string contractorInfo, string emergencyPhoneNumber)
+        public string OrganizationDetails(BankDetails bankDetail, int buildingID, string contractorInfo, string emergencyPhoneNumber)
         {
-            StringBuilder _builder = new StringBuilder();
-
-            _builder.AppendLine("Директор Слаутенко А.В. г. Владивосток, ул. Рылеева, 8.");
-
-            if (bankDetail != null)
+            string _result;
+            if (buildingID == 401) //Крыгина 42а
             {
-                if (!string.IsNullOrEmpty(bankDetail.INN))
+                _result = $@"ИНН 2540975823, КПП 254001001, ОГРН 1132500003195
+Фонд Приморского края «Фонд капитального ремонта
+многоквартирных домов Приморского края» 
+Юридический адрес: г. Владивосток, ул. Алеутская, 16
+Фактический адрес: г. Владивосток, ул. Жигура, 26а
+ИНН 7707083893, КПП 254002002, БИК 040813608
+к/с 30101810600000000608, р/с 40604810050000001719
+ПАО «Сбербанк России»";
+            }
+            else if (buildingID == 463) //Океанский проспект 109
+            {
+                _result = @"ИНН 2540975823, КПП 254001001, ОГРН 1132500003195
+Фонд Приморского края «Фонд капитального ремонта
+многоквартирных домов Приморского края» 
+Юридический адрес: г. Владивосток, ул. Алеутская, 16
+Фактический адрес: г. Владивосток, ул. Жигура, 26а
+ИНН 2540975823, КПП 254001001, БИК 046401818
+к/с 30101810364010000818, р/с 40604810200650006401
+филиал «Дальневосточный» банка ВТБ г. Южно-Сахалинск";
+            }
+            else
+            {
+                StringBuilder _builder = new StringBuilder();
+
+                _builder.AppendLine("Вас обслуживает ООО \"УК Фрунзенского района\"");
+                _builder.AppendLine("Директор Слаутенко А.В. г. Владивосток, ул. Рылеева, 8.");
+
+                if (bankDetail != null)
                 {
-                    _builder.Append($"ИНН {bankDetail.INN}, ");
+                    if (!string.IsNullOrEmpty(bankDetail.INN))
+                    {
+                        _builder.Append($"ИНН {bankDetail.INN}, ");
+                    }
+
+                    if (!string.IsNullOrEmpty(bankDetail.KPP))
+                    {
+                        _builder.Append($"КПП {bankDetail.KPP}, ");
+                    }
+
+                    _builder.Append($"БИК {bankDetail.BIK},");
+                    _builder.AppendLine();
+
+                    if (!string.IsNullOrEmpty(bankDetail.CorrAccount))
+                    {
+                        _builder.Append($"к/с {bankDetail.CorrAccount}, ");
+                    }
+
+                    _builder.AppendLine($"р/с {bankDetail.Account},");
+                    _builder.AppendLine(bankDetail.Name);
                 }
 
-                if (!string.IsNullOrEmpty(bankDetail.KPP))
+                _builder.AppendLine("Юр. от. 279-15-81, отд. по раб. с нас. 279-15-85, ПТО 279-15-84,");
+                _builder.Append(
+                    $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72, адрес: Рылеева, 8");
+
+                if (!string.IsNullOrEmpty(contractorInfo))
                 {
-                    _builder.Append($"КПП {bankDetail.KPP}, ");
+                    _builder.AppendLine();
+                    _builder.Append(contractorInfo);
                 }
 
-                _builder.Append($"БИК {bankDetail.BIK},");
-                _builder.AppendLine();
-
-                if (!string.IsNullOrEmpty(bankDetail.CorrAccount))
-                {
-                    _builder.Append($"к/с {bankDetail.CorrAccount}, ");
-                }
-
-                _builder.AppendLine($"р/с {bankDetail.Account},");
-                _builder.AppendLine(bankDetail.Name);
+                _result = _builder.ToString();
             }
 
-            _builder.AppendLine("Юр. от. 279-15-81, отд. по раб. с нас. 279-15-85, ПТО 279-15-84,");
-            _builder.Append(
-                $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72, адрес: Рылеева, 8");
-
-            if (!string.IsNullOrEmpty(contractorInfo))
-            {
-                _builder.AppendLine();
-                _builder.Append(contractorInfo);
-            }
-
-            return _builder.ToString();
+            return _result;
         }
 
         /// <summary>

@@ -167,10 +167,10 @@
     <value>Tahoma, 6.75pt</value>
   </data>
   <data name="bankDetailsLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1186.99988, 122.749947</value>
+    <value>1186.99988, 95.24996</value>
   </data>
   <data name="bankDetailsLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>804, 169.5</value>
+    <value>804, 196.999908</value>
   </data>
   <data name="bankDetailsLabel.Text" xml:space="preserve">
     <value>bankDetailsLabel</value>
@@ -431,42 +431,6 @@
     <value>Плательщик:</value>
   </data>
   <data name="xrLabel2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="xrLabel15.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="xrLabel15.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 6.75pt, style=Bold</value>
-  </data>
-  <data name="xrLabel15.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1399, 95.24998</value>
-  </data>
-  <data name="xrLabel15.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>592, 27.5</value>
-  </data>
-  <data name="xrLabel15.Text" xml:space="preserve">
-    <value>ООО "УК Фрунзенского района"</value>
-  </data>
-  <data name="xrLabel15.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="xrLabel14.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="xrLabel14.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 6.75pt</value>
-  </data>
-  <data name="xrLabel14.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1186.99988, 95.24998</value>
-  </data>
-  <data name="xrLabel14.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>212, 27.5</value>
-  </data>
-  <data name="xrLabel14.Text" xml:space="preserve">
-    <value>Вас обслуживает</value>
-  </data>
-  <data name="xrLabel14.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
   </data>
   <data name="billDateLabel.Dpi" type="System.Single, mscorlib">

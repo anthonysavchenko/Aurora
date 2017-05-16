@@ -54,8 +54,6 @@
             this.bankQrCode = new DevExpress.XtraReports.UI.XRBarCode();
             this.bankDetailsLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
-            this.xrLabel15 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel14 = new DevExpress.XtraReports.UI.XRLabel();
             this.printDateLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel9 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTable3 = new DevExpress.XtraReports.UI.XRTable();
@@ -102,8 +100,6 @@
             this.bankQrCode,
             this.bankDetailsLabel,
             this.serviceTableSubreport,
-            this.xrLabel15,
-            this.xrLabel14,
             this.printDateLabel,
             this.xrLabel9,
             this.xrTable3});
@@ -322,23 +318,6 @@
             this.serviceTableSubreport.Id = 0;
             this.serviceTableSubreport.Name = "serviceTableSubreport";
             this.serviceTableSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.ServiceTableReportObject();
-            // 
-            // xrLabel15
-            // 
-            resources.ApplyResources(this.xrLabel15, "xrLabel15");
-            this.xrLabel15.Name = "xrLabel15";
-            this.xrLabel15.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel15.StylePriority.UseFont = false;
-            this.xrLabel15.StylePriority.UseTextAlignment = false;
-            // 
-            // xrLabel14
-            // 
-            resources.ApplyResources(this.xrLabel14, "xrLabel14");
-            this.xrLabel14.Name = "xrLabel14";
-            this.xrLabel14.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel14.StylePriority.UseFont = false;
-            this.xrLabel14.StylePriority.UseTextAlignment = false;
-            this.xrLabel14.WordWrap = false;
             // 
             // printDateLabel
             // 
@@ -605,8 +584,6 @@
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
         private DevExpress.XtraReports.UI.XRLabel printDateLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel9;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel15;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel14;
         private DevExpress.XtraReports.UI.XRSubreport serviceTableSubreport;
         public DevExpress.XtraReports.Parameters.Parameter CustId;
         private Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet dataSet1;

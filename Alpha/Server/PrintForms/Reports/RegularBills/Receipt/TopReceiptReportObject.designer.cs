@@ -58,8 +58,6 @@
             this.barCodeSymbolsLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel15 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel14 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrPanel1 = new DevExpress.XtraReports.UI.XRPanel();
             this.billDateLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.repNameLbl = new DevExpress.XtraReports.UI.XRLabel();
@@ -96,8 +94,6 @@
             this.xrPanel2,
             this.serviceTableSubreport,
             this.xrLabel2,
-            this.xrLabel15,
-            this.xrLabel14,
             this.xrPanel1,
             this.peopleCountLabel,
             this.xrLabel7,
@@ -393,22 +389,6 @@
             this.xrLabel2.StylePriority.UseTextAlignment = false;
             this.xrLabel2.WordWrap = false;
             // 
-            // xrLabel15
-            // 
-            resources.ApplyResources(this.xrLabel15, "xrLabel15");
-            this.xrLabel15.Name = "xrLabel15";
-            this.xrLabel15.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel15.StylePriority.UseFont = false;
-            this.xrLabel15.StylePriority.UseTextAlignment = false;
-            // 
-            // xrLabel14
-            // 
-            resources.ApplyResources(this.xrLabel14, "xrLabel14");
-            this.xrLabel14.Name = "xrLabel14";
-            this.xrLabel14.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel14.StylePriority.UseFont = false;
-            this.xrLabel14.StylePriority.UseTextAlignment = false;
-            // 
             // xrPanel1
             // 
             this.xrPanel1.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
@@ -653,8 +633,6 @@
         private DevExpress.XtraReports.UI.XRLabel areaLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel5;
         private DevExpress.XtraReports.UI.XRPanel xrPanel1;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel15;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel14;
         private DevExpress.XtraReports.UI.XRTable xrTable3;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow3;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell13;

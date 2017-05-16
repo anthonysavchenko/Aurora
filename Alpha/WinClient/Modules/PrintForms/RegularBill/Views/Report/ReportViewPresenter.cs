@@ -196,7 +196,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                             string _barcode = GenerateBarCodeString(_bill.Account, _bill.BuildingID, _bill.Period);
                             string _qrCode = BillService.GenerateQrCodeString(
-                                "ООО \"УК Фрунзенского района\"",
+                                _bill.BuildingID == 401 || _bill.BuildingID == 463
+                                    ? "Фонд Приморского края «Фонд капитального ремонта многоквартирных домов Приморского края»"
+                                    : "ООО \"УК Фрунзенского района\"",
                                 _bill.BankDetails.Account,
                                 _bill.BankDetails.Name,
                                 _bill.BankDetails.BIK,
@@ -227,7 +229,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _barcode,
                                 BillService.FormatBarcodeString(_barcode),
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
-                                BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
+                                BillService.OrganizationDetails(_bill.BankDetails, _bill.BuildingID, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
                                 _qrCode);
 
                             if (_bill.BillSendingSubscription)

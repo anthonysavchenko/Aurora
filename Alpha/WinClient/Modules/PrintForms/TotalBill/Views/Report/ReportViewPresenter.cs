@@ -78,6 +78,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
                                         b.StartPeriod,
                                         b.CreationDateTime,
                                         b.Customers.Buildings.BankDetails,
+                                        BuildingID = b.Customers.Buildings.ID,
                                         b.TotalBillDocPoses
                                     })
                                 .ToList();
@@ -101,7 +102,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
                                             ? $"{_bill.StartPeriod.Value:MMMM yyyy} - {_bill.Period:MMMM yyyy}"
                                             : $"по {_bill.Period:MMMM yyyy}",
                                         _bill.CreationDateTime,
-                                        BillService.OrganizationDetails(_bill.BankDetails));
+                                        BillService.OrganizationDetails(_bill.BankDetails, _bill.BuildingID));
 
                             foreach (var _pos in _bill.TotalBillDocPoses)
                             {
