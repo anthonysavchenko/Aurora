@@ -1,4 +1,5 @@
 ﻿using System;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
@@ -9,21 +10,40 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
     public interface ILayoutView : IBaseLayoutView
     {
         /// <summary>
-        /// Полное имя файла
+        /// Открывает указанную старницу мастера эскпорта
         /// </summary>
-        string FilePath { set; get; }
+        /// <param name="page">Страница</param>
+        void SelectPage(WizardPages page);
+        
+        /// <summary>
+        /// Выбранное действие мастера экспорта данных
+        /// </summary>
+        WizardAction WizardAction { get; }
 
         /// <summary>
-        /// Учетный период
+        /// Путь для сохранения файлов с экспортируемыми данными
         /// </summary>
-        DateTime Period { set; get; }
+        string OutputPath { get; set; }
 
         /// <summary>
-        /// Формат файла
+        /// Файл с шаблоном
         /// </summary>
-        bool IsSberbankFileFormat { set; get; }
+        string TemplatePath { get; set; }
 
-        string BenefitInputFilePath { get; }
+        /// <summary>
+        /// Учетный период, за который будут экспортированы начисления
+        /// </summary>
+        DateTime Period { get; set; }
+
+        /// <summary>
+        /// Выбран формат сбербанка
+        /// </summary>
+        bool SbrfChecked { get; set; }
+
+        /// <summary>
+        /// Выбран формат примсоцбанка
+        /// </summary>
+        bool PrimSocBankChecked { get; set; }
 
         /// <summary>
         /// Флаг экспорта данных ГИС ЖКХ: "только новые" / "все" абоненты
@@ -31,14 +51,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         bool GisZhkhOnlyNew { get; set; }
 
         /// <summary>
-        /// Путь к файлу шаблона
+        /// Учетный период, от которого будут выбираться данные льготников
         /// </summary>
-        string GisZhkhInputFilePath { get; }
+        DateTime StartPeriod { get; set; }
 
-        void ShowBenefitProgressBar();
-        void HideBenefitProgressBar();
+        /// <summary>
+        /// Устанавливает значение прогресс-бара
+        /// </summary>
+        /// <param name="percent">Значение в процентах</param>
+        void SetProgress(int percent);
 
-        void ShowGisZhkhProgressBar();
-        void HideGisZhkhProgressBar();
+        /// <summary>
+        /// Информация о результате экспорта
+        /// </summary>
+        string ResultText { set; }
     }
 }
