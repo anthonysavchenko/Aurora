@@ -5,8 +5,8 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AuroraAssembly")]
-[assembly: AssemblyDescription("AuroraAssembly")]
+[assembly: AssemblyTitle("Aurora Капремонт")]
+[assembly: AssemblyDescription("Aurora Капремонт")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Taumis")]
 [assembly: AssemblyProduct("Aurora")]
