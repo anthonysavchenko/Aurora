@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Taumis.Alpha.WinClient.Aurora.Shell</RootNamespace>
-    <AssemblyName>Taumis.Alpha.WinClient.Aurora.Shell</AssemblyName>
+    <AssemblyName>Taumis.Alpha.WinClient.Aurora.Shell_1872</AssemblyName>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>330D488615A62DC525DA77BE7A5FEBF294DBB9EB</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>6DB7C29E86ABF9AEC7AB24AF6A85B937CFBBE7EE</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -37,7 +37,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PublishUrl>..\Build\Bin\Deploy\aurora-zhilusl\</PublishUrl>
+    <PublishUrl>..\Build\Bin\Deploy\aurora-zhilusl-1872\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -47,7 +47,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://download.taumis.ru/aurora-zhilusl/</InstallUrl>
+    <InstallUrl>http://download.taumis.ru/aurora-zhilusl-1872/</InstallUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora</ProductName>
     <PublisherName>Taumis</PublisherName>
