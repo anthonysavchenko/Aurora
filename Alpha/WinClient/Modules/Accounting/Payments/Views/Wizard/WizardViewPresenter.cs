@@ -792,9 +792,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             decimal _tempValue;
             WizardPaymentElement _payment = new WizardPaymentElement();
 
-            _payment.Account = Regex.IsMatch(account, @"\d{8}")
-                ? String.Format("EG-{0}-{1}-{2}", account.Substring(0, 4), account.Substring(4, 3), account.Substring(7, 1))
-                : String.Empty;
+            _payment.Account = account;
             _payment.Period = Regex.IsMatch(period, @"\d{2}.\d{4}")
                 ? new DateTime(Convert.ToInt32(period.Substring(3)), Convert.ToInt32(period.Substring(0, 2)), 1)
                 : DateTime.MinValue;
@@ -846,7 +844,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
             WizardPaymentElement _res = new WizardPaymentElement();
 
-            _res.Account = _poses.Length > 0 ? String.Format("EG-{0}", _poses[0]) : String.Empty;
+            _res.Account = _poses.Length > 0 ? _poses[0] : String.Empty;
             _res.Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") ?
                 new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1) :
                 DateTime.MinValue;

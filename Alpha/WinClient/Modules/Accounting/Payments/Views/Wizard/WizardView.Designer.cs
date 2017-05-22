@@ -342,8 +342,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             this.ValueTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.ValueTextEdit.Properties.Mask.EditMask = "n";
             this.ValueTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.ValueTextEdit.Properties.Mask.Culture = System.Threading.Thread.CurrentThread.CurrentUICulture;
-            this.ValueTextEdit.Properties.DisplayFormat.Format = System.Threading.Thread.CurrentThread.CurrentUICulture;
             this.ValueTextEdit.Size = new System.Drawing.Size(212, 20);
             this.ValueTextEdit.TabIndex = 4;
             this.ValueTextEdit.Enter += new System.EventHandler(this.ValueTextEdit_Enter);
@@ -397,9 +395,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             this.AccountTextEdit.Location = new System.Drawing.Point(119, 25);
             this.AccountTextEdit.Name = "AccountTextEdit";
             this.AccountTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.AccountTextEdit.Properties.Mask.EditMask = "EG-\\d\\d\\d\\d-\\d\\d\\d-\\d";
             this.AccountTextEdit.Properties.Mask.IgnoreMaskBlank = false;
-            this.AccountTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.AccountTextEdit.Properties.Mask.PlaceHolder = '0';
             this.AccountTextEdit.Size = new System.Drawing.Size(212, 20);
             this.AccountTextEdit.TabIndex = 2;
