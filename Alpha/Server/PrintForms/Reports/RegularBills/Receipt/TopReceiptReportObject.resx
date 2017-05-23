@@ -480,42 +480,6 @@
   <data name="xrPanel1.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>275, 155</value>
   </data>
-  <data name="peopleCountLabel.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="peopleCountLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt</value>
-  </data>
-  <data name="peopleCountLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>987.423035, 163.000046</value>
-  </data>
-  <data name="peopleCountLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>186.576965, 33.9999847</value>
-  </data>
-  <data name="peopleCountLabel.Text" xml:space="preserve">
-    <value>peopleCountLabel</value>
-  </data>
-  <data name="peopleCountLabel.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="xrLabel7.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="xrLabel7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt</value>
-  </data>
-  <data name="xrLabel7.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>807.423, 163.000046</value>
-  </data>
-  <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>180, 33.9999847</value>
-  </data>
-  <data name="xrLabel7.Text" xml:space="preserve">
-    <value>Кол-во чел.:</value>
-  </data>
-  <data name="xrLabel7.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
-    <value>MiddleLeft</value>
-  </data>
   <data name="areaLabel.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
@@ -523,10 +487,10 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="areaLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>531, 163.000046</value>
+    <value>530.9999, 163.000061</value>
   </data>
   <data name="areaLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>276.422974, 33.9999847</value>
+    <value>642.9999, 33.9999847</value>
   </data>
   <data name="areaLabel.Text" xml:space="preserve">
     <value>areaLabel</value>
