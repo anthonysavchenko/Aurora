@@ -61,8 +61,6 @@
             this.xrPanel1 = new DevExpress.XtraReports.UI.XRPanel();
             this.billDateLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.repNameLbl = new DevExpress.XtraReports.UI.XRLabel();
-            this.peopleCountLabel = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel7 = new DevExpress.XtraReports.UI.XRLabel();
             this.areaLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.payerAddressLabel = new DevExpress.XtraReports.UI.XRLabel();
@@ -97,8 +95,6 @@
             this.xrLabel15,
             this.xrLabel14,
             this.xrPanel1,
-            this.peopleCountLabel,
-            this.xrLabel7,
             this.areaLabel,
             this.xrLabel5,
             this.payerAddressLabel,
@@ -418,27 +414,6 @@
             this.repNameLbl.StylePriority.UseFont = false;
             this.repNameLbl.StylePriority.UseTextAlignment = false;
             // 
-            // peopleCountLabel
-            // 
-            this.peopleCountLabel.AutoWidth = true;
-            this.peopleCountLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.LivingPeopleCount")});
-            resources.ApplyResources(this.peopleCountLabel, "peopleCountLabel");
-            this.peopleCountLabel.Name = "peopleCountLabel";
-            this.peopleCountLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.peopleCountLabel.StylePriority.UseFont = false;
-            this.peopleCountLabel.StylePriority.UseTextAlignment = false;
-            this.peopleCountLabel.WordWrap = false;
-            // 
-            // xrLabel7
-            // 
-            resources.ApplyResources(this.xrLabel7, "xrLabel7");
-            this.xrLabel7.Name = "xrLabel7";
-            this.xrLabel7.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel7.StylePriority.UseFont = false;
-            this.xrLabel7.StylePriority.UseTextAlignment = false;
-            this.xrLabel7.WordWrap = false;
-            // 
             // areaLabel
             // 
             this.areaLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
@@ -632,8 +607,6 @@
         private DevExpress.XtraReports.UI.XRLabel payerAkaLabel;
         private DevExpress.XtraReports.UI.XRLabel payerAccountLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
-        private DevExpress.XtraReports.UI.XRLabel peopleCountLabel;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel7;
         private DevExpress.XtraReports.UI.XRLabel areaLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel5;
         private DevExpress.XtraReports.UI.XRPanel xrPanel1;
