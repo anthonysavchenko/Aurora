@@ -507,6 +507,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
             short _errorsCount = 0;
             decimal _totalValue = 0;
             DateTime _now = ServerTime.GetDateTimeInfo().Now;
+            DateTime _firstUncharged = ServerTime.GetPeriodInfo().FirstUncharged;
             DateTime _period = View.TotalBillTillPeriod;
 
             try
@@ -719,7 +720,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                                 new
                                 {
                                     Period = byPeriod.Key,
-                                    IsCharged = byPeriod.Any(r => r.Charge > 0),
+                                    IsCharged = byPeriod.Key < _firstUncharged,
                                     Balances =
                                         byPeriod.GroupBy(c => c.ServiceTypeID)
                                             .Select(
