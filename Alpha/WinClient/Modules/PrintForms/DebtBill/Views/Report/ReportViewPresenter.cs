@@ -117,11 +117,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
 
                         foreach (var _bill in _bills)
                         {
-                            string _barcode = string.Empty;//BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                            string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.BankDetails.INN, _bill.Period, _bill.Value);
 
                             _billsTable.Rows.Add(
                                 _bill.Account,
-                                BillService.FormatBarcodeString(_barcode),
+                                string.Empty,
                                 _barcode,
                                 _now.ToString("dd.MM.yyyy"),
                                 _bill.CreationDateTime.ToString("dd.MM.yyyy"),

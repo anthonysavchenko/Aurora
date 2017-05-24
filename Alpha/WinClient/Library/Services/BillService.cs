@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.WinClient.Aurora.Interface.Services;
@@ -21,6 +20,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         {
             StringBuilder _builder = new StringBuilder();
 
+            _builder.AppendLine("Вас обслуживает    ООО\"Жилищные услуги\"");
             _builder.AppendLine("г. Владивосток, пр-т Острякова, 38. Директор Кривец Г.Н. ");
 
             if (bankDetail != null)
