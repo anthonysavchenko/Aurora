@@ -84,7 +84,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
 
                         foreach (var _bill in _bills)
                         {
-                            string _barcode = string.Empty;//BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
+                            string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.BankDetails.INN, _bill.Period, _bill.Value);
 
                             _billsTable.Rows.Add(
                                         _bill.ID,
@@ -95,7 +95,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.TotalBill.Views.Repor
                                         _bill.ResidentsCount,
                                         _bill.Value,
                                         _barcode,
-                                        BillService.FormatBarcodeString(_barcode),
+                                        string.Empty,//BillService.FormatBarcodeString(_barcode),
                                         _bill.Period.ToString("MMMM yyyy (MM.yy)").ToUpper(),
                                         _bill.StartPeriod.HasValue
                                             ? $"{_bill.StartPeriod.Value:MMMM yyyy} - {_bill.Period:MMMM yyyy}"
