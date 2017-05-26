@@ -7,3 +7,11 @@
     CONSTRAINT [FK_OverpaymentCorrectionOpers_ChargeOpers] FOREIGN KEY ([ChargeOper]) REFERENCES [dbo].[ChargeOpers] ([ID])
 );
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_ChargeOper]
+    ON [dbo].[OverpaymentCorrectionOpers]([ChargeOper] ASC)
+    INCLUDE([ID]);
+

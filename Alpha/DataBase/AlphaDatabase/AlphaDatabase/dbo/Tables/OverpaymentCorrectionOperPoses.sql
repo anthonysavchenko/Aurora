@@ -11,8 +11,16 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_Service]
     ON [dbo].[OverpaymentCorrectionOperPoses]([Service] ASC)
     INCLUDE([Value], [OverpaymentCorrectionOper]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_OverpaymentCorrectionOper]
+    ON [dbo].[OverpaymentCorrectionOperPoses]([OverpaymentCorrectionOper] ASC)
+    INCLUDE([Value], [Service]);
 
