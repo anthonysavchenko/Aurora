@@ -7,6 +7,7 @@
     {
         ChooseMethodPage,
         FilePage,
+        ServiceMatchingWizardPage,
         ProcessingPage,
         FinishPage,
         Unknown

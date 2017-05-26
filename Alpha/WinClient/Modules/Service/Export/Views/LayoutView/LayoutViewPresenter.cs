@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.Practices.CompositeUI;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
+using System.Windows.Forms;
+using System.Threading.Tasks;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
-using System.ComponentModel;
-using Microsoft.Practices.CompositeUI;
-using System.Collections.Generic;
+using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 {
@@ -22,6 +25,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 
         [ServiceDependency]
         public IGisZhkhCustomerExportService GisZhkhCustomerExportService { get; set; }
+
+        [ServiceDependency]
+        public IGisZhkhChargesExportService GisZhkhChargesExportService { get; set; }
         
         /// <summary>
         /// Обрабатывает отображение вью
@@ -54,10 +60,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     case WizardPages.FilePage:
                         if (ValidateFilePage())
                         {
-                            _next = WizardPages.ProcessingPage;
+                            _next = View.WizardAction == WizardAction.ExportChargesForGisZhkh
+                                ? WizardPages.ServiceMatchingWizardPage
+                                : WizardPages.ProcessingPage;
                         }
                         break;
-
+                    case WizardPages.ServiceMatchingWizardPage:
+                        _next = WizardPages.ProcessingPage;
+                        break;
                     case WizardPages.ProcessingPage:
                         _next = WizardPages.FinishPage;
                         break;
@@ -65,7 +75,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             }
             else
             {
-                _next = WizardPages.ChooseMethodPage;
+                _next = prevPage == WizardPages.ServiceMatchingWizardPage
+                    ? WizardPages.FilePage
+                    : WizardPages.ChooseMethodPage;
             }
 
             return _next;
@@ -126,11 +138,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                         View.PrimSocBankChecked = false;
                         View.GisZhkhOnlyNew = false;
                         break;
+                    case WizardPages.ServiceMatchingWizardPage:
+                        View.ServiceMatchingTableProgressBarVisible = true;
+                        Application.DoEvents();
+
+                        FillServiceMatchingTable();
+
+                        View.ServiceMatchingTableProgressBarVisible = false;
+                        Application.DoEvents();
+                        break;
                     case WizardPages.ProcessingPage:
                         BackgroundWorker _worker = CreateBackgroundWorker();
                         _worker.RunWorkerAsync();
                         break;
                 }
+            }
+        }
+
+        private void FillServiceMatchingTable()
+        {
+            View.ClearServiceMatchingTable();
+
+            List<string> _gisZhkhServices = GisZhkhChargesExportService.GetGisZhkhServices(View.TemplatePath);
+            _gisZhkhServices.Insert(0, string.Empty);
+            Dictionary<int, string> _services = GisZhkhChargesExportService.GetServices(View.Period);
+
+            int _tabIndex = 1;
+            foreach(KeyValuePair<int, string> _pair in _services)
+            {
+                View.AddRowToServiceMatchingTable(_pair.Key, _pair.Value, _gisZhkhServices, _tabIndex++);
             }
         }
 
@@ -144,17 +180,27 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 
             _worker.DoWork += (sender, args) =>
             {
-                switch (View.WizardAction)
+                try
                 {
-                    case WizardAction.ExportBenefitData:
-                        args.Result = BenefitExportService.Export(View.OutputPath, View.TemplatePath, View.StartPeriod, ((BackgroundWorker)sender).ReportProgress);
-                        break;
-                    case WizardAction.ExportChargesForBanks:
-                        args.Result = ChargeExportService.Export(View.OutputPath, View.Period, GetChargeExportFormatList(), ((BackgroundWorker)sender).ReportProgress);
-                        break;
-                    case WizardAction.ExportCustomersForGisZhkh:
-                        args.Result = GisZhkhCustomerExportService.Export(View.OutputPath, View.TemplatePath, View.GisZhkhOnlyNew, ((BackgroundWorker)sender).ReportProgress);
-                        break;
+                    switch (View.WizardAction)
+                    {
+                        case WizardAction.ExportBenefitData:
+                            args.Result = BenefitExportService.Export(View.OutputPath, View.TemplatePath, View.StartPeriod, ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                        case WizardAction.ExportChargesForBanks:
+                            args.Result = ChargeExportService.Export(View.OutputPath, View.Period, GetChargeExportFormatList(), ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                        case WizardAction.ExportCustomersForGisZhkh:
+                            args.Result = GisZhkhCustomerExportService.Export(View.OutputPath, View.TemplatePath, View.GisZhkhOnlyNew, ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                        case WizardAction.ExportChargesForGisZhkh:
+                            args.Result = GisZhkhChargesExportService.Export(View.OutputPath, View.TemplatePath, View.Period, View.GetServiceMatchingDict(), ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                    }
+                }
+                catch(Exception _ex)
+                {
+                    Logger.SimpleWrite($"Ошибка экспорта: {_ex}");
                 }
             };
 

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using DevExpress.XtraWizard;
+using System.Collections.Generic;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 {
@@ -141,6 +142,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                 case WizardPages.FilePage:
                     ExportWizardControl.SelectedPage = FileWizardPage;
                     break;
+                case WizardPages.ServiceMatchingWizardPage:
+                    ExportWizardControl.SelectedPage = ServiceMatchingWizardPage;
+                    break;
                 case WizardPages.ProcessingPage:
                     ExportWizardControl.SelectedPage = ProcessingWizardPage;
                     break;
@@ -158,9 +162,96 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         {
             ProgressBarControl.Invoke(new MethodInvoker(() =>
             {
-                ProgressBarControl.EditValue = percent;
+                ProgressBarControl.Value = percent;
                 progressProcentLabel.Text = $"Выполнено {percent}%";
             }));
+        }
+
+        public bool ServiceMatchingTableProgressBarVisible
+        {
+            set
+            {
+                serviceMatchingTableProgressBarPanel.Visible = value;
+                tblServiceMatching.Visible = !value;
+            }
+        }
+
+        public void ClearServiceMatchingTable()
+        {
+            tblServiceMatching.Controls.Clear();
+            tblServiceMatching.RowCount = 0;
+            tblServiceMatching.RowStyles.Clear();
+        }
+
+        public void AddRowToServiceMatchingTable(int serviceTypeID, string serviceTypeName, List<string> matchingValues, int tabIndex)
+        {
+            tblServiceMatching.RowCount++;
+            tblServiceMatching.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            Label _lbl =
+                new Label()
+                {
+                    Text = serviceTypeName,
+                    Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right,
+                    TextAlign = System.Drawing.ContentAlignment.MiddleRight,
+                    Tag = serviceTypeID
+                };
+            ComboBox _cb =
+                new ComboBox
+                {
+                    Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right
+                };
+
+            _cb.DataSource = new BindingSource(matchingValues, null);
+            _cb.TabIndex = tabIndex;
+
+            tblServiceMatching.Controls.Add(_lbl, 0, tblServiceMatching.RowCount);
+            tblServiceMatching.Controls.Add(_cb, 1, tblServiceMatching.RowCount);
+        }
+
+        public Dictionary<int, string> GetServiceMatchingDict()
+        {
+            Dictionary<int, List<Control>> _controlByRow = new Dictionary<int, List<Control>>();
+
+            foreach (Control _control in tblServiceMatching.Controls)
+            {
+                int _row = tblServiceMatching.GetRow(_control);
+                if (_controlByRow.ContainsKey(_row))
+                {
+                    _controlByRow[_row].Add(_control);
+                }
+                else
+                {
+                    _controlByRow.Add(_row, new List<Control> { _control });
+                }
+            }
+
+            Dictionary<int, string> _result = new Dictionary<int, string>();
+
+            foreach (List<Control> _cList in _controlByRow.Values)
+            {
+                int _serviceID = 0;
+                string _gisZhkhSeviceName = string.Empty;
+
+                foreach(Control _c in _cList)
+                {
+                    ComboBox _cb = _c as ComboBox;
+                    if(_cb != null)
+                    {
+                        _cb.Invoke(new MethodInvoker(() => _gisZhkhSeviceName = _cb.SelectedValue.ToString()));
+                    }
+                    else
+                    {
+                        _c.Invoke(new MethodInvoker(() => _serviceID = (int)_c.Tag));
+                    }
+                }
+
+                if (_serviceID > 0 && !string.IsNullOrEmpty(_gisZhkhSeviceName))
+                {
+                    _result.Add(_serviceID, _gisZhkhSeviceName);
+                }
+            }
+
+            return _result;
         }
 
         private WizardPages ConvertWizardPage(BaseWizardPage page)
@@ -171,6 +262,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     return WizardPages.ChooseMethodPage;
                 case "FileWizardPage":
                     return WizardPages.FilePage;
+                case "ServiceMatchingWizardPage":
+                    return WizardPages.ServiceMatchingWizardPage;
                 case "ProcessingWizardPage":
                     return WizardPages.ProcessingPage;
                 case "FinishWizardPage":
@@ -188,6 +281,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     return ChooseMethodWizardPage;
                 case WizardPages.FilePage:
                     return FileWizardPage;
+                case WizardPages.ServiceMatchingWizardPage:
+                    return ServiceMatchingWizardPage;
                 case WizardPages.ProcessingPage:
                     return ProcessingWizardPage;
                 case WizardPages.FinishPage:
@@ -202,6 +297,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             switch (WizardAction)
             {
                 case WizardAction.ExportChargesForBanks:
+                    tblPeriod.Visible = true;
                     tblBankExportInfo.Visible = true;
                     tblGizZhkhInfo.Visible = false;
                     tblBenefitExportInfo.Visible = false;
@@ -209,6 +305,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblTemplate.Visible = false;
                     break;
                 case WizardAction.ExportCustomersForGisZhkh:
+                    tblPeriod.Visible = false;
                     tblBankExportInfo.Visible = false;
                     tblGizZhkhInfo.Visible = true;
                     tblBenefitExportInfo.Visible = false;
@@ -216,13 +313,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblTemplate.Visible = true;
                     break;
                 case WizardAction.ExportBenefitData:
+                    tblPeriod.Visible = false;
                     tblBankExportInfo.Visible = false;
                     tblGizZhkhInfo.Visible = false;
                     tblBenefitExportInfo.Visible = true;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = true;
                     break;
+                case WizardAction.ExportChargesForGisZhkh:
+                    tblPeriod.Visible = true;
+                    tblBankExportInfo.Visible = false;
+                    tblGizZhkhInfo.Visible = false;
+                    tblBenefitExportInfo.Visible = false;
+                    tblOutputPath.Visible = true;
+                    tblTemplate.Visible = true;
+                    break;
                 default:
+                    tblPeriod.Visible = false;
                     tblBankExportInfo.Visible = false;
                     tblGizZhkhInfo.Visible = false;
                     tblBenefitExportInfo.Visible = false;
@@ -268,18 +375,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 
         private void ExportWizardControl_SelectedPageChanging(object sender, WizardPageChangingEventArgs e)
         {
-            BaseWizardPage _page = ConvertWizardPage(
-                Presenter.OnSelectingPageChanging(ConvertWizardPage(e.PrevPage), e.Direction == Direction.Forward));
+            WizardPages _nextPage = Presenter.OnSelectingPageChanging(ConvertWizardPage(e.PrevPage), e.Direction == Direction.Forward);
+            BaseWizardPage _page = ConvertWizardPage(_nextPage);
 
             e.Cancel = _page == null;
             if (!e.Cancel)
             {
-                ManageFilePageControlsVisibility();
+                if (_nextPage == WizardPages.FilePage)
+                {
+                    ManageFilePageControlsVisibility();
+                }
                 e.Page = _page;
             }
         }
-
-        #endregion
 
         private void ExportWizardControl_FinishClick(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -290,5 +398,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         {
             e.CancelButton.Visible = false;
         }
+
+        #endregion
     }
 }

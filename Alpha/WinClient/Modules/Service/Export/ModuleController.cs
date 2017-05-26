@@ -34,6 +34,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             AddLocalService<ChargeExportService, IChargeExportService>();
             AddLocalService<BenefitExportService, IBenefitExportService>();
             AddLocalService<GisZhkhCustomerExportService, IGisZhkhCustomerExportService>();
+            AddLocalService<GisZhkhChargesExportService, IGisZhkhChargesExportService>();
         }
     }
 }

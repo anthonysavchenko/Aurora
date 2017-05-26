@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 
@@ -65,5 +66,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         /// Информация о результате экспорта
         /// </summary>
         string ResultText { set; }
+
+        bool ServiceMatchingTableProgressBarVisible { set; }
+        void ClearServiceMatchingTable();
+        void AddRowToServiceMatchingTable(int serviceTypeID, string serviceTypeName, List<string> matchingValues, int tabIndex);
+        Dictionary<int, string> GetServiceMatchingDict();
     }
 }
