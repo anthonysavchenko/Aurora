@@ -43,10 +43,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             }
         }
 
-        private class StreetInfo
+        private class BuildingInfo
         {
             public int ID { get; set; }
-            public string Name { get; set; }
+            public string Number { get; set; }
+            public string Street { get; set; }
         }
 
         private class CustomerInfo
@@ -67,11 +68,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             {
                 return _db.Customers
                     .Where(c => !onlyNew || string.IsNullOrEmpty(c.GisZhkhID))
-                    .GroupBy(c => c.Buildings.Streets.ID)
+                    .GroupBy(c => c.Buildings.ID)
                     .Select(g =>
                         new
                         {
-                            StreetID = g.Key,
+                            BuildingID = g.Key,
                             Customers = g
                                 .Select(c =>
                                     new CustomerInfo
@@ -86,34 +87,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 .OrderBy(c => c.Account)
                                 .ToList()
                         })
-                    .ToDictionary(x => x.StreetID, x => x.Customers);
+                    .ToDictionary(x => x.BuildingID, x => x.Customers);
             }
         }
 
-        private void FillSheets(Dictionary<int, List<CustomerInfo>> customersByStreet, string outputPath, string templatePath, Action<int> progressAction)
+        private void FillSheets(Dictionary<int, List<CustomerInfo>> customersByBuilding, string outputPath, string templatePath, Action<int> progressAction)
         {
-            int _total = customersByStreet.Values.Sum(v => v.Count);
+            int _total = customersByBuilding.Values.Sum(v => v.Count);
             DateTime _now = DateTime.Now;
-            Dictionary<int, StreetInfo> _streets;
+            Dictionary<int, BuildingInfo> _buildings;
 
             using (Entities _db = new Entities())
             {
-                _streets = _db.Streets
-                    .Where(s => customersByStreet.Keys.Contains(s.ID))
-                    .Select(s =>
-                        new StreetInfo
+                _buildings = _db.Buildings
+                    .Where(b => customersByBuilding.Keys.Contains(b.ID))
+                    .Select(b =>
+                        new BuildingInfo
                         {
-                            ID = s.ID,
-                            Name = s.Name,
+                            ID = b.ID,
+                            Number = b.Number,
+                            Street = b.Streets.Name
                         })
                     .ToDictionary(s => s.ID);
             }
 
             int _processed = 1;
 
-            foreach (KeyValuePair<int, List<CustomerInfo>> _pair in customersByStreet)
+            foreach (KeyValuePair<int, List<CustomerInfo>> _pair in customersByBuilding)
             {
-                StreetInfo _si = _streets[_pair.Key];
+                BuildingInfo _building = _buildings[_pair.Key];
                 int _recNum = 1;
                 int _row = 3;
 
@@ -148,10 +150,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         _row++;
                     }
 
-                    _xwb.SaveAs($"{outputPath}\\{_now:yyyyMMddHHmm}_Абоненты_{_si.Name.Replace(' ','_')}.xlsx");
-
-                    /*_basicSheet.Range(FIRST_ROW_NUM, Columns.BasicSheet.FIRST, _pair.Value.Count + FIRST_ROW_NUM, Columns.BasicSheet.LAST).Clear();
-                    _roomSheet.Range(FIRST_ROW_NUM, Columns.RoomSheet.FIRST, _pair.Value.Count + FIRST_ROW_NUM, Columns.RoomSheet.LAST).Clear();*/
+                    string _buildingNumber = _building.Number.Replace(' ', '_').Replace('\\', '-').Replace('/', '-');
+                    _xwb.SaveAs($"{outputPath}\\{_building.Street.Replace(' ','_')}_{_buildingNumber}_абоненты_{_now:yyyyMMddHHmm}.xlsx");
                 }
             }
         }

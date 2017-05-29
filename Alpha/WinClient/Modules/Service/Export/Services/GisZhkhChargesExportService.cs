@@ -65,12 +65,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public string Number { get; set; }
         }
 
-        private class BillInfo
+        private class CustomerInfo
         {
             public string CustomerGisZhkhID { get; set; }
             public decimal Area { get; set; }
             public string Bik { get; set; }
             public string BankAccount { get; set; }
+            public List<BillInfo> Bills { get; set; }
+        }
+
+        private class BillInfo
+        {
             public int ServiceTypeID { get; set; }
             public decimal ServiceTypeRate { get; set; }
             public decimal Rate { get; set; }
@@ -83,7 +88,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         {
             ExportResult _result = new ExportResult();
 
-            Dictionary<int, List<BillInfo>> _data = GetData(period, serviceMatchingDict);
+            Dictionary<int, List<CustomerInfo>> _data = GetData(period, serviceMatchingDict);
             FillOutput(outputPath, templatePath, _data, serviceMatchingDict, period, _result, progressAction);
 
             return _result;
@@ -92,7 +97,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         private void FillOutput(
             string outputPath,
             string templatePath,
-            Dictionary<int, List<BillInfo>> data,
+            Dictionary<int, List<CustomerInfo>> data,
             Dictionary<int, string> serviceMatchingDict,
             DateTime period,
             ExportResult result,
@@ -117,11 +122,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         .ToDictionary(b => b.ID);
                 }
 
-                foreach (KeyValuePair<int, List<BillInfo>> _pair in data)
+                foreach (KeyValuePair<int, List<CustomerInfo>> _byBuilding in data)
                 {
-                    BuildingInfo _building = _buildings[_pair.Key];
+                    BuildingInfo _building = _buildings[_byBuilding.Key];
 
-                    string _fileName = $"{period:yyyyMM}_{_building.Street.Replace(' ', '_')}_{_building.Number.Replace('\\', '_').Replace('/', '_')}.xlsx";
+                    string _fileName = $"{_building.Street.Replace(' ', '_')}_{_building.Number.Replace(' ', '_').Replace('\\', '_').Replace('/', '_')}_начиления_{period:yyyyMM}_.xlsx";
 
                     using (XLWorkbook _wb = new XLWorkbook(templatePath))
                     {
@@ -133,31 +138,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                         int _rec_num = 1;
 
-                        foreach (BillInfo _bi in _pair.Value)
+                        foreach(CustomerInfo _ci in _byBuilding.Value)
                         {
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.GIS_ZHKH_ID).SetValue(_bi.CustomerGisZhkhID);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.GIS_ZHKH_ID).SetValue(_ci.CustomerGisZhkhID);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.DOC_TYPE).SetValue(DOC_TYPE);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.NUMBER).SetValue(_rec_num);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.PERIOD).SetValue(period.ToString("MM.yyyy"));
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_bi.Area);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_bi.Bik);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_bi.BankAccount);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_ci.Area);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_ci.Bik);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
 
-                            _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.NUMBER).SetValue(_rec_num);
-                            _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.SERVICE).SetValue(serviceMatchingDict[_bi.ServiceTypeID]);
-                            _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RATE).SetValue(_bi.Rate);
-                            _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.CHARGE).SetValue(_bi.Charge);
-                            if (_bi.Recalculation != 0)
+                            foreach (BillInfo _bi in _ci.Bills)
                             {
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RECALCULATION).SetValue(_bi.Recalculation);
-                            }
-                            if (_bi.Benefit != 0)
-                            {
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.BENEFIT).SetValue(_bi.Benefit);
+                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.NUMBER).SetValue(_rec_num);
+                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.SERVICE).SetValue(serviceMatchingDict[_bi.ServiceTypeID]);
+                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RATE).SetValue(_bi.Rate);
+                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.CHARGE).SetValue(_bi.Charge);
+                                if (_bi.Recalculation != 0)
+                                {
+                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RECALCULATION).SetValue(_bi.Recalculation);
+                                }
+                                if (_bi.Benefit != 0)
+                                {
+                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.BENEFIT).SetValue(_bi.Benefit);
+                                }
+
+                                _section3_6Row++;
                             }
 
                             _section1_2Row++;
-                            _section3_6Row++;
                             _rec_num++;
                         }
 
@@ -179,9 +188,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             result.Failed = data.Count - _count;
         }
 
-        private Dictionary<int, List<BillInfo>> GetData(DateTime period, Dictionary<int, string> serviceMatchingDict)
+        private Dictionary<int, List<CustomerInfo>> GetData(DateTime period, Dictionary<int, string> serviceMatchingDict)
         {
-            Dictionary<int, List<BillInfo>> _result;
+            Dictionary<int, List<CustomerInfo>> _result;
 
             try
             {
@@ -216,7 +225,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     x.BuildingID,
                                     CustomerGisZhkhID = x.CustomerGisZhkhID,
                                     Area = x.Area,
-                                    BankBik = x.BankBik,
+                                    Bik = x.BankBik,
                                     BankAccount = x.BankAccount,
                                     Rate = x.Rate,
                                     Recalculation = x.Recalculation,
@@ -231,19 +240,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             new
                             {
                                 BuildingID = g.Key,
-                                Data = g.Select(bi =>
-                                    new BillInfo
-                                    {
-                                        CustomerGisZhkhID = bi.CustomerGisZhkhID,
-                                        Area = bi.Area,
-                                        Bik = bi.BankBik,
-                                        BankAccount = bi.BankAccount,
-                                        Rate = bi.Rate,
-                                        Recalculation = bi.Recalculation,
-                                        Benefit = bi.Benefit,
-                                        Charge = bi.Charge,
-                                        ServiceTypeID = bi.ServiceTypeID
-                                    }).ToList()
+                                Data = g.GroupBy(bi => new { bi.CustomerGisZhkhID, bi.Area, bi.Bik, bi.BankAccount })
+                                    .Select(gByGisZhkhID =>
+                                        new CustomerInfo
+                                        {
+                                            CustomerGisZhkhID = gByGisZhkhID.Key.CustomerGisZhkhID,
+                                            Area = gByGisZhkhID.Key.Area,
+                                            Bik = gByGisZhkhID.Key.Bik,
+                                            BankAccount = gByGisZhkhID.Key.BankAccount,
+                                            Bills = gByGisZhkhID.Select(bi =>
+                                                new BillInfo
+                                                {
+                                                    Rate = bi.Rate,
+                                                    Recalculation = bi.Recalculation,
+                                                    Benefit = bi.Benefit,
+                                                    Charge = bi.Charge,
+                                                    ServiceTypeID = bi.ServiceTypeID
+                                                }).ToList()
+                                        }).ToList()
                             })
                         .ToDictionary(x => x.BuildingID, x => x.Data);
                 }
@@ -251,7 +265,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             catch (Exception _ex)
             {
                 Logger.SimpleWrite(_ex.ToString());
-                _result = new Dictionary<int, List<BillInfo>>();
+                _result = new Dictionary<int, List<CustomerInfo>>();
             }
 
             return _result;

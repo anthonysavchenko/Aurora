@@ -129,7 +129,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             {
                 switch (page)
                 {
-                    case WizardPages.ChooseMethodPage:
+                    case WizardPages.FilePage:
                         View.OutputPath = string.Empty;
                         View.TemplatePath = string.Empty;
                         View.Period = ServerTime.GetPeriodInfo().LastCharged;
