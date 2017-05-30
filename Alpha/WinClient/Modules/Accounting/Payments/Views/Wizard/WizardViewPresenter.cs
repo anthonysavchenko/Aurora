@@ -169,27 +169,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                     _next = WizardSteps.Unknown;
                                 }
                                 else if (
-                                    _intermediary.ID != IntermediaryConstants.SBRF_ID &&
-                                    _intermediary.ID != IntermediaryConstants.PRIMSOCBANK_ID &&
-                                    _intermediary.ID != IntermediaryConstants.KEDR_ID &&
-                                    _intermediary.ID != IntermediaryConstants.MOSOBLBANK_ID &&
-                                    _intermediary.ID != IntermediaryConstants.PRIMORYE_ID &&
-                                    _intermediary.ID != IntermediaryConstants.UFPS_ID)
+                                    !_intermediary.Name.ToLower().Contains(IntermediaryConstants.SBRF_ID) &&
+                                    !_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMSOCBANK_ID) &&
+                                    !_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMORYE_ID))
                                 {
-                                    View.ShowMessage("Загрузить данные из файла можно только для посредников: Сбербанк, Примсоцбанк, Кедр, Мособлбанк, Приморье, УФПС", "Ошибка выбора посредника");
+                                    View.ShowMessage("Загрузить данные из файла можно только для посредников: Сбербанк, Приморье, Система Город", "Ошибка выбора посредника");
                                     _next = WizardSteps.Unknown;
                                 }
-                                else if (_intermediary.ID == IntermediaryConstants.PRIMORYE_ID && Path.GetExtension(View.FileName) != ".xls" && Path.GetExtension(View.FileName) != ".xlsx")
+                                else if (_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMORYE_ID) && Path.GetExtension(View.FileName) != ".xls" && Path.GetExtension(View.FileName) != ".xlsx")
                                 {
                                     View.ShowMessage("Для выбранного посредника данные можно загрузить только в формате книги Microsoft Excel", "Ошибка выбора файла");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else if (
-                                    (_intermediary.ID == IntermediaryConstants.SBRF_ID ||
-                                     _intermediary.ID == IntermediaryConstants.PRIMSOCBANK_ID ||
-                                     _intermediary.ID == IntermediaryConstants.KEDR_ID ||
-                                     _intermediary.ID == IntermediaryConstants.MOSOBLBANK_ID ||
-                                     _intermediary.ID == IntermediaryConstants.UFPS_ID) &&
+                                    (_intermediary.Name.ToLower().Contains(IntermediaryConstants.SBRF_ID) ||
+                                     _intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMSOCBANK_ID)) &&
                                     Path.GetExtension(View.FileName) != ".txt")
                                 {
                                     View.ShowMessage("Для выбранного посредника данные можно загрузить только в формате текстового файла", "Ошибка выбора файла");
@@ -697,14 +691,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         private void ProcessImportFile()
         {
             View.IsMasterInProgress = true;
-            string _intermediaryID = View.Intermediary.ID;
+            //string _intermediaryID = View.Intermediary.ID;
+            string _intermediary = View.Intermediary.Name.ToLower();
             string _fileName = View.FileName;
 
             int _currentRow = 0;
 
             try
             {
-                if (_intermediaryID == IntermediaryConstants.PRIMORYE_ID)
+                if (_intermediary.Contains("приморье"))
                 {
                     using (ExcelSheet _sheet = new ExcelSheet(_fileName))
                     {
@@ -713,7 +708,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
                         while (_currentRow < _sheet.RowsCount - 4)
                         {
-                            Payments.Add(++_currentRow - 7, ProcessImportPrimoryeLine(_sheet.GetCell("G", _currentRow), _sheet.GetCell("H", _currentRow), _sheet.GetCell("F", _currentRow)));
+                            Payments.Add(++_currentRow - 7, ProcessImportPrimoryeLine(_sheet.GetCell("E", _currentRow), _sheet.GetCell("D", _currentRow), _sheet.GetCell("C", _currentRow)));
                             View.AddProgress();
                         }
                     }
@@ -739,24 +734,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
                     List<WizardPaymentElement> _elements;
 
-                    switch (View.Intermediary.ID)
+                    
+                    if (_intermediary.Contains(IntermediaryConstants.SBRF_ID))
                     {
-                        case IntermediaryConstants.PRIMSOCBANK_ID:
-                        case IntermediaryConstants.UFPS_ID:
-                            _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportPrimsocbankLine).ToList();
-                            break;
-                        case IntermediaryConstants.SBRF_ID:
-                            _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportSbrfLine).ToList();
-                            break;
-                        case IntermediaryConstants.MOSOBLBANK_ID:
-                            _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportMosoblbankLine).ToList();
-                            break;
-                        /*case IntermediaryConstants.KEDR_ID:
-                            _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportKedrLine).ToList();
-                            break;*/
-                        default:
-                            _elements = new List<WizardPaymentElement>();
-                            break;
+                        _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportSbrfLine).ToList();
+                    }
+                    else if(_intermediary.Contains(IntermediaryConstants.PRIMSOCBANK_ID))
+                    {
+                        _lines = new List<string>(_lines.GetRange(12, _lines.Count - 12));
+                        _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportCitySystemLine).ToList();
+                    }
+                    else
+                    {
+                        _elements = new List<WizardPaymentElement>();
                     }
 
                     _currentRow = 0;
@@ -840,20 +830,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportSbrfLine(string line)
         {
-            string[] _poses = line.Split('|');
+            string[] _poses = line.Split(';');
 
             WizardPaymentElement _res = new WizardPaymentElement();
 
-            _res.Account = _poses.Length > 0 ? _poses[0] : String.Empty;
-            _res.Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") ?
-                new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1) :
-                DateTime.MinValue;
-            if (_poses.Length > 3)
+            _res.Account = _poses.Length > 5 ? _poses[5] : string.Empty;
+            _res.Period = ServerTime.GetPeriodInfo().LastCharged;
+
+            if (_poses.Length > 7)
             {
-                decimal _count = 0;
-                Decimal.TryParse(_poses[3].Replace('.', ','), out _count);
-                _res.Value = _count;
+                decimal _value = 0;
+                Decimal.TryParse(_poses[7].Replace('.', ','), out _value);
+                _res.Value = _value;
             }
+
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
                 ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_res.Account)
                 : null;
@@ -913,6 +903,43 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                 Decimal.TryParse(_poses[3].Replace('.', ','), out _count);
                 _res.Value = _count;
             }
+            _res.Owner = !string.IsNullOrEmpty(_res.Account)
+                ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_res.Account)
+                : null;
+
+            _res.HasError = _res.Validate();
+
+            return _res;
+        }
+
+        /// <summary>
+        /// Обрабатывает файл с платежами от Мособлбанк
+        /// </summary>
+        /// <param name="line">Строка с данными</param>
+        /// <returns>Набор данных по платежу</returns>
+        private WizardPaymentElement ProcessImportCitySystemLine(string line)
+        {
+            string[] _poses = line.Split(';');
+
+            WizardPaymentElement _res = new WizardPaymentElement();
+
+            _res.Account = _poses.Length > 2 ? _poses[2] : string.Empty;
+            if(_poses.Length > 7 && !string.IsNullOrEmpty(_poses[7]))
+            {
+                string[] _additionalFields = _poses[7].Split(':');
+                if(_additionalFields.Length > 1)
+                {
+                    _res.Period = new DateTime(Convert.ToInt32(_additionalFields[1].Substring(3)), Convert.ToInt32(_additionalFields[1].Substring(0, 2)), 1);
+                }
+            }
+
+            if (_poses.Length > 3)
+            {
+                decimal _count = 0;
+                Decimal.TryParse(_poses[3].Replace('.', ','), out _count);
+                _res.Value = _count;
+            }
+
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
                 ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_res.Account)
                 : null;

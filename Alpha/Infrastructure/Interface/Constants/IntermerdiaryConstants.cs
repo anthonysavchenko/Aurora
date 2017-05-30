@@ -8,31 +8,16 @@
         /// <summary>
         /// ID Сбербанка
         /// </summary>
-        public const string SBRF_ID = "2";
+        public const string SBRF_ID = "сбербанк";
 
         /// <summary>
         /// ID Примсоцбанка
         /// </summary>
-        public const string PRIMSOCBANK_ID = "1";
+        public const string PRIMSOCBANK_ID = "система город";
 
         /// <summary>
         /// ID банка Приморье
         /// </summary>
-        public const string PRIMORYE_ID = "3";
-
-        /// <summary>
-        /// ID УФПС
-        /// </summary>
-        public const string UFPS_ID = "4";
-        
-        /// <summary>
-        /// ID Мособлбанка
-        /// </summary>
-        public const string MOSOBLBANK_ID = "9";
-        
-        /// <summary>
-        /// ID банка Кедр
-        /// </summary>
-        public const string KEDR_ID = "10"; 
+        public const string PRIMORYE_ID = "приморье";
     }
 }
