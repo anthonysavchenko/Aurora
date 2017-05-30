@@ -1153,16 +1153,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                         if (_chargeValue > 0)
                                         {
+                                            _chargeValue = Math.Round(_chargeValue, 2, MidpointRounding.AwayFromZero);
                                             ChargeOperPoses _chargeOperPos = 
                                                 new ChargeOperPoses()
                                                 {
                                                     ChargeOpers = _chargeOper,
                                                     Services = _services[_customerPos.ServiceID],
                                                     Contractors = _contractors[_customerPos.ContractorID],
-                                                    Value = Math.Round(_chargeValue, 2, MidpointRounding.AwayFromZero)
+                                                    Value = _chargeValue
                                                 };
                                             _db.ChargeOperPoses.AddObject(_chargeOperPos);
-                                            _customerPeriodBalances.AddCharge(_chargeOperPos.ChargeOpers.ChargeSets.Period, _chargeOperPos.Services.ID, _chargeOperPos.Value);
 
                                             if (_federalBenefitValue < 0 || _localBenefitValue < 0)
                                             {
@@ -1205,6 +1205,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 }
                                             }
                                         }
+                                        _customerPeriodBalances.AddCharge(_chargeSet.Period, _customerPos.ServiceID, _chargeValue);
                                     }
 
                                     #endregion
