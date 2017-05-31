@@ -34,7 +34,7 @@ namespace Taumis.Infrastructure.Shell
             _statusWorkspace.Name = CommonWorkspaceNames.StatusWorkspace;
 			
 			this.IsMdiContainer = true;
-            this.Text = "Aurora 1871";
+            this.Text = "Aurora Капремонт";
         }
 
     }
