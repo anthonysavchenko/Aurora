@@ -289,7 +289,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             using (Entities _entities = new Entities())
             {
                 _result =
-                    Payments.Values.Select(p => p.Account).Distinct().All(c => _entities.ChargeOpers.Any(co => co.Customers.Account == c));
+                    Payments.Values
+                        .Select(p => p.Account)
+                        .Distinct()
+                        .All(c => 
+                            _entities.ChargeOpers.Any(co => co.Customers.Account == c)
+                            || _entities.RechargeOpers.Any(ro => ro.Customers.Account == c));
             }
 
             return _result;
