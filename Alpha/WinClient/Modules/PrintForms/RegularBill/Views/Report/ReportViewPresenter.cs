@@ -224,7 +224,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 BillService.FormatBarcodeString(_barcode),
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
                                 BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
-                                _qrCode);
+                                _qrCode,
+                                GetBottomInfoString(_bill.Street, _bill.Building));
 
                             if (_bill.BillSendingSubscription)
                             {
@@ -247,6 +248,47 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             return null;
+        }
+
+        private string GetBottomInfoString(string street, string building)
+        {
+            street = street.ToLower();
+            if(street == "уткинская" || street == "космонавтов" || street == "прапорщика комарова")
+            {
+                return "Управляющий по дому - Беришева Ирина Сергеевна, тел. 271-80-55";
+            }
+
+            if(street == "гульбиновича" 
+               || street == "окатовая" 
+               || street == "западная" 
+               || street == "океанский проспект"
+               || street == "острякова проспект"
+               || street == "некрасовская" 
+               || street == "станюковича"
+               || (street == "красного знамени проспект" && (building == "88" || building == "93" || building == "107"))
+               || street == "терешковой")
+            {
+                return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
+            }
+
+            if(street == "адмирала спиридонова" || street == "адмирала кузнецова" || street == "луговая" || street == "баляева")
+            {
+                return "Управляющий по дому - Горбачева Вера Александровна, тел 255-82-23";
+            }
+
+            if(street == "магнитогорская" || street == "ульяновская" || street == "енисейская" || street == "шилкинская")
+            {
+                return "Управляющий по дому - Шевелева Надежда Дмитриевна, тел. 277-02-99";
+            }
+
+            if(street == "тунгусская" 
+               || street == "тобольская"
+               || (street == "красного знамени проспект" && (building == "114" || building == "162")))
+            {
+                return "Управляющий по дому - Милованова  Оксана Васильевна, тел. +7-924-736-61-45";
+            }
+
+            return string.Empty;
         }
 
         public void SendBills()
