@@ -1,9 +1,10 @@
-﻿using ClosedXML.Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
+using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 {
@@ -11,13 +12,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
     {
         private const int ROWS_PER_FILE = 1000;
 
-        private const string DOC_TYPE = "Текущий";
         private const string CALCULATED_VALUE = "@";
-
+        
         private class Section1_2Sheet
         {
             public const int INDEX = 1;
             public const int FIRST_ROW_NUM = 4;
+
+            public const string DOC_TYPE = "Текущий";
 
             public class Columns
             {
@@ -36,14 +38,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public const int INDEX = 2;
             public const int FIRST_ROW_NUM = 5;
 
+            private const string PP_CALC_TYPE = "Норматив";
+
             public class Columns
             {
                 public const int NUMBER = 1;
                 public const int SERVICE = 2;
+                public const int PP_VOLUME = 6;
                 public const int RATE = 7;
                 public const int RECALCULATION = 8;
                 public const int BENEFIT = 9;
                 public const int CHARGE = 24;
+                public const int PP_CHARGE = 26;
             }
         }
 
@@ -82,6 +88,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public decimal Recalculation { get; set; }
             public decimal Benefit { get; set; }
             public decimal Charge { get; set; }
+            public bool IsPublicPlaceService { get; set; }
+        }
+
+        private IExcelService _excelService;
+
+        public GisZhkhChargesExportService(IExcelService excelService)
+        {
+            _excelService = excelService;
         }
 
         public ExportResult Export(string outputPath, string templatePath, DateTime period, Dictionary<int, string> serviceMatchingDict, Action<int> progressAction)
@@ -128,10 +142,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                     string _fileName = $"{_building.Street.Replace(' ', '_')}_{_building.Number.Replace(' ', '_').Replace('\\', '_').Replace('/', '_')}_начиления_{period:yyyyMM}_.xlsx";
 
-                    using (XLWorkbook _wb = new XLWorkbook(templatePath))
+                    using (IExcelWorkbook _wb = _excelService.OpenWorkbook(templatePath))
                     {
-                        IXLWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
-                        IXLWorksheet _section3_6 = _wb.Worksheet(Section3_6Sheet.INDEX);
+                        IExcelWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
+                        IExcelWorksheet _section3_6 = _wb.Worksheet(Section3_6Sheet.INDEX);
 
                         int _section1_2Row = Section1_2Sheet.FIRST_ROW_NUM;
                         int _section3_6Row = Section3_6Sheet.FIRST_ROW_NUM;
@@ -141,7 +155,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         foreach(CustomerInfo _ci in _byBuilding.Value)
                         {
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.GIS_ZHKH_ID).SetValue(_ci.CustomerGisZhkhID);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.DOC_TYPE).SetValue(DOC_TYPE);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.DOC_TYPE).SetValue(Section1_2Sheet.DOC_TYPE);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.NUMBER).SetValue(_rec_num);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.PERIOD).SetValue(period.ToString("MM.yyyy"));
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_ci.Area);
@@ -154,6 +168,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.SERVICE).SetValue(serviceMatchingDict[_bi.ServiceTypeID]);
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RATE).SetValue(_bi.Rate);
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.CHARGE).SetValue(_bi.Charge);
+
+                                if (_bi.IsPublicPlaceService)
+                                {
+                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_CHARGE).SetValue(_bi.Charge);
+                                }
                                 if (_bi.Recalculation != 0)
                                 {
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RECALCULATION).SetValue(_bi.Recalculation);
@@ -197,6 +216,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 using (Entities _db = new Entities())
                 {
                     _db.CommandTimeout = 3600;
+
+                    List<int> _publicPlaceServiceTypes =
+                        _db.Services
+                            .Where(s => s.ChargeRule == (int)ChargeRuleType.PublicPlaceAreaRate)
+                            .Select(s => s.ServiceTypes.ID)
+                            .Distinct()
+                            .ToList();
+
                     _result = _db.RegularBillDocSeviceTypePoses
                         .Where(p =>
                             p.RegularBillDocs.Period == period
@@ -255,7 +282,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                                     Recalculation = bi.Recalculation,
                                                     Benefit = bi.Benefit,
                                                     Charge = bi.Charge,
-                                                    ServiceTypeID = bi.ServiceTypeID
+                                                    ServiceTypeID = bi.ServiceTypeID,
+                                                    IsPublicPlaceService = _publicPlaceServiceTypes.Any(id => id == bi.ServiceTypeID)
                                                 }).ToList()
                                         }).ToList()
                             })
@@ -277,15 +305,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
             try
             {
-                using (XLWorkbook _wb = new XLWorkbook(templatePath))
+                using (IExcelWorkbook _wb = _excelService.OpenWorkbook(templatePath))
                 {
-                    IXLWorksheet _ws = _wb.Worksheet(ServiceSheet.INDEX);
+                    IExcelWorksheet _ws = _wb.Worksheet(ServiceSheet.INDEX);
 
-                    int _rowCount = _ws.LastRowUsed().RowNumber() - ServiceSheet.FIRST_ROW_NUM + 1;
+                    int _rowCount = _ws.GetRowCount() - ServiceSheet.FIRST_ROW_NUM + 1;
 
                     for (int i = 0; i < _rowCount; i++)
                     {
-                        _result.Add(_ws.Cell(i + ServiceSheet.FIRST_ROW_NUM, ServiceSheet.Columns.SERVICE_NAME).GetString());
+                        _result.Add(_ws.Cell(i + ServiceSheet.FIRST_ROW_NUM, ServiceSheet.Columns.SERVICE_NAME).Value);
                     }
                 }
             }

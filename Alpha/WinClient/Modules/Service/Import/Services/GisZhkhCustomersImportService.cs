@@ -11,12 +11,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
     public class GisZhkhCustomersImportService : IImportService
     {
         private const int FIRST_ROW_INDEX = 3;
-        private const string SHEET_NAME = "ЕЛС";
+        private const int SHEET_NAME = 1;
 
         private class Columns
         {
-            public const int ACCOUNT = 2;
-            public const int GIS_ZHKH_ID = 4;
+            public const int ACCOUNT = 1;
+            public const int GIS_ZHKH_ID = 3;
         }
 
         private class ParsedRow

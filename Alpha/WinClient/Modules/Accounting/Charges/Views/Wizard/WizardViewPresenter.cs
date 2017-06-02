@@ -26,6 +26,7 @@ using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 {
@@ -235,6 +236,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         [ServiceDependency]
         public ISettingsService SettingsService { get; private set; }
+
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
 
         /// <summary>
         /// Признак сбоя резервного копирования
@@ -2019,17 +2023,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             {
                 using (Entities _db = new Entities())
                 {
-                    using (ExcelSheet _sheet = new ExcelSheet(View.DebtFileName, "внести долг"))
+                    using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(View.DebtFileName))
                     {
-                        for (int _row = 1; _row < _sheet.RowsCount; _row++)
+                        IExcelWorksheet _ws = _wb.Worksheet(1);
+                        int _rowCount = _ws.GetRowCount();
+
+                        for (int _row = 1; _row < _rowCount; _row++)
                         {
                             try
                             {
-                                string _account = _sheet.GetCell("A", _row).Trim();
+                                string _account = _ws.Cell(_row, 1).Value.Trim();
 
                                 if (!string.IsNullOrEmpty(_account))
                                 {
-                                    decimal _debt = decimal.Parse(_sheet.GetCell("B", _row).Trim());
+                                    decimal _debt;
+                                    if(!_ws.Cell(_row, 2).TryGetValue(out _debt))
+                                    {
+                                        throw new ApplicationException($"Не удалось преобразовать значение {_ws.Cell(_row, 2).Value} к типу decimal");
+                                    }
 
                                     var _customer =
                                         _db.Customers

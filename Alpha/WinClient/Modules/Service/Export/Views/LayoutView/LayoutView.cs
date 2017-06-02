@@ -310,7 +310,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblGizZhkhInfo.Visible = true;
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
-                    tblTemplate.Visible = true;
+                    tblTemplate.Visible = false;
                     break;
                 case WizardAction.ExportBenefitData:
                     tblPeriod.Visible = false;

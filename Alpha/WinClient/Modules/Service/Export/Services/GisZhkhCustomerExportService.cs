@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
@@ -10,6 +11,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 {
     public class GisZhkhCustomerExportService : IGisZhkhCustomerExportService
     {
+        private const string TEMPLATE_PATH = "Templates\\GisZhkh_Customer_Export.xlsx";
+
         private const string BASIC_SHEET = "Основные сведения";
         private const string ROOM_SHEET = "Помещения";
         private const string ACCOUNT_TYPE = "ЛС УО";
@@ -140,6 +143,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             _basicSheet.Cell(_row, Columns.BasicSheet.NAME).SetValue(_name[1]);
                             _basicSheet.Cell(_row, Columns.BasicSheet.PATRONYMIC).SetValue(_name[2]);
                         }
+                        else
+                        {
+                            _basicSheet.Cell(_row, Columns.BasicSheet.SURNAME).SetValue(_ci.FullName);
+                        }
 
                         _roomSheet.Cell(_row, Columns.RoomSheet.REC_NUM).SetValue(_recNum);
                         _roomSheet.Cell(_row, Columns.RoomSheet.FIAS_ID).SetValue(_ci.FiasID);
@@ -160,14 +167,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         #region Implementation of IGisZhkhDataExportService
 
-        public ExportResult Export(string outputPath, string templatePath, bool exportOnlyNew, Action<int> progressAction)
+        public ExportResult Export(string outputPath, bool exportOnlyNew, Action<int> progressAction)
         {
             ExportResult _result = new ExportResult();
 
             try
             {
                 Dictionary<int, List<CustomerInfo>> _customersByBuilding = GetData(exportOnlyNew);
-                FillSheets(_customersByBuilding, outputPath, templatePath, progressAction);
+                FillSheets(_customersByBuilding, outputPath, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TEMPLATE_PATH), progressAction);
                 _result.Info = "Операция выполнена успешно";
             }
             catch (Exception _ex)

@@ -94,8 +94,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             WizardAction _action = View.WizardAction;
 
             if((_action == WizardAction.ExportBenefitData 
-                || _action == WizardAction.ExportChargesForGisZhkh 
-                || _action == WizardAction.ExportCustomersForGisZhkh) 
+                || _action == WizardAction.ExportChargesForGisZhkh) 
                && string.IsNullOrEmpty(View.TemplatePath))
             {
                 _msg.AppendLine("- Выберите файл шаблона");
@@ -191,7 +190,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                             args.Result = ChargeExportService.Export(View.OutputPath, View.Period, GetChargeExportFormatList(), ((BackgroundWorker)sender).ReportProgress);
                             break;
                         case WizardAction.ExportCustomersForGisZhkh:
-                            args.Result = GisZhkhCustomerExportService.Export(View.OutputPath, View.TemplatePath, View.GisZhkhOnlyNew, ((BackgroundWorker)sender).ReportProgress);
+                            args.Result = GisZhkhCustomerExportService.Export(View.OutputPath, View.GisZhkhOnlyNew, ((BackgroundWorker)sender).ReportProgress);
                             break;
                         case WizardAction.ExportChargesForGisZhkh:
                             args.Result = GisZhkhChargesExportService.Export(View.OutputPath, View.TemplatePath, View.Period, View.GetServiceMatchingDict(), ((BackgroundWorker)sender).ReportProgress);
