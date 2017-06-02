@@ -708,12 +708,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                 {
                     using (ExcelSheet _sheet = new ExcelSheet(_fileName))
                     {
-                        _currentRow = 6;
-                        View.ResetProgressBar(_sheet.RowsCount - 10);
+                        _currentRow = 1;
+                        View.ResetProgressBar(_sheet.RowsCount - 1);
 
-                        while (_currentRow < _sheet.RowsCount - 4)
+                        while (_currentRow < _sheet.RowsCount)
                         {
-                            Payments.Add(++_currentRow - 7, ProcessImportPrimoryeLine(_sheet.GetCell("E", _currentRow), _sheet.GetCell("D", _currentRow), _sheet.GetCell("C", _currentRow)));
+                            Payments.Add(++_currentRow - 2, ProcessImportPrimoryeLine(_sheet.GetCell("E", _currentRow), _sheet.GetCell("D", _currentRow), _sheet.GetCell("C", _currentRow)));
                             View.AddProgress();
                         }
                     }
