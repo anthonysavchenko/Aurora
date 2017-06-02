@@ -69,6 +69,7 @@
             this.payerAkaLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel13 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -100,7 +101,8 @@
             this.xrLabel9,
             this.payerAkaLabel,
             this.xrLabel3,
-            this.xrLabel13});
+            this.xrLabel13,
+            this.xrLabel6});
             resources.ApplyResources(this.Detail, "Detail");
             this.Detail.KeepTogether = true;
             this.Detail.Name = "Detail";
@@ -493,6 +495,18 @@
             this.xrLabel13.StylePriority.UsePadding = false;
             this.xrLabel13.StylePriority.UseTextAlignment = false;
             // 
+            // xrLabel6
+            // 
+            this.xrLabel6.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BottomInfoString")});
+            resources.ApplyResources(this.xrLabel6, "xrLabel6");
+            this.xrLabel6.Multiline = true;
+            this.xrLabel6.Name = "xrLabel6";
+            this.xrLabel6.Padding = new DevExpress.XtraPrinting.PaddingInfo(11, 11, 0, 0, 254F);
+            this.xrLabel6.StylePriority.UseFont = false;
+            this.xrLabel6.StylePriority.UsePadding = false;
+            this.xrLabel6.StylePriority.UseTextAlignment = false;
+            // 
             // xrControlStyle1
             // 
             this.xrControlStyle1.BackColor = System.Drawing.Color.AliceBlue;
@@ -616,5 +630,6 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel13;
         private DevExpress.XtraReports.UI.XRPanel xrPanel3;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel6;
     }
 }
