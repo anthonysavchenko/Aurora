@@ -1,10 +1,11 @@
-﻿using ClosedXML.Excel;
+﻿using Microsoft.Practices.CompositeUI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
@@ -62,6 +63,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public string Apartment { get; set; }
             public string FiasID { get; set; }
         }
+
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
 
         #region Help Methods
 
@@ -122,10 +126,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 int _recNum = 1;
                 int _row = 3;
 
-                using (XLWorkbook _xwb = new XLWorkbook(templatePath))
+                using (IExcelWorkbook _xwb = ExcelService.OpenWorkbook(templatePath))
                 {
-                    IXLWorksheet _basicSheet = _xwb.Worksheet(BASIC_SHEET);
-                    IXLWorksheet _roomSheet = _xwb.Worksheet(ROOM_SHEET);
+                    IExcelWorksheet _basicSheet = _xwb.Worksheet(BASIC_SHEET);
+                    IExcelWorksheet _roomSheet = _xwb.Worksheet(ROOM_SHEET);
                     
                     foreach(CustomerInfo _ci in _pair.Value)
                     {

@@ -1,9 +1,10 @@
-﻿using ClosedXML.Excel;
+﻿using Microsoft.Practices.CompositeUI;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
@@ -105,6 +106,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public Dictionary<int, int> DebtMonthCount { get; set; }
             public List<ServiceTypeData> DataByServiceType { get; set; }
         }
+
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
 
         #region Help Methods
 
@@ -558,7 +562,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             return _debtMonthCount;
         }
 
-        private Dictionary<int, Dictionary<int, int>> Parse(IXLWorksheet sheet, Action<int> reportProgressAction)
+        private Dictionary<int, Dictionary<int, int>> Parse(IExcelWorksheet sheet, Action<int> reportProgressAction)
         {
             Dictionary<int, Dictionary<int, int>> _accRowDict = new Dictionary<int, Dictionary<int, int>>();
             Dictionary<string, int> _customerIdByAccount;
@@ -576,17 +580,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         .ToDictionary(c => c.Account, c => c.ID);
             }
 
-            int _rowCount = sheet.LastRowUsed().RowNumber();
+            int _rowCount = sheet.GetRowCount();
 
             for (int i = 2; i <= _rowCount; i++)
             {
-                IXLRow _row = sheet.Row(i);
-                string _account = CorrectAccount(_row.Cell(Columns.LS).GetString());
+                string _account = CorrectAccount(sheet.Cell(i, Columns.LS).Value);
 
                 if (!string.IsNullOrEmpty(_account) && _customerIdByAccount.ContainsKey(_account))
                 {
                     int _customerId = _customerIdByAccount[_account];
-                    string _serviceType = _row.Cell(Columns.GKU).GetString();
+                    string _serviceType = sheet.Cell(i, Columns.GKU).Value;
                     int? _serviceTypeId = ParseServiceType(_serviceType);
                     if (_serviceTypeId.HasValue)
                     {
@@ -618,7 +621,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         private void FillSheet(
             List<CustomerInfo> data,
             Dictionary<int, Dictionary<int, int>> accRowDict,
-            IXLWorksheet sheet,
+            IExcelWorksheet sheet,
             Action<int> reportProgressAction)
         {
             int _processed = 0;
@@ -656,14 +659,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             }
         }
 
-        private void FillRow(int row, IEnumerable<ServiceTypeData> data, string square, string residentCount, string restrDebt, string monthCount, IXLWorksheet sheet)
+        private void FillRow(
+            int row, 
+            IEnumerable<ServiceTypeData> data, 
+            string square, 
+            string residentCount, 
+            string restrDebt, 
+            string monthCount, 
+            IExcelWorksheet sheet)
         {
-            IXLRow _row = sheet.Row(row);
-            _row.Cell(Columns.PL).SetValue(square);
-            _row.Cell(Columns.NORM).SetValue(square);
-            _row.Cell(Columns.KOLP).SetValue(residentCount);
-            _row.Cell(Columns.RESTRDOLG).SetValue(restrDebt);
-            _row.Cell(Columns.MESD).SetValue(monthCount);
+            sheet.Cell(row, Columns.PL).SetValue(square);
+            sheet.Cell(row, Columns.NORM).SetValue(square);
+            sheet.Cell(row, Columns.KOLP).SetValue(residentCount);
+            sheet.Cell(row, Columns.RESTRDOLG).SetValue(restrDebt);
+            sheet.Cell(row, Columns.MESD).SetValue(monthCount);
 
             decimal _charge = 0,
                     _recharge = 0,
@@ -676,9 +685,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 _rate += _data.Rate;
             }
 
-            _row.Cell(Columns.FAKTP).SetValue(_charge.ToString(CultureInfo.InvariantCulture));
-            _row.Cell(Columns.FAKTPER).SetValue(_recharge.ToString(CultureInfo.InvariantCulture));
-            _row.Cell(Columns.TARIF).SetValue(_rate.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTP).SetValue(_charge.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTPER).SetValue(_recharge.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.TARIF).SetValue(_rate.ToString(CultureInfo.InvariantCulture));
         }
 
         #endregion
@@ -690,10 +699,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             ExportResult _result = new ExportResult();
             try
             {
-                using (XLWorkbook _xwb = new XLWorkbook(templatePath))
+                using (IExcelWorkbook _xwb = ExcelService.OpenWorkbook(templatePath))
                 {
-                    IXLWorksheet _xws = _xwb.Worksheet(1);
-                    string _periodStr = _xws.Row(2).Cell(Columns.PERIOD_COLUMN).GetString();
+                    IExcelWorksheet _xws = _xwb.Worksheet(1);
+                    string _periodStr = _xws.Cell(2, Columns.PERIOD_COLUMN).Value;
                     DateTime _period = GetPeriod(_periodStr);
 
                     Dictionary<int, Dictionary<int, int>> _accRowDict = Parse(_xws, progressAction);

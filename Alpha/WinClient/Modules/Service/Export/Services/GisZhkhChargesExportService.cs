@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Practices.CompositeUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.DataBase;
@@ -91,12 +92,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public bool IsPublicPlaceService { get; set; }
         }
 
-        private IExcelService _excelService;
-
-        public GisZhkhChargesExportService(IExcelService excelService)
-        {
-            _excelService = excelService;
-        }
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
 
         public ExportResult Export(string outputPath, string templatePath, DateTime period, Dictionary<int, string> serviceMatchingDict, Action<int> progressAction)
         {
@@ -142,7 +139,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                     string _fileName = $"{_building.Street.Replace(' ', '_')}_{_building.Number.Replace(' ', '_').Replace('\\', '_').Replace('/', '_')}_начиления_{period:yyyyMM}_.xlsx";
 
-                    using (IExcelWorkbook _wb = _excelService.OpenWorkbook(templatePath))
+                    using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(templatePath))
                     {
                         IExcelWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
                         IExcelWorksheet _section3_6 = _wb.Worksheet(Section3_6Sheet.INDEX);
@@ -305,7 +302,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
             try
             {
-                using (IExcelWorkbook _wb = _excelService.OpenWorkbook(templatePath))
+                using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(templatePath))
                 {
                     IExcelWorksheet _ws = _wb.Worksheet(ServiceSheet.INDEX);
 
