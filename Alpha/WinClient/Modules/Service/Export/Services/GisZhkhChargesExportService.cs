@@ -245,47 +245,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 BuildingID = p.RegularBillDocs.Customers.Buildings.ID,
                                 CustomerGisZhkhID = p.RegularBillDocs.Customers.GisZhkhID,
                                 Area = p.RegularBillDocs.Customers.Square,
-                                BankBik = p.RegularBillDocs.Customers.Buildings.BankDetails.BIK,
+                                p.RegularBillDocs.Customers.Buildings.BankDetails.BIK,
                                 BankAccount = p.RegularBillDocs.Customers.Buildings.BankDetails.Account,
-                                ServiceTypeName = p.ServiceTypeName,
+                                p.ServiceTypeID,
+                                p.ServiceTypeName,
                                 Rate = p.PayRate,
-                                Recalculation = p.Recalculation,
-                                Benefit = p.Benefit,
+                                p.Recalculation,
+                                p.Benefit,
                                 Total = p.Payable
                             })
-                        .Join(
-                            _db.ServiceTypes,
-                            x => x.ServiceTypeName,
-                            st => st.Name,
-                            (x, st) =>
-                                new
-                                {
-                                    x.BillID,
-                                    x.BuildingID,
-                                    CustomerGisZhkhID = x.CustomerGisZhkhID,
-                                    Area = x.Area,
-                                    Bik = x.BankBik,
-                                    BankAccount = x.BankAccount,
-                                    Rate = x.Rate,
-                                    Recalculation = x.Recalculation,
-                                    Benefit = x.Benefit,
-                                    Total = x.Total,
-                                    ServiceTypeID = st.ID
-                                })
-                        .Where(bi => serviceMatchingDict.Keys.Contains(bi.ServiceTypeID))
+                        .Where(bi => serviceMatchingDict.Keys.Contains((int)bi.ServiceTypeID))
                         .ToList()
                         .GroupBy(bi => bi.BuildingID)
                         .Select(g =>
                             new
                             {
                                 BuildingID = g.Key,
-                                Data = g.GroupBy(bi => new { bi.CustomerGisZhkhID, bi.Area, bi.Bik, bi.BankAccount, bi.BillID })
+                                Data = g.GroupBy(bi => new { bi.CustomerGisZhkhID, bi.Area, bi.BIK, bi.BankAccount, bi.BillID })
                                     .Select(gByGisZhkhID =>
                                         new CustomerInfo
                                         {
                                             CustomerGisZhkhID = gByGisZhkhID.Key.CustomerGisZhkhID,
                                             Area = gByGisZhkhID.Key.Area,
-                                            Bik = gByGisZhkhID.Key.Bik,
+                                            Bik = gByGisZhkhID.Key.BIK,
                                             BankAccount = gByGisZhkhID.Key.BankAccount,
                                             BillID = gByGisZhkhID.Key.BillID,
                                             Bills = gByGisZhkhID.Select(bi =>
@@ -295,7 +277,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                                     Recalculation = bi.Recalculation,
                                                     Benefit = bi.Benefit,
                                                     Total = bi.Total,
-                                                    ServiceTypeID = bi.ServiceTypeID,
+                                                    ServiceTypeID = bi.ServiceTypeID.Value,
                                                     IsPublicPlaceService = _publicPlaceServiceTypes.Any(id => id == bi.ServiceTypeID)
                                                 }).ToList()
                                         }).ToList()

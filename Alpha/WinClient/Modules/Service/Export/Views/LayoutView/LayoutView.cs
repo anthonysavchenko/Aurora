@@ -260,7 +260,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     ComboBox _cb = _c as ComboBox;
                     if(_cb != null)
                     {
-                        _cb.Invoke(new MethodInvoker(() => _gisZhkhSeviceName = _cb.SelectedItem.ToString()));
+                        _cb.Invoke(new MethodInvoker(() => _gisZhkhSeviceName = _cb.SelectedItem?.ToString() ?? string.Empty));
                     }
                     else
                     {

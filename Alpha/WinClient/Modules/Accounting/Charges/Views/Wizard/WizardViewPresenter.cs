@@ -1351,6 +1351,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             })
                                             .Select(groupedByServiceType => new
                                             {
+                                                groupedByServiceType.Key.ServiceTypeID,
                                                 groupedByServiceType.Key.ServiceTypeName,
                                                 Rate = groupedByServiceType.Sum(x => x.Value.Charge != 0 ? _customerPoses.Single(y => y.ServiceID == x.Key).Rate : 0),
                                                 Charge = groupedByServiceType.Sum(x => x.Value.Charge),
@@ -1364,6 +1365,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 new RegularBillDocSeviceTypePoses
                                                 {
                                                     RegularBillDocs = _billDoc,
+                                                    ServiceTypeID = _pos.ServiceTypeID,
                                                     ServiceTypeName = _pos.ServiceTypeName,
                                                     PayRate = Math.Round(_pos.Rate, 2, MidpointRounding.AwayFromZero),
                                                     Charge = _pos.Charge,
