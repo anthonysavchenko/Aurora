@@ -167,6 +167,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             }));
         }
 
+        public void ResetProgress()
+        {
+            ProgressBarControl.Invoke(new MethodInvoker(() =>
+            {
+                ProgressBarControl.Value = 0;
+                progressProcentLabel.Text = $"Загрузка даннных...";
+            }));
+        }
+
         public bool ServiceMatchingTableProgressBarVisible
         {
             set
@@ -183,7 +192,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             tblServiceMatching.RowStyles.Clear();
         }
 
-        public void AddRowToServiceMatchingTable(int serviceTypeID, string serviceTypeName, List<string> matchingValues, int tabIndex)
+        public void AddRowToServiceMatchingTable(
+            int serviceTypeID, 
+            string serviceTypeName, 
+            List<string> matchingValues, 
+            string selectedValue, 
+            int tabIndex)
         {
             tblServiceMatching.RowCount++;
             tblServiceMatching.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
@@ -201,7 +215,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right
                 };
 
-            _cb.DataSource = new BindingSource(matchingValues, null);
+            foreach (string _value in matchingValues)
+            {
+                _cb.Items.Add(_value);
+            }
+
+            if (!string.IsNullOrEmpty(selectedValue))
+            {
+                _cb.SelectedIndex = _cb.FindStringExact(selectedValue);
+            }
+
             _cb.TabIndex = tabIndex;
 
             tblServiceMatching.Controls.Add(_lbl, 0, tblServiceMatching.RowCount);
@@ -237,7 +260,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     ComboBox _cb = _c as ComboBox;
                     if(_cb != null)
                     {
-                        _cb.Invoke(new MethodInvoker(() => _gisZhkhSeviceName = _cb.SelectedValue.ToString()));
+                        _cb.Invoke(new MethodInvoker(() => _gisZhkhSeviceName = _cb.SelectedItem.ToString()));
                     }
                     else
                     {

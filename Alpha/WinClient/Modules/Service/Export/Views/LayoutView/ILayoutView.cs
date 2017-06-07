@@ -63,13 +63,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         void SetProgress(int percent);
 
         /// <summary>
+        /// Сбрасывает значение прогресс-бара к исходному
+        /// </summary>
+        void ResetProgress();
+
+        /// <summary>
         /// Информация о результате экспорта
         /// </summary>
         string ResultText { set; }
 
         bool ServiceMatchingTableProgressBarVisible { set; }
         void ClearServiceMatchingTable();
-        void AddRowToServiceMatchingTable(int serviceTypeID, string serviceTypeName, List<string> matchingValues, int tabIndex);
+        void AddRowToServiceMatchingTable(
+            int serviceTypeID, 
+            string serviceTypeName, 
+            List<string> matchingValues, 
+            string selectedValue, 
+            int tabIndex);
         Dictionary<int, string> GetServiceMatchingDict();
     }
 }

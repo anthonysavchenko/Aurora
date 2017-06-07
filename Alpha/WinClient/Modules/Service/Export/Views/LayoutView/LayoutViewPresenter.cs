@@ -9,6 +9,7 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 using Taumis.EnterpriseLibrary.Win.Services;
+using System.Linq;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 {
@@ -28,7 +29,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 
         [ServiceDependency]
         public IGisZhkhChargesExportService GisZhkhChargesExportService { get; set; }
-        
+
         /// <summary>
         /// Обрабатывает отображение вью
         /// </summary>
@@ -60,6 +61,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     case WizardPages.FilePage:
                         if (ValidateFilePage())
                         {
+                            View.ResetProgress();
                             _next = View.WizardAction == WizardAction.ExportChargesForGisZhkh
                                 ? WizardPages.ServiceMatchingWizardPage
                                 : WizardPages.ProcessingPage;
@@ -86,35 +88,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         private bool ValidateFilePage()
         {
             StringBuilder _msg = new StringBuilder();
-            if(string.IsNullOrEmpty(View.OutputPath))
+            if (string.IsNullOrEmpty(View.OutputPath))
             {
                 _msg.AppendLine("- Укажите путь к папке для экспорта данных");
             }
 
             WizardAction _action = View.WizardAction;
 
-            if((_action == WizardAction.ExportBenefitData 
-                || _action == WizardAction.ExportChargesForGisZhkh) 
+            if ((_action == WizardAction.ExportBenefitData
+                || _action == WizardAction.ExportChargesForGisZhkh)
                && string.IsNullOrEmpty(View.TemplatePath))
             {
                 _msg.AppendLine("- Выберите файл шаблона");
             }
 
-            if(_action == WizardAction.ExportChargesForBanks)
+            if (_action == WizardAction.ExportChargesForBanks)
             {
-                if(View.Period == DateTime.MinValue)
+                if (View.Period == DateTime.MinValue)
                 {
                     _msg.AppendLine("- Выберите период");
                 }
 
-                if(!View.SbrfChecked && !View.PrimSocBankChecked)
+                if (!View.SbrfChecked && !View.PrimSocBankChecked)
                 {
                     _msg.AppendLine("- Укажите формат");
                 }
             }
 
             bool _result = _msg.Length == 0;
-            if(!_result)
+            if (!_result)
             {
                 View.ShowMessage(_msg.ToString(), "Исправьте указанные ошибки");
             }
@@ -163,9 +165,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             Dictionary<int, string> _services = GisZhkhChargesExportService.GetServices(View.Period);
 
             int _tabIndex = 1;
-            foreach(KeyValuePair<int, string> _pair in _services)
+            foreach (KeyValuePair<int, string> _pair in _services)
             {
-                View.AddRowToServiceMatchingTable(_pair.Key, _pair.Value, _gisZhkhServices, _tabIndex++);
+                string _selectedValue = _gisZhkhServices.Where(s => s == _pair.Value).FirstOrDefault();
+
+                View.AddRowToServiceMatchingTable(
+                    _pair.Key,
+                    _pair.Value,
+                    _gisZhkhServices,
+                    _selectedValue,
+                    _tabIndex++);
             }
         }
 
@@ -197,7 +206,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                             break;
                     }
                 }
-                catch(Exception _ex)
+                catch (Exception _ex)
                 {
                     Logger.SimpleWrite($"Ошибка экспорта: {_ex}");
                 }
