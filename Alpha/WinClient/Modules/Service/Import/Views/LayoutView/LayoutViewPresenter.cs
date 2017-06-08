@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Practices.CompositeUI;
+using System.ComponentModel;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
@@ -10,10 +12,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
     /// </summary>
     public class LayoutViewPresenter : BaseLayoutViewPresenter<ILayoutView>
     {
-        private readonly IImportService _gisZhkhCustomersImportService = new GisZhkhCustomersImportService();
-        private readonly IImportService _newCustomersImportService = new NewCustomersImportService();
-        private readonly IImportService _customerPosesImportService = new CustomerPosesImportService();
-       
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
+
+        private readonly IImportService _gisZhkhCustomersImportService;
+        private readonly IImportService _newCustomersImportService;
+        private readonly IImportService _customerPosesImportService;
+
+        public LayoutViewPresenter()
+        {
+            _gisZhkhCustomersImportService = new GisZhkhCustomersImportService(ExcelService);
+            _newCustomersImportService = new NewCustomersImportService(ExcelService);
+            _customerPosesImportService = new CustomerPosesImportService(ExcelService);
+        }
+
         /// <summary>
         /// Обрабатывает активацию модуля
         /// </summary>

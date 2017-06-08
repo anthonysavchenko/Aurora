@@ -28,326 +28,626 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.FormatRadioGroup = new DevExpress.XtraEditors.RadioGroup();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PeriodDateEdit = new DevExpress.XtraEditors.DateEdit();
-            this.FileTextEdit = new DevExpress.XtraEditors.TextEdit();
-            this.label2 = new System.Windows.Forms.Label();
-            this.ExportOperationsButton = new System.Windows.Forms.Button();
-            this.ImportCustomersBrowseButton = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.benefitProgressBar = new System.Windows.Forms.ProgressBar();
-            this.benefitExportBtn = new System.Windows.Forms.Button();
-            this.benefitInputFileTextEdit = new DevExpress.XtraEditors.TextEdit();
-            this.label4 = new System.Windows.Forms.Label();
-            this.benefitInputSelectFileBtn = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.gisZhkhProgressBar = new System.Windows.Forms.ProgressBar();
-            this.gisZhkhOnlyNewRadioGroup = new DevExpress.XtraEditors.RadioGroup();
-            this.gisZhkhExportButton = new System.Windows.Forms.Button();
-            this.gisZhkhInputFileTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.ExportWizardControl = new DevExpress.XtraWizard.WizardControl();
+            this.ProcessingWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.ProgressBarControl = new System.Windows.Forms.ProgressBar();
+            this.progressProcentLabel = new System.Windows.Forms.Label();
+            this.ChooseMethodWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.exportChargesForGizZhkhRadioBtn = new System.Windows.Forms.RadioButton();
+            this.exportBenefitRadioBtn = new System.Windows.Forms.RadioButton();
+            this.exportCustomersForGisZhkhRadioBtn = new System.Windows.Forms.RadioButton();
+            this.exportChargesForBanksRadioBtn = new System.Windows.Forms.RadioButton();
+            this.FileWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.tblBenefitExportInfo = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
-            this.gisZhkhSelectInputFileButton = new System.Windows.Forms.Button();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FormatRadioGroup.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PeriodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PeriodDateEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FileTextEdit.Properties)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.benefitInputFileTextEdit.Properties)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gisZhkhOnlyNewRadioGroup.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gisZhkhInputFileTextEdit.Properties)).BeginInit();
+            this.startPeriodDateEdit = new DevExpress.XtraEditors.DateEdit();
+            this.tblGizZhkhInfo = new System.Windows.Forms.TableLayoutPanel();
+            this.onlyNewRadioBtn = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.allRadioBtn = new System.Windows.Forms.RadioButton();
+            this.tblBankExportInfo = new System.Windows.Forms.TableLayoutPanel();
+            this.chkPrimSocBankFormat = new System.Windows.Forms.CheckBox();
+            this.chkSbrfFormat = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tblPeriod = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.periodDateEdit = new DevExpress.XtraEditors.DateEdit();
+            this.tblOutputPath = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSelectExportPath = new System.Windows.Forms.Button();
+            this.outputPathTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tblTemplate = new System.Windows.Forms.TableLayoutPanel();
+            this.templatePathTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnSelectTemplate = new System.Windows.Forms.Button();
+            this.FinishWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.resultTextBox = new System.Windows.Forms.TextBox();
+            this.ServiceMatchingWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.serviceMatchingTableProgressBarPanel = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tblServiceMatching = new System.Windows.Forms.TableLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.ExportWizardControl)).BeginInit();
+            this.ExportWizardControl.SuspendLayout();
+            this.ProcessingWizardPage.SuspendLayout();
+            this.ChooseMethodWizardPage.SuspendLayout();
+            this.FileWizardPage.SuspendLayout();
+            this.tblBenefitExportInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.startPeriodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPeriodDateEdit.Properties)).BeginInit();
+            this.tblGizZhkhInfo.SuspendLayout();
+            this.tblBankExportInfo.SuspendLayout();
+            this.tblPeriod.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties)).BeginInit();
+            this.tblOutputPath.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.outputPathTextEdit.Properties)).BeginInit();
+            this.tblTemplate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.templatePathTextEdit.Properties)).BeginInit();
+            this.FinishWizardPage.SuspendLayout();
+            this.ServiceMatchingWizardPage.SuspendLayout();
+            this.serviceMatchingTableProgressBarPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox3
+            // ExportWizardControl
             // 
-            this.groupBox3.Controls.Add(this.FormatRadioGroup);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.PeriodDateEdit);
-            this.groupBox3.Controls.Add(this.FileTextEdit);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.ExportOperationsButton);
-            this.groupBox3.Controls.Add(this.ImportCustomersBrowseButton);
-            this.groupBox3.Location = new System.Drawing.Point(3, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(554, 152);
-            this.groupBox3.TabIndex = 36;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Экпорт начислений";
+            this.ExportWizardControl.CancelText = "Отмена";
+            this.ExportWizardControl.Controls.Add(this.ProcessingWizardPage);
+            this.ExportWizardControl.Controls.Add(this.ChooseMethodWizardPage);
+            this.ExportWizardControl.Controls.Add(this.FileWizardPage);
+            this.ExportWizardControl.Controls.Add(this.FinishWizardPage);
+            this.ExportWizardControl.Controls.Add(this.ServiceMatchingWizardPage);
+            this.ExportWizardControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ExportWizardControl.FinishText = "Завершить";
+            this.ExportWizardControl.Location = new System.Drawing.Point(0, 0);
+            this.ExportWizardControl.Name = "ExportWizardControl";
+            this.ExportWizardControl.NextText = "&Далее>";
+            this.ExportWizardControl.Pages.AddRange(new DevExpress.XtraWizard.BaseWizardPage[] {
+            this.ChooseMethodWizardPage,
+            this.FileWizardPage,
+            this.ServiceMatchingWizardPage,
+            this.ProcessingWizardPage,
+            this.FinishWizardPage});
+            this.ExportWizardControl.PreviousText = "< &Назад";
+            this.ExportWizardControl.Size = new System.Drawing.Size(1509, 879);
+            this.ExportWizardControl.Text = "Мастер экспорта данных";
+            this.ExportWizardControl.UseAcceptButton = false;
+            this.ExportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ExportWizardControl_SelectedPageChanged);
+            this.ExportWizardControl.SelectedPageChanging += new DevExpress.XtraWizard.WizardPageChangingEventHandler(this.ExportWizardControl_SelectedPageChanging);
+            this.ExportWizardControl.FinishClick += new System.ComponentModel.CancelEventHandler(this.ExportWizardControl_FinishClick);
+            this.ExportWizardControl.CustomizeCommandButtons += new DevExpress.XtraWizard.WizardCustomizeCommandButtonsEventHandler(this.ExportWizardControl_CustomizeCommandButtons);
             // 
-            // FormatRadioGroup
+            // ProcessingWizardPage
             // 
-            this.FormatRadioGroup.EditValue = true;
-            this.FormatRadioGroup.Location = new System.Drawing.Point(119, 84);
-            this.FormatRadioGroup.Name = "FormatRadioGroup";
-            this.FormatRadioGroup.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(true, "Сбербанк"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(false, "Примсоцбанк")});
-            this.FormatRadioGroup.Size = new System.Drawing.Size(318, 24);
-            this.FormatRadioGroup.TabIndex = 38;
+            this.ProcessingWizardPage.AllowBack = false;
+            this.ProcessingWizardPage.AllowCancel = false;
+            this.ProcessingWizardPage.AllowNext = false;
+            this.ProcessingWizardPage.Controls.Add(this.ProgressBarControl);
+            this.ProcessingWizardPage.Controls.Add(this.progressProcentLabel);
+            this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания экспорта данных...";
+            this.ProcessingWizardPage.Name = "ProcessingWizardPage";
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1477, 734);
+            this.ProcessingWizardPage.Text = "Экспорт данных";
+            // 
+            // ProgressBarControl
+            // 
+            this.ProgressBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProgressBarControl.Location = new System.Drawing.Point(3, 356);
+            this.ProgressBarControl.Name = "ProgressBarControl";
+            this.ProgressBarControl.Size = new System.Drawing.Size(1471, 23);
+            this.ProgressBarControl.Step = 0;
+            this.ProgressBarControl.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.ProgressBarControl.TabIndex = 2;
+            // 
+            // progressProcentLabel
+            // 
+            this.progressProcentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressProcentLabel.Location = new System.Drawing.Point(3, 382);
+            this.progressProcentLabel.Name = "progressProcentLabel";
+            this.progressProcentLabel.Size = new System.Drawing.Size(1471, 18);
+            this.progressProcentLabel.TabIndex = 1;
+            this.progressProcentLabel.Text = "Выполнено 0%";
+            this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ChooseMethodWizardPage
+            // 
+            this.ChooseMethodWizardPage.Controls.Add(this.exportChargesForGizZhkhRadioBtn);
+            this.ChooseMethodWizardPage.Controls.Add(this.exportBenefitRadioBtn);
+            this.ChooseMethodWizardPage.Controls.Add(this.exportCustomersForGisZhkhRadioBtn);
+            this.ChooseMethodWizardPage.Controls.Add(this.exportChargesForBanksRadioBtn);
+            this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
+            this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1477, 734);
+            this.ChooseMethodWizardPage.Text = "Мастер экспорта данных";
+            // 
+            // exportChargesForGizZhkhRadioBtn
+            // 
+            this.exportChargesForGizZhkhRadioBtn.AutoSize = true;
+            this.exportChargesForGizZhkhRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            this.exportChargesForGizZhkhRadioBtn.Location = new System.Drawing.Point(23, 90);
+            this.exportChargesForGizZhkhRadioBtn.Name = "exportChargesForGizZhkhRadioBtn";
+            this.exportChargesForGizZhkhRadioBtn.Size = new System.Drawing.Size(190, 17);
+            this.exportChargesForGizZhkhRadioBtn.TabIndex = 4;
+            this.exportChargesForGizZhkhRadioBtn.Text = "Экспорт начислений в ГИС ЖКХ";
+            this.exportChargesForGizZhkhRadioBtn.UseVisualStyleBackColor = false;
+            // 
+            // exportBenefitRadioBtn
+            // 
+            this.exportBenefitRadioBtn.AutoSize = true;
+            this.exportBenefitRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            this.exportBenefitRadioBtn.Checked = true;
+            this.exportBenefitRadioBtn.Location = new System.Drawing.Point(23, 21);
+            this.exportBenefitRadioBtn.Name = "exportBenefitRadioBtn";
+            this.exportBenefitRadioBtn.Size = new System.Drawing.Size(176, 17);
+            this.exportBenefitRadioBtn.TabIndex = 1;
+            this.exportBenefitRadioBtn.TabStop = true;
+            this.exportBenefitRadioBtn.Text = "Экспорт данных о льготниках";
+            this.exportBenefitRadioBtn.UseVisualStyleBackColor = false;
+            // 
+            // exportCustomersForGisZhkhRadioBtn
+            // 
+            this.exportCustomersForGisZhkhRadioBtn.AutoSize = true;
+            this.exportCustomersForGisZhkhRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            this.exportCustomersForGisZhkhRadioBtn.Location = new System.Drawing.Point(23, 67);
+            this.exportCustomersForGisZhkhRadioBtn.Name = "exportCustomersForGisZhkhRadioBtn";
+            this.exportCustomersForGisZhkhRadioBtn.Size = new System.Drawing.Size(184, 17);
+            this.exportCustomersForGisZhkhRadioBtn.TabIndex = 3;
+            this.exportCustomersForGisZhkhRadioBtn.Text = "Экспорт абонентов в ГИС ЖКХ";
+            this.exportCustomersForGisZhkhRadioBtn.UseVisualStyleBackColor = false;
+            // 
+            // exportChargesForBanksRadioBtn
+            // 
+            this.exportChargesForBanksRadioBtn.AutoSize = true;
+            this.exportChargesForBanksRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            this.exportChargesForBanksRadioBtn.Location = new System.Drawing.Point(23, 44);
+            this.exportChargesForBanksRadioBtn.Name = "exportChargesForBanksRadioBtn";
+            this.exportChargesForBanksRadioBtn.Size = new System.Drawing.Size(189, 17);
+            this.exportChargesForBanksRadioBtn.TabIndex = 2;
+            this.exportChargesForBanksRadioBtn.Text = "Экспорт начислений для банков";
+            this.exportChargesForBanksRadioBtn.UseVisualStyleBackColor = false;
+            // 
+            // FileWizardPage
+            // 
+            this.FileWizardPage.Controls.Add(this.tblBenefitExportInfo);
+            this.FileWizardPage.Controls.Add(this.tblGizZhkhInfo);
+            this.FileWizardPage.Controls.Add(this.tblBankExportInfo);
+            this.FileWizardPage.Controls.Add(this.tblPeriod);
+            this.FileWizardPage.Controls.Add(this.tblOutputPath);
+            this.FileWizardPage.Controls.Add(this.tblTemplate);
+            this.FileWizardPage.DescriptionText = "Выберите шаблон и путь для экспорта данных";
+            this.FileWizardPage.Name = "FileWizardPage";
+            this.FileWizardPage.Size = new System.Drawing.Size(1477, 734);
+            this.FileWizardPage.Text = "Выбор файла";
+            // 
+            // tblBenefitExportInfo
+            // 
+            this.tblBenefitExportInfo.ColumnCount = 2;
+            this.tblBenefitExportInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tblBenefitExportInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblBenefitExportInfo.Controls.Add(this.label5, 0, 0);
+            this.tblBenefitExportInfo.Controls.Add(this.startPeriodDateEdit, 1, 0);
+            this.tblBenefitExportInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblBenefitExportInfo.Location = new System.Drawing.Point(0, 180);
+            this.tblBenefitExportInfo.Name = "tblBenefitExportInfo";
+            this.tblBenefitExportInfo.RowCount = 1;
+            this.tblBenefitExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblBenefitExportInfo.Size = new System.Drawing.Size(1477, 27);
+            this.tblBenefitExportInfo.TabIndex = 48;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(44, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 13);
+            this.label5.TabIndex = 37;
+            this.label5.Text = "Начальный период";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // startPeriodDateEdit
+            // 
+            this.startPeriodDateEdit.EditValue = null;
+            this.startPeriodDateEdit.Location = new System.Drawing.Point(153, 3);
+            this.startPeriodDateEdit.Name = "startPeriodDateEdit";
+            this.startPeriodDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.startPeriodDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.startPeriodDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.startPeriodDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
+            this.startPeriodDateEdit.Properties.DisplayFormat.FormatString = "y";
+            this.startPeriodDateEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.startPeriodDateEdit.Properties.EditFormat.FormatString = "y";
+            this.startPeriodDateEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.startPeriodDateEdit.Properties.Mask.EditMask = "y";
+            this.startPeriodDateEdit.Size = new System.Drawing.Size(131, 20);
+            this.startPeriodDateEdit.TabIndex = 5;
+            // 
+            // tblGizZhkhInfo
+            // 
+            this.tblGizZhkhInfo.ColumnCount = 2;
+            this.tblGizZhkhInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tblGizZhkhInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblGizZhkhInfo.Controls.Add(this.onlyNewRadioBtn, 1, 1);
+            this.tblGizZhkhInfo.Controls.Add(this.label4, 0, 0);
+            this.tblGizZhkhInfo.Controls.Add(this.allRadioBtn, 1, 0);
+            this.tblGizZhkhInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblGizZhkhInfo.Location = new System.Drawing.Point(0, 133);
+            this.tblGizZhkhInfo.Name = "tblGizZhkhInfo";
+            this.tblGizZhkhInfo.RowCount = 2;
+            this.tblGizZhkhInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblGizZhkhInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblGizZhkhInfo.Size = new System.Drawing.Size(1477, 47);
+            this.tblGizZhkhInfo.TabIndex = 47;
+            // 
+            // onlyNewRadioBtn
+            // 
+            this.onlyNewRadioBtn.AutoSize = true;
+            this.onlyNewRadioBtn.Location = new System.Drawing.Point(153, 26);
+            this.onlyNewRadioBtn.Name = "onlyNewRadioBtn";
+            this.onlyNewRadioBtn.Size = new System.Drawing.Size(96, 17);
+            this.onlyNewRadioBtn.TabIndex = 9;
+            this.onlyNewRadioBtn.Text = "Только новых";
+            this.onlyNewRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(42, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(105, 13);
+            this.label4.TabIndex = 44;
+            this.label4.Text = "Экспорт абонентов";
+            // 
+            // allRadioBtn
+            // 
+            this.allRadioBtn.AutoSize = true;
+            this.allRadioBtn.Checked = true;
+            this.allRadioBtn.Location = new System.Drawing.Point(153, 3);
+            this.allRadioBtn.Name = "allRadioBtn";
+            this.allRadioBtn.Size = new System.Drawing.Size(49, 17);
+            this.allRadioBtn.TabIndex = 8;
+            this.allRadioBtn.TabStop = true;
+            this.allRadioBtn.Text = "Всех";
+            this.allRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // tblBankExportInfo
+            // 
+            this.tblBankExportInfo.ColumnCount = 2;
+            this.tblBankExportInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tblBankExportInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblBankExportInfo.Controls.Add(this.chkPrimSocBankFormat, 1, 1);
+            this.tblBankExportInfo.Controls.Add(this.chkSbrfFormat, 1, 0);
+            this.tblBankExportInfo.Controls.Add(this.label3, 0, 0);
+            this.tblBankExportInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblBankExportInfo.Location = new System.Drawing.Point(0, 87);
+            this.tblBankExportInfo.Name = "tblBankExportInfo";
+            this.tblBankExportInfo.RowCount = 2;
+            this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblBankExportInfo.Size = new System.Drawing.Size(1477, 46);
+            this.tblBankExportInfo.TabIndex = 46;
+            // 
+            // chkPrimSocBankFormat
+            // 
+            this.chkPrimSocBankFormat.AutoSize = true;
+            this.chkPrimSocBankFormat.Location = new System.Drawing.Point(153, 26);
+            this.chkPrimSocBankFormat.Name = "chkPrimSocBankFormat";
+            this.chkPrimSocBankFormat.Size = new System.Drawing.Size(96, 17);
+            this.chkPrimSocBankFormat.TabIndex = 7;
+            this.chkPrimSocBankFormat.Text = "Примсоцбанк";
+            this.chkPrimSocBankFormat.UseVisualStyleBackColor = true;
+            // 
+            // chkSbrfFormat
+            // 
+            this.chkSbrfFormat.AutoSize = true;
+            this.chkSbrfFormat.Checked = true;
+            this.chkSbrfFormat.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSbrfFormat.Location = new System.Drawing.Point(153, 3);
+            this.chkSbrfFormat.Name = "chkSbrfFormat";
+            this.chkSbrfFormat.Size = new System.Drawing.Size(75, 17);
+            this.chkSbrfFormat.TabIndex = 6;
+            this.chkSbrfFormat.Text = "Сбербанк";
+            this.chkSbrfFormat.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 84);
+            this.label3.Location = new System.Drawing.Point(98, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 37;
             this.label3.Text = "Формат";
             // 
+            // tblPeriod
+            // 
+            this.tblPeriod.ColumnCount = 2;
+            this.tblPeriod.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tblPeriod.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblPeriod.Controls.Add(this.label1, 0, 0);
+            this.tblPeriod.Controls.Add(this.periodDateEdit, 1, 0);
+            this.tblPeriod.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblPeriod.Location = new System.Drawing.Point(0, 60);
+            this.tblPeriod.Name = "tblPeriod";
+            this.tblPeriod.RowCount = 1;
+            this.tblPeriod.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblPeriod.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tblPeriod.Size = new System.Drawing.Size(1477, 27);
+            this.tblPeriod.TabIndex = 50;
+            // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 61);
+            this.label1.Location = new System.Drawing.Point(57, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 13);
-            this.label1.TabIndex = 37;
+            this.label1.TabIndex = 38;
             this.label1.Text = "Учетный период";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // PeriodDateEdit
+            // periodDateEdit
             // 
-            this.PeriodDateEdit.EditValue = null;
-            this.PeriodDateEdit.Location = new System.Drawing.Point(119, 58);
-            this.PeriodDateEdit.Name = "PeriodDateEdit";
-            this.PeriodDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.periodDateEdit.EditValue = null;
+            this.periodDateEdit.Location = new System.Drawing.Point(153, 3);
+            this.periodDateEdit.Name = "periodDateEdit";
+            this.periodDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.PeriodDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.periodDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.PeriodDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
-            this.PeriodDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
-            this.PeriodDateEdit.Properties.DisplayFormat.FormatString = "y";
-            this.PeriodDateEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.PeriodDateEdit.Properties.EditFormat.FormatString = "y";
-            this.PeriodDateEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.PeriodDateEdit.Properties.Mask.EditMask = "y";
-            this.PeriodDateEdit.Size = new System.Drawing.Size(131, 20);
-            this.PeriodDateEdit.TabIndex = 36;
+            this.periodDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.periodDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
+            this.periodDateEdit.Properties.DisplayFormat.FormatString = "y";
+            this.periodDateEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.periodDateEdit.Properties.EditFormat.FormatString = "y";
+            this.periodDateEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.periodDateEdit.Properties.Mask.EditMask = "y";
+            this.periodDateEdit.Size = new System.Drawing.Size(131, 20);
+            this.periodDateEdit.TabIndex = 6;
             // 
-            // FileTextEdit
+            // tblOutputPath
             // 
-            this.FileTextEdit.Location = new System.Drawing.Point(119, 32);
-            this.FileTextEdit.Name = "FileTextEdit";
-            this.FileTextEdit.Properties.Mask.EditMask = "\\d+";
-            this.FileTextEdit.Properties.ReadOnly = true;
-            this.FileTextEdit.Size = new System.Drawing.Size(318, 20);
-            this.FileTextEdit.TabIndex = 35;
+            this.tblOutputPath.ColumnCount = 3;
+            this.tblOutputPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tblOutputPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblOutputPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tblOutputPath.Controls.Add(this.btnSelectExportPath, 2, 0);
+            this.tblOutputPath.Controls.Add(this.outputPathTextEdit, 1, 0);
+            this.tblOutputPath.Controls.Add(this.label8, 0, 0);
+            this.tblOutputPath.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblOutputPath.Location = new System.Drawing.Point(0, 30);
+            this.tblOutputPath.Name = "tblOutputPath";
+            this.tblOutputPath.RowCount = 1;
+            this.tblOutputPath.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblOutputPath.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tblOutputPath.Size = new System.Drawing.Size(1477, 30);
+            this.tblOutputPath.TabIndex = 49;
+            // 
+            // btnSelectExportPath
+            // 
+            this.btnSelectExportPath.Location = new System.Drawing.Point(1380, 3);
+            this.btnSelectExportPath.Name = "btnSelectExportPath";
+            this.btnSelectExportPath.Size = new System.Drawing.Size(94, 23);
+            this.btnSelectExportPath.TabIndex = 4;
+            this.btnSelectExportPath.Text = "Выбрать...";
+            this.btnSelectExportPath.UseVisualStyleBackColor = true;
+            this.btnSelectExportPath.Click += new System.EventHandler(this.btnSelectExportPath_Click);
+            // 
+            // outputPathTextEdit
+            // 
+            this.outputPathTextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputPathTextEdit.Location = new System.Drawing.Point(153, 5);
+            this.outputPathTextEdit.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.outputPathTextEdit.Name = "outputPathTextEdit";
+            this.outputPathTextEdit.Properties.Mask.EditMask = "\\d+";
+            this.outputPathTextEdit.Properties.ReadOnly = true;
+            this.outputPathTextEdit.Size = new System.Drawing.Size(1221, 20);
+            this.outputPathTextEdit.TabIndex = 3;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(89, 8);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 13);
+            this.label8.TabIndex = 41;
+            this.label8.Text = "Экспорт в";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tblTemplate
+            // 
+            this.tblTemplate.ColumnCount = 3;
+            this.tblTemplate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tblTemplate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblTemplate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tblTemplate.Controls.Add(this.templatePathTextEdit, 1, 0);
+            this.tblTemplate.Controls.Add(this.label7, 0, 0);
+            this.tblTemplate.Controls.Add(this.btnSelectTemplate, 2, 0);
+            this.tblTemplate.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblTemplate.Location = new System.Drawing.Point(0, 0);
+            this.tblTemplate.Name = "tblTemplate";
+            this.tblTemplate.RowCount = 1;
+            this.tblTemplate.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblTemplate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tblTemplate.Size = new System.Drawing.Size(1477, 30);
+            this.tblTemplate.TabIndex = 45;
+            // 
+            // templatePathTextEdit
+            // 
+            this.templatePathTextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.templatePathTextEdit.Location = new System.Drawing.Point(153, 5);
+            this.templatePathTextEdit.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.templatePathTextEdit.Name = "templatePathTextEdit";
+            this.templatePathTextEdit.Properties.Mask.EditMask = "\\d+";
+            this.templatePathTextEdit.Properties.ReadOnly = true;
+            this.templatePathTextEdit.Size = new System.Drawing.Size(1221, 20);
+            this.templatePathTextEdit.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(101, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 13);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Шаблон";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnSelectTemplate
+            // 
+            this.btnSelectTemplate.Location = new System.Drawing.Point(1380, 3);
+            this.btnSelectTemplate.Name = "btnSelectTemplate";
+            this.btnSelectTemplate.Size = new System.Drawing.Size(94, 23);
+            this.btnSelectTemplate.TabIndex = 2;
+            this.btnSelectTemplate.Text = "Выбрать...";
+            this.btnSelectTemplate.UseVisualStyleBackColor = true;
+            this.btnSelectTemplate.Click += new System.EventHandler(this.btnSelectTemplate_Click);
+            // 
+            // FinishWizardPage
+            // 
+            this.FinishWizardPage.Controls.Add(this.resultTextBox);
+            this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
+            this.FinishWizardPage.Name = "FinishWizardPage";
+            this.FinishWizardPage.Size = new System.Drawing.Size(1477, 734);
+            this.FinishWizardPage.Text = "Экспорт данных завершен";
+            // 
+            // resultTextBox
+            // 
+            this.resultTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultTextBox.Location = new System.Drawing.Point(0, 0);
+            this.resultTextBox.Multiline = true;
+            this.resultTextBox.Name = "resultTextBox";
+            this.resultTextBox.ReadOnly = true;
+            this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.resultTextBox.Size = new System.Drawing.Size(1477, 734);
+            this.resultTextBox.TabIndex = 16;
+            // 
+            // ServiceMatchingWizardPage
+            // 
+            this.ServiceMatchingWizardPage.Controls.Add(this.serviceMatchingTableProgressBarPanel);
+            this.ServiceMatchingWizardPage.Controls.Add(this.tblServiceMatching);
+            this.ServiceMatchingWizardPage.DescriptionText = "Сопоставьте оказанные за период виды услуг с услугами ГИС ЖКХ из шаблона";
+            this.ServiceMatchingWizardPage.Name = "ServiceMatchingWizardPage";
+            this.ServiceMatchingWizardPage.Size = new System.Drawing.Size(1477, 734);
+            this.ServiceMatchingWizardPage.Text = "Экспорт начислений для ГИС ЖКХ";
+            // 
+            // serviceMatchingTableProgressBarPanel
+            // 
+            this.serviceMatchingTableProgressBarPanel.Controls.Add(this.label2);
+            this.serviceMatchingTableProgressBarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.serviceMatchingTableProgressBarPanel.Location = new System.Drawing.Point(0, 0);
+            this.serviceMatchingTableProgressBarPanel.Name = "serviceMatchingTableProgressBarPanel";
+            this.serviceMatchingTableProgressBarPanel.Size = new System.Drawing.Size(1477, 734);
+            this.serviceMatchingTableProgressBarPanel.TabIndex = 3;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 35);
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(3, 356);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 13);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "Файл для экспорта";
+            this.label2.Size = new System.Drawing.Size(1471, 25);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Загрузка данных...";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ExportOperationsButton
+            // tblServiceMatching
             // 
-            this.ExportOperationsButton.Location = new System.Drawing.Point(119, 114);
-            this.ExportOperationsButton.Name = "ExportOperationsButton";
-            this.ExportOperationsButton.Size = new System.Drawing.Size(100, 23);
-            this.ExportOperationsButton.TabIndex = 33;
-            this.ExportOperationsButton.Text = "Экспортировать";
-            this.ExportOperationsButton.UseVisualStyleBackColor = true;
-            this.ExportOperationsButton.Click += new System.EventHandler(this.ExportButton_Click);
-            // 
-            // ImportCustomersBrowseButton
-            // 
-            this.ImportCustomersBrowseButton.Location = new System.Drawing.Point(443, 30);
-            this.ImportCustomersBrowseButton.Name = "ImportCustomersBrowseButton";
-            this.ImportCustomersBrowseButton.Size = new System.Drawing.Size(100, 23);
-            this.ImportCustomersBrowseButton.TabIndex = 34;
-            this.ImportCustomersBrowseButton.Text = "Выбрать...";
-            this.ImportCustomersBrowseButton.UseVisualStyleBackColor = true;
-            this.ImportCustomersBrowseButton.Click += new System.EventHandler(this.BrowseButton_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.benefitProgressBar);
-            this.groupBox1.Controls.Add(this.benefitExportBtn);
-            this.groupBox1.Controls.Add(this.benefitInputFileTextEdit);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.benefitInputSelectFileBtn);
-            this.groupBox1.Location = new System.Drawing.Point(3, 162);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(554, 78);
-            this.groupBox1.TabIndex = 37;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Экспорт данных о льготниках";
-            // 
-            // benefitProgressBar
-            // 
-            this.benefitProgressBar.Location = new System.Drawing.Point(226, 44);
-            this.benefitProgressBar.Name = "benefitProgressBar";
-            this.benefitProgressBar.Size = new System.Drawing.Size(317, 23);
-            this.benefitProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.benefitProgressBar.TabIndex = 40;
-            this.benefitProgressBar.Visible = false;
-            // 
-            // benefitExportBtn
-            // 
-            this.benefitExportBtn.Location = new System.Drawing.Point(119, 45);
-            this.benefitExportBtn.Name = "benefitExportBtn";
-            this.benefitExportBtn.Size = new System.Drawing.Size(100, 23);
-            this.benefitExportBtn.TabIndex = 39;
-            this.benefitExportBtn.Text = "Экспортировать";
-            this.benefitExportBtn.UseVisualStyleBackColor = true;
-            this.benefitExportBtn.Click += new System.EventHandler(this.benefitExportBtn_Click);
-            // 
-            // benefitInputFileTextEdit
-            // 
-            this.benefitInputFileTextEdit.Location = new System.Drawing.Point(119, 19);
-            this.benefitInputFileTextEdit.Name = "benefitInputFileTextEdit";
-            this.benefitInputFileTextEdit.Properties.Mask.EditMask = "\\d+";
-            this.benefitInputFileTextEdit.Properties.ReadOnly = true;
-            this.benefitInputFileTextEdit.Size = new System.Drawing.Size(318, 20);
-            this.benefitInputFileTextEdit.TabIndex = 38;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 13);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "Файл c данными";
-            // 
-            // benefitInputSelectFileBtn
-            // 
-            this.benefitInputSelectFileBtn.Location = new System.Drawing.Point(443, 17);
-            this.benefitInputSelectFileBtn.Name = "benefitInputSelectFileBtn";
-            this.benefitInputSelectFileBtn.Size = new System.Drawing.Size(100, 23);
-            this.benefitInputSelectFileBtn.TabIndex = 37;
-            this.benefitInputSelectFileBtn.Text = "Выбрать...";
-            this.benefitInputSelectFileBtn.UseVisualStyleBackColor = true;
-            this.benefitInputSelectFileBtn.Click += new System.EventHandler(this.benefitInputSelectFileBtn_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.gisZhkhProgressBar);
-            this.groupBox2.Controls.Add(this.gisZhkhOnlyNewRadioGroup);
-            this.groupBox2.Controls.Add(this.gisZhkhExportButton);
-            this.groupBox2.Controls.Add(this.gisZhkhInputFileTextEdit);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.gisZhkhSelectInputFileButton);
-            this.groupBox2.Location = new System.Drawing.Point(3, 246);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(554, 108);
-            this.groupBox2.TabIndex = 38;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Экспорт абонентов в ГИС ЖКХ";
-            // 
-            // gisZhkhProgressBar
-            // 
-            this.gisZhkhProgressBar.Location = new System.Drawing.Point(224, 77);
-            this.gisZhkhProgressBar.Name = "gisZhkhProgressBar";
-            this.gisZhkhProgressBar.Size = new System.Drawing.Size(317, 23);
-            this.gisZhkhProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.gisZhkhProgressBar.TabIndex = 41;
-            this.gisZhkhProgressBar.Visible = false;
-            // 
-            // gisZhkhOnlyNewRadioGroup
-            // 
-            this.gisZhkhOnlyNewRadioGroup.EditValue = true;
-            this.gisZhkhOnlyNewRadioGroup.Location = new System.Drawing.Point(118, 47);
-            this.gisZhkhOnlyNewRadioGroup.Name = "gisZhkhOnlyNewRadioGroup";
-            this.gisZhkhOnlyNewRadioGroup.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(false, "Все"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(true, "Только новые")});
-            this.gisZhkhOnlyNewRadioGroup.Size = new System.Drawing.Size(318, 24);
-            this.gisZhkhOnlyNewRadioGroup.TabIndex = 40;
-            // 
-            // gisZhkhExportButton
-            // 
-            this.gisZhkhExportButton.Location = new System.Drawing.Point(118, 77);
-            this.gisZhkhExportButton.Name = "gisZhkhExportButton";
-            this.gisZhkhExportButton.Size = new System.Drawing.Size(100, 23);
-            this.gisZhkhExportButton.TabIndex = 39;
-            this.gisZhkhExportButton.Text = "Экспортировать";
-            this.gisZhkhExportButton.UseVisualStyleBackColor = true;
-            this.gisZhkhExportButton.Click += new System.EventHandler(this.gisZhkhExportButton_Click);
-            // 
-            // gisZhkhInputFileTextEdit
-            // 
-            this.gisZhkhInputFileTextEdit.Location = new System.Drawing.Point(119, 19);
-            this.gisZhkhInputFileTextEdit.Name = "gisZhkhInputFileTextEdit";
-            this.gisZhkhInputFileTextEdit.Properties.Mask.EditMask = "\\d+";
-            this.gisZhkhInputFileTextEdit.Properties.ReadOnly = true;
-            this.gisZhkhInputFileTextEdit.Size = new System.Drawing.Size(318, 20);
-            this.gisZhkhInputFileTextEdit.TabIndex = 38;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
-            this.label5.TabIndex = 36;
-            this.label5.Text = "Файл";
-            // 
-            // gisZhkhSelectInputFileButton
-            // 
-            this.gisZhkhSelectInputFileButton.Location = new System.Drawing.Point(443, 17);
-            this.gisZhkhSelectInputFileButton.Name = "gisZhkhSelectInputFileButton";
-            this.gisZhkhSelectInputFileButton.Size = new System.Drawing.Size(100, 23);
-            this.gisZhkhSelectInputFileButton.TabIndex = 37;
-            this.gisZhkhSelectInputFileButton.Text = "Выбрать...";
-            this.gisZhkhSelectInputFileButton.UseVisualStyleBackColor = true;
-            this.gisZhkhSelectInputFileButton.Click += new System.EventHandler(this.gisZhkhSelectInputFileButton_Click);
+            this.tblServiceMatching.AutoScroll = true;
+            this.tblServiceMatching.ColumnCount = 2;
+            this.tblServiceMatching.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tblServiceMatching.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tblServiceMatching.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblServiceMatching.Location = new System.Drawing.Point(0, 0);
+            this.tblServiceMatching.Name = "tblServiceMatching";
+            this.tblServiceMatching.RowCount = 2;
+            this.tblServiceMatching.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblServiceMatching.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblServiceMatching.Size = new System.Drawing.Size(1477, 734);
+            this.tblServiceMatching.TabIndex = 2;
             // 
             // LayoutView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.ExportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1550, 879);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FormatRadioGroup.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PeriodDateEdit.Properties.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PeriodDateEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FileTextEdit.Properties)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.benefitInputFileTextEdit.Properties)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gisZhkhOnlyNewRadioGroup.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gisZhkhInputFileTextEdit.Properties)).EndInit();
+            this.Size = new System.Drawing.Size(1509, 879);
+            ((System.ComponentModel.ISupportInitialize)(this.ExportWizardControl)).EndInit();
+            this.ExportWizardControl.ResumeLayout(false);
+            this.ProcessingWizardPage.ResumeLayout(false);
+            this.ChooseMethodWizardPage.ResumeLayout(false);
+            this.ChooseMethodWizardPage.PerformLayout();
+            this.FileWizardPage.ResumeLayout(false);
+            this.tblBenefitExportInfo.ResumeLayout(false);
+            this.tblBenefitExportInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.startPeriodDateEdit.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startPeriodDateEdit.Properties)).EndInit();
+            this.tblGizZhkhInfo.ResumeLayout(false);
+            this.tblGizZhkhInfo.PerformLayout();
+            this.tblBankExportInfo.ResumeLayout(false);
+            this.tblBankExportInfo.PerformLayout();
+            this.tblPeriod.ResumeLayout(false);
+            this.tblPeriod.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties)).EndInit();
+            this.tblOutputPath.ResumeLayout(false);
+            this.tblOutputPath.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.outputPathTextEdit.Properties)).EndInit();
+            this.tblTemplate.ResumeLayout(false);
+            this.tblTemplate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.templatePathTextEdit.Properties)).EndInit();
+            this.FinishWizardPage.ResumeLayout(false);
+            this.FinishWizardPage.PerformLayout();
+            this.ServiceMatchingWizardPage.ResumeLayout(false);
+            this.serviceMatchingTableProgressBarPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button ExportOperationsButton;
-        private System.Windows.Forms.Button ImportCustomersBrowseButton;
-        private DevExpress.XtraEditors.TextEdit FileTextEdit;
-        private DevExpress.XtraEditors.DateEdit PeriodDateEdit;
-        private System.Windows.Forms.Label label1;
-        private DevExpress.XtraEditors.RadioGroup FormatRadioGroup;
+        private DevExpress.XtraWizard.WizardControl ExportWizardControl;
+        private DevExpress.XtraWizard.WizardPage ProcessingWizardPage;
+        private System.Windows.Forms.Label progressProcentLabel;
+        private DevExpress.XtraWizard.WizardPage ChooseMethodWizardPage;
+        private System.Windows.Forms.RadioButton exportBenefitRadioBtn;
+        private System.Windows.Forms.RadioButton exportCustomersForGisZhkhRadioBtn;
+        private System.Windows.Forms.RadioButton exportChargesForBanksRadioBtn;
+        private DevExpress.XtraWizard.WizardPage FileWizardPage;
+        private DevExpress.XtraWizard.WizardPage FinishWizardPage;
+        private System.Windows.Forms.TextBox resultTextBox;
+        private System.Windows.Forms.RadioButton exportChargesForGizZhkhRadioBtn;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private DevExpress.XtraEditors.TextEdit benefitInputFileTextEdit;
+        private System.Windows.Forms.RadioButton onlyNewRadioBtn;
+        private System.Windows.Forms.RadioButton allRadioBtn;
+        private System.Windows.Forms.CheckBox chkPrimSocBankFormat;
+        private System.Windows.Forms.CheckBox chkSbrfFormat;
+        private System.Windows.Forms.Label label7;
+        private DevExpress.XtraEditors.TextEdit templatePathTextEdit;
+        private System.Windows.Forms.Button btnSelectTemplate;
+        private System.Windows.Forms.TableLayoutPanel tblGizZhkhInfo;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button benefitInputSelectFileBtn;
-        private System.Windows.Forms.Button benefitExportBtn;
-        private System.Windows.Forms.ProgressBar benefitProgressBar;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private DevExpress.XtraEditors.RadioGroup gisZhkhOnlyNewRadioGroup;
-        private System.Windows.Forms.Button gisZhkhExportButton;
-        private DevExpress.XtraEditors.TextEdit gisZhkhInputFileTextEdit;
+        private System.Windows.Forms.TableLayoutPanel tblBankExportInfo;
+        private System.Windows.Forms.TableLayoutPanel tblTemplate;
+        private System.Windows.Forms.TableLayoutPanel tblBenefitExportInfo;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button gisZhkhSelectInputFileButton;
-        private System.Windows.Forms.ProgressBar gisZhkhProgressBar;
+        private DevExpress.XtraEditors.DateEdit startPeriodDateEdit;
+        private System.Windows.Forms.TableLayoutPanel tblOutputPath;
+        private System.Windows.Forms.Button btnSelectExportPath;
+        private DevExpress.XtraEditors.TextEdit outputPathTextEdit;
+        private System.Windows.Forms.Label label8;
+        private DevExpress.XtraWizard.WizardPage ServiceMatchingWizardPage;
+        private System.Windows.Forms.TableLayoutPanel tblServiceMatching;
+        private System.Windows.Forms.TableLayoutPanel tblPeriod;
+        private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.DateEdit periodDateEdit;
+        private System.Windows.Forms.Panel serviceMatchingTableProgressBarPanel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ProgressBar ProgressBarControl;
     }
 }

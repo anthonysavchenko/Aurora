@@ -15,8 +15,16 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_Service]
     ON [dbo].[RechargeOperPoses]([Service] ASC)
     INCLUDE([Value], [RechargeOper]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_RechargeOper]
+    ON [dbo].[RechargeOperPoses]([RechargeOper] ASC)
+    INCLUDE([Value], [Service]);
 
