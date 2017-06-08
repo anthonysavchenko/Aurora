@@ -190,8 +190,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Excel\IExcelCell.cs" />
+    <Compile Include="Services\Excel\IExcelWorkbook.cs" />
+    <Compile Include="Services\Excel\IExcelWorksheet.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\ICryptoService.cs" />
+    <Compile Include="Services\Excel\IExcelService.cs" />
     <Compile Include="Services\ISettingsService.cs" />
     <Compile Include="Services\LocalizerService.cs" />
     <Compile Include="Services\PeriodBalances.cs" />
@@ -233,6 +237,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
