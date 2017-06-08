@@ -6,6 +6,7 @@ using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.RegularBillDocSeviceTypePoses;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.RegularBillDocSeviceTypePos;
 using DomPaymentBill = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.RegularBillDoc;
+using DomServiceType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.ServiceType;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
 {
@@ -45,6 +46,9 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 int _propId = Int32.Parse(domObj.RegularBillDoc.ID);
                 _dbItem.RegularBillDocs = _entities.RegularBillDocs.First(p => p.ID == _propId);
 
+                _propId = int.Parse(domObj.ServiceType.ID);
+                _dbItem.ServiceTypes = _entities.ServiceTypes.First(st => st.ID == _propId);
+
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
             }
@@ -74,6 +78,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.Recalculation = _dbItem.Recalculation;
                 _domItem.Payable = _dbItem.Payable;
                 _domItem.RegularBillDoc = (DomPaymentBill)DataMapperService.get(typeof(DomPaymentBill)).find(_dbItem.RegularBillDocs.ID.ToString());
+                _domItem.ServiceType = (DomServiceType)DataMapperService.get(typeof(DomServiceType)).find(_dbItem.ServiceTypeID.Value.ToString());
             }
 
             return _domItem;

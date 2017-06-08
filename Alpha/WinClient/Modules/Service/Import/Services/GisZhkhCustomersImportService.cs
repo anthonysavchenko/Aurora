@@ -1,9 +1,9 @@
-﻿using ClosedXML.Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
@@ -11,12 +11,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
     public class GisZhkhCustomersImportService : IImportService
     {
         private const int FIRST_ROW_INDEX = 3;
-        private const string SHEET_NAME = "ЕЛС";
+        private const int SHEET_NAME = 1;
 
         private class Columns
         {
-            public const int ACCOUNT = 2;
-            public const int GIS_ZHKH_ID = 4;
+            public const int ACCOUNT = 1;
+            public const int GIS_ZHKH_ID = 3;
         }
 
         private class ParsedRow
@@ -24,6 +24,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public int RowNumber { get; set; }
             public string Account { get; set; }
             public string GisZhkhID { get; set; }
+        }
+
+        private IExcelService _excelService;
+
+        public GisZhkhCustomersImportService(IExcelService excelService)
+        {
+            _excelService = excelService;
         }
 
         #region Implementation of IGisZhkhDataImportService
@@ -53,15 +60,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
             try
             {
-                using (XLWorkbook _xwb = new XLWorkbook(fileName))
+                using (IExcelWorkbook _xwb = _excelService.OpenWorkbook(fileName))
                 {
-                    IXLWorksheet _xws = _xwb.Worksheet(SHEET_NAME);
-                    int _rowCount = _xws.LastRowUsed().RowNumber();
+                    IExcelWorksheet _xws = _xwb.Worksheet(SHEET_NAME);
+                    int _rowCount = _xws.GetRowCount();
                     _rows = new List<ParsedRow>(_rowCount);
 
                     while (_currentRow < _rowCount)
                     {
-                        _rows.Add(ParseRow(_xws.Row(++_currentRow)));
+                        _rows.Add(ParseRow(++_currentRow, _xws));
                         reportProgressAction(_currentRow * 50 / _rowCount);
                     }
                 }
@@ -76,12 +83,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             return _rows;
         }
 
-        private ParsedRow ParseRow(IXLRow row)
+        private ParsedRow ParseRow(int row, IExcelWorksheet sheet)
         {
             return new ParsedRow
             {
-                Account = row.Cell(Columns.ACCOUNT).GetString(),
-                GisZhkhID = row.Cell(Columns.GIS_ZHKH_ID).GetString()
+                Account = sheet.Cell(row, Columns.ACCOUNT).Value,
+                GisZhkhID = sheet.Cell(row, Columns.GIS_ZHKH_ID).Value
             };
         }
 

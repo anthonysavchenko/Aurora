@@ -1,4 +1,5 @@
 ﻿using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services;
 using Taumis.EnterpriseLibrary.Win.Common.Modules.StartUpParams;
 using Taumis.EnterpriseLibrary.Win.Modules.CommonModule;
 using Taumis.Infrastructure.Interface.Constants;
@@ -25,6 +26,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                 ModuleUIExtensionSiteNames.DEFAULT_WINDOW_HEADER,
                 ApplicationUIExtensionSiteNames.Services,
                 ModuleUIExtensionSiteNames.MENU_ITEM_NAME);
+        }
+
+        protected override void AddServices()
+        {
+            base.AddServices();
+            AddLocalService<ChargeExportService, IChargeExportService>();
+            AddLocalService<BenefitExportService, IBenefitExportService>();
+            AddLocalService<GisZhkhCustomerExportService, IGisZhkhCustomerExportService>();
+            AddLocalService<GisZhkhChargesExportService, IGisZhkhChargesExportService>();
         }
     }
 }
