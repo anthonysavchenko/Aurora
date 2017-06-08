@@ -1,10 +1,10 @@
-﻿using ClosedXML.Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
@@ -48,6 +48,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public int RoomCount { get; set; }
             public int ResidentCount { get; set; }
             public string FiasID { get; set; }
+        }
+
+        private IExcelService _excelService;
+
+        public NewCustomersImportService(IExcelService excelService)
+        {
+            _excelService = excelService;
         }
 
         public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
@@ -119,7 +126,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             return string.Join(";", _names);
         }
 
-        private ParsedRow ParseRow(IXLRow row)
+        private ParsedRow ParseRow(int row, IExcelWorksheet sheet)
         {
             decimal _area;
             byte _entrance;
@@ -128,33 +135,33 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 _residentCount;
 
             Customer.OwnerTypes _ownerType =
-                row.Cell(Columns.JUR_PERSON).GetString() == CHECKED
+                sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
                     ? Customer.OwnerTypes.JuridicalPerson
                     : Customer.OwnerTypes.PhysicalPerson;
 
-            row.Cell(Columns.AREA).TryGetValue(out _area);
-            row.Cell(Columns.ENTRANCE).TryGetValue(out _entrance);
-            row.Cell(Columns.FLOOR).TryGetValue(out _floor);
-            row.Cell(Columns.ROOM_COUNT).TryGetValue(out _roomCount);
-            row.Cell(Columns.RESIDENT_COUNT).TryGetValue(out _residentCount);
+            sheet.Cell(row, Columns.AREA).TryGetValue(out _area);
+            sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out _entrance);
+            sheet.Cell(row, Columns.FLOOR).TryGetValue(out _floor);
+            sheet.Cell(row, Columns.ROOM_COUNT).TryGetValue(out _roomCount);
+            sheet.Cell(row, Columns.RESIDENT_COUNT).TryGetValue(out _residentCount);
 
             return new ParsedRow
             {
-                RowNumber = row.RowNumber(),
-                Account = row.Cell(Columns.ACCOUNT).GetString(),
-                Apartment = row.Cell(Columns.APARTMENT).GetString(),
+                RowNumber = row,
+                Account = sheet.Cell(row, Columns.ACCOUNT).Value,
+                Apartment = sheet.Cell(row, Columns.APARTMENT).Value,
                 Area = _area,
-                ZipCode = row.Cell(Columns.ZIP_CODE).GetString(),
-                StreetName = row.Cell(Columns.STREET).GetString(),
-                BuildingNum = row.Cell(Columns.BUILDING).GetString(),
-                FiasID = row.Cell(Columns.FIAS_ID).GetString(),
+                ZipCode = sheet.Cell(row, Columns.ZIP_CODE).Value,
+                StreetName = sheet.Cell(row, Columns.STREET).Value,
+                BuildingNum = sheet.Cell(row, Columns.BUILDING).Value,
+                FiasID = sheet.Cell(row, Columns.FIAS_ID).Value,
                 Entrance = _entrance,
                 Floor = _floor,
                 RoomCount = _roomCount,
                 ResidentCount = _residentCount,
-                IsPrivate = row.Cell(Columns.IS_PRIVATE).GetString() == CHECKED,
+                IsPrivate = sheet.Cell(row, Columns.IS_PRIVATE).Value == CHECKED,
                 OwnerType = _ownerType,
-                Name = row.Cell(Columns.NAME).GetString()
+                Name = sheet.Cell(row, Columns.NAME).Value
             };
         }
 
@@ -165,15 +172,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
             try
             {
-                using (XLWorkbook _xwb = new XLWorkbook(fileName))
+                using (IExcelWorkbook _xwb = _excelService.OpenWorkbook(fileName))
                 {
-                    IXLWorksheet _xws = _xwb.Worksheet(1);
-                    int _rowCount = _xws.LastRowUsed().RowNumber();
+                    IExcelWorksheet _xws = _xwb.Worksheet(1);
+                    int _rowCount = _xws.GetRowCount();
                     _rows = new List<ParsedRow>(_rowCount);
 
                     while (_currentRow < _rowCount)
                     {
-                        _rows.Add(ParseRow(_xws.Row(++_currentRow)));
+                        _rows.Add(ParseRow(++_currentRow, _xws));
                         reportProgressAction(_currentRow * 50 / _rowCount);
                     }
                 }

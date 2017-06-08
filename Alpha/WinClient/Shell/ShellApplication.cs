@@ -13,6 +13,8 @@ using Taumis.Infrastructure.Interface.Services;
 using Taumis.Infrastructure.Library;
 using Taumis.Infrastructure.Library.Services;
 using Taumis.Alpha.Infrastructure.Interface.Services;
+using Taumis.Alpha.Infrastructure.Library.Services.Excel.ClosedXML;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
 namespace Taumis.Infrastructure.Shell
 {
@@ -92,6 +94,8 @@ namespace Taumis.Infrastructure.Shell
 
             RootWorkItem.Services.AddNew<SettingsService, ISettingsService>();
             RootWorkItem.Services.AddNew<EmailService, IEmailService>();
+
+            RootWorkItem.Services.AddNew<ExcelService, IExcelService>();
 
             // Регистрируем последним, так как зависит от IAuthenticationService
             RootWorkItem.Services.AddNew<XmlStreamDependentModuleEnumerator, IModuleEnumerator>();

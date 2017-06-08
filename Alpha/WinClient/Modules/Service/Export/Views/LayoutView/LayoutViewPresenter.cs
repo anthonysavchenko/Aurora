@@ -1,15 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using Microsoft.Practices.CompositeUI;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.Practices.CompositeUI.EventBroker;
-using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using System.Threading.Tasks;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services;
-using Taumis.EnterpriseLibrary.Win;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 using Taumis.EnterpriseLibrary.Win.Services;
+using System.Linq;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 {
@@ -18,13 +18,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
     /// </summary>
     public class LayoutViewPresenter : BaseLayoutViewPresenter<ILayoutView>
     {
-        private const string BENEFIT_PROCESSING_START = "event://Export/Benefit/Start";
-        private const string BENEFIT_PROCESSING_COMPLETED = "event://Export/Benefit/Completed";
-        private const string GISZHKH_PROCESSING_START = "event://Export/GisZhkh/Start";
-        private const string GISZHKH_PROCESSING_COMPLETED = "event://Export/GisZhkh/Completed";
+        [ServiceDependency]
+        public IChargeExportService ChargeExportService { get; set; }
 
-        private IBenefitDataExportService _srv = new BenefitDataExportService();
-        private IGisZhkhDataExportService _gisZhkhDataExportService = new GisZhkhDataExportService();
+        [ServiceDependency]
+        public IBenefitExportService BenefitExportService { get; set; }
+
+        [ServiceDependency]
+        public IGisZhkhCustomerExportService GisZhkhCustomerExportService { get; set; }
+
+        [ServiceDependency]
+        public IGisZhkhChargesExportService GisZhkhChargesExportService { get; set; }
 
         /// <summary>
         /// Обрабатывает отображение вью
@@ -32,7 +36,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         public override void OnViewReady()
         {
             base.OnViewReady();
-            View.Period = ServerTime.GetPeriodInfo().LastCharged;
         }
 
         /// <summary>
@@ -43,343 +46,196 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             /* Не реализованно */
         }
 
-        /// <summary>
-        /// Открывает диалог открытия файла
-        /// </summary>
-        /// <returns></returns>
-        public void FindFile()
+        public WizardPages OnSelectingPageChanging(WizardPages prevPage, bool forwardDirection)
         {
-            SaveFileDialog _saveFileDialog = new SaveFileDialog
+            WizardPages _next = WizardPages.Unknown;
+
+            if (forwardDirection)
             {
-                InitialDirectory = Application.StartupPath + @"\Data", 
-                Title = "Открыть файл", 
-                Filter = "Текстовый файл|*.txt", 
-                FilterIndex = 1, 
-                RestoreDirectory = true, 
-                DefaultExt = "txt",
-                FileName = "2540165515_40702810900100001650_UTF.txt"
+                switch (prevPage)
+                {
+                    case WizardPages.ChooseMethodPage:
+                        _next = WizardPages.FilePage;
+                        break;
+
+                    case WizardPages.FilePage:
+                        if (ValidateFilePage())
+                        {
+                            View.ResetProgress();
+                            _next = View.WizardAction == WizardAction.ExportChargesForGisZhkh
+                                ? WizardPages.ServiceMatchingWizardPage
+                                : WizardPages.ProcessingPage;
+                        }
+                        break;
+                    case WizardPages.ServiceMatchingWizardPage:
+                        _next = WizardPages.ProcessingPage;
+                        break;
+                    case WizardPages.ProcessingPage:
+                        _next = WizardPages.FinishPage;
+                        break;
+                }
+            }
+            else
+            {
+                _next = prevPage == WizardPages.ServiceMatchingWizardPage
+                    ? WizardPages.FilePage
+                    : WizardPages.ChooseMethodPage;
+            }
+
+            return _next;
+        }
+
+        private bool ValidateFilePage()
+        {
+            WizardAction _action = View.WizardAction;
+
+            StringBuilder _msg = new StringBuilder();
+            if ((_action == WizardAction.ExportChargesForBanks 
+                || _action == WizardAction.ExportChargesForGisZhkh
+                || _action == WizardAction.ExportCustomersForGisZhkh)
+                && string.IsNullOrEmpty(View.OutputPath))
+            {
+                _msg.AppendLine("- Укажите путь к папке для экспорта данных");
+            }
+
+            if ((_action == WizardAction.ExportBenefitData
+                || _action == WizardAction.ExportChargesForGisZhkh)
+                && string.IsNullOrEmpty(View.TemplatePath))
+            {
+                _msg.AppendLine("- Выберите файл шаблона");
+            }
+
+            if (_action == WizardAction.ExportChargesForBanks)
+            {
+                if (View.Period == DateTime.MinValue)
+                {
+                    _msg.AppendLine("- Выберите период");
+                }
+
+                if (!View.SbrfChecked && !View.PrimSocBankChecked)
+                {
+                    _msg.AppendLine("- Укажите формат");
+                }
+            }
+
+            bool _result = _msg.Length == 0;
+            if (!_result)
+            {
+                View.ShowMessage(_msg.ToString(), "Исправьте указанные ошибки");
+            }
+
+            return _result;
+        }
+
+        public void OnSelectedPageChanged(WizardPages page, bool forwardDirection)
+        {
+            if (forwardDirection)
+            {
+                switch (page)
+                {
+                    case WizardPages.FilePage:
+                        View.OutputPath = string.Empty;
+                        View.TemplatePath = string.Empty;
+                        View.Period = ServerTime.GetPeriodInfo().LastCharged;
+                        View.StartPeriod = new DateTime(2015, 7, 1);
+                        View.SbrfChecked = true;
+                        View.PrimSocBankChecked = false;
+                        View.GisZhkhOnlyNew = false;
+                        break;
+                    case WizardPages.ServiceMatchingWizardPage:
+                        View.ServiceMatchingTableProgressBarVisible = true;
+                        Application.DoEvents();
+
+                        FillServiceMatchingTable();
+
+                        View.ServiceMatchingTableProgressBarVisible = false;
+                        Application.DoEvents();
+                        break;
+                    case WizardPages.ProcessingPage:
+                        BackgroundWorker _worker = CreateBackgroundWorker();
+                        _worker.RunWorkerAsync();
+                        break;
+                }
+            }
+        }
+
+        private void FillServiceMatchingTable()
+        {
+            View.ClearServiceMatchingTable();
+
+            List<string> _gisZhkhServices = GisZhkhChargesExportService.GetGisZhkhServices(View.TemplatePath);
+            _gisZhkhServices.Insert(0, string.Empty);
+            Dictionary<int, string> _services = GisZhkhChargesExportService.GetServices(View.Period);
+
+            int _tabIndex = 1;
+            foreach (KeyValuePair<int, string> _pair in _services)
+            {
+                string _selectedValue = _gisZhkhServices.Where(s => s == _pair.Value).FirstOrDefault();
+
+                View.AddRowToServiceMatchingTable(
+                    _pair.Key,
+                    _pair.Value,
+                    _gisZhkhServices,
+                    _selectedValue,
+                    _tabIndex++);
+            }
+        }
+
+        private BackgroundWorker CreateBackgroundWorker()
+        {
+            BackgroundWorker _worker = new BackgroundWorker { WorkerReportsProgress = true };
+            _worker.ProgressChanged += (sender, args) =>
+            {
+                View.SetProgress(args.ProgressPercentage);
             };
 
-            View.FilePath = _saveFileDialog.ShowDialog() == DialogResult.OK 
-                ? _saveFileDialog.FileName 
-                : string.Empty;
-            }
-
-        /// <summary>
-        /// Экспортирует начисления
-        /// </summary>
-        public void ExportFile()
-        {
-            try
+            _worker.DoWork += (sender, args) =>
             {
-                if (String.IsNullOrEmpty(View.FilePath))
+                try
                 {
-                    View.ShowMessage("Укажите файл для экспорта", "Ошибка экспорта");
-                }
-                else
-                {
-                    Encoding _encoding = View.IsSberbankFileFormat ? Encoding.UTF8 : Encoding.GetEncoding(1251);
-
-                    using (StreamWriter _file = new StreamWriter(View.FilePath, false, _encoding))
+                    switch (View.WizardAction)
                     {
-                        _file.AutoFlush = true;
-                        DateTime _period = new DateTime(View.Period.Year, View.Period.Month, 1);
-
-                        using (Entities _entities = new Entities())
-                        {
-                            _entities.CommandTimeout = 3600;
-
-                            var _list = 
-                                _entities.ChargeOpers
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.Customers.ID,
-                                            BuildingID = c.Customers.Buildings.ID,
-                                            c.ChargeSets.Period,
-                                            c.Value
-                                        })
-                                    .Concat(
-                                        _entities.ChargeOpers
-                                            .Where(c => c.ChargeCorrectionOpers != null)
-                                            .Select(
-                                                c =>
-                                                new
-                                                {
-                                                    CustomerID = c.Customers.ID,
-                                                    BuildingID = c.Customers.Buildings.ID,
-                                                    c.ChargeCorrectionOpers.Period,
-                                                    Value = -1 * c.Value
-                                                }))
-                                    .Concat(
-                                        _entities.RechargeOpers
-                                        .Select(
-                                            c =>
-                                            new
-                                            {
-                                                CustomerID = c.Customers.ID,
-                                                BuildingID = c.Customers.Buildings.ID,
-                                                c.RechargeSets.Period,
-                                                c.Value
-                                            }))
-                                    .Concat(
-                                        _entities.RechargeOpers
-                                            .Where(c => c.ChildChargeCorrectionOpers != null)
-                                            .Select(
-                                                c =>
-                                                new
-                                                {
-                                                    CustomerID = c.Customers.ID,
-                                                    BuildingID = c.Customers.Buildings.ID,
-                                                    c.ChildChargeCorrectionOpers.Period,
-                                                    Value = -1 * c.Value
-                                                }))
-                                    .Concat(
-                                        _entities.BenefitOpers
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.ChargeOpers.Customers.ID,
-                                                    BuildingID = b.ChargeOpers.Customers.Buildings.ID,
-                                                    b.ChargeOpers.ChargeSets.Period,
-                                                    b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.BenefitOpers
-                                            .Where(b => b.BenefitCorrectionOpers != null)
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.ChargeOpers.Customers.ID,
-                                                    BuildingID = b.ChargeOpers.Customers.Buildings.ID,
-                                                    b.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                                    Value = -1 * b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.RebenefitOpers
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.RechargeOpers.Customers.ID,
-                                                    BuildingID = b.RechargeOpers.Customers.Buildings.ID,
-                                                    b.RechargeOpers.RechargeSets.Period,
-                                                    b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.RebenefitOpers
-                                            .Where(b => b.BenefitCorrectionOpers != null)
-                                            .Select(
-                                                b =>
-                                                new
-                                                {
-                                                    CustomerID = b.RechargeOpers.Customers.ID,
-                                                    BuildingID = b.RechargeOpers.Customers.Buildings.ID,
-                                                    b.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                                    Value = -1 * b.Value
-                                                }))
-                                    .Concat(
-                                        _entities.PaymentOperPoses
-                                            .Select(p =>
-                                                new
-                                                {
-                                                    CustomerID = p.PaymentOpers.Customers.ID,
-                                                    BuildingID = p.PaymentOpers.Customers.Buildings.ID,
-                                                    p.Period,
-                                                    p.Value
-                                                }))
-                                    .Concat(
-                                        _entities.PaymentCorrectionOpers
-                                            .Select(p =>
-                                                new
-                                                {
-                                                    CustomerID = p.PaymentOpers.Customers.ID,
-                                                    BuildingID = p.PaymentOpers.Customers.Buildings.ID,
-                                                    p.Period,
-                                                    p.Value
-                                                }))
-                                    .Concat(
-                                        _entities.OverpaymentOperPoses
-                                            .Select(o =>
-                                                new
-                                                {
-                                                    CustomerID = o.OverpaymentOpers.Customers.ID,
-                                                    BuildingID = o.OverpaymentOpers.Customers.Buildings.ID,
-                                                    o.Period,
-                                                    o.Value
-                                                }))
-                                    .Concat(
-                                        _entities.OverpaymentCorrectionOpers
-                                            .Select(o =>
-                                                new
-                                                {
-                                                    CustomerID = o.ChargeOpers.Customers.ID,
-                                                    BuildingID = o.ChargeOpers.Customers.Buildings.ID,
-                                                    o.Period,
-                                                    o.Value
-                                                }))
-                                    .Where(c => c.Period <= _period)
-                                    .GroupBy(
-                                        c =>
-                                        new
-                                        {
-                                            c.CustomerID,
-                                            c.BuildingID
-                                        })
-                                    .Select(
-                                        g =>
-                                        new
-                                        {
-                                            g.Key.CustomerID,
-                                            g.Key.BuildingID,
-                                            Value = g.Sum(c => c.Value) 
-                                        })
-                                .ToList();
-
-                            var _customers = 
-                                _entities.Customers
-                                    .Select(
-                                        c => 
-                                        new
-                                {
-                                            c.ID,
-                                            c.OwnerType,
-                                            c.Account,
-                                            c.PhysicalPersonFullName,
-                                            c.JuridicalPersonFullName,
-                                            c.Apartment,
-                                })
-                                    .ToDictionary(c => c.ID);
-
-                            var _buildings = 
-                                _entities.Buildings
-                                    .Select(
-                                        b => 
-                                        new
-                                {
-                                            b.ID,
-                                            StreetName = b.Streets.Name, 
-                                            b.Number,
-                                })
-                                    .ToDictionary(b => b.ID);
-
-                            foreach (var _record in _list)
-                            {
-                                var _customer = _customers[_record.CustomerID];
-                                var _building = _buildings[_record.BuildingID];
-
-                                string _owner = "Неизвестен";
-
-                                if (_customer.OwnerType == (int) Customer.OwnerTypes.PhysicalPerson)
-                                {
-                                    _owner = _customer.PhysicalPersonFullName;
-                                }
-                                else if (_customer.OwnerType == (int) Customer.OwnerTypes.JuridicalPerson)
-                                {
-                                    _owner = _customer.JuridicalPersonFullName;
-                                }
-
-                                if (View.IsSberbankFileFormat)
-                                {
-                                    _file.WriteLine("{0}|{1}|{2}|{3}",
-                                        _customer.Account.Replace("EG-", String.Empty),
-                                        _owner,
-                                        _period.ToString("MM.yyyy"),
-                                        _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
-                                }
-                                else
-                                {
-                                    _file.WriteLine(
-                                        "EG|{0}|{1}|{2}, {3}{4}|{5}",
-                                        _customer.Account.Replace("EG-", String.Empty),
-                                        _owner, _building.StreetName,
-                                        _building.Number,
-                                        String.IsNullOrEmpty(_customer.Apartment)
-                                            ? String.Empty
-                                            : String.Format(", {0}", _customer.Apartment),
-                                        _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
-                                }
-                            }
-                        }
+                        case WizardAction.ExportBenefitData:
+                            args.Result = BenefitExportService.Export(View.OutputPath, View.TemplatePath, View.StartPeriod, ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                        case WizardAction.ExportChargesForBanks:
+                            args.Result = ChargeExportService.Export(View.OutputPath, View.Period, GetChargeExportFormatList(), ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                        case WizardAction.ExportCustomersForGisZhkh:
+                            args.Result = GisZhkhCustomerExportService.Export(View.OutputPath, View.GisZhkhOnlyNew, ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                        case WizardAction.ExportChargesForGisZhkh:
+                            args.Result = GisZhkhChargesExportService.Export(View.OutputPath, View.TemplatePath, View.Period, View.GetServiceMatchingDict(), ((BackgroundWorker)sender).ReportProgress);
+                            break;
                     }
-
-                    View.ShowMessage("Операция выполнена успешно", "Экспорт");
                 }
-            }
-            catch (Exception _ex)
+                catch (Exception _ex)
+                {
+                    Logger.SimpleWrite($"Ошибка экспорта: {_ex}");
+                }
+            };
+
+            _worker.RunWorkerCompleted += (sender, args) =>
             {
-                Logger.SimpleWrite(String.Format("Export error: {0} {1}", _ex, _ex.InnerException != null ? _ex.InnerException.ToString() : String.Empty));
-                View.ShowMessage("Произошла ошибка. Операция не выполнена", "Экспорт");
-            }
+                View.ResultText = ((ExportResult)args.Result).Info;
+                View.SelectPage(WizardPages.FinishPage);
+            };
+            return _worker;
         }
 
-        public void BenefitExport()
+        private IEnumerable<ChargeExportFormatType> GetChargeExportFormatList()
         {
-            if (string.IsNullOrEmpty(View.BenefitInputFilePath))
+            List<ChargeExportFormatType> _types = new List<ChargeExportFormatType>();
+            if (View.SbrfChecked)
             {
-                View.ShowMessage("Укажите файл для экспорта", "Ошибка экспорта");
+                _types.Add(ChargeExportFormatType.Sberbank);
             }
-            else
+            if (View.PrimSocBankChecked)
             {
-                View.ShowBenefitProgressBar();
-                BenefitProcessingStart(this, EventArgs.Empty);
+                _types.Add(ChargeExportFormatType.Primsocbank);
             }
-        }
 
-        [EventPublication(BENEFIT_PROCESSING_START, PublicationScope.WorkItem)]
-        public event EventHandler BenefitProcessingStart;
-
-        [EventSubscription(BENEFIT_PROCESSING_START, ThreadOption.Background)]
-        public void OnBenefitProcessingStart(object sender, EventArgs e)
-        {
-            string _message = _srv.ProcessFile(View.BenefitInputFilePath);
-            BenefitProcessingCompleted(this, new EventArgs<string>(_message));
-        }
-
-        [EventPublication(BENEFIT_PROCESSING_COMPLETED, PublicationScope.WorkItem)]
-        public event EventHandler<EventArgs<string>> BenefitProcessingCompleted;
-
-        [EventSubscription(BENEFIT_PROCESSING_COMPLETED, ThreadOption.UserInterface)]
-        public void OnGenerateReportFired(object sender, EventArgs<string> e)
-        {
-            View.HideBenefitProgressBar();
-            View.ShowMessage(e.Data, "Экспорт");
-        }
-
-        public void GisZhkhExport()
-        {
-            if (string.IsNullOrEmpty(View.GisZhkhInputFilePath))
-            {
-                View.ShowMessage("Укажите файл с шаблоном для экспорта данных в ГИС ЖКХ", "Ошибка экспорта");
-            }
-            else
-            {
-                View.ShowGisZhkhProgressBar();
-                GisZhkhProcessingStart(this, EventArgs.Empty);
-            }
-        }
-
-        [EventPublication(GISZHKH_PROCESSING_START, PublicationScope.WorkItem)]
-        public event EventHandler GisZhkhProcessingStart;
-
-        [EventSubscription(GISZHKH_PROCESSING_START, ThreadOption.Background)]
-        public void OnGisZhkhProcessingStart(object sender, EventArgs e)
-        {
-            string _message = _gisZhkhDataExportService.ProcessFile(View.GisZhkhInputFilePath, View.GisZhkhOnlyNew);
-            GisZhkhProcessingCompleted(this, new EventArgs<string>(_message));
-        }
-
-        [EventPublication(GISZHKH_PROCESSING_COMPLETED, PublicationScope.WorkItem)]
-        public event EventHandler<EventArgs<string>> GisZhkhProcessingCompleted;
-
-        [EventSubscription(GISZHKH_PROCESSING_COMPLETED, ThreadOption.UserInterface)]
-        public void OnGisZhkhProcessingCompleted(object sender, EventArgs<string> e)
-        {
-            View.HideGisZhkhProgressBar();
-            View.ShowMessage(e.Data, "Экспорт");
+            return _types;
         }
     }
 }
