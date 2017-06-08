@@ -7,7 +7,9 @@
     [Benefit]         DECIMAL (9, 2) NOT NULL,
     [Recalculation]   DECIMAL (9, 2) NOT NULL,
     [Payable]         DECIMAL (9, 2) NOT NULL,
+    [ServiceTypeID]   INT            NULL,
     PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_RegularBillDocSeviceTypePoses_ServiceTypes] FOREIGN KEY ([ServiceTypeID]) REFERENCES [dbo].[ServiceTypes] ([ID]),
     CONSTRAINT [RegularBillDocSeviceTypePoses_fk] FOREIGN KEY ([RegularBillDoc]) REFERENCES [dbo].[RegularBillDocs] ([ID])
 );
 

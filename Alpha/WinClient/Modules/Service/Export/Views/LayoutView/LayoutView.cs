@@ -3,6 +3,9 @@ using Microsoft.Practices.ObjectBuilder;
 using System;
 using System.Windows.Forms;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
+using DevExpress.XtraWizard;
+using System.Collections.Generic;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 {
@@ -27,64 +30,44 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         [CreateNew]
         public new LayoutViewPresenter Presenter
         {
-            set
-            {
-                base.Presenter = value;
-            }
-            get
-            {
-                return (LayoutViewPresenter)base.Presenter;
-            }
+            set => base.Presenter = value;
+            get => (LayoutViewPresenter)base.Presenter;
         }
 
         /// <summary>
-        /// Полное имя файла
+        /// Файл с шаблоном
         /// </summary>
-        public string FilePath
+        public string TemplatePath
         {
-            set
-            {
-                FileTextEdit.Text = value;
-            }
-            get
-            {
-                return FileTextEdit.Text;
-            }
+            set => templatePathTextEdit.Text = value;
+            get => templatePathTextEdit.Text;
         }
 
         /// <summary>
-        /// Учетный период
+        /// Путь для сохранения файлов с экспортируемыми данными
+        /// </summary>
+        public string OutputPath
+        {
+            set => outputPathTextEdit.Text = value;
+            get => outputPathTextEdit.Text;
+        }
+
+        /// <summary>
+        /// Учетный период, за который будут экспортированы начисления
         /// </summary>
         public DateTime Period
         {
-            set
-            {
-                PeriodDateEdit.DateTime = value;
-            }
-            get
-            {
-                return PeriodDateEdit.DateTime;
-            }
+            set => periodDateEdit.DateTime = value;
+            get => periodDateEdit.DateTime;
         }
 
         /// <summary>
-        /// Формат файла
+        /// Учетный период, от которого будут выбираться данные льготников
         /// </summary>
-        public bool IsSberbankFileFormat
+        public DateTime StartPeriod
         {
-            set
-            {
-                FormatRadioGroup.EditValue = value;
-            }
-            get
-            {
-                return (bool)FormatRadioGroup.EditValue;
-            }
-        }
-
-        public string BenefitInputFilePath
-        {
-            get { return benefitInputFileTextEdit.Text; }
+            get => startPeriodDateEdit.DateTime;
+            set => startPeriodDateEdit.DateTime = value;
         }
 
         /// <summary>
@@ -92,113 +75,353 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         /// </summary>
         public bool GisZhkhOnlyNew
         {
+            get => onlyNewRadioBtn.Checked;
+            set => onlyNewRadioBtn.Checked = value;
+        }
+
+        /// <summary>
+        /// Выбранное действие мастера экспорта данных
+        /// </summary>
+        public WizardAction WizardAction
+        {
             get
             {
-                return (bool)gisZhkhOnlyNewRadioGroup.EditValue;
+                WizardAction _action = WizardAction.ExportBenefitData;
+
+                if (exportChargesForBanksRadioBtn.Checked)
+                {
+                    _action = WizardAction.ExportChargesForBanks;
+                }
+                else if (exportCustomersForGisZhkhRadioBtn.Checked)
+                {
+                    _action = WizardAction.ExportCustomersForGisZhkh;
+                }
+                else if(exportChargesForGizZhkhRadioBtn.Checked)
+                {
+                    _action = WizardAction.ExportChargesForGisZhkh;
+                }
+
+                return _action;
             }
+        }
+
+        /// <summary>
+        /// Выбран формат сбербанка
+        /// </summary>
+        public bool SbrfChecked
+        {
+            get => chkSbrfFormat.Checked;
+            set => chkSbrfFormat.Checked = value;
+        }
+
+        /// <summary>
+        /// Выбран формат примсоцбанка
+        /// </summary>
+        public bool PrimSocBankChecked
+        {
+            get => chkPrimSocBankFormat.Checked;
+            set => chkPrimSocBankFormat.Checked = value;
+        }
+
+        /// <summary>
+        /// Информация о результате экспорта
+        /// </summary>
+        public string ResultText { set => resultTextBox.Text = value; }
+
+        /// <summary>
+        /// Открывает указанную старницу мастера эскпорта
+        /// </summary>
+        /// <param name="page">Страница</param>
+        public void SelectPage(WizardPages page)
+        {
+            switch (page)
+            {
+                case WizardPages.ChooseMethodPage:
+                    ExportWizardControl.SelectedPage = ChooseMethodWizardPage;
+                    break;
+                case WizardPages.FilePage:
+                    ExportWizardControl.SelectedPage = FileWizardPage;
+                    break;
+                case WizardPages.ServiceMatchingWizardPage:
+                    ExportWizardControl.SelectedPage = ServiceMatchingWizardPage;
+                    break;
+                case WizardPages.ProcessingPage:
+                    ExportWizardControl.SelectedPage = ProcessingWizardPage;
+                    break;
+                case WizardPages.FinishPage:
+                    ExportWizardControl.SelectedPage = FinishWizardPage;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Устанавливает значение прогресс-бара
+        /// </summary>
+        /// <param name="percent">Значение в процентах</param>
+        public void SetProgress(int percent)
+        {
+            ProgressBarControl.Invoke(new MethodInvoker(() =>
+            {
+                ProgressBarControl.Value = percent;
+                progressProcentLabel.Text = $"Выполнено {percent}%";
+            }));
+        }
+
+        public void ResetProgress()
+        {
+            ProgressBarControl.Invoke(new MethodInvoker(() =>
+            {
+                ProgressBarControl.Value = 0;
+                progressProcentLabel.Text = $"Загрузка даннных...";
+            }));
+        }
+
+        public bool ServiceMatchingTableProgressBarVisible
+        {
             set
             {
-                gisZhkhOnlyNewRadioGroup.EditValue = value;
+                serviceMatchingTableProgressBarPanel.Visible = value;
+                tblServiceMatching.Visible = !value;
             }
         }
 
-        /// <summary>
-        /// Путь к файлу шаблона
-        /// </summary>
-        public string GisZhkhInputFilePath
+        public void ClearServiceMatchingTable()
         {
-            get
+            tblServiceMatching.Controls.Clear();
+            tblServiceMatching.RowCount = 0;
+            tblServiceMatching.RowStyles.Clear();
+        }
+
+        public void AddRowToServiceMatchingTable(
+            int serviceTypeID, 
+            string serviceTypeName, 
+            List<string> matchingValues, 
+            string selectedValue, 
+            int tabIndex)
+        {
+            tblServiceMatching.RowCount++;
+            tblServiceMatching.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            Label _lbl =
+                new Label()
+                {
+                    Text = serviceTypeName,
+                    Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right,
+                    TextAlign = System.Drawing.ContentAlignment.MiddleRight,
+                    Tag = serviceTypeID
+                };
+            ComboBox _cb =
+                new ComboBox
+                {
+                    Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right
+                };
+
+            foreach (string _value in matchingValues)
             {
-                return gisZhkhInputFileTextEdit.Text;
+                _cb.Items.Add(_value);
+            }
+
+            if (!string.IsNullOrEmpty(selectedValue))
+            {
+                _cb.SelectedIndex = _cb.FindStringExact(selectedValue);
+            }
+
+            _cb.TabIndex = tabIndex;
+
+            tblServiceMatching.Controls.Add(_lbl, 0, tblServiceMatching.RowCount);
+            tblServiceMatching.Controls.Add(_cb, 1, tblServiceMatching.RowCount);
+        }
+
+        public Dictionary<int, string> GetServiceMatchingDict()
+        {
+            Dictionary<int, List<Control>> _controlByRow = new Dictionary<int, List<Control>>();
+
+            foreach (Control _control in tblServiceMatching.Controls)
+            {
+                int _row = tblServiceMatching.GetRow(_control);
+                if (_controlByRow.ContainsKey(_row))
+                {
+                    _controlByRow[_row].Add(_control);
+                }
+                else
+                {
+                    _controlByRow.Add(_row, new List<Control> { _control });
+                }
+            }
+
+            Dictionary<int, string> _result = new Dictionary<int, string>();
+
+            foreach (List<Control> _cList in _controlByRow.Values)
+            {
+                int _serviceID = 0;
+                string _gisZhkhSeviceName = string.Empty;
+
+                foreach(Control _c in _cList)
+                {
+                    ComboBox _cb = _c as ComboBox;
+                    if(_cb != null)
+                    {
+                        _cb.Invoke(new MethodInvoker(() => _gisZhkhSeviceName = _cb.SelectedItem?.ToString() ?? string.Empty));
+                    }
+                    else
+                    {
+                        _c.Invoke(new MethodInvoker(() => _serviceID = (int)_c.Tag));
+                    }
+                }
+
+                if (_serviceID > 0 && !string.IsNullOrEmpty(_gisZhkhSeviceName))
+                {
+                    _result.Add(_serviceID, _gisZhkhSeviceName);
+                }
+            }
+
+            return _result;
+        }
+
+        private WizardPages ConvertWizardPage(BaseWizardPage page)
+        {
+            switch (page.Name)
+            {
+                case "ChooseMethodWizardPage":
+                    return WizardPages.ChooseMethodPage;
+                case "FileWizardPage":
+                    return WizardPages.FilePage;
+                case "ServiceMatchingWizardPage":
+                    return WizardPages.ServiceMatchingWizardPage;
+                case "ProcessingWizardPage":
+                    return WizardPages.ProcessingPage;
+                case "FinishWizardPage":
+                    return WizardPages.FinishPage;
+                default:
+                    return WizardPages.Unknown;
             }
         }
 
-        public void ShowBenefitProgressBar()
+        private BaseWizardPage ConvertWizardPage(WizardPages page)
         {
-            benefitExportBtn.Enabled = false;
-            benefitProgressBar.Visible = true;
+            switch (page)
+            {
+                case WizardPages.ChooseMethodPage:
+                    return ChooseMethodWizardPage;
+                case WizardPages.FilePage:
+                    return FileWizardPage;
+                case WizardPages.ServiceMatchingWizardPage:
+                    return ServiceMatchingWizardPage;
+                case WizardPages.ProcessingPage:
+                    return ProcessingWizardPage;
+                case WizardPages.FinishPage:
+                    return FinishWizardPage;
+                default:
+                    return null;
+            }
         }
 
-        public void HideBenefitProgressBar()
+        private void ManageFilePageControlsVisibility()
         {
-            benefitExportBtn.Enabled = true;
-            benefitProgressBar.Visible = false;
+            switch (WizardAction)
+            {
+                case WizardAction.ExportChargesForBanks:
+                    tblPeriod.Visible = true;
+                    tblBankExportInfo.Visible = true;
+                    tblGizZhkhInfo.Visible = false;
+                    tblBenefitExportInfo.Visible = false;
+                    tblOutputPath.Visible = true;
+                    tblTemplate.Visible = false;
+                    break;
+                case WizardAction.ExportCustomersForGisZhkh:
+                    tblPeriod.Visible = false;
+                    tblBankExportInfo.Visible = false;
+                    tblGizZhkhInfo.Visible = true;
+                    tblBenefitExportInfo.Visible = false;
+                    tblOutputPath.Visible = true;
+                    tblTemplate.Visible = false;
+                    break;
+                case WizardAction.ExportBenefitData:
+                    tblPeriod.Visible = false;
+                    tblBankExportInfo.Visible = false;
+                    tblGizZhkhInfo.Visible = false;
+                    tblBenefitExportInfo.Visible = true;
+                    tblOutputPath.Visible = false;
+                    tblTemplate.Visible = true;
+                    break;
+                case WizardAction.ExportChargesForGisZhkh:
+                    tblPeriod.Visible = true;
+                    tblBankExportInfo.Visible = false;
+                    tblGizZhkhInfo.Visible = false;
+                    tblBenefitExportInfo.Visible = false;
+                    tblOutputPath.Visible = true;
+                    tblTemplate.Visible = true;
+                    break;
+                default:
+                    tblPeriod.Visible = false;
+                    tblBankExportInfo.Visible = false;
+                    tblGizZhkhInfo.Visible = false;
+                    tblBenefitExportInfo.Visible = false;
+                    tblOutputPath.Visible = true;
+                    tblTemplate.Visible = true;
+                    break;
+            }
         }
 
-        public void ShowGisZhkhProgressBar()
-        {
-            gisZhkhExportButton.Enabled = false;
-            gisZhkhProgressBar.Visible = true;
-        }
+        #region Event Handlers
 
-        public void HideGisZhkhProgressBar()
-        {
-            gisZhkhExportButton.Enabled = true;
-            gisZhkhProgressBar.Visible = false;
-        }
-
-        /// <summary>
-        /// Найти файл
-        /// </summary>
-        /// <param name="sender">Отправитель</param>
-        /// <param name="e">Аргументы</param>
-        private void BrowseButton_Click(object sender, System.EventArgs e)
-        {
-            Presenter.FindFile();
-        }
-
-        /// <summary>
-        /// Экспортировать файл
-        /// </summary>
-        /// <param name="sender">Отправитель</param>
-        /// <param name="e">Аргументы</param>
-        private void ExportButton_Click(object sender, System.EventArgs e)
-        {
-            Presenter.ExportFile();
-        }
-
-        private void benefitExportBtn_Click(object sender, EventArgs e)
-        {
-            Presenter.BenefitExport();
-        }
-
-        private void benefitInputSelectFileBtn_Click(object sender, EventArgs e)
+        private void btnSelectTemplate_Click(object sender, EventArgs e)
         {
             OpenFileDialog _openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = Application.StartupPath + @"\Data",
                 Title = "Открыть файл",
-                Filter = "Книга Microsoft Excel 97-2003 (*.xls)|*.xls|Книга Microsoft Excel 2007 (*.xlsx)|*.xlsx",
-                FilterIndex = 1,
-                DefaultExt = "xls",
-                RestoreDirectory = true,
-            };
-
-            benefitInputFileTextEdit.Text = _openFileDialog.ShowDialog() == DialogResult.OK
-                ? _openFileDialog.FileName
-                : string.Empty;
-        }
-
-        private void gisZhkhSelectInputFileButton_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog _openFileDialog = new OpenFileDialog
-            {
-                InitialDirectory = Application.StartupPath + @"\Data",
-                Title = "Открыть файл",
-                Filter = "Книга Microsoft Excel (*.xls;*.xlsx)|*.xls;*.xlsx",
+                Filter = "Книга Microsoft Excel (*.xlsx)|*.xlsx",
                 FilterIndex = 0,
                 DefaultExt = "xlsx",
                 RestoreDirectory = true,
             };
 
-            gisZhkhInputFileTextEdit.Text = _openFileDialog.ShowDialog() == DialogResult.OK
-                ? _openFileDialog.FileName
-                : string.Empty;
+            if (_openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                templatePathTextEdit.Text = _openFileDialog.FileName;
+            }
         }
 
-        private void gisZhkhExportButton_Click(object sender, EventArgs e)
+        private void btnSelectExportPath_Click(object sender, EventArgs e)
         {
-            Presenter.GisZhkhExport();
+            FolderBrowserDialog _dialog = new FolderBrowserDialog();
+            if(_dialog.ShowDialog() == DialogResult.OK)
+            {
+                outputPathTextEdit.Text = _dialog.SelectedPath;
+            }
         }
+
+        private void ExportWizardControl_SelectedPageChanged(object sender, WizardPageChangedEventArgs e)
+        {
+            Presenter.OnSelectedPageChanged(ConvertWizardPage(e.Page), e.Direction == Direction.Forward);
+        }
+
+        private void ExportWizardControl_SelectedPageChanging(object sender, WizardPageChangingEventArgs e)
+        {
+            WizardPages _nextPage = Presenter.OnSelectingPageChanging(ConvertWizardPage(e.PrevPage), e.Direction == Direction.Forward);
+            BaseWizardPage _page = ConvertWizardPage(_nextPage);
+
+            e.Cancel = _page == null;
+            if (!e.Cancel)
+            {
+                if (_nextPage == WizardPages.FilePage)
+                {
+                    ManageFilePageControlsVisibility();
+                }
+                e.Page = _page;
+            }
+        }
+
+        private void ExportWizardControl_FinishClick(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SelectPage(WizardPages.ChooseMethodPage);
+        }
+
+        private void ExportWizardControl_CustomizeCommandButtons(object sender, CustomizeCommandButtonsEventArgs e)
+        {
+            e.CancelButton.Visible = false;
+        }
+
+        #endregion
     }
 }

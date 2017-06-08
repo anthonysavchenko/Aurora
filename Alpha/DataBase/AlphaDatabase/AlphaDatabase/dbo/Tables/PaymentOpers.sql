@@ -15,6 +15,8 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_Customer]
     ON [dbo].[PaymentOpers]([Customer] ASC);
@@ -23,5 +25,7 @@ CREATE NONCLUSTERED INDEX [IX_Customer]
 GO
 CREATE NONCLUSTERED INDEX [IX_PaymentCorrectionOper]
     ON [dbo].[PaymentOpers]([PaymentCorrectionOper] ASC)
-    INCLUDE([PaymentSet]);
+    INCLUDE([PaymentSet], [Value]);
+
+
 

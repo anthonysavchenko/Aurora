@@ -464,6 +464,7 @@
           <Property Name="Benefit" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="Recalculation" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="Payable" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="ServiceTypeID" Type="int" />
         </EntityType>
         <EntityType Name="RegularBillDocSharedCounterPoses">
           <Key>
@@ -1384,6 +1385,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RegularBillDocSeviceTypePoses_ServiceTypes">
+          <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="0..1" />
+          <End Role="RegularBillDocSeviceTypePoses" Type="Self.RegularBillDocSeviceTypePoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegularBillDocSeviceTypePoses">
+              <PropertyRef Name="ServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Residents_BenefitTypes">
           <End Role="BenefitTypes" Type="Self.BenefitTypes" Multiplicity="0..1" />
           <End Role="Residents" Type="Self.Residents" Multiplicity="*" />
@@ -1844,6 +1857,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="RechargeSets" EntitySet="RechargeSets" />
           </AssociationSet>
+          <AssociationSet Name="FK_RegularBillDocSeviceTypePoses_ServiceTypes" Association="Self.FK_RegularBillDocSeviceTypePoses_ServiceTypes">
+            <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+            <End Role="RegularBillDocSeviceTypePoses" EntitySet="RegularBillDocSeviceTypePoses" />
+          </AssociationSet>
           <AssociationSet Name="FK_Residents_BenefitTypes" Association="Self.FK_Residents_BenefitTypes">
             <End Role="BenefitTypes" EntitySet="BenefitTypes" />
             <End Role="Residents" EntitySet="Residents" />
@@ -2259,6 +2276,10 @@
           <AssociationSet Name="FK_DebtBillDocs_Customers" Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="DebtBillDocs" EntitySet="DebtBillDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegularBillDocSeviceTypePoses_ServiceTypes" Association="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes">
+            <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+            <End Role="RegularBillDocSeviceTypePoses" EntitySet="RegularBillDocSeviceTypePoses" />
           </AssociationSet></EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
@@ -2744,6 +2765,8 @@
           <Property Name="Recalculation" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="Payable" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <NavigationProperty Name="RegularBillDocs" Relationship="AlphaDataBaseModel.RegularBillDocSeviceTypePoses_fk" FromRole="RegularBillDocSeviceTypePoses" ToRole="RegularBillDocs" />
+          <Property Name="ServiceTypeID" Type="Int32" />
+          <NavigationProperty Name="ServiceTypes" Relationship="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes" FromRole="RegularBillDocSeviceTypePoses" ToRole="ServiceTypes" />
         </EntityType>
         <EntityType Name="RegularBillDocSharedCounterPoses">
           <Key>
@@ -2787,6 +2810,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_Services_ServiceTypes" FromRole="ServiceTypes" ToRole="Services" />
+          <NavigationProperty Name="RegularBillDocSeviceTypePoses" Relationship="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes" FromRole="ServiceTypes" ToRole="RegularBillDocSeviceTypePoses" />
         </EntityType>
         <EntityType Name="Streets">
           <Key>
@@ -3247,6 +3271,18 @@
               <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegularBillDocSeviceTypePoses_ServiceTypes">
+          <End Type="AlphaDataBaseModel.ServiceTypes" Role="ServiceTypes" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.RegularBillDocSeviceTypePoses" Role="RegularBillDocSeviceTypePoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegularBillDocSeviceTypePoses">
+              <PropertyRef Name="ServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association></Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3645,6 +3681,7 @@
           <EntitySetMapping Name="RegularBillDocSeviceTypePoses">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.RegularBillDocSeviceTypePoses)">
               <MappingFragment StoreEntitySet="RegularBillDocSeviceTypePoses">
+                <ScalarProperty Name="ServiceTypeID" ColumnName="ServiceTypeID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ServiceTypeName" ColumnName="ServiceTypeName" />
                 <ScalarProperty Name="PayRate" ColumnName="PayRate" />
@@ -4999,6 +5036,7 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaces_Services" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BankDetails" Width="1.5" PointX="4.375" PointY="1" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_BankDetails" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers" /></edmx:Diagram></edmx:Diagrams>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

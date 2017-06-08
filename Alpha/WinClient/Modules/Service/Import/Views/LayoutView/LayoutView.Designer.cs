@@ -72,13 +72,14 @@
             this.ProcessingWizardPage,
             this.FinishWizardPage});
             this.ImportWizardControl.PreviousText = "< &Назад";
-            this.ImportWizardControl.Size = new System.Drawing.Size(1464, 879);
+            this.ImportWizardControl.Size = new System.Drawing.Size(1502, 879);
             this.ImportWizardControl.Text = "Мастер импорта данных";
             this.ImportWizardControl.UseAcceptButton = false;
             this.ImportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ImportWizardControl_SelectedPageChanged);
             this.ImportWizardControl.SelectedPageChanging += new DevExpress.XtraWizard.WizardPageChangingEventHandler(this.ImportWizardControl_SelectedPageChanging);
             this.ImportWizardControl.CancelClick += new System.ComponentModel.CancelEventHandler(this.ImportWizardControl_FinishClick);
             this.ImportWizardControl.FinishClick += new System.ComponentModel.CancelEventHandler(this.ImportWizardControl_FinishClick);
+            this.ImportWizardControl.CustomizeCommandButtons += new DevExpress.XtraWizard.WizardCustomizeCommandButtonsEventHandler(this.ImportWizardControl_CustomizeCommandButtons);
             // 
             // ProcessingWizardPage
             // 
@@ -88,7 +89,7 @@
             this.ProcessingWizardPage.Controls.Add(this.panel1);
             this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания обработки данных...";
             this.ProcessingWizardPage.Name = "ProcessingWizardPage";
-            this.ProcessingWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1470, 734);
             this.ProcessingWizardPage.Text = "Обработка данных";
             // 
             // panel1
@@ -98,7 +99,7 @@
             this.panel1.Controls.Add(this.progressProcentLabel);
             this.panel1.Location = new System.Drawing.Point(0, 329);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1432, 55);
+            this.panel1.Size = new System.Drawing.Size(1470, 55);
             this.panel1.TabIndex = 2;
             // 
             // ProgressBarControl
@@ -106,7 +107,7 @@
             this.ProgressBarControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ProgressBarControl.Location = new System.Drawing.Point(0, 0);
             this.ProgressBarControl.Name = "ProgressBarControl";
-            this.ProgressBarControl.Size = new System.Drawing.Size(1432, 34);
+            this.ProgressBarControl.Size = new System.Drawing.Size(1470, 34);
             this.ProgressBarControl.TabIndex = 0;
             // 
             // progressProcentLabel
@@ -114,7 +115,7 @@
             this.progressProcentLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressProcentLabel.Location = new System.Drawing.Point(0, 34);
             this.progressProcentLabel.Name = "progressProcentLabel";
-            this.progressProcentLabel.Size = new System.Drawing.Size(1432, 21);
+            this.progressProcentLabel.Size = new System.Drawing.Size(1470, 21);
             this.progressProcentLabel.TabIndex = 1;
             this.progressProcentLabel.Text = "Обработано 0%";
             this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -126,7 +127,7 @@
             this.ChooseMethodWizardPage.Controls.Add(this.importCustomerPosesRadioButton);
             this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
             this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
-            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1470, 734);
             this.ChooseMethodWizardPage.Text = "Мастер импорта данных";
             // 
             // importNewCustomersRadioButton
@@ -171,7 +172,7 @@
             this.FileWizardPage.Controls.Add(this.selectFileButton);
             this.FileWizardPage.DescriptionText = "Выберите файл, из которого будут импортированны данные";
             this.FileWizardPage.Name = "FileWizardPage";
-            this.FileWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.FileWizardPage.Size = new System.Drawing.Size(1470, 734);
             this.FileWizardPage.Text = "Выбор файла";
             // 
             // label7
@@ -207,7 +208,7 @@
             this.FinishWizardPage.Controls.Add(this.resultTextBox);
             this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
-            this.FinishWizardPage.Size = new System.Drawing.Size(1432, 734);
+            this.FinishWizardPage.Size = new System.Drawing.Size(1470, 734);
             this.FinishWizardPage.Text = "Обработка данных завершена";
             // 
             // resultTextBox
@@ -218,7 +219,7 @@
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.ReadOnly = true;
             this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.resultTextBox.Size = new System.Drawing.Size(1432, 734);
+            this.resultTextBox.Size = new System.Drawing.Size(1470, 734);
             this.resultTextBox.TabIndex = 16;
             // 
             // LayoutView
@@ -229,7 +230,7 @@
             this.AutoSize = true;
             this.Controls.Add(this.ImportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1464, 879);
+            this.Size = new System.Drawing.Size(1502, 879);
             ((System.ComponentModel.ISupportInitialize)(this.ImportWizardControl)).EndInit();
             this.ImportWizardControl.ResumeLayout(false);
             this.ProcessingWizardPage.ResumeLayout(false);

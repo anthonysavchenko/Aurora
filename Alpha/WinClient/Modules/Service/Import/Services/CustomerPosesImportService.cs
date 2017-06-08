@@ -1,9 +1,9 @@
-﻿using ClosedXML.Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
@@ -41,7 +41,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public string[] ExcludedAccounts { get; set; }
             public decimal ExcludedRate { get; set; }
         }
-        
+
+        private IExcelService _excelService;
+
+        public CustomerPosesImportService(IExcelService excelService)
+        {
+            _excelService = excelService;
+        }
+
         public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
         {
             string _resultMessage;
@@ -179,15 +186,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
             try
             {
-                using (XLWorkbook _xwb = new XLWorkbook(fileName))
+                using (IExcelWorkbook _xwb = _excelService.OpenWorkbook(fileName))
                 {
-                    IXLWorksheet _xws = _xwb.Worksheet(1);
-                    int _rowCount = _xws.LastRowUsed().RowNumber();
+                    IExcelWorksheet _xws = _xwb.Worksheet(1);
+                    int _rowCount = _xws.GetRowCount();
                     _rows = new List<ParsedRow>(_rowCount);
 
                     while (_currentRow < _rowCount)
                     {
-                        _rows.Add(ParseRow(_xws.Row(++_currentRow)));
+                        _rows.Add(ParseRow(++_currentRow, _xws));
                         reportProgressAction(_currentRow * 50 / _rowCount);
                     }
                 }
@@ -225,35 +232,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             return string.Join(" ", _words);
         }
 
-        private ParsedRow ParseRow(IXLRow row)
+        private ParsedRow ParseRow(int row, IExcelWorksheet sheet)
         {
             decimal _rate;
-            row.Cell(Columns.Rate).TryGetValue(out _rate);
+            sheet.Cell(row, Columns.Rate).TryGetValue(out _rate);
 
             DateTime _since;
-            row.Cell(Columns.Since).TryGetValue(out _since);
+            sheet.Cell(row, Columns.Since).TryGetValue(out _since);
 
             DateTime _till;
-            row.Cell(Columns.Till).TryGetValue(out _till);
+            sheet.Cell(row, Columns.Till).TryGetValue(out _till);
 
             byte _rule;
-            row.Cell(Columns.ChargeRule).TryGetValue(out _rule);
+            sheet.Cell(row, Columns.ChargeRule).TryGetValue(out _rule);
 
             decimal _excludedRate;
-            row.Cell(Columns.ExcludedRate).TryGetValue(out _excludedRate);
+            sheet.Cell(row, Columns.ExcludedRate).TryGetValue(out _excludedRate);
 
             string [] _excludedAccounts = 
-                row.Cell(Columns.ExcludedAccounts).GetString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                sheet.Cell(row, Columns.ExcludedAccounts).Value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
 
             return new ParsedRow
             {
-                RowNumber = row.RowNumber(),
-                Street = row.Cell(Columns.Street).GetString(),
-                Building = row.Cell(Columns.Building).GetString(),
-                ServiceType = row.Cell(Columns.ServiceType).GetString(),
-                Service = row.Cell(Columns.Service).GetString(),
-                Contractor = row.Cell(Columns.Contractor).GetString(),
+                RowNumber = row,
+                Street = sheet.Cell(row, Columns.Street).Value,
+                Building = sheet.Cell(row, Columns.Building).Value,
+                ServiceType = sheet.Cell(row, Columns.ServiceType).Value,
+                Service = sheet.Cell(row, Columns.Service).Value,
+                Contractor = sheet.Cell(row, Columns.Contractor).Value,
                 Rate = _rate,
                 Since = _since,
                 Till = _till,
