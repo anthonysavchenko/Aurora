@@ -98,6 +98,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaces_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Services), "PublicPlaces", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaces), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_BankDetails", "BankDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.BankDetails), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DebtBillDocs_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "DebtBillDocs", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DebtBillDocs), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.ServiceTypes), "RegularBillDocSeviceTypePoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RegularBillDocSeviceTypePoses), true)]
 
 #endregion
 
@@ -11642,6 +11643,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.Decimal _Payable;
         partial void OnPayableChanging(global::System.Decimal value);
         partial void OnPayableChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ServiceTypeID
+        {
+            get
+            {
+                return _ServiceTypeID;
+            }
+            set
+            {
+                OnServiceTypeIDChanging(value);
+                ReportPropertyChanging("ServiceTypeID");
+                _ServiceTypeID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ServiceTypeID");
+                OnServiceTypeIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ServiceTypeID;
+        partial void OnServiceTypeIDChanging(Nullable<global::System.Int32> value);
+        partial void OnServiceTypeIDChanged();
 
         #endregion
 
@@ -11681,6 +11706,44 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RegularBillDocs>("AlphaDataBaseModel.RegularBillDocSeviceTypePoses_fk", "RegularBillDocs", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes")]
+        public ServiceTypes ServiceTypes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ServiceTypes>("AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ServiceTypes>("AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ServiceTypes> ServiceTypesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ServiceTypes>("AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ServiceTypes>("AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes", value);
                 }
             }
         }
@@ -12739,6 +12802,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Services>("AlphaDataBaseModel.FK_Services_ServiceTypes", "Services", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RegularBillDocSeviceTypePoses_ServiceTypes", "RegularBillDocSeviceTypePoses")]
+        public EntityCollection<RegularBillDocSeviceTypePoses> RegularBillDocSeviceTypePoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RegularBillDocSeviceTypePoses>("AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes", "RegularBillDocSeviceTypePoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RegularBillDocSeviceTypePoses>("AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes", "RegularBillDocSeviceTypePoses", value);
                 }
             }
         }

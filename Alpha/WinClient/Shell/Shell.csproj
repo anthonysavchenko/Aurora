@@ -200,20 +200,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <HintPath>..\..\..\ThirdParty\PIA\Microsoft.Office.Interop.Excel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Vbe.Interop, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <HintPath>..\..\..\ThirdParty\PIA\Microsoft.Vbe.Interop.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\..\..\ThirdParty\PIA\stdole.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -294,6 +283,9 @@
     </None>
     <None Include="Properties\app.manifest" />
     <None Include="Shell_TemporaryKey.pfx" />
+    <Content Include="Templates\GisZhkh_Customer_Export.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
@@ -502,56 +494,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="DevExpress.Office.v13.1.Core">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="DevExpress.RichEdit.v13.1.Core">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="DevExpress.XtraLayout.v13.1">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Microsoft.Vbe.Interop">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Microsoft.Web.Infrastructure">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
     <PublishFile Include="ProfileCatalog.xml">
       <Visible>False</Visible>
       <Group>
@@ -562,36 +504,7 @@
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
-    <PublishFile Include="System.Web.Razor">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="System.Web.WebPages">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="System.Web.WebPages.Deployment">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
