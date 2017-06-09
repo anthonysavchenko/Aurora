@@ -253,7 +253,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         private string GetBottomInfoString(string street, string building)
         {
             street = street.ToLower();
-            if(street == "уткинская" || street == "космонавтов" || street == "прапорщика комарова")
+            if(street == "уткинская" 
+                || street == "космонавтов" 
+                || street == "прапорщика комарова"
+                || street == "борисенко")
             {
                 return "Управляющий по дому - Беришева Ирина Сергеевна, тел. 271-80-55";
             }
