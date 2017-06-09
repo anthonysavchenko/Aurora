@@ -223,7 +223,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _barcode,
                                 BillService.FormatBarcodeString(_barcode),
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
-                                BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
+                                BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, GetEmergencyPhoneNumber(_bill.Street, _bill.Building)),
                                 _qrCode,
                                 string.Empty);
 
@@ -248,6 +248,53 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             return null;
+        }
+
+        private string GetEmergencyPhoneNumber(string street, string building)
+        {
+            street = street.ToLower();
+            building = building.ToLower();
+
+            if(street == "борисенко"
+                || street == "космонавтов"           
+                || street == "гульбиновича"           
+                || street == "окатовая"               
+                || street == "терешковой"             
+                || street == "адмирала кузнецова"     
+                || street == "адмирала спиридонова"   
+                || street == "луговая"                
+                || street == "баляева")                  
+            {
+                return "2-614-714";
+            }
+
+            if(street == "прапорщика комарова"
+                || street == "уткинская"
+                || street == "западная"
+                || street == "острякова проспект"
+                || street == "океанский проспект"
+                || street == "некрасовская"
+                || street == "станюковича"
+                || street == "красного знамени проспект"
+                || street == "шилкинская"
+                || street == "тунгусская"
+                || street == "тобольская")
+            {
+                return "2-980-981";
+            }
+
+            if(street == "магнитогорская"
+                || street == "енисейская")
+            {
+                return "2-667-206, 2-666-964";
+            }
+
+            if(street == "ульяновская")
+            {
+                return "2-340-141";
+            }
+
+            return "2-614-714, 2-980-981";
         }
 
         public void SendBills()
