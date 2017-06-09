@@ -48,7 +48,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
             }
 
             _builder.AppendLine("Расчетный центр: 246-92-40, 261-95-84, Пн-Пт 8:00-17:00, обед 12-13, среда неприемный день");
-            _builder.AppendLine($"Главный офис: 246-46-01. Авар. служба 2-614-714, 2-980-981");
+            _builder.AppendLine($"Главный офис: 246-46-01. Авар. служба {emergencyPhoneNumber}");
             _builder.Append($"www.dom-vl.ru");
 
             if (!string.IsNullOrEmpty(contractorInfo))
