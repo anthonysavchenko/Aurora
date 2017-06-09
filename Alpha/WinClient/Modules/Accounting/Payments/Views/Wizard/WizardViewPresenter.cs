@@ -20,6 +20,7 @@ using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
 using Taumis.Infrastructure.Interface.Constants;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 {
@@ -67,6 +68,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             set;
             private get;
         }
+
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
 
         /// <summary>
         /// Поднимает домен по его ID
@@ -711,14 +715,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             {
                 if (_intermediaryID == IntermediaryConstants.PRIMORYE_ID)
                 {
-                    using (ExcelSheet _sheet = new ExcelSheet(_fileName))
+                    using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(_fileName))
                     {
-                        _currentRow = 6;
-                        View.ResetProgressBar(_sheet.RowsCount - 10);
+                        IExcelWorksheet _ws = _wb.Worksheet(1);
 
-                        while (_currentRow < _sheet.RowsCount - 4)
+                        _currentRow = 6;
+                        int _rowCount = _ws.GetRowCount();
+                        View.ResetProgressBar(_rowCount - 10);
+
+                        while (_currentRow < _rowCount - 4)
                         {
-                            Payments.Add(++_currentRow - 7, ProcessImportPrimoryeLine(_sheet.GetCell("G", _currentRow), _sheet.GetCell("H", _currentRow), _sheet.GetCell("F", _currentRow)));
+                            Payments.Add(++_currentRow - 7, ProcessImportPrimoryeLine(_ws.Cell(_currentRow, "G").Value, _ws.Cell(_currentRow, "H").Value, _ws.Cell(_currentRow, "F").Value));
                             View.AddProgress();
                         }
                     }

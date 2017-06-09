@@ -1,4 +1,5 @@
-﻿using Taumis.EnterpriseLibrary.Win;
+﻿using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
 {
@@ -25,9 +26,27 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
+        private ServiceType _serviceType;
+        /// <summary>
+        /// Вид услуги
+        /// </summary>
+        public ServiceType ServiceType
+        {
+            get
+            {
+                Load();
+                return _serviceType;
+            }
+            set
+            {
+                Load();
+                _serviceType = value;
+            }
+        }
+
         private string _serviceTypeName;
         /// <summary>
-        /// Услуга
+        /// Наименование вида услуги
         /// </summary>
         public string ServiceTypeName
         {
