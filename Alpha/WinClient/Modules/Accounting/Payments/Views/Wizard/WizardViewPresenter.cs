@@ -69,6 +69,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             private get;
         }
 
+        [ServiceDependency]
         public IExcelService ExcelService { get; set; }
 
         /// <summary>
