@@ -180,7 +180,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                     View.ShowMessage("Загрузить данные из файла можно только для посредников: Сбербанк, Приморье, Система Город", "Ошибка выбора посредника");
                                     _next = WizardSteps.Unknown;
                                 }
-                                else if (_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMORYE_ID) && Path.GetExtension(View.FileName) != ".xls" && Path.GetExtension(View.FileName) != ".xlsx")
+                                else if (_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMORYE_ID) && Path.GetExtension(View.FileName) != ".xlsx")
                                 {
                                     View.ShowMessage("Для выбранного посредника данные можно загрузить только в формате книги Microsoft Excel", "Ошибка выбора файла");
                                     _next = WizardSteps.Unknown;
