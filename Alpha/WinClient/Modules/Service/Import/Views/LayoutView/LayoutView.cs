@@ -100,7 +100,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             {
                 InitialDirectory = Application.StartupPath + @"\Data",
                 Title = "Открыть файл",
-                Filter = "Книга Microsoft Excel (*.xls;*.xlsx)|*.xls;*.xlsx",
+                Filter = "Книга Microsoft Excel (*.xlsx)|*.xlsx",
                 FilterIndex = 0,
                 DefaultExt = "xlsx",
                 RestoreDirectory = true,
