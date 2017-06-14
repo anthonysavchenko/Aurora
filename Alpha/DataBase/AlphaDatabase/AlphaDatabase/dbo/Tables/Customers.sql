@@ -39,3 +39,9 @@
 
 
 
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Building_Account]
+    ON [dbo].[Customers]([Account] ASC, [Building] ASC)
+    INCLUDE([ID], [OwnerType], [IsPrivate], [RoomsCount], [Apartment], [Square], [PhysicalPersonFullName], [PhysicalPersonShortName], [JuridicalPersonFullName], [Comment], [Floor], [LiftPresence], [RubbishChutePresence], [BillSendingSubscription], [UserID], [DebtsRepayment], [Entrance], [GisZhkhID]);
+

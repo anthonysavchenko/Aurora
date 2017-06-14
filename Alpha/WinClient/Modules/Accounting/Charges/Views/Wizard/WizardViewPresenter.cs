@@ -26,6 +26,7 @@ using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 {
@@ -155,6 +156,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         [ServiceDependency]
         public ISettingsService SettingsService { get; private set; }
+
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
 
         /// <summary>
         /// Признак сбоя резервного копирования
@@ -370,16 +374,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 switch (prevPage)
                 {
                     case WizardPages.CustomersPage:
+                    case WizardPages.FinishPage:
                         _next = WizardPages.ChooseMethodPage;
                         break;
                     case WizardPages.ChoosePeriodPage:
-                        _next = WizardPages.CustomersPage;
-                        break;
                     case WizardPages.PercentPage:
                         _next = WizardPages.CustomersPage;
-                        break;
-                    case WizardPages.FinishPage:
-                        _next = WizardPages.ChooseMethodPage;
                         break;
                 }
             }
@@ -1159,16 +1159,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                         if (_chargeValue > 0)
                                         {
+                                            _chargeValue = Math.Round(_chargeValue, 2, MidpointRounding.AwayFromZero);
                                             ChargeOperPoses _chargeOperPos = 
                                                 new ChargeOperPoses()
                                                 {
                                                     ChargeOpers = _chargeOper,
                                                     Services = _services[_customerPos.ServiceID],
                                                     Contractors = _contractors[_customerPos.ContractorID],
-                                                    Value = Math.Round(_chargeValue, 2, MidpointRounding.AwayFromZero)
+                                                    Value = _chargeValue
                                                 };
                                             _db.ChargeOperPoses.AddObject(_chargeOperPos);
-                                            _customerPeriodBalances.AddCharge(_chargeOperPos.ChargeOpers.ChargeSets.Period, _chargeOperPos.Services.ID, _chargeOperPos.Value);
 
                                             if (_federalBenefitValue < 0 || _localBenefitValue < 0)
                                             {
@@ -1211,6 +1211,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 }
                                             }
                                         }
+                                        _customerPeriodBalances.AddCharge(_chargeSet.Period, _customerPos.ServiceID, _chargeValue);
                                     }
 
                                     #endregion
@@ -1342,6 +1343,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             })
                                             .Select(groupedByServiceType => new
                                             {
+                                                groupedByServiceType.Key.ServiceTypeID,
                                                 groupedByServiceType.Key.ServiceTypeName,
                                                 Rate = groupedByServiceType.Sum(x => x.Value.Charge != 0 ? _customerPoses.Single(y => y.ServiceID == x.Key).Rate : 0),
                                                 Charge = groupedByServiceType.Sum(x => x.Value.Charge),
@@ -1355,6 +1357,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 new RegularBillDocSeviceTypePoses
                                                 {
                                                     RegularBillDocs = _billDoc,
+                                                    ServiceTypeID = _pos.ServiceTypeID,
                                                     ServiceTypeName = _pos.ServiceTypeName,
                                                     PayRate = Math.Round(_pos.Rate, 2, MidpointRounding.AwayFromZero),
                                                     Charge = _pos.Charge,
@@ -2075,17 +2078,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                 using (Entities _db = new Entities())
                 {
-                    using (ExcelSheet _sheet = new ExcelSheet(View.DebtFileName))
+                    using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(View.DebtFileName))
                     {
-                        for (int _row = 1; _row <= _sheet.RowsCount; _row++)
+                        IExcelWorksheet _ws = _wb.Worksheet(1);
+                        int _rowCount = _ws.GetRowCount();
+
+                        for (int _row = 1; _row < _rowCount; _row++)
                         {
                             try
                             {
-                                string _account = _sheet.GetCell("A", _row).Trim();
+                                string _account = _ws.Cell(_row, 1).Value.Trim();
 
                                 if (!string.IsNullOrEmpty(_account))
                                 {
-                                    decimal _debt = decimal.Parse(_sheet.GetCell("B", _row).Trim());
+                                    decimal _debt;
+                                    if(!_ws.Cell(_row, 2).TryGetValue(out _debt))
+                                    {
+                                        throw new ApplicationException($"Не удалось преобразовать значение {_ws.Cell(_row, 2).Value} к типу decimal");
+                                    }
 
                                     var _customer =
                                         _db.Customers

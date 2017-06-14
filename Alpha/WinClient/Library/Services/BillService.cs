@@ -79,20 +79,39 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <summary>
         /// Генерирует строку для QR-кода
         /// </summary>
+        /// <param name="name">Наименование организации</param>
+        /// <param name="bankAccount">Расчетный счет</param>
+        /// <param name="bankName">Наименование банка</param>
+        /// <param name="bic">БИК</param>
+        /// <param name="corrAccount">Корр. счет</param>
+        /// <param name="inn">ИНН</param>
+        /// <param name="category">Категория платежа</param>
         /// <param name="account">Лицевой счет</param>
         /// <param name="fullName">ФИО</param>
         /// <param name="address">Адрес</param>
         /// <param name="period">Учетный период</param>
         /// <param name="sum">Сумма платежа</param>
         /// <returns>Строка для QR-кода</returns>
-        public string GenerateQrCodeString(string account, string fullName, string address, DateTime period, decimal sum)
+        public string GenerateQrCodeString(
+            string name,
+            string bankAccount,
+            string bankName,
+            string bic,
+            string corrAccount,
+            string inn,
+            string category,
+            string account, 
+            string fullName, 
+            string address, 
+            DateTime period, 
+            decimal sum)
         {
             /*string _accountNum = account.Substring(3);
             // Сумма в копейках
             int _sum = Convert.ToInt32(sum * 100);
 
             string _qrStr =
-                $"ST00012|Name=ООО \"УК Фрунзенского района\"|PersonalAcc=40702810900100001650|BankName=ОАО \"Дальневосточный банк\" г.Владивосток|BIC=040507705|CorrespAcc=30101810900000000705|PayeeINN=2540165515|Category=Квартплата|PersAcc={_accountNum}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
+                $"ST00012|Name={name}|PersonalAcc={bankAccount}|BankName={bankName}|BIC={bic}|CorrespAcc={corrAccount}|PayeeINN={inn}|Category={category}|PersAcc={_accountNum}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
 
             if (!string.IsNullOrEmpty(fullName))
             {

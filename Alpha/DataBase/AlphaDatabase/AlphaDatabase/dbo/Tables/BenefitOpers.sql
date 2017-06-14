@@ -14,3 +14,11 @@
 
 
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_ChargeOper_BenefitCorrectionOper]
+    ON [dbo].[BenefitOpers]([ChargeOper] ASC, [BenefitCorrectionOper] ASC)
+    INCLUDE([Value]);
+

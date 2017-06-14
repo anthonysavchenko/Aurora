@@ -1,4 +1,5 @@
-﻿using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
+﻿using System.Data;
+using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
 {
@@ -22,5 +23,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
         /// Удаляет все колонки
         /// </summary>
         void ClearColumns();
+
+        /// <summary>
+        /// Нижняя граница суммы долга
+        /// </summary>
+        decimal DebtMinSum { get; set; }
+
+        /// <summary>
+        /// Нижняя граница количества месяцев долга
+        /// </summary>
+        int DebtMonthCount { get; set; }
+
+        /// <summary>
+        /// Улицы
+        /// </summary>
+        DataTable Streets { set; }
+
+        /// <summary>
+        /// Дома
+        /// </summary>
+        DataTable Buildings { set; }
+
+        /// <summary>
+        /// Улица
+        /// </summary>
+        string StreetId { get; }
+
+        /// <summary>
+        /// Дом
+        /// </summary>
+        string BuildingId { get; }
     }
 }

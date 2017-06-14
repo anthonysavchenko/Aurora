@@ -1272,8 +1272,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             // 
             // OpenFileDialog
             // 
-            this.OpenFileDialog.DefaultExt = "xls";
-            this.OpenFileDialog.Filter = "Книга Microsoft Excel 97-2003|*.xls|Книга Microsoft Excel 2007|*.xlsx";
+            this.OpenFileDialog.DefaultExt = "xlsx";
+            this.OpenFileDialog.Filter = "Книга Microsoft Excel 2007|*.xlsx";
             this.OpenFileDialog.RestoreDirectory = true;
             this.OpenFileDialog.Title = "Открыть файл";
             // 

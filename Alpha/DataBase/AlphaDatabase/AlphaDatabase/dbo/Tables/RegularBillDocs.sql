@@ -22,3 +22,17 @@
 
 
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Period]
+    ON [dbo].[RegularBillDocs]([Period] ASC)
+    INCLUDE([ID], [Customer]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_BillSet]
+    ON [dbo].[RegularBillDocs]([BillSet] ASC)
+    INCLUDE([ID], [Customer]);
+

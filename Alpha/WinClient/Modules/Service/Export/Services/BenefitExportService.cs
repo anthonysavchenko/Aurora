@@ -1,89 +1,92 @@
-﻿using System;
+﻿using Microsoft.Practices.CompositeUI;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Library.Services;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 {
-    public class BenefitDataExportService : IBenefitDataExportService
+    public class BenefitExportService : IBenefitExportService
     {
-        #region File Columns
+        private class Columns
+        {
+            /// <summary>
+            /// Номер счета
+            /// </summary>
+            public const string LS = "A";
 
-        /// <summary>
-        /// Номер счета
-        /// </summary>
-        private const string LS = "A";
+            /// <summary>
+            /// Тип услуги
+            /// </summary>
+            public const string GKU = "H";
 
-        /// <summary>
-        /// Тип услуги
-        /// </summary>
-        private const string GKU = "H";
+            /// <summary>
+            /// Площадь
+            /// </summary>
+            public const string PL = "I";
 
-        /// <summary>
-        /// Площадь
-        /// </summary>
-        private const string PL = "I";
+            /// <summary>
+            /// Количество проживающих
+            /// </summary>
+            public const string KOLP = "J";
 
-        /// <summary>
-        /// Количество проживающих
-        /// </summary>
-        private const string KOLP = "J";
+            /// <summary>
+            /// Норматив
+            /// </summary>
+            public const string NORM = "K";
 
-        /// <summary>
-        /// Норматив
-        /// </summary>
-        private const string NORM = "K";
+            /// <summary>
+            /// Фактическое потребление ЖКУ за месяц
+            /// </summary>
+            public const string FAKTP = "L";
 
-        /// <summary>
-        /// Фактическое потребление ЖКУ за месяц
-        /// </summary>
-        private const string FAKTP = "L";
+            /// <summary>
+            /// Фактическое потребление ЖКУ с учетом перерасчетов за прошлый период
+            /// </summary>
+            public const string FAKTPER = "M";
 
-        /// <summary>
-        /// Фактическое потребление ЖКУ с учетом перерасчетов за прошлый период
-        /// </summary>
-        private const string FAKTPER = "M";
+            /// <summary>
+            /// Тариф
+            /// </summary>
+            public const string TARIF = "N";
 
-        /// <summary>
-        /// Тариф
-        /// </summary>
-        private const string TARIF = "N";
+            /// <summary>
+            /// Количество месяцев долга
+            /// </summary>
+            public const string MESD = "S";
 
-        /// <summary>
-        /// Количество месяцев долга
-        /// </summary>
-        private const string MESD = "S";
+            /// <summary>
+            /// Флаг соглашения о реструктуризации долга
+            /// </summary>
+            public const string RESTRDOLG = "T";
 
-        /// <summary>
-        /// Флаг соглашения о реструктуризации долга
-        /// </summary>
-        private const string RESTRDOLG = "T";
+            public const string PERIOD_COLUMN = "O";
+        }
 
-        private const string PERIOD_COLUMN = "O";
+        private class ServiceTypes
+        {
+            public const string MAINTANCE_SERVICE_TYPE_STR = "С";
+            public const string PP_COLD_WATER_SERVICE_TYPE_STR = "Х";
+            public const string PP_HOT_WATER_SERVICE_TYPE_STR = "Г";
+            public const string PP_ELECTRICITY_WATER_SERVICE_TYPE_STR = "Э";
 
-        #endregion
+            public const int MAINTANCE_SERVICE_TYPE_ID = 36;
+            public const int PP_COLD_WATER_SERVICE_TYPE_ID = 38;
+            public const int PP_HOT_WATER_SERVICE_TYPE_ID = 35;
+            public const int PP_ELECTRICITY_WATER_SERVICE_TYPE_ID = 39;
 
-        private const string MAINTANCE_SERVICE_TYPE_STR = "С";
-        private const string PP_COLD_WATER_SERVICE_TYPE_STR = "Х";
-        private const string PP_HOT_WATER_SERVICE_TYPE_STR = "Г";
-        private const string PP_ELECTRICITY_WATER_SERVICE_TYPE_STR = "Э";
-
-        private const int MAINTANCE_SERVICE_TYPE_ID = 36;
-        private const int PP_COLD_WATER_SERVICE_TYPE_ID = 38;
-        private const int PP_HOT_WATER_SERVICE_TYPE_ID = 35;
-        private const int PP_ELECTRICITY_WATER_SERVICE_TYPE_ID = 39;
-
-        private readonly int[] _serivceTypeIDs =
-            new[]
-            {
-                MAINTANCE_SERVICE_TYPE_ID,
-                PP_COLD_WATER_SERVICE_TYPE_ID,
-                PP_HOT_WATER_SERVICE_TYPE_ID,
-                PP_ELECTRICITY_WATER_SERVICE_TYPE_ID
-            };
+            public static readonly int[] SerivceTypeIDs =
+                new[]
+                {
+                    MAINTANCE_SERVICE_TYPE_ID,
+                    PP_COLD_WATER_SERVICE_TYPE_ID,
+                    PP_HOT_WATER_SERVICE_TYPE_ID,
+                    PP_ELECTRICITY_WATER_SERVICE_TYPE_ID
+                };
+        }
 
         private class ServiceTypeData
         {
@@ -103,6 +106,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public Dictionary<int, int> DebtMonthCount { get; set; }
             public List<ServiceTypeData> DataByServiceType { get; set; }
         }
+
+        [ServiceDependency]
+        public IExcelService ExcelService { get; set; }
 
         #region Help Methods
 
@@ -145,14 +151,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
             switch (_firstLetter)
             {
-                case MAINTANCE_SERVICE_TYPE_STR:
-                    return MAINTANCE_SERVICE_TYPE_ID;
-                case PP_COLD_WATER_SERVICE_TYPE_STR:
-                    return PP_COLD_WATER_SERVICE_TYPE_ID;
-                case PP_HOT_WATER_SERVICE_TYPE_STR:
-                    return PP_HOT_WATER_SERVICE_TYPE_ID;
-                case PP_ELECTRICITY_WATER_SERVICE_TYPE_STR:
-                    return PP_ELECTRICITY_WATER_SERVICE_TYPE_ID;
+                case ServiceTypes.MAINTANCE_SERVICE_TYPE_STR:
+                    return ServiceTypes.MAINTANCE_SERVICE_TYPE_ID;
+                case ServiceTypes.PP_COLD_WATER_SERVICE_TYPE_STR:
+                    return ServiceTypes.PP_COLD_WATER_SERVICE_TYPE_ID;
+                case ServiceTypes.PP_HOT_WATER_SERVICE_TYPE_STR:
+                    return ServiceTypes.PP_HOT_WATER_SERVICE_TYPE_ID;
+                case ServiceTypes.PP_ELECTRICITY_WATER_SERVICE_TYPE_STR:
+                    return ServiceTypes.PP_ELECTRICITY_WATER_SERVICE_TYPE_ID;
                 default:
                     return null;
             }
@@ -174,7 +180,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             return _period;
         }
 
-        private List<CustomerInfo> GetCustomerInfoList(DateTime period, List<int> customerIds)
+        private List<CustomerInfo> GetCustomerInfoList(DateTime period, DateTime startPeriod, List<int> customerIds)
         {
             List<CustomerInfo> _result;
 
@@ -195,8 +201,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 c.DebtsRepayment
                             })
                         .ToList();
-
-                DateTime _startPeriod = new DateTime(2015, 7, 1);
 
                 var _debtsRaw =
                     _db.ChargeOperPoses
@@ -313,8 +317,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Where(o =>
-                            _startPeriod <= o.Period && o.Period <= period &&
-                            _serivceTypeIDs.Contains(o.ServiceType))
+                            startPeriod <= o.Period && o.Period <= period &&
+                            ServiceTypes.SerivceTypeIDs.Contains(o.ServiceType))
                         .GroupBy(o => new { o.CustomerID, o.ServiceType })
                         .Select(g =>
                             new
@@ -478,7 +482,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     Benefit = -1 * o.Value,
                                     ServiceType = o.Services.ServiceTypes.ID
                                 }))
-                        .Where(o => o.Period == period && _serivceTypeIDs.Contains(o.ServiceType))
+                        .Where(o => o.Period == period && ServiceTypes.SerivceTypeIDs.Contains(o.ServiceType))
                         .GroupBy(o => new { o.CustomerID, o.ServiceType })
                         .Select(g =>
                             new
@@ -558,8 +562,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             return _debtMonthCount;
         }
 
-        private void FillAccountsDictionaries(Dictionary<int, Dictionary<int, int>> accRowDict, ExcelSheet sheet)
+        private Dictionary<int, Dictionary<int, int>> Parse(IExcelWorksheet sheet, Action<int> reportProgressAction)
         {
+            Dictionary<int, Dictionary<int, int>> _accRowDict = new Dictionary<int, Dictionary<int, int>>();
             Dictionary<string, int> _customerIdByAccount;
 
             using (Entities _db = new Entities())
@@ -575,43 +580,52 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         .ToDictionary(c => c.Account, c => c.ID);
             }
 
-            for (int i = 2; i <= sheet.RowsCount; i++)
+            int _rowCount = sheet.GetRowCount();
+
+            for (int i = 2; i <= _rowCount; i++)
             {
-                string _account = CorrectAccount(sheet.GetCell(LS, i));
+                string _account = CorrectAccount(sheet.Cell(i, Columns.LS).Value);
 
                 if (!string.IsNullOrEmpty(_account) && _customerIdByAccount.ContainsKey(_account))
                 {
                     int _customerId = _customerIdByAccount[_account];
-                    string _serviceType = sheet.GetCell(GKU, i);
+                    string _serviceType = sheet.Cell(i, Columns.GKU).Value;
                     int? _serviceTypeId = ParseServiceType(_serviceType);
                     if (_serviceTypeId.HasValue)
                     {
-                        if (_serivceTypeIDs.Contains(_serviceTypeId.Value))
+                        if (ServiceTypes.SerivceTypeIDs.Contains(_serviceTypeId.Value))
                         {
-                            if (!accRowDict.ContainsKey(_customerId))
+                            if (!_accRowDict.ContainsKey(_customerId))
                             {
-                                accRowDict.Add(_customerId, new Dictionary<int, int>(4));
+                                _accRowDict.Add(_customerId, new Dictionary<int, int>(4));
                             }
 
-                            if (accRowDict[_customerId].ContainsKey(_serviceTypeId.Value))
+                            if (_accRowDict[_customerId].ContainsKey(_serviceTypeId.Value))
                             {
-                                accRowDict[_customerId][_serviceTypeId.Value] = i;
+                                _accRowDict[_customerId][_serviceTypeId.Value] = i;
                             }
                             else
                             {
-                                accRowDict[_customerId].Add(_serviceTypeId.Value, i);
+                                _accRowDict[_customerId].Add(_serviceTypeId.Value, i);
                             }
                         }
                     }
                 }
+
+                reportProgressAction((i - 1) * 50 / _rowCount);
             }
+
+            return _accRowDict;
         }
 
         private void FillSheet(
             List<CustomerInfo> data,
             Dictionary<int, Dictionary<int, int>> accRowDict,
-            ExcelSheet sheet)
+            IExcelWorksheet sheet,
+            Action<int> reportProgressAction)
         {
+            int _processed = 0;
+            int _count = accRowDict.Values.SelectMany(v => v.Values).Count();
             foreach (CustomerInfo _customerInfo in data)
             {
                 string _squareStr = _customerInfo.Square.ToString().Replace(",", ".");
@@ -622,9 +636,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 {
                     Dictionary<int, int> _rowsByServiceType = accRowDict[_customerInfo.ID];
 
-                    for (int i = 0; i < _serivceTypeIDs.Length; i++)
+                    for (int i = 0; i < ServiceTypes.SerivceTypeIDs.Length; i++)
                     {
-                        int _serviceTypeID = _serivceTypeIDs[i];
+                        int _serviceTypeID = ServiceTypes.SerivceTypeIDs[i];
                         if (_rowsByServiceType.ContainsKey(_serviceTypeID))
                         {
                             FillRow(
@@ -637,19 +651,28 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     ? _customerInfo.DebtMonthCount[_serviceTypeID].ToString()
                                     : "0",
                                 sheet);
+
+                            reportProgressAction(++_processed * 50 / _count + 50);
                         }
                     }
                 }
             }
         }
 
-        private void FillRow(int row, IEnumerable<ServiceTypeData> data, string square, string residentCount, string restrDebt, string monthCount, ExcelSheet sheet)
+        private void FillRow(
+            int row, 
+            IEnumerable<ServiceTypeData> data, 
+            string square, 
+            string residentCount, 
+            string restrDebt, 
+            string monthCount, 
+            IExcelWorksheet sheet)
         {
-            sheet.SetCell(PL, row, square);
-            sheet.SetCell(NORM, row, square);
-            sheet.SetCell(KOLP, row, residentCount);
-            sheet.SetCell(RESTRDOLG, row, restrDebt);
-            sheet.SetCell(MESD, row, monthCount);
+            sheet.Cell(row, Columns.PL).SetValue(square);
+            sheet.Cell(row, Columns.NORM).SetValue(square);
+            sheet.Cell(row, Columns.KOLP).SetValue(residentCount);
+            sheet.Cell(row, Columns.RESTRDOLG).SetValue(restrDebt);
+            sheet.Cell(row, Columns.MESD).SetValue(monthCount);
 
             decimal _charge = 0,
                     _recharge = 0,
@@ -662,42 +685,41 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 _rate += _data.Rate;
             }
 
-            sheet.SetCell(FAKTP, row, _charge.ToString(CultureInfo.InvariantCulture));
-            sheet.SetCell(FAKTPER, row, _recharge.ToString(CultureInfo.InvariantCulture));
-            sheet.SetCell(TARIF, row, _rate.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTP).SetValue(_charge.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTPER).SetValue(_recharge.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.TARIF).SetValue(_rate.ToString(CultureInfo.InvariantCulture));
         }
 
         #endregion
 
         #region Implementation of IBenefitDataExportService
 
-        public string ProcessFile(string inputFileName)
+        public ExportResult Export(string outputPath, string templatePath, DateTime startPeriod, Action<int> progressAction)
         {
-            string _result;
+            ExportResult _result = new ExportResult();
             try
             {
-                using (ExcelSheet _sheet = new ExcelSheet(inputFileName))
+                using (IExcelWorkbook _xwb = ExcelService.OpenWorkbook(templatePath))
                 {
-                    string _periodStr = _sheet.GetCell(PERIOD_COLUMN, 2);
+                    IExcelWorksheet _xws = _xwb.Worksheet(1);
+                    string _periodStr = _xws.Cell(2, Columns.PERIOD_COLUMN).Value;
                     DateTime _period = GetPeriod(_periodStr);
 
-                    Dictionary<int, Dictionary<int, int>> _accRowDict = new Dictionary<int, Dictionary<int, int>>();
-                    FillAccountsDictionaries(_accRowDict, _sheet);
+                    Dictionary<int, Dictionary<int, int>> _accRowDict = Parse(_xws, progressAction);
+                    List<CustomerInfo> _data = GetCustomerInfoList(_period, startPeriod, _accRowDict.Keys.ToList());
 
-                    List<CustomerInfo> _data = GetCustomerInfoList(_period, _accRowDict.Keys.ToList());
+                    FillSheet(_data, _accRowDict, _xws, progressAction);
 
-                    FillSheet(_data, _accRowDict, _sheet);
+                    _xwb.Save();
 
-                    _sheet.Save();
-
-                    _result = "Операция выполнена успешно";
+                    _result.Info = "Операция выполнена успешно";
                 }
             }
             catch (Exception _ex)
             {
-                Logger.SimpleWrite(
-                    $"Benefit Export error: {_ex}");
-                _result = "Произошла ошибка. Операция не выполнена";
+                Logger.SimpleWrite($"Benefit Export error: {_ex}");
+                _result.Info = "Произошла ошибка. Операция не выполнена";
+                progressAction(100);
             }
 
             return _result;

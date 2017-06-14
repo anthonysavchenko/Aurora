@@ -552,7 +552,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             OpenFileDialog _openFileDialog = new OpenFileDialog();
 
             _openFileDialog.Title = "Открыть файл";
-            _openFileDialog.Filter = "Текстовый файл (*.txt)|*.txt|Книга Microsoft Excel 97-2003 (*.xls)|*.xls|Книга Microsoft Excel 2007 (*.xlsx)|*.xlsx";
+            _openFileDialog.Filter = "Текстовый файл (*.txt)|*.txt|Книга Microsoft Excel 2007 (*.xlsx)|*.xlsx";
             _openFileDialog.FilterIndex = 1;
             _openFileDialog.RestoreDirectory = true;
             _openFileDialog.DefaultExt = "txt";
