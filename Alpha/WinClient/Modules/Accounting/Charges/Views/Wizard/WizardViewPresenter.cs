@@ -2031,7 +2031,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         IExcelWorksheet _ws = _wb.Worksheet(1);
                         int _rowCount = _ws.GetRowCount();
 
-                        for (int _row = 1; _row < _rowCount; _row++)
+                        for (int _row = 1; _row <= _rowCount; _row++)
                         {
                             try
                             {
