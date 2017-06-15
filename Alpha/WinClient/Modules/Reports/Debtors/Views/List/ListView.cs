@@ -7,6 +7,7 @@ using DevExpress.XtraGrid.Columns;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
+using System;
 //using BaseReportForGridView = System.Windows.Forms.UserControl;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
@@ -96,6 +97,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
         {
             get => (int)debtMonthCount.Value;
             set => debtMonthCount.Value = value;
+        }
+
+        /// <summary>
+        /// Правая граница ограничения по периоду
+        /// </summary>
+        public DateTime TillDateTime
+        {
+            get => tillDateEdit.DateTime;
+            set => tillDateEdit.DateTime = value;
         }
 
         /// <summary>
