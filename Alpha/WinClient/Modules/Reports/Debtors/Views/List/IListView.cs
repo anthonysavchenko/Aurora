@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
@@ -33,6 +34,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
         /// Нижняя граница количества месяцев долга
         /// </summary>
         int DebtMonthCount { get; set; }
+
+        /// <summary>
+        /// Правая граница ограничения по периоду
+        /// </summary>
+        DateTime TillDateTime { get; set; }
 
         /// <summary>
         /// Улицы
