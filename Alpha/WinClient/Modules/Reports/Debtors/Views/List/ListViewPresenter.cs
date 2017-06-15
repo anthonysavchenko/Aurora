@@ -46,6 +46,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
 
             View.Streets = GetList<Street>();
             View.DebtMinSum = 5000;
+            View.TillDateTime = ServerTime.GetPeriodInfo().LastCharged.AddMonths(-1);
         }
 
         /// <summary>
@@ -93,6 +94,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 CustomerID = x.Customers.ID,
                                 StreetID = x.Customers.Buildings.Streets.ID,
                                 BuildingID = x.Customers.Buildings.ID,
+                                x.ChargeSets.Period,
                                 x.Value
                             })
                         .Concat(_db.ChargeOpers
@@ -103,6 +105,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                     CustomerID = x.Customers.ID,
                                     StreetID = x.Customers.Buildings.Streets.ID,
                                     BuildingID = x.Customers.Buildings.ID,
+                                    x.ChargeCorrectionOpers.Period,
                                     Value = -1 * x.Value
                                 }))
                         .Concat(
@@ -113,6 +116,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.Customers.ID,
                                         StreetID = x.Customers.Buildings.Streets.ID,
                                         BuildingID = x.Customers.Buildings.ID,
+                                        x.RechargeSets.Period,
                                         x.Value
                                     }))
                         .Concat(
@@ -124,6 +128,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.Customers.ID,
                                         StreetID = x.Customers.Buildings.Streets.ID,
                                         BuildingID = x.Customers.Buildings.ID,
+                                        x.ChildChargeCorrectionOpers.Period,
                                         Value = -1 * x.Value
                                     }))
                         .Concat(
@@ -134,6 +139,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.ChargeOpers.Customers.ID,
                                         StreetID = x.ChargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.ChargeOpers.Customers.Buildings.ID,
+                                        x.ChargeOpers.ChargeSets.Period,
                                         x.Value
                                     }))
                         .Concat(
@@ -145,6 +151,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.ChargeOpers.Customers.ID,
                                         StreetID = x.ChargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.ChargeOpers.Customers.Buildings.ID,
+                                        x.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         Value = -1 * x.Value
                                     }))
                         .Concat(
@@ -155,6 +162,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.RechargeOpers.Customers.ID,
                                         StreetID = x.RechargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.RechargeOpers.Customers.Buildings.ID,
+                                        x.RechargeOpers.RechargeSets.Period,
                                         x.Value
                                     }))
                         .Concat(
@@ -166,6 +174,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.RechargeOpers.Customers.ID,
                                         StreetID = x.RechargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.RechargeOpers.Customers.Buildings.ID,
+                                        x.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         Value = -1 * x.Value
                                     }))
                         .Concat(
@@ -176,6 +185,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.Customers.ID,
                                         StreetID = x.Customers.Buildings.Streets.ID,
                                         BuildingID = x.Customers.Buildings.ID,
+                                        Period = x.CreationDateTime,
                                         x.Value
                                     }))
                         .Concat(
@@ -186,6 +196,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.ChargeOpers.Customers.ID,
                                         StreetID = x.ChargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.ChargeOpers.Customers.Buildings.ID,
+                                        x.Period,
                                         x.Value
                                     }))
                         .Concat(
@@ -196,6 +207,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.Customers.ID,
                                         StreetID = x.Customers.Buildings.Streets.ID,
                                         BuildingID = x.Customers.Buildings.ID,
+                                        Period = x.CreationDateTime,
                                         x.Value
                                     }))
                         .Concat(
@@ -206,6 +218,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.PaymentOpers.Customers.ID,
                                         StreetID = x.PaymentOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.PaymentOpers.Customers.Buildings.ID,
+                                        x.Period,
                                         x.Value
                                     }));
 
@@ -218,6 +231,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                 {
                     int _id = int.Parse(View.StreetId);
                     _raw = _raw.Where(x => x.StreetID == _id);
+                }
+
+                if(View.TillDateTime > DateTime.MinValue)
+                {
+                    DateTime _till = View.TillDateTime;
+                    _till = new DateTime(_till.Year, _till.Month, DateTime.DaysInMonth(_till.Year, _till.Month));
+                    _raw = _raw.Where(x => x.Period <= _till);
                 }
 
                 var _raw2 = _raw
