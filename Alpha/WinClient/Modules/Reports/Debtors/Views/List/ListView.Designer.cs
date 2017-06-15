@@ -35,6 +35,7 @@
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buildingLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.houseLabel = new System.Windows.Forms.Label();
@@ -43,6 +44,7 @@
             this.streetLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.minDebtSum = new System.Windows.Forms.NumericUpDown();
+            this.tillDateEdit = new DevExpress.XtraEditors.DateEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
@@ -52,6 +54,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.debtMonthCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minDebtSum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tillDateEdit.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tillDateEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // gridControlOfListView
@@ -63,12 +67,12 @@
             this.gridControlOfListView.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
             this.gridControlOfListView.EmbeddedNavigator.Buttons.First.Visible = false;
             this.gridControlOfListView.EmbeddedNavigator.Buttons.Remove.Visible = false;
-            this.gridControlOfListView.Location = new System.Drawing.Point(0, 69);
+            this.gridControlOfListView.Location = new System.Drawing.Point(0, 108);
             this.gridControlOfListView.MainView = this.gridViewOfListView;
             this.gridControlOfListView.Name = "gridControlOfListView";
             this.gridControlOfListView.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1});
-            this.gridControlOfListView.Size = new System.Drawing.Size(750, 281);
+            this.gridControlOfListView.Size = new System.Drawing.Size(750, 242);
             this.gridControlOfListView.TabIndex = 0;
             this.gridControlOfListView.UseEmbeddedNavigator = true;
             this.gridControlOfListView.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -110,19 +114,19 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(750, 69);
+            this.groupBox1.Size = new System.Drawing.Size(750, 108);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры отчета";
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.buildingLookUpEdit, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.houseLabel, 2, 1);
@@ -131,13 +135,25 @@
             this.tableLayoutPanel1.Controls.Add(this.streetLabel, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.minDebtSum, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel1.Controls.Add(this.tillDateEdit, 1, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 19);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(744, 50);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(744, 79);
             this.tableLayoutPanel1.TabIndex = 41;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(93, 59);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.TabIndex = 42;
+            this.label3.Text = "По:";
             // 
             // label1
             // 
@@ -152,7 +168,7 @@
             // buildingLookUpEdit
             // 
             this.buildingLookUpEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buildingLookUpEdit.Location = new System.Drawing.Point(363, 28);
+            this.buildingLookUpEdit.Location = new System.Drawing.Point(363, 29);
             this.buildingLookUpEdit.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.buildingLookUpEdit.Name = "buildingLookUpEdit";
             this.buildingLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -171,7 +187,7 @@
             // 
             this.houseLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.houseLabel.AutoSize = true;
-            this.houseLabel.Location = new System.Drawing.Point(324, 31);
+            this.houseLabel.Location = new System.Drawing.Point(324, 32);
             this.houseLabel.Name = "houseLabel";
             this.houseLabel.Size = new System.Drawing.Size(33, 13);
             this.houseLabel.TabIndex = 36;
@@ -198,7 +214,7 @@
             // 
             // debtMonthCount
             // 
-            this.debtMonthCount.Location = new System.Drawing.Point(123, 28);
+            this.debtMonthCount.Location = new System.Drawing.Point(123, 29);
             this.debtMonthCount.Maximum = new decimal(new int[] {
             99,
             0,
@@ -223,7 +239,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 31);
+            this.label2.Location = new System.Drawing.Point(16, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 38;
@@ -243,6 +259,24 @@
             this.minDebtSum.TabIndex = 39;
             this.minDebtSum.ThousandsSeparator = true;
             // 
+            // tillDateEdit
+            // 
+            this.tillDateEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tillDateEdit.EditValue = null;
+            this.tillDateEdit.Location = new System.Drawing.Point(123, 55);
+            this.tillDateEdit.Name = "tillDateEdit";
+            this.tillDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.tillDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.tillDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
+            this.tillDateEdit.Properties.DisplayFormat.FormatString = "y";
+            this.tillDateEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.tillDateEdit.Properties.EditFormat.FormatString = "MM.yyyy";
+            this.tillDateEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.tillDateEdit.Properties.Mask.EditMask = "MM.yyyy";
+            this.tillDateEdit.Size = new System.Drawing.Size(114, 20);
+            this.tillDateEdit.TabIndex = 41;
+            // 
             // ListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,6 +295,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.debtMonthCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minDebtSum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tillDateEdit.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tillDateEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -280,5 +316,7 @@
         private DevExpress.XtraEditors.LookUpEdit buildingLookUpEdit;
         private DevExpress.XtraEditors.LookUpEdit streetLookUpEdit;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label3;
+        private DevExpress.XtraEditors.DateEdit tillDateEdit;
     }
 }
