@@ -196,7 +196,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         CustomerID = x.ChargeOpers.Customers.ID,
                                         StreetID = x.ChargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.ChargeOpers.Customers.Buildings.ID,
-                                        x.Period,
+                                        x.ChargeOpers.ChargeSets.Period,
                                         x.Value
                                     }))
                         .Concat(
@@ -236,7 +236,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                 if(View.TillDateTime > DateTime.MinValue)
                 {
                     DateTime _till = View.TillDateTime;
-                    _till = new DateTime(_till.Year, _till.Month, DateTime.DaysInMonth(_till.Year, _till.Month));
+                    _till = new DateTime(_till.Year, _till.Month, DateTime.DaysInMonth(_till.Year, _till.Month), 23, 59, 59);
                     _raw = _raw.Where(x => x.Period <= _till);
                 }
 
