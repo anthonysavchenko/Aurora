@@ -617,11 +617,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     for (int i = 0; i < ServiceTypes.SerivceTypeIDs.Length; i++)
                     {
                         int _serviceTypeID = ServiceTypes.SerivceTypeIDs[i];
-                        if (_rowsByServiceType.ContainsKey(_serviceTypeID))
+                        List<ServiceTypeData> _data = _customerInfo.DataByServiceType.Where(s => s.ID == _serviceTypeID).ToList();
+                        if (_rowsByServiceType.ContainsKey(_serviceTypeID) && _data.Count > 0)
                         {
                             FillRow(
                                 _rowsByServiceType[_serviceTypeID],
-                                _customerInfo.DataByServiceType.Where(s => s.ID == _serviceTypeID),
+                                _data,
                                 _customerInfo.Square,
                                 _residentCountStr,
                                 _restrDebt,
