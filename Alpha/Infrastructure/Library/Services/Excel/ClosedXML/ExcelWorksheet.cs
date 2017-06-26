@@ -13,6 +13,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.ClosedXML
             _ws = ws;
         }
 
+        public void AdjustColumnsToContents()
+        {
+            _ws.Columns().AdjustToContents();
+        }
+
         public IExcelCell Cell(int row, int column)
         {
             return new ExcelCell(_ws.Cell(row, column));
@@ -21,6 +26,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.ClosedXML
         public IExcelCell Cell(int row, string column)
         {
             return new ExcelCell(_ws.Cell(row, column));
+        }
+
+        public int GetLastUsedColumnNumber()
+        {
+            return _ws.LastColumnUsed().ColumnNumber();
         }
 
         public int GetRowCount()

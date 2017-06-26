@@ -86,8 +86,10 @@
     <Compile Include="Services\CustomerPosesImportService.cs" />
     <Compile Include="Services\GisZhkhCustomersImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
+    <Compile Include="Services\IPublicPlaceServiceVolumesImportService.cs" />
     <Compile Include="Services\NewCustomersImportService.cs" />
     <Compile Include="Enums\WizardPages.cs" />
+    <Compile Include="Services\PublicPlaceServiceVolumesImportService.cs" />
     <Compile Include="Views\LayoutView\ILayoutView.cs" />
     <Compile Include="Views\LayoutView\LayoutView.cs">
       <SubType>UserControl</SubType>

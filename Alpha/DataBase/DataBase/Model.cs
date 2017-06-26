@@ -99,6 +99,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_BankDetails", "BankDetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.BankDetails), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DebtBillDocs_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "DebtBillDocs", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DebtBillDocs), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.ServiceTypes), "RegularBillDocSeviceTypePoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RegularBillDocSeviceTypePoses), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "PublicPlaceServiceVolumes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaceServiceVolumes), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Services), "PublicPlaceServiceVolumes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaceServiceVolumes), true)]
 
 #endregion
 
@@ -946,6 +948,22 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<BankDetails> _BankDetails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PublicPlaceServiceVolumes> PublicPlaceServiceVolumes
+        {
+            get
+            {
+                if ((_PublicPlaceServiceVolumes == null))
+                {
+                    _PublicPlaceServiceVolumes = base.CreateObjectSet<PublicPlaceServiceVolumes>("PublicPlaceServiceVolumes");
+                }
+                return _PublicPlaceServiceVolumes;
+            }
+        }
+        private ObjectSet<PublicPlaceServiceVolumes> _PublicPlaceServiceVolumes;
 
         #endregion
 
@@ -1349,6 +1367,14 @@ namespace Taumis.Alpha.DataBase
         public void AddToBankDetails(BankDetails bankDetails)
         {
             base.AddObject("BankDetails", bankDetails);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PublicPlaceServiceVolumes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPublicPlaceServiceVolumes(PublicPlaceServiceVolumes publicPlaceServiceVolumes)
+        {
+            base.AddObject("PublicPlaceServiceVolumes", publicPlaceServiceVolumes);
         }
 
         #endregion
@@ -3300,6 +3326,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BankDetails>("AlphaDataBaseModel.FK_Buildings_BankDetails", "BankDetails", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Buildings", "PublicPlaceServiceVolumes")]
+        public EntityCollection<PublicPlaceServiceVolumes> PublicPlaceServiceVolumes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PublicPlaceServiceVolumes>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "PublicPlaceServiceVolumes");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaceServiceVolumes>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "PublicPlaceServiceVolumes", value);
                 }
             }
         }
@@ -9439,6 +9487,246 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="PublicPlaceServiceVolumes")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PublicPlaceServiceVolumes : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PublicPlaceServiceVolumes object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="period">Initial value of the Period property.</param>
+        /// <param name="volume">Initial value of the Volume property.</param>
+        /// <param name="serviceID">Initial value of the ServiceID property.</param>
+        /// <param name="buildingID">Initial value of the BuildingID property.</param>
+        public static PublicPlaceServiceVolumes CreatePublicPlaceServiceVolumes(global::System.Int32 id, global::System.DateTime period, global::System.Decimal volume, global::System.Int32 serviceID, global::System.Int32 buildingID)
+        {
+            PublicPlaceServiceVolumes publicPlaceServiceVolumes = new PublicPlaceServiceVolumes();
+            publicPlaceServiceVolumes.ID = id;
+            publicPlaceServiceVolumes.Period = period;
+            publicPlaceServiceVolumes.Volume = volume;
+            publicPlaceServiceVolumes.ServiceID = serviceID;
+            publicPlaceServiceVolumes.BuildingID = buildingID;
+            return publicPlaceServiceVolumes;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Period
+        {
+            get
+            {
+                return _Period;
+            }
+            set
+            {
+                OnPeriodChanging(value);
+                ReportPropertyChanging("Period");
+                _Period = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Period");
+                OnPeriodChanged();
+            }
+        }
+        private global::System.DateTime _Period;
+        partial void OnPeriodChanging(global::System.DateTime value);
+        partial void OnPeriodChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Volume
+        {
+            get
+            {
+                return _Volume;
+            }
+            set
+            {
+                OnVolumeChanging(value);
+                ReportPropertyChanging("Volume");
+                _Volume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Volume");
+                OnVolumeChanged();
+            }
+        }
+        private global::System.Decimal _Volume;
+        partial void OnVolumeChanging(global::System.Decimal value);
+        partial void OnVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ServiceID
+        {
+            get
+            {
+                return _ServiceID;
+            }
+            set
+            {
+                OnServiceIDChanging(value);
+                ReportPropertyChanging("ServiceID");
+                _ServiceID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ServiceID");
+                OnServiceIDChanged();
+            }
+        }
+        private global::System.Int32 _ServiceID;
+        partial void OnServiceIDChanging(global::System.Int32 value);
+        partial void OnServiceIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BuildingID
+        {
+            get
+            {
+                return _BuildingID;
+            }
+            set
+            {
+                OnBuildingIDChanging(value);
+                ReportPropertyChanging("BuildingID");
+                _BuildingID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BuildingID");
+                OnBuildingIDChanged();
+            }
+        }
+        private global::System.Int32 _BuildingID;
+        partial void OnBuildingIDChanging(global::System.Int32 value);
+        partial void OnBuildingIDChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Buildings", "Buildings")]
+        public Buildings Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "Buildings").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "Buildings").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Buildings> BuildingsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Buildings>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "Buildings", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Services", "Services")]
+        public Services Services
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Services>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services", "Services").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Services>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services", "Services").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Services> ServicesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Services>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services", "Services");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Services>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services", "Services", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="RebenefitOperPoses")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -12668,6 +12956,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaces>("AlphaDataBaseModel.FK_PublicPlaces_Services", "PublicPlaces", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Services", "PublicPlaceServiceVolumes")]
+        public EntityCollection<PublicPlaceServiceVolumes> PublicPlaceServiceVolumes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PublicPlaceServiceVolumes>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services", "PublicPlaceServiceVolumes");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaceServiceVolumes>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services", "PublicPlaceServiceVolumes", value);
                 }
             }
         }
