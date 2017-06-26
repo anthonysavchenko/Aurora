@@ -1,9 +1,10 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using System;
-using System.Data;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
+using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 //using BaseItemView = System.Windows.Forms.UserControl;
 
@@ -18,19 +19,31 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         [CreateNew]
         public new ItemViewPresenter Presenter
         {
-            get
-            {
-                return (ItemViewPresenter)base.Presenter;
-            }
-            set
-            {
-                base.Presenter = value;
-            }
+            get => (ItemViewPresenter)base.Presenter;
+            set => base.Presenter = value;
         }
 
         public ItemView()
         {
             InitializeComponent();
+            Dictionary<byte, string> _chargeRuleDict =
+                new Dictionary<byte, string>
+                {
+                    { (byte)ChargeRuleType.FixedRate, "Фиксированное" },
+                    { (byte)ChargeRuleType.SquareRate, "По тарифу за кв. м" },
+                    { (byte)ChargeRuleType.ResidentsRate, "По тарифу на количество жильцов" },
+                    { (byte)ChargeRuleType.CounterRate, "По счетчику" },
+                    { (byte)ChargeRuleType.PublicPlaceAreaRate, "Содержание общедового имущества" },
+                    { (byte)ChargeRuleType.PublicPlaceVolumeAreaRate, "Содержание общедового имущества ОДПУ" },
+                    { (byte)ChargeRuleType.PublicPlaceBankCommission, "Банковская комиссия расходов при СОД" }
+                };
+
+            chargeRuleComboBox.DataSource = new BindingSource(_chargeRuleDict, null);
+            chargeRuleComboBox.DisplayMember = "Value";
+            chargeRuleComboBox.ValueMember = "Key";
+
+            serviceTypeComboBox.DisplayMember = "Value";
+            serviceTypeComboBox.ValueMember = "Key";
         }
 
         #region Implementation of IItemView
@@ -38,12 +51,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <summary>
         /// Список типов услуг
         /// </summary>
-        public DataTable ServiceTypes
+        public Dictionary<int, string> ServiceTypes
         {
-            set
-            {
-                serviceTypeLookUpEdit.Properties.DataSource = value;
-            }
+            set => serviceTypeComboBox.DataSource = new BindingSource(value, null);
         }
 
         /// <summary>
@@ -51,14 +61,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public string ServiceName
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain(serviceNameTextBox);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, serviceNameTextBox);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain(serviceNameTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, serviceNameTextBox);
         }
 
         /// <summary>
@@ -66,14 +70,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public string ServiceCode
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain(serviceCodeTextBox);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, serviceCodeTextBox);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain(serviceCodeTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, serviceCodeTextBox);
         }
 
         /// <summary>
@@ -81,87 +79,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public ServiceType ServiceType
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain<ServiceType>(serviceTypeLookUpEdit);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, serviceTypeLookUpEdit);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain<ServiceType>(serviceTypeComboBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, serviceTypeComboBox);
         }
 
         /// <summary>
         /// Правило начисления
         /// </summary>
-        public Service.ChargeRuleType ChargeRule
+        public ChargeRuleType ChargeRule
         {
-            get
-            {
-                if (fixedRuleRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.FixedRate;
-                }
-
-                if (ResidentsRateRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.ResidentsRate;
-                }
-
-                if (squareRuleRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.SquareRate;
-                }
-
-                if(counterRuleRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.CounterRate;
-                }
-
-                if (publicPlaceRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.PublicPlaceAreaRate;
-                }
-
-                if (publicPlaceBankCommissionRadioButton.Checked)
-                {
-                    return Service.ChargeRuleType.PublicPlaceBankCommission;
-                }
-
-                throw new ApplicationException("Не выбрано правило начисления");
-            }
-            set
-            {
-                switch (value)
-                {
-                    case Service.ChargeRuleType.FixedRate:
-                        fixedRuleRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.SquareRate:
-                        squareRuleRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.ResidentsRate:
-                        ResidentsRateRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.CounterRate:
-                        counterRuleRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.PublicPlaceAreaRate:
-                        publicPlaceRadioButton.Checked = true;
-                        break;
-
-                    case Service.ChargeRuleType.PublicPlaceBankCommission:
-                        publicPlaceBankCommissionRadioButton.Checked = true;
-                        break;
-
-                    default:
-                        throw  new ApplicationException("Неизвестный тип правила начисления");
-                }
-            }
+            get => (ChargeRuleType)chargeRuleComboBox.SelectedValue;
+            set => chargeRuleComboBox.SelectedValue = (byte)value;
         }
 
         /// <summary>
@@ -169,14 +97,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public decimal Norm
         {
-            get
-            {
-                return normNumericUpDown.Value;
-            }
-            set
-            {
-                normNumericUpDown.Value = value;
-            }
+            get => normNumericUpDown.Value;
+            set => normNumericUpDown.Value = value;
         }
 
         /// <summary>
@@ -184,26 +106,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public string Measure
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain(normMeasureTextBox);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, normMeasureTextBox);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain(normMeasureTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, normMeasureTextBox);
         }
 
         #endregion
-
-        private void counterRuleRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            Presenter.CheckForCounters(counterRuleRadioButton.Checked);
-        }
-
-        private void publicPlaceRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            Presenter.CheckPublicPlacesOnSave(publicPlaceRadioButton.Checked);
-        }
     }
 }

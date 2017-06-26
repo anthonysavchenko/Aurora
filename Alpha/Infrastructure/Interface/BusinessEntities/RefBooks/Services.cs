@@ -37,7 +37,12 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             /// <summary>
             /// Начисление банковской коммисси в виде процента от расходов СОД
             /// </summary>
-            PublicPlaceBankCommission = 5
+            PublicPlaceBankCommission = 5,
+
+            /// <summary>
+            /// Начиление за квадратный метр только за содержание общедомового имещества (СОД) по объему потребленного ресурса услуги
+            /// </summary>
+            PublicPlaceVolumeAreaRate = 9
         }
 
         private string _name;

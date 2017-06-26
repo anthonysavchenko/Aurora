@@ -1,4 +1,5 @@
-﻿using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
+﻿using System;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
@@ -15,7 +16,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         /// </summary>
         string FilePath { get; }
 
-        void ResetProgress();
+        /// <summary>
+        /// Учетный период
+        /// </summary>
+        DateTime Period { get; set; }
+
         void SetProgress(int percent);
 
         /// <summary>
