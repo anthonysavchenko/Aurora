@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 
@@ -160,7 +161,39 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView
             return _radioButton.Checked;
         }
 
-#endregion
+        public void DomainToView(DomainObject domain, System.Windows.Forms.ComboBox comboBox)
+        {
+            if (domain != null)
+            {
+                comboBox.SelectedValue = int.Parse(domain.ID);
+            }
+            else
+            {
+                comboBox.SelectedIndex = -1;
+            }
+        }
+
+        /// <summary>
+        /// Возвращает значение, выбранное в контроле LookUpEdit, в виде домена
+        /// </summary>
+        /// <typeparam name="TDomain">Домен</typeparam>
+        /// <param name="_lookupEdit">Контрол</param>
+        /// <returns>Домен</returns>
+        public TDomain ViewToDomain<TDomain>(System.Windows.Forms.ComboBox comboBox)
+            where TDomain : DomainObject
+        {
+            TDomain _res = null;
+
+            if (comboBox.SelectedIndex != -1)
+            {
+                string _id = comboBox.SelectedValue.ToString();
+                _res = Presenter.GetItem<TDomain>(_id);
+            }
+
+            return _res;
+        }
+
+        #endregion
 
         #region Контролы DevExpress.XtraEditors
 
