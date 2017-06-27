@@ -1,5 +1,6 @@
 ﻿using Taumis.Alpha.Infrastructure.Library.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services;
 using Taumis.EnterpriseLibrary.Win.Common.Modules.StartUpParams;
 using Taumis.EnterpriseLibrary.Win.Modules.CommonModule;
 using Taumis.Infrastructure.Interface.Constants;
@@ -34,6 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         protected override void AddServices()
         {
             AddLocalService<PaymentDistributionService, PaymentDistributionService>();
+            AddLocalService<PublicPlaceServiceVolumesImportService, IPublicPlaceServiceVolumesImportService>();
         }
     }
 }

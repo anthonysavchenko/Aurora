@@ -79,7 +79,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
             using (Entities _entities = new Entities())
             {
-                _result = null != _entities.Services.FirstOrDefault(x => x.ID == _domainId);
+                _result = null != _entities.PublicPlaces.FirstOrDefault(x => x.ID == _domainId);
             }
 
             return _result;

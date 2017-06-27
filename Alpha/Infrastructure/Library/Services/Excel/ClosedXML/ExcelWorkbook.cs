@@ -1,4 +1,5 @@
-﻿using ClosedXML.Excel;
+﻿using System;
+using ClosedXML.Excel;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.ClosedXML
@@ -15,6 +16,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.ClosedXML
         public ExcelWorkbook(string file)
         {
             _wb = new XLWorkbook(file);
+        }
+
+        public IExcelWorksheet AddWorksheet(string name)
+        {
+            return new ExcelWorksheet(_wb.AddWorksheet(name));
         }
 
         public void Dispose()

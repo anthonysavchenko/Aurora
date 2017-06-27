@@ -4,7 +4,9 @@
     {
         IExcelCell Cell(int row, int column);
         IExcelCell Cell(int row, string column);
-
         int GetRowCount();
+        int GetLastUsedColumnNumber();
+        void AdjustColumnsToContents();
+
     }
 }

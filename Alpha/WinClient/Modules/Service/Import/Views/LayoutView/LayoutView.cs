@@ -2,7 +2,6 @@
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
-using System.Data;
 using System.Windows.Forms;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
@@ -51,9 +50,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     _action = WizardAction.ImportCustomerPoses;
                 }
-                else if(importGisZhkhCustomerIDsRadioButton.Checked)
+                else if (importGisZhkhCustomerIDsRadioButton.Checked)
                 {
                     _action = WizardAction.ImportGisZhkhCustomerIDs;
+                }
+                else if (importPublicPlaceServiceVolumesRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportPublicPlaceServiceVolumes;
                 }
 
                 return _action;
@@ -63,12 +66,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         /// <summary>
         /// Полное имя файла
         /// </summary>
-        public string FilePath
+        public string FilePath => filePathTextEdit.Text;
+
+        /// <summary>
+        /// Учетный период
+        /// </summary>
+        public DateTime Period
         {
             get
             {
-                return filePathTextEdit.Text;
+                DateTime _date = periodDateEdit.DateTime.Date;
+                return new DateTime(_date.Year, _date.Month, 1);
             }
+            set => periodDateEdit.DateTime = value;
         }
 
         /// <summary>
@@ -92,6 +102,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                     ImportWizardControl.SelectedPage = FinishWizardPage;
                     break;
             }
+        }
+
+        public void SetProgress(int value)
+        {
+            ProgressBarControl.Invoke(new MethodInvoker(() =>
+            {
+                ProgressBarControl.EditValue = value;
+                progressProcentLabel.Text = $"Обработано {value}%";
+            }));
+        }
+
+        public string ResultText
+        {
+            set => resultTextBox.Text = value;
         }
 
         private void selectFileButton_Click(object sender, EventArgs e)
@@ -145,6 +169,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             }
         }
 
+        private void ManageFilePageControlsVisibility()
+        {
+            switch (WizardAction)
+            {
+                case WizardAction.ImportPublicPlaceServiceVolumes:
+                    filePanel.Visible = true;
+                    periodPanel.Visible = true;
+                    break;
+                default:
+                    filePanel.Visible = true;
+                    periodPanel.Visible = false;
+                    break;
+            }
+        }
+
         private void ImportWizardControl_SelectedPageChanged(object sender, WizardPageChangedEventArgs e)
         {
             Presenter.OnSelectedPageChanged(ConvertWizardPage(e.Page), e.Direction == Direction.Forward);
@@ -152,35 +191,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
 
         private void ImportWizardControl_SelectedPageChanging(object sender, WizardPageChangingEventArgs e)
         {
-            BaseWizardPage _page = ConvertWizardPage(
-                Presenter.OnSelectingPageChanging(ConvertWizardPage(e.PrevPage), e.Direction == Direction.Forward));
+            WizardPages _nextPage = Presenter.OnSelectingPageChanging(ConvertWizardPage(e.PrevPage), e.Direction == Direction.Forward);
+            BaseWizardPage _page = ConvertWizardPage(_nextPage);
 
             e.Cancel = _page == null;
-            if(!e.Cancel)
+            if (!e.Cancel)
             {
+                if (_nextPage == WizardPages.FilePage)
+                {
+                    ManageFilePageControlsVisibility();
+                }
                 e.Page = _page;
-            }
-        }
-
-        public void ResetProgress()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetProgress(int value)
-        {
-            ProgressBarControl.Invoke(new MethodInvoker(() =>
-            {
-                ProgressBarControl.EditValue = value;
-                progressProcentLabel.Text = $"Обработано {value}%";
-            }));
-        }
-
-        public string ResultText
-        {
-            set
-            {
-                resultTextBox.Text = value;
             }
         }
 
@@ -201,6 +222,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         private void ImportWizardControl_CustomizeCommandButtons(object sender, CustomizeCommandButtonsEventArgs e)
         {
             e.CancelButton.Visible = false;
+        }
+
+        private void importPublicPlaceServiceVolumeTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Presenter.GenerateImportPublicPlaceServiceVolumeTemplate();
         }
     }
 }

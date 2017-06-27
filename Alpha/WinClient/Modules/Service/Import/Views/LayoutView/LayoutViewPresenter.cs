@@ -1,5 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services;
@@ -14,6 +16,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
     {
         [ServiceDependency]
         public IExcelService ExcelService { get; set; }
+
+        [ServiceDependency]
+        public IPublicPlaceServiceVolumesImportService PublicPlaceServiceVolumesImportService { get; set; }
 
         private readonly IImportService _gisZhkhCustomersImportService;
         private readonly IImportService _newCustomersImportService;
@@ -44,6 +49,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     case WizardPages.ChooseMethodPage:
                         _next = WizardPages.FilePage;
+                        View.Period = ServerTime.GetPeriodInfo().FirstUncharged;
                         break;
 
                     case WizardPages.FilePage:
@@ -91,6 +97,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             }
         }
 
+        public void GenerateImportPublicPlaceServiceVolumeTemplate()
+        {
+            SaveFileDialog _dialog =
+                new SaveFileDialog
+                {
+                    Filter = "Excel 2007 (*.xlsx)|*.xlsx",
+                    RestoreDirectory = true,
+                    FileName = "Импорт_СОД.xlsx"
+                };
+
+            if(_dialog.ShowDialog() == DialogResult.OK )
+            {
+                string _info = PublicPlaceServiceVolumesImportService.GenerateTemplate(_dialog.FileName)
+                    ? "Шаблон успешно создан"
+                    : "Не удалось создать шаблон";
+                View.ShowMessage(_info, "Инфо");
+            }
+        }
+
         private BackgroundWorker CreateBackgroundWorker()
         {
             BackgroundWorker _worker = new BackgroundWorker { WorkerReportsProgress = true };
@@ -101,16 +126,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
 
             _worker.DoWork += (sender, args) =>
             {
-                switch(View.WizardAction)
+                Action<int> _reportProgressAction = ((BackgroundWorker)sender).ReportProgress;
+                switch (View.WizardAction)
                 {
                     case WizardAction.ImportNewCustomers:
-                        args.Result = _newCustomersImportService.ProcessFile(View.FilePath, ((BackgroundWorker)sender).ReportProgress);
+                        args.Result = new NewCustomersImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
                         break;
                     case WizardAction.ImportCustomerPoses:
-                        args.Result = _customerPosesImportService.ProcessFile(View.FilePath, ((BackgroundWorker)sender).ReportProgress);
+                        args.Result = new CustomerPosesImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
                         break;
                     case WizardAction.ImportGisZhkhCustomerIDs:
-                        args.Result = _gisZhkhCustomersImportService.ProcessFile(View.FilePath, ((BackgroundWorker)sender).ReportProgress);
+                        args.Result = new GisZhkhCustomersImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
+                        break;
+                    case WizardAction.ImportPublicPlaceServiceVolumes:
+                        args.Result = PublicPlaceServiceVolumesImportService.ProcessFile(View.FilePath, View.Period, _reportProgressAction); 
                         break;
                 }
             };

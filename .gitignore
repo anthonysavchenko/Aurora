@@ -66,3 +66,5 @@
 /Alpha/Server/Core/obj
 /Alpha/Server/Infrastructure/obj
 /Alpha/WinClient/Build/.vs
+/Alpha/DataBase/AlphaDatabase/AlphaDatabase/AlphaDatabase.dbmdl
+/Alpha/DataBase/AlphaDatabase/AlphaDatabase/AlphaDatabase.jfm

@@ -104,6 +104,7 @@
     <Compile Include="DataMappers\RefBook\PrivateCounterDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PublicPlaceDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\PublicPlaceServiceVolumeDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\ResidentDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\ServiceDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\ServiceTypeDataMapper.cs" />

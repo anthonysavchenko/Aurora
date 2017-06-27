@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
@@ -9,7 +9,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <summary>
         /// Список типов услуг
         /// </summary>
-        DataTable ServiceTypes { set; }
+        Dictionary<int, string> ServiceTypes { set; }
 
         /// <summary>
         /// Наименование

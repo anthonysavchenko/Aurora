@@ -139,7 +139,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                                         : domItem.JuridicalPersonFullName,
                             };
 
-                        EmailService.SendCredentials(domItem.User.Login, domItem.User.Aka, _password);
+                        //EmailService.SendCredentials(domItem.User.Login, domItem.User.Aka, _password);
                     }
 
                     domItem.BillSendingSubscription = true;
