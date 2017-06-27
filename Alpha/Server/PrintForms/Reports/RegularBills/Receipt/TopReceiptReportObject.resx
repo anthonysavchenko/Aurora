@@ -619,7 +619,7 @@
     <value>1600.00037, 285.687561</value>
   </data>
   <data name="xrLabel13.Text" xml:space="preserve">
-    <value>Оплата в любых филиалах Сбербанка, ОАО "Примсоцбанк", ОАО "АТБ" кассах и платежных терминалах ПАО АКБ "Приморья", "муниципальный Камчатпрофитбанк", ОАО "Россельхозбанк", почтовых отделениях, терминалах "Влад Плат", "Мой дельфин", ПАО "Роял Кредит Банк"</value>
+    <value>Оплата в любых филиалах Сбербанка</value>
   </data>
   <data name="xrLabel13.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>

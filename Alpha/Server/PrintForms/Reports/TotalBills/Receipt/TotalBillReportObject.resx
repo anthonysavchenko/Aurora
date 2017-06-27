@@ -340,7 +340,7 @@
     <value>1989, 77</value>
   </data>
   <data name="xrLabel8.Text" xml:space="preserve">
-    <value>Оплата в любых филиалах Сбербанка, ОАО "Примсоцбанк", ОАО "АТБ" кассах и платежных терминалах ПАО АКБ "Приморья", "муниципальный Камчатпрофитбанк", ОАО "Россельхозбанк", почтовых отделениях, терминалах "Влад Плат", "Мой дельфин", ПАО "Роял Кредит Банк"</value>
+    <value>Оплата в любых филиалах Сбербанка</value>
   </data>
   <data name="xrLabel8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
