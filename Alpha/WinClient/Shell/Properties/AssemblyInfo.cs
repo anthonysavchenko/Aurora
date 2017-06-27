@@ -5,11 +5,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AuroraAssembly")]
-[assembly: AssemblyDescription("AuroraAssembly")]
+[assembly: AssemblyTitle("Aurora 1871")]
+[assembly: AssemblyDescription("ИС Aurora")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Taumis")]
-[assembly: AssemblyProduct("Aurora")]
+[assembly: AssemblyProduct("Aurora 1871")]
 [assembly: AssemblyCopyright("Copyright © Taumis")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
