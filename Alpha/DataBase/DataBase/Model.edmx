@@ -364,6 +364,16 @@
           <Property Name="BuildingID" Type="int" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PublicPlaceServiceVolumes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Period" Type="date" Nullable="false" />
+          <Property Name="Volume" Type="decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="BuildingID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="RebenefitOperPoses">
           <Key>
             <PropertyRef Name="ID" />
@@ -1228,6 +1238,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PublicPlaceServiceVolumes_Buildings">
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
+          <End Role="PublicPlaceServiceVolumes" Type="Self.PublicPlaceServiceVolumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PublicPlaceServiceVolumes">
+              <PropertyRef Name="BuildingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicPlaceServiceVolumes_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="PublicPlaceServiceVolumes" Type="Self.PublicPlaceServiceVolumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PublicPlaceServiceVolumes">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RebenefitOperPoses_Contractors">
           <End Role="Contractors" Type="Self.Contractors" Multiplicity="1" />
           <End Role="RebenefitOperPoses" Type="Self.RebenefitOperPoses" Multiplicity="*" />
@@ -1567,6 +1601,7 @@
           <EntitySet Name="PrivateCounters" EntityType="Self.PrivateCounters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateCounterValues" EntityType="Self.PrivateCounterValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PublicPlaces" EntityType="Self.PublicPlaces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PublicPlaceServiceVolumes" EntityType="Self.PublicPlaceServiceVolumes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RebenefitOperPoses" EntityType="Self.RebenefitOperPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RebenefitOpers" EntityType="Self.RebenefitOpers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RechargeOperPoses" EntityType="Self.RechargeOperPoses" Schema="dbo" store:Type="Tables" />
@@ -1803,6 +1838,14 @@
           <AssociationSet Name="FK_PublicPlaces_Services" Association="Self.FK_PublicPlaces_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="PublicPlaces" EntitySet="PublicPlaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicPlaceServiceVolumes_Buildings" Association="Self.FK_PublicPlaceServiceVolumes_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="PublicPlaceServiceVolumes" EntitySet="PublicPlaceServiceVolumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicPlaceServiceVolumes_Services" Association="Self.FK_PublicPlaceServiceVolumes_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="PublicPlaceServiceVolumes" EntitySet="PublicPlaceServiceVolumes" />
           </AssociationSet>
           <AssociationSet Name="FK_RebenefitOperPoses_Contractors" Association="Self.FK_RebenefitOperPoses_Contractors">
             <End Role="Contractors" EntitySet="Contractors" />
@@ -2279,6 +2322,15 @@
           <AssociationSet Name="FK_RegularBillDocSeviceTypePoses_ServiceTypes" Association="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes">
             <End Role="ServiceTypes" EntitySet="ServiceTypes" />
             <End Role="RegularBillDocSeviceTypePoses" EntitySet="RegularBillDocSeviceTypePoses" />
+          </AssociationSet>
+          <EntitySet Name="PublicPlaceServiceVolumes" EntityType="AlphaDataBaseModel.PublicPlaceServiceVolumes" />
+          <AssociationSet Name="FK_PublicPlaceServiceVolumes_Buildings" Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="PublicPlaceServiceVolumes" EntitySet="PublicPlaceServiceVolumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicPlaceServiceVolumes_Services" Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="PublicPlaceServiceVolumes" EntitySet="PublicPlaceServiceVolumes" />
           </AssociationSet></EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
@@ -2365,6 +2417,7 @@
           <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Buildings" FromRole="Buildings" ToRole="PublicPlaces" />
           <Property Name="BankDetailID" Type="Int32" />
           <NavigationProperty Name="BankDetails" Relationship="AlphaDataBaseModel.FK_Buildings_BankDetails" FromRole="Buildings" ToRole="BankDetails" />
+          <NavigationProperty Name="PublicPlaceServiceVolumes" Relationship="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings" FromRole="Buildings" ToRole="PublicPlaceServiceVolumes" />
         </EntityType>
         <EntityType Name="ChargeCorrectionOperPoses">
           <Key>
@@ -2800,6 +2853,7 @@
           <Property Name="Norm" Type="Decimal" Precision="9" Scale="3" />
           <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Services" FromRole="Services" ToRole="PublicPlaces" />
           <Property Name="Measure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PublicPlaceServiceVolumes" Relationship="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services" FromRole="Services" ToRole="PublicPlaceServiceVolumes" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -3279,6 +3333,42 @@
             </Principal>
             <Dependent Role="RegularBillDocSeviceTypePoses">
               <PropertyRef Name="ServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PublicPlaceServiceVolumes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Volume" Type="Decimal" Nullable="false" Precision="9" Scale="3" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="BuildingID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings" FromRole="PublicPlaceServiceVolumes" ToRole="Buildings" />
+          <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services" FromRole="PublicPlaceServiceVolumes" ToRole="Services" />
+        </EntityType>
+        <Association Name="FK_PublicPlaceServiceVolumes_Buildings">
+          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.PublicPlaceServiceVolumes" Role="PublicPlaceServiceVolumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PublicPlaceServiceVolumes">
+              <PropertyRef Name="BuildingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicPlaceServiceVolumes_Services">
+          <End Type="AlphaDataBaseModel.Services" Role="Services" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.PublicPlaceServiceVolumes" Role="PublicPlaceServiceVolumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PublicPlaceServiceVolumes">
+              <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association></Schema>
@@ -4407,6 +4497,17 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PublicPlaceServiceVolumes">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.PublicPlaceServiceVolumes">
+              <MappingFragment StoreEntitySet="PublicPlaceServiceVolumes">
+                <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
           </EntitySetMapping></EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -5034,6 +5135,9 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BankDetails" Width="1.5" PointX="4.375" PointY="1" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_BankDetails" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DebtBillDocs_Customers" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes" /></edmx:Diagram></edmx:Diagrams>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PublicPlaceServiceVolumes" Width="1.5" PointX="9.25" PointY="19" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
