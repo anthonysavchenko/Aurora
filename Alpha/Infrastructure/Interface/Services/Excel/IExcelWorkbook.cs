@@ -7,6 +7,8 @@ namespace Taumis.Alpha.Infrastructure.Interface.Services.Excel
         IExcelWorksheet Worksheet(string name);
         IExcelWorksheet Worksheet(int position);
 
+        IExcelWorksheet AddWorksheet(string name);
+
         void Save();
         void SaveAs(string file);
     }
