@@ -431,6 +431,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                 UserHolder.User.Aka);
                         }
 
+                        decimal _chargeSum   = 0,
+                                _benefitSum  = 0,
+                                _rechargeSum = 0,
+                                _payableSum  = 0,
+                                _paymentSum  = 0,
+                                _debtSum     = 0;
+
+
                         // Заполнение таблицы балансов по типам услуг за месяц
                         foreach (KeyValuePair<Key, Balance> _serviceTypeBalance in _periodBalance.ServiceBalances.Balances)
                         {
@@ -448,13 +456,39 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                 _serviceTypeBalance.Value.Payable,
                                 Math.Abs(_serviceTypeBalance.Value.Payment),
                                 _serviceTypeBalance.Value.Debt);
+
+                            _chargeSum += _serviceTypeBalance.Value.Charge;
+                            _benefitSum += _serviceTypeBalance.Value.Benefit;
+                            _rechargeSum += _serviceTypeBalance.Value.Recharge;
+                            _payableSum += _serviceTypeBalance.Value.Payable;
+                            _paymentSum += _serviceTypeBalance.Value.Payment;
+                            _debtSum += _serviceTypeBalance.Value.Debt;
                         }
+
+                        _posesTable.Rows.Add(
+                            _reportNumber,
+                            _periodBalance.Period.ToString("MMMM yyyy"),
+                            _groupNumber,
+                            "Итого",
+                            _chargeSum,
+                            Math.Abs(_benefitSum),
+                            _rechargeSum,
+                            _payableSum,
+                            Math.Abs(_paymentSum),
+                            _debtSum);
 
                         _groupNumber++;
 
                         // Заполенение таблицы балансов по типа услуг за год
                         if (i + 1 == _periodBalances.Length || _periodBalances[i + 1].Period.Year != _periodBalance.Period.Year)
                         {
+                            _chargeSum   = 0;
+                            _benefitSum  = 0;
+                            _rechargeSum = 0;
+                            _payableSum  = 0;
+                            _paymentSum  = 0;
+                            _debtSum     = 0;
+
                             foreach (KeyValuePair<Key, Balance> _serviceTypeBalance in _yearBalances.Balances)
                             {
                                 _posesTable.Rows.Add(
@@ -468,7 +502,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     _serviceTypeBalance.Value.Payable,
                                     Math.Abs(_serviceTypeBalance.Value.Payment),
                                     _serviceTypeBalance.Value.Debt);
+
+                                _chargeSum += _serviceTypeBalance.Value.Charge;
+                                _benefitSum += _serviceTypeBalance.Value.Benefit;
+                                _rechargeSum += _serviceTypeBalance.Value.Recharge;
+                                _payableSum += _serviceTypeBalance.Value.Payable;
+                                _paymentSum += _serviceTypeBalance.Value.Payment;
+                                _debtSum += _serviceTypeBalance.Value.Debt;
                             }
+
+                            _posesTable.Rows.Add(
+                                _reportNumber,
+                                _periodBalance.Period.ToString("yyyy"),
+                                _groupNumber,
+                                "Итого",
+                                _chargeSum,
+                                Math.Abs(_benefitSum),
+                                _rechargeSum,
+                                _payableSum,
+                                Math.Abs(_paymentSum),
+                                _debtSum);
 
                             _yearBalances.Balances.Clear();
                             _groupNumber++;
@@ -479,6 +532,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                         {
                             _lastReportRow["SinceTillPeriods"] = 
                                 string.Format("{0}{1:MMMM yyyy}", _lastReportRow["SinceTillPeriods"], _periodBalance.Period);
+
+                            _chargeSum   = 0;
+                            _benefitSum  = 0;
+                            _rechargeSum = 0;
+                            _payableSum  = 0;
+                            _paymentSum  = 0;
+                            _debtSum     = 0;
 
                             foreach (KeyValuePair<Key, Balance> _serviceTypeBalance in _reportBalances.Balances)
                             {
@@ -493,7 +553,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     _serviceTypeBalance.Value.Payable,
                                     Math.Abs(_serviceTypeBalance.Value.Payment),
                                     _serviceTypeBalance.Value.Debt);
+
+                                _chargeSum += _serviceTypeBalance.Value.Charge;
+                                _benefitSum += _serviceTypeBalance.Value.Benefit;
+                                _rechargeSum += _serviceTypeBalance.Value.Recharge;
+                                _payableSum += _serviceTypeBalance.Value.Payable;
+                                _paymentSum += _serviceTypeBalance.Value.Payment;
+                                _debtSum += _serviceTypeBalance.Value.Debt;
                             }
+
+                            _posesTable.Rows.Add(
+                                _reportNumber,
+                                "Итого",
+                                _groupNumber,
+                                "Итого",
+                                _chargeSum,
+                                Math.Abs(_benefitSum),
+                                _rechargeSum,
+                                _payableSum,
+                                Math.Abs(_paymentSum),
+                                _debtSum);
 
                             _reportBalances.Balances.Clear();
                             _groupNumber++;
