@@ -52,7 +52,12 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             /// <summary>
             /// Начисление по общему счетчику пропорционально сумме площадей абонентов, которым назначена услуга
             /// </summary>
-            CommonCounterByAssignedCustomerAreaRate = 8
+            CommonCounterByAssignedCustomerAreaRate = 8,
+
+            /// <summary>
+            /// Начиление за квадратный метр только за содержание общедомового имещества (СОД) по объему потребленного ресурса услуги
+            /// </summary>
+            PublicPlaceVolumeAreaRate = 9
         }
 
         private string _name;

@@ -238,7 +238,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         switch (View.ChargeType)
                         {
                             case ChargeType.Regular:
-                                if (IsAllCounterValuesPresent(_periodInfo.FirstUncharged, _periodInfo.LastCharged))
+                                if (IsAllCounterValuesPresent(_periodInfo.FirstUncharged, _periodInfo.LastCharged) 
+                                    && IsPublicPlaceServiceVolumesFilledUp(ServerTime.GetDateTimeInfo().Now, _periodInfo.FirstUncharged))
                                 {
                                     _next = WizardPages.BackupPage;
                                 }
@@ -1103,6 +1104,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 }
                                                 break;
 
+                                            case Service.ChargeRuleType.PublicPlaceVolumeAreaRate:
+                                                {
+                                                    decimal _volume = _db.PublicPlaceServiceVolumes
+                                                        .Where(x => x.BuildingID == _building.BuildingID && x.ServiceID == _service.ID && x.Period == _currentPeriod)
+                                                        .Select(x => x.Volume)
+                                                        .FirstOrDefault();
+
+                                                    decimal _rate =
+                                                        Math.Round(_volume / _building.Area * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                    _chargeValue = _customer.Square * _rate;
+                                                    _customerPos.Rate = _rate;
+                                                }
+                                                break;
+
                                             case Service.ChargeRuleType.PublicPlaceBankCommission:
                                                 {
                                                     decimal _publicPlaceAreaRateSum =
@@ -1864,18 +1879,34 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         break;
 
                                     case Service.ChargeRuleType.PublicPlaceAreaRate:
+                                        {
                                             PublicPlaces _pp = _db.PublicPlaces
                                                 .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
 
-                                            decimal _norm = _services[_customerPos.ServiceID].Norm ?? 0;
+                                            decimal? _norm = _services[_customerPos.ServiceID].Norm;
 
-                                            if (_pp != null)
+                                            if (_pp != null && _norm.HasValue && _area > 0)
                                             {
-                                                decimal _rate = Math.Round(_norm * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                decimal _rate = Math.Round(_norm.Value * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                 _value = _customer.Square * _rate;
                                                 // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                 _customerPos.Rate = _rate;
                                             }
+                                        }
+                                        break;
+
+                                    case Service.ChargeRuleType.PublicPlaceVolumeAreaRate:
+                                        {
+                                            decimal _volume = _db.PublicPlaceServiceVolumes
+                                                .Where(x => x.BuildingID == _customer.BuildingID && x.ServiceID == _customerPos.ServiceID && x.Period == _period)
+                                                .Select(x => x.Volume)
+                                                .FirstOrDefault();
+
+                                            decimal _rate =
+                                                Math.Round(_volume / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                            _value = _customer.Square * _rate;
+                                            _customerPos.Rate = _rate;
+                                        }
                                         break;
 
                                     case Service.ChargeRuleType.PublicPlaceBankCommission:
@@ -2329,17 +2360,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         case Service.ChargeRuleType.PublicPlaceAreaRate:
                                             {
                                                 PublicPlaces _pp = _db.PublicPlaces
-                                                    .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
-                                                decimal _norm = _services[_customerPos.ServiceID].Norm ?? 0;
+                                                    .FirstOrDefault(pp =>
+                                                        pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
 
-                                                if (_pp != null && _norm > 0 && _buildingArea > 0)
+                                                decimal? _norm = _services[_customerPos.ServiceID].Norm;
+
+                                                if (_pp != null && _norm.HasValue && _buildingArea > 0)
                                                 {
-                                                    decimal _rate =
-                                                        Math.Round(_norm * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                    decimal _rate = Math.Round(_norm.Value * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                     _value = _customer.Square * _rate;
-                                                    // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
-                                                    _customerPos.Rate = _rate;
                                                 }
+                                            }
+                                            break;
+
+                                        case Service.ChargeRuleType.PublicPlaceVolumeAreaRate:
+                                            {
+                                                decimal _volume = _db.PublicPlaceServiceVolumes
+                                                    .Where(x => x.BuildingID == _customer.BuildingID && x.ServiceID == _customerPos.ServiceID && x.Period == _period)
+                                                    .Select(x => x.Volume)
+                                                    .FirstOrDefault();
+
+                                                decimal _rate =
+                                                    Math.Round(_volume / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                _value = _customer.Square * _rate;
                                             }
                                             break;
 
@@ -2583,13 +2626,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     });
                             }
 
-                            _entities.SaveChanges();
-                        }
-                        else
-                        {
+                        _entities.SaveChanges();
+                    }
+                    else
+                    {
                             View.ShowMessage(
-                                "Выполнение начислений невозможно, введите показания всех приборов учета за текущий период", 
-                                "Ошибка");
+                                    "Выполнение начислений невозможно, введите показания всех приборов учета за текущий период",
+                                    "Ошибка");
                             _result = false;
                         }
                     }
@@ -2597,11 +2640,40 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 else
                 {
                     View.ShowMessage(
-                        "Внесены показания не всех приборов учета за прошлый период. Выполнение начислений невозможно.", 
+                        "Внесены показания не всех приборов учета за прошлый период. Выполнение начислений невозможно.",
                         "Ошибка");
                     _result = false;
                 }
             }
+            return _result;
+        }
+
+        private bool IsPublicPlaceServiceVolumesFilledUp(DateTime now, DateTime period)
+        {
+            bool _result;
+            bool _needValidation;
+            
+            using (Entities _db = new Entities())
+            {
+                _needValidation = _db.CustomerPoses.Any(x => x.Till >= now && x.Services.ChargeRule == (byte)Service.ChargeRuleType.PublicPlaceVolumeAreaRate);
+                _result = _db.PublicPlaceServiceVolumes.Any(x => x.Period == period);
+            }
+
+            if(_needValidation && !_result)
+            {
+                DialogResult _dialogResult = MessageBox.Show(
+                        "Отсутсвуют данные по потребленным объемам коммунальных услуг при содержании общедомового имущества за начисляемый период. Продолжить?",
+                        "Отсутствуют данные объемов комм. услуг при СОД",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                _result = _dialogResult == DialogResult.Yes;
+            }
+            else
+            {
+                _result = true;
+            }
+
             return _result;
         }
 

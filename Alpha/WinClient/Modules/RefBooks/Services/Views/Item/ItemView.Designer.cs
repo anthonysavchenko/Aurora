@@ -33,14 +33,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.serviceNameTextBox = new System.Windows.Forms.TextBox();
             this.serviceCodeTextBox = new System.Windows.Forms.TextBox();
-            this.serviceTypeLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.label4 = new System.Windows.Forms.Label();
             this.normNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.normMeasureTextBox = new System.Windows.Forms.TextBox();
             this.chargeRuleComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.serviceTypeLookUpEdit.Properties)).BeginInit();
+            this.serviceTypeComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.normNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,26 +88,10 @@
             this.serviceCodeTextBox.Size = new System.Drawing.Size(302, 20);
             this.serviceCodeTextBox.TabIndex = 1;
             // 
-            // serviceTypeLookUpEdit
-            // 
-            this.serviceTypeLookUpEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.serviceTypeLookUpEdit.Location = new System.Drawing.Point(120, 58);
-            this.serviceTypeLookUpEdit.Name = "serviceTypeLookUpEdit";
-            this.serviceTypeLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.serviceTypeLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Наименование")});
-            this.serviceTypeLookUpEdit.Properties.DisplayMember = "Name";
-            this.serviceTypeLookUpEdit.Properties.ValueMember = "ID";
-            this.serviceTypeLookUpEdit.Size = new System.Drawing.Size(302, 20);
-            this.serviceTypeLookUpEdit.TabIndex = 2;
-            this.serviceTypeLookUpEdit.Tag = "Aka";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 86);
+            this.label4.Location = new System.Drawing.Point(58, 88);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 4;
@@ -117,7 +100,7 @@
             // normNumericUpDown
             // 
             this.normNumericUpDown.DecimalPlaces = 3;
-            this.normNumericUpDown.Location = new System.Drawing.Point(120, 84);
+            this.normNumericUpDown.Location = new System.Drawing.Point(120, 85);
             this.normNumericUpDown.Name = "normNumericUpDown";
             this.normNumericUpDown.Size = new System.Drawing.Size(70, 20);
             this.normNumericUpDown.TabIndex = 5;
@@ -126,7 +109,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(196, 86);
+            this.label5.Location = new System.Drawing.Point(196, 88);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 13);
             this.label5.TabIndex = 6;
@@ -134,7 +117,7 @@
             // 
             // normMeasureTextBox
             // 
-            this.normMeasureTextBox.Location = new System.Drawing.Point(250, 83);
+            this.normMeasureTextBox.Location = new System.Drawing.Point(251, 85);
             this.normMeasureTextBox.MaxLength = 10;
             this.normMeasureTextBox.Name = "normMeasureTextBox";
             this.normMeasureTextBox.Size = new System.Drawing.Size(70, 20);
@@ -145,7 +128,7 @@
             this.chargeRuleComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chargeRuleComboBox.FormattingEnabled = true;
-            this.chargeRuleComboBox.Location = new System.Drawing.Point(120, 110);
+            this.chargeRuleComboBox.Location = new System.Drawing.Point(120, 111);
             this.chargeRuleComboBox.Name = "chargeRuleComboBox";
             this.chargeRuleComboBox.Size = new System.Drawing.Size(302, 21);
             this.chargeRuleComboBox.TabIndex = 8;
@@ -153,23 +136,33 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 113);
+            this.label6.Location = new System.Drawing.Point(1, 114);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 9;
             this.label6.Text = "Правило начисления";
             // 
+            // serviceTypeComboBox
+            // 
+            this.serviceTypeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.serviceTypeComboBox.FormattingEnabled = true;
+            this.serviceTypeComboBox.Location = new System.Drawing.Point(120, 58);
+            this.serviceTypeComboBox.Name = "serviceTypeComboBox";
+            this.serviceTypeComboBox.Size = new System.Drawing.Size(302, 21);
+            this.serviceTypeComboBox.TabIndex = 10;
+            // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.serviceTypeComboBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chargeRuleComboBox);
             this.Controls.Add(this.normMeasureTextBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.normNumericUpDown);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.serviceTypeLookUpEdit);
             this.Controls.Add(this.serviceCodeTextBox);
             this.Controls.Add(this.serviceNameTextBox);
             this.Controls.Add(this.label3);
@@ -177,7 +170,6 @@
             this.Controls.Add(this.label1);
             this.Name = "ItemView";
             this.Size = new System.Drawing.Size(425, 176);
-            ((System.ComponentModel.ISupportInitialize)(this.serviceTypeLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.normNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,12 +182,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox serviceNameTextBox;
         private System.Windows.Forms.TextBox serviceCodeTextBox;
-        private DevExpress.XtraEditors.LookUpEdit serviceTypeLookUpEdit;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown normNumericUpDown;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox normMeasureTextBox;
         private System.Windows.Forms.ComboBox chargeRuleComboBox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox serviceTypeComboBox;
     }
 }

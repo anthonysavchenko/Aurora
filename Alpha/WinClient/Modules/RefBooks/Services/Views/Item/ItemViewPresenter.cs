@@ -1,18 +1,49 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using Taumis.EnterpriseLibrary.Win.Constants;
+using Taumis.EnterpriseLibrary.Win.Services;
+using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
 {
     public class ItemViewPresenter : BaseMainItemViewPresenter<IItemView, Service>
     {
-        private bool _checkForCounters;
-        private bool _checkPublicPlaces;
+        private ChargeRuleType _oldChargeRule;
 
         #region Overrides of BaseMainItemViewPresenter<IItemView,Service>
+
+        protected override void OnViewSet()
+        {
+            base.OnViewSet();
+            View.ServiceTypes = GetServiceTypes();
+        }
+
+        private Dictionary<int, string> GetServiceTypes()
+        {
+            Dictionary<int, string> _result;
+
+            try
+            {
+                using (Entities _db = new Entities())
+                {
+                    _result = _db.ServiceTypes
+                        .OrderBy(st => st.Name)
+                        .ToDictionary(st => st.ID, st => st.Name);
+                }
+            }
+            catch(Exception _ex)
+            {
+                Logger.SimpleWrite($"Справочник \"Услуги\". Ошибка {_ex}");
+                _result = new Dictionary<int, string>();
+            }
+
+            return _result;
+        }
 
         /// <summary>
         /// Отображает домен на всех видах
@@ -38,6 +69,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
             _domItem.Name = View.ServiceName;
             _domItem.Code = View.ServiceCode;
             _domItem.ServiceType = View.ServiceType;
+            _oldChargeRule = _domItem.ChargeRule;
             _domItem.ChargeRule = View.ChargeRule;
             _domItem.Norm = View.Norm == 0 ? (decimal?)null : View.Norm;
             _domItem.Measure = View.Measure;
@@ -68,7 +100,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
                 _error.AppendLine("- Не указан тип услуги");
             }
 
-            if (_error.Length == 0 && _checkForCounters)
+            if (_error.Length == 0 && _oldChargeRule == ChargeRuleType.CounterRate && _domItem.ChargeRule != _oldChargeRule)
             {
                 Service _service = (Service)WorkItem.State[CommonStateNames.CurrentItem];
                 int _id = int.Parse(_service.ID);
@@ -87,20 +119,36 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
                 }
             }
 
-            if (_error.Length == 0 && _checkPublicPlaces)
+            if (_error.Length == 0 
+                && (_oldChargeRule == ChargeRuleType.PublicPlaceAreaRate || _oldChargeRule == ChargeRuleType.PublicPlaceVolumeAreaRate)
+                && _domItem.ChargeRule != _oldChargeRule)
             {
                 Service _service = (Service)WorkItem.State[CommonStateNames.CurrentItem];
                 int _id = int.Parse(_service.ID);
                 bool _exist;
-
-                using (Entities _entities = new Entities())
+                if (_oldChargeRule == ChargeRuleType.PublicPlaceAreaRate)
                 {
-                    _exist = _entities.PublicPlaces.Any(p => p.ServiceID == _id);
+                    using (Entities _entities = new Entities())
+                    {
+                        _exist = _entities.PublicPlaces.Any(p => p.ServiceID == _id);
+                    }
+
+                    if (_exist)
+                    {
+                        _error.Append("Нельзя изменить правило начисления, так как с данной услугой связано одно или несколько мест общего пользования");
+                    }
                 }
-
-                if (_exist)
+                else
                 {
-                    _error.Append("Нельзя изменить правило начисления, так как с данной услугой связано одно или несколько мест общего пользования");
+                    using (Entities _entities = new Entities())
+                    {
+                        _exist = _entities.PublicPlaceServiceVolumes.Any(p => p.ServiceID == _id);
+                    }
+
+                    if (_exist)
+                    {
+                        _error.Append("Нельзя изменить правило начисления, так как с данной услугой связаны данные об объемах потребленного комм. ресурса при СОД");
+                    }
                 }
             }
 
@@ -110,23 +158,5 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         }
 
         #endregion
-
-        /// <summary>
-        /// Проверяет привязаны ли счетчики к редактируемой услуге
-        /// </summary>
-        /// <returns></returns>
-        public void CheckForCounters(bool radioBtnChecked)
-        {
-            _checkForCounters = !radioBtnChecked && (string)WorkItem.State[CommonStateNames.EditItemState] == CommonEditItemStates.Edit;
-        }
-
-        /// <summary>
-        /// Проверяет привязаны ли МОП к редактируемой услуге
-        /// </summary>
-        /// <param name="radioBtnChecked"></param>
-        public void CheckPublicPlacesOnSave(bool radioBtnChecked)
-        {
-            _checkPublicPlaces = !radioBtnChecked && (string)WorkItem.State[CommonStateNames.EditItemState] == CommonEditItemStates.Edit;
-        }
     }
 }

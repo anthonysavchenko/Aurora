@@ -18,6 +18,11 @@
         /// <summary>
         /// Импортировать ID абонентов из ГИС ЖКХ
         /// </summary>
-        ImportGisZhkhCustomerIDs
+        ImportGisZhkhCustomerIDs,
+
+        /// <summary>
+        /// Импортировать данные по потребленным объемам коммунального ресурса при содержании общедомового имущества за период
+        /// </summary>
+        ImportPublicPlaceServiceVolumes
     }
 }

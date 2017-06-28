@@ -1,8 +1,6 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
@@ -21,14 +19,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         [CreateNew]
         public new ItemViewPresenter Presenter
         {
-            get
-            {
-                return (ItemViewPresenter)base.Presenter;
-            }
-            set
-            {
-                base.Presenter = value;
-            }
+            get => (ItemViewPresenter)base.Presenter;
+            set => base.Presenter = value;
         }
 
         public ItemView()
@@ -45,12 +37,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
                     { (byte)ChargeRuleType.CommonCounterByHeatedAreaRate, "По общему счетчику пропорционально отапливаемой площади" },
                     { (byte)ChargeRuleType.CommonCounterByAssignedCustomerAreaRate, "По общему счетчику пропорционально сумме площадей абонентов, которым назначена услуга" },
                     { (byte)ChargeRuleType.PublicPlaceAreaRate, "Содержание общедового имущества (СОД)" },
+                    { (byte)ChargeRuleType.PublicPlaceVolumeAreaRate, "Содержание общедового имущества ОДПУ" },
                     { (byte)ChargeRuleType.PublicPlaceBankCommission, "Банковская комиссия расходов при СОД" }
                 };
 
             chargeRuleComboBox.DataSource = new BindingSource(_chargeRuleDict, null);
             chargeRuleComboBox.DisplayMember = "Value";
             chargeRuleComboBox.ValueMember = "Key";
+
+            serviceTypeComboBox.DisplayMember = "Value";
+            serviceTypeComboBox.ValueMember = "Key";
         }
 
         #region Implementation of IItemView
@@ -58,12 +54,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <summary>
         /// Список типов услуг
         /// </summary>
-        public DataTable ServiceTypes
+        public Dictionary<int, string> ServiceTypes
         {
-            set
-            {
-                serviceTypeLookUpEdit.Properties.DataSource = value;
-            }
+            set => serviceTypeComboBox.DataSource = new BindingSource(value, null);
         }
 
         /// <summary>
@@ -71,14 +64,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public string ServiceName
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain(serviceNameTextBox);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, serviceNameTextBox);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain(serviceNameTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, serviceNameTextBox);
         }
 
         /// <summary>
@@ -86,14 +73,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public string ServiceCode
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain(serviceCodeTextBox);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, serviceCodeTextBox);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain(serviceCodeTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, serviceCodeTextBox);
         }
 
         /// <summary>
@@ -101,14 +82,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public ServiceType ServiceType
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain<ServiceType>(serviceTypeLookUpEdit);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, serviceTypeLookUpEdit);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain<ServiceType>(serviceTypeComboBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, serviceTypeComboBox);
         }
 
         /// <summary>
@@ -116,14 +91,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public ChargeRuleType ChargeRule
         {
-            get
-            {
-                return (ChargeRuleType)chargeRuleComboBox.SelectedValue;
-            }
-            set
-            {
-                chargeRuleComboBox.SelectedValue = (byte)value;
-            }
+            get => (ChargeRuleType)chargeRuleComboBox.SelectedValue;
+            set => chargeRuleComboBox.SelectedValue = (byte)value;
         }
 
         /// <summary>
@@ -131,14 +100,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public decimal Norm
         {
-            get
-            {
-                return normNumericUpDown.Value;
-            }
-            set
-            {
-                normNumericUpDown.Value = value;
-            }
+            get => normNumericUpDown.Value;
+            set => normNumericUpDown.Value = value;
         }
 
         /// <summary>
@@ -146,14 +109,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// </summary>
         public string Measure
         {
-            get
-            {
-                return GetSimpleItemViewMapper.ViewToDomain(normMeasureTextBox);
-            }
-            set
-            {
-                GetSimpleItemViewMapper.DomainToView(value, normMeasureTextBox);
-            }
+            get => GetSimpleItemViewMapper.ViewToDomain(normMeasureTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, normMeasureTextBox);
         }
 
         #endregion
