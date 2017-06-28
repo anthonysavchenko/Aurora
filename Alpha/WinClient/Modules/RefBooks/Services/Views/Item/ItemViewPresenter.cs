@@ -51,7 +51,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <param name="_domItem">Объект домена</param>
         protected override void ShowDomainOnAllViews(Service _domItem)
         {
-            View.ServiceTypes = GetList<ServiceType>();
             View.ServiceName = _domItem.Name;
             View.ServiceCode = _domItem.Code;
             View.ServiceType = _domItem.ServiceType;

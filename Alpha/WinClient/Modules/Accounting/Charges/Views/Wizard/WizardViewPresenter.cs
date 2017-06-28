@@ -1885,7 +1885,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                             decimal? _norm = _services[_customerPos.ServiceID].Norm;
 
-                                            if (_pp != null && _norm.HasValue && _area > 0)
+                                            if (_pp != null && _norm.HasValue && _buildingArea > 0)
                                             {
                                                 decimal _rate = Math.Round(_norm.Value * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                 _value = _customer.Square * _rate;
