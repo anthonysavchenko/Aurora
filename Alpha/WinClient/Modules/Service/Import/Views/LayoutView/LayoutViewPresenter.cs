@@ -1,7 +1,9 @@
 ﻿using Microsoft.Practices.CompositeUI;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
+using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services;
@@ -78,6 +80,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             if(!_result)
             {
                 View.ShowMessage("Выберите файл для импорта данных", "Ошибка");
+            }
+
+            if (View.WizardAction == WizardAction.ImportPublicPlaceServiceVolumes)
+            {
+                _result = ValidateImportPeriod(View.Period);
+            }
+
+            return _result;
+        }
+
+        private bool ValidateImportPeriod(DateTime period)
+        {
+            bool _result;
+
+            using (Entities _db = new Entities())
+            {
+                _result = _db.PublicPlaceServiceVolumes.Any(x => x.Period == period);
+            }
+
+            if(_result)
+            {
+                DialogResult _answer = MessageBox.Show(
+                        $"Данные за {period:MMMM yyyy} уже импортированы, при новом импорте они будут перезаписаны. Продолжить?",
+                        $"Импорт данных за {period:MMMM yyyy}",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                _result = _answer == DialogResult.Yes;
+            }
+            else
+            {
+                _result = true;
             }
 
             return _result;
