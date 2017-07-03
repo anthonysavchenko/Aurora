@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
@@ -174,70 +175,84 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
         {
             Dictionary<int, List<ServiceVolume>> _data = null;
 
-            using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(inputFileName))
+            try
             {
-                Dictionary<string, int> _services = GetServices(_wb);
-
-                if (_services.Count > 0)
+                using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(inputFileName))
                 {
-                    IExcelWorksheet _ws = _wb.Worksheet(1);
-                    int _lastColumn = _ws.GetLastUsedColumnNumber();
-                    int _rowCount = _ws.GetRowCount();
+                    Dictionary<string, int> _services = GetServices(_wb);
 
-                    if (_rowCount > 1)
+                    if (_services.Count > 0)
                     {
-                        Dictionary<int, string> _serviceByColumn = new Dictionary<int, string>();
+                        IExcelWorksheet _ws = _wb.Worksheet(1);
+                        int _lastColumn = _ws.GetLastUsedColumnNumber();
+                        int _rowCount = _ws.GetRowCount();
 
-                        for (int i = SERVICE_FIRST_COLUMN; i <= _lastColumn; i++)
+                        if (_rowCount > 1)
                         {
-                            _serviceByColumn.Add(i, _ws.Cell(TITLE_ROW, i).Value);
-                        }
+                            Dictionary<int, string> _serviceByColumn = new Dictionary<int, string>();
 
-                        _data = new Dictionary<int, List<ServiceVolume>>(_rowCount - 1);
-
-                        for (int r = 2; r <= _rowCount; r++)
-                        {
-                            try
+                            for (int i = SERVICE_FIRST_COLUMN; i <= _lastColumn; i++)
                             {
-                                int _buildingID = int.Parse(_ws.Cell(r, BuildingColumns.ID).Value);
+                                _serviceByColumn.Add(i, _ws.Cell(TITLE_ROW, i).Value);
+                            }
 
-                                List<ServiceVolume> _svList = new List<ServiceVolume>();
-                                for (int c = SERVICE_FIRST_COLUMN; c <= _lastColumn; c++)
+                            _data = new Dictionary<int, List<ServiceVolume>>(_rowCount - 1);
+
+                            for (int r = 2; r <= _rowCount; r++)
+                            {
+                                try
                                 {
-                                    try
+                                    int _buildingID = int.Parse(_ws.Cell(r, BuildingColumns.ID).Value);
+
+                                    List<ServiceVolume> _svList = new List<ServiceVolume>();
+                                    for (int c = SERVICE_FIRST_COLUMN; c <= _lastColumn; c++)
                                     {
-                                        decimal _volume = decimal.Parse(_ws.Cell(r, c).Value);
-                                        if (_volume > 0)
+                                        try
                                         {
-                                            _svList.Add(
-                                                new ServiceVolume
-                                                {
-                                                    Service = _services[_serviceByColumn[c]],
-                                                    Volume = _volume
-                                                });
+                                            string _volStr = _ws.Cell(r, c).Value;
+                                            if (!string.IsNullOrEmpty(_volStr))
+                                            {
+                                                decimal _volume = decimal.Parse(_volStr);
+                                                _svList.Add(
+                                                    new ServiceVolume
+                                                    {
+                                                        Service = _services[_serviceByColumn[c]],
+                                                        Volume = _volume
+                                                    });
+                                            }
+                                        }
+                                        catch (Exception _ex)
+                                        {
+                                            errors.AppendLine($"Строка {r}, колонка {c}: {_ex}");
                                         }
                                     }
-                                    catch (Exception _ex)
-                                    {
-                                        errors.AppendLine($"Строка {r}, колонка {c}: {_ex}");
-                                    }
+
+                                    _data.Add(_buildingID, _svList);
+                                }
+                                catch (Exception _ex)
+                                {
+                                    errors.AppendLine($"Строка {r}: {_ex}");
                                 }
 
-                                _data.Add(_buildingID, _svList);
+                                reportProgressAction(r * 50 / (_rowCount - 1));
                             }
-                            catch (Exception _ex)
-                            {
-                                errors.AppendLine($"Строка {r}: {_ex}");
-                            }
-
-                            reportProgressAction(r * 50 / (_rowCount - 1));
                         }
                     }
+                    else
+                    {
+                        errors.AppendLine("Ошибка при разборе листа со списком услуг");
+                    }
                 }
-                else
-                {
-                    errors.AppendLine("Ошибка при разборе листа со списком услуг");
-                }
+            }
+            catch(IOException _ex)
+            {
+                errors.AppendLine("Ошибка при открытии файла для чтения. Убедитесь, что файл не открыт в другой программе.");
+                Logger.SimpleWrite($"PublicPlaceServiceVolumesImportService. {_ex}");
+            }
+            catch (Exception _ex)
+            {
+                errors.AppendLine($"Произошла ошибка при чтении файла.");
+                Logger.SimpleWrite($"PublicPlaceServiceVolumesImportService. {_ex}");
             }
 
             return _data;
@@ -247,6 +262,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
         {
             using (Entities _db = new Entities())
             {
+                
                 int _processed = 0;
                 foreach(var _b in data)
                 {
@@ -256,16 +272,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             .Where(p => p.Period == period && p.ServiceID == _sv.Service && p.BuildingID == _b.Key)
                             .FirstOrDefault();
 
-                        if (_item == null)
+                        if(_sv.Volume > 0)
                         {
-                            _item = new PublicPlaceServiceVolumes();
-                            _db.PublicPlaceServiceVolumes.AddObject(_item);
-                        }
+                            if (_item == null)
+                            {
+                                _item =
+                                    new PublicPlaceServiceVolumes
+                                    {
+                                        BuildingID = _b.Key,
+                                        ServiceID = _sv.Service
+                                    };
+                                _db.PublicPlaceServiceVolumes.AddObject(_item);
+                            }
 
-                        _item.BuildingID = _b.Key;
-                        _item.ServiceID = _sv.Service;
-                        _item.Period = period;
-                        _item.Volume = _sv.Volume;
+                            _item.Period = period;
+                            _item.Volume = _sv.Volume;
+                        }
+                        else if(_item != null)
+                        {
+                            _db.DeleteObject(_item);
+                        }
                     }
 
                     reportProgressAction(++_processed * 50 / data.Count + 50);
