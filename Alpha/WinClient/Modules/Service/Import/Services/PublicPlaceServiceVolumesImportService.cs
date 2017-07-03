@@ -213,15 +213,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                             if (!string.IsNullOrEmpty(_volStr))
                                             {
                                                 decimal _volume = decimal.Parse(_volStr);
-                                                if (_volume > 0)
-                                                {
-                                                    _svList.Add(
-                                                        new ServiceVolume
-                                                        {
-                                                            Service = _services[_serviceByColumn[c]],
-                                                            Volume = _volume
-                                                        });
-                                                }
+                                                _svList.Add(
+                                                    new ServiceVolume
+                                                    {
+                                                        Service = _services[_serviceByColumn[c]],
+                                                        Volume = _volume
+                                                    });
                                             }
                                         }
                                         catch (Exception _ex)
@@ -249,7 +246,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             }
             catch(IOException _ex)
             {
-                errors.AppendLine("Не удалось открыть файл для чтения. Убедитесь, что файл не открыт в другой программе.");
+                errors.AppendLine("Ошибка при открытии файла для чтения. Убедитесь, что файл не открыт в другой программе.");
                 Logger.SimpleWrite($"PublicPlaceServiceVolumesImportService. {_ex}");
             }
             catch (Exception _ex)
@@ -265,6 +262,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
         {
             using (Entities _db = new Entities())
             {
+                
                 int _processed = 0;
                 foreach(var _b in data)
                 {
@@ -274,19 +272,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             .Where(p => p.Period == period && p.ServiceID == _sv.Service && p.BuildingID == _b.Key)
                             .FirstOrDefault();
 
-                        if (_item == null)
+                        if(_sv.Volume > 0)
                         {
-                            _item = 
-                                new PublicPlaceServiceVolumes
-                                {
-                                    BuildingID = _b.Key,
-                                    ServiceID = _sv.Service
-                                };
-                            _db.PublicPlaceServiceVolumes.AddObject(_item);
+                            if (_item == null)
+                            {
+                                _item =
+                                    new PublicPlaceServiceVolumes
+                                    {
+                                        BuildingID = _b.Key,
+                                        ServiceID = _sv.Service
+                                    };
+                                _db.PublicPlaceServiceVolumes.AddObject(_item);
+                            }
+
+                            _item.Period = period;
+                            _item.Volume = _sv.Volume;
                         }
-                        
-                        _item.Period = period;
-                        _item.Volume = _sv.Volume;
+                        else if(_item != null)
+                        {
+                            _db.DeleteObject(_item);
+                        }
                     }
 
                     reportProgressAction(++_processed * 50 / data.Count + 50);
