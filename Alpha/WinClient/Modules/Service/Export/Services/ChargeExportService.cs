@@ -332,7 +332,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                             if (_format == ChargeExportFormatType.Primsocbank)
                             {
-                                _file.WriteLine($"#FILESUM {_pair.Value.Sum(x => x.Value).ToString().Replace(',', '.')}");
+                                _file.WriteLine($"#FILESUM {_pair.Value.Where(x => x.Value > 0).Sum(x => x.Value).ToString().Replace(',', '.')}");
                                 _file.WriteLine("#TYPE 7");
                                 _file.WriteLine("#SERVICE 63350");
                             }
