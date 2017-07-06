@@ -438,6 +438,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                 c.ChargeOpers.ChargeSets.Period,
                                 ServiceID = c.Services.ID,
                                 ChargeValue = c.Value,
+                                RechargeValue = (decimal)0,
                                 c.Value
                             })
                         .Concat(
@@ -451,6 +452,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         c.ChargeOpers.ChargeCorrectionOpers.Period,
                                         ServiceID = c.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         Value = -1 * c.Value
                                     }))
                         .Concat(
@@ -463,6 +465,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         r.RechargeOpers.RechargeSets.Period,
                                         ServiceID = r.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = r.Value,
                                         r.Value
                                     }))
                         .Concat(
@@ -476,7 +479,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         r.RechargeOpers.ChildChargeCorrectionOpers.Period,
                                         ServiceID = r.Services.ID,
                                         ChargeValue = (decimal)0,
-                                        Value = -1 * r.Value
+                                        RechargeValue = -r.Value,
+                                        Value = -r.Value
                                     }))
                         .Concat(
                             _entities.BenefitOperPoses
@@ -488,6 +492,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.BenefitOpers.ChargeOpers.ChargeSets.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -501,6 +506,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -513,6 +519,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.RebenefitOpers.RechargeOpers.RechargeSets.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -526,6 +533,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -538,6 +546,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         o.Period,
                                         ServiceID = o.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         o.Value
                                     }))
                         .Concat(
@@ -550,6 +559,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         o.OverpaymentCorrectionOpers.Period,
                                         ServiceID = o.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         o.Value
                                     }))
                         .Concat(
@@ -562,6 +572,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         p.Period,
                                         ServiceID = p.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         p.Value
                                     }))
                         .Concat(
@@ -574,6 +585,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         p.PaymentCorrectionOpers.Period,
                                         ServiceID = p.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         p.Value
                                     }))
                         .Where(c => c.CustomerID == customerPaymentsPair.Key)
@@ -584,6 +596,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                             {
                                 Period = groupedByPeriod.Key,
                                 Charge = groupedByPeriod.Sum(c => c.ChargeValue),
+                                Rechage = groupedByPeriod.Sum(c => c.RechargeValue),
                                 Total = groupedByPeriod.Sum(c => c.Value),
                                 Balances =
                                     groupedByPeriod
@@ -594,7 +607,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                             {
                                                 ServiceID = groupedByService.Key,
                                                 ValueSum = groupedByService.Sum(c => c.Value),
-                                                Charged = groupedByService.Sum(c => c.ChargeValue)
+                                                Charged = groupedByService.Sum(c => c.ChargeValue),
+                                                Recharged = groupedByService.Sum(c => c.RechargeValue)
                                             })
                             })
                         .OrderBy(r => r.Period)
@@ -606,11 +620,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         .ToDictionary(
                                             serviceBalance => serviceBalance.ServiceID,
                                             serviceBalance =>
-                                            new Balance(
-                                                serviceBalance.Charged,
-                                                0, 0, 0, 0, 0, 
-                                                serviceBalance.ValueSum)),
-                                    new Balance(periodBalance.Charge, 0, 0, 0, 0, 0, periodBalance.Total))));
+                                            new Balance(serviceBalance.Charged, 0, serviceBalance.Recharged, 0, 0, 0, serviceBalance.ValueSum)),
+                                    new Balance(periodBalance.Charge, 0, periodBalance.Rechage, 0, 0, 0, periodBalance.Total))));
             }
 
             #endregion

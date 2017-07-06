@@ -117,16 +117,14 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
                     result.Balances.Add(lastChargedPeriod, new ServiceBalances());
                 }
 
-                bool _distributeByCharge = true;
                 ServiceBalances _lastServiceBalance = periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Charge > 0);
 
                 if (_lastServiceBalance == null)
                 {
-                    _lastServiceBalance = periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Total > 0);
-                    _distributeByCharge = false;
+                    _lastServiceBalance = periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Correction > 0);
                 }
 
-                Distribute(paymentValue, _lastServiceBalance, result.Balances[lastChargedPeriod], _distributeByCharge);
+                Distribute(paymentValue, _lastServiceBalance, result.Balances[lastChargedPeriod], true);
             }
         }
 
@@ -144,12 +142,27 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
             bool distributeByCharge)
         {
             decimal _total = 0;
-            decimal _coefficient = valueToDistribute / Math.Abs(distributeByCharge ? serviceBalances.TotalBalance.Charge : serviceBalances.TotalBalance.Total);
+            decimal distributeValue = distributeByCharge
+                ? serviceBalances.TotalBalance.Charge > 0
+                    ? serviceBalances.TotalBalance.Charge
+                    : serviceBalances.TotalBalance.Correction
+                : serviceBalances.TotalBalance.Total;
+
+            if(distributeValue <= 0)
+            {
+                throw new ApplicationException($"Не удалось распредилить платеж. Общая сумма, по которой необходимо распределить платеж <= 0: {distributeValue}");
+            }
+
+            decimal _coefficient = valueToDistribute / Math.Abs(distributeValue);
             decimal _valueSum = 0;
 
             foreach (KeyValuePair<int, Balance> _serviceBalance in serviceBalances.Balances)
             {
-                decimal _balanceValue = Math.Abs(distributeByCharge ? _serviceBalance.Value.Charge : _serviceBalance.Value.Total);
+                decimal _balanceValue = Math.Abs(distributeByCharge 
+                    ? _serviceBalance.Value.Charge > 0
+                        ? _serviceBalance.Value.Charge
+                        : _serviceBalance.Value.Correction
+                    : _serviceBalance.Value.Total);
                 decimal _value = Math.Round(_coefficient * _balanceValue, 2, MidpointRounding.AwayFromZero);
 
                 _total += _value;
