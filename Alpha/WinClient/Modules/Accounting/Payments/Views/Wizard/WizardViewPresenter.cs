@@ -1,4 +1,4 @@
-п»їusing System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI;
@@ -25,17 +25,17 @@ using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 {
     /// <summary>
-    /// РџСЂРµР·РµРЅС‚РµСЂ
+    /// Презентер
     /// </summary>
     public class WizardViewPresenter : BasePresenter<IWizardView>
     {
         /// <summary>
-        /// РЎРїРёСЃРѕРє РІРІРµРґРµРЅРЅС‹С… РґР°РЅРЅС‹С… РїРѕ РїР»Р°С‚РµР¶Р°Рј
+        /// Список введенных данных по платежам
         /// </summary>
         Dictionary<int, WizardPaymentElement> Payments { get; set; }
 
         /// <summary>
-        /// РўРµРєСѓС‰Р°СЏ РѕРїРµСЂР°С†РёСЏ РїР»Р°С‚РµР¶Р°
+        /// Текущая операция платежа
         /// </summary>
         WizardPaymentElement CurrentPayment { get; set; }
 
@@ -52,7 +52,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         #endregion
 
         /// <summary>
-        /// РЎРµСЂРІРёСЃ СЂР°Р±РѕС‚С‹ СЃ РґРѕРјРµРЅР°РјРё, СѓРјРµСЋС‰РёРјРё СЂР°Р±РѕС‚Р°С‚СЊ СЃ РґР°С‚Р°РјР°РїРїРµСЂРѕРј
+        /// Сервис работы с доменами, умеющими работать с датамаппером
         /// </summary>
         [ServiceDependency]
         public IDomainWithDataMapperHelperService DomainWithDataMapperHelperServ
@@ -73,7 +73,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         public IExcelService ExcelService { get; set; }
 
         /// <summary>
-        /// РџРѕРґРЅРёРјР°РµС‚ РґРѕРјРµРЅ РїРѕ РµРіРѕ ID
+        /// Поднимает домен по его ID
         /// </summary>
         internal T1 GetItem<T1>(string _id)
         {
@@ -81,7 +81,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РџРµСЂРІРѕРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РІРёРґР°
+        /// Первое отображение вида
         /// </summary>
         public override void OnViewReady()
         {
@@ -89,7 +89,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// Р—Р°РІРµСЂС€Р°РµС‚ СЂР°Р±РѕС‚Сѓ РјР°СЃС‚РµСЂР°
+        /// Завершает работу мастера
         /// </summary>
         internal void FinishWizard()
         {
@@ -101,7 +101,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РќР°С‡РёРЅР°РµС‚ СЂР°Р±РѕС‚Сѓ РјР°СЃС‚РµСЂР°
+        /// Начинает работу мастера
         /// </summary>
         internal void StartWizard()
         {
@@ -142,12 +142,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РёР·РјРµРЅРµРЅРёРµ С€Р°РіР° РјР°СЃС‚РµСЂР°
+        /// Обрабатывает изменение шага мастера
         /// </summary>
-        /// <param name="prevPage">РџСЂРµРґС‹РґСѓС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°</param>
-        /// <param name="page">РћС‚РєСЂС‹РІР°РµРјР°СЏ СЃС‚СЂР°РЅРёС†Р°</param>
-        /// <param name="direction">РќР°Р·Р°Рґ / Р”Р°Р»РµРµ</param>
-        /// <returns>РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р° РјР°СЃС‚РµСЂР°</returns>
+        /// <param name="prevPage">Предыдущая страница</param>
+        /// <param name="page">Открываемая страница</param>
+        /// <param name="direction">Назад / Далее</param>
+        /// <returns>Следующая страница мастера</returns>
         internal WizardSteps OnSelectedPageChanging(BaseWizardPage prevPage, BaseWizardPage page, Direction direction)
         {
             WizardSteps _next = WizardSteps.Unknown;
@@ -164,12 +164,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
                                 if (string.IsNullOrEmpty(View.FileName))
                                 {
-                                    View.ShowMessage("Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РґР»СЏ Р·Р°РіСЂСѓР·РєРё.", "РћС€РёР±РєР° РІС‹Р±РѕСЂР° С„Р°Р№Р»Р°");
+                                    View.ShowMessage("Выберите файл для загрузки.", "Ошибка выбора файла");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else if (_intermediary == null)
                                 {
-                                    View.ShowMessage("Р’С‹Р±РµСЂРёС‚Рµ РїРѕСЃСЂРµРґРЅРёРєР° РїР»Р°С‚РµР¶Р°.", "РћС€РёР±РєР° РІС‹Р±РѕСЂР° РїРѕСЃСЂРµРґРЅРёРєР°");
+                                    View.ShowMessage("Выберите посредника платежа.", "Ошибка выбора посредника");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else if (
@@ -177,12 +177,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                     !_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMSOCBANK_ID) &&
                                     !_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMORYE_ID))
                                 {
-                                    View.ShowMessage("Р—Р°РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»Р° РјРѕР¶РЅРѕ С‚РѕР»СЊРєРѕ РґР»СЏ РїРѕСЃСЂРµРґРЅРёРєРѕРІ: РЎР±РµСЂР±Р°РЅРє, РџСЂРёРјРѕСЂСЊРµ, РЎРёСЃС‚РµРјР° Р“РѕСЂРѕРґ", "РћС€РёР±РєР° РІС‹Р±РѕСЂР° РїРѕСЃСЂРµРґРЅРёРєР°");
+                                    View.ShowMessage("Загрузить данные из файла можно только для посредников: Сбербанк, Приморье, Система Город", "Ошибка выбора посредника");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else if (_intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMORYE_ID) && Path.GetExtension(View.FileName) != ".xlsx")
                                 {
-                                    View.ShowMessage("Р”Р»СЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РїРѕСЃСЂРµРґРЅРёРєР° РґР°РЅРЅС‹Рµ РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ С‚РѕР»СЊРєРѕ РІ С„РѕСЂРјР°С‚Рµ РєРЅРёРіРё Microsoft Excel", "РћС€РёР±РєР° РІС‹Р±РѕСЂР° С„Р°Р№Р»Р°");
+                                    View.ShowMessage("Для выбранного посредника данные можно загрузить только в формате книги Microsoft Excel", "Ошибка выбора файла");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else if (
@@ -190,7 +190,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                      _intermediary.Name.ToLower().Contains(IntermediaryConstants.PRIMSOCBANK_ID)) &&
                                     Path.GetExtension(View.FileName) != ".txt")
                                 {
-                                    View.ShowMessage("Р”Р»СЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РїРѕСЃСЂРµРґРЅРёРєР° РґР°РЅРЅС‹Рµ РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ С‚РѕР»СЊРєРѕ РІ С„РѕСЂРјР°С‚Рµ С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р°", "РћС€РёР±РєР° РІС‹Р±РѕСЂР° С„Р°Р№Р»Р°");
+                                    View.ShowMessage("Для выбранного посредника данные можно загрузить только в формате текстового файла", "Ошибка выбора файла");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else
@@ -203,7 +203,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                             {
                                 if (View.ManualTypeSource == ManualTypeSources.Bill && View.Intermediary == null)
                                 {
-                                    View.ShowMessage("Р’С‹Р±РµСЂРёС‚Рµ РїРѕСЃСЂРµРґРЅРёРєР° РїР»Р°С‚РµР¶Р°.", "РћС€РёР±РєР° РІС‹Р±РѕСЂР° РїРѕСЃСЂРµРґРЅРёРєР°");
+                                    View.ShowMessage("Выберите посредника платежа.", "Ошибка выбора посредника");
                                     _next = WizardSteps.Unknown;
                                 }
                                 else
@@ -224,23 +224,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
                     case "CheckDataWizardPage":
                         {
-                            // РџСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ С…РѕС‚СЊ РѕРґРЅРѕР№ Р·Р°РїРёСЃРё
+                            // Проверяем наличие хоть одной записи
                             if (Payments.Count == 1 && String.IsNullOrEmpty(Payments[0].Account))
                             {
-                                View.ShowMessage("Р’РІРµРґРёС‚Рµ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ РїР»Р°С‚РµР¶.", "РћС€РёР±РєР° РІРІРѕРґР° РґР°РЅРЅС‹С…");
+                                View.ShowMessage("Введите хотя бы один платеж.", "Ошибка ввода данных");
                                 _next = WizardSteps.Unknown;
                             }
-                            // РџСЂРѕРІРµСЂСЏРµРј РЅР° РЅР°Р»РёС‡РёРµ С…РѕС‚СЏ Р±С‹ РѕРґРЅРѕР№ РѕС€РёР±РєРё
+                            // Проверяем на наличие хотя бы одной ошибки
                             else if (Payments.Values.Any(o => o.HasError))
                             {
-                                View.ShowMessage("РСЃРїСЂР°РІСЊС‚Рµ РѕС€РёР±РєРё РІ РґР°РЅРЅС‹С… РїРµСЂРµРґ РёС… СЃРѕС…СЂР°РЅРµРЅРёРµРј.", "РћС€РёР±РєР° РІРІРѕРґР° РґР°РЅРЅС‹С…");
+                                View.ShowMessage("Исправьте ошибки в данных перед их сохранением.", "Ошибка ввода данных");
                                 _next = WizardSteps.Unknown;
                             }
                             else if (!IsDistributionAvailable())
                             {
                                 View.ShowMessage(
-                                    "РќРµ РїРѕ РІСЃРµРј Р°Р±РѕРЅРµРЅС‚Р°Рј СѓР¶Рµ Р±С‹Р»Рё СЃРґРµР»Р°РЅС‹ РЅР°С‡РёСЃР»РµРЅРёСЏ. РќРµРІРѕР·РјРѕР¶РЅРѕ РІРЅРµСЃС‚Рё РїР»Р°С‚РµР¶ РїРѕ Р°Р±РѕРЅРµРЅС‚Сѓ, РµСЃР»Рё РїРѕ РЅРµРјСѓ РЅРµ СЃРґРµР»Р°РЅРѕ РЅРё РѕРґРЅРѕРіРѕ РЅР°С‡РёСЃР»РµРЅРёСЏ.",
-                                    "РќРµРІРѕР·РјРѕР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ РѕРїРµСЂР°С†РёСЋ");
+                                    "Не по всем абонентам были сделаны начисления. Невозможно внести платеж по абоненту, если по нему не сделано ни одного начисления или перерасчета.",
+                                    "Невозможно выполнить операцию");
                                 _next = WizardSteps.Unknown;
                             }
                             else
@@ -305,11 +305,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ СЃРѕР±С‹С‚РёРµ РїРµСЂРµС…РѕРґР° РЅР° РЅРѕРІСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
+        /// Обрабатывает событие перехода на новую страницу
         /// </summary>
-        /// <param name="page">РЎС‚СЂР°РЅРёС†Р°, РЅР° РєРѕС‚РѕСЂСѓСЋ Р±С‹Р» РѕСЃСѓС‰РµСЃС‚РІР»РµРЅ РїРµСЂРµС…РѕРґ</param>
-        /// <param name="prevPage">РЎС‚СЂР°РЅРёС†Р° РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ</param>
-        /// <param name="direction">РќР°Р·Р°Рґ / Р”Р°Р»РµРµ</param>
+        /// <param name="page">Страница, на которую был осуществлен переход</param>
+        /// <param name="prevPage">Страница предыдущего состояния</param>
+        /// <param name="direction">Назад / Далее</param>
         internal void OnSelectedPageChanged(BaseWizardPage page, BaseWizardPage prevPage, Direction direction)
         {
             if (direction == Direction.Forward)
@@ -356,7 +356,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РЎРѕС…СЂР°РЅСЏРµС‚ РІРІРµРґРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ
+        /// Сохраняет введенные данные
         /// </summary>
         private void SaveProcessingData()
         {
@@ -416,7 +416,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             PeriodBalances _periodBalances;
 
-            #region Р—Р°РїСЂРѕСЃ
+            #region Запрос
 
             using (Entities _entities = new Entities())
             {
@@ -432,6 +432,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                 c.ChargeOpers.ChargeSets.Period,
                                 ServiceID = c.Services.ID,
                                 ChargeValue = c.Value,
+                                RechargeValue = (decimal)0,
                                 c.Value
                             })
                         .Concat(
@@ -445,6 +446,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         c.ChargeOpers.ChargeCorrectionOpers.Period,
                                         ServiceID = c.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         Value = -1 * c.Value
                                     }))
                         .Concat(
@@ -457,6 +459,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         r.RechargeOpers.RechargeSets.Period,
                                         ServiceID = r.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = r.Value,
                                         r.Value
                                     }))
                         .Concat(
@@ -470,7 +473,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         r.RechargeOpers.ChildChargeCorrectionOpers.Period,
                                         ServiceID = r.Services.ID,
                                         ChargeValue = (decimal)0,
-                                        Value = -1 * r.Value
+                                        RechargeValue = -r.Value,
+                                        Value = -r.Value
                                     }))
                         .Concat(
                             _entities.BenefitOperPoses
@@ -482,6 +486,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.BenefitOpers.ChargeOpers.ChargeSets.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -495,6 +500,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -507,6 +513,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.RebenefitOpers.RechargeOpers.RechargeSets.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -520,6 +527,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         b.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         ServiceID = b.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         b.Value
                                     }))
                         .Concat(
@@ -532,6 +540,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         o.Period,
                                         ServiceID = o.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         o.Value
                                     }))
                         .Concat(
@@ -544,6 +553,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         o.OverpaymentCorrectionOpers.Period,
                                         ServiceID = o.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         o.Value
                                     }))
                         .Concat(
@@ -556,6 +566,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         p.Period,
                                         ServiceID = p.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         p.Value
                                     }))
                         .Concat(
@@ -568,6 +579,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         p.PaymentCorrectionOpers.Period,
                                         ServiceID = p.Services.ID,
                                         ChargeValue = (decimal)0,
+                                        RechargeValue = (decimal)0,
                                         p.Value
                                     }))
                         .Where(c => c.CustomerID == customerPaymentsPair.Key)
@@ -578,6 +590,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                             {
                                 Period = groupedByPeriod.Key,
                                 Charge = groupedByPeriod.Sum(c => c.ChargeValue),
+                                Rechage = groupedByPeriod.Sum(c => c.RechargeValue),
                                 Total = groupedByPeriod.Sum(c => c.Value),
                                 Balances =
                                     groupedByPeriod
@@ -588,7 +601,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                             {
                                                 ServiceID = groupedByService.Key,
                                                 ValueSum = groupedByService.Sum(c => c.Value),
-                                                Charged = groupedByService.Sum(c => c.ChargeValue)
+                                                Charged = groupedByService.Sum(c => c.ChargeValue),
+                                                Recharged = groupedByService.Sum(c => c.RechargeValue)
                                             })
                             })
                         .OrderBy(r => r.Period)
@@ -600,11 +614,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                         .ToDictionary(
                                             serviceBalance => serviceBalance.ServiceID,
                                             serviceBalance =>
-                                            new Balance(
-                                                serviceBalance.Charged,
-                                                0, 0, 0, 0, 0, 
-                                                serviceBalance.ValueSum)),
-                                    new Balance(periodBalance.Charge, 0, 0, 0, 0, 0, periodBalance.Total))));
+                                            new Balance(serviceBalance.Charged, 0, serviceBalance.Recharged, 0, 0, 0, serviceBalance.ValueSum)),
+                                    new Balance(periodBalance.Charge, 0, periodBalance.Rechage, 0, 0, 0, periodBalance.Total))));
             }
 
             #endregion
@@ -679,7 +690,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
                             Logger.SimpleWrite(
                             string.Format(
-                                "РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РѕРїРµСЂР°С†РёРё РїР»Р°С‚РµР¶Р°, Customer: {0}, Exception: {1}\r\n",
+                                "Ошибка при сохранении операции платежа, Customer: {0}, Exception: {1}\r\n",
                                 customerPaymentsPair.Key,
                                 _ex));
                         }
@@ -692,10 +703,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             }
         }
 
-        #region Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»РѕРІ
+        #region Загрузка файлов
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ С„Р°Р№Р» СЃ РїР»Р°С‚РµР¶Р°РјРё РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РїРѕСЃСЂРµРґРЅРёРєР°
+        /// Обрабатывает файл с платежами в зависимости от выбранного посредника
         /// </summary>
         private void ProcessImportFile()
         {
@@ -708,7 +719,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
             try
             {
-                if (_intermediary.Contains("РїСЂРёРјРѕСЂСЊРµ"))
+                if (_intermediary.Contains("приморье"))
                 {
                     using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(_fileName))
                     {
@@ -775,7 +786,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             catch (Exception _exception)
             {
                 Logger.SimpleWrite(String.Format("Import file error. Line: {0}; {1}", _currentRow, _exception));
-                View.ShowMessage("РќРµРІРѕР·РјРѕР¶РЅРѕ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ РґР°РЅРЅС‹Рµ С„Р°Р№Р»Р°", "РћС€РёР±РєР° РёРјРїРѕСЂС‚Р°");
+                View.ShowMessage("Невозможно обработать данные файла", "Ошибка импорта");
                 Payments = new Dictionary<int, WizardPaymentElement>();
             }
 
@@ -785,12 +796,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ С„Р°Р№Р» СЃ РїР»Р°С‚РµР¶Р°РјРё РѕС‚ Р±Р°РЅРєР° РџСЂРёРјРѕСЂСЊРµ
+        /// Обрабатывает файл с платежами от банка Приморье
         /// </summary>
-        /// <param name="account">РЎС‡РµС‚</param>
-        /// <param name="period">РџРµСЂРёРѕРґ</param>
-        /// <param name="value">РЎСѓРјРјР°</param>
-        /// <returns>РќР°Р±РѕСЂ РґР°РЅРЅС‹С… РїРѕ РїР»Р°С‚РµР¶Сѓ</returns>
+        /// <param name="account">Счет</param>
+        /// <param name="period">Период</param>
+        /// <param name="value">Сумма</param>
+        /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportPrimoryeLine(string account, string period, string value)
         {
             decimal _tempValue;
@@ -808,10 +819,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ С„Р°Р№Р» СЃ РїР»Р°С‚РµР¶Р°РјРё РѕС‚ РџСЂРёРјСЃРѕС†Р±Р°РЅРєР°
+        /// Обрабатывает файл с платежами от Примсоцбанка
         /// </summary>
-        /// <param name="line">РЎС‚СЂРѕРєР° СЃ РґР°РЅРЅС‹РјРё</param>
-        /// <returns>РќР°Р±РѕСЂ РґР°РЅРЅС‹С… РїРѕ РїР»Р°С‚РµР¶Сѓ</returns>
+        /// <param name="line">Строка с данными</param>
+        /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportPrimsocbankLine(string line)
         {
             string[] _poses = line.Split('|');
@@ -838,10 +849,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ С„Р°Р№Р» СЃ РїР»Р°С‚РµР¶Р°РјРё РѕС‚ РЎР±РµСЂР±Р°РЅРє
+        /// Обрабатывает файл с платежами от Сбербанк
         /// </summary>
-        /// <param name="line">РЎС‚СЂРѕРєР° СЃ РґР°РЅРЅС‹РјРё</param>
-        /// <returns>РќР°Р±РѕСЂ РґР°РЅРЅС‹С… РїРѕ РїР»Р°С‚РµР¶Сѓ</returns>
+        /// <param name="line">Строка с данными</param>
+        /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportSbrfLine(string line)
         {
             string[] _poses = line.Split(';');
@@ -868,10 +879,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ С„Р°Р№Р» СЃ РїР»Р°С‚РµР¶Р°РјРё РѕС‚ РљРµРґСЂ
+        /// Обрабатывает файл с платежами от Кедр
         /// </summary>
-        /// <param name="line">РЎС‚СЂРѕРєР° СЃ РґР°РЅРЅС‹РјРё</param>
-        /// <returns>РќР°Р±РѕСЂ РґР°РЅРЅС‹С… РїРѕ РїР»Р°С‚РµР¶Сѓ</returns>
+        /// <param name="line">Строка с данными</param>
+        /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportKedrLine(string line)
         {
             string[] _poses = line.Split(';');
@@ -897,10 +908,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ С„Р°Р№Р» СЃ РїР»Р°С‚РµР¶Р°РјРё РѕС‚ РњРѕСЃРѕР±Р»Р±Р°РЅРє
+        /// Обрабатывает файл с платежами от Мособлбанк
         /// </summary>
-        /// <param name="line">РЎС‚СЂРѕРєР° СЃ РґР°РЅРЅС‹РјРё</param>
-        /// <returns>РќР°Р±РѕСЂ РґР°РЅРЅС‹С… РїРѕ РїР»Р°С‚РµР¶Сѓ</returns>
+        /// <param name="line">Строка с данными</param>
+        /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportMosoblbankLine(string line)
         {
             string[] _poses = line.Split('|');
@@ -927,10 +938,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ С„Р°Р№Р» СЃ РїР»Р°С‚РµР¶Р°РјРё РѕС‚ РњРѕСЃРѕР±Р»Р±Р°РЅРє
+        /// Обрабатывает файл с платежами от Мособлбанк
         /// </summary>
-        /// <param name="line">РЎС‚СЂРѕРєР° СЃ РґР°РЅРЅС‹РјРё</param>
-        /// <returns>РќР°Р±РѕСЂ РґР°РЅРЅС‹С… РїРѕ РїР»Р°С‚РµР¶Сѓ</returns>
+        /// <param name="line">Строка с данными</param>
+        /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportCitySystemLine(string line)
         {
             string[] _poses = line.Split(';');
@@ -966,7 +977,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         #endregion
 
         /// <summary>
-        /// Р—Р°РїРѕР»РЅСЏРµС‚ С‚Р°Р±Р»РёС†Сѓ РІРІРµРґРµРЅРЅС‹РјРё РґР°РЅРЅС‹РјРё
+        /// Заполняет таблицу введенными данными
         /// </summary>
         private void FillDataGrid()
         {
@@ -998,9 +1009,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РќР°С…РѕРґРёС‚ Р»РёС‡РµРІРѕР№ СЃС‡РµС‚ РїРѕ РЅРѕРјРµСЂСѓ РёР»Рё СЃРѕР·РґР°РµС‚ РЅРѕРІС‹Р№
+        /// Находит личевой счет по номеру или создает новый
         /// </summary>
-        /// <param name="accountNumber">РќРѕРјРµСЂ Р»/СЃ</param>
+        /// <param name="accountNumber">Номер л/с</param>
         public void SetCustomer(string accountNumber)
         {
             Customer _customer = !string.IsNullOrEmpty(accountNumber)
@@ -1013,14 +1024,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// Р—Р°РїРѕР»РЅСЏРµС‚ РїРѕР»СЏ, РєР°СЃР°СЋС‰РёРµСЃСЏ СЃРѕР±СЃС‚РІРµРЅРЅРёРєР°
+        /// Заполняет поля, касающиеся собственника
         /// </summary>
-        /// <param name="customer">РћР±СЉРµРєС‚ СЃРѕР±СЃС‚РІРµРЅРЅРёРєР°</param>
+        /// <param name="customer">Объект собственника</param>
         private void FillCustomerData(Customer customer)
         {
             if (customer != null)
             {
-                string _owner = "РќРµРёР·РІРµСЃС‚РµРЅ";
+                string _owner = "Неизвестен";
 
                 if (customer.OwnerType == Customer.OwnerTypes.PhysicalPerson)
                 {
@@ -1048,9 +1059,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ СЃРѕР±С‹С‚РёРµ РІС‹Р±РѕСЂР° СЃС‚СЂРѕРєРё РІ С‚Р°Р±Р»РёС†Рµ СЃ РѕР±СЂР°Р±РѕС‚Р°РЅРЅС‹РјРё РґР°РЅРЅС‹РјРё
+        /// Обрабатывает событие выбора строки в таблице с обработанными данными
         /// </summary>
-        /// <param name="pos">РќРѕРјРµСЂ РїРѕР·РёС†РёРё</param>
+        /// <param name="pos">Номер позиции</param>
         internal void OnProcesingDataRowChanged(int pos)
         {
             CurrentPayment = Payments[pos];
@@ -1068,7 +1079,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РџРµСЂРµРїСЂРѕРІРµСЂСЏРµС‚ РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРµРґРµРЅРЅС‹С… РґР°РЅРЅС‹С…
+        /// Перепроверяет корректность введенных данных
         /// </summary>
         internal bool ReValidateCurrentItem()
         {
@@ -1084,7 +1095,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РЎРѕР·РґР°РµС‚ РЅРѕРІС‹Р№ РїР»Р°С‚РµР¶
+        /// Создает новый платеж
         /// </summary>
         internal void CreateNewPayment()
         {
@@ -1102,7 +1113,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// РЈРґР°Р»СЏРµС‚ РїР»Р°С‚РµР¶Рё РїРѕ РёРЅРґРµРєСЃР°Рј
+        /// Удаляет платежи по индексам
         /// </summary>
         internal void DeletePayments(IList<int> IDs)
         {
@@ -1119,11 +1130,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
-        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃСѓРјРјСѓ РЅР°С‡РёСЃР»РµРЅРёР№ РґР»СЏ Р°Р±РѕРЅРµРЅС‚Р° Р·Р° РїРµСЂРёРѕРґ
+        /// Возвращает сумму начислений для абонента за период
         /// </summary>
-        /// <param name="account">Р›РёС†РµРІРѕР№ СЃС‡РµС‚ Р°Р±РѕРЅРµРЅС‚Р°</param>
-        /// <param name="period">РџРµСЂРёРѕРґ Р°Р±РѕРЅРµРЅС‚Р°</param>
-        /// <returns>РЎСѓРјРјР° РЅР°С‡РёСЃР»РµРЅРёР№</returns>
+        /// <param name="account">Лицевой счет абонента</param>
+        /// <param name="period">Период абонента</param>
+        /// <returns>Сумма начислений</returns>
         internal decimal GetChargeValueByAccountAndPeriod(string account, DateTime period)
         {
             decimal _res;
