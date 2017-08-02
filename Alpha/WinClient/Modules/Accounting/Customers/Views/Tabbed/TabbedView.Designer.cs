@@ -51,21 +51,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.detailSmartPartPlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.tabCustomerPoses = new System.Windows.Forms.TabPage();
             this.smartPartPlaceholder1 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
-            this.counterSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.smartPartPlaceholder2 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
-            this.smartPartPlaceholder3 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.tabChargesAndPayments = new System.Windows.Forms.TabPage();
             this.PaymentsAndChargesSmartPartPlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
+            this.tabCounters = new System.Windows.Forms.TabPage();
+            this.counterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.smartPartPlaceholder2 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.smartPartPlaceholder3 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this._tabWorkspace.SuspendLayout();
             this.tabList.SuspendLayout();
             this.tabDetail.SuspendLayout();
             this.tabCustomerPoses.SuspendLayout();
+            this.tabChargesAndPayments.SuspendLayout();
+            this.tabCounters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.counterSplitContainer)).BeginInit();
             this.counterSplitContainer.Panel1.SuspendLayout();
             this.counterSplitContainer.Panel2.SuspendLayout();
             this.counterSplitContainer.SuspendLayout();
-            this.tabChargesAndPayments.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +78,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this._tabWorkspace.Controls.Add(this.tabList);
             this._tabWorkspace.Controls.Add(this.tabDetail);
             this._tabWorkspace.Controls.Add(this.tabCustomerPoses);
+            this._tabWorkspace.Controls.Add(this.tabCounters);
             this._tabWorkspace.Controls.Add(this.tabChargesAndPayments);
             this._tabWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
             this._tabWorkspace.Location = new System.Drawing.Point(0, 0);
@@ -140,7 +144,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // tabCustomerPoses
             // 
             this.tabCustomerPoses.Controls.Add(this.smartPartPlaceholder1);
-            this.tabCustomerPoses.Controls.Add(this.counterSplitContainer);
             this.tabCustomerPoses.Location = new System.Drawing.Point(4, 22);
             this.tabCustomerPoses.Name = "tabCustomerPoses";
             this.tabCustomerPoses.Size = new System.Drawing.Size(712, 428);
@@ -154,48 +157,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.smartPartPlaceholder1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.smartPartPlaceholder1.Location = new System.Drawing.Point(0, 0);
             this.smartPartPlaceholder1.Name = "smartPartPlaceholder1";
-            this.smartPartPlaceholder1.Size = new System.Drawing.Size(712, 268);
+            this.smartPartPlaceholder1.Size = new System.Drawing.Size(712, 428);
             this.smartPartPlaceholder1.SmartPartName = "CustomerPosListView";
             this.smartPartPlaceholder1.TabIndex = 1;
-            // 
-            // counterSplitContainer
-            // 
-            this.counterSplitContainer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.counterSplitContainer.IsSplitterFixed = true;
-            this.counterSplitContainer.Location = new System.Drawing.Point(0, 268);
-            this.counterSplitContainer.Name = "counterSplitContainer";
-            // 
-            // counterSplitContainer.Panel1
-            // 
-            this.counterSplitContainer.Panel1.Controls.Add(this.groupBox1);
-            // 
-            // counterSplitContainer.Panel2
-            // 
-            this.counterSplitContainer.Panel2.Controls.Add(this.groupBox2);
-            this.counterSplitContainer.Size = new System.Drawing.Size(712, 160);
-            this.counterSplitContainer.SplitterDistance = 356;
-            this.counterSplitContainer.SplitterWidth = 2;
-            this.counterSplitContainer.TabIndex = 4;
-            // 
-            // smartPartPlaceholder2
-            // 
-            this.smartPartPlaceholder2.BackColor = System.Drawing.Color.Transparent;
-            this.smartPartPlaceholder2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.smartPartPlaceholder2.Location = new System.Drawing.Point(3, 16);
-            this.smartPartPlaceholder2.Name = "smartPartPlaceholder2";
-            this.smartPartPlaceholder2.Size = new System.Drawing.Size(350, 141);
-            this.smartPartPlaceholder2.SmartPartName = "CounterView";
-            this.smartPartPlaceholder2.TabIndex = 2;
-            // 
-            // smartPartPlaceholder3
-            // 
-            this.smartPartPlaceholder3.BackColor = System.Drawing.Color.Transparent;
-            this.smartPartPlaceholder3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.smartPartPlaceholder3.Location = new System.Drawing.Point(3, 16);
-            this.smartPartPlaceholder3.Name = "smartPartPlaceholder3";
-            this.smartPartPlaceholder3.Size = new System.Drawing.Size(348, 141);
-            this.smartPartPlaceholder3.SmartPartName = "CounterValueView";
-            this.smartPartPlaceholder3.TabIndex = 3;
             // 
             // tabChargesAndPayments
             // 
@@ -217,16 +181,56 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.PaymentsAndChargesSmartPartPlaceholder.SmartPartName = "PaymentsAndChargesView";
             this.PaymentsAndChargesSmartPartPlaceholder.TabIndex = 1;
             // 
+            // tabCounters
+            // 
+            this.tabCounters.Controls.Add(this.counterSplitContainer);
+            this.tabCounters.Location = new System.Drawing.Point(4, 22);
+            this.tabCounters.Name = "tabCounters";
+            this.tabCounters.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCounters.Size = new System.Drawing.Size(712, 428);
+            this.tabCounters.TabIndex = 4;
+            this.tabCounters.Text = "Приборы учета";
+            this.tabCounters.UseVisualStyleBackColor = true;
+            // 
+            // counterSplitContainer
+            // 
+            this.counterSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.counterSplitContainer.IsSplitterFixed = true;
+            this.counterSplitContainer.Location = new System.Drawing.Point(3, 3);
+            this.counterSplitContainer.Name = "counterSplitContainer";
+            // 
+            // counterSplitContainer.Panel1
+            // 
+            this.counterSplitContainer.Panel1.Controls.Add(this.groupBox1);
+            // 
+            // counterSplitContainer.Panel2
+            // 
+            this.counterSplitContainer.Panel2.Controls.Add(this.groupBox2);
+            this.counterSplitContainer.Size = new System.Drawing.Size(706, 422);
+            this.counterSplitContainer.SplitterDistance = 353;
+            this.counterSplitContainer.SplitterWidth = 2;
+            this.counterSplitContainer.TabIndex = 5;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.smartPartPlaceholder2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(356, 160);
+            this.groupBox1.Size = new System.Drawing.Size(353, 422);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Приборы учета";
+            // 
+            // smartPartPlaceholder2
+            // 
+            this.smartPartPlaceholder2.BackColor = System.Drawing.Color.Transparent;
+            this.smartPartPlaceholder2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smartPartPlaceholder2.Location = new System.Drawing.Point(3, 16);
+            this.smartPartPlaceholder2.Name = "smartPartPlaceholder2";
+            this.smartPartPlaceholder2.Size = new System.Drawing.Size(347, 403);
+            this.smartPartPlaceholder2.SmartPartName = "CounterView";
+            this.smartPartPlaceholder2.TabIndex = 2;
             // 
             // groupBox2
             // 
@@ -234,10 +238,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(354, 160);
+            this.groupBox2.Size = new System.Drawing.Size(351, 422);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Показания";
+            // 
+            // smartPartPlaceholder3
+            // 
+            this.smartPartPlaceholder3.BackColor = System.Drawing.Color.Transparent;
+            this.smartPartPlaceholder3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smartPartPlaceholder3.Location = new System.Drawing.Point(3, 16);
+            this.smartPartPlaceholder3.Name = "smartPartPlaceholder3";
+            this.smartPartPlaceholder3.Size = new System.Drawing.Size(345, 403);
+            this.smartPartPlaceholder3.SmartPartName = "CounterValueView";
+            this.smartPartPlaceholder3.TabIndex = 3;
             // 
             // TabbedView
             // 
@@ -250,10 +264,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.tabList.ResumeLayout(false);
             this.tabDetail.ResumeLayout(false);
             this.tabCustomerPoses.ResumeLayout(false);
+            this.tabChargesAndPayments.ResumeLayout(false);
+            this.tabCounters.ResumeLayout(false);
             this.counterSplitContainer.Panel1.ResumeLayout(false);
             this.counterSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.counterSplitContainer)).EndInit();
             this.counterSplitContainer.ResumeLayout(false);
-            this.tabChargesAndPayments.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -272,11 +288,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder topViewSmartPartPlaceholder;
         private System.Windows.Forms.TabPage tabCustomerPoses;
         private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder1;
-        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder3;
-        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder2;
+        private System.Windows.Forms.TabPage tabCounters;
         private System.Windows.Forms.SplitContainer counterSplitContainer;
         private System.Windows.Forms.GroupBox groupBox1;
+        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder2;
         private System.Windows.Forms.GroupBox groupBox2;
+        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder3;
     }
 }
 

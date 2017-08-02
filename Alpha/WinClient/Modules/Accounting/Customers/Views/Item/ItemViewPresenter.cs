@@ -337,8 +337,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             View.WebAccess = _domItem.User != null;
             View.Email = _domItem.User?.Login;
             View.DebtsRepayment = _domItem.DebtsRepayment;
-
-            ((IBaseSimpleListView)WorkItem.SmartParts.Get(ModuleViewNames.CUSTOMER_POS_VIEW)).RefreshList();
+            
             ((IResidentsListView)WorkItem.SmartParts.Get(ModuleViewNames.RESIDENTS_LIST_VIEW)).RefreshList();
         }
 

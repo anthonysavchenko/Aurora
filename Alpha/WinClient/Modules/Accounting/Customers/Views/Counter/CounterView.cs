@@ -2,6 +2,8 @@
 using Microsoft.Practices.ObjectBuilder;
 using System;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
+using System.Data;
+using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Counter
 {
@@ -14,14 +16,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         [CreateNew]
         public new CounterViewPresenter Presenter
         {
-            set
-            {
-                base.Presenter = value;
-            }
-            get
-            {
-                return (CounterViewPresenter)base.Presenter;
-            }
+            set => base.Presenter = value;
+            get => (CounterViewPresenter)base.Presenter;
         }
 
         /// <summary>
@@ -38,35 +34,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// <summary>
         /// Номер счетчика
         /// </summary>
-        public string Number
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomain(counterGridView, "Number");
-            }
-        }
+        public string Number => GetBaseSimpleListViewMapper.ViewToDomain(counterGridView, "Number");
 
-        /// <summary>
-        /// Тариф
-        /// </summary>
-        public decimal Rate
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomainSimpleType<decimal>(counterGridView, "Rate");
-            }
-        }
+        public DataTable Services { set => GetBaseSimpleListViewMapper.DomainToView(value, counterGridView, "Service"); }
 
-        /// <summary>
-        /// Определяет доступность пользователю кнопок редактирования
-        /// </summary>
-        public bool NavigationButtonsEnabled
-        {
-            set
-            {
-                counterGridControl.EmbeddedNavigator.Enabled = value;
-            }
-        }
+        public Service Service => GetBaseSimpleListViewMapper.ViewToDomain<Service>(counterGridView, "Service");
 
         /// <summary>
         /// Подключить общий обработчик изменений

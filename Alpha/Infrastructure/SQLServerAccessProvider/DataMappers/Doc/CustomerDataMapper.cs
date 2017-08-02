@@ -11,6 +11,7 @@ using DomCustomerPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Do
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 using DomResident = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Resident;
 using DomUser = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.User;
+using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
 {
@@ -31,15 +32,34 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         {
             DomItem _domItem = (DomItem)_obj;
             int _id = int.Parse(_domItem.ID);
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                Customers _customer =
-                    _entities.Customers
-                        .Include("Residents")
-                        .Include("CustomerPoses")
-                        .Include("Buildings")
-                        .Include("User")
-                        .First(x => x.ID == _id);
+                var _customer =
+                    _db.Customers
+                        .Where(x => x.ID == _id)
+                        .Select(x =>
+                            new
+                            {
+                                x.OwnerType,
+                                x.PhysicalPersonShortName,
+                                x.PhysicalPersonFullName,
+                                x.JuridicalPersonFullName,
+                                x.Account,
+                                x.IsPrivate,
+                                x.RoomsCount,
+                                BuildingID = x.Buildings.ID,
+                                x.Floor,
+                                x.Entrance,
+                                x.Apartment,
+                                x.Square,
+                                x.Comment,
+                                x.LiftPresence,
+                                x.RubbishChutePresence,
+                                x.BillSendingSubscription,
+                                x.DebtsRepayment,
+                                x.UserID
+                            })
+                        .First();
 
                 _domItem.OwnerType = (DomItem.OwnerTypes)_customer.OwnerType;
                 _domItem.PhysicalPersonShortName = _customer.PhysicalPersonShortName;
@@ -48,7 +68,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.Account = _customer.Account;
                 _domItem.IsPrivate = _customer.IsPrivate;
                 _domItem.RoomsCount = _customer.RoomsCount;
-                _domItem.Building = (DomBuilding)DataMapperService.get(typeof(DomBuilding)).find(_customer.Buildings.ID.ToString());
+                _domItem.Building = (DomBuilding)DataMapperService.get(typeof(DomBuilding)).find(_customer.BuildingID.ToString());
                 _domItem.Floor = _customer.Floor;
                 _domItem.Entrance = _customer.Entrance;
                 _domItem.Apartment = _customer.Apartment;
@@ -59,23 +79,35 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.BillSendingSubscription = _customer.BillSendingSubscription;
                 _domItem.DebtsRepayment = _customer.DebtsRepayment;
                 _domItem.User =
-                    _customer.User != null
-                        ? (DomUser)DataMapperService.get(typeof(DomUser)).find(_customer.User.ID.ToString())
+                    _customer.UserID.HasValue
+                        ? (DomUser)DataMapperService.get(typeof(DomUser)).find(_customer.UserID.Value.ToString())
                         : null;
 
-                foreach (Residents _resident in _customer.Residents)
+                var _residentIDs = _db.Residents.Where(x => x.Customers.ID == _id).Select(x => x.ID).ToList();
+
+                foreach (int _rID in _residentIDs)
                 {
                     _domItem.Residents.Add(
-                        _resident.ID.ToString(),
-                        (DomResident)DataMapperService.get(typeof(DomResident)).find(_resident.ID.ToString()));
+                        _rID.ToString(),
+                        (DomResident)DataMapperService.get(typeof(DomResident)).find(_rID.ToString()));
                 }
 
-                foreach (CustomerPoses _customerPos in _customer.CustomerPoses)
+                var _poses = _db.CustomerPoses.Where(x => x.Customers.ID == _id).Select(x => x.ID).ToList();
+
+                foreach (int _posID in _poses)
                 {
                     _domItem.CustomerPoses.Add(
-                        _customerPos.ID.ToString(),
-                        (DomCustomerPos)
-                        DataMapperService.get(typeof(DomCustomerPos)).find(_customerPos.ID.ToString()));
+                        _posID.ToString(),
+                        (DomCustomerPos)DataMapperService.get(typeof(DomCustomerPos)).find(_posID.ToString()));
+                }
+
+                var _counters = _db.PrivateCounters.Where(x => x.Customers.ID == _id).Select(x => x.ID).ToList();
+
+                foreach (int _cID in _counters)
+                {
+                    _domItem.Counters.Add(
+                        _cID.ToString(),
+                        (DomPrivateCounter)DataMapperService.get(typeof(DomPrivateCounter)).find(_cID.ToString()));
                 }
             }
 
@@ -83,8 +115,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         }
 
         /// <summary>
-        /// Преобразователь из домена в БД.
-        /// Преобразованием строк не занимается ! ???
+        /// Преобразователь из домена в БД
         /// </summary>
         /// <param name="domObj"></param>
         /// <returns></returns>

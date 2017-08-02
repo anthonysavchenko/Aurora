@@ -32,22 +32,21 @@
             this.counterGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.idColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.numberColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.rateColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ContainerTypeLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.serviceColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.serviceLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serviceLookUpEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // counterGridControl
             // 
             this.counterGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.counterGridControl.EmbeddedNavigator.Buttons.Remove.Enabled = false;
             this.counterGridControl.Location = new System.Drawing.Point(0, 0);
             this.counterGridControl.MainView = this.counterGridView;
             this.counterGridControl.Name = "counterGridControl";
             this.counterGridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.ContainerTypeLookUpEdit});
+            this.serviceLookUpEdit});
             this.counterGridControl.Size = new System.Drawing.Size(736, 336);
             this.counterGridControl.TabIndex = 1;
             this.counterGridControl.UseEmbeddedNavigator = true;
@@ -61,7 +60,7 @@
             this.counterGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.idColumn,
             this.numberColumn,
-            this.rateColumn});
+            this.serviceColumn});
             this.counterGridView.GridControl = this.counterGridControl;
             this.counterGridView.Name = "counterGridView";
             this.counterGridView.OptionsView.ShowGroupPanel = false;
@@ -81,26 +80,25 @@
             this.numberColumn.Visible = true;
             this.numberColumn.VisibleIndex = 0;
             // 
-            // rateColumn
+            // serviceColumn
             // 
-            this.rateColumn.Caption = "Тариф";
-            this.rateColumn.DisplayFormat.FormatString = "{0:c2}";
-            this.rateColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.rateColumn.FieldName = "Rate";
-            this.rateColumn.Name = "rateColumn";
-            this.rateColumn.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
-            this.rateColumn.Visible = true;
-            this.rateColumn.VisibleIndex = 1;
+            this.serviceColumn.Caption = "Услуга";
+            this.serviceColumn.ColumnEdit = this.serviceLookUpEdit;
+            this.serviceColumn.FieldName = "Service";
+            this.serviceColumn.Name = "serviceColumn";
+            this.serviceColumn.Visible = true;
+            this.serviceColumn.VisibleIndex = 1;
             // 
-            // ContainerTypeLookUpEdit
+            // serviceLookUpEdit
             // 
-            this.ContainerTypeLookUpEdit.AutoHeight = false;
-            this.ContainerTypeLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.serviceLookUpEdit.AutoHeight = false;
+            this.serviceLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ContainerTypeLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Aka", 35, "Наименование")});
-            this.ContainerTypeLookUpEdit.Name = "ContainerTypeLookUpEdit";
-            this.ContainerTypeLookUpEdit.NullText = "";
+            this.serviceLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Услуга")});
+            this.serviceLookUpEdit.DisplayMember = "Name";
+            this.serviceLookUpEdit.Name = "serviceLookUpEdit";
+            this.serviceLookUpEdit.ValueMember = "ID";
             // 
             // CounterView
             // 
@@ -111,7 +109,7 @@
             this.Size = new System.Drawing.Size(736, 336);
             ((System.ComponentModel.ISupportInitialize)(this.counterGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ContainerTypeLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serviceLookUpEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -120,9 +118,9 @@
 
         private DevExpress.XtraGrid.GridControl counterGridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView counterGridView;
-        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit ContainerTypeLookUpEdit;
         private DevExpress.XtraGrid.Columns.GridColumn idColumn;
         private DevExpress.XtraGrid.Columns.GridColumn numberColumn;
-        private DevExpress.XtraGrid.Columns.GridColumn rateColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn serviceColumn;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit serviceLookUpEdit;
     }
 }

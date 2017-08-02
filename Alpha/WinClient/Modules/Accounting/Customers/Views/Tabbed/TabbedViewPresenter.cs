@@ -57,15 +57,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 
                 if (!_cancelAction)
                 {
-                    if (_tabPageName == ModuleTabNames.PAYMENTS_AND_CHARGES)
+                    switch(_tabPageName)
                     {
-                        _cancelAction = WorkItem.State[Params.CurrentItemStateName] == null || WorkItem.State[Params.EditItemStateName].ToString() == CommonEditItemStates.New;
+                        case ModuleTabNames.PAYMENTS_AND_CHARGES:
+                            _cancelAction = WorkItem.State[Params.CurrentItemStateName] == null 
+                                || WorkItem.State[Params.EditItemStateName].ToString() == CommonEditItemStates.New;
 
-                        if (!_cancelAction)
-                        {
-                            IBaseSimpleListView _view = ((IBaseSimpleListView)WorkItem.SmartParts.Get(ModuleViewNames.PAYMENTS_AND_CHARGES_VIEW));
-                            _view.RefreshList();
-                        }
+                            if (!_cancelAction)
+                            {
+                                ((IBaseSimpleListView)WorkItem.SmartParts.Get(ModuleViewNames.PAYMENTS_AND_CHARGES_VIEW)).RefreshList();
+                            }
+                            break;
+                        case ModuleTabNames.CUSTOMER_POSES:
+                            ((IBaseSimpleListView)WorkItem.SmartParts.Get(ModuleViewNames.CUSTOMER_POS_VIEW)).RefreshList();
+                            break;
+                        case ModuleTabNames.PRIVATE_COUNTERS:
+                            ((IBaseSimpleListView)WorkItem.SmartParts.Get(ModuleViewNames.COUNTER_VIEW)).RefreshList();
+                            break;
                     }
                 }
             }
