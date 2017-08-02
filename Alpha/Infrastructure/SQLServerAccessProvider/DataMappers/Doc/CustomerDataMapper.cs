@@ -12,6 +12,7 @@ using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Custo
 using DomResident = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Resident;
 using DomUser = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.User;
 using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
+using System.Linq.Expressions;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
 {
@@ -101,7 +102,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                         (DomCustomerPos)DataMapperService.get(typeof(DomCustomerPos)).find(_posID.ToString()));
                 }
 
-                var _counters = _db.PrivateCounters.Where(x => x.Customers.ID == _id).Select(x => x.ID).ToList();
+                var _counters = _db.PrivateCounters.Where(x => x.CustomerID == _id).Select(x => x.ID).ToList();
 
                 foreach (int _cID in _counters)
                 {
@@ -206,21 +207,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         /// <returns>Список абонентов</returns>
         public DataTable GetListByAccount(string accountNumberPart)
         {
-            DataTable _result;
-            using (Entities _entities = new Entities())
-            {
-                _entities.CommandTimeout = 3600;
-
-                _result =
-                    GetList(
-                        _entities.Customers
-                            .Include("Residents")
-                            .Include("Buildings")
-                            .Include("Buildings.Streets")
-                            .Where(c => c.Account.Contains(accountNumberPart)));
-            }
-
-            return _result;
+            return GetList(c => c.Account.Contains(accountNumberPart));
         }
 
         /// <summary>
@@ -232,28 +219,15 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         /// <returns>Список абонентов</returns>
         public DataTable GetList(string streetNamePart, string housePart, string ApartmentPart, bool WholeWord)
         {
-            DataTable _result;
-            using (Entities _entities = new Entities())
-            {
-                _entities.CommandTimeout = 3600;
-
-                if (WholeWord)
-                {
-                    _result = GetList(_entities.Customers.Include("Residents").Include("Buildings").Include("Buildings.Streets")
-                        .Where(c => c.Buildings.Streets.Name == streetNamePart &&
-                            (c.Buildings.Number == housePart || String.IsNullOrEmpty(housePart)) &&
-                            (c.Apartment == ApartmentPart || String.IsNullOrEmpty(ApartmentPart))));
-                }
-                else
-                {
-                    _result = GetList(_entities.Customers.Include("Residents").Include("Buildings").Include("Buildings.Streets")
-                        .Where(c => c.Buildings.Streets.Name.Contains(streetNamePart) &&
-                            (c.Buildings.Number.Contains(housePart) || String.IsNullOrEmpty(housePart)) &&
-                            (c.Apartment.Contains(ApartmentPart) || String.IsNullOrEmpty(ApartmentPart))));
-                }
-            }
-
-            return _result;
+            return WholeWord 
+                ? GetList(c =>
+                    c.Buildings.Streets.Name == streetNamePart
+                    && (c.Buildings.Number == housePart || String.IsNullOrEmpty(housePart))
+                    && (c.Apartment == ApartmentPart || String.IsNullOrEmpty(ApartmentPart)))
+                : GetList(c =>
+                    c.Buildings.Streets.Name.Contains(streetNamePart)
+                    && (c.Buildings.Number.Contains(housePart) || String.IsNullOrEmpty(housePart))
+                    && (c.Apartment.Contains(ApartmentPart) || String.IsNullOrEmpty(ApartmentPart)));
         }
 
         /// <summary>
@@ -263,23 +237,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         /// <returns>Список абонентов</returns>
         public DataTable GetListByZipCode(string zipCodePart)
         {
-            DataTable _result;
-            using (Entities _entities = new Entities())
-            {
-                _entities.CommandTimeout = 3600;
-
-                _result =
-                    GetList(
-                        _entities.Customers
-                            .Include("Residents")
-                            .Include("Buildings")
-                            .Include("Buildings.Streets")
-                            .Where(
-                                c =>
-                                c.Buildings.ZipCode.Contains(zipCodePart)));
-            }
-
-            return _result;
+            return GetList(c => c.Buildings.ZipCode.Contains(zipCodePart));
         }
 
         /// <summary>
@@ -288,23 +246,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         /// <returns>Список абонентов</returns>
         public DataTable GetList()
         {
-            DataTable _result;
-            using (Entities _entities = new Entities())
-            {
-                _entities.CommandTimeout = 3600;
-
-                _result =
-                    GetList(
-                        _entities.Customers
-                            .Include("Residents")
-                            .Include("Buildings")
-                            .Include("Buildings.Streets"));
-            }
-
-            return _result;
+            return GetList();
         }
 
-        private DataTable GetList(IQueryable query)
+        private DataTable GetList(Expression<Func<DBItem, bool>> whereExpr)
         {
             DataTable _table = new DataTable();
             _table.Columns.Add("ID", typeof(int));
@@ -318,29 +263,42 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
             _table.Columns.Add("Selected", typeof(bool));
             _table.PrimaryKey = new[] { _table.Columns["ID"] };
 
-            foreach (DBItem customer in query)
+            using (Entities _db = new Entities())
             {
-                string _owner = "Неизвестен";
+                _db.CommandTimeout = 3600;
 
-                if (customer.OwnerType == (int)DomItem.OwnerTypes.PhysicalPerson)
-                {
-                    _owner = customer.PhysicalPersonFullName;
-                }
-                else if (customer.OwnerType == (int)DomItem.OwnerTypes.JuridicalPerson)
-                {
-                    _owner = customer.JuridicalPersonFullName;
-                }
+                var _customers = _db.Customers.Where(whereExpr)
+                    .Select(c =>
+                        new
+                        {
+                            c.ID,
+                            c.Account,
+                            Owner = c.OwnerType == (int)DomItem.OwnerTypes.PhysicalPerson
+                                ? c.PhysicalPersonFullName
+                                : c.OwnerType == (int)DomItem.OwnerTypes.JuridicalPerson
+                                      ? c.JuridicalPersonFullName
+                                      : "Неизвестен",
+                            ResidentsCount = c.Residents.Count,
+                            Street = c.Buildings.Streets.Name,
+                            Building = c.Buildings.Number,
+                            c.Apartment,
+                            c.Square
+                        })
+                    .ToList();
 
-                _table.Rows.Add(
-                    customer.ID,
-                    customer.Account,
-                    _owner,
-                    customer.Residents.Count,
-                    customer.Buildings.Streets.Name,
-                    customer.Buildings.Number,
-                    customer.Apartment,
-                    customer.Square,
-                    false);
+                foreach (var c in _customers)
+                {
+                    _table.Rows.Add(
+                        c.ID,
+                        c.Account,
+                        c.Owner,
+                        c.ResidentsCount,
+                        c.Street,
+                        c.Building,
+                        c.Apartment,
+                        c.Square,
+                        false);
+                }
             }
 
             return _table;
