@@ -107,8 +107,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
 
                 using (Entities _entities = new Entities())
                 {
-                    _countersExist =
-                        _entities.PrivateCounters.Any(p => p.CustomerPoses.Services.ID == _id) ||
+                    _countersExist = _entities.CustomerPoses.Any(p => p.PrivateCounters != null && p.Services.ID == _id) ||
                         _entities.CommonCounters.Any(c => c.Services.ID == _id);
                 }
 

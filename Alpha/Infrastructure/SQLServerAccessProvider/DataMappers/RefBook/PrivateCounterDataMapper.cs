@@ -3,9 +3,10 @@ using Taumis.Alpha.DataBase;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.PrivateCounters;
-using DomCustomerPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos;
+using DomCustomer = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
 using DomPrivateCounterValue = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounterValue;
+using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
@@ -54,10 +55,8 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 }
 
                 _dbItem.Number = domObj.Number;
-                _dbItem.Rate = domObj.Rate;
-
-                int _tempId = int.Parse(domObj.CustomerPos.ID);
-                _dbItem.CustomerPoses = _entities.CustomerPoses.First(c => c.ID == _tempId);
+                _dbItem.CustomerID = int.Parse(domObj.Customer.ID);
+                _dbItem.ServiceID = int.Parse(domObj.Service.ID);
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -85,9 +84,8 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                         .First(x => x.ID == _id);
 
                 _domItem.Number = _dbItem.Number;
-                _domItem.Rate = _dbItem.Rate;
-                _domItem.CustomerPos =
-                    (DomCustomerPos)DataMapperService.get(typeof(DomCustomerPos)).find(_dbItem.CustomerPoses.ID.ToString());
+                _domItem.Customer = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(_dbItem.CustomerID.ToString());
+                _domItem.Service = (DomService)DataMapperService.get(typeof(DomService)).find(_dbItem.ServiceID.ToString());
 
                 IDataMapper _dataMapper = DataMapperService.get(typeof(DomPrivateCounterValue));
 

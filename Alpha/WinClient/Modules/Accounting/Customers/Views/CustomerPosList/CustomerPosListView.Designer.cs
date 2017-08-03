@@ -41,13 +41,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.TillGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ContractorGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ContractorRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.CounterGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.CounterItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.RateGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfServicesListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOfServicesListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ServiceRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.VistaTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContractorRepositoryItemLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CounterItemLookUpEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // gridControlOfServicesListView
@@ -59,7 +62,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.gridControlOfServicesListView.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.ServiceRepositoryItemLookUpEdit,
             this.ContractorRepositoryItemLookUpEdit,
-            this.SinceAndTillRepositoryItemDateEdit});
+            this.SinceAndTillRepositoryItemDateEdit,
+            this.CounterItemLookUpEdit});
             this.gridControlOfServicesListView.Size = new System.Drawing.Size(707, 203);
             this.gridControlOfServicesListView.TabIndex = 0;
             this.gridControlOfServicesListView.UseEmbeddedNavigator = true;
@@ -76,6 +80,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.SinceGridColumn,
             this.TillGridColumn,
             this.ContractorGridColumn,
+            this.CounterGridColumn,
             this.RateGridColumn});
             this.gridViewOfServicesListView.GridControl = this.gridControlOfServicesListView;
             this.gridViewOfServicesListView.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
@@ -85,8 +90,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.ServiceGridColumn, DevExpress.Data.ColumnSortOrder.Ascending),
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.SinceGridColumn, DevExpress.Data.ColumnSortOrder.Ascending),
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.TillGridColumn, DevExpress.Data.ColumnSortOrder.Ascending)});
-            this.gridViewOfServicesListView.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridViewOfServicesListView_FocusedRowChanged);
             this.gridViewOfServicesListView.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridViewOfServicesListView_RowStyle);
+            this.gridViewOfServicesListView.ShownEditor += new System.EventHandler(this.gridViewOfServicesListView_ShownEditor);
             // 
             // IDGridColumn
             // 
@@ -113,6 +118,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.ServiceRepositoryItemLookUpEdit.DisplayMember = "Name";
             this.ServiceRepositoryItemLookUpEdit.Name = "ServiceRepositoryItemLookUpEdit";
             this.ServiceRepositoryItemLookUpEdit.ValueMember = "ID";
+            this.ServiceRepositoryItemLookUpEdit.EditValueChanged += new System.EventHandler(this.ServiceRepositoryItemLookUpEdit_EditValueChanged);
             // 
             // SinceGridColumn
             // 
@@ -131,14 +137,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.SinceAndTillRepositoryItemDateEdit.AutoHeight = false;
             this.SinceAndTillRepositoryItemDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
             this.SinceAndTillRepositoryItemDateEdit.DisplayFormat.FormatString = "MM.yyyy";
             this.SinceAndTillRepositoryItemDateEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.SinceAndTillRepositoryItemDateEdit.EditFormat.FormatString = "MM.yyyy";
             this.SinceAndTillRepositoryItemDateEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.SinceAndTillRepositoryItemDateEdit.Mask.EditMask = "MM.yyyy";
             this.SinceAndTillRepositoryItemDateEdit.Name = "SinceAndTillRepositoryItemDateEdit";
-            this.SinceAndTillRepositoryItemDateEdit.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
             // 
             // TillGridColumn
             // 
@@ -171,13 +179,34 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.ContractorRepositoryItemLookUpEdit.Name = "ContractorRepositoryItemLookUpEdit";
             this.ContractorRepositoryItemLookUpEdit.ValueMember = "ID";
             // 
+            // CounterGridColumn
+            // 
+            this.CounterGridColumn.Caption = "Прибор учета";
+            this.CounterGridColumn.ColumnEdit = this.CounterItemLookUpEdit;
+            this.CounterGridColumn.FieldName = "Counter";
+            this.CounterGridColumn.Name = "CounterGridColumn";
+            this.CounterGridColumn.Visible = true;
+            this.CounterGridColumn.VisibleIndex = 4;
+            // 
+            // CounterItemLookUpEdit
+            // 
+            this.CounterItemLookUpEdit.AutoHeight = false;
+            this.CounterItemLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.CounterItemLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Number", "Прибор учета"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ServiceName", "Услуга")});
+            this.CounterItemLookUpEdit.DisplayMember = "Number";
+            this.CounterItemLookUpEdit.Name = "CounterItemLookUpEdit";
+            this.CounterItemLookUpEdit.ValueMember = "ID";
+            // 
             // RateGridColumn
             // 
             this.RateGridColumn.Caption = "Тариф";
             this.RateGridColumn.FieldName = "Rate";
             this.RateGridColumn.Name = "RateGridColumn";
             this.RateGridColumn.Visible = true;
-            this.RateGridColumn.VisibleIndex = 4;
+            this.RateGridColumn.VisibleIndex = 5;
             // 
             // CustomerPosListView
             // 
@@ -189,9 +218,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfServicesListView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOfServicesListView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ServiceRepositoryItemLookUpEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.VistaTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContractorRepositoryItemLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CounterItemLookUpEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -209,6 +239,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private DevExpress.XtraGrid.Columns.GridColumn SinceGridColumn;
         private DevExpress.XtraGrid.Columns.GridColumn TillGridColumn;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit SinceAndTillRepositoryItemDateEdit;
+        private DevExpress.XtraGrid.Columns.GridColumn CounterGridColumn;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit CounterItemLookUpEdit;
     }
 }
 

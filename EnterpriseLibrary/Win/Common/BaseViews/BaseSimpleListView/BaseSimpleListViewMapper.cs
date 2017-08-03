@@ -112,6 +112,33 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView
         }
 
         /// <summary>
+        /// Получить домен из колонки грида типа справочник.
+        /// </summary>
+        /// <typeparam name="TDomain">Домен</typeparam>
+        /// <param name="_gridListView">таблица</param>
+        /// <param name="_fieldName">Наименование поля</param>
+        /// <returns>Домен</returns>
+        public string ViewToDomainID(GridView _gridListView, string _fieldName)
+        {
+            string _id = string.Empty;
+
+            if (_gridListView.State == GridState.Editing)
+            {
+                _gridListView.UpdateCurrentRow();
+            }
+
+            RepositoryItemLookUpEdit _column = (RepositoryItemLookUpEdit)_gridListView.Columns[_fieldName].ColumnEdit;
+            if (_column.ValueMember != null)
+            {
+                if (_column.GetDataSourceRowByDisplayValue(_gridListView.GetFocusedRowCellDisplayText(_fieldName)) != null)
+                {
+                    _id = ((DataRowView)_column.GetDataSourceRowByDisplayValue(_gridListView.GetFocusedRowCellDisplayText(_fieldName))).Row["ID"].ToString();
+                }
+            }
+            return _id;
+        }
+
+        /// <summary>
         /// Присвоить значения справочнику в гриде.
         /// </summary>
         /// <param name="_dataTable">Таблица значений</param>

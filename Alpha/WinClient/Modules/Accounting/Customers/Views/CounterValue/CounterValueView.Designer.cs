@@ -37,7 +37,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.VistaTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.CalendarTimeProperties)).BeginInit();
             this.SuspendLayout();
             // 
             // counterValueGridControl
@@ -89,14 +89,19 @@
             this.periodRepositoryItemDateEdit.AutoHeight = false;
             this.periodRepositoryItemDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.periodRepositoryItemDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.periodRepositoryItemDateEdit.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.periodRepositoryItemDateEdit.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
+            this.periodRepositoryItemDateEdit.CalendarView = DevExpress.XtraEditors.Repository.CalendarView.Vista;
             this.periodRepositoryItemDateEdit.DisplayFormat.FormatString = "MM.yyyy";
             this.periodRepositoryItemDateEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.periodRepositoryItemDateEdit.EditFormat.FormatString = "MM.yyyy";
             this.periodRepositoryItemDateEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.periodRepositoryItemDateEdit.Mask.EditMask = "MM.yyyy";
             this.periodRepositoryItemDateEdit.Name = "periodRepositoryItemDateEdit";
-            this.periodRepositoryItemDateEdit.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.periodRepositoryItemDateEdit.VistaCalendarViewStyle = DevExpress.XtraEditors.VistaCalendarViewStyle.YearView;
+            this.periodRepositoryItemDateEdit.VistaDisplayMode = DevExpress.Utils.DefaultBoolean.True;
             // 
             // valueColumn
             // 
@@ -116,7 +121,7 @@
             this.Size = new System.Drawing.Size(803, 458);
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.VistaTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit)).EndInit();
             this.ResumeLayout(false);
 

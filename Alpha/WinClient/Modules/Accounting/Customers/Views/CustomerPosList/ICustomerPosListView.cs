@@ -3,6 +3,7 @@ using System.Data;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using DomContractor = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Contractor;
 using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
+using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
@@ -22,14 +23,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         DomService Service { get; }
 
         /// <summary>
-        /// Contractors
+        /// Список подрядчиков
         /// </summary>
         DataTable Contractors { set; }
 
         /// <summary>
-        /// Contractor
+        /// Подрядчик
         /// </summary>
         DomContractor Contractor { get; }
+
+        /// <summary>
+        /// Таблица приборов учета, связанных с абонентом
+        /// </summary>
+        DataTable Counters { set; }
+
+        /// <summary>
+        /// Прибор учета
+        /// </summary>
+        string CounterID { get; }
 
         /// <summary>
         /// Since
