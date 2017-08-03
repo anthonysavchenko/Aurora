@@ -99,11 +99,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             message = string.Empty;
 
-            if (curItem.Period != ServerTime.GetPeriodInfo().FirstUncharged)
-            {
-                message = "- Вносить показания можно только за следующий начисляемый период\n";
-            }
-
             if (curItem.Value < 0)
             {
                 message = string.Format("{0}- Показание должно быть больше или равно 0", message);

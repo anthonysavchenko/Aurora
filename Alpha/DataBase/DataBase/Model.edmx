@@ -170,7 +170,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Period" Type="date" Nullable="false" />
-          <Property Name="Value" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="CommonCounter" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Contractors">
@@ -193,6 +193,7 @@
           <Property Name="Customer" Type="int" Nullable="false" />
           <Property Name="Since" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="Till" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="PrivateCounterID" Type="int" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -343,8 +344,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Rate" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="CustomerPos" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="ServiceID" Type="int" />
         </EntityType>
         <EntityType Name="PrivateCounterValues">
           <Key>
@@ -352,7 +353,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Period" Type="date" Nullable="false" />
-          <Property Name="Value" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="PrivateCounter" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PublicPlaces">
@@ -440,6 +441,8 @@
           <Property Name="Consumption" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="Rate" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="RegularBillDoc" Type="int" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Measure" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="RegularBillDocs">
           <Key>
@@ -936,6 +939,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CustomerPoses_PrivateCounters">
+          <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="0..1" />
+          <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivateCounters">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerPoses">
+              <PropertyRef Name="PrivateCounterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CustomerPoses_Services">
           <End Role="Services" Type="Self.Services" Multiplicity="1" />
           <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="*" />
@@ -1188,20 +1203,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PrivateCounters_CustomerPoses">
-          <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="1" />
+        <Association Name="FK_PrivateCounters_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
           <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomerPoses">
+            <Principal Role="Customers">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PrivateCounters">
-              <PropertyRef Name="CustomerPos" />
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateCounters_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+          <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateCounters">
+              <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PrivateCounterValues_PrivateCounters">
-          <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="1" />
+          <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PrivateCounterValues" Type="Self.PrivateCounterValues" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PrivateCounters">
@@ -1739,6 +1768,10 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="CustomerPoses" EntitySet="CustomerPoses" />
           </AssociationSet>
+          <AssociationSet Name="FK_CustomerPoses_PrivateCounters" Association="Self.FK_CustomerPoses_PrivateCounters">
+            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+            <End Role="CustomerPoses" EntitySet="CustomerPoses" />
+          </AssociationSet>
           <AssociationSet Name="FK_CustomerPoses_Services" Association="Self.FK_CustomerPoses_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="CustomerPoses" EntitySet="CustomerPoses" />
@@ -1823,8 +1856,12 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PaymentSets" EntitySet="PaymentSets" />
           </AssociationSet>
-          <AssociationSet Name="FK_PrivateCounters_CustomerPoses" Association="Self.FK_PrivateCounters_CustomerPoses">
-            <End Role="CustomerPoses" EntitySet="CustomerPoses" />
+          <AssociationSet Name="FK_PrivateCounters_Customers" Association="Self.FK_PrivateCounters_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateCounters_Services" Association="Self.FK_PrivateCounters_Services">
+            <End Role="Services" EntitySet="Services" />
             <End Role="PrivateCounters" EntitySet="PrivateCounters" />
           </AssociationSet>
           <AssociationSet Name="FK_PrivateCounterValues_PrivateCounters" Association="Self.FK_PrivateCounterValues_PrivateCounters">
@@ -2122,10 +2159,6 @@
             <End Role="Services" EntitySet="Services" />
             <End Role="CustomerPoses" EntitySet="CustomerPoses" />
           </AssociationSet>
-          <AssociationSet Name="FK_PrivateCounters_CustomerPoses" Association="AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses">
-            <End Role="CustomerPoses" EntitySet="CustomerPoses" />
-            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
-          </AssociationSet>
           <AssociationSet Name="FK_OverpaymentOpers_Customers" Association="AlphaDataBaseModel.FK_OverpaymentOpers_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="OverpaymentOpers" EntitySet="OverpaymentOpers" />
@@ -2331,6 +2364,18 @@
           <AssociationSet Name="FK_PublicPlaceServiceVolumes_Services" Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="PublicPlaceServiceVolumes" EntitySet="PublicPlaceServiceVolumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerPoses_PrivateCounters" Association="AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters">
+            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+            <End Role="CustomerPoses" EntitySet="CustomerPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateCounters_Customers" Association="AlphaDataBaseModel.FK_PrivateCounters_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateCounters_Services" Association="AlphaDataBaseModel.FK_PrivateCounters_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
           </AssociationSet></EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
@@ -2496,7 +2541,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Value" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
           <NavigationProperty Name="CommonCounters" Relationship="AlphaDataBaseModel.FK_CommonCounterValues_CommonCounters" FromRole="CommonCounterValues" ToRole="CommonCounters" />
         </EntityType>
         <EntityType Name="Contractors">
@@ -2526,7 +2571,8 @@
           <NavigationProperty Name="Contractors" Relationship="AlphaDataBaseModel.FK_CustomerPoses_Contractors" FromRole="CustomerPoses" ToRole="Contractors" />
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_CustomerPoses_CustomerPoses" FromRole="CustomerPoses" ToRole="Customers" />
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_CustomerPoses_Services" FromRole="CustomerPoses" ToRole="Services" />
-          <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses" FromRole="CustomerPoses" ToRole="PrivateCounters" />
+          <Property Name="PrivateCounterID" Type="Int32" />
+          <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters" FromRole="CustomerPoses" ToRole="PrivateCounters" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -2562,6 +2608,7 @@
           <Property Name="Entrance" Type="Byte" Nullable="false" />
           <Property Name="GisZhkhID" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DebtBillDocs" Relationship="AlphaDataBaseModel.FK_DebtBillDocs_Customers" FromRole="Customers" ToRole="DebtBillDocs" />
+          <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="Customers" ToRole="PrivateCounters" />
         </EntityType>
         <EntityType Name="DebtBillDocs">
           <Key>
@@ -2697,9 +2744,12 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Number" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <NavigationProperty Name="CustomerPoses" Relationship="AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses" FromRole="PrivateCounters" ToRole="CustomerPoses" />
           <NavigationProperty Name="PrivateCounterValues" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" FromRole="PrivateCounters" ToRole="PrivateCounterValues" />
+          <Property Name="CustomerID" Type="Int32" />
+          <NavigationProperty Name="CustomerPoses" Relationship="AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters" FromRole="PrivateCounters" ToRole="CustomerPoses" />
+          <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="PrivateCounters" ToRole="Customers" />
+          <Property Name="ServiceID" Type="Int32" />
+          <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Services" FromRole="PrivateCounters" ToRole="Services" />
         </EntityType>
         <EntityType Name="PrivateCounterValues">
           <Key>
@@ -2707,7 +2757,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Value" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" FromRole="PrivateCounterValues" ToRole="PrivateCounters" />
         </EntityType>
         <EntityType Name="RebenefitOperPoses">
@@ -2779,6 +2829,8 @@
           <Property Name="Consumption" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="Rate" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <NavigationProperty Name="RegularBillDocs" Relationship="AlphaDataBaseModel.RegularBillDocCounterPoses_fk" FromRole="RegularBillDocCounterPoses" ToRole="RegularBillDocs" />
+          <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Measure" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RegularBillDocs">
           <Key>
@@ -2854,6 +2906,7 @@
           <NavigationProperty Name="PublicPlaces" Relationship="AlphaDataBaseModel.FK_PublicPlaces_Services" FromRole="Services" ToRole="PublicPlaces" />
           <Property Name="Measure" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PublicPlaceServiceVolumes" Relationship="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services" FromRole="Services" ToRole="PublicPlaceServiceVolumes" />
+          <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Services" FromRole="Services" ToRole="PrivateCounters" />
         </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
@@ -3044,10 +3097,6 @@
         <Association Name="FK_CustomerPoses_Services">
           <End Role="Services" Type="AlphaDataBaseModel.Services" Multiplicity="1" />
           <End Role="CustomerPoses" Type="AlphaDataBaseModel.CustomerPoses" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_PrivateCounters_CustomerPoses">
-          <End Role="CustomerPoses" Type="AlphaDataBaseModel.CustomerPoses" Multiplicity="1" />
-          <End Role="PrivateCounters" Type="AlphaDataBaseModel.PrivateCounters" Multiplicity="*" />
         </Association>
         <Association Name="FK_OverpaymentOpers_Customers">
           <End Role="Customers" Type="AlphaDataBaseModel.Customers" Multiplicity="1" />
@@ -3371,6 +3420,42 @@
               <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerPoses_PrivateCounters">
+          <End Type="AlphaDataBaseModel.PrivateCounters" Role="PrivateCounters" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.CustomerPoses" Role="CustomerPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivateCounters">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerPoses">
+              <PropertyRef Name="PrivateCounterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateCounters_Customers">
+          <End Type="AlphaDataBaseModel.Customers" Role="Customers" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.PrivateCounters" Role="PrivateCounters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateCounters">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateCounters_Services">
+          <End Type="AlphaDataBaseModel.Services" Role="Services" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.PrivateCounters" Role="PrivateCounters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateCounters">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association></Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3526,6 +3611,7 @@
           <EntitySetMapping Name="CustomerPoses">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.CustomerPoses)">
               <MappingFragment StoreEntitySet="CustomerPoses">
+                <ScalarProperty Name="PrivateCounterID" ColumnName="PrivateCounterID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Since" ColumnName="Since" />
@@ -3672,9 +3758,10 @@
           <EntitySetMapping Name="PrivateCounters">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.PrivateCounters)">
               <MappingFragment StoreEntitySet="PrivateCounters">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3737,6 +3824,8 @@
           <EntitySetMapping Name="RegularBillDocCounterPoses">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.RegularBillDocCounterPoses)">
               <MappingFragment StoreEntitySet="RegularBillDocCounterPoses">
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
@@ -4107,14 +4196,6 @@
               <ScalarProperty Name="ID" ColumnName="Service" />
             </EndProperty>
             <EndProperty Name="CustomerPoses">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_PrivateCounters_CustomerPoses" TypeName="AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses" StoreEntitySet="PrivateCounters">
-            <EndProperty Name="CustomerPoses">
-              <ScalarProperty Name="ID" ColumnName="CustomerPos" />
-            </EndProperty>
-            <EndProperty Name="PrivateCounters">
               <ScalarProperty Name="ID" ColumnName="ID" />
             </EndProperty>
           </AssociationSetMapping>
@@ -4559,7 +4640,7 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentOperPoses" Width="2.625" PointX="11.25" PointY="28.25" Height="1.9802864583333317" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentOpers" Width="2.25" PointX="0.5" PointY="4.875" Height="2.7494921874999996" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentSets" Width="1.5" PointX="1.5" PointY="0.75" Height="2.9417936197916665" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="1.5" PointX="13.5" PointY="35.25" Height="1.9802864583333388" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="13.5" PointY="35.25" Height="1.9802864583333388" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounterValues" Width="1.5" PointX="15.75" PointY="35.375" Height="1.7879850260416674" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RebenefitOperPoses" Width="1.5" PointX="8.25" PointY="22.25" Height="1.9802864583333317" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RebenefitOpers" Width="1.5" PointX="6" PointY="9.375" Height="1.7879850260416674" IsExpanded="true" />
@@ -4856,9 +4937,6 @@
           <edmx:ConnectorPoint PointX="10.625" PointY="36.422587890624996" />
           <edmx:ConnectorPoint PointX="10.625" PointY="35.46621933072916" />
           <edmx:ConnectorPoint PointX="11.25" PointY="35.46621933072916" /></edmx:AssociationConnector>
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses" ManuallyRouted="false">
-          <edmx:ConnectorPoint PointX="12.75" PointY="36.240143229166669" />
-          <edmx:ConnectorPoint PointX="13.5" PointY="36.240143229166669" /></edmx:AssociationConnector>
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_OverpaymentOpers_Customers" ManuallyRouted="false">
           <edmx:ConnectorPoint PointX="4.5" PointY="22.117610171875" />
           <edmx:ConnectorPoint PointX="4.572916666666667" PointY="22.117610171875" />
@@ -5138,6 +5216,9 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RegularBillDocSeviceTypePoses_ServiceTypes" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PublicPlaceServiceVolumes" Width="1.5" PointX="9.25" PointY="19" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services" /></edmx:Diagram></edmx:Diagrams>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Customers" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Services" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

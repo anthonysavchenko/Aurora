@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
+using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Counter
 {
@@ -9,17 +11,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// Номер счетчика
         /// </summary>
         string Number { get; }
+
+        DataTable Services { set; }
+        DomService Service { get; }
         
-        /// <summary>
-        /// Тариф
-        /// </summary>
-        decimal Rate { get; }
-
-        /// <summary>
-        /// Определяет доступность пользователю кнопок редактирования
-        /// </summary>
-        bool NavigationButtonsEnabled { set; }
-
         /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>
