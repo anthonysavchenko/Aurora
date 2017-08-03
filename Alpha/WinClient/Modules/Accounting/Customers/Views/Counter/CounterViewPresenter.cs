@@ -26,7 +26,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
 
         public override void OnViewReady()
         {
-            RefreshRefBooks();
         }
 
         private Dictionary<string, PrivateCounter> Counters => ((Customer)WorkItem.State[CommonStateNames.CurrentItem]).Counters;
@@ -37,6 +36,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// <returns>Таблица данных (DataTable)</returns>
         public override DataTable GetElemList()
         {
+            RefreshRefBooks();
+
             DataTable _table = new DataTable();
             _table.Columns.Add("ID");
             _table.Columns.Add("Number");
@@ -183,14 +184,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// <param name="id">Id выбранного элемента списка</param>
         public virtual void OnRowChanged(string id)
         {
-            if (!string.IsNullOrEmpty(id))
-            {
-                WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER] = Counters[id];
+            WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER] = string.IsNullOrEmpty(id) ? null : Counters[id];
 
-                ICounterValueView _counterValueView = (ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW];
-                _counterValueView.NavigationButtonsEnabled = true;
-                _counterValueView.RefreshList();
-            }
+            ICounterValueView _counterValueView = (ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW];
+            _counterValueView.NavigationButtonsEnabled = true;
+            _counterValueView.RefreshList();
         }
     }
 }
