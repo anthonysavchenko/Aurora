@@ -6,8 +6,3 @@
     CONSTRAINT [PK_PrivateCounterValues] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_PrivateCounterValues_PrivateCounters] FOREIGN KEY ([PrivateCounter]) REFERENCES [dbo].[PrivateCounters] ([ID]) ON DELETE CASCADE
 );
-
-
-
-
-

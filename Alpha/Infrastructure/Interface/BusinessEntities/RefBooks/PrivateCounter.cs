@@ -27,39 +27,39 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             }
         }
 
-        private decimal _rate;
-        /// <summary>
-        /// Тариф
-        /// </summary>
-        public decimal Rate
-        {
-            get
-            {
-                Load();
-                return _rate;
-            }
-            set
-            {
-                Load();
-                _rate = value;
-            }
-        }
-
-        private CustomerPos _customerPos;
+        private Customer _customer;
         /// <summary>
         /// Привязка услуги к абоненту
         /// </summary>
-        public CustomerPos CustomerPos
+        public Customer Customer
         {
             get
             {
                 Load();
-                return _customerPos;
+                return _customer;
             }
             set
             {
                 Load();
-                _customerPos = value;
+                _customer = value;
+            }
+        }
+
+        private Service _service;
+        /// <summary>
+        /// Услуга
+        /// </summary>
+        public Service Service
+        {
+            get
+            {
+                Load();
+                return _service;
+            }
+            set
+            {
+                Load();
+                _service = value;
             }
         }
 

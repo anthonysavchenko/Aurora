@@ -32,32 +32,31 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
             int _id = int.Parse(_domItem.ID);
             using (Entities _entities = new Entities())
             {
-                CustomerPoses customerPos =
+                var customerPos =
                     _entities.CustomerPoses
-                        .Include("Contractors")
-                        .Include("Services")
-                        .Include("Customers")
-                        .Include("PrivateCounters")
-                        .First(x => x.ID == _id);
+                        .Where(x => x.ID == _id)
+                        .Select(x =>
+                            new
+                            {
+                                CustomerID = x.Customers.ID,
+                                ServiceID = x.Services.ID,
+                                ContractorID = x.Contractors.ID,
+                                x.PrivateCounterID,
+                                x.Since,
+                                x.Till,
+                                x.Rate
+                            })
+                        .First();
 
-                _domItem.Doc = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(customerPos.Customers.ID.ToString());
-                _domItem.Service = (DomService)DataMapperService.get(typeof(DomService)).find(customerPos.Services.ID.ToString());
+                _domItem.Doc = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(customerPos.CustomerID.ToString());
+                _domItem.Service = (DomService)DataMapperService.get(typeof(DomService)).find(customerPos.ServiceID.ToString());
                 _domItem.Since = customerPos.Since;
                 _domItem.Till = customerPos.Till;
-                _domItem.Contractor = (DomContractor)DataMapperService.get(typeof(DomContractor)).find(customerPos.Contractors.ID.ToString());
+                _domItem.Contractor = (DomContractor)DataMapperService.get(typeof(DomContractor)).find(customerPos.ContractorID.ToString());
                 _domItem.Rate = customerPos.Rate;
-
-                IDataMapper _counterDataMapper = DataMapperService.get(typeof(DomPrivateCounter));
-                
-                _domItem.PrivateCounters.Clear();
-
-                foreach (var _privateCounter in customerPos.PrivateCounters)
-                {
-                    DomPrivateCounter _domCounter =
-                        (DomPrivateCounter)_counterDataMapper.find(_privateCounter.ID.ToString());
-                    _domCounter.CustomerPos = _domItem;
-                    _domItem.PrivateCounters.Add(_domCounter.ID, _domCounter);
-                }
+                _domItem.PrivateCounter = customerPos.PrivateCounterID.HasValue
+                    ? (DomPrivateCounter)DataMapperService.get(typeof(DomPrivateCounter)).find(customerPos.PrivateCounterID.Value.ToString())
+                    : null;
             }
 
             return _domItem;
@@ -85,16 +84,22 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                     _dbItem = _entities.CustomerPoses.First(x => x.ID == _id);
                 }
 
-                int _serviceId = int.Parse(domObj.Service.ID);
-                int _contractorId = int.Parse(domObj.Contractor.ID);
-                int _customerId = int.Parse(((DomCustomer)domObj.Doc).ID);
-
-                _dbItem.Services = _entities.Services.First(service => service.ID == _serviceId);
-                _dbItem.Contractors = _entities.Contractors.First(contractor => contractor.ID == _contractorId);
                 _dbItem.Since = domObj.Since;
                 _dbItem.Till = domObj.Till;
-                _dbItem.Customers = _entities.Customers.First(customer => customer.ID == _customerId);
                 _dbItem.Rate = domObj.Rate;
+
+                int tempId = int.Parse(domObj.Service.ID);
+                _dbItem.Services = _entities.Services.First(service => service.ID == tempId);
+
+                tempId = int.Parse(domObj.Contractor.ID);
+                _dbItem.Contractors = _entities.Contractors.First(contractor => contractor.ID == tempId);
+
+                tempId = int.Parse(((DomCustomer)domObj.Doc).ID);
+                _dbItem.Customers = _entities.Customers.First(customer => customer.ID == tempId);
+
+                _dbItem.PrivateCounterID = domObj.PrivateCounter != null
+                    ? int.Parse(domObj.PrivateCounter.ID)
+                    : (int?)null;
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -131,7 +136,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         {
             DataTable _table = GetTable();
             UniquePoses = new List<DomServiceSinceTill>();
-            int _currentCustomerID = Int32.Parse(currentCustomer.ID);
+            int _currentCustomerID = int.Parse(currentCustomer.ID);
             int _customerCount = customerIDs.Count();
 
             using (Entities _entities = new Entities())
@@ -162,7 +167,8 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                                 Rate = g.Key.Rate,
                                 GroupedByCount = g.Count(),
                                 CurrentCustomerPos = g.FirstOrDefault(_x => _x.Customers.ID == _currentCustomerID),
-                            });
+                            })
+                        .ToList();
 
                 currentCustomer.CustomerPoses.Clear();
 
@@ -203,25 +209,35 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         /// <returns>Таблица услуг</returns>
         public DataTable GetList(DomCustomer customer)
         {
-            int _customerID = Int32.Parse(customer.ID);
+            int _customerID = int.Parse(customer.ID);
             DataTable _table = GetTable();
 
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                var _poses = _entities.CustomerPoses
-                    .Include("Contractors")
-                    .Include("Services")
-                    .Where(_pos => _pos.Customers.ID == _customerID);
+                var _poses = _db.CustomerPoses
+                    .Where(p => p.Customers.ID == _customerID)
+                    .Select(p =>
+                        new
+                        {
+                            p.ID,
+                            ServiceID = p.Services.ID,
+                            p.Since,
+                            p.Till,
+                            ContractorID = p.Contractors.ID,
+                            p.Rate,
+                            p.PrivateCounterID
+                        });
 
                 foreach (var _pos in _poses)
                 {
                     _table.Rows.Add(
                         _pos.ID.ToString(),
-                        _pos.Services.ID,
+                        _pos.ServiceID,
                         _pos.Since,
                         _pos.Till,
-                        _pos.Contractors.ID,
-                        _pos.Rate);
+                        _pos.ContractorID,
+                        _pos.Rate,
+                        _pos.PrivateCounterID.HasValue ? _pos.PrivateCounterID.Value.ToString() : string.Empty);
                 }
             }
 
@@ -237,11 +253,12 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
             DataTable _table = new DataTable();
 
             _table.Columns.Add("ID", typeof(string));
-            _table.Columns.Add("Service", typeof(string));
+            _table.Columns.Add("Service", typeof(int));
             _table.Columns.Add("Since", typeof(DateTime));
             _table.Columns.Add("Till", typeof(DateTime));
-            _table.Columns.Add("Contractor", typeof(string));
+            _table.Columns.Add("Contractor", typeof(int));
             _table.Columns.Add("Rate", typeof(decimal));
+            _table.Columns.Add("Counter", typeof(string));
 
             return _table;
         }

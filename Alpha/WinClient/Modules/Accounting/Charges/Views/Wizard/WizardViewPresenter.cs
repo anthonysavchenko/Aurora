@@ -123,6 +123,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             public int ContractorID { get; set; }
             public byte ChargeRule { get; set; }
             public decimal Rate { get; set; }
+            public int? PrivateCounterID { get; set; }
         }
 
         private class RechargeInfo
@@ -699,27 +700,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                             ServiceID = p.Services.ID,
                                                             ContractorID = p.Contractors.ID,
                                                             ChargeRule = p.Services.ChargeRule,
-                                                            Rate = p.Rate
+                                                            Rate = p.Rate,
+                                                            PrivateCounterID = p.PrivateCounterID
                                                         })
                                                     // Необходимо для вычисления банковской комиссии расходов по сод. общ. им. после вычисления суммы начисления самих расходов
                                                     .OrderBy(p => p.ChargeRule)
                                             })
                                         .ToDictionary(r => r.CustomerID, r => r.Poses.ToList());
 
-                                var _privateCountersByCustomerPos =
+                                var _privateCounters =
                                     _db.PrivateCounters
-                                        .Where(p => p.CustomerPoses.Customers.Buildings.ID == _building.BuildingID)
+                                        .Where(p => p.Customers.Buildings.ID == _building.BuildingID)
                                         .Select(p =>
                                             new
                                             {
+                                                p.ID,
                                                 p.Number,
-                                                CustomerPosID = p.CustomerPoses.ID,
-                                                p.Rate,
                                                 PrevValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _lastChargedPeriod),
                                                 CurValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _currentPeriod)
                                             })
-                                        .GroupBy(p => p.CustomerPosID)
-                                        .ToDictionary(r => r.Key, r => r.ToList());
+                                        .ToDictionary(r => r.ID);
 
                                 var _commonCountersByService =
                                     _db.CommonCounters
@@ -1028,27 +1028,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 _chargeValue = _customerPos.Rate * _customer.ResidentsCount;
                                                 break;
                                             case Service.ChargeRuleType.CounterRate:
-                                                if (_privateCountersByCustomerPos.ContainsKey(_customerPos.ID))
+                                                if (_customerPos.PrivateCounterID.HasValue)
                                                 {
-                                                    var _counters = _privateCountersByCustomerPos[_customerPos.ID];
-                                                    foreach (var _counter in _counters)
-                                                    {
-                                                        decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                                        decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                        _chargeValue += Math.Round(_consumption * _counter.Rate, 2, MidpointRounding.AwayFromZero);
+                                                    var _counter = _privateCounters[_customerPos.PrivateCounterID.Value];
 
-                                                        _counterBillPoses.Add(
-                                                            new RegularBillDocCounterPoses
-                                                            {
-                                                                Consumption = _consumption,
-                                                                CurValue = _counter.CurValue.Value,
-                                                                PrevValue = _prevValue,
-                                                                Rate = _counter.Rate,
-                                                                Number = _counter.Number,
-                                                                ServiceName = _service.Name,
-                                                                Measure = _service.Measure
-                                                            });
-                                                    }
+                                                    decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                    decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                    _chargeValue = _consumption * _customerPos.Rate;
+
+                                                    _counterBillPoses.Add(
+                                                        new RegularBillDocCounterPoses
+                                                        {
+                                                            Consumption = _consumption,
+                                                            CurValue = _counter.CurValue.Value,
+                                                            PrevValue = _prevValue,
+                                                            Rate = _customerPos.Rate,
+                                                            Number = _counter.Number,
+                                                            ServiceName = _service.Name,
+                                                            Measure = _service.Measure
+                                                        });
                                                 }
                                                 break;
 
@@ -1713,7 +1711,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             ServiceID = p.Services.ID,
                                             ContractorID = p.Contractors.ID,
                                             ChargeRule = p.Services.ChargeRule,
-                                            Rate = p.Rate
+                                            Rate = p.Rate,
+                                            PrivateCounterID = p.PrivateCounterID
                                         })
                                     // Необходимо для вычисления банковской комиссии расходов по сод. общ. им. после вычисления суммы начисления самих расходов
                                     .OrderBy(p => p.ChargeRule)
@@ -1783,24 +1782,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 out _benefitSquare,
                                 out _extraSquare);
 
-                            int[] _customerPosIDs = _customerPoses.Select(p => p.ID).ToArray();
-
                             DateTime _previousPeriod = _period.AddMonths(-1);
 
-                            var _privateCountersByCustomerPos =
+                            var _privateCounters =
                                 _db.PrivateCounters
-                                    .Where(p => _customerPosIDs.Contains(p.CustomerPoses.ID))
+                                    .Where(p => p.CustomerID == _customerID)
                                     .Select(p =>
                                         new
                                         {
+                                            p.ID,
                                             p.Number,
-                                            CustomerPosID = p.CustomerPoses.ID,
-                                            p.Rate,
                                             PrevValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _previousPeriod),
                                             CurValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _period)
                                         })
-                                    .GroupBy(p => p.CustomerPosID)
-                                    .ToDictionary(r => r.Key, r => r.ToList());
+                                    .ToDictionary(r => r.ID);
 
                             var _commonCountersByService =
                                 _db.CommonCounters
@@ -1843,15 +1838,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         break;
 
                                     case Service.ChargeRuleType.CounterRate:
-                                        if (_privateCountersByCustomerPos.ContainsKey(_customerPos.ID))
+                                        if (_customerPos.PrivateCounterID.HasValue)
                                         {
-                                            var _counters = _privateCountersByCustomerPos[_customerPos.ID];
-                                            foreach (var _counter in _counters)
-                                            {
-                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                _value += _consumption * _counter.Rate;
-                                            }
+                                            var _counter = _privateCounters[_customerPos.PrivateCounterID.Value];
+                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                            _value = _consumption * _customerPos.Rate;
                                         }
                                         break;
 
@@ -2235,7 +2227,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                              ServiceID = p.Services.ID,
                                              ContractorID = p.Contractors.ID,
                                              ChargeRule = p.Services.ChargeRule,
-                                             Rate = p.Rate
+                                             Rate = p.Rate,
+                                             PrivateCounterID = p.PrivateCounterID
                                          })
                                      // Необходимо для вычисления банковской комиссии расходов по сод. общ. им. после вычисления суммы начисления самих расходов
                                      .OrderBy(p => p.ChargeRule)
@@ -2277,22 +2270,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 }
                                 decimal _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
 
-                                int[] _customerPosIDs = _customerPoses.Select(p => p.ID).ToArray();
-
-                                var _privateCountersByCustomerPos =
+                                var _privateCounters =
                                     _db.PrivateCounters
-                                        .Where(p => _customerPosIDs.Contains(p.CustomerPoses.ID))
+                                        .Where(p => p.CustomerID == _customerID)
                                         .Select(p =>
                                             new
                                             {
+                                                p.ID,
                                                 p.Number,
-                                                CustomerPosID = p.CustomerPoses.ID,
-                                                p.Rate,
                                                 PrevValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _previousPeriod),
                                                 CurValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _period)
                                             })
-                                        .GroupBy(p => p.CustomerPosID)
-                                        .ToDictionary(r => r.Key, r => r.ToList());
+                                        .ToDictionary(r => r.ID);
 
                                 var _commonCountersByService =
                                     _db.CommonCounters
@@ -2322,15 +2311,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             _value = _customerPos.Rate * _customer.ResidentsCount;
                                             break;
                                         case Service.ChargeRuleType.CounterRate:
-                                            if (_privateCountersByCustomerPos.ContainsKey(_customerPos.ID))
+                                            if (_customerPos.PrivateCounterID.HasValue)
                                             {
-                                                var _counters = _privateCountersByCustomerPos[_customerPos.ID];
-                                                foreach (var _counter in _counters)
-                                                {
-                                                    decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                                    decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                    _value += _consumption * _counter.Rate;
-                                                }
+                                                var _counter = _privateCounters[_customerPos.PrivateCounterID.Value];
+                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                _value = _consumption * _customerPos.Rate;
                                             }
                                             break;
 

@@ -1,14 +1,17 @@
 ﻿using Microsoft.Practices.CompositeUI;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
+using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Counter
@@ -21,32 +24,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         [ServiceDependency]
         public IUnitOfWork UnitOfWork { get; set; }
 
-        /// <summary>
-        /// На загрузку вью
-        /// </summary>
         public override void OnViewReady()
         {
+            RefreshRefBooks();
         }
 
-        /// <summary>
-        /// Обновить общий список элементов.
-        /// </summary>
-        public override void RefreshList()
-        {
-            ICounterValueView _counterValueView =
-                ((ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW]);
-            CustomerPos _currentCustomerPos = ((CustomerPos) WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS]);
-            
-            WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER] = null;
-
-            _counterValueView.NavigationButtonsEnabled = false;
-            View.NavigationButtonsEnabled =
-                WorkItem.State[ModuleStateNames.EDIT_ITEM_MODE].ToString() == ModuleEditItemModes.Single &&
-                _currentCustomerPos.Service.ChargeRule == Service.ChargeRuleType.CounterRate;
-
-            _counterValueView.RefreshList();
-            base.RefreshList();
-        }
+        private Dictionary<string, PrivateCounter> Counters => ((Customer)WorkItem.State[CommonStateNames.CurrentItem]).Counters;
 
         /// <summary>
         /// Получить таблицу данных (DataTable)
@@ -57,19 +40,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
             DataTable _table = new DataTable();
             _table.Columns.Add("ID");
             _table.Columns.Add("Number");
-            _table.Columns.Add("Rate", typeof(decimal));
+            _table.Columns.Add("Service");
 
-            CustomerPos _customerPos = (CustomerPos)WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS];
-
-            if (_customerPos != null)
+            foreach (PrivateCounter _c in Counters.Values)
             {
-                foreach (PrivateCounter _counter in _customerPos.PrivateCounters.Values)
-                {
-                    _table.Rows.Add(
-                           _counter.ID,
-                           _counter.Number,
-                           _counter.Rate);
-                }
+                _table.Rows.Add(_c.ID, _c.Number, _c.Service.ID);
             }
 
             return _table;
@@ -81,10 +56,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// <returns></returns>
         protected override PrivateCounter GetCurrentItem()
         {
-            CustomerPos _customerPos = (CustomerPos)WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS];
             string _id = View.GetCurrentItemId();
-
-            return _customerPos.PrivateCounters.ContainsKey(_id) ? _customerPos.PrivateCounters[_id] : null;
+            return Counters.ContainsKey(_id) ? Counters[_id] : null;
         }
 
         /// <summary>
@@ -95,7 +68,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             PrivateCounter _curItem = new PrivateCounter
             {
-                CustomerPos = (CustomerPos)WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS]
+                Customer = (Customer)WorkItem.State[CommonStateNames.CurrentItem]
             };
 
             return _curItem;
@@ -108,7 +81,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         protected override void GetItemFromView(PrivateCounter curItem)
         {
             curItem.Number = View.Number.Trim();
-            curItem.Rate = View.Rate;
+            curItem.Service = View.Service;
         }
 
         /// <summary>
@@ -126,16 +99,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
                 message = "Не заполнен номер счетчика\n";
             }
 
-            if (curItem.Rate <= 0)
+            if(curItem.Service == null)
             {
-                message = string.Format("{0}Тариф должен быть больше 0", message);
-            }
-
-            if (string.IsNullOrEmpty(message) &&
-                ((CustomerPos)WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS]).PrivateCounters.Values
-                    .Any(c => c.ID != curItem.ID && c.Number == curItem.Number))
-            {
-                message = string.Format("Счетчик с номером {0} уже связан с данной услугой", curItem.Number);
+                message += "Не выбрана услуга";
             }
 
             return string.IsNullOrEmpty(message);
@@ -150,10 +116,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             if (curItem.IsNew)
             {
-                CustomerPos _pos = (CustomerPos)WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS];
-                if (!_pos.PrivateCounters.ContainsKey(curItem.ID))
+                if (!Counters.ContainsKey(curItem.ID))
                 {
-                    _pos.PrivateCounters.Add(curItem.ID, curItem);
+                    Counters.Add(curItem.ID, curItem);
                     UnitOfWork.registerNew(curItem);
                 }
             }
@@ -168,11 +133,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         }
 
         /// <summary>
-        /// Удаление текущего элемента домена из базы данных.
+        /// Обновить справочные данные в комбобоксах таблицы
         /// </summary>
-        public override void DeleteElem()
+        protected override void RefreshRefBooks()
         {
-            UnitOfWork.registerRemoved(GetCurrentItem());
+            View.Services = GetServices();
+        }
+
+        private DataTable GetServices()
+        {
+            DataTable _table = new DataTable();
+            _table.Columns.Add("ID");
+            _table.Columns.Add("Name");
+
+            using (Entities _db = new Entities())
+            {
+                var _services = _db.Services.Where(s => s.ChargeRule == (byte)Service.ChargeRuleType.CounterRate).ToList();
+
+                foreach (var _s in _services)
+                {
+                    _table.Rows.Add(
+                        _s.ID.ToString(),
+                        _s.Name);
+                }
+            }
+
+            return _table;
         }
 
         /// <summary>
@@ -199,8 +185,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             if (!string.IsNullOrEmpty(id))
             {
-                WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER] =
-                    ((CustomerPos)WorkItem.State[ModuleStateNames.CURRENT_CUSTOMER_POS]).PrivateCounters[id];
+                WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER] = Counters[id];
 
                 ICounterValueView _counterValueView = (ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW];
                 _counterValueView.NavigationButtonsEnabled = true;

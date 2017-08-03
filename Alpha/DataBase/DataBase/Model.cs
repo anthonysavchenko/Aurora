@@ -50,7 +50,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargeOperPoses_Contractors", "Contractors", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Contractors), "RechargeOperPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargeOperPoses))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerPoses_CustomerPoses", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerPoses))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerPoses_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Services), "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerPoses))]
-[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_CustomerPoses", "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CustomerPoses), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_OverpaymentOpers_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "OverpaymentOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.OverpaymentOpers))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PaymentOpers_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "PaymentOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PaymentOpers))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargeOpers_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "RechargeOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargeOpers))]
@@ -101,6 +100,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RegularBillDocSeviceTypePoses_ServiceTypes", "ServiceTypes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.ServiceTypes), "RegularBillDocSeviceTypePoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RegularBillDocSeviceTypePoses), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "PublicPlaceServiceVolumes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaceServiceVolumes), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PublicPlaceServiceVolumes_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Services), "PublicPlaceServiceVolumes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PublicPlaceServiceVolumes), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerPoses_PrivateCounters", "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.PrivateCounters), "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerPoses), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Services), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 
 #endregion
 
@@ -5547,6 +5549,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.DateTime _Till;
         partial void OnTillChanging(global::System.DateTime value);
         partial void OnTillChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PrivateCounterID
+        {
+            get
+            {
+                return _PrivateCounterID;
+            }
+            set
+            {
+                OnPrivateCounterIDChanging(value);
+                ReportPropertyChanging("PrivateCounterID");
+                _PrivateCounterID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrivateCounterID");
+                OnPrivateCounterIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PrivateCounterID;
+        partial void OnPrivateCounterIDChanging(Nullable<global::System.Int32> value);
+        partial void OnPrivateCounterIDChanged();
 
         #endregion
 
@@ -5672,18 +5698,34 @@ namespace Taumis.Alpha.DataBase
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounters_CustomerPoses", "PrivateCounters")]
-        public EntityCollection<PrivateCounters> PrivateCounters
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CustomerPoses_PrivateCounters", "PrivateCounters")]
+        public PrivateCounters PrivateCounters
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses", "PrivateCounters");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters", "PrivateCounters").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters", "PrivateCounters").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivateCounters> PrivateCountersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters", "PrivateCounters");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses", "PrivateCounters", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters", "PrivateCounters", value);
                 }
             }
         }
@@ -6506,6 +6548,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DebtBillDocs>("AlphaDataBaseModel.FK_DebtBillDocs_Customers", "DebtBillDocs", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Customers", "PrivateCounters")]
+        public EntityCollection<PrivateCounters> PrivateCounters
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "PrivateCounters");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "PrivateCounters", value);
                 }
             }
         }
@@ -8989,13 +9053,11 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="number">Initial value of the Number property.</param>
-        /// <param name="rate">Initial value of the Rate property.</param>
-        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number, global::System.Decimal rate)
+        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number)
         {
             PrivateCounters privateCounters = new PrivateCounters();
             privateCounters.ID = id;
             privateCounters.Number = number;
-            privateCounters.Rate = rate;
             return privateCounters;
         }
 
@@ -9057,68 +9119,54 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Decimal Rate
+        public Nullable<global::System.Int32> CustomerID
         {
             get
             {
-                return _Rate;
+                return _CustomerID;
             }
             set
             {
-                OnRateChanging(value);
-                ReportPropertyChanging("Rate");
-                _Rate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Rate");
-                OnRateChanged();
+                OnCustomerIDChanging(value);
+                ReportPropertyChanging("CustomerID");
+                _CustomerID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CustomerID");
+                OnCustomerIDChanged();
             }
         }
-        private global::System.Decimal _Rate;
-        partial void OnRateChanging(global::System.Decimal value);
-        partial void OnRateChanged();
-
-        #endregion
-
-        #region Navigation Properties
+        private Nullable<global::System.Int32> _CustomerID;
+        partial void OnCustomerIDChanging(Nullable<global::System.Int32> value);
+        partial void OnCustomerIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounters_CustomerPoses", "CustomerPoses")]
-        public CustomerPoses CustomerPoses
+        public Nullable<global::System.Int32> ServiceID
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses", "CustomerPoses").Value;
+                return _ServiceID;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses", "CustomerPoses").Value = value;
+                OnServiceIDChanging(value);
+                ReportPropertyChanging("ServiceID");
+                _ServiceID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ServiceID");
+                OnServiceIDChanged();
             }
         }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<CustomerPoses> CustomerPosesReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses", "CustomerPoses");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_PrivateCounters_CustomerPoses", "CustomerPoses", value);
-                }
-            }
-        }
+        private Nullable<global::System.Int32> _ServiceID;
+        partial void OnServiceIDChanging(Nullable<global::System.Int32> value);
+        partial void OnServiceIDChanged();
+
+        #endregion
+
+        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9138,6 +9186,104 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounterValues>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters", "PrivateCounterValues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CustomerPoses_PrivateCounters", "CustomerPoses")]
+        public EntityCollection<CustomerPoses> CustomerPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CustomerPoses>("AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters", "CustomerPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CustomerPoses>("AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters", "CustomerPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Customers", "Customers")]
+        public Customers Customers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "Customers").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "Customers").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Customers> CustomersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "Customers");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Customers>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "Customers", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Services", "Services")]
+        public Services Services
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Services>("AlphaDataBaseModel.FK_PrivateCounters_Services", "Services").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Services>("AlphaDataBaseModel.FK_PrivateCounters_Services", "Services").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Services> ServicesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Services>("AlphaDataBaseModel.FK_PrivateCounters_Services", "Services");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Services>("AlphaDataBaseModel.FK_PrivateCounters_Services", "Services", value);
                 }
             }
         }
@@ -13056,6 +13202,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaceServiceVolumes>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services", "PublicPlaceServiceVolumes", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Services", "PrivateCounters")]
+        public EntityCollection<PrivateCounters> PrivateCounters
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_Services", "PrivateCounters");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_Services", "PrivateCounters", value);
                 }
             }
         }

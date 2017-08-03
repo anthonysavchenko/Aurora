@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Domain.DocLine;
 using DomContractor = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Contractor;
@@ -131,15 +130,21 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private readonly Dictionary<string, PrivateCounter> _privateCounters = new Dictionary<string, PrivateCounter>();
+        private PrivateCounter _privateCounter;
         /// <summary>
-        /// Счетчики
+        /// Прибор учета
         /// </summary>
-        public Dictionary<string, PrivateCounter> PrivateCounters
+        public PrivateCounter PrivateCounter
         {
             get
             {
-                return _privateCounters;
+                Load();
+                return _privateCounter;
+            }
+            set
+            {
+                Load();
+                _privateCounter = value;
             }
         }
     }
