@@ -390,5 +390,15 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
                 _debtsRepayment = value;
             }
         }
+
+        private readonly Dictionary<string, PrivateCounter> _counters = new Dictionary<string, PrivateCounter>();
+        public Dictionary<string, PrivateCounter> Counters
+        {
+            get
+            {
+                Load();
+                return _counters;
+            }
+        } 
     }
 }

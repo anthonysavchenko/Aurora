@@ -7,6 +7,8 @@ using System.Drawing;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using DomContractor = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Contractor;
 using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraEditors;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
@@ -22,59 +24,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         [CreateNew]
         public new CustomerPosListViewPresenter Presenter
         {
-            set
-            {
-                base.Presenter = value;
-            }
-            get
-            {
-                return (CustomerPosListViewPresenter)base.Presenter;
-            }
+            set => base.Presenter = value;
+            get => (CustomerPosListViewPresenter)base.Presenter;
         }
+        
+        public DataTable Services { set => GetBaseSimpleListViewMapper.DomainToView(value, gridViewOfServicesListView, "Service"); }
+        public DataTable Contractors { set => GetBaseSimpleListViewMapper.DomainToView(value, gridViewOfServicesListView, "Contractor"); }
+        public DataTable Counters { set => GetBaseSimpleListViewMapper.DomainToView(value, gridViewOfServicesListView, "Counter"); }
 
-        /// <summary>
-        /// Услуги
-        /// </summary>
-        public DataTable Services
-        {
-            set
-            {
-                GetBaseSimpleListViewMapper.DomainToView(value, gridViewOfServicesListView, "Service");
-            }
-        }
-
-        /// <summary>
-        /// Услуга
-        /// </summary>
-        public DomService Service
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomain<DomService>(gridViewOfServicesListView, "Service");
-            }
-        }
-
-        /// <summary>
-        /// Contractors
-        /// </summary>
-        public DataTable Contractors
-        {
-            set
-            {
-                GetBaseSimpleListViewMapper.DomainToView(value, gridViewOfServicesListView, "Contractor");
-            }
-        }
-
-        /// <summary>
-        /// Contractor
-        /// </summary>
-        public DomContractor Contractor
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomain<DomContractor>(gridViewOfServicesListView, "Contractor");
-            }
-        }
+        public DomService Service => GetBaseSimpleListViewMapper.ViewToDomain<DomService>(gridViewOfServicesListView, "Service");
+        public DomContractor Contractor => GetBaseSimpleListViewMapper.ViewToDomain<DomContractor>(gridViewOfServicesListView, "Contractor");
+        public string CounterID => GetBaseSimpleListViewMapper.ViewToDomainID(gridViewOfServicesListView, "Counter");
 
         /// <summary>
         /// Since
@@ -103,24 +63,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         /// <summary>
         /// Rate
         /// </summary>
-        public decimal Rate
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomainSimpleType<decimal>(gridViewOfServicesListView, "Rate");
-            }
-        }
+        public decimal Rate => GetBaseSimpleListViewMapper.ViewToDomainSimpleType<decimal>(gridViewOfServicesListView, "Rate");
 
         /// <summary>
         /// Признак разрешенности редактирования
         /// </summary>
-        public bool IsEditingAllowed
-        {
-            set
-            {
-                gridViewOfServicesListView.OptionsBehavior.Editable = value;
-            }
-        }
+        public bool IsEditingAllowed { set => gridViewOfServicesListView.OptionsBehavior.Editable = value; }
 
         /// <summary>
         /// Подключить общий обработчик изменений
@@ -156,9 +104,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             }
         }
 
-        private void gridViewOfServicesListView_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void gridViewOfServicesListView_ShownEditor(object sender, EventArgs e)
         {
-            Presenter.OnRowChanged(gridViewOfServicesListView.GetFocusedRowCellDisplayText("ID"));
+            ColumnView _cv = (ColumnView)sender;
+            if(_cv.FocusedColumn.FieldName == "Counter")
+            {
+                string _serviceId = gridViewOfServicesListView.GetFocusedRowCellValue("Service").ToString();
+                if (!string.IsNullOrEmpty(_serviceId))
+                {
+                    LookUpEdit _edit = (LookUpEdit)_cv.ActiveEditor;
+                    DataTable _dt = (DataTable)_edit.Properties.DataSource;
+                    DataView _dv = new DataView(_dt)
+                    {
+                        RowFilter = $"ServiceID = {_serviceId}"
+                    };
+                    _edit.Properties.DataSource = _dv;
+                }
+            }
+        }
+
+        private void ServiceRepositoryItemLookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            gridViewOfServicesListView.PostEditor();
+            gridViewOfServicesListView.SetFocusedRowCellValue("Counter", null);
         }
     }
 }

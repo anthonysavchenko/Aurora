@@ -780,14 +780,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             })
                                         .ToDictionary(r => r.CustomerID, r => r.Poses.ToList());
 
-                                //Отдельная задача - соединить с предыдущим запросом по данным абонентов в доме, чтобы сократить обращения в БД
-                                Dictionary<int, CommonCounterInfo> _counterInfoByService =
-                                    GetBuildingCountersInfo(
-                                        _building.BuildingID,
-                                        _customerIDs,
-                                        _currentPeriod,
-                                        _lastChargedPeriod);
-
                                 foreach (var _customer in _customers)
                                 {
                                     List<RegularBillDocCounterPoses> _counterBillPoses = new List<RegularBillDocCounterPoses>();
@@ -1081,42 +1073,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 _chargeValue = _customerPos.Rate * _customer.ResidentsCount;
                                                 break;
                                             case Service.ChargeRuleType.CounterRate:
-                                                //вычислять в отдельной функции
-                                                if (_counterInfoByService.ContainsKey(_customerPos.ServiceID))
-                                                {
-                                                    CommonCounterInfo _commonCounterInfo = _counterInfoByService[_customerPos.ServiceID];
-
-                                                    if (_commonCounterInfo.PrivateCounterInfoByCustomer.ContainsKey(_customer.ID))
-                                                    {
-                                                        decimal _sharedCharge = 0;
-
-                                                        Dictionary<string, PrivateCounterInfo> _infoByCounterNumber =
-                                                            _commonCounterInfo.PrivateCounterInfoByCustomer[_customer.ID];
-
-                                                        foreach (KeyValuePair<string, PrivateCounterInfo> _pair in _infoByCounterNumber)
-                                                        {
-                                                            _chargeValue += _pair.Value.Consumption * _pair.Value.Rate * _commonCounterInfo.Coefficient;
-                                                            _sharedCharge += _pair.Value.CommonConsumptionPart * _pair.Value.Rate;
-
-                                                            _counterBillPoses.Add(
-                                                                new RegularBillDocCounterPoses
-                                                                {
-                                                                    Consumption = _pair.Value.Consumption,
-                                                                    CurValue = _pair.Value.CurrentValue,
-                                                                    PrevValue = _pair.Value.PreviousValue,
-                                                                    Rate = _pair.Value.Rate,
-                                                                    Number = _pair.Key
-                                                                });
-                                                        }
-
-                                                        _sharedCounterPoses.Add(
-                                                            new RegularBillDocSharedCounterPoses
-                                                            {
-                                                                SharedCounterValue = Math.Round(_commonCounterInfo.ConsumptionCustomerSum, 2, MidpointRounding.AwayFromZero),
-                                                                SharedCharge = Math.Round(_sharedCharge, 2, MidpointRounding.AwayFromZero),
-                                                            });
-                                                    }
-                                                }
                                                 break;
 
                                             case Service.ChargeRuleType.PublicPlaceAreaRate:
@@ -1771,69 +1727,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         _value = _customerPos.Rate * _customer.ResidentsCount;
                                         break;
                                     case Service.ChargeRuleType.CounterRate:
-                                        var _privateCounters =
-                                            _db.PrivateCounters
-                                                .Where(v => v.CustomerPoses.ID == _customerPos.ID)
-                                                .ToList();
-
-                                        if (_privateCounters.Any())
-                                        {
-                                            var _commonCounters =
-                                                _db.CommonCounters
-                                                    .Where(
-                                                        c =>
-                                                        c.Services.ID == _customerPos.ServiceID &&
-                                                        c.Buildings.ID == _customer.BuildingID)
-                                                    .Select(c => c.ID)
-                                                    .ToList();
-
-                                            if (_commonCounters.Any())
-                                            {
-                                                int _commonCounterId = _commonCounters.First();
-
-                                                decimal _coefficient =
-                                                    _db.CommonCounterCoefficients
-                                                        .Where(
-                                                            p =>
-                                                            p.Period == _period &&
-                                                            p.CommonCounters.ID == _commonCounterId)
-                                                        .Select(p => p.Coefficient)
-                                                        .FirstOrDefault();
-
-                                                if (_coefficient > 0)
-                                                {
-                                                    DateTime _previousPeriod = _period.AddMonths(-1);
-
-                                                    foreach (PrivateCounters _counter in _privateCounters)
-                                                    {
-                                                        decimal _previousValue =
-                                                            _db.PrivateCounterValues
-                                                                .Where(
-                                                                    v =>
-                                                                    v.PrivateCounters.ID == _counter.ID &&
-                                                                    v.Period == _previousPeriod)
-                                                                .Select(v => v.Value)
-                                                                .FirstOrDefault();
-
-                                                        decimal _currentValue =
-                                                            _db.PrivateCounterValues
-                                                                .Where(
-                                                                    v =>
-                                                                    v.PrivateCounters.ID == _counter.ID &&
-                                                                    v.Period == _period)
-                                                                .Select(v => v.Value)
-                                                                .FirstOrDefault();
-
-                                                        if (_currentValue == 0)
-                                                        {
-                                                            continue;
-                                                        }
-
-                                                        _value += (_currentValue - _previousValue) * _customerPos.Rate * _coefficient;
-                                                    }
-                                                }
-                                            }
-                                        }
                                         break;
                                     case Service.ChargeRuleType.PublicPlaceAreaRate:
                                         {
@@ -2213,41 +2106,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             _value = _customerPos.Rate * _customer.ResidentsCount;
                                             break;
                                         case Service.ChargeRuleType.CounterRate:
-                                            var _privateCounters =
-                                                _db.PrivateCounters
-                                                    .Where(v => v.CustomerPoses.ID == _customerPos.ID)
-                                                    .ToList();
-
-                                            if (_privateCounters.Any())
-                                            {
-                                                foreach (PrivateCounters _counter in _privateCounters)
-                                                {
-                                                    decimal _previousValue =
-                                                        _db.PrivateCounterValues
-                                                            .Where(
-                                                                v =>
-                                                                v.PrivateCounters.ID == _counter.ID &&
-                                                                v.Period == _previousPeriod)
-                                                            .Select(v => v.Value)
-                                                            .FirstOrDefault();
-
-                                                    decimal _currentValue =
-                                                        _db.PrivateCounterValues
-                                                            .Where(
-                                                                v =>
-                                                                v.PrivateCounters.ID == _counter.ID &&
-                                                                v.Period == _period)
-                                                            .Select(v => v.Value)
-                                                            .FirstOrDefault();
-
-                                                    if (_currentValue == 0)
-                                                    {
-                                                        continue;
-                                                    }
-
-                                                    _value += (_currentValue - _previousValue) * _customerPos.Rate;
-                                                }
-                                            }
                                             break;
 
                                         case Service.ChargeRuleType.PublicPlaceAreaRate:
@@ -2794,130 +2652,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             else
             {
                 _result = true;
-            }
-
-            return _result;
-        }
-
-        /// <summary>
-        /// Вычисляет необходимые данные для учета по счетчикам
-        /// </summary>
-        /// <param name="customersInBuilding">Жильцы</param>
-        /// <param name="currentPeriod">Предыдущий период</param>
-        /// <param name="previousPeriod">Текущий период</param>
-        /// <returns>Данные по счетчикам, сгруппированные по услуге</returns>
-        private Dictionary<int, CommonCounterInfo> GetBuildingCountersInfo(
-            int buildingID,
-            IEnumerable<int> customersInBuilding,
-            DateTime currentPeriod,
-            DateTime previousPeriod)
-        {
-            Dictionary<int, CommonCounterInfo> _result = new Dictionary<int, CommonCounterInfo>();
-
-            using (Entities _entities = new Entities())
-            {
-                var _commonCounter =
-                    _entities.CommonCounters
-                        .Include("Services")
-                        .Where(c => c.Buildings.ID == buildingID);
-
-                foreach (var _counter in _commonCounter)
-                {
-                    decimal _totalConsumption = 0;
-                    CommonCounterInfo _commonCounterInfo = new CommonCounterInfo();
-
-                    foreach (int _customerID in customersInBuilding)
-                    {
-                        var _privateCounters =
-                            _entities.PrivateCounters
-                                .Where(
-                                    p =>
-                                    p.CustomerPoses.Customers.ID == _customerID &&
-                                    p.CustomerPoses.Services.ID == _counter.Services.ID)
-                                .Select(
-                                    p =>
-                                    new
-                                    {
-                                        p.ID,
-                                        p.Rate,
-                                        p.Number
-                                    })
-                                .ToList();
-
-                        Dictionary<string, PrivateCounterInfo> _privateCounterInfoByNumber =
-                            new Dictionary<string, PrivateCounterInfo>(_privateCounters.Count);
-
-                        foreach (var _privateCounter in _privateCounters)
-                        {
-                            decimal _previousValue =
-                                _entities.PrivateCounterValues
-                                    .Where(
-                                        v =>
-                                        v.PrivateCounters.ID == _privateCounter.ID &&
-                                        v.Period == previousPeriod)
-                                    .Sum(v => (decimal?)v.Value) ?? 0;
-
-                            decimal _currentValue =
-                                _entities.PrivateCounterValues
-                                    .Where(
-                                        v =>
-                                        v.PrivateCounters.ID == _privateCounter.ID &&
-                                        v.Period == currentPeriod)
-                                    .Sum(v => (decimal?)v.Value) ?? 0;
-
-                            PrivateCounterInfo _privateCounterInfo =
-                                new PrivateCounterInfo(_previousValue, _currentValue, _privateCounter.Rate);
-
-                            _totalConsumption += _privateCounterInfo.Consumption;
-
-                            _privateCounterInfoByNumber.Add(_privateCounter.Number, _privateCounterInfo);
-                        }
-
-                        _commonCounterInfo.PrivateCounterInfoByCustomer.Add(_customerID, _privateCounterInfoByNumber);
-                    }
-
-                    decimal _pValue =
-                        _entities.CommonCounterValues
-                            .Where(
-                                v =>
-                                v.CommonCounters.ID == _counter.ID &&
-                                v.Period == previousPeriod)
-                            .Sum(v => (decimal?)v.Value) ?? 0;
-
-                    decimal _cValue =
-                        _entities.CommonCounterValues
-                            .Where(
-                                v =>
-                                v.CommonCounters.ID == _counter.ID &&
-                                v.Period == currentPeriod)
-                            .Sum(v => (decimal?)v.Value) ?? 0;
-
-                    _commonCounterInfo.CurrentValue = _cValue;
-                    _commonCounterInfo.Consumption = _cValue - _pValue;
-                    _commonCounterInfo.Coefficient = Math.Round(_commonCounterInfo.Consumption / _totalConsumption, 9, MidpointRounding.AwayFromZero);
-                    decimal _commonCoefficient = _commonCounterInfo.Coefficient - 1;
-
-                    _entities.AddToCommonCounterCoefficients(
-                        new CommonCounterCoefficients
-                        {
-                            Period = currentPeriod,
-                            Coefficient = _commonCounterInfo.Coefficient,
-                            CommonCounters = _counter
-                        });
-
-                    foreach (Dictionary<string, PrivateCounterInfo> _value in _commonCounterInfo.PrivateCounterInfoByCustomer.Values)
-                    {
-                        foreach (PrivateCounterInfo _info in _value.Values)
-                        {
-                            _info.CommonConsumptionPart = _info.Consumption * _commonCoefficient;
-                            _commonCounterInfo.ConsumptionCustomerSum += _info.CommonConsumptionPart;
-                        }
-                    }
-
-                    _result.Add(_counter.Services.ID, _commonCounterInfo);
-                }
-
-                _entities.SaveChanges();
             }
 
             return _result;
