@@ -71,6 +71,7 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
         {
             get
             {
+                Load();
                 return _values;
             }
         }

@@ -257,7 +257,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             else if (
                 Lines.Values.Any(_pos =>
                     _pos.Service.ID == curItem.Service.ID
-                    && ((_pos.Since <= curItem.Since && curItem.Since <= _pos.Till) || (_pos.Since <= curItem.Till && curItem.Till <= _pos.Till))))
+                    && ((_pos.Since <= curItem.Since && curItem.Since <= _pos.Till) || (_pos.Since <= curItem.Till && curItem.Till <= _pos.Till))
+                    && ((_pos.PrivateCounter == null && curItem.PrivateCounter == null) || (_pos.PrivateCounter != null && curItem.PrivateCounter != null && _pos.PrivateCounter.ID == curItem.PrivateCounter.ID))))
             {
                 message = "Две одинаковых услуги не могут предоставлятся в один и тот же период\r\n";
             }

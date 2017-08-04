@@ -437,9 +437,9 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PrevValue" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="CurValue" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="Consumption" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="PrevValue" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="CurValue" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="Consumption" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="Rate" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="RegularBillDoc" Type="int" Nullable="false" />
           <Property Name="ServiceName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -2826,9 +2826,9 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Number" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="PrevValue" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="CurValue" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="Consumption" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="PrevValue" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="CurValue" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="Consumption" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
           <Property Name="Rate" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <NavigationProperty Name="RegularBillDocs" Relationship="AlphaDataBaseModel.RegularBillDocCounterPoses_fk" FromRole="RegularBillDocCounterPoses" ToRole="RegularBillDocs" />
           <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />

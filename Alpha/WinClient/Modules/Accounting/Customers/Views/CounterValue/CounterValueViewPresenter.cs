@@ -43,12 +43,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
 
             if (_counter != null)
             {
-                foreach (PrivateCounterValue _counterValue in _counter.Values.Values.OrderBy(v => v.Period))
+                foreach (var _counterValue in _counter.Values.OrderBy(v => v.Value.Period))
                 {
                     _table.Rows.Add(
-                        _counterValue.ID,
-                        _counterValue.Period,
-                        _counterValue.Value);
+                        _counterValue.Key,
+                        _counterValue.Value.Period,
+                        _counterValue.Value.Value);
                 }
             }
 

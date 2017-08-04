@@ -86,10 +86,12 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView
         {
             TDomainWithPositions _person = CurrentDomainWithPositions;
             string _posId = View.GetCurrentItemId();
-
-            UOW.registerRemoved((TPosition)Lines[_posId]);
-            Lines.Remove(_posId);
-            WorkItem.State[CommonStateNames.ItemState] = CommonItemStates.Modified;
+            if (!string.IsNullOrEmpty(_posId))
+            {
+                UOW.registerRemoved((TPosition)Lines[_posId]);
+                Lines.Remove(_posId);
+                WorkItem.State[CommonStateNames.ItemState] = CommonItemStates.Modified;
+            }
         }
 
         /// <summary>
