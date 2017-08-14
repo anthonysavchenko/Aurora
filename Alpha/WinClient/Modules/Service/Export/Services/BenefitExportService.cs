@@ -68,26 +68,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         private class ServiceTypes
         {
-            public const string MAINTANCE_SERVICE_TYPE_STR = "С";
-            public const string REPAIR_SERVICE_TYPE_STR = "Р";
-            public const string PP_COLD_WATER_SERVICE_TYPE_STR = "Х";
-            public const string PP_HOT_WATER_SERVICE_TYPE_STR = "Г";
-            public const string PP_ELECTRICITY_WATER_SERVICE_TYPE_STR = "Э";
+            public const string MAINTANCE_SERVICE_TYPE_STR = "К";
 
             public const int MAINTANCE_SERVICE_TYPE_ID = 1;
-            public const int REPAIR_SERVICE_TYPE_ID = 5;
-            public const int PP_COLD_WATER_SERVICE_TYPE_ID = 3;
-            public const int PP_HOT_WATER_SERVICE_TYPE_ID = 2;
-            public const int PP_ELECTRICITY_WATER_SERVICE_TYPE_ID = 4;
-
+            
             public static readonly int[] SerivceTypeIDs =
                 new[]
                 {
                     MAINTANCE_SERVICE_TYPE_ID,
-                    REPAIR_SERVICE_TYPE_ID,
-                    PP_COLD_WATER_SERVICE_TYPE_ID,
-                    PP_HOT_WATER_SERVICE_TYPE_ID,
-                    PP_ELECTRICITY_WATER_SERVICE_TYPE_ID
                 };
         }
 
@@ -130,14 +118,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             {
                 case ServiceTypes.MAINTANCE_SERVICE_TYPE_STR:
                     return ServiceTypes.MAINTANCE_SERVICE_TYPE_ID;
-                case ServiceTypes.REPAIR_SERVICE_TYPE_STR:
-                    return ServiceTypes.REPAIR_SERVICE_TYPE_ID;
-                case ServiceTypes.PP_COLD_WATER_SERVICE_TYPE_STR:
-                    return ServiceTypes.PP_COLD_WATER_SERVICE_TYPE_ID;
-                case ServiceTypes.PP_HOT_WATER_SERVICE_TYPE_STR:
-                    return ServiceTypes.PP_HOT_WATER_SERVICE_TYPE_ID;
-                case ServiceTypes.PP_ELECTRICITY_WATER_SERVICE_TYPE_STR:
-                    return ServiceTypes.PP_ELECTRICITY_WATER_SERVICE_TYPE_ID;
                 default:
                     return null;
             }
