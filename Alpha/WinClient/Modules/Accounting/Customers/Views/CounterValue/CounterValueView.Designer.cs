@@ -34,10 +34,13 @@
             this.periodColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.periodRepositoryItemDateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.valueColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.byNormColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.byNormRepositoryItemCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.byNormRepositoryItemCheckEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // counterValueGridControl
@@ -48,7 +51,8 @@
             this.counterValueGridControl.MainView = this.counterValueGridView;
             this.counterValueGridControl.Name = "counterValueGridControl";
             this.counterValueGridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.periodRepositoryItemDateEdit});
+            this.periodRepositoryItemDateEdit,
+            this.byNormRepositoryItemCheckEdit});
             this.counterValueGridControl.Size = new System.Drawing.Size(803, 458);
             this.counterValueGridControl.TabIndex = 2;
             this.counterValueGridControl.UseEmbeddedNavigator = true;
@@ -62,7 +66,8 @@
             this.counterValueGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.idColumn,
             this.periodColumn,
-            this.valueColumn});
+            this.valueColumn,
+            this.byNormColumn});
             this.counterValueGridView.GridControl = this.counterValueGridControl;
             this.counterValueGridView.Name = "counterValueGridView";
             this.counterValueGridView.OptionsView.ShowGroupPanel = false;
@@ -112,6 +117,23 @@
             this.valueColumn.Visible = true;
             this.valueColumn.VisibleIndex = 1;
             // 
+            // byNormColumn
+            // 
+            this.byNormColumn.Caption = "По норме";
+            this.byNormColumn.ColumnEdit = this.byNormRepositoryItemCheckEdit;
+            this.byNormColumn.FieldName = "ByNorm";
+            this.byNormColumn.Name = "byNormColumn";
+            this.byNormColumn.Visible = true;
+            this.byNormColumn.VisibleIndex = 2;
+            // 
+            // byNormRepositoryItemCheckEdit
+            // 
+            this.byNormRepositoryItemCheckEdit.AutoHeight = false;
+            this.byNormRepositoryItemCheckEdit.Caption = "Check";
+            this.byNormRepositoryItemCheckEdit.Name = "byNormRepositoryItemCheckEdit";
+            this.byNormRepositoryItemCheckEdit.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
+            this.byNormRepositoryItemCheckEdit.CheckedChanged += new System.EventHandler(this.byNormRepositoryItemCheckEdit_CheckedChanged);
+            // 
             // CounterValueView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,6 +145,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodRepositoryItemDateEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.byNormRepositoryItemCheckEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -135,6 +158,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn periodColumn;
         private DevExpress.XtraGrid.Columns.GridColumn valueColumn;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit periodRepositoryItemDateEdit;
-
+        private DevExpress.XtraGrid.Columns.GridColumn byNormColumn;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit byNormRepositoryItemCheckEdit;
     }
 }

@@ -249,7 +249,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
         /// <returns>Список абонентов</returns>
         public DataTable GetList()
         {
-            return GetList();
+            return GetList(x => true);
         }
 
         private DataTable GetList(Expression<Func<DBItem, bool>> whereExpr)

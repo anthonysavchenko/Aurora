@@ -54,6 +54,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
                 _dbItem.Period = domObj.Period;
                 _dbItem.Value = domObj.Value;
+                _dbItem.ByNorm = domObj.ByNorm;
 
                 int _tempId = int.Parse(domObj.PrivateCounter.ID);
                 _dbItem.PrivateCounters = _entities.PrivateCounters.First(c => c.ID == _tempId);
@@ -84,6 +85,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
                 _domItem.Period = _dbItem.Period;
                 _domItem.Value = _dbItem.Value;
+                _domItem.ByNorm = _dbItem.ByNorm;
                 _domItem.PrivateCounter =
                     (DomPrivateCounter)DataMapperService.get(typeof(DomPrivateCounter)).find(_dbItem.PrivateCounters.ID.ToString());
             }

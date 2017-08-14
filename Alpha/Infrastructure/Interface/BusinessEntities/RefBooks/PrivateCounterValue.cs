@@ -61,5 +61,23 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
                 _privateCounter = value;
             }
         }
+
+        private bool _byNorm;
+        /// <summary>
+        /// Показание по норме
+        /// </summary>
+        public bool ByNorm
+        {
+            get
+            {
+                Load();
+                return _byNorm;
+            }
+            set
+            {
+                Load();
+                _byNorm = value;
+            }
+        }
     }
 }

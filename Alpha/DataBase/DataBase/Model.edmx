@@ -146,15 +146,6 @@
           <Property Name="ValueSum" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Author" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="CommonCounterCoefficients">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Period" Type="date" Nullable="false" />
-          <Property Name="Coefficient" Type="decimal" Precision="18" Scale="9" Nullable="false" />
-          <Property Name="CommonCounter" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="CommonCounters">
           <Key>
             <PropertyRef Name="ID" />
@@ -356,6 +347,7 @@
           <Property Name="Period" Type="date" Nullable="false" />
           <Property Name="Value" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="PrivateCounter" Type="int" Nullable="false" />
+          <Property Name="ByNorm" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PublicPlaces">
           <Key>
@@ -863,18 +855,6 @@
             </Principal>
             <Dependent Role="ChargeSets">
               <PropertyRef Name="Author" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CommonCounterCoefficients_CommonCounters">
-          <End Role="CommonCounters" Type="Self.CommonCounters" Multiplicity="1" />
-          <End Role="CommonCounterCoefficients" Type="Self.CommonCounterCoefficients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CommonCounters">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CommonCounterCoefficients">
-              <PropertyRef Name="CommonCounter" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1611,7 +1591,6 @@
           <EntitySet Name="ChargeOperPoses" EntityType="Self.ChargeOperPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChargeOpers" EntityType="Self.ChargeOpers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChargeSets" EntityType="Self.ChargeSets" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CommonCounterCoefficients" EntityType="Self.CommonCounterCoefficients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommonCounters" EntityType="Self.CommonCounters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommonCounterValues" EntityType="Self.CommonCounterValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contractors" EntityType="Self.Contractors" Schema="dbo" store:Type="Tables" />
@@ -1744,10 +1723,6 @@
           <AssociationSet Name="FK_ChargeSets_Users" Association="Self.FK_ChargeSets_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ChargeSets" EntitySet="ChargeSets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CommonCounterCoefficients_CommonCounters" Association="Self.FK_CommonCounterCoefficients_CommonCounters">
-            <End Role="CommonCounters" EntitySet="CommonCounters" />
-            <End Role="CommonCounterCoefficients" EntitySet="CommonCounterCoefficients" />
           </AssociationSet>
           <AssociationSet Name="FK_CommonCounters_Buildings" Association="Self.FK_CommonCounters_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
@@ -2300,10 +2275,6 @@
           <AssociationSet Name="FK_RebenefitOpers_BenefitCorrectionOpers" Association="AlphaDataBaseModel.FK_RebenefitOpers_BenefitCorrectionOpers">
             <End Role="BenefitCorrectionOpers" EntitySet="BenefitCorrectionOpers" />
             <End Role="RebenefitOpers" EntitySet="RebenefitOpers" /></AssociationSet>
-          <EntitySet Name="CommonCounterCoefficients" EntityType="AlphaDataBaseModel.CommonCounterCoefficients" />
-          <AssociationSet Name="FK_CommonCounterCoefficients_CommonCounters" Association="AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters">
-            <End Role="CommonCounters" EntitySet="CommonCounters" />
-            <End Role="CommonCounterCoefficients" EntitySet="CommonCounterCoefficients" /></AssociationSet>
           <EntitySet Name="Settings" EntityType="AlphaDataBaseModel.Settings" />
           <EntitySet Name="Residents" EntityType="AlphaDataBaseModel.Residents" />
           <AssociationSet Name="FK_Residents_BenefitTypes" Association="AlphaDataBaseModel.FK_Residents_BenefitTypes">
@@ -2535,7 +2506,7 @@
           <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_CommonCounters_Buildings" FromRole="CommonCounters" ToRole="Buildings" />
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_CommonCounters_Services" FromRole="CommonCounters" ToRole="Services" />
           <NavigationProperty Name="CommonCounterValues" Relationship="AlphaDataBaseModel.FK_CommonCounterValues_CommonCounters" FromRole="CommonCounters" ToRole="CommonCounterValues" />
-          <NavigationProperty Name="CommonCounterCoefficients" Relationship="AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters" FromRole="CommonCounters" ToRole="CommonCounterCoefficients" /></EntityType>
+          </EntityType>
         <EntityType Name="CommonCounterValues">
           <Key>
             <PropertyRef Name="ID" />
@@ -2761,6 +2732,7 @@
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" FromRole="PrivateCounterValues" ToRole="PrivateCounters" />
+          <Property Name="ByNorm" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="RebenefitOperPoses">
           <Key>
@@ -3240,16 +3212,6 @@
         <Association Name="FK_RebenefitOpers_BenefitCorrectionOpers">
           <End Type="AlphaDataBaseModel.BenefitCorrectionOpers" Role="BenefitCorrectionOpers" Multiplicity="0..1" />
           <End Type="AlphaDataBaseModel.RebenefitOpers" Role="RebenefitOpers" Multiplicity="*" /></Association>
-        <EntityType Name="CommonCounterCoefficients">
-          <Key>
-            <PropertyRef Name="ID" /></Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Coefficient" Type="Decimal" Nullable="false" Precision="18" Scale="9" />
-          <NavigationProperty Name="CommonCounters" Relationship="AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters" FromRole="CommonCounterCoefficients" ToRole="CommonCounters" /></EntityType>
-        <Association Name="FK_CommonCounterCoefficients_CommonCounters">
-          <End Type="AlphaDataBaseModel.CommonCounters" Role="CommonCounters" Multiplicity="1" />
-          <End Type="AlphaDataBaseModel.CommonCounterCoefficients" Role="CommonCounterCoefficients" Multiplicity="*" /></Association>
         <EntityType Name="Settings">
           <Key>
             <PropertyRef Name="ID" />
@@ -3771,6 +3733,7 @@
           <EntitySetMapping Name="PrivateCounterValues">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.PrivateCounterValues)">
               <MappingFragment StoreEntitySet="PrivateCounterValues">
+                <ScalarProperty Name="ByNorm" ColumnName="ByNorm" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
@@ -4485,17 +4448,6 @@
             <EndProperty Name="BenefitCorrectionOpers">
               <ScalarProperty Name="ID" ColumnName="BenefitCorrectionOper" /></EndProperty>
             <Condition ColumnName="BenefitCorrectionOper" IsNull="false" /></AssociationSetMapping>
-          <EntitySetMapping Name="CommonCounterCoefficients">
-            <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.CommonCounterCoefficients)">
-              <MappingFragment StoreEntitySet="CommonCounterCoefficients">
-                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
-                <ScalarProperty Name="Period" ColumnName="Period" />
-                <ScalarProperty Name="ID" ColumnName="ID" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <AssociationSetMapping Name="FK_CommonCounterCoefficients_CommonCounters" TypeName="AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters" StoreEntitySet="CommonCounterCoefficients">
-            <EndProperty Name="CommonCounterCoefficients">
-              <ScalarProperty Name="ID" ColumnName="ID" /></EndProperty>
-            <EndProperty Name="CommonCounters">
-              <ScalarProperty Name="ID" ColumnName="CommonCounter" /></EndProperty></AssociationSetMapping>
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
@@ -5222,6 +5174,7 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Services" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Customers" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Services" /></edmx:Diagram></edmx:Diagrams>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Services" />
+        </edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

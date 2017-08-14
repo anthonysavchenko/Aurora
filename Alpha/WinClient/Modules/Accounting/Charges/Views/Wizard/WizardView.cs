@@ -23,15 +23,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         [CreateNew]
         public new WizardViewPresenter Presenter
         {
-            set
-            {
-                base.Presenter = value;
-            }
-
-            get
-            {
-                return (WizardViewPresenter)base.Presenter;
-            }
+            set => base.Presenter = value;
+            get => (WizardViewPresenter)base.Presenter;
         }
 
         #region IWizardView Members
@@ -41,14 +34,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public bool WholeWord
         {
-            get
-            {
-                return WholeWordCheckBox.Checked;
-            }
-            set
-            {
-                WholeWordCheckBox.Checked = value;
-            }
+            get => WholeWordCheckBox.Checked;
+            set => WholeWordCheckBox.Checked = value;
         }
 
         /// <summary>
@@ -56,14 +43,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public string Street
         {
-            get
-            {
-                return streetTextEdit.Text;
-            }
-            set
-            {
-                streetTextEdit.Text = value;
-            }
+            get => streetTextEdit.Text;
+            set => streetTextEdit.Text = value;
         }
 
         /// <summary>
@@ -71,14 +52,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public string House
         {
-            get
-            {
-                return houseTextEdit.Text;
-            }
-            set
-            {
-                houseTextEdit.Text = value;
-            }
+            get => houseTextEdit.Text;
+            set => houseTextEdit.Text = value;
         }
 
         /// <summary>
@@ -86,14 +61,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public string Apartment
         {
-            get
-            {
-                return apartmentTextEdit.Text;
-            }
-            set
-            {
-                apartmentTextEdit.Text = value;
-            }
+            get => apartmentTextEdit.Text;
+            set => apartmentTextEdit.Text = value;
         }
 
         /// <summary>
@@ -101,14 +70,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public string Account
         {
-            get
-            {
-                return accountTextEdit.Text;
-            }
-            set
-            {
-                accountTextEdit.Text = value;
-            }
+            get => accountTextEdit.Text;
+            set => accountTextEdit.Text = value;
         }
 
         /// <summary>
@@ -116,14 +79,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public string ZipCode
         {
-            get
-            {
-                return zipCodeTextEdit.Text;
-            }
-            set
-            {
-                zipCodeTextEdit.Text = value;
-            }
+            get => zipCodeTextEdit.Text;
+            set => zipCodeTextEdit.Text = value;
         }
 
         /// <summary>
@@ -200,6 +157,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                 return _res;
             }
+            set
+            {
+                regularChargesRadioButton.Checked = value == ChargeType.Regular;
+                correctionChargesRadioButton.Checked = value == ChargeType.Correction;
+                PercentCorrectionRadioButton.Checked = value == ChargeType.PercentCorrection;
+                debtRadioButton.Checked = value == ChargeType.Debt;
+            }
         }
 
         /// <summary>
@@ -209,7 +173,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         {
             set
             {
-                chargePeriodLabel.Text = string.Format("{0:MMMM yyyy} года", value);
+                chargePeriodLabel.Text = $"{value:MMMM yyyy} года";
                 debtPeriodDateEdit.DateTime = value;
             }
         }
@@ -219,37 +183,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public string DebtFileName
         {
-            get
-            {
-                return fileOpenButtonEdit.Text;
-            }
-            set
-            {
-                fileOpenButtonEdit.Text = value;
-            }
+            get => fileOpenButtonEdit.Text;
+            set => fileOpenButtonEdit.Text = value;
         }
 
         /// <summary>
         /// Период внесения задолжностей
         /// </summary>
-        public DateTime DebtPeriod
-        {
-            get
-            {
-                DateTime _date = debtPeriodDateEdit.DateTime;
-                return new DateTime(_date.Year, _date.Month, 1);
-            }
-        } 
+        public DateTime DebtPeriod => new DateTime(debtPeriodDateEdit.DateTime.Year, debtPeriodDateEdit.DateTime.Month, 1);
 
         /// <summary>
         /// Таблица с информацией об абонентах
         /// </summary>
         public DataTable FoundCustomers
         {
-            get
-            {
-                return (DataTable)foundCustomersGridControl.DataSource;
-            }
+            get => (DataTable)foundCustomersGridControl.DataSource;
             set
             {
                 foundCustomersGridControl.DataSource = value;
@@ -262,10 +210,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public DataTable SelectedCustomers
         {
-            get
-            {
-                return (DataTable)selectedCustomersGridControl.DataSource;
-            }
+            get => (DataTable)selectedCustomersGridControl.DataSource;
             set
             {
                 selectedCustomersGridControl.DataSource = value;
@@ -278,15 +223,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public DateTime SinceCorrectionPeriod
         {
-            get
-            {
-                DateTime _dt = sinceCorrectionPeriodDateEdit.DateTime;
-                return new DateTime(_dt.Year, _dt.Month, 1);
-            }
-            set
-            {
-                sinceCorrectionPeriodDateEdit.DateTime = value;
-            }
+            get => new DateTime(sinceCorrectionPeriodDateEdit.DateTime.Year, sinceCorrectionPeriodDateEdit.DateTime.Month, 1);
+            set => sinceCorrectionPeriodDateEdit.DateTime = value;
         }
 
         /// <summary>
@@ -294,15 +232,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public DateTime TillCorrectionPeriod
         {
-            get
-            {
-                DateTime _dt = toCorrectionPeriodDateEdit.DateTime;
-                return new DateTime(_dt.Year, _dt.Month, 1);
-            }
-            set
-            {
-                toCorrectionPeriodDateEdit.DateTime = value;
-            }
+            get => new DateTime(toCorrectionPeriodDateEdit.DateTime.Year, toCorrectionPeriodDateEdit.DateTime.Month, 1);
+            set => toCorrectionPeriodDateEdit.DateTime = value;
         }
 
         /// <summary>
@@ -310,10 +241,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public int ResultCount
         {
-            set
-            {
-                TotalProcessedValueLabel.Invoke(new MethodInvoker(() => TotalProcessedValueLabel.Text = value.ToString()));
-            }
+            set => TotalProcessedValueLabel.Invoke(new MethodInvoker(() => TotalProcessedValueLabel.Text = value.ToString()));
         }
 
         /// <summary>
@@ -321,10 +249,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public decimal ResultValue
         {
-            set
-            {
-                TotalAmountLabelValue.Invoke(new MethodInvoker(() => TotalAmountLabelValue.Text = value.ToString("C2")));
-            }
+            set => TotalAmountLabelValue.Invoke(new MethodInvoker(() => TotalAmountLabelValue.Text = value.ToString("C2")));
         }
 
         /// <summary>
@@ -332,10 +257,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public int ResultErrorCount
         {
-            set
-            {
-                TotalErrorCountValueLabel.Invoke(new MethodInvoker(() => TotalErrorCountValueLabel.Text = value.ToString()));
-            }
+            set => TotalErrorCountValueLabel.Invoke(new MethodInvoker(() => TotalErrorCountValueLabel.Text = value.ToString()));
         }
 
         /// <summary>
@@ -374,15 +296,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public DateTime PercentCorrectionPeriod
         {
-            get
-            {
-                DateTime _dt = PercentCorrectionPeriodDateEdit.DateTime;
-                return new DateTime(_dt.Year, _dt.Month, 1);
-            }
-            set
-            {
-                PercentCorrectionPeriodDateEdit.DateTime = value;
-            }
+            get => new DateTime(PercentCorrectionPeriodDateEdit.DateTime.Year, PercentCorrectionPeriodDateEdit.DateTime.Month, 1);
+            set => PercentCorrectionPeriodDateEdit.DateTime = value;
         }
 
         /// <summary>
@@ -390,10 +305,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// </summary>
         public DataTable CustomersWithPercents
         {
-            get
-            {
-                return (DataTable)PercentsGridControl.DataSource;
-            }
+            get => (DataTable)PercentsGridControl.DataSource;
             set
             {
                 PercentsGridControl.DataSource = value;
@@ -494,6 +406,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                     PaymentWizardControl.SelectedPage = FinishWizardPage;
                     break;
             }
+        }
+
+        public void DoRecharge(int customerID, DateTime since, DateTime till)
+        {
+            Presenter.DoRecharge(customerID, since, till);
         }
 
         #endregion

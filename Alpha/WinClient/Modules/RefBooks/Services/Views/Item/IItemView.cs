@@ -40,5 +40,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// Единица измерения норматива
         /// </summary>
         string Measure { get; set; }
+
+        /// <summary>
+        /// Флаг доступности редактирования поля "норматив"
+        /// </summary>
+        bool NormEnabled { set; }
     }
 }

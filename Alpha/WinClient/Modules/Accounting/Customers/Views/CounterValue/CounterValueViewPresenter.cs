@@ -38,17 +38,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
             _table.Columns.Add("ID");
             _table.Columns.Add("Period", typeof(DateTime));
             _table.Columns.Add("Value", typeof(decimal));
+            _table.Columns.Add("ByNorm", typeof(bool));
 
             PrivateCounter _counter = (PrivateCounter)WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER];
 
             if (_counter != null)
             {
-                foreach (var _counterValue in _counter.Values.OrderBy(v => v.Value.Period))
+                foreach (var _counterValue in _counter.Values.Values.OrderBy(v => v.Period))
                 {
                     _table.Rows.Add(
-                        _counterValue.Key,
-                        _counterValue.Value.Period,
-                        _counterValue.Value.Value);
+                        _counterValue.ID,
+                        _counterValue.Period,
+                        _counterValue.Value,
+                        _counterValue.ByNorm);
                 }
             }
 
@@ -89,6 +91,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             curItem.Period = View.Period;
             curItem.Value = View.Value;
+            curItem.ByNorm = View.ByNorm;
         }
 
         /// <summary>
@@ -111,15 +114,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
                 if (curItem.PrivateCounter.Values.Values.Any(v => v.ID != curItem.ID && v.Period == curItem.Period))
                 {
                     message = "- Показание за данный период уже внесены";
-                }
-                else
-                {
-                    var _values = curItem.PrivateCounter.Values.Values.Where(v => v.Period < curItem.Period);
-
-                    if (_values.Any() && curItem.Value < _values.Max(v => v.Value))
-                    {
-                        message = "- Новое значение должно быть больше или равно предыдущему";
-                    }
                 }
             }
 
@@ -151,8 +145,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
             return true;
         }
 
-        #region Overrides of BaseSimpleListViewPresenter<ICounterValueView,PrivateCounterValue>
-
         /// <summary>
         /// Удаление текущего элемента домена из базы данных.
         /// </summary>
@@ -161,8 +153,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
             UnitOfWork.registerRemoved(GetCurrentItem());
             _onAnyAttributeChangedEventHandler.Invoke(this, EventArgs.Empty);
         }
-
-        #endregion
 
         /// <summary>
         /// Подключить общий обработчик изменений
@@ -179,6 +169,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         public void UnBindChangeHandlers(Control.ControlCollection coll, EventHandler handler)
         {
             WorkItem.RootWorkItem.Services.Get<IChangeEventHandlerService>().UnBind(coll, handler);
+        }
+
+        public decimal GetNormValue(DateTime? period)
+        {
+            PrivateCounter _counter = (PrivateCounter)WorkItem.State[ModuleStateNames.CURRENT_PRIVATE_COUNTER];
+            PrivateCounterValue _value = period.HasValue 
+                ? _counter.Values.Values.Where(v => v.Period < period).OrderByDescending(v => v.Period).FirstOrDefault()
+                : _counter.Values.Values.OrderByDescending(v => v.Period).FirstOrDefault();
+            return _value != null
+                ? _value.Value + (_counter.Service.Norm ?? 0)
+                : 0;
         }
     }
 }

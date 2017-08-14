@@ -3,6 +3,7 @@ using Microsoft.Practices.CompositeUI.EventBroker;
 using System;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper;
+using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.ChargeDetail;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.List;
@@ -213,50 +214,62 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Tabbed
             {
                 if (eventArgsStartUpParams.Data != null)
                 {
-                    string _chargeSetListId;
-                    BaseChargeOper _oper;
+                    RechargeStartUpParams _params =
+                        eventArgsStartUpParams.Data as RechargeStartUpParams;
 
-                    ITabbedView _tabbedView = WorkItem.SmartParts.Get<ITabbedView>(ModuleViewNames.TABBED_VIEW);
-                    IListView _listView = WorkItem.SmartParts.Get<IListView>(ModuleViewNames.LIST_VIEW);
-
-                    DateTime _chargeSetTime;
-                    ShowDetailsStartUpParams<ChargeOper> _detailsStartUpParams =
-                        eventArgsStartUpParams.Data as ShowDetailsStartUpParams<ChargeOper>;
-                    if (_detailsStartUpParams != null)
+                    if (_params != null)
                     {
-                        _oper = _detailsStartUpParams.DomainObject;
-                        _chargeSetListId = $"{ChargeSetTypes.CHARGE_SET_TYPE}_{_oper.ChargeSet.ID}";
-                        _chargeSetTime = _oper.ChargeSet.CreationDateTime;
+                        OnCreateNewItem();
+                        IWizardView _wizardView = (IWizardView)WorkItem.SmartParts.Get(ModuleViewNames.WIZARD_VIEW);
+                        _wizardView.DoRecharge(_params.CustomerID, _params.Since, _params.Till);
                     }
                     else
                     {
-                        _oper = ((ShowDetailsStartUpParams<RechargeOper>) eventArgsStartUpParams.Data).DomainObject;
-                        _chargeSetListId = $"{ChargeSetTypes.RECHARGE_SET_TYPE}_{((RechargeOper) _oper).ChargeSet.ID}";
-                        _chargeSetTime = ((RechargeOper) _oper).ChargeSet.CreationDateTime;
+                        string _chargeSetListId;
+                        BaseChargeOper _oper;
+
+                        ITabbedView _tabbedView = WorkItem.SmartParts.Get<ITabbedView>(ModuleViewNames.TABBED_VIEW);
+                        IListView _listView = WorkItem.SmartParts.Get<IListView>(ModuleViewNames.LIST_VIEW);
+
+                        DateTime _chargeSetTime;
+                        ShowDetailsStartUpParams<ChargeOper> _detailsStartUpParams =
+                            eventArgsStartUpParams.Data as ShowDetailsStartUpParams<ChargeOper>;
+                        if (_detailsStartUpParams != null)
+                        {
+                            _oper = _detailsStartUpParams.DomainObject;
+                            _chargeSetListId = $"{ChargeSetTypes.CHARGE_SET_TYPE}_{_oper.ChargeSet.ID}";
+                            _chargeSetTime = _oper.ChargeSet.CreationDateTime;
+                        }
+                        else
+                        {
+                            _oper = ((ShowDetailsStartUpParams<RechargeOper>)eventArgsStartUpParams.Data).DomainObject;
+                            _chargeSetListId = $"{ChargeSetTypes.RECHARGE_SET_TYPE}_{((RechargeOper)_oper).ChargeSet.ID}";
+                            _chargeSetTime = ((RechargeOper)_oper).ChargeSet.CreationDateTime;
+                        }
+
+                        DateTime _since =
+                            new DateTime(
+                                _chargeSetTime.Year,
+                                _chargeSetTime.Month,
+                                _chargeSetTime.Day,
+                                _chargeSetTime.Hour,
+                                0,
+                                0);
+
+                        WorkItem.State[ModuleStateNames.CURRENT_CHARGE_OPER_ID] = _oper.ID;
+                        WorkItem.State[BaseListViewConstants.BaseListViewDefaultParams.CurrentItemIdStateName] =
+                            _chargeSetListId;
+
+                        SetCurrentItem(_chargeSetListId);
+
+                        _listView.Since = _since;
+                        _listView.Till = _since.AddHours(1);
+                        _tabbedView.SelectTab(TabNames.LIST);
+
+                        _launchedOutside = true;
+                        _tabbedView.SelectTab(TabNames.CHARGE_DETAIL);
+                        _launchedOutside = false;
                     }
-
-                    DateTime _since =
-                        new DateTime(
-                            _chargeSetTime.Year,
-                            _chargeSetTime.Month,
-                            _chargeSetTime.Day,
-                            _chargeSetTime.Hour,
-                            0,
-                            0);
-
-                    WorkItem.State[ModuleStateNames.CURRENT_CHARGE_OPER_ID] = _oper.ID;
-                    WorkItem.State[BaseListViewConstants.BaseListViewDefaultParams.CurrentItemIdStateName] =
-                        _chargeSetListId;
-
-                    SetCurrentItem(_chargeSetListId);
-
-                    _listView.Since = _since;
-                    _listView.Till = _since.AddHours(1);
-                    _tabbedView.SelectTab(TabNames.LIST);
-
-                    _launchedOutside = true;
-                    _tabbedView.SelectTab(TabNames.CHARGE_DETAIL);
-                    _launchedOutside = false;
                 }
             }
             catch (Exception _ex)

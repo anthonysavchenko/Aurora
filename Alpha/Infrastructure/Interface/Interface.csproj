@@ -149,7 +149,6 @@
     <Compile Include="BusinessEntities\RefBooks\BenefitType.cs" />
     <Compile Include="BusinessEntities\RefBooks\Building.cs" />
     <Compile Include="BusinessEntities\RefBooks\CommonCounter.cs" />
-    <Compile Include="BusinessEntities\RefBooks\CommonCounterCoefficient.cs" />
     <Compile Include="BusinessEntities\RefBooks\CommonCounterValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\Contractors.cs" />
     <Compile Include="BusinessEntities\RefBooks\Intermediary.cs" />

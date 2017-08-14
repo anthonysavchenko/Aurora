@@ -132,6 +132,7 @@
             this.chargeRuleComboBox.Name = "chargeRuleComboBox";
             this.chargeRuleComboBox.Size = new System.Drawing.Size(302, 21);
             this.chargeRuleComboBox.TabIndex = 8;
+            this.chargeRuleComboBox.SelectedIndexChanged += new System.EventHandler(this.chargeRuleComboBox_SelectedIndexChanged);
             // 
             // label6
             // 
