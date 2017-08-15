@@ -561,7 +561,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
             if (charges.ContainsKey(customerID) && charges[customerID].ContainsKey(serviceTypeID))
             {
-                _debtMonthCount = Convert.ToInt32(Math.Round(debtValue / charges[customerID][serviceTypeID], 0, MidpointRounding.AwayFromZero));
+                decimal _charge = charges[customerID][serviceTypeID];
+                _debtMonthCount = _charge > 0 
+                    ? Convert.ToInt32(Math.Round(debtValue / _charge, 0, MidpointRounding.AwayFromZero))
+                    : 0;
             }
 
             return _debtMonthCount;
