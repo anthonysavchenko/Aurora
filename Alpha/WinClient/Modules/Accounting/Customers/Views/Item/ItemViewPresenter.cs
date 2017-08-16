@@ -60,26 +60,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             }
             else
             {
-                DateTime? _since = null,
-                          _till = null;
-                foreach (var _counter in _domItem.Counters.Values)
-                {
-                    if (_counter.Values.Values.Any(v => v.IsNew))
-                    {
-                        var _values = _counter.Values.Values.OrderByDescending(v => v.Period).ToArray();
-                        var _lastValue = _values[0];
-                        var _prevValue = _values[1];
-
-                        if (!_lastValue.ByNorm && _prevValue.ByNorm)
-                        {
-                            DateTime _prevPeriod = _counter.Values.Values.Where(v => v.ID != _lastValue.ID && !v.ByNorm).Max(v => v.Period).AddMonths(1);
-                            DateTime _lastPeriod = _lastValue.Period.AddMonths(-1);
-                            _since = _since.HasValue && _since.Value < _prevPeriod ? _since : _prevPeriod;
-                            _till = _till.HasValue && _till > _lastPeriod ? _till : _lastPeriod;
-                        }
-                    }
-                }
-
                 _result = true;
 
                 try
@@ -100,31 +80,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                     _result
                     && UpdateItem(_domItem) 
                     && UOW.commit();
-
-                if(_result)
-                {
-                    if (_since.HasValue && _till.HasValue)
-                    {
-                        DialogResult _dialogResult = MessageBox.Show(
-                            $"Для некоторых услуг показания прибора учета проставлены не по норме, необходимо выполнить перерасчет с {_since:MM.yyyy} по {_till:MM.yyyy}. Продолжить?",
-                            "Необходим перерасчет",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Information);
-
-                        if (_dialogResult == DialogResult.Yes)
-                        {
-
-                            WorkItem.Controller.RunUsecase(
-                                ApplicationUsecaseNames.CHARGES,
-                                new RechargeStartUpParams
-                                {
-                                    CustomerID = int.Parse(_domItem.ID),
-                                    Since = _since.Value,
-                                    Till = _till.Value
-                                });
-                        }
-                    }
-                }
             }
 
             return _result;

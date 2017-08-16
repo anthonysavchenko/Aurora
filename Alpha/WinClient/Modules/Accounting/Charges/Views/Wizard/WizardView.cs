@@ -408,11 +408,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             }
         }
 
-        public void DoRecharge(int customerID, DateTime since, DateTime till)
-        {
-            Presenter.DoRecharge(customerID, since, till);
-        }
-
         #endregion
 
         private WizardPages ConvertWizardPage(BaseWizardPage page)

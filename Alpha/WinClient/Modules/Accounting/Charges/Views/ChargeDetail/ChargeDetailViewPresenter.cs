@@ -54,8 +54,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.ChargeD
                         ? Math.Abs(_benefitOper.Value)
                         : 0;
 
-                WorkItem.State[ModuleStateNames.CURRENT_REGULAR_BILL_ID] = ((ChargeOper)_oper).RegularBillDoc.ID;
-                View.BillLinkEnabled = true;
+                if (((ChargeOper)_oper).RegularBillDoc != null)
+                {
+                    WorkItem.State[ModuleStateNames.CURRENT_REGULAR_BILL_ID] = ((ChargeOper)_oper).RegularBillDoc.ID;
+                    View.BillLinkEnabled = true;
+                }
+                else
+                {
+                    View.BillLinkEnabled = false;
+                }
 
                 SetRechargeLink(int.Parse(_oper.ID), ((ChargeOper)_oper).ChargeCorrectionOper != null);
             }

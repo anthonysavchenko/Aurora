@@ -2781,55 +2781,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             View.SelectPage(WizardPages.FinishPage);
         }
 
-        public void DoRecharge(int customerID, DateTime since, DateTime till)
-        {
-            View.ChargeType = ChargeType.Correction;
-            View.SelectPage(WizardPages.CustomersPage);
-
-            ClearSelectedCustomers();
-            DataTable _selectedCustomers = View.SelectedCustomers;
-
-            using (Entities _db = new Entities())
-            {
-                var _customer = _db.Customers.Where(c => c.ID == customerID)
-                    .Select(c =>
-                        new
-                        {
-                            c.Account,
-                            Owner = c.OwnerType == (byte)Customer.OwnerTypes.PhysicalPerson
-                                ? c.PhysicalPersonFullName
-                                : c.OwnerType == (byte)Customer.OwnerTypes.JuridicalPerson
-                                      ? c.JuridicalPersonFullName
-                                      : "Неизвестен",
-                            Street = c.Buildings.Streets.Name,
-                            Building = c.Buildings.Number,
-                            c.Apartment
-                        })
-                    .First();
-
-                _selectedCustomers.Rows.Add(
-                        customerID,
-                        _customer.Account,
-                        _customer.Owner,
-                        0,
-                        _customer.Street,
-                        _customer.Building,
-                        _customer.Apartment,
-                        0,
-                        false,
-                        1,
-                        100);
-            }
-
-            View.SelectedCustomers = _selectedCustomers;
-
-            View.SelectPage(WizardPages.ChoosePeriodPage);
-
-            View.SinceCorrectionPeriod = since;
-            View.TillCorrectionPeriod = till;
-            View.SelectPage(WizardPages.ProcessingPage);
-        }
-
         private Dictionary<int, CounterInfo> GetPrivateCounterInfo(int customerID, DateTime currentPeriod, Entities db)
         {
             var _counters = db.PrivateCounters
