@@ -8,20 +8,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Views.List
         /// <summary>
         /// Добавляет колонку в таблицу
         /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        /// <param name="isSorted">Сортировка</param>
-        /// <param name="sortFieldName">Наименование колонки для сортировки в источнике данных</param>
-        /// <param name="isGrouped">Группировка</param>
-        /// <param name="groupIndex">Индекс группы</param>
-        void AddColumn(string fieldName, string caption, bool isSorted, string sortFieldName, bool isGrouped, int groupIndex);
-
-        /// <summary>
-        /// Добавляет колонку с саммари в таблицу
-        /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        void AddSummaryColumn(string fieldName, string caption);
+        void AddColumn(Column column);
 
         /// <summary>
         /// Удаляет все колонки
@@ -29,13 +16,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Views.List
         void ClearColumns();
 
         /// <summary>
+        /// Тип отчета
+        /// </summary>
+        ReportType ReportType { get; }
+
+        /// <summary>
         /// Дата начала периода отчета
         /// </summary>
-        DateTime SinceDateTime { get; set; }
+        DateTime Since { get; set; }
 
         /// <summary>
         /// Дата окончания периода отчета
         /// </summary>
-        DateTime TillDateTime { get; set; }
+        DateTime Till { get; set; }
+    }
+
+    public enum ReportType
+    {
+        ByContractors,
+        ByBuildings
     }
 }
