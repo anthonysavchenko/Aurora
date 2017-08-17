@@ -72,11 +72,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public const string PP_COLD_WATER_SERVICE_TYPE_STR = "Х";
             public const string PP_HOT_WATER_SERVICE_TYPE_STR = "Г";
             public const string PP_ELECTRICITY_WATER_SERVICE_TYPE_STR = "Э";
+            public const string PP_SEWAGE_SERVICE_TYPE_STR = "В";
 
             public const int MAINTANCE_SERVICE_TYPE_ID = 36;
             public const int PP_COLD_WATER_SERVICE_TYPE_ID = 38;
             public const int PP_HOT_WATER_SERVICE_TYPE_ID = 35;
             public const int PP_ELECTRICITY_WATER_SERVICE_TYPE_ID = 39;
+            public const int PP_SEWAGE_SERVICE_TYPE_ID = 47;
 
             public static readonly int[] SerivceTypeIDs =
                 new[]
@@ -84,7 +86,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     MAINTANCE_SERVICE_TYPE_ID,
                     PP_COLD_WATER_SERVICE_TYPE_ID,
                     PP_HOT_WATER_SERVICE_TYPE_ID,
-                    PP_ELECTRICITY_WATER_SERVICE_TYPE_ID
+                    PP_ELECTRICITY_WATER_SERVICE_TYPE_ID,
+                    PP_SEWAGE_SERVICE_TYPE_ID
                 };
         }
 
@@ -159,6 +162,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     return ServiceTypes.PP_HOT_WATER_SERVICE_TYPE_ID;
                 case ServiceTypes.PP_ELECTRICITY_WATER_SERVICE_TYPE_STR:
                     return ServiceTypes.PP_ELECTRICITY_WATER_SERVICE_TYPE_ID;
+                case ServiceTypes.PP_SEWAGE_SERVICE_TYPE_STR:
+                    return ServiceTypes.PP_SEWAGE_SERVICE_TYPE_ID;
                 default:
                     return null;
             }
@@ -556,7 +561,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
             if (charges.ContainsKey(customerID) && charges[customerID].ContainsKey(serviceTypeID))
             {
-                _debtMonthCount = Convert.ToInt32(Math.Round(debtValue / charges[customerID][serviceTypeID], 0, MidpointRounding.AwayFromZero));
+                decimal _charge = charges[customerID][serviceTypeID];
+                _debtMonthCount = _charge > 0 
+                    ? Convert.ToInt32(Math.Round(debtValue / _charge, 0, MidpointRounding.AwayFromZero))
+                    : 0;
             }
 
             return _debtMonthCount;
