@@ -80,6 +80,10 @@
     <Compile Include="Constants\ModuleUIExtensionSiteNames.cs" />
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PaymentsByBuildingsReportService.cs" />
+    <Compile Include="Views\List\Column.cs" />
+    <Compile Include="Services\IPaymentReportService.cs" />
+    <Compile Include="Services\PaymentsByContractorsReportService.cs" />
     <Compile Include="Views\Layout\LayoutView.cs">
       <SubType>UserControl</SubType>
     </Compile>
