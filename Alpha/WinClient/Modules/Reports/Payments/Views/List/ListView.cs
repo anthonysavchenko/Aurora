@@ -21,10 +21,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Views.List
         [CreateNew]
         public new ListViewPresenter Presenter
         {
-            set
-            {
-                base.Presenter = value;
-            }
+            set => base.Presenter = value;
         }
 
         #region Implementation of IListView
@@ -32,54 +29,34 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Views.List
         /// <summary>
         /// Добавляет колонку в таблицу
         /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        /// <param name="isSorted">Сортировка</param>
-        /// <param name="sortFieldName">Наименование колонки для сортировки в источнике данных</param>
-        /// <param name="isGrouped">Группировка</param>
-        /// <param name="groupIndex">Индекс группы</param>
-        public void AddColumn(string fieldName, string caption, bool isSorted, string sortFieldName, bool isGrouped, int groupIndex)
+        public void AddColumn(Column column)
         {
-            GridColumn _column = AddColumn(fieldName, caption, FormatType.None, String.Empty);
+            GridColumn _column =  gridViewOfListView.Columns.AddVisible(column.FieldName, column.Title);
 
-            if (isSorted)
+            if (column.HasSummary)
             {
-                _column.FieldNameSortGroup = sortFieldName;
+                _column.DisplayFormat.FormatType = FormatType.Numeric;
+                _column.DisplayFormat.FormatString = "0.00";
+
+                _column.Summary.Add(SummaryItemType.Sum);
+                gridViewOfListView.GroupSummary.Add(SummaryItemType.Sum, column.FieldName, _column, "{0:0.00}");
+            }
+            else
+            {
+                _column.DisplayFormat.FormatType = FormatType.None;
+                _column.DisplayFormat.FormatString = string.Empty;
+            }
+
+            if (column.IsSorted)
+            {
+                _column.FieldNameSortGroup = column.FieldSortName;
                 gridViewOfListView.SortInfo.Add(_column, ColumnSortOrder.Ascending);
             }
 
-            if (isGrouped)
+            if (column.IsGrouped)
             {
-                _column.GroupIndex = groupIndex;
+                _column.GroupIndex = column.GroupIndex;
             }
-        }
-
-        /// <summary>
-        /// Добавляет колонку с саммари в таблицу
-        /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        public void AddSummaryColumn(string fieldName, string caption)
-        {
-            GridColumn _column = AddColumn(fieldName, caption, FormatType.Numeric, "0.00");
-            gridViewOfListView.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, fieldName, _column, "{0:0.00}");
-        }
-
-        /// <summary>
-        /// Добавляет колонку в таблицу
-        /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        /// <param name="formatType">Тип форматирования</param>
-        /// <param name="formatString">Строка форматирования</param>
-        private GridColumn AddColumn(string fieldName, string caption, FormatType formatType, string formatString)
-        {
-            GridColumn _column = gridViewOfListView.Columns.AddVisible(fieldName, caption);
-
-            _column.DisplayFormat.FormatType = formatType;
-            _column.DisplayFormat.FormatString = formatString;
-
-            return _column;
         }
 
         /// <summary>
@@ -91,33 +68,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Views.List
         }
 
         /// <summary>
+        /// Тип отчета
+        /// </summary>
+        public ReportType ReportType => byContractorsRadioButton.Checked ? ReportType.ByContractors : ReportType.ByBuildings;
+
+        /// <summary>
         /// Дата начала периода отчета
         /// </summary>
-        public DateTime SinceDateTime
+        public DateTime Since
         {
-            get
-            {
-                return sinceDateEdit.DateTime;
-            }
-            set
-            {
-                sinceDateEdit.DateTime = value;
-            }
+            get => sinceDateEdit.DateTime;
+            set => sinceDateEdit.DateTime = value;
         }
 
         /// <summary>
         /// Дата окончания периода отчета
         /// </summary>
-        public DateTime TillDateTime
+        public DateTime Till
         {
-            get
-            {
-                return tillDateEdit.DateTime;
-            }
-            set
-            {
-                tillDateEdit.DateTime = value;
-            }
+            get => new DateTime(tillDateEdit.DateTime.Year, tillDateEdit.DateTime.Month, tillDateEdit.DateTime.Day, 23, 59, 59);
+            set => tillDateEdit.DateTime = value;
         }
 
         #endregion
