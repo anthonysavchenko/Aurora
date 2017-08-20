@@ -141,6 +141,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// <param name="value">Текущее значение</param>
         void SetBackupProgress(int value);
 
+        int? CorrectingServiceID { get; set; }
+
         /// <summary>
         /// Услуга
         /// </summary>

@@ -338,6 +338,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             }
         }
 
+        public int? CorrectingServiceID
+        {
+            get => (int?)ServiceLookUpEdit.GetColumnValue("ID");
+            set
+            {
+                if(value.HasValue)
+                {
+                    ServiceLookUpEdit.Properties.ValueMember = "ID";
+                    ServiceLookUpEdit.EditValue = value.Value;
+                }
+                else
+                {
+                    ServiceLookUpEdit.EditValue = null;
+                }
+            }
+        }
+
         /// <summary>
         /// Услуга
         /// </summary>
@@ -645,6 +662,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         private void unselectAllButton_Click(object sender, EventArgs e)
         {
             Presenter.ChangeAllFoundCustomersSelect(false);
+        }
+
+        private void btnDaysSetAll_Click(object sender, EventArgs e)
+        {
+            Presenter.SetCorrectionDaysCount((int)daysNumericUpDown.Value);
+        }
+
+        private void btnPercentSetAll_Click(object sender, EventArgs e)
+        {
+            Presenter.SetCorrectionPercent((int)percentNumericUpDown.Value);
+        }
+
+        private void PercentCorrectionPeriodDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (CorrectingServiceID.HasValue)
+            {
+                Presenter.UpdateCorrectionTable(CorrectingServiceID.Value, PercentCorrectionPeriod);
+            }
         }
     }
 }
