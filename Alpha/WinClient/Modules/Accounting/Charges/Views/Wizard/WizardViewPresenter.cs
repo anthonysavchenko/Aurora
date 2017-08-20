@@ -35,6 +35,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
     /// </summary>
     public class WizardViewPresenter : BasePresenter<IWizardView>
     {
+        private class CorrectionTableColumns
+        {
+            public static string ID = "ID";
+            public static string Account = "Account";
+            public static string Owner = "Owner";
+            public static string ResidentsNumber = "ResidentsNumber";
+            public static string Street = "Street";
+            public static string House = "House";
+            public static string Apartment = "Apartment";
+            public static string Square = "Square";
+            public static string Selected = "Selected";
+            public static string Days = "Days";
+            public static string Percent = "Percent";
+        }
+
         /// <summary>
         /// Информация об индексе
         /// </summary>
@@ -359,6 +374,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         {
                             RefreshServices();
                             View.CustomersWithPercents = View.SelectedCustomers;
+                            View.CorrectingServiceID =(int?)null;
                             _next = WizardPages.PercentPage;
                         }
                         break;
@@ -391,7 +407,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 String.Format("Период для снятия начислений не должны быть больше последнего периода, за который выполнены начисления ({0:MM.yyyy})", _periodInfo.LastCharged),
                                 "Ошибка выбора периода");
                         }
-                        else if (View.Service == null)
+                        else if (!View.CorrectingServiceID.HasValue)
                         {
                             View.ShowMessage("Должна быть выбрана услуга для снятия начислений", "Ошибка выбора услуги");
                         }
@@ -401,43 +417,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         }
                         else
                         {
-                            bool _moreThanDaysInMonth = false;
-                            bool _noCharges = false;
-                            int _serviceID = Int32.Parse(View.Service.ID);
-
-                            using (Entities _entities = new Entities())
-                            {
-                                foreach (DataRow _row in View.CustomersWithPercents.Rows)
-                                {
-                                    int _customerID = Convert.ToInt32(_row["ID"]);
-
-                                    if (!_entities.ChargeOperPoses.Any(pos =>
-                                        pos.ChargeOpers.ChargeSets.Period == _correctionPeriod &&
-                                        pos.ChargeOpers.Customers.ID == _customerID &&
-                                        pos.Services.ID == _serviceID))
-                                    {
-                                        _noCharges = true;
-                                    }
-
-                                    if (Convert.ToInt32(_row["Days"]) > DateTime.DaysInMonth(_correctionPeriod.Year, _correctionPeriod.Month))
-                                    {
-                                        _moreThanDaysInMonth = true;
-                                    }
-                                }
-                            }
-
-                            if (_noCharges)
-                            {
-                                View.ShowMessage("Не у всех выбранных абонентов были сделаны начисления в выбранном периоде", "Ошибка выбора абонентов");
-                            }
-                            else if (_moreThanDaysInMonth)
-                            {
-                                View.ShowMessage("Количество дней снятия начислений не должно превышать количество дней в выбранном периоде", "Ошибка выбора дней");
-                            }
-                            else
-                            {
-                                _next = WizardPages.ProcessingPage;
-                            }
+                            _next = WizardPages.ProcessingPage;
                         }
                         break;
 
@@ -586,23 +566,28 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             View.FoundCustomers = _result;
         }
 
-        public void ClearSelectedCustomers()
+        private DataTable CreateCustomersTable()
         {
             DataTable _table = new DataTable();
-            _table.Columns.Add("ID", typeof(int));
-            _table.Columns.Add("Account", typeof(string));
-            _table.Columns.Add("Owner", typeof(string));
-            _table.Columns.Add("ResidentsNumber", typeof(int));
-            _table.Columns.Add("Street", typeof(string));
-            _table.Columns.Add("House", typeof(string));
-            _table.Columns.Add("Apartment", typeof(string));
-            _table.Columns.Add("Square", typeof(string));
-            _table.Columns.Add("Selected", typeof(bool));
-            _table.Columns.Add("Days", typeof(int));
-            _table.Columns.Add("Percent", typeof(int));
-            _table.PrimaryKey = new[] { _table.Columns["ID"] };
+            _table.Columns.Add(CorrectionTableColumns.ID, typeof(int));
+            _table.Columns.Add(CorrectionTableColumns.Account, typeof(string));
+            _table.Columns.Add(CorrectionTableColumns.Owner, typeof(string));
+            _table.Columns.Add(CorrectionTableColumns.ResidentsNumber, typeof(int));
+            _table.Columns.Add(CorrectionTableColumns.Street, typeof(string));
+            _table.Columns.Add(CorrectionTableColumns.House, typeof(string));
+            _table.Columns.Add(CorrectionTableColumns.Apartment, typeof(string));
+            _table.Columns.Add(CorrectionTableColumns.Square, typeof(string));
+            _table.Columns.Add(CorrectionTableColumns.Selected, typeof(bool));
+            _table.Columns.Add(CorrectionTableColumns.Days, typeof(int));
+            _table.Columns.Add(CorrectionTableColumns.Percent, typeof(int));
+            _table.PrimaryKey = new[] { _table.Columns[CorrectionTableColumns.ID] };
 
-            View.SelectedCustomers = _table;
+            return _table;
+        }
+
+        public void ClearSelectedCustomers()
+        {
+            View.SelectedCustomers = CreateCustomersTable();
         }
 
         /// <summary>
@@ -616,7 +601,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
             using (Entities _entities = new Entities())
             {
-                foreach (Services service in _entities.Services)
+                foreach (Services service in _entities.Services.OrderBy(s => s.Name))
                 {
                     _table.Rows.Add(service.ID, service.Name);
                 }
@@ -1417,8 +1402,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
             int[] _customerIDs;
             Dictionary<int, RechargeInfo> _rechageInfoByCustomer = null;
+            ChargeType _chargeType = View.ChargeType;
 
-            if (View.ChargeType == ChargeType.Correction)
+
+            if (_chargeType == ChargeType.Correction)
             {
                 _period = View.SinceCorrectionPeriod;
                 _tillCorrectionPeriod = View.TillCorrectionPeriod;
@@ -1810,12 +1797,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                 if (_value > 0)
                                 {
-                                    if (View.ChargeType == ChargeType.PercentCorrection && 
-                                        _customerPos.ServiceID == int.Parse(View.Service.ID) &&
-                                        _rechageInfoByCustomer.ContainsKey(_customer.ID))
+                                    if (_chargeType == ChargeType.PercentCorrection && 
+                                        _customerPos.ServiceID == View.CorrectingServiceID.Value)
                                     {
                                         int _daysInMonth = DateTime.DaysInMonth(View.PercentCorrectionPeriod.Year, View.PercentCorrectionPeriod.Month);
                                         int _days = _rechageInfoByCustomer[_customer.ID].Days;
+
+                                        if (_days > _daysInMonth)
+                                        {
+                                            _days = _daysInMonth;
+                                        }
+
                                         int _percent = _rechageInfoByCustomer[_customer.ID].Percent;
                                         _value -= (_value / _daysInMonth * _days * _percent) / 100;
                                     }
@@ -2427,14 +2419,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 if (!_selectedCustomers.Rows.Contains(_row["ID"]))
                 {
                     _selectedCustomers.Rows.Add(
-                        _row["ID"],
-                        _row["Account"],
-                        _row["Owner"],
-                        _row["ResidentsNumber"],
-                        _row["Street"],
-                        _row["House"],
-                        _row["Apartment"],
-                        _row["Square"],
+                        _row[CorrectionTableColumns.ID],
+                        _row[CorrectionTableColumns.Account],
+                        _row[CorrectionTableColumns.Owner],
+                        _row[CorrectionTableColumns.ResidentsNumber],
+                        _row[CorrectionTableColumns.Street],
+                        _row[CorrectionTableColumns.House],
+                        _row[CorrectionTableColumns.Apartment],
+                        _row[CorrectionTableColumns.Square],
                         false,
                         1,
                         100);
@@ -2559,6 +2551,80 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             View.IsMasterCompleted = true;
             View.ResultErrorCount = 1;
             View.SelectPage(WizardPages.FinishPage);
+        }
+
+        public void SetCorrectionDaysCount(int daysCount)
+        {
+            DataTable _tbl = View.CustomersWithPercents;
+            for(int i = 0; i < _tbl.Rows.Count; i++)
+            {
+                _tbl.Rows[i][CorrectionTableColumns.Days] = daysCount;
+            }
+        }
+
+        public void SetCorrectionPercent(int percent)
+        {
+            DataTable _tbl = View.CustomersWithPercents;
+            for (int i = 0; i < _tbl.Rows.Count; i++)
+            {
+                _tbl.Rows[i][CorrectionTableColumns.Percent] = percent;
+            }
+        }
+
+        public void UpdateCorrectionTable(int serviceID, DateTime period)
+        {
+            int[] _ids = View.SelectedCustomers.AsEnumerable().Select(r => (int)r[CorrectionTableColumns.ID]).ToArray();
+            DataTable _table = CreateCustomersTable();
+
+            using (Entities _db = new Entities())
+            {
+                _db.CommandTimeout = 3600;
+
+                var _customers= _db.ChargeOperPoses
+                    .Where(p => _ids.Contains(p.ChargeOpers.Customers.ID) && p.ChargeOpers.ChargeSets.Period == period && p.Services.ID == serviceID)
+                    .Select(p => p.ChargeOpers.Customers.ID)
+                    .Distinct()
+                    .Join(
+                        _db.Customers,
+                        x => x,
+                        c => c.ID,
+                        (x, c) =>
+                        new
+                        {
+                            c.ID,
+                            c.Account,
+                            Owner = c.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson
+                                ? c.PhysicalPersonFullName
+                                : c.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson
+                                    ? c.JuridicalPersonFullName
+                                    : "Неизвестен",
+                            Street = c.Buildings.Streets.Name,
+                            Building = c.Buildings.Number,
+                            c.Apartment
+                        })
+                    .OrderBy(c => c.Street)
+                    .ThenBy(c => c.Building)
+                    .ThenBy(c => c.Apartment)
+                    .ToList();
+
+                foreach(var _customer in _customers)
+                {
+                    _table.Rows.Add(
+                        _customer.ID,
+                        _customer.Account,
+                        _customer.Owner,
+                        0,
+                        _customer.Street,
+                        _customer.Building,
+                        _customer.Apartment,
+                        0,
+                        false,
+                        1,
+                        100);
+                }
+            }
+
+            View.CustomersWithPercents = _table;
         }
     }
 }
