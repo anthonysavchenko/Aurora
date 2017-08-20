@@ -105,10 +105,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             this.toCorrectionPeriodDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.sinceCorrectionPeriodDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.PercentWizardPage = new DevExpress.XtraWizard.WizardPage();
-            this.ServiceLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.PercentCorrectionPeriodDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.PercentsGridControl = new DevExpress.XtraGrid.GridControl();
             this.PercentsGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -123,6 +119,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.PercentRepositoryItemSpinEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnPercentSetAll = new System.Windows.Forms.Button();
+            this.percentNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.daysNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.btnDaysSetAll = new System.Windows.Forms.Button();
+            this.PercentCorrectionPeriodDateEdit = new DevExpress.XtraEditors.DateEdit();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ServiceLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.BackupWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.backupProgressBar = new DevExpress.XtraEditors.ProgressBarControl();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -161,14 +168,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             ((System.ComponentModel.ISupportInitialize)(this.sinceCorrectionPeriodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sinceCorrectionPeriodDateEdit.Properties)).BeginInit();
             this.PercentWizardPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServiceLookUpEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PercentsGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PercentsGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DaysRepositoryItemSpinEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PercentRepositoryItemSpinEdit)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.percentNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.daysNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ServiceLookUpEdit.Properties)).BeginInit();
             this.BackupWizardPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backupProgressBar.Properties)).BeginInit();
             this.SuspendLayout();
@@ -1004,75 +1014,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             // 
             // PercentWizardPage
             // 
-            this.PercentWizardPage.Controls.Add(this.ServiceLookUpEdit);
-            this.PercentWizardPage.Controls.Add(this.label7);
-            this.PercentWizardPage.Controls.Add(this.label6);
-            this.PercentWizardPage.Controls.Add(this.PercentCorrectionPeriodDateEdit);
             this.PercentWizardPage.Controls.Add(this.groupBox3);
+            this.PercentWizardPage.Controls.Add(this.panel4);
             this.PercentWizardPage.DescriptionText = "Укажите услугу для снятия начислений, период, количество дней и процент снятия.";
             this.PercentWizardPage.Name = "PercentWizardPage";
             this.PercentWizardPage.Size = new System.Drawing.Size(858, 478);
             this.PercentWizardPage.Text = "Данные по снятию начислений";
             // 
-            // ServiceLookUpEdit
-            // 
-            this.ServiceLookUpEdit.Location = new System.Drawing.Point(59, 3);
-            this.ServiceLookUpEdit.Name = "ServiceLookUpEdit";
-            this.ServiceLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ServiceLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ID", "ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Название")});
-            this.ServiceLookUpEdit.Properties.DisplayMember = "Name";
-            this.ServiceLookUpEdit.Properties.NullText = "<Введите значение>";
-            this.ServiceLookUpEdit.Properties.ValueMember = "ID";
-            this.ServiceLookUpEdit.Size = new System.Drawing.Size(418, 20);
-            this.ServiceLookUpEdit.TabIndex = 36;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 6);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "Услуга";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 32);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Период";
-            // 
-            // PercentCorrectionPeriodDateEdit
-            // 
-            this.PercentCorrectionPeriodDateEdit.EditValue = null;
-            this.PercentCorrectionPeriodDateEdit.Location = new System.Drawing.Point(59, 29);
-            this.PercentCorrectionPeriodDateEdit.Name = "PercentCorrectionPeriodDateEdit";
-            this.PercentCorrectionPeriodDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
-            this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
-            this.PercentCorrectionPeriodDateEdit.Properties.DisplayFormat.FormatString = "MM.yyyy";
-            this.PercentCorrectionPeriodDateEdit.Properties.Mask.EditMask = "MM.yyyy";
-            this.PercentCorrectionPeriodDateEdit.Size = new System.Drawing.Size(150, 20);
-            this.PercentCorrectionPeriodDateEdit.TabIndex = 7;
-            // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.PercentsGridControl);
             this.groupBox3.Controls.Add(this.panel3);
-            this.groupBox3.Location = new System.Drawing.Point(3, 55);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 67);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(852, 420);
+            this.groupBox3.Size = new System.Drawing.Size(858, 411);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Выбранные абоненты";
@@ -1096,7 +1052,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             this.PercentsGridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.DaysRepositoryItemSpinEdit,
             this.PercentRepositoryItemSpinEdit});
-            this.PercentsGridControl.Size = new System.Drawing.Size(846, 401);
+            this.PercentsGridControl.Size = new System.Drawing.Size(852, 392);
             this.PercentsGridControl.TabIndex = 17;
             this.PercentsGridControl.UseEmbeddedNavigator = true;
             this.PercentsGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -1241,8 +1197,154 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 16);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(846, 401);
+            this.panel3.Size = new System.Drawing.Size(852, 392);
             this.panel3.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnPercentSetAll);
+            this.panel4.Controls.Add(this.percentNumericUpDown);
+            this.panel4.Controls.Add(this.label11);
+            this.panel4.Controls.Add(this.daysNumericUpDown);
+            this.panel4.Controls.Add(this.btnDaysSetAll);
+            this.panel4.Controls.Add(this.PercentCorrectionPeriodDateEdit);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Controls.Add(this.label7);
+            this.panel4.Controls.Add(this.ServiceLookUpEdit);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(858, 67);
+            this.panel4.TabIndex = 40;
+            // 
+            // btnPercentSetAll
+            // 
+            this.btnPercentSetAll.Location = new System.Drawing.Point(583, 32);
+            this.btnPercentSetAll.Name = "btnPercentSetAll";
+            this.btnPercentSetAll.Size = new System.Drawing.Size(109, 23);
+            this.btnPercentSetAll.TabIndex = 42;
+            this.btnPercentSetAll.Text = "Установить всем";
+            this.btnPercentSetAll.UseVisualStyleBackColor = true;
+            this.btnPercentSetAll.Click += new System.EventHandler(this.btnPercentSetAll_Click);
+            // 
+            // percentNumericUpDown
+            // 
+            this.percentNumericUpDown.Location = new System.Drawing.Point(531, 34);
+            this.percentNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.percentNumericUpDown.Name = "percentNumericUpDown";
+            this.percentNumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.percentNumericUpDown.TabIndex = 41;
+            this.percentNumericUpDown.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(475, 36);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(50, 13);
+            this.label11.TabIndex = 40;
+            this.label11.Text = "Процент";
+            // 
+            // daysNumericUpDown
+            // 
+            this.daysNumericUpDown.Location = new System.Drawing.Point(531, 8);
+            this.daysNumericUpDown.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.daysNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.daysNumericUpDown.Name = "daysNumericUpDown";
+            this.daysNumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.daysNumericUpDown.TabIndex = 38;
+            this.daysNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // btnDaysSetAll
+            // 
+            this.btnDaysSetAll.Location = new System.Drawing.Point(583, 6);
+            this.btnDaysSetAll.Name = "btnDaysSetAll";
+            this.btnDaysSetAll.Size = new System.Drawing.Size(109, 23);
+            this.btnDaysSetAll.TabIndex = 39;
+            this.btnDaysSetAll.Text = "Установить всем";
+            this.btnDaysSetAll.UseVisualStyleBackColor = true;
+            this.btnDaysSetAll.Click += new System.EventHandler(this.btnDaysSetAll_Click);
+            // 
+            // PercentCorrectionPeriodDateEdit
+            // 
+            this.PercentCorrectionPeriodDateEdit.EditValue = null;
+            this.PercentCorrectionPeriodDateEdit.Location = new System.Drawing.Point(84, 34);
+            this.PercentCorrectionPeriodDateEdit.Name = "PercentCorrectionPeriodDateEdit";
+            this.PercentCorrectionPeriodDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
+            this.PercentCorrectionPeriodDateEdit.Properties.DisplayFormat.FormatString = "MM.yyyy";
+            this.PercentCorrectionPeriodDateEdit.Properties.Mask.EditMask = "MM.yyyy";
+            this.PercentCorrectionPeriodDateEdit.Size = new System.Drawing.Size(161, 20);
+            this.PercentCorrectionPeriodDateEdit.TabIndex = 7;
+            this.PercentCorrectionPeriodDateEdit.EditValueChanged += new System.EventHandler(this.PercentCorrectionPeriodDateEdit_EditValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 37);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Период";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(457, 11);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(68, 13);
+            this.label10.TabIndex = 37;
+            this.label10.Text = "Кол-во дней";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Услуга";
+            // 
+            // ServiceLookUpEdit
+            // 
+            this.ServiceLookUpEdit.Location = new System.Drawing.Point(84, 8);
+            this.ServiceLookUpEdit.Name = "ServiceLookUpEdit";
+            this.ServiceLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ServiceLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ID", "ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Название")});
+            this.ServiceLookUpEdit.Properties.DisplayMember = "Name";
+            this.ServiceLookUpEdit.Properties.NullText = "<Введите значение>";
+            this.ServiceLookUpEdit.Properties.ValueMember = "ID";
+            this.ServiceLookUpEdit.Size = new System.Drawing.Size(352, 20);
+            this.ServiceLookUpEdit.TabIndex = 36;
+            this.ServiceLookUpEdit.EditValueChanged += new System.EventHandler(this.PercentCorrectionPeriodDateEdit_EditValueChanged);
             // 
             // BackupWizardPage
             // 
@@ -1319,15 +1421,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             ((System.ComponentModel.ISupportInitialize)(this.sinceCorrectionPeriodDateEdit.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sinceCorrectionPeriodDateEdit.Properties)).EndInit();
             this.PercentWizardPage.ResumeLayout(false);
-            this.PercentWizardPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ServiceLookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PercentsGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PercentsGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DaysRepositoryItemSpinEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PercentRepositoryItemSpinEdit)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.percentNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.daysNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PercentCorrectionPeriodDateEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ServiceLookUpEdit.Properties)).EndInit();
             this.BackupWizardPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.backupProgressBar.Properties)).EndInit();
             this.ResumeLayout(false);
@@ -1431,6 +1536,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit PercentRepositoryItemSpinEdit;
         private DevExpress.XtraWizard.WizardPage BackupWizardPage;
         private DevExpress.XtraEditors.ProgressBarControl backupProgressBar;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button btnPercentSetAll;
+        private System.Windows.Forms.NumericUpDown percentNumericUpDown;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown daysNumericUpDown;
+        private System.Windows.Forms.Button btnDaysSetAll;
+        private System.Windows.Forms.Label label10;
     }
 }
 
