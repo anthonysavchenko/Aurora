@@ -1170,7 +1170,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                     #endregion
 
-                                    decimal _currentPeriodTotal = 0;
+                                    decimal _currentPeriodTotal = 0,
+                                            _rest = 0;
 
                                     if (_customerPeriodBalances.Balances.ContainsKey(_currentPeriod))
                                     {
@@ -1183,12 +1184,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                         Balance _totalBalance = _customerPeriodBalances.Balances[_currentPeriod].TotalBalance;
                                         _currentPeriodTotal = _totalBalance.Charge + _totalBalance.Benefit + _totalBalance.Correction;
-                                    }
 
-                                    decimal _rest =
-                                        _customerPeriodBalances.Balances
-                                            .Where(periodBalance => periodBalance.Key < _currentPeriod)
-                                            .Sum(periodBalance => periodBalance.Value.TotalBalance.Total);
+                                        _rest =
+                                            _customerPeriodBalances.Balances
+                                                .Where(periodBalance => periodBalance.Key < _currentPeriod)
+                                                .Sum(periodBalance => periodBalance.Value.TotalBalance.Total);
+                                    }
 
                                     #region Переплата
 
