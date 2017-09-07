@@ -13,12 +13,14 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Counter;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
-using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.Infrastructure.Interface.Services;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports.PersonalData;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views;
+using System.Windows.Forms;
+using Taumis.Infrastructure.Interface.Constants;
+using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {

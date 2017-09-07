@@ -86,7 +86,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargeOpers_ChargeCorrectionOpers", "ChargeCorrectionOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.ChargeCorrectionOpers), "RechargeOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargeOpers))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargeOpers_ChargeOpers", "ChargeOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.ChargeOpers), "RechargeOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargeOpers))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RebenefitOpers_BenefitCorrectionOpers", "BenefitCorrectionOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.BenefitCorrectionOpers), "RebenefitOpers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RebenefitOpers))]
-[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CommonCounterCoefficients_CommonCounters", "CommonCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CommonCounters), "CommonCounterCoefficients", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CommonCounterCoefficients))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Residents_BenefitTypes", "BenefitTypes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.BenefitTypes), "Residents", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Residents))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Residents_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "Residents", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Residents))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BenefitCorrectionOperPoses_Contractors", "Contractors", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Contractors), "BenefitCorrectionOperPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BenefitCorrectionOperPoses))]
@@ -874,22 +873,6 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<CommonCounterCoefficients> CommonCounterCoefficients
-        {
-            get
-            {
-                if ((_CommonCounterCoefficients == null))
-                {
-                    _CommonCounterCoefficients = base.CreateObjectSet<CommonCounterCoefficients>("CommonCounterCoefficients");
-                }
-                return _CommonCounterCoefficients;
-            }
-        }
-        private ObjectSet<CommonCounterCoefficients> _CommonCounterCoefficients;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Settings> Settings
         {
             get
@@ -1329,14 +1312,6 @@ namespace Taumis.Alpha.DataBase
         public void AddToUsers(Users users)
         {
             base.AddObject("Users", users);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the CommonCounterCoefficients EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCommonCounterCoefficients(CommonCounterCoefficients commonCounterCoefficients)
-        {
-            base.AddObject("CommonCounterCoefficients", commonCounterCoefficients);
         }
     
         /// <summary>
@@ -4627,156 +4602,6 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CommonCounterCoefficients")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class CommonCounterCoefficients : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new CommonCounterCoefficients object.
-        /// </summary>
-        /// <param name="id">Initial value of the ID property.</param>
-        /// <param name="period">Initial value of the Period property.</param>
-        /// <param name="coefficient">Initial value of the Coefficient property.</param>
-        public static CommonCounterCoefficients CreateCommonCounterCoefficients(global::System.Int32 id, global::System.DateTime period, global::System.Decimal coefficient)
-        {
-            CommonCounterCoefficients commonCounterCoefficients = new CommonCounterCoefficients();
-            commonCounterCoefficients.ID = id;
-            commonCounterCoefficients.Period = period;
-            commonCounterCoefficients.Coefficient = coefficient;
-            return commonCounterCoefficients;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ID
-        {
-            get
-            {
-                return _ID;
-            }
-            set
-            {
-                if (_ID != value)
-                {
-                    OnIDChanging(value);
-                    ReportPropertyChanging("ID");
-                    _ID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ID");
-                    OnIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ID;
-        partial void OnIDChanging(global::System.Int32 value);
-        partial void OnIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Period
-        {
-            get
-            {
-                return _Period;
-            }
-            set
-            {
-                OnPeriodChanging(value);
-                ReportPropertyChanging("Period");
-                _Period = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Period");
-                OnPeriodChanged();
-            }
-        }
-        private global::System.DateTime _Period;
-        partial void OnPeriodChanging(global::System.DateTime value);
-        partial void OnPeriodChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal Coefficient
-        {
-            get
-            {
-                return _Coefficient;
-            }
-            set
-            {
-                OnCoefficientChanging(value);
-                ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Coefficient");
-                OnCoefficientChanged();
-            }
-        }
-        private global::System.Decimal _Coefficient;
-        partial void OnCoefficientChanging(global::System.Decimal value);
-        partial void OnCoefficientChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CommonCounterCoefficients_CommonCounters", "CommonCounters")]
-        public CommonCounters CommonCounters
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CommonCounters>("AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters", "CommonCounters").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CommonCounters>("AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters", "CommonCounters").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<CommonCounters> CommonCountersReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CommonCounters>("AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters", "CommonCounters");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CommonCounters>("AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters", "CommonCounters", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CommonCounters")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -4950,28 +4775,6 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CommonCounterValues>("AlphaDataBaseModel.FK_CommonCounterValues_CommonCounters", "CommonCounterValues", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CommonCounterCoefficients_CommonCounters", "CommonCounterCoefficients")]
-        public EntityCollection<CommonCounterCoefficients> CommonCounterCoefficients
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CommonCounterCoefficients>("AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters", "CommonCounterCoefficients");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CommonCounterCoefficients>("AlphaDataBaseModel.FK_CommonCounterCoefficients_CommonCounters", "CommonCounterCoefficients", value);
                 }
             }
         }
@@ -9308,12 +9111,14 @@ namespace Taumis.Alpha.DataBase
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="period">Initial value of the Period property.</param>
         /// <param name="value">Initial value of the Value property.</param>
-        public static PrivateCounterValues CreatePrivateCounterValues(global::System.Int32 id, global::System.DateTime period, global::System.Decimal value)
+        /// <param name="byNorm">Initial value of the ByNorm property.</param>
+        public static PrivateCounterValues CreatePrivateCounterValues(global::System.Int32 id, global::System.DateTime period, global::System.Decimal value, global::System.Boolean byNorm)
         {
             PrivateCounterValues privateCounterValues = new PrivateCounterValues();
             privateCounterValues.ID = id;
             privateCounterValues.Period = period;
             privateCounterValues.Value = value;
+            privateCounterValues.ByNorm = byNorm;
             return privateCounterValues;
         }
 
@@ -9395,6 +9200,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.Decimal _Value;
         partial void OnValueChanging(global::System.Decimal value);
         partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ByNorm
+        {
+            get
+            {
+                return _ByNorm;
+            }
+            set
+            {
+                OnByNormChanging(value);
+                ReportPropertyChanging("ByNorm");
+                _ByNorm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ByNorm");
+                OnByNormChanged();
+            }
+        }
+        private global::System.Boolean _ByNorm;
+        partial void OnByNormChanging(global::System.Boolean value);
+        partial void OnByNormChanged();
 
         #endregion
 
@@ -11126,18 +10955,16 @@ namespace Taumis.Alpha.DataBase
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="number">Initial value of the Number property.</param>
         /// <param name="prevValue">Initial value of the PrevValue property.</param>
-        /// <param name="curValue">Initial value of the CurValue property.</param>
         /// <param name="consumption">Initial value of the Consumption property.</param>
         /// <param name="rate">Initial value of the Rate property.</param>
         /// <param name="serviceName">Initial value of the ServiceName property.</param>
         /// <param name="measure">Initial value of the Measure property.</param>
-        public static RegularBillDocCounterPoses CreateRegularBillDocCounterPoses(global::System.Int32 id, global::System.String number, global::System.Decimal prevValue, global::System.Decimal curValue, global::System.Decimal consumption, global::System.Decimal rate, global::System.String serviceName, global::System.String measure)
+        public static RegularBillDocCounterPoses CreateRegularBillDocCounterPoses(global::System.Int32 id, global::System.String number, global::System.Decimal prevValue, global::System.Decimal consumption, global::System.Decimal rate, global::System.String serviceName, global::System.String measure)
         {
             RegularBillDocCounterPoses regularBillDocCounterPoses = new RegularBillDocCounterPoses();
             regularBillDocCounterPoses.ID = id;
             regularBillDocCounterPoses.Number = number;
             regularBillDocCounterPoses.PrevValue = prevValue;
-            regularBillDocCounterPoses.CurValue = curValue;
             regularBillDocCounterPoses.Consumption = consumption;
             regularBillDocCounterPoses.Rate = rate;
             regularBillDocCounterPoses.ServiceName = serviceName;
@@ -11227,9 +11054,9 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Decimal CurValue
+        public Nullable<global::System.Decimal> CurValue
         {
             get
             {
@@ -11244,8 +11071,8 @@ namespace Taumis.Alpha.DataBase
                 OnCurValueChanged();
             }
         }
-        private global::System.Decimal _CurValue;
-        partial void OnCurValueChanging(global::System.Decimal value);
+        private Nullable<global::System.Decimal> _CurValue;
+        partial void OnCurValueChanging(Nullable<global::System.Decimal> value);
         partial void OnCurValueChanged();
     
         /// <summary>
@@ -11343,6 +11170,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Measure;
         partial void OnMeasureChanging(global::System.String value);
         partial void OnMeasureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Norm
+        {
+            get
+            {
+                return _Norm;
+            }
+            set
+            {
+                OnNormChanging(value);
+                ReportPropertyChanging("Norm");
+                _Norm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Norm");
+                OnNormChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Norm;
+        partial void OnNormChanging(Nullable<global::System.Decimal> value);
+        partial void OnNormChanged();
 
         #endregion
 

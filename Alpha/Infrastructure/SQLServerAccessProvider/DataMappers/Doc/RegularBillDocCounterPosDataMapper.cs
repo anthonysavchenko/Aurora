@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
@@ -39,6 +38,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _dbItem.Number = domObj.Number;
                 _dbItem.PrevValue = domObj.PrevValue;
                 _dbItem.CurValue = domObj.CurValue;
+                _dbItem.Norm = domObj.Norm;
                 _dbItem.Consumption = domObj.Consumption;
                 _dbItem.Rate = domObj.Rate;
                 _dbItem.Measure = domObj.Measure;
@@ -72,6 +72,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.Number = _dbItem.Number;
                 _domItem.PrevValue = _dbItem.PrevValue;
                 _domItem.CurValue = _dbItem.CurValue;
+                _domItem.Norm = _dbItem.Norm;
                 _domItem.Consumption = _dbItem.Consumption;
                 _domItem.Rate = _dbItem.Rate;
                 _domItem.Measure = _dbItem.Measure;

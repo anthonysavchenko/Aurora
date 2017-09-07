@@ -16,6 +16,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         decimal Value { get; }
 
         /// <summary>
+        /// Флаг показания по норме
+        /// </summary>
+        bool ByNorm { get; }
+
+        /// <summary>
         /// Определяет доступность пользователю кнопок редактирования
         /// </summary>
         bool NavigationButtonsEnabled { set; }

@@ -22,7 +22,6 @@ namespace Taumis.Infrastructure.Module
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.PrivateCounterValueDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.CommonCounterDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.CommonCounterValueDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.CommonCounterCoefficientDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.PublicPlaceDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.BankDetailDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.PublicPlaceServiceVolumeDataMapper());

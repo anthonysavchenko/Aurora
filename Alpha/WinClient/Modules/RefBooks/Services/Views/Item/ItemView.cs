@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
+using System;
 
 //using BaseItemView = System.Windows.Forms.UserControl;
 
@@ -112,7 +113,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
             get => GetSimpleItemViewMapper.ViewToDomain(normMeasureTextBox);
             set => GetSimpleItemViewMapper.DomainToView(value, normMeasureTextBox);
         }
+        public bool NormEnabled { set => normNumericUpDown.Enabled = value; }
 
         #endregion
+
+        private void chargeRuleComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (Presenter != null)
+            {
+                Presenter.OnSelectedChargeRuleChanged();
+            }
+        }
     }
 }

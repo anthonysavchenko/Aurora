@@ -156,5 +156,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         }
 
         #endregion
+
+        public void OnSelectedChargeRuleChanged()
+        {
+            ChargeRuleType _selectedChargeRule = View.ChargeRule;
+            bool _enabled = _selectedChargeRule == ChargeRuleType.CounterRate
+                || _selectedChargeRule == ChargeRuleType.PublicPlaceAreaRate
+                || _selectedChargeRule == ChargeRuleType.PublicPlaceVolumeAreaRate;
+
+            if(!_enabled)
+            {
+                View.Norm = 0;
+            }
+
+            View.NormEnabled = _enabled;
+        }
     }
 }

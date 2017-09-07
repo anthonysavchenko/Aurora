@@ -61,11 +61,11 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private decimal _curValue;
+        private decimal? _curValue;
         /// <summary>
         /// Текущее показание
         /// </summary>
-        public decimal CurValue
+        public decimal? CurValue
         {
             get
             {
@@ -150,6 +150,25 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             {
                 Load();
                 _measure = value;
+            }
+        }
+
+        private decimal? _norm;
+        
+        /// <summary>
+        /// Норматив
+        /// </summary>
+        public decimal? Norm
+        {
+            get
+            {
+                Load();
+                return _norm;
+            }
+            set
+            {
+                Load();
+                _norm = value;
             }
         }
     }

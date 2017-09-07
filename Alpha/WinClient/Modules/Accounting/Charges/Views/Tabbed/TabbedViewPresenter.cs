@@ -213,6 +213,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Tabbed
             {
                 if (eventArgsStartUpParams.Data != null)
                 {
+                    
                     string _chargeSetListId;
                     BaseChargeOper _oper;
 
@@ -230,9 +231,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Tabbed
                     }
                     else
                     {
-                        _oper = ((ShowDetailsStartUpParams<RechargeOper>) eventArgsStartUpParams.Data).DomainObject;
-                        _chargeSetListId = $"{ChargeSetTypes.RECHARGE_SET_TYPE}_{((RechargeOper) _oper).ChargeSet.ID}";
-                        _chargeSetTime = ((RechargeOper) _oper).ChargeSet.CreationDateTime;
+                        _oper = ((ShowDetailsStartUpParams<RechargeOper>)eventArgsStartUpParams.Data).DomainObject;
+                        _chargeSetListId = $"{ChargeSetTypes.RECHARGE_SET_TYPE}_{((RechargeOper)_oper).ChargeSet.ID}";
+                        _chargeSetTime = ((RechargeOper)_oper).ChargeSet.CreationDateTime;
                     }
 
                     DateTime _since =

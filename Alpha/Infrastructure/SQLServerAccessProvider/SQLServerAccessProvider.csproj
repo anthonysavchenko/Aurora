@@ -96,7 +96,6 @@
     <Compile Include="DataMappers\RefBook\BankDetailDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\BenefitTypeDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\BuildingDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\CommonCounterCoefficientDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\CommonCounterDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\CommonCounterValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\ContractorDataMapper.cs" />

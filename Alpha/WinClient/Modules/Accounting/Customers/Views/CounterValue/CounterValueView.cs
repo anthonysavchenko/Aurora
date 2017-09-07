@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.CompositeUI.SmartParts;
+﻿using DevExpress.XtraEditors;
+using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
@@ -14,14 +15,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         [CreateNew]
         public new CounterValueViewPresenter Presenter
         {
-            set
-            {
-                base.Presenter = value;
-            }
-            get
-            {
-                return (CounterValueViewPresenter)base.Presenter;
-            }
+            set => base.Presenter = value;
+            get => (CounterValueViewPresenter)base.Presenter;
         }
 
         /// <summary>
@@ -50,23 +45,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// <summary>
         /// Значение/показание
         /// </summary>
-        public decimal Value
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomainSimpleType<decimal>(counterValueGridView, "Value");
-            }
-        }
+        public decimal Value => GetBaseSimpleListViewMapper.ViewToDomainSimpleType<decimal>(counterValueGridView, "Value");
+
+        /// <summary>
+        /// Флаг показания по норме
+        /// </summary>
+        public bool ByNorm => GetBaseSimpleListViewMapper.ViewToDomainSimpleType<bool>(counterValueGridView, "ByNorm");
 
         /// <summary>
         /// Определяет доступность пользователю кнопок редактирования
         /// </summary>
         public bool NavigationButtonsEnabled
         {
-            set
-            {
-                counterValueGridControl.EmbeddedNavigator.Enabled = value;
-            }
+            set => counterValueGridControl.EmbeddedNavigator.Enabled = value;
         }
 
         /// <summary>
@@ -86,5 +77,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         }
 
         #endregion
+
+        private void byNormRepositoryItemCheckEdit_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckEdit _checkEdit = (CheckEdit)sender;
+            if (counterValueGridView.GetFocusedRowCellValue("Value") == DBNull.Value)
+            {
+                DateTime? _period = counterValueGridView.GetFocusedRowCellValue("Period") as DateTime?;
+                counterValueGridView.PostEditor();
+                counterValueGridView.SetFocusedRowCellValue("Value", _checkEdit.Checked ? Presenter.GetNormValue(_period) : 0);
+            }
+        }
     }
 }

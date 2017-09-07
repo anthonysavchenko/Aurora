@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Core.Objects.DataClasses;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -147,6 +146,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             public int Percent { get; set; }
         }
 
+        private class CounterInfo
+        {
+            public int ID { get; set; }
+            public string Number { get; set; }
+            public decimal CurrentValue { get; set; }
+            public decimal PreviousValue { get; set; }
+            public decimal LastByCounterValue { get; set; }
+            public bool ByNorm { get; set; }
+        }
+
         /// <summary>
         /// Stores payment distibution service reference
         /// </summary>
@@ -212,7 +221,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             PeriodInfo _periodInfo = ServerTime.GetPeriodInfo();
 
             View.ChargingPeriod = _periodInfo.FirstUncharged;
-            View.PercentCorrectionPeriod = _periodInfo.LastCharged;
 
             View.Filter = FilterType.All;
             View.FoundCustomers = null;
@@ -693,19 +701,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             })
                                         .ToDictionary(r => r.CustomerID, r => r.Poses.ToList());
 
-                                var _privateCounters =
-                                    _db.PrivateCounters
-                                        .Where(p => p.Customers.Buildings.ID == _building.BuildingID)
-                                        .Select(p =>
-                                            new
-                                            {
-                                                p.ID,
-                                                p.Number,
-                                                PrevValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _lastChargedPeriod),
-                                                CurValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _currentPeriod)
-                                            })
-                                        .ToDictionary(r => r.ID);
-
                                 var _commonCountersByService =
                                     _db.CommonCounters
                                         .Where(c => c.Buildings.ID == _building.BuildingID)
@@ -722,6 +717,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                 foreach (var _customer in _customers)
                                 {
+                                    Dictionary<int, CounterInfo> _privateCounters = GetPrivateCounterInfo(_customer.ID, _currentPeriod, _db);
+
                                     List<RegularBillDocCounterPoses> _counterBillPoses = new List<RegularBillDocCounterPoses>();
                                     List<RegularBillDocSharedCounterPoses> _sharedCounterPoses = new List<RegularBillDocSharedCounterPoses>();
 
@@ -1015,20 +1012,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             case Service.ChargeRuleType.CounterRate:
                                                 if (_customerPos.PrivateCounterID.HasValue)
                                                 {
-                                                    var _counter = _privateCounters[_customerPos.PrivateCounterID.Value];
-
-                                                    decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                                    decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                                    CounterInfo _ci = _privateCounters[_customerPos.PrivateCounterID.Value];
+                                                    decimal _consumption = _ci.CurrentValue - _ci.PreviousValue;
                                                     _chargeValue = _consumption * _customerPos.Rate;
 
                                                     _counterBillPoses.Add(
                                                         new RegularBillDocCounterPoses
                                                         {
                                                             Consumption = _consumption,
-                                                            CurValue = _counter.CurValue.Value,
-                                                            PrevValue = _prevValue,
+                                                            CurValue = _ci.ByNorm ? (decimal?)null : _ci.CurrentValue,
+                                                            PrevValue = _ci.LastByCounterValue,
+                                                            Norm = _ci.ByNorm ? _consumption : (decimal?)null,
                                                             Rate = _customerPos.Rate,
-                                                            Number = _counter.Number,
+                                                            Number = _ci.Number,
                                                             ServiceName = _service.Name,
                                                             Measure = _service.Measure
                                                         });
@@ -1485,8 +1481,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 _rechargeSetId = _rechargeSet.ID;
             }
 
-            Dictionary<int, decimal> _buidingAreaDict = new Dictionary<int, decimal>();
-            Dictionary<int, decimal> _buidingHeatedAreaDict = new Dictionary<int, decimal>();
+            Dictionary<int, decimal> _buildingAreaDict = new Dictionary<int, decimal>();
+            Dictionary<int, decimal> _buildingHeatedAreaDict = new Dictionary<int, decimal>();
             Dictionary<int, Dictionary<int, decimal>> _areaByServiceAndBuilding = new Dictionary<int, Dictionary<int, decimal>>();
 
             while (_period <= _tillCorrectionPeriod)
@@ -1715,9 +1711,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         contractor => contractor.ID,
                                         contractor => contractor);
 
-                            if (!_buidingAreaDict.ContainsKey(_customer.BuildingID))
+                            if (!_buildingAreaDict.ContainsKey(_customer.BuildingID))
                             {
-                                _buidingAreaDict.Add(
+                                _buildingAreaDict.Add(
                                     _customer.BuildingID,
                                     _db.Customers
                                         .Where(c =>
@@ -1726,11 +1722,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea);
 
                             }
-                            decimal _buildingArea = _buidingAreaDict[_customer.BuildingID];
+                            decimal _buildingArea = _buildingAreaDict[_customer.BuildingID];
 
-                            if (!_buidingHeatedAreaDict.ContainsKey(_customer.BuildingID))
+                            if (!_buildingHeatedAreaDict.ContainsKey(_customer.BuildingID))
                             {
-                                _buidingHeatedAreaDict.Add(
+                                _buildingHeatedAreaDict.Add(
                                     _customer.BuildingID,
                                     _db.Customers
                                         .Where(c =>
@@ -1738,7 +1734,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             c.CustomerPoses.Any(p => p.Till >= _period))
                                         .Sum(c => c.HeatedArea));
                             }
-                            decimal _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
+                            decimal _buildingHeatedArea = _buildingHeatedAreaDict[_customer.BuildingID];
 
                             RechargeOpers _rechargeOper =
                                 new RechargeOpers
@@ -1771,18 +1767,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                             DateTime _previousPeriod = _period.AddMonths(-1);
 
-                            var _privateCounters =
-                                _db.PrivateCounters
-                                    .Where(p => p.CustomerID == _customerID)
-                                    .Select(p =>
-                                        new
-                                        {
-                                            p.ID,
-                                            p.Number,
-                                            PrevValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _previousPeriod),
-                                            CurValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _period)
-                                        })
-                                    .ToDictionary(r => r.ID);
+                            Dictionary<int, CounterInfo> _privateCounters = GetPrivateCounterInfo(_customerID, _period, _db);
 
                             var _commonCountersByService =
                                 _db.CommonCounters
@@ -1827,10 +1812,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     case Service.ChargeRuleType.CounterRate:
                                         if (_customerPos.PrivateCounterID.HasValue)
                                         {
-                                            var _counter = _privateCounters[_customerPos.PrivateCounterID.Value];
-                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                            _value = _consumption * _customerPos.Rate;
+                                            CounterInfo _ci = _privateCounters[_customerPos.PrivateCounterID.Value];
+                                            _value = (_ci.CurrentValue - _ci.PreviousValue) * _customerPos.Rate;
                                         }
                                         break;
 
@@ -1906,13 +1889,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                             _areaByServiceAndBuilding.Add(_customerPos.ServiceID, new Dictionary<int, decimal>());
                                         }
 
-                                        if(!_areaByServiceAndBuilding[_customerPos.ServiceID].ContainsKey(_customer.BuildingID))
+                                        if (!_areaByServiceAndBuilding[_customerPos.ServiceID].ContainsKey(_customer.BuildingID))
                                         {
                                             _areaByServiceAndBuilding[_customerPos.ServiceID].Add(
                                                 _customer.BuildingID,
                                                 _db.CustomerPoses
-                                                    .Where(p => 
-                                                        p.Customers.Buildings.ID == _customer.BuildingID && 
+                                                    .Where(p =>
+                                                        p.Customers.Buildings.ID == _customer.BuildingID &&
                                                         p.Services.ID == _customerPos.ServiceID)
                                                     .GroupBy(p => new { p.Customers.ID, p.Customers.Square })
                                                     .Select(p => p.Key.Square)
@@ -2262,19 +2245,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 }
                                 decimal _buildingHeatedArea = _buidingHeatedAreaDict[_customer.BuildingID];
 
-                                var _privateCounters =
-                                    _db.PrivateCounters
-                                        .Where(p => p.CustomerID == _customerID)
-                                        .Select(p =>
-                                            new
-                                            {
-                                                p.ID,
-                                                p.Number,
-                                                PrevValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _previousPeriod),
-                                                CurValue = p.PrivateCounterValues.FirstOrDefault(v => v.Period == _period)
-                                            })
-                                        .ToDictionary(r => r.ID);
-
+                                var _privateCounters = GetPrivateCounterInfo(_customerID, _period, _db);
                                 var _commonCountersByService =
                                     _db.CommonCounters
                                         .Where(c => c.Buildings.ID == _customer.BuildingID)
@@ -2305,10 +2276,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                         case Service.ChargeRuleType.CounterRate:
                                             if (_customerPos.PrivateCounterID.HasValue)
                                             {
-                                                var _counter = _privateCounters[_customerPos.PrivateCounterID.Value];
-                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
-                                                _value = _consumption * _customerPos.Rate;
+                                                CounterInfo _ci = _privateCounters[_customerPos.PrivateCounterID.Value];
+                                                _value = (_ci.CurrentValue - _ci.PreviousValue) * _customerPos.Rate;
                                             }
                                             break;
 
@@ -2556,7 +2525,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                     if (_commonCounters.Any() || _privateCounters.Any())
                     {
                         DialogResult _dialogResult = MessageBox.Show(
-                            "Введены показания не всех приборов учета за текущий учетный период. Использовать показания предыдущего учетного периода?",
+                            "Введены показания не всех приборов учета за текущий учетный период. Использовать показания предыдущего учетного периода для ОДПУ и показания по норме для ПУ?",
                             "Отсутствуют показания по некоторым приборам учета",
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question);
@@ -2583,23 +2552,51 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     });
                             }
 
-                            foreach (PrivateCounters _privateCounter in _privateCounters)
+                            var _services = _entities.Services
+                                .Where(s => s.ChargeRule == (byte)Service.ChargeRuleType.CounterRate)
+                                .Select(s =>
+                                    new
+                                    {
+                                        s.ID,
+                                        s.Norm
+                                    })
+                                .ToDictionary(s => s.ID, s => s.Norm);
+
+                            int[] _customerIDs = _privateCounters.Select(x => x.CustomerID.Value).ToArray();
+                            var _residentCountDict = _entities.Residents
+                                .Where(x => _customerIDs.Contains(x.Customers.ID))
+                                .GroupBy(x => x.Customers.ID)
+                                .Select(g =>
+                                    new
+                                    {
+                                        CustomerID = g.Key,
+                                        ReisdentCount = g.Count()
+                                    })
+                                .ToDictionary(x => x.CustomerID, x => x.ReisdentCount);
+
+                            foreach (PrivateCounters _pc in _privateCounters)
                             {
                                 decimal _value =
                                     _entities.PrivateCounterValues
                                         .Where(
                                             v =>
-                                                v.PrivateCounters.ID == _privateCounter.ID &&
+                                                v.PrivateCounters.ID == _pc.ID &&
                                                 v.Period == previousPeriod)
                                         .Select(v => v.Value)
                                         .FirstOrDefault();
+
+                                decimal _norm = _services.ContainsKey(_pc.ServiceID.Value) ? _services[_pc.ServiceID.Value] ?? 0 : 0;
+                                int _residentCount = _residentCountDict.ContainsKey(_pc.CustomerID.Value)
+                                    ? _residentCountDict[_pc.CustomerID.Value]
+                                    : 0;
 
                                 _entities.AddToPrivateCounterValues(
                                     new PrivateCounterValues
                                     {
                                         Period = currentPeriod,
-                                        Value = _value,
-                                        PrivateCounters = _privateCounter
+                                        Value = _value + _norm * _residentCount,
+                                        PrivateCounters = _pc,
+                                        ByNorm = true
                                     });
                             }
 
@@ -2872,6 +2869,56 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             }
 
             View.CustomersWithPercents = _table;
+        }
+
+        private Dictionary<int, CounterInfo> GetPrivateCounterInfo(int customerID, DateTime currentPeriod, Entities db)
+        {
+            var _counters = db.PrivateCounters
+                .Where(c => c.CustomerID == customerID)
+                .Select(c =>
+                    new
+                    {
+                        c.ID,
+                        c.Number,
+                        Values = c.PrivateCounterValues.OrderBy(v => v.Period)
+                    })
+                .ToList();
+
+            Dictionary<int, CounterInfo> _result = new Dictionary<int, CounterInfo>();
+            DateTime _previousPeriod = currentPeriod.AddMonths(-1);
+
+            foreach (var _c in _counters)
+            {
+                PrivateCounterValues _curCounterValue = _c.Values.First(v => v.Period == currentPeriod);
+                PrivateCounterValues _prevCounterValue = _c.Values.First(v => v.Period == _previousPeriod);
+                decimal _lastByCounterValue = _c.Values.LastOrDefault(v => v.ID != _curCounterValue.ID && !v.ByNorm)?.Value ?? 0;
+
+                decimal _curValue = _curCounterValue.Value;
+                decimal _prevValue = _prevCounterValue.Value;
+
+                if(!_curCounterValue.ByNorm && _prevCounterValue.ByNorm)
+                {
+                    _prevValue = _lastByCounterValue;
+                }
+                else if(_curCounterValue.ByNorm && _c.Values.Any(v => v.Period > currentPeriod && !v.ByNorm))
+                {
+                    _curValue = _lastByCounterValue =_prevValue = 0;
+                }
+
+                _result.Add(
+                    _c.ID,
+                    new CounterInfo
+                    {
+                        ID = _c.ID,
+                        Number = _c.Number,
+                        CurrentValue = _curValue,
+                        PreviousValue = _prevValue,
+                        LastByCounterValue = _lastByCounterValue,
+                        ByNorm = _curCounterValue.ByNorm
+                    });
+            }
+
+            return _result;
         }
     }
 }

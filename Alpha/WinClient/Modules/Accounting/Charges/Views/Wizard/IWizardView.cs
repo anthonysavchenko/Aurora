@@ -10,7 +10,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// <summary>
         /// Вид создаваемых начислений
         /// </summary>
-        ChargeType ChargeType { get; }
+        ChargeType ChargeType { get; set; }
 
         /// <summary>
         /// Период предстоящих начислений

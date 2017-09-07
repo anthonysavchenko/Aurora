@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:ChargeData" ZOrder="5" X="219" Y="21" Height="162" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="158" />
     <Shape ID="DesignTable:Customers" ZOrder="4" X="28" Y="20" Height="256" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="252" />
-    <Shape ID="DesignTable:CounterData" ZOrder="2" X="219" Y="190" Height="181" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
+    <Shape ID="DesignTable:CounterData" ZOrder="2" X="219" Y="190" Height="200" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="196" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:FK_Customers_ChargeData" ZOrder="3" LineWidth="11">
