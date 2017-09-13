@@ -74,6 +74,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                         case ModuleTabNames.PRIVATE_COUNTERS:
                             ((IBaseSimpleListView)WorkItem.SmartParts.Get(ModuleViewNames.COUNTER_VIEW)).RefreshList();
                             break;
+                        case ModuleTabNames.RECHARGE_PERCENT_CORR:
+                            ((IBaseSimpleListView)WorkItem.SmartParts.Get(ModuleViewNames.RECHARGE_PERCENT_CORRECTION_LIST_VIEW)).RefreshList();
+                            break;
                     }
                 }
             }
