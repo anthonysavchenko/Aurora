@@ -81,6 +81,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                     case OperTypes.Payment:
                     case OperTypes.Benefit:
                     case OperTypes.ChargeCorrection:
+                    case OperTypes.RechargeCorrection:
                     case OperTypes.Rebenefit:
                         e.Appearance.BackColor = Color.FromArgb(200, 250, 200);
                         break;
