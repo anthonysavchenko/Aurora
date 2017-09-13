@@ -1626,6 +1626,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                             #endregion
 
+                            Dictionary<int, RechargePercentCorrections> _rechargePercentCorrDict = _db.RechargePercentCorrections
+                                .Where(rpc => rpc.CustomerPoses.Customers.ID == _customerID && rpc.Period == _period)
+                                .ToDictionary(rpc => rpc.CustomerPosID);
+
                             #region Дополнительные начисления
 
                             RechargeSets _rechargeSet =
@@ -1781,19 +1785,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                 if (_value > 0)
                                 {
-                                    if (_chargeType == ChargeType.PercentCorrection && 
-                                        _customerPos.ServiceID == View.CorrectingServiceID.Value)
+                                    bool _isPercentCorrection = _chargeType == ChargeType.PercentCorrection && _customerPos.ServiceID == View.CorrectingServiceID.Value;
+                                    if (_isPercentCorrection || _rechargePercentCorrDict.ContainsKey(_customerPos.ID))
                                     {
-                                        int _daysInMonth = DateTime.DaysInMonth(View.PercentCorrectionPeriod.Year, View.PercentCorrectionPeriod.Month);
-                                        int _days = _rechageInfoByCustomer[_customer.ID].Days;
-
-                                        if (_days > _daysInMonth)
-                                        {
-                                            _days = _daysInMonth;
-                                        }
-
-                                        int _percent = _rechageInfoByCustomer[_customer.ID].Percent;
-                                        _value -= (_value / _daysInMonth * _days * _percent) / 100;
+                                        _value -= CalculatePercentCorrection(
+                                            _value, 
+                                            _period,
+                                            _customerPos.ID,
+                                            _isPercentCorrection ? _rechageInfoByCustomer[_customer.ID] : null,
+                                            _rechargePercentCorrDict,
+                                            _db);
                                     }
 
                                     RechargeOperPoses _rechargeOperPos = new RechargeOperPoses()
@@ -1876,6 +1877,49 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             View.ResultCount = _resultCount;
             View.ResultValue = _resultValue;
             View.ResultErrorCount = _resultErrorCount;
+        }
+
+        private decimal CalculatePercentCorrection(
+            decimal value,
+            DateTime period, 
+            int customerPosID, 
+            RechargeInfo ri, 
+            Dictionary<int, RechargePercentCorrections> rechargePercentCorrDict,
+            Entities db)
+        {
+            decimal _correction = 0 ;
+            int _daysInMonth = DateTime.DaysInMonth(period.Year, period.Month);
+
+            if (ri != null)
+            {
+                RechargePercentCorrections _rpc;
+                if (rechargePercentCorrDict.ContainsKey(customerPosID))
+                {
+                    _rpc = rechargePercentCorrDict[customerPosID];
+                }
+                else
+                {
+                    _rpc =
+                        new RechargePercentCorrections
+                        {
+                            CustomerPosID = customerPosID,
+                            Period = period
+                        };
+                    db.RechargePercentCorrections.AddObject(_rpc);
+                    rechargePercentCorrDict.Add(customerPosID, _rpc);
+                }
+
+                _rpc.Percent = ri.Percent;
+                _rpc.Days = ri.Days > _daysInMonth ? _daysInMonth : ri.Days;
+            }
+
+            if (rechargePercentCorrDict.ContainsKey(customerPosID))
+            {
+                RechargePercentCorrections _rpc = rechargePercentCorrDict[customerPosID];
+                _correction = (value / _daysInMonth * _rpc.Days * _rpc.Percent) / 100;
+            }
+
+            return _correction;
         }
 
         private void CalculateBenefitSquare(
