@@ -27,6 +27,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             AddView<CounterView>(ModuleViewNames.COUNTER_VIEW);
             AddView<CounterValueView>(ModuleViewNames.COUNTER_VALUE_VIEW);
             AddView<ResidentsListView>(ModuleViewNames.RESIDENTS_LIST_VIEW);
+            AddView<RechargePercentCorrectionListView>(ModuleViewNames.RECHARGE_PERCENT_CORRECTION_LIST_VIEW);
             AddView<ItemView>("ItemView");
             AddView<ListView>("ListView");
             AddView<TabbedView>("TabbedView");
