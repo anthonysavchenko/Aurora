@@ -34,6 +34,7 @@
     <NuGetPackageImportStamp>8cf546a4</NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/38deccfd-6b5a-4c58-8380-7a5b407cfc2e/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/CustomerWebSite</ApplicationInsightsResourceId>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,7 +46,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>

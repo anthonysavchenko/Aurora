@@ -118,7 +118,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                         var _bills =
                             _entities.RegularBillDocs
-                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue > 0))
+                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue != 0))
                                 .Select(b =>
                                     new
                                     {
@@ -153,7 +153,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 .ToList()
                                 .OrderBy(b => b.Street)
                                 .ThenBy(b => b.Building, new StringWithNumbersComparer())
-                                .ThenBy(b => b.Apartment, new StringWithNumbersComparer());
+                                .ThenBy(b => b.Apartment, new StringWithNumbersComparer())
+                                .ToList();
 
                         foreach (var _bill in _bills)
                         {

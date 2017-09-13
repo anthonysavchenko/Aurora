@@ -44,15 +44,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             this.PeriodGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.OpeningBalanceGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ChargedGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.PayedGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ClosingBalanceGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.TotalBillLinkLabel = new System.Windows.Forms.LinkLabel();
             this.benefitGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.actGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.rechargedGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.payableGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.PayedGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.debtGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ClosingBalanceGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TotalBillLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.SubGridViewOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OperationRepositoryItemHyperLinkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridControlOfListView)).BeginInit();
@@ -75,6 +75,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             this.SubGridViewOfListView.OptionsDetail.ShowDetailTabs = false;
             this.SubGridViewOfListView.OptionsSelection.UseIndicatorForSelection = false;
             this.SubGridViewOfListView.OptionsView.ShowGroupPanel = false;
+            this.SubGridViewOfListView.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.TimeCreatedGridColumn, DevExpress.Data.ColumnSortOrder.Ascending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.OperationTypeGridColumn, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.SubGridViewOfListView.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.SubGridViewOfListView_RowCellClick);
             this.SubGridViewOfListView.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.SubGridViewOfListView_RowStyle);
             // 
@@ -108,8 +111,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             // TimeCreatedGridColumn
             // 
             this.TimeCreatedGridColumn.Caption = "Дата";
+            this.TimeCreatedGridColumn.DisplayFormat.FormatString = "dd.MM.yyyy";
+            this.TimeCreatedGridColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.TimeCreatedGridColumn.FieldName = "DateCreated";
             this.TimeCreatedGridColumn.Name = "TimeCreatedGridColumn";
+            this.TimeCreatedGridColumn.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
             this.TimeCreatedGridColumn.Visible = true;
             this.TimeCreatedGridColumn.VisibleIndex = 1;
             // 
@@ -196,47 +202,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             this.ChargedGridColumn.Visible = true;
             this.ChargedGridColumn.VisibleIndex = 2;
             // 
-            // PayedGridColumn
-            // 
-            this.PayedGridColumn.Caption = "Оплачено";
-            this.PayedGridColumn.DisplayFormat.FormatString = "{0:N2}";
-            this.PayedGridColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.PayedGridColumn.FieldName = "Payed";
-            this.PayedGridColumn.Name = "PayedGridColumn";
-            this.PayedGridColumn.Visible = true;
-            this.PayedGridColumn.VisibleIndex = 7;
-            // 
-            // ClosingBalanceGridColumn
-            // 
-            this.ClosingBalanceGridColumn.Caption = "Исходящее сальдо";
-            this.ClosingBalanceGridColumn.DisplayFormat.FormatString = "{0:N2}";
-            this.ClosingBalanceGridColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.ClosingBalanceGridColumn.FieldName = "ClosingBalance";
-            this.ClosingBalanceGridColumn.Name = "ClosingBalanceGridColumn";
-            this.ClosingBalanceGridColumn.Visible = true;
-            this.ClosingBalanceGridColumn.VisibleIndex = 9;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.TotalBillLinkLabel);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(716, 40);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            // 
-            // TotalBillLinkLabel
-            // 
-            this.TotalBillLinkLabel.AutoSize = true;
-            this.TotalBillLinkLabel.Location = new System.Drawing.Point(13, 16);
-            this.TotalBillLinkLabel.Name = "TotalBillLinkLabel";
-            this.TotalBillLinkLabel.Size = new System.Drawing.Size(119, 13);
-            this.TotalBillLinkLabel.TabIndex = 3;
-            this.TotalBillLinkLabel.TabStop = true;
-            this.TotalBillLinkLabel.Text = "Квитанция на доплату";
-            this.TotalBillLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.TotalBillLinkLabel_LinkClicked);
-            // 
             // benefitGridColumn
             // 
             this.benefitGridColumn.Caption = "Льготы";
@@ -277,6 +242,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             this.payableGridColumn.Visible = true;
             this.payableGridColumn.VisibleIndex = 6;
             // 
+            // PayedGridColumn
+            // 
+            this.PayedGridColumn.Caption = "Оплачено";
+            this.PayedGridColumn.DisplayFormat.FormatString = "{0:N2}";
+            this.PayedGridColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.PayedGridColumn.FieldName = "Payed";
+            this.PayedGridColumn.Name = "PayedGridColumn";
+            this.PayedGridColumn.Visible = true;
+            this.PayedGridColumn.VisibleIndex = 7;
+            // 
             // debtGridColumn
             // 
             this.debtGridColumn.Caption = "Долг";
@@ -286,6 +261,37 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             this.debtGridColumn.Name = "debtGridColumn";
             this.debtGridColumn.Visible = true;
             this.debtGridColumn.VisibleIndex = 8;
+            // 
+            // ClosingBalanceGridColumn
+            // 
+            this.ClosingBalanceGridColumn.Caption = "Исходящее сальдо";
+            this.ClosingBalanceGridColumn.DisplayFormat.FormatString = "{0:N2}";
+            this.ClosingBalanceGridColumn.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.ClosingBalanceGridColumn.FieldName = "ClosingBalance";
+            this.ClosingBalanceGridColumn.Name = "ClosingBalanceGridColumn";
+            this.ClosingBalanceGridColumn.Visible = true;
+            this.ClosingBalanceGridColumn.VisibleIndex = 9;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.TotalBillLinkLabel);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(716, 40);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            // 
+            // TotalBillLinkLabel
+            // 
+            this.TotalBillLinkLabel.AutoSize = true;
+            this.TotalBillLinkLabel.Location = new System.Drawing.Point(13, 16);
+            this.TotalBillLinkLabel.Name = "TotalBillLinkLabel";
+            this.TotalBillLinkLabel.Size = new System.Drawing.Size(119, 13);
+            this.TotalBillLinkLabel.TabIndex = 3;
+            this.TotalBillLinkLabel.TabStop = true;
+            this.TotalBillLinkLabel.Text = "Квитанция на доплату";
+            this.TotalBillLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.TotalBillLinkLabel_LinkClicked);
             // 
             // PaymentsAndChargesView
             // 
