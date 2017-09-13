@@ -410,6 +410,16 @@
           <Property Name="ChargeOper" Type="int" />
           <Property Name="ChargeCorrectionOper" Type="int" />
         </EntityType>
+        <EntityType Name="RechargePercentCorrections">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Period" Type="date" Nullable="false" />
+          <Property Name="Days" Type="int" Nullable="false" />
+          <Property Name="Percent" Type="int" Nullable="false" />
+          <Property Name="CustomerPosID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="RechargeSets">
           <Key>
             <PropertyRef Name="ID" />
@@ -1417,6 +1427,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RechargePercentCorrections_CustomerPoses">
+          <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="1" />
+          <End Role="RechargePercentCorrections" Type="Self.RechargePercentCorrections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerPoses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RechargePercentCorrections">
+              <PropertyRef Name="CustomerPosID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RechargeSets_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="RechargeSets" Type="Self.RechargeSets" Multiplicity="*" />
@@ -1616,6 +1638,7 @@
           <EntitySet Name="RebenefitOpers" EntityType="Self.RebenefitOpers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RechargeOperPoses" EntityType="Self.RechargeOperPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RechargeOpers" EntityType="Self.RechargeOpers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RechargePercentCorrections" EntityType="Self.RechargePercentCorrections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RechargeSets" EntityType="Self.RechargeSets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegularBillDocCounterPoses" EntityType="Self.RegularBillDocCounterPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegularBillDocs" EntityType="Self.RegularBillDocs" Schema="dbo" store:Type="Tables" />
@@ -1908,6 +1931,10 @@
           <AssociationSet Name="FK_RechargeOpers_RechargeSets" Association="Self.FK_RechargeOpers_RechargeSets">
             <End Role="RechargeSets" EntitySet="RechargeSets" />
             <End Role="RechargeOpers" EntitySet="RechargeOpers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RechargePercentCorrections_CustomerPoses" Association="Self.FK_RechargePercentCorrections_CustomerPoses">
+            <End Role="CustomerPoses" EntitySet="CustomerPoses" />
+            <End Role="RechargePercentCorrections" EntitySet="RechargePercentCorrections" />
           </AssociationSet>
           <AssociationSet Name="FK_RechargeSets_Users" Association="Self.FK_RechargeSets_Users">
             <End Role="Users" EntitySet="Users" />
@@ -2349,6 +2376,11 @@
           <AssociationSet Name="FK_PrivateCounters_Services" Association="AlphaDataBaseModel.FK_PrivateCounters_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+          </AssociationSet>
+          <EntitySet Name="RechargePercentCorrections" EntityType="AlphaDataBaseModel.RechargePercentCorrections" />
+          <AssociationSet Name="FK_RechargePercentCorrections_CustomerPoses" Association="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses">
+            <End Role="CustomerPoses" EntitySet="CustomerPoses" />
+            <End Role="RechargePercentCorrections" EntitySet="RechargePercentCorrections" />
           </AssociationSet></EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
@@ -2546,6 +2578,7 @@
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_CustomerPoses_Services" FromRole="CustomerPoses" ToRole="Services" />
           <Property Name="PrivateCounterID" Type="Int32" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters" FromRole="CustomerPoses" ToRole="PrivateCounters" />
+          <NavigationProperty Name="RechargePercentCorrections" Relationship="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses" FromRole="CustomerPoses" ToRole="RechargePercentCorrections" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -3420,6 +3453,29 @@
             </Principal>
             <Dependent Role="PrivateCounters">
               <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RechargePercentCorrections">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Days" Type="Int32" Nullable="false" />
+          <Property Name="Percent" Type="Int32" Nullable="false" />
+          <Property Name="CustomerPosID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerPoses" Relationship="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses" FromRole="RechargePercentCorrections" ToRole="CustomerPoses" />
+        </EntityType>
+        <Association Name="FK_RechargePercentCorrections_CustomerPoses">
+          <End Type="AlphaDataBaseModel.CustomerPoses" Role="CustomerPoses" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.RechargePercentCorrections" Role="RechargePercentCorrections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerPoses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RechargePercentCorrections">
+              <PropertyRef Name="CustomerPosID" />
             </Dependent>
           </ReferentialConstraint>
         </Association></Schema>
@@ -4547,6 +4603,17 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RechargePercentCorrections">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.RechargePercentCorrections">
+              <MappingFragment StoreEntitySet="RechargePercentCorrections">
+                <ScalarProperty Name="CustomerPosID" ColumnName="CustomerPosID" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
           </EntitySetMapping></EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -5178,6 +5245,7 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Customers" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Services" />
-        </edmx:Diagram></edmx:Diagrams>
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RechargePercentCorrections" Width="1.5" PointX="13.5" PointY="39.375" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

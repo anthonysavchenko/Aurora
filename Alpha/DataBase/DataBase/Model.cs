@@ -102,6 +102,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerPoses_PrivateCounters", "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.PrivateCounters), "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerPoses), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Services), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CustomerPoses), "RechargePercentCorrections", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargePercentCorrections), true)]
 
 #endregion
 
@@ -949,6 +950,22 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<PublicPlaceServiceVolumes> _PublicPlaceServiceVolumes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RechargePercentCorrections> RechargePercentCorrections
+        {
+            get
+            {
+                if ((_RechargePercentCorrections == null))
+                {
+                    _RechargePercentCorrections = base.CreateObjectSet<RechargePercentCorrections>("RechargePercentCorrections");
+                }
+                return _RechargePercentCorrections;
+            }
+        }
+        private ObjectSet<RechargePercentCorrections> _RechargePercentCorrections;
 
         #endregion
 
@@ -1352,6 +1369,14 @@ namespace Taumis.Alpha.DataBase
         public void AddToPublicPlaceServiceVolumes(PublicPlaceServiceVolumes publicPlaceServiceVolumes)
         {
             base.AddObject("PublicPlaceServiceVolumes", publicPlaceServiceVolumes);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RechargePercentCorrections EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRechargePercentCorrections(RechargePercentCorrections rechargePercentCorrections)
+        {
+            base.AddObject("RechargePercentCorrections", rechargePercentCorrections);
         }
 
         #endregion
@@ -5529,6 +5554,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_CustomerPoses_PrivateCounters", "PrivateCounters", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "RechargePercentCorrections")]
+        public EntityCollection<RechargePercentCorrections> RechargePercentCorrections
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RechargePercentCorrections>("AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses", "RechargePercentCorrections");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RechargePercentCorrections>("AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses", "RechargePercentCorrections", value);
                 }
             }
         }
@@ -10657,6 +10704,208 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ChargeOpers>("AlphaDataBaseModel.FK_RechargeOpers_ChargeOpers", "ChargeOpers", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="RechargePercentCorrections")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RechargePercentCorrections : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RechargePercentCorrections object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="period">Initial value of the Period property.</param>
+        /// <param name="days">Initial value of the Days property.</param>
+        /// <param name="percent">Initial value of the Percent property.</param>
+        /// <param name="customerPosID">Initial value of the CustomerPosID property.</param>
+        public static RechargePercentCorrections CreateRechargePercentCorrections(global::System.Int32 id, global::System.DateTime period, global::System.Int32 days, global::System.Int32 percent, global::System.Int32 customerPosID)
+        {
+            RechargePercentCorrections rechargePercentCorrections = new RechargePercentCorrections();
+            rechargePercentCorrections.ID = id;
+            rechargePercentCorrections.Period = period;
+            rechargePercentCorrections.Days = days;
+            rechargePercentCorrections.Percent = percent;
+            rechargePercentCorrections.CustomerPosID = customerPosID;
+            return rechargePercentCorrections;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Period
+        {
+            get
+            {
+                return _Period;
+            }
+            set
+            {
+                OnPeriodChanging(value);
+                ReportPropertyChanging("Period");
+                _Period = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Period");
+                OnPeriodChanged();
+            }
+        }
+        private global::System.DateTime _Period;
+        partial void OnPeriodChanging(global::System.DateTime value);
+        partial void OnPeriodChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Days
+        {
+            get
+            {
+                return _Days;
+            }
+            set
+            {
+                OnDaysChanging(value);
+                ReportPropertyChanging("Days");
+                _Days = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Days");
+                OnDaysChanged();
+            }
+        }
+        private global::System.Int32 _Days;
+        partial void OnDaysChanging(global::System.Int32 value);
+        partial void OnDaysChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Percent
+        {
+            get
+            {
+                return _Percent;
+            }
+            set
+            {
+                OnPercentChanging(value);
+                ReportPropertyChanging("Percent");
+                _Percent = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Percent");
+                OnPercentChanged();
+            }
+        }
+        private global::System.Int32 _Percent;
+        partial void OnPercentChanging(global::System.Int32 value);
+        partial void OnPercentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CustomerPosID
+        {
+            get
+            {
+                return _CustomerPosID;
+            }
+            set
+            {
+                OnCustomerPosIDChanging(value);
+                ReportPropertyChanging("CustomerPosID");
+                _CustomerPosID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CustomerPosID");
+                OnCustomerPosIDChanged();
+            }
+        }
+        private global::System.Int32 _CustomerPosID;
+        partial void OnCustomerPosIDChanging(global::System.Int32 value);
+        partial void OnCustomerPosIDChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses")]
+        public CustomerPoses CustomerPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CustomerPoses> CustomerPosesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerPoses>("AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses", value);
                 }
             }
         }

@@ -12,6 +12,8 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_PaymentOper]
     ON [dbo].[PaymentOperPoses]([PaymentOper] ASC)
@@ -22,4 +24,10 @@ GO
 CREATE NONCLUSTERED INDEX [IX_Period]
     ON [dbo].[PaymentOperPoses]([Period] ASC)
     INCLUDE([Value], [Service], [PaymentOper]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_ServicePeriod]
+    ON [dbo].[PaymentOperPoses]([Service] ASC, [Period] ASC)
+    INCLUDE([Value], [PaymentOper]);
 
