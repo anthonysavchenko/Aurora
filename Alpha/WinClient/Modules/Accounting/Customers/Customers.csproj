@@ -204,6 +204,14 @@
       <DependentUpon>PaymentsAndChargesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PaymentsAndCharges\PaymentsAndChargesViewPresenter.cs" />
+    <Compile Include="Views\RechargePercentCorrectionList\RechargePercentCorrectionListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\RechargePercentCorrectionList\RechargePercentCorrectionListView.Designer.cs">
+      <DependentUpon>RechargePercentCorrectionListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RechargePercentCorrectionList\RechargePercentCorrectionListViewPresenter.cs" />
+    <Compile Include="Views\RechargePercentCorrectionList\IRechargePercentCorrectionListView.cs" />
     <Compile Include="Views\ResidentsList\IResidentsListView.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -269,6 +277,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PaymentsAndCharges\PaymentsAndChargesView.resx">
       <DependentUpon>PaymentsAndChargesView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RechargePercentCorrectionList\RechargePercentCorrectionListView.resx">
+      <DependentUpon>RechargePercentCorrectionListView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ResidentsList\ResidentsListView.resx">

@@ -51,19 +51,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.detailSmartPartPlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.tabCustomerPoses = new System.Windows.Forms.TabPage();
             this.smartPartPlaceholder1 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
-            this.tabChargesAndPayments = new System.Windows.Forms.TabPage();
-            this.PaymentsAndChargesSmartPartPlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.tabCounters = new System.Windows.Forms.TabPage();
             this.counterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.smartPartPlaceholder2 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.smartPartPlaceholder3 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
+            this.tabChargesAndPayments = new System.Windows.Forms.TabPage();
+            this.PaymentsAndChargesSmartPartPlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
+            this.tabRechargePercentCorr = new System.Windows.Forms.TabPage();
+            this.smartPartPlaceholder4 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this._tabWorkspace.SuspendLayout();
             this.tabList.SuspendLayout();
             this.tabDetail.SuspendLayout();
             this.tabCustomerPoses.SuspendLayout();
-            this.tabChargesAndPayments.SuspendLayout();
             this.tabCounters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.counterSplitContainer)).BeginInit();
             this.counterSplitContainer.Panel1.SuspendLayout();
@@ -71,6 +72,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.counterSplitContainer.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabChargesAndPayments.SuspendLayout();
+            this.tabRechargePercentCorr.SuspendLayout();
             this.SuspendLayout();
             // 
             // _tabWorkspace
@@ -78,6 +81,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this._tabWorkspace.Controls.Add(this.tabList);
             this._tabWorkspace.Controls.Add(this.tabDetail);
             this._tabWorkspace.Controls.Add(this.tabCustomerPoses);
+            this._tabWorkspace.Controls.Add(this.tabRechargePercentCorr);
             this._tabWorkspace.Controls.Add(this.tabCounters);
             this._tabWorkspace.Controls.Add(this.tabChargesAndPayments);
             this._tabWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -161,26 +165,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.smartPartPlaceholder1.SmartPartName = "CustomerPosListView";
             this.smartPartPlaceholder1.TabIndex = 1;
             // 
-            // tabChargesAndPayments
-            // 
-            this.tabChargesAndPayments.Controls.Add(this.PaymentsAndChargesSmartPartPlaceholder);
-            this.tabChargesAndPayments.Location = new System.Drawing.Point(4, 22);
-            this.tabChargesAndPayments.Name = "tabChargesAndPayments";
-            this.tabChargesAndPayments.Size = new System.Drawing.Size(712, 428);
-            this.tabChargesAndPayments.TabIndex = 2;
-            this.tabChargesAndPayments.Text = "Платежи и начисления";
-            this.tabChargesAndPayments.UseVisualStyleBackColor = true;
-            // 
-            // PaymentsAndChargesSmartPartPlaceholder
-            // 
-            this.PaymentsAndChargesSmartPartPlaceholder.BackColor = System.Drawing.Color.Transparent;
-            this.PaymentsAndChargesSmartPartPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PaymentsAndChargesSmartPartPlaceholder.Location = new System.Drawing.Point(0, 0);
-            this.PaymentsAndChargesSmartPartPlaceholder.Name = "PaymentsAndChargesSmartPartPlaceholder";
-            this.PaymentsAndChargesSmartPartPlaceholder.Size = new System.Drawing.Size(712, 428);
-            this.PaymentsAndChargesSmartPartPlaceholder.SmartPartName = "PaymentsAndChargesView";
-            this.PaymentsAndChargesSmartPartPlaceholder.TabIndex = 1;
-            // 
             // tabCounters
             // 
             this.tabCounters.Controls.Add(this.counterSplitContainer);
@@ -253,6 +237,47 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.smartPartPlaceholder3.SmartPartName = "CounterValueView";
             this.smartPartPlaceholder3.TabIndex = 3;
             // 
+            // tabChargesAndPayments
+            // 
+            this.tabChargesAndPayments.Controls.Add(this.PaymentsAndChargesSmartPartPlaceholder);
+            this.tabChargesAndPayments.Location = new System.Drawing.Point(4, 22);
+            this.tabChargesAndPayments.Name = "tabChargesAndPayments";
+            this.tabChargesAndPayments.Size = new System.Drawing.Size(712, 428);
+            this.tabChargesAndPayments.TabIndex = 2;
+            this.tabChargesAndPayments.Text = "Платежи и начисления";
+            this.tabChargesAndPayments.UseVisualStyleBackColor = true;
+            // 
+            // PaymentsAndChargesSmartPartPlaceholder
+            // 
+            this.PaymentsAndChargesSmartPartPlaceholder.BackColor = System.Drawing.Color.Transparent;
+            this.PaymentsAndChargesSmartPartPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PaymentsAndChargesSmartPartPlaceholder.Location = new System.Drawing.Point(0, 0);
+            this.PaymentsAndChargesSmartPartPlaceholder.Name = "PaymentsAndChargesSmartPartPlaceholder";
+            this.PaymentsAndChargesSmartPartPlaceholder.Size = new System.Drawing.Size(712, 428);
+            this.PaymentsAndChargesSmartPartPlaceholder.SmartPartName = "PaymentsAndChargesView";
+            this.PaymentsAndChargesSmartPartPlaceholder.TabIndex = 1;
+            // 
+            // tabRechargePercentCorr
+            // 
+            this.tabRechargePercentCorr.Controls.Add(this.smartPartPlaceholder4);
+            this.tabRechargePercentCorr.Location = new System.Drawing.Point(4, 22);
+            this.tabRechargePercentCorr.Name = "tabRechargePercentCorr";
+            this.tabRechargePercentCorr.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRechargePercentCorr.Size = new System.Drawing.Size(712, 428);
+            this.tabRechargePercentCorr.TabIndex = 5;
+            this.tabRechargePercentCorr.Text = "Частичные пересчеты";
+            this.tabRechargePercentCorr.UseVisualStyleBackColor = true;
+            // 
+            // smartPartPlaceholder4
+            // 
+            this.smartPartPlaceholder4.BackColor = System.Drawing.Color.Transparent;
+            this.smartPartPlaceholder4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smartPartPlaceholder4.Location = new System.Drawing.Point(3, 3);
+            this.smartPartPlaceholder4.Name = "smartPartPlaceholder4";
+            this.smartPartPlaceholder4.Size = new System.Drawing.Size(706, 422);
+            this.smartPartPlaceholder4.SmartPartName = "RechargePercentCorrectionListView";
+            this.smartPartPlaceholder4.TabIndex = 2;
+            // 
             // TabbedView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,7 +289,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.tabList.ResumeLayout(false);
             this.tabDetail.ResumeLayout(false);
             this.tabCustomerPoses.ResumeLayout(false);
-            this.tabChargesAndPayments.ResumeLayout(false);
             this.tabCounters.ResumeLayout(false);
             this.counterSplitContainer.Panel1.ResumeLayout(false);
             this.counterSplitContainer.Panel2.ResumeLayout(false);
@@ -272,6 +296,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.counterSplitContainer.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.tabChargesAndPayments.ResumeLayout(false);
+            this.tabRechargePercentCorr.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -294,6 +320,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder2;
         private System.Windows.Forms.GroupBox groupBox2;
         private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder3;
+        private System.Windows.Forms.TabPage tabRechargePercentCorr;
+        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder4;
     }
 }
 

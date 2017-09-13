@@ -18,6 +18,8 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_Customer]
     ON [dbo].[ChargeOpers]([Customer] ASC)
@@ -34,4 +36,9 @@ GO
 CREATE NONCLUSTERED INDEX [IX_ChargeSet]
     ON [dbo].[ChargeOpers]([ChargeSet] ASC)
     INCLUDE([ID], [Value], [Customer], [ChargeCorrectionOper]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_ChargeCorrectionOper]
+    ON [dbo].[ChargeOpers]([ChargeCorrectionOper] ASC);
 

@@ -158,6 +158,7 @@
     <Compile Include="BusinessEntities\RefBooks\PrivateCounterValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\PublicPlace.cs" />
     <Compile Include="BusinessEntities\RefBooks\PublicPlaceServiceVolume.cs" />
+    <Compile Include="BusinessEntities\RefBooks\RechargePercentCorrection.cs" />
     <Compile Include="BusinessEntities\RefBooks\Resident.cs" />
     <Compile Include="BusinessEntities\RefBooks\Services.cs" />
     <Compile Include="BusinessEntities\RefBooks\ServiceType.cs" />

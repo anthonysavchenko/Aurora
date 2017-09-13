@@ -7,5 +7,6 @@
         public const string RESIDENTS_LIST_VIEW = "ResidentsListView";
         public const string COUNTER_VIEW = "CounterView";
         public const string COUNTER_VALUE_VIEW = "CounterValueView";
+        public const string RECHARGE_PERCENT_CORRECTION_LIST_VIEW = "RechargePercentCorrectionListView";
     }
 }
