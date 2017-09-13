@@ -20,7 +20,14 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_Customer]
     ON [dbo].[RechargeOpers]([Customer] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_ChargeCorrectinoOper]
+    ON [dbo].[RechargeOpers]([ChargeCorrectionOper] ASC);
 
