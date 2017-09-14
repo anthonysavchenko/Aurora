@@ -610,7 +610,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 6.75pt</value>
+    <value>Tahoma, 9pt</value>
   </data>
   <data name="xrLabel13.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>391.000031, 451.999939</value>
