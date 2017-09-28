@@ -262,7 +262,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
         {
             using (Entities _db = new Entities())
             {
-                
                 int _processed = 0;
                 foreach(var _b in data)
                 {

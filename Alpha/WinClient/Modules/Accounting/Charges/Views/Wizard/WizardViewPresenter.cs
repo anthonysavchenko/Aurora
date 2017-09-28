@@ -638,6 +638,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                 using (Entities _db = new Entities())
                 {
+                    _db.CommandTimeout = 3600;
+
                     _zipCodes = _db.Buildings
                         .Select(b => new
                         {
