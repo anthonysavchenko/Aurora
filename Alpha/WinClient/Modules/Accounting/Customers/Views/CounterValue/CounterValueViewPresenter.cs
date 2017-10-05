@@ -178,7 +178,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
                 ? _counter.Values.Values.Where(v => v.Period < period).OrderByDescending(v => v.Period).FirstOrDefault()
                 : _counter.Values.Values.OrderByDescending(v => v.Period).FirstOrDefault();
             return _value != null
-                ? _value.Value + (_counter.Service.Norm ?? 0)
+                ? _value.Value + ((_counter.Service.Norm ?? 0) * _counter.Customer.Residents.Count)
                 : 0;
         }
     }
