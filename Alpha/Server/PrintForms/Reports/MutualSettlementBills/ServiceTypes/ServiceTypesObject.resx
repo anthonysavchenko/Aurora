@@ -169,7 +169,7 @@
     <value>Times New Roman, 10pt</value>
   </data>
   <data name="xrTableCell4.Text" xml:space="preserve">
-    <value>0,00</value>
+    <value>xrTableCell4</value>
   </data>
   <data name="xrTableCell4.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>

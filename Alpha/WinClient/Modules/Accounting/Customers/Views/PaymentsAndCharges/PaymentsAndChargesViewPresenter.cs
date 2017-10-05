@@ -194,7 +194,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                             LinkOperationID = p.ID,
                                             Period = p.CreationDateTime,
                                             CreationDateTime = p.CreationDateTime,
-                                            OperationType = (int)OperTypes.Payment,
+                                            OperationType = p.PaymentSets.Intermediaries != null ? (int)OperTypes.Payment : (int)OperTypes.Act,
                                             Value = p.Value
                                         }))
                         .Concat(
@@ -207,7 +207,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                             LinkOperationID = p.PaymentOpers.ID,
                                             Period = p.Period,
                                             CreationDateTime = p.CreationDateTime,
-                                            OperationType = (int)OperTypes.PaymentCorrection,
+                                            OperationType = p.PaymentOpers.PaymentSets.Intermediaries != null ? (int)OperTypes.PaymentCorrection : (int)OperTypes.ActCorrection,
                                             Value = p.Value
                                         }))
                         .OrderBy(c => c.CreationDateTime)
@@ -217,7 +217,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                     _operations,
                     o =>
                     {
-                        if (o.OperationType == (int)OperTypes.Payment)
+                        if (o.OperationType == (int)OperTypes.Payment || o.OperationType == (int)OperTypes.Act)
                             o.Period = new DateTime(o.Period.Year, o.Period.Month, 1);
                     });
 
@@ -253,6 +253,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         o.OperationType == (int)OperTypes.Payment ||
                                         o.OperationType == (int)OperTypes.PaymentCorrection
                                             ? o.Value : 0),
+                                Acts =
+                                    -1 * g.Sum(
+                                        o =>
+                                        o.OperationType == (int)OperTypes.Act ||
+                                        o.OperationType == (int)OperTypes.ActCorrection
+                                            ? o.Value : 0),
                                 Balance = g.Sum(o => o.Value)
                             })
                         .OrderBy(o => o.Period)
@@ -268,9 +274,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_CHARGE;
                             break;
                         case OperTypes.Payment:
+                        case OperTypes.Act:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_PAYMENT;
                             break;
                         case OperTypes.PaymentCorrection:
+                        case OperTypes.ActCorrection:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_PAYMENT_CORRECTION;
                             break;
                         case OperTypes.Benefit:
@@ -315,11 +323,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                         _balance,
                         _period.Charged,
                         _period.Benefit,
-                        0,
+                        _period.Acts,
                         _period.Recharged,
                         _payable,
                         _period.Payed,
-                        _payable - _period.Payed,
+                        _payable - _period.Payed - _period.Acts,
                         _balance += _period.Balance);
                 }
 
@@ -342,6 +350,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             {
                 case OperTypes.Payment:
                 case OperTypes.PaymentCorrection:
+                case OperTypes.Act:
+                case OperTypes.ActCorrection:
                     WorkItem.Controller.RunUsecase(
                             ApplicationUsecaseNames.PAYMENTS,
                             new ShowDetailsStartUpParams<PaymentOper>(GetItem<PaymentOper>(operationID.ToString())));
