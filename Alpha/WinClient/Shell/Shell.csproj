@@ -427,6 +427,10 @@
       <Project>{67dade6d-c523-452f-98f4-7a05d79777c2}</Project>
       <Name>DebtAgency</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\DebtAndFine\DebtAndFine.csproj">
+      <Project>{da43ed63-24a8-4cfc-b2d0-6c30ebf4f42d}</Project>
+      <Name>DebtAndFine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\Reports\Debtors\Debtors.csproj">
       <Project>{cafe202e-924c-427e-a2ba-9cc205c9b430}</Project>
       <Name>Debtors</Name>
