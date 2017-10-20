@@ -78,6 +78,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.accountTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.fineRateNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -108,7 +109,6 @@
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.maintenanceRepItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.accountTextEdit = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
@@ -118,6 +118,7 @@
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accountTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fineRateNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentsLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sinceDateEdit.Properties.CalendarTimeProperties)).BeginInit();
@@ -143,7 +144,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.accountTextEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // gridView1
@@ -666,6 +666,16 @@
             this.tabPage1.Text = "Базовые";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // accountTextEdit
+            // 
+            this.accountTextEdit.Location = new System.Drawing.Point(73, 88);
+            this.accountTextEdit.Name = "accountTextEdit";
+            this.accountTextEdit.Properties.Mask.EditMask = "EG-0000-000-0";
+            this.accountTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Simple;
+            this.accountTextEdit.Size = new System.Drawing.Size(201, 20);
+            this.accountTextEdit.TabIndex = 45;
+            this.accountTextEdit.Enter += new System.EventHandler(this.AccountTextBox_Enter);
+            // 
             // fineRateNumericUpDown
             // 
             this.fineRateNumericUpDown.DecimalPlaces = 2;
@@ -857,7 +867,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(902, 135);
+            this.tabPage2.Size = new System.Drawing.Size(902, 125);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Расширенные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -876,7 +886,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(896, 129);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(896, 119);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // groupBox3
@@ -885,7 +895,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(292, 123);
+            this.groupBox3.Size = new System.Drawing.Size(292, 113);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Ремонт Жилья";
@@ -914,7 +924,7 @@
             this.repairGridControl.Name = "repairGridControl";
             this.repairGridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repairRepItemLookUpEdit});
-            this.repairGridControl.Size = new System.Drawing.Size(286, 104);
+            this.repairGridControl.Size = new System.Drawing.Size(286, 94);
             this.repairGridControl.TabIndex = 1;
             this.repairGridControl.UseEmbeddedNavigator = true;
             this.repairGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -967,7 +977,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(599, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(294, 123);
+            this.groupBox4.Size = new System.Drawing.Size(294, 113);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Утилизация";
@@ -994,7 +1004,7 @@
             this.recyclingGridControl.Location = new System.Drawing.Point(3, 16);
             this.recyclingGridControl.MainView = this.recyclingGridView;
             this.recyclingGridControl.Name = "recyclingGridControl";
-            this.recyclingGridControl.Size = new System.Drawing.Size(288, 104);
+            this.recyclingGridControl.Size = new System.Drawing.Size(288, 94);
             this.recyclingGridControl.TabIndex = 1;
             this.recyclingGridControl.UseEmbeddedNavigator = true;
             this.recyclingGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -1034,7 +1044,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(301, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(292, 123);
+            this.groupBox2.Size = new System.Drawing.Size(292, 113);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Содержание жилья";
@@ -1063,7 +1073,7 @@
             this.maintenanceGridControl.Name = "maintenanceGridControl";
             this.maintenanceGridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.maintenanceRepItemLookUpEdit});
-            this.maintenanceGridControl.Size = new System.Drawing.Size(286, 104);
+            this.maintenanceGridControl.Size = new System.Drawing.Size(286, 94);
             this.maintenanceGridControl.TabIndex = 1;
             this.maintenanceGridControl.UseEmbeddedNavigator = true;
             this.maintenanceGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -1130,15 +1140,6 @@
             this.splitContainer1.SplitterWidth = 10;
             this.splitContainer1.TabIndex = 2;
             // 
-            // accountTextEdit
-            // 
-            this.accountTextEdit.Location = new System.Drawing.Point(73, 88);
-            this.accountTextEdit.Name = "accountTextEdit";
-            this.accountTextEdit.Properties.Mask.EditMask = "EG-0000-000-0";
-            this.accountTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Simple;
-            this.accountTextEdit.Size = new System.Drawing.Size(201, 20);
-            this.accountTextEdit.TabIndex = 45;
-            // 
             // ListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1156,6 +1157,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accountTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fineRateNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentsLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sinceDateEdit.Properties.CalendarTimeProperties)).EndInit();
@@ -1181,7 +1183,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.accountTextEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
