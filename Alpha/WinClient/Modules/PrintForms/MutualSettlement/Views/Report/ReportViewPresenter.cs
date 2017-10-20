@@ -68,41 +68,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
 
         private class Balance
         {
-            public decimal Charge
-            {
-                set;
-                get;
-            }
-
-            public decimal Benefit
-            {
-                set;
-                get;
-            }
-
-            public decimal Recharge
-            {
-                set;
-                get;
-            }
-
-            public decimal Payable
-            {
-                set;
-                get;
-            }
-
-            public decimal Payment
-            {
-                set;
-                get;
-            }
-
-            public decimal Debt
-            {
-                set;
-                get;
-            }
+            public decimal Charge { get; set; }
+            public decimal Benefit { get; set; }
+            public decimal Recharge { get; set; }
+            public decimal Payable { get; set; }
+            public decimal Payment { get; set; }
+            public decimal Act { get; set; }
+            public decimal Debt { get; set; }
 
             public void Add(Balance value)
             {
@@ -111,6 +83,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                 Recharge += value.Recharge;
                 Payable += value.Payable;
                 Payment += value.Payment;
+                Act += value.Act;
                 Debt += value.Debt;
             }
         }
@@ -169,7 +142,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     Charge = c.Value,
                                     Recharge = (decimal)0,
                                     Benefit = (decimal)0,
-                                    Payment = (decimal)0
+                                    Payment = (decimal)0,
+                                    Acts = (decimal)0
                                 })
                             .Concat(
                                 _entities.RechargeOperPoses
@@ -183,7 +157,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = c.Value,
                                             Benefit = (decimal)0,
-                                            Payment = (decimal)0
+                                            Payment = (decimal)0,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.ChargeOperPoses
@@ -198,7 +173,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = -1 * c.Value,
                                             Benefit = (decimal)0,
-                                            Payment = (decimal)0
+                                            Payment = (decimal)0,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.RechargeOperPoses
@@ -213,7 +189,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = -1 * c.Value,
                                             Benefit = (decimal)0,
-                                            Payment = (decimal)0
+                                            Payment = (decimal)0,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.BenefitOperPoses
@@ -227,7 +204,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = (decimal)0,
                                             Benefit = c.Value,
-                                            Payment = (decimal)0
+                                            Payment = (decimal)0,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.RebenefitOperPoses
@@ -241,7 +219,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = (decimal)0,
                                             Benefit = c.Value,
-                                            Payment = (decimal)0
+                                            Payment = (decimal)0,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.BenefitOperPoses
@@ -256,7 +235,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = (decimal)0,
                                             Benefit = -1 * c.Value,
-                                            Payment = (decimal)0
+                                            Payment = (decimal)0,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.RebenefitOperPoses
@@ -270,10 +250,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = (decimal)0,
                                             Benefit = -1 * c.Value,
-                                            Payment = (decimal)0
+                                            Payment = (decimal)0,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.PaymentOperPoses
+                                    .Where(p => p.PaymentOpers.PaymentSets.Intermediaries != null)
                                     .Select(c =>
                                         new
                                         {
@@ -283,10 +265,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = (decimal)0,
                                             Benefit = (decimal)0,
-                                            Payment = c.Value
+                                            Payment = c.Value,
+                                            Acts = (decimal)0
                                         }))
                             .Concat(
                                 _entities.PaymentCorrectionOperPoses
+                                    .Where(p => p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries != null)
                                     .Select(c =>
                                         new
                                         {
@@ -296,7 +280,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                             Charge = (decimal)0,
                                             Recharge = (decimal)0,
                                             Benefit = (decimal)0,
-                                            Payment = c.Value
+                                            Payment = c.Value,
+                                            Acts = (decimal)0
+                                        }))
+                            .Concat(
+                                _entities.PaymentOperPoses
+                                    .Where(p => p.PaymentOpers.PaymentSets.Intermediaries == null)
+                                    .Select(c =>
+                                        new
+                                        {
+                                            CustomerID = c.PaymentOpers.Customers.ID,
+                                            Period = c.PaymentOpers.CreationDateTime,
+                                            ServiceTypeID = c.Services.ServiceTypes.ID,
+                                            Charge = (decimal)0,
+                                            Recharge = (decimal)0,
+                                            Benefit = (decimal)0,
+                                            Payment = (decimal)0,
+                                            Acts = c.Value
+                                        }))
+                            .Concat(
+                                _entities.PaymentCorrectionOperPoses
+                                    .Where(p => p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries == null)
+                                    .Select(c =>
+                                        new
+                                        {
+                                            CustomerID = c.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
+                                            c.PaymentCorrectionOpers.Period,
+                                            ServiceTypeID = c.Services.ServiceTypes.ID,
+                                            Charge = (decimal)0,
+                                            Recharge = (decimal)0,
+                                            Benefit = (decimal)0,
+                                            Payment = (decimal)0,
+                                            Acts = c.Value
                                         }))
                             .Where(c => c.CustomerID == _customerId)
                             .GroupBy(c =>
@@ -315,7 +330,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     Charge = g.Sum(c => c.Charge),
                                     Recharge = g.Sum(c => c.Recharge),
                                     Benefit = g.Sum(c => c.Benefit),
-                                    Payment = g.Sum(c => c.Payment)
+                                    Payment = g.Sum(c => c.Payment),
+                                    Acts = g.Sum(c => c.Acts)
                                 })
                             .ToList()
                             .Join(
@@ -339,7 +355,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     c.Charge,
                                     c.Recharge,
                                     c.Benefit,
-                                    c.Payment,   
+                                    c.Payment, 
+                                    c.Acts
                                 })
                             .GroupBy(c => new { c.Year, c.Month })
                             .Select(g =>
@@ -364,7 +381,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                                             Charge = gs.Sum(c => c.Charge),
                                                             Recharge = gs.Sum(c => c.Recharge),
                                                             Benefit = gs.Sum(c => c.Benefit),
-                                                            Payment = gs.Sum(c => c.Payment)
+                                                            Payment = gs.Sum(c => c.Payment),
+                                                            Acts = gs.Sum(c => c.Acts)
                                                         })
                                                     .OrderBy(sb => sb.ServiceTypeName)
                                                     .ToDictionary(
@@ -382,7 +400,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                                             Recharge = sb.Recharge,
                                                             Payable = sb.Charge + sb.Benefit + sb.Recharge,
                                                             Payment = sb.Payment,
-                                                            Debt = sb.Charge + sb.Benefit + sb.Recharge + sb.Payment
+                                                            Act = sb.Acts,
+                                                            Debt = sb.Charge + sb.Benefit + sb.Recharge + sb.Payment + sb.Acts
                                                         })
                                         }
                                 })
@@ -446,6 +465,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                 Math.Abs(_serviceTypeBalance.Value.Benefit),
                                 _serviceTypeBalance.Value.Recharge,
                                 _serviceTypeBalance.Value.Payable,
+                                Math.Abs(_serviceTypeBalance.Value.Act),
                                 Math.Abs(_serviceTypeBalance.Value.Payment),
                                 _serviceTypeBalance.Value.Debt);
                         }
@@ -466,6 +486,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     Math.Abs(_serviceTypeBalance.Value.Benefit),
                                     _serviceTypeBalance.Value.Recharge,
                                     _serviceTypeBalance.Value.Payable,
+                                    Math.Abs(_serviceTypeBalance.Value.Act),
                                     Math.Abs(_serviceTypeBalance.Value.Payment),
                                     _serviceTypeBalance.Value.Debt);
                             }
@@ -491,6 +512,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     Math.Abs(_serviceTypeBalance.Value.Benefit),
                                     _serviceTypeBalance.Value.Recharge,
                                     _serviceTypeBalance.Value.Payable,
+                                    Math.Abs(_serviceTypeBalance.Value.Act),
                                     Math.Abs(_serviceTypeBalance.Value.Payment),
                                     _serviceTypeBalance.Value.Debt);
                             }
