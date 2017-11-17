@@ -18,6 +18,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
 {
     public class CounterViewPresenter : BaseSimpleListViewPresenter<ICounterView, PrivateCounter>
     {
+        private EventHandler _onAnyAttributeChangedEventHandler;
+
         /// <summary>
         /// Единица работы
         /// </summary>
@@ -130,6 +132,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
 
             OnRowChanged(curItem.ID);
 
+            _onAnyAttributeChangedEventHandler.Invoke(this, EventArgs.Empty);
+
             return true;
         }
 
@@ -165,17 +169,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>
-        public void BindChangeHandlers(Control.ControlCollection coll, EventHandler handler)
+        public void BindChangeHandlers(EventHandler handler)
         {
-            WorkItem.RootWorkItem.Services.Get<IChangeEventHandlerService>().Bind(coll, handler);
-        }
-
-        /// <summary>
-        /// Отключить общий обработчик изменений
-        /// </summary>
-        public void UnBindChangeHandlers(Control.ControlCollection coll, EventHandler handler)
-        {
-            WorkItem.RootWorkItem.Services.Get<IChangeEventHandlerService>().UnBind(coll, handler);
+            _onAnyAttributeChangedEventHandler = handler;
         }
 
         /// <summary>

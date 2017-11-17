@@ -7,6 +7,7 @@ using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
+using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.CounterValue
@@ -142,6 +143,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
                 UnitOfWork.registerDirty(curItem);
             }
 
+            _onAnyAttributeChangedEventHandler.Invoke(this, EventArgs.Empty);
+
             return true;
         }
 
@@ -157,18 +160,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>
-        public void BindChangeHandlers(Control.ControlCollection coll, EventHandler handler)
+        public void BindChangeHandlers(EventHandler handler)
         {
-            WorkItem.RootWorkItem.Services.Get<IChangeEventHandlerService>().Bind(coll, handler);
             _onAnyAttributeChangedEventHandler = handler;
-        }
-
-        /// <summary>
-        /// Отключить общий обработчик изменений
-        /// </summary>
-        public void UnBindChangeHandlers(Control.ControlCollection coll, EventHandler handler)
-        {
-            WorkItem.RootWorkItem.Services.Get<IChangeEventHandlerService>().UnBind(coll, handler);
         }
 
         public decimal GetNormValue(DateTime? period)

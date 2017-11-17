@@ -351,8 +351,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             base.UnbindAdditionalViewsControls();
             ((IResidentsListView)WorkItem.SmartParts.Get(ModuleViewNames.RESIDENTS_LIST_VIEW)).BindDeactivate(OnAnyAttributeChangedEventHandler);
             ((ICustomerPosListView)WorkItem.SmartParts.Get(ModuleViewNames.CUSTOMER_POS_VIEW)).BindDeactivate(OnAnyAttributeChangedEventHandler);
-            ((ICounterView)WorkItem.SmartParts.Get(ModuleViewNames.COUNTER_VIEW)).BindDeactivate(OnAnyAttributeChangedEventHandler);
-            ((ICounterValueView)WorkItem.SmartParts.Get(ModuleViewNames.COUNTER_VALUE_VIEW)).BindDeactivate(OnAnyAttributeChangedEventHandler);
         }
 
         protected override void RefreshRefBooks()

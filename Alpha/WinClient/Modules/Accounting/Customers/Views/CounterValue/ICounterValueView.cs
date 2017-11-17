@@ -29,10 +29,5 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// Подключить общий обработчик изменений
         /// </summary>
         void BindActivate(EventHandler handler);
-
-        /// <summary>
-        /// Отключить общий обработчик изменений
-        /// </summary>
-        void BindDeactivate(EventHandler handler);
     }
 }

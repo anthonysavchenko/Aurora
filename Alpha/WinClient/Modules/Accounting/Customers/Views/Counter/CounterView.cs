@@ -45,15 +45,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         /// </summary>
         public void BindActivate(EventHandler handler)
         {
-            Presenter.BindChangeHandlers(Controls, handler);
-        }
-
-        /// <summary>
-        /// Отключить общий обработчик изменений
-        /// </summary>
-        public void BindDeactivate(EventHandler handler)
-        {
-            Presenter.UnBindChangeHandlers(Controls, handler);
+            Presenter.BindChangeHandlers(handler);
         }
 
         #endregion
