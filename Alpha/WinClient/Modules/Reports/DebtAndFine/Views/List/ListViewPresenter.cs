@@ -621,7 +621,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                             CustomerID = p.ChargeOpers.Customers.ID,
                             p.ChargeOpers.ChargeSets.Period,
                             ServiceID = p.Services.ID,
-                            Rate = p.Value / p.ChargeOpers.Customers.Square,
+                            Rate = p.ChargeOpers.ChargeCorrectionOpers != null ? 0m : p.Value / p.ChargeOpers.Customers.Square,
+                            RechargeRate = (decimal)0,
                             p.Value
                         })
                     .Concat(db.RechargeOperPoses
@@ -632,7 +633,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.RechargeOpers.RechargeSets.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 p.Value,
+                            }))
+                    .Concat(db.RechargeOperPoses
+                        .Where(p => p.RechargeOpers.ChildChargeCorrectionOpers == null)
+                        .Select(p =>
+                            new
+                            {
+                                CustomerID = p.RechargeOpers.Customers.ID,
+                                p.RechargeOpers.ChargeOpers.ChargeSets.Period,
+                                ServiceID = p.Services.ID,
+                                Rate = (decimal)0,
+                                RechargeRate = p.Value / p.RechargeOpers.Customers.Square,
+                                Value = (decimal)0,
                             }))
                     .Concat(db.ChargeOperPoses
                         .Where(p => p.ChargeOpers.ChargeCorrectionOpers != null)
@@ -643,6 +657,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.ChargeOpers.ChargeCorrectionOpers.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 Value = -p.Value,
                             }))
                     .Concat(db.RechargeOperPoses
@@ -654,6 +669,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.RechargeOpers.ChildChargeCorrectionOpers.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 Value = -p.Value,
                             }))
                     .Concat(db.BenefitOperPoses
@@ -664,6 +680,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.BenefitOpers.ChargeOpers.ChargeSets.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 p.Value,
                             }))
                     .Concat(db.BenefitOperPoses
@@ -675,6 +692,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 Value = -p.Value,
                             }))
                     .Concat(db.RebenefitOperPoses
@@ -685,6 +703,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.RebenefitOpers.RechargeOpers.RechargeSets.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 p.Value,
                             }))
                     .Concat(db.RebenefitOperPoses
@@ -696,6 +715,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 Value = -p.Value,
                             }))
                     .Concat(db.PaymentOperPoses
@@ -706,6 +726,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 p.Value
                             }))
                     .Concat(db.PaymentCorrectionOperPoses
@@ -716,6 +737,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.PaymentCorrectionOpers.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 p.Value
                             }))
                     .Concat(db.OverpaymentOperPoses
@@ -726,6 +748,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 p.Value,
                             }))
                     .Concat(db.OverpaymentCorrectionOperPoses
@@ -736,6 +759,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 p.OverpaymentCorrectionOpers.Period,
                                 ServiceID = p.Services.ID,
                                 Rate = (decimal)0,
+                                RechargeRate = (decimal)0,
                                 p.Value,
                             }))
                     .Where(p => p.CustomerID == customerID && serviceIds.Contains(p.ServiceID) && p.Period >= since && p.Period <= till)
@@ -752,6 +776,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                     {
                                         ServiceID = byService.Key,
                                         Rate = byService.Sum(b => b.Rate),
+                                        RechargeRate = byService.Sum(b => b.RechargeRate),
                                         Value = byService.Sum(b => b.Value),
                                     }),
                         })
@@ -768,7 +793,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                                 new ServiceTotal
                                 {
                                     ID = sb.ServiceID,
-                                    Rate = sb.Rate,
+                                    Rate = sb.RechargeRate > 0.00m ? sb.RechargeRate : sb.Rate,
                                     Total = sb.Value
                                 })
                         });
