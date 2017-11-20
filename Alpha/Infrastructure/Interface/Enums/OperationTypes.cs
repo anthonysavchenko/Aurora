@@ -16,6 +16,8 @@
         ChargeCorrection = 8,
         BenefitCorrection = 9,
         RebenefitCorrection = 10,
-        RechargeCorrection = 11
+        RechargeCorrection = 11,
+        Act = 12,
+        ActCorrection = 13
     }
 }

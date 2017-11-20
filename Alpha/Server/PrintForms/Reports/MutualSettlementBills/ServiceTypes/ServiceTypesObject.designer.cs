@@ -33,6 +33,7 @@
             this.xrTable2 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.BoldTotalFormattingRule = new DevExpress.XtraReports.UI.FormattingRule();
             this.xrTableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell4 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -43,7 +44,6 @@
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
-            this.BoldTotalFormattingRule = new DevExpress.XtraReports.UI.FormattingRule();
             this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.MutualSettlementDataSet();
             this.ReportNumberParam = new DevExpress.XtraReports.Parameters.Parameter();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
@@ -135,6 +135,15 @@
             this.xrTableCell1.StylePriority.UseTextAlignment = false;
             this.xrTableCell1.Weight = 14.317408147231857D;
             // 
+            // BoldTotalFormattingRule
+            // 
+            this.BoldTotalFormattingRule.Condition = "Len([GroupHeader])  <=  5";
+            // 
+            // 
+            // 
+            this.BoldTotalFormattingRule.Formatting.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.BoldTotalFormattingRule.Name = "BoldTotalFormattingRule";
+            // 
             // xrTableCell2
             // 
             this.xrTableCell2.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
@@ -167,6 +176,8 @@
             // 
             this.xrTableCell4.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrTableCell4.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlementPoses.Act")});
             resources.ApplyResources(this.xrTableCell4, "xrTableCell4");
             this.xrTableCell4.FormattingRules.Add(this.BoldTotalFormattingRule);
             this.xrTableCell4.Name = "xrTableCell4";
@@ -254,15 +265,6 @@
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrControlStyle3.Name = "xrControlStyle3";
             this.xrControlStyle3.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
-            // 
-            // BoldTotalFormattingRule
-            // 
-            this.BoldTotalFormattingRule.Condition = "Len([GroupHeader])  <=  5";
-            // 
-            // 
-            // 
-            this.BoldTotalFormattingRule.Formatting.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
-            this.BoldTotalFormattingRule.Name = "BoldTotalFormattingRule";
             // 
             // dataSet1
             // 
