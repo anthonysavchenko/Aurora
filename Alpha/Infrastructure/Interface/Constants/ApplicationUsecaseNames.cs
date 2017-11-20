@@ -86,6 +86,11 @@
         public const string BENEFITS_REPORT = "usecase://Report/BenefitsReport";
 
         /// <summary>
+        /// Долги и льготы по СОД
+        /// </summary>
+        public const string PUBLIC_PLACE_DEBT_AND_FINE_REPORT = "usecase://Report/PublicPlaceDebtAndFineReport";
+
+        /// <summary>
         /// Улицы
         /// </summary>
         public const string STREETS = "usecase://RefBook/Streets";
