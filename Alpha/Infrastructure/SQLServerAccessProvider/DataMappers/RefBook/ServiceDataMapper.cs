@@ -23,7 +23,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
             using (Entities _entities = new Entities())
             {
-                foreach (var _service in _entities.Services)
+                foreach (var _service in _entities.Services.OrderBy(s => s.Name))
                 {
                     _table.Rows.Add(
                         _service.ID.ToString(),
