@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora Капремонт</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>016.93.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>016.97.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>016.93.0.0</ApplicationVersion>
+    <ApplicationVersion>016.97.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -426,6 +426,10 @@
     <ProjectReference Include="..\Modules\Reports\DebtAgency\DebtAgency.csproj">
       <Project>{67dade6d-c523-452f-98f4-7a05d79777c2}</Project>
       <Name>DebtAgency</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\DebtAndFine\DebtAndFine.csproj">
+      <Project>{da43ed63-24a8-4cfc-b2d0-6c30ebf4f42d}</Project>
+      <Name>DebtAndFine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Reports\Debtors\Debtors.csproj">
       <Project>{cafe202e-924c-427e-a2ba-9cc205c9b430}</Project>

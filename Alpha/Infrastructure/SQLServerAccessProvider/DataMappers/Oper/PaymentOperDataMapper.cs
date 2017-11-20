@@ -112,6 +112,51 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Oper
             return _result;
         }
 
+        public override bool delete(string id)
+        {
+            int _id;
+            bool _result = int.TryParse(id, out _id);
+            if (_result)
+            {
+                try
+                {
+                    using (Entities _db = new Entities())
+                    {
+                        var _poses = _db.PaymentOperPoses.Where(p => p.PaymentOpers.ID == _id);
+
+                        foreach(var _pos in _poses)
+                        {
+                            _db.DeleteObject(_pos);
+                        }
+
+                        var _oper = _db.PaymentOpers.First(p => p.ID == _id);
+                        _db.DeleteObject(_oper);
+
+                        var _set = _db.PaymentOpers.Where(p => p.ID == _id).Select(p => p.PaymentSets).First();
+
+                        if (_set.Quantity == 1)
+                        {
+                            _db.DeleteObject(_set);
+                        }
+                        else
+                        {
+                            _set.Quantity -= 1;
+                            _set.ValueSum += _oper.Value;
+                        }
+
+
+                        _db.SaveChanges();
+                    }
+                }
+                catch
+                {
+                    _result = false;
+                }
+            }
+
+            return _result;
+        }
+
         #endregion
 
         public DataTable GetList(string paymentSetId)
