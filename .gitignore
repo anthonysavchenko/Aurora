@@ -46,6 +46,7 @@
 /Alpha/WinClient/Modules/Reports/Debtors/obj
 /Alpha/WinClient/Modules/Reports/Payments/obj
 /Alpha/WinClient/Modules/Reports/PaymentsAndCharges/obj
+/Alpha/WinClient/Modules/Reports/DebtAndFine/obj
 /Alpha/WinClient/Modules/Service/Export/obj
 /Alpha/WinClient/Modules/Service/Import/obj
 /Alpha/WinClient/Modules/Service/Settings/obj

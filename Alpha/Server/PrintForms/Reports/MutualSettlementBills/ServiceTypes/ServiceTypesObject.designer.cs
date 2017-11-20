@@ -176,6 +176,8 @@
             // 
             this.xrTableCell4.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrTableCell4.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlementPoses.Act")});
             resources.ApplyResources(this.xrTableCell4, "xrTableCell4");
             this.xrTableCell4.FormattingRules.Add(this.BoldTotalFormattingRule);
             this.xrTableCell4.Name = "xrTableCell4";

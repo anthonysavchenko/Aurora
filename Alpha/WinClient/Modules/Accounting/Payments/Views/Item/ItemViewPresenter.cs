@@ -13,6 +13,7 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Tabbed;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
+using Taumis.Alpha.DataBase;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Item
 {
@@ -111,10 +112,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Item
                         item.Customer.Account));
             }
 
-            item.PaymentCorrectionOper =
-                DataMapper<PaymentCorrectionOper, IPaymentCorrectionOperDataMapper>().Create(int.Parse(item.ID));
-
-            UpdateItem(item);
+            if(IsPaymentCreateBeforeCharge(item.CreationDateTime))
+            {
+                item.PaymentCorrectionOper = DataMapper<PaymentCorrectionOper, IPaymentCorrectionOperDataMapper>().Create(int.Parse(item.ID));
+                UpdateItem(item);
+            }
+            else
+            {
+                base.Delete(item);
+            }
         }
 
         /// <summary>
@@ -172,6 +178,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Item
         public int CorrectionsCount()
         {
             return View.ElemList.AsEnumerable().Count(r => (bool)r["IsCorrected"]);
+        }
+
+        private bool IsPaymentCreateBeforeCharge(DateTime paymentCreationDateTime)
+        {
+            bool _result;
+
+            using (Entities _db = new Entities())
+            {
+                _result = _db.ChargeSets.Any(c => c.CreationDateTime > paymentCreationDateTime);
+            }
+
+            return _result;
         }
     }
 }
