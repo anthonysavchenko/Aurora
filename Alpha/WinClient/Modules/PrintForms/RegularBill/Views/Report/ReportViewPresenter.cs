@@ -221,7 +221,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 string.Empty,//BillService.FormatBarcodeString(_barcode),
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
                                 BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
-                                _qrCode);
+                                _qrCode,
+                                GetFineString(_bill.CustomerID, _bill.Period, _entities));
 
                             if (_bill.BillSendingSubscription)
                             {
@@ -317,6 +318,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}", 
                     "Результаты отправки");
             }
+        }
+
+        private string GetFineString(int customerID, DateTime period, Entities db)
+        {
+            decimal _fine = db.FinePoses.Where(p => p.FineDocs.Period == period && p.CustomerID == customerID).Select(p => p.Value).FirstOrDefault();
+            decimal _debt = db.FinePoses.Where(p => p.CustomerID == customerID && p.FineDocs.Period < period).Sum(p => (decimal?)p.Value) ?? 0;
+
+            return _fine > 0 || _debt > 0 
+                ? $"Вам начислена пеня в размере {_fine}руб, задолженность {_debt}руб, итого к оплате {_fine + _debt}руб"
+                : string.Empty;
         }
 
         private RegularBillDataSet CreateDataSet(DataRow _row)

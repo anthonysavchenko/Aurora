@@ -103,6 +103,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Services), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CustomerPoses), "RechargePercentCorrections", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargePercentCorrections), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Fines_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "FinePoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.FinePoses), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_FinePoses_FineDocs", "FineDocs", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.FineDocs), "FinePoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.FinePoses), true)]
 
 #endregion
 
@@ -966,6 +968,38 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<RechargePercentCorrections> _RechargePercentCorrections;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FineDocs> FineDocs
+        {
+            get
+            {
+                if ((_FineDocs == null))
+                {
+                    _FineDocs = base.CreateObjectSet<FineDocs>("FineDocs");
+                }
+                return _FineDocs;
+            }
+        }
+        private ObjectSet<FineDocs> _FineDocs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FinePoses> FinePoses
+        {
+            get
+            {
+                if ((_FinePoses == null))
+                {
+                    _FinePoses = base.CreateObjectSet<FinePoses>("FinePoses");
+                }
+                return _FinePoses;
+            }
+        }
+        private ObjectSet<FinePoses> _FinePoses;
 
         #endregion
 
@@ -1377,6 +1411,22 @@ namespace Taumis.Alpha.DataBase
         public void AddToRechargePercentCorrections(RechargePercentCorrections rechargePercentCorrections)
         {
             base.AddObject("RechargePercentCorrections", rechargePercentCorrections);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FineDocs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFineDocs(FineDocs fineDocs)
+        {
+            base.AddObject("FineDocs", fineDocs);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FinePoses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFinePoses(FinePoses finePoses)
+        {
+            base.AddObject("FinePoses", finePoses);
         }
 
         #endregion
@@ -6423,6 +6473,28 @@ namespace Taumis.Alpha.DataBase
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Fines_Customers", "FinePoses")]
+        public EntityCollection<FinePoses> FinePoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FinePoses>("AlphaDataBaseModel.FK_Fines_Customers", "FinePoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FinePoses>("AlphaDataBaseModel.FK_Fines_Customers", "FinePoses", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -6736,6 +6808,328 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Customers>("AlphaDataBaseModel.FK_DebtBillDocs_Customers", "Customers", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="FineDocs")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FineDocs : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FineDocs object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="period">Initial value of the Period property.</param>
+        public static FineDocs CreateFineDocs(global::System.Int32 id, global::System.DateTime period)
+        {
+            FineDocs fineDocs = new FineDocs();
+            fineDocs.ID = id;
+            fineDocs.Period = period;
+            return fineDocs;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Period
+        {
+            get
+            {
+                return _Period;
+            }
+            set
+            {
+                OnPeriodChanging(value);
+                ReportPropertyChanging("Period");
+                _Period = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Period");
+                OnPeriodChanged();
+            }
+        }
+        private global::System.DateTime _Period;
+        partial void OnPeriodChanging(global::System.DateTime value);
+        partial void OnPeriodChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_FinePoses_FineDocs", "FinePoses")]
+        public EntityCollection<FinePoses> FinePoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FinePoses>("AlphaDataBaseModel.FK_FinePoses_FineDocs", "FinePoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FinePoses>("AlphaDataBaseModel.FK_FinePoses_FineDocs", "FinePoses", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="FinePoses")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FinePoses : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FinePoses object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="value">Initial value of the Value property.</param>
+        /// <param name="customerID">Initial value of the CustomerID property.</param>
+        /// <param name="docID">Initial value of the DocID property.</param>
+        public static FinePoses CreateFinePoses(global::System.Int32 id, global::System.Decimal value, global::System.Int32 customerID, global::System.Int32 docID)
+        {
+            FinePoses finePoses = new FinePoses();
+            finePoses.ID = id;
+            finePoses.Value = value;
+            finePoses.CustomerID = customerID;
+            finePoses.DocID = docID;
+            return finePoses;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Value
+        {
+            get
+            {
+                return _Value;
+            }
+            set
+            {
+                OnValueChanging(value);
+                ReportPropertyChanging("Value");
+                _Value = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Value");
+                OnValueChanged();
+            }
+        }
+        private global::System.Decimal _Value;
+        partial void OnValueChanging(global::System.Decimal value);
+        partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CustomerID
+        {
+            get
+            {
+                return _CustomerID;
+            }
+            set
+            {
+                OnCustomerIDChanging(value);
+                ReportPropertyChanging("CustomerID");
+                _CustomerID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CustomerID");
+                OnCustomerIDChanged();
+            }
+        }
+        private global::System.Int32 _CustomerID;
+        partial void OnCustomerIDChanging(global::System.Int32 value);
+        partial void OnCustomerIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DocID
+        {
+            get
+            {
+                return _DocID;
+            }
+            set
+            {
+                OnDocIDChanging(value);
+                ReportPropertyChanging("DocID");
+                _DocID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DocID");
+                OnDocIDChanged();
+            }
+        }
+        private global::System.Int32 _DocID;
+        partial void OnDocIDChanging(global::System.Int32 value);
+        partial void OnDocIDChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Fines_Customers", "Customers")]
+        public Customers Customers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_Fines_Customers", "Customers").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_Fines_Customers", "Customers").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Customers> CustomersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_Fines_Customers", "Customers");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Customers>("AlphaDataBaseModel.FK_Fines_Customers", "Customers", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_FinePoses_FineDocs", "FineDocs")]
+        public FineDocs FineDocs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FineDocs>("AlphaDataBaseModel.FK_FinePoses_FineDocs", "FineDocs").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FineDocs>("AlphaDataBaseModel.FK_FinePoses_FineDocs", "FineDocs").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FineDocs> FineDocsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FineDocs>("AlphaDataBaseModel.FK_FinePoses_FineDocs", "FineDocs");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FineDocs>("AlphaDataBaseModel.FK_FinePoses_FineDocs", "FineDocs", value);
                 }
             }
         }

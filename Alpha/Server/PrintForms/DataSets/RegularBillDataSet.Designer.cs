@@ -732,6 +732,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             private global::System.Data.DataColumn columnBankQrCodeString;
             
+            private global::System.Data.DataColumn columnFine;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public CustomersDataTable() {
@@ -903,6 +905,14 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FineColumn {
+                get {
+                    return this.columnFine;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -955,7 +965,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                         string BankBarCodeLabel, 
                         string OverpaymentLabel, 
                         string RightHeaderString, 
-                        string BankQrCodeString) {
+                        string BankQrCodeString, 
+                        string Fine) {
                 CustomersRow rowCustomersRow = ((CustomersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CustomerId,
@@ -974,7 +985,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                         BankBarCodeLabel,
                         OverpaymentLabel,
                         RightHeaderString,
-                        BankQrCodeString};
+                        BankQrCodeString,
+                        Fine};
                 rowCustomersRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCustomersRow);
                 return rowCustomersRow;
@@ -1021,6 +1033,7 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 this.columnOverpaymentLabel = base.Columns["OverpaymentLabel"];
                 this.columnRightHeaderString = base.Columns["RightHeaderString"];
                 this.columnBankQrCodeString = base.Columns["BankQrCodeString"];
+                this.columnFine = base.Columns["Fine"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1060,6 +1073,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 base.Columns.Add(this.columnRightHeaderString);
                 this.columnBankQrCodeString = new global::System.Data.DataColumn("BankQrCodeString", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBankQrCodeString);
+                this.columnFine = new global::System.Data.DataColumn("Fine", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFine);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnCustomerId}, true));
                 this.columnCustomerId.AllowDBNull = false;
@@ -2040,6 +2055,22 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Fine {
+                get {
+                    try {
+                        return ((string)(this[this.tableCustomers.FineColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Fine\' in table \'Customers\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCustomers.FineColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsPrintDateTimeNull() {
                 return this.IsNull(this.tableCustomers.PrintDateTimeColumn);
             }
@@ -2228,6 +2259,18 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetBankQrCodeStringNull() {
                 this[this.tableCustomers.BankQrCodeStringColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFineNull() {
+                return this.IsNull(this.tableCustomers.FineColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFineNull() {
+                this[this.tableCustomers.FineColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

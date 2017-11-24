@@ -359,6 +359,10 @@
       <Project>{4851aaa2-d26c-4a08-b6cf-5a347cf72560}</Project>
       <Name>Customers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\Accounting\Fines\Fines.csproj">
+      <Project>{5ec70725-eafe-4fa3-a637-c20c4772f50d}</Project>
+      <Name>Fines</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\Accounting\Payments\Payments.csproj">
       <Project>{a5cd4f63-a6bb-4589-8acf-00b232539603}</Project>
       <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Payments%29</Name>

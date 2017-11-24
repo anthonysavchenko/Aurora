@@ -106,6 +106,8 @@
     <Compile Include="BusinessEntities\Doc\Common\ITransDoc.cs" />
     <Compile Include="BusinessEntities\Doc\Common\TransDoc.cs" />
     <Compile Include="BusinessEntities\Doc\DebtBillDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\FineDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\FinePos.cs" />
     <Compile Include="BusinessEntities\Doc\PaymentSet.cs" />
     <Compile Include="BusinessEntities\Doc\Bill.cs" />
     <Compile Include="BusinessEntities\Doc\BillSet.cs" />

@@ -226,6 +226,22 @@
           <Property Name="Period" Type="date" Nullable="false" />
           <Property Name="CustomerID" Type="int" />
         </EntityType>
+        <EntityType Name="FineDocs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Period" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinePoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="DocID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Intermediaries">
           <Key>
             <PropertyRef Name="ID" />
@@ -991,6 +1007,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FinePoses_FineDocs">
+          <End Role="FineDocs" Type="Self.FineDocs" Multiplicity="1" />
+          <End Role="FinePoses" Type="Self.FinePoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FineDocs">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FinePoses">
+              <PropertyRef Name="DocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fines_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="FinePoses" Type="Self.FinePoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FinePoses">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers">
           <End Role="OverpaymentCorrectionOpers" Type="Self.OverpaymentCorrectionOpers" Multiplicity="1" />
           <End Role="OverpaymentCorrectionOperPoses" Type="Self.OverpaymentCorrectionOperPoses" Multiplicity="*" />
@@ -1620,6 +1660,8 @@
           <EntitySet Name="CustomerPoses" EntityType="Self.CustomerPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DebtBillDocs" EntityType="Self.DebtBillDocs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FineDocs" EntityType="Self.FineDocs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinePoses" EntityType="Self.FinePoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Intermediaries" EntityType="Self.Intermediaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OverpaymentCorrectionOperPoses" EntityType="Self.OverpaymentCorrectionOperPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OverpaymentCorrectionOpers" EntityType="Self.OverpaymentCorrectionOpers" Schema="dbo" store:Type="Tables" />
@@ -1787,6 +1829,14 @@
           <AssociationSet Name="FK_DebtBillDocs_Customers" Association="Self.FK_DebtBillDocs_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="DebtBillDocs" EntitySet="DebtBillDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinePoses_FineDocs" Association="Self.FK_FinePoses_FineDocs">
+            <End Role="FineDocs" EntitySet="FineDocs" />
+            <End Role="FinePoses" EntitySet="FinePoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fines_Customers" Association="Self.FK_Fines_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="FinePoses" EntitySet="FinePoses" />
           </AssociationSet>
           <AssociationSet Name="FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers" Association="Self.FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers">
             <End Role="OverpaymentCorrectionOpers" EntitySet="OverpaymentCorrectionOpers" />
@@ -2381,6 +2431,16 @@
           <AssociationSet Name="FK_RechargePercentCorrections_CustomerPoses" Association="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses">
             <End Role="CustomerPoses" EntitySet="CustomerPoses" />
             <End Role="RechargePercentCorrections" EntitySet="RechargePercentCorrections" />
+          </AssociationSet>
+          <EntitySet Name="FineDocs" EntityType="AlphaDataBaseModel.FineDocs" />
+          <EntitySet Name="FinePoses" EntityType="AlphaDataBaseModel.FinePoses" />
+          <AssociationSet Name="FK_Fines_Customers" Association="AlphaDataBaseModel.FK_Fines_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="FinePoses" EntitySet="FinePoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinePoses_FineDocs" Association="AlphaDataBaseModel.FK_FinePoses_FineDocs">
+            <End Role="FineDocs" EntitySet="FineDocs" />
+            <End Role="FinePoses" EntitySet="FinePoses" />
           </AssociationSet></EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
@@ -2616,6 +2676,7 @@
           <NavigationProperty Name="DebtBillDocs" Relationship="AlphaDataBaseModel.FK_DebtBillDocs_Customers" FromRole="Customers" ToRole="DebtBillDocs" />
           <Property Name="HeatedArea" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="Customers" ToRole="PrivateCounters" />
+          <NavigationProperty Name="FinePoses" Relationship="AlphaDataBaseModel.FK_Fines_Customers" FromRole="Customers" ToRole="FinePoses" />
         </EntityType>
         <EntityType Name="DebtBillDocs">
           <Key>
@@ -3476,6 +3537,49 @@
             </Principal>
             <Dependent Role="RechargePercentCorrections">
               <PropertyRef Name="CustomerPosID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FineDocs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="FinePoses" Relationship="AlphaDataBaseModel.FK_FinePoses_FineDocs" FromRole="FineDocs" ToRole="FinePoses" />
+        </EntityType>
+        <EntityType Name="FinePoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="DocID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_Fines_Customers" FromRole="FinePoses" ToRole="Customers" />
+          <NavigationProperty Name="FineDocs" Relationship="AlphaDataBaseModel.FK_FinePoses_FineDocs" FromRole="FinePoses" ToRole="FineDocs" />
+        </EntityType>
+        <Association Name="FK_Fines_Customers">
+          <End Type="AlphaDataBaseModel.Customers" Role="Customers" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.FinePoses" Role="FinePoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FinePoses">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinePoses_FineDocs">
+          <End Type="AlphaDataBaseModel.FineDocs" Role="FineDocs" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.FinePoses" Role="FinePoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FineDocs">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FinePoses">
+              <PropertyRef Name="DocID" />
             </Dependent>
           </ReferentialConstraint>
         </Association></Schema>
@@ -4614,6 +4718,24 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FineDocs">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.FineDocs">
+              <MappingFragment StoreEntitySet="FineDocs">
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinePoses">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.FinePoses">
+              <MappingFragment StoreEntitySet="FinePoses">
+                <ScalarProperty Name="DocID" ColumnName="DocID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
           </EntitySetMapping></EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -5246,6 +5368,10 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Customers" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounters_Services" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RechargePercentCorrections" Width="1.5" PointX="13.5" PointY="39.375" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses" /></edmx:Diagram></edmx:Diagrams>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.FineDocs" Width="1.5" PointX="3" PointY="73.5" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.FinePoses" Width="1.5" PointX="5.25" PointY="16.25" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Fines_Customers" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FinePoses_FineDocs" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

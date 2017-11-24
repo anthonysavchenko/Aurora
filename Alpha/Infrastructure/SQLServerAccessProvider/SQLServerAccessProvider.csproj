@@ -64,6 +64,8 @@
     </Compile>
     <Compile Include="DataMappers\Doc\CustomerPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DebtBillDocDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\FineDocDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\FinePosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\PaymentSetDataMapper.cs" />
     <Compile Include="DataMappers\Doc\BillSetDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RechargeSetDataMapper.cs" />

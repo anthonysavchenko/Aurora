@@ -144,5 +144,10 @@
         /// Банковские реквизиты
         /// </summary>
         public const string BANK_DETAILS = "usecase://RefBook/BankDetails";
+
+        /// <summary>
+        /// Банковские реквизиты
+        /// </summary>
+        public const string FINES = "usecase://Accounting/Fines";
     }
 }

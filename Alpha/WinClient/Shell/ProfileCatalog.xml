@@ -46,6 +46,7 @@
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.PaymentsAndCharges.dll" />
 
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Fines.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.dll" />

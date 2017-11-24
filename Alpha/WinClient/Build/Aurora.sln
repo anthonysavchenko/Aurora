@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Taumis.EnterpriseLibrary.Infrastructure", "Taumis.EnterpriseLibrary.Infrastructure", "{A2DA8129-83AB-41D5-A14B-5F26DE0B4382}"
 EndProject
@@ -121,6 +121,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintForms", "..\..\Server\PrintForms\PrintForms.csproj", "{D9952A9A-8E35-4E0F-875C-047F577E8C75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebtAndFine", "..\Modules\Reports\DebtAndFine\DebtAndFine.csproj", "{DA43ED63-24A8-4CFC-B2D0-6C30EBF4F42D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fines", "..\Modules\Accounting\Fines\Fines.csproj", "{5EC70725-EAFE-4FA3-A637-C20C4772F50D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -300,6 +302,10 @@ Global
 		{DA43ED63-24A8-4CFC-B2D0-6C30EBF4F42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA43ED63-24A8-4CFC-B2D0-6C30EBF4F42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA43ED63-24A8-4CFC-B2D0-6C30EBF4F42D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC70725-EAFE-4FA3-A637-C20C4772F50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC70725-EAFE-4FA3-A637-C20C4772F50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC70725-EAFE-4FA3-A637-C20C4772F50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC70725-EAFE-4FA3-A637-C20C4772F50D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -354,6 +360,7 @@ Global
 		{A96B7314-5AD7-4A4E-BAC5-C43195DF7360} = {1EEDBDEB-10F8-4D79-82B6-35280BD782FC}
 		{D9952A9A-8E35-4E0F-875C-047F577E8C75} = {56E24C79-100E-4900-B3FC-30A251F54EB2}
 		{DA43ED63-24A8-4CFC-B2D0-6C30EBF4F42D} = {2AD49FD1-4664-403A-A09B-427DBBD862FD}
+		{5EC70725-EAFE-4FA3-A637-C20C4772F50D} = {D0A96142-2366-4EAD-97FE-A865C2CD07EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2EDC818-CE5F-4276-A7A6-2AEE0C27C3B9}
