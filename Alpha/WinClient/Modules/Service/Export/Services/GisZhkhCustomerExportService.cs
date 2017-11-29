@@ -29,12 +29,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int GIS_ZHKH_ID = 3;
                 public const int ACCOUNT_TYPE = 4;
                 public const int IS_TENANT = 5;
-                public const int SURNAME = 6;
-                public const int NAME = 7;
-                public const int PATRONYMIC = 8;
-                public const int AREA = 17;
+                public const int SPLIT = 6;
+                public const int SURNAME = 7;
+                public const int NAME = 8;
+                public const int PATRONYMIC = 9;
+                public const int AREA = 18;
                 public const int FIRST = 1;
-                public const int LAST = 22;
+                public const int LAST = 23;
             }
 
             public class RoomSheet
