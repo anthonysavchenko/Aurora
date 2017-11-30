@@ -254,12 +254,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         private string GetBottomInfoString(string street, string building)
         {
             street = street.ToLower();
-            if(street == "уткинская" 
-                || street == "космонавтов" 
-                || street == "прапорщика комарова"
-                || street == "борисенко")
+
+            if (street == "уткинская" || street == "прапорщика комарова")
             {
-                return "Управляющий по дому - Беришева Ирина Сергеевна, тел. 271-80-55";
+                return "Управляющий по дому - Адрианова Варвара Георгиевна, тел 273-14-10";
+            }
+
+            if (street == "космонавтов" || street == "борисенко")
+            {
+                return "Управляющий по дому - Милованова Оксана Васильевна, тел 271-80-55";
             }
 
             if(street == "гульбиновича" 
