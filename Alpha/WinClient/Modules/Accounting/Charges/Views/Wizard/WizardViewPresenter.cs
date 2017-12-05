@@ -1035,11 +1035,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                             ServiceName = _service.Name,
                                                             Measure = _service.Measure
                                                         });
+
+                                                    _customerPos.Rate = 0;
                                                 }
                                                 break;
 
                                             case Service.ChargeRuleType.CommonCounterByAreaRate:
-                                                _customerPos.Rate = 0;
                                                 if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
                                                 {
                                                     var _counter = _commonCountersByService[_customerPos.ServiceID];
@@ -1056,7 +1057,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 break;
 
                                             case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
-                                                _customerPos.Rate = 0;
                                                 if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
                                                 {
                                                     var _counter = _commonCountersByService[_customerPos.ServiceID];
@@ -1083,10 +1083,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                         _chargeValue = _customer.Square * _rate;
                                                         // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                         _customerPos.Rate = _rate;
-                                                    }
-                                                    else
-                                                    {
-                                                        _customerPos.Rate = 0;
                                                     }
                                                 }
                                                 break;
@@ -1121,7 +1117,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                                             case Service.ChargeRuleType.CommonCounterByAssignedCustomerAreaRate:
                                                 decimal _serviceArea;
-                                                _customerPos.Rate = 0;
                                                 if (!_areaByServiceAndBuilding.ContainsKey(_customerPos.ServiceID))
                                                 {
                                                     _areaByServiceAndBuilding.Add(_customerPos.ServiceID, new Dictionary<int, decimal>());
@@ -1211,6 +1206,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     _customerPeriodBalances.AddBenefit(_localBenefitOperPos.BenefitOpers.ChargeOpers.ChargeSets.Period, _localBenefitOperPos.Services.ID, _localBenefitOperPos.Value);
                                                 }
                                             }
+                                        }
+                                        else
+                                        {
+                                            _customerPos.Rate = 0;
                                         }
                                         _customerPeriodBalances.AddCharge(_chargeSet.Period, _customerPos.ServiceID, _chargeValue);
                                     }
@@ -1348,6 +1347,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                 Charge = groupedByServiceType.Sum(x => x.Value.Charge),
                                                 Benefit = groupedByServiceType.Sum(x => x.Value.Benefit),
                                                 Correction = groupedByServiceType.Sum(x => x.Value.Correction),
+                                                Rate = groupedByServiceType.Sum(x => x.Value.Charge != 0 ? _customerPoses.FirstOrDefault(y => y.ServiceID == x.Key).Rate : 0),
                                             });
 
                                         foreach (var _pos in _poses)
@@ -1358,7 +1358,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                                     RegularBillDocs = _billDoc,
                                                     ServiceTypeID = _pos.ServiceTypeID,
                                                     ServiceTypeName = _pos.ServiceTypeName,
-                                                    PayRate = Math.Round(_pos.Charge / _customer.Square, 2, MidpointRounding.AwayFromZero),
+                                                    PayRate = _pos.Rate,
                                                     Charge = _pos.Charge,
                                                     Benefit = _pos.Benefit,
                                                     Recalculation = _pos.Correction,
