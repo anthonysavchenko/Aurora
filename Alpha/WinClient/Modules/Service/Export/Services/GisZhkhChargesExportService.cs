@@ -11,7 +11,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 {
     public class GisZhkhChargesExportService : IGisZhkhChargesExportService
     {
-        private const int ROWS_PER_FILE = 1000;
+        private const int ROWS_PER_FILE = 50000;
 
         private const string CALCULATED_VALUE = "@";
         
@@ -49,19 +49,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int PP_VOLUME_TYPE = 5;
                 public const int PP_VOLUME = 6;
                 public const int RATE = 7;
-                public const int RECALCULATION = 8;
-                public const int BENEFIT = 9;
-                public const int INTS_PAYMENT_RUB = 21;
-                public const int INTS_PAYMENT_PERCENT = 22;
-                public const int INTS_PAYMENT_TOTAL = 23;
-                public const int TOTAL = 24;
-                public const int PP_TOTAL = 26;
+                public const int RECALCULATION = 11;
+                public const int BENEFIT = 12;
+                public const int INTS_PAYMENT_RUB = 24;
+                public const int INTS_PAYMENT_PERCENT = 25;
+                public const int INTS_PAYMENT_TOTAL = 26;
+                public const int TOTAL = 27;
+                public const int PP_TOTAL = 29;
             }
         }
 
         private class ServiceSheet
         {
-            public const int INDEX = 4;
+            public const int INDEX = 5;
             public const int FIRST_ROW_NUM = 2;
 
             public class Columns
