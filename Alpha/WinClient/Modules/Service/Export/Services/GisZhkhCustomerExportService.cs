@@ -19,6 +19,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         private const string ACCOUNT_TYPE = "ЛС УО";
         private const string IS_TENANT = "Нет";
         private const int FIRST_ROW_NUM = 3;
+        private const string APARTMENT_TYPE = "Жилое помещение";
 
         private class Columns
         {
@@ -29,18 +30,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int GIS_ZHKH_ID = 3;
                 public const int ACCOUNT_TYPE = 4;
                 public const int IS_TENANT = 5;
-                public const int SURNAME = 6;
-                public const int NAME = 7;
-                public const int PATRONYMIC = 8;
-                public const int AREA = 17;
+                public const int SPLIT = 6;
+                public const int SURNAME = 7;
+                public const int NAME = 8;
+                public const int PATRONYMIC = 9;
+                public const int AREA = 18;
                 public const int FIRST = 1;
-                public const int LAST = 22;
+                public const int LAST = 23;
             }
 
             public class RoomSheet
             {
                 public const int REC_NUM = 1;
                 public const int FIAS_ID = 3;
+                public const int APARTMENT_TYPE = 4;
                 public const int APARTMENT = 5;
                 public const int FIRST = 1;
                 public const int LAST = 9;
@@ -155,6 +158,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         _roomSheet.Cell(_row, Columns.RoomSheet.REC_NUM).SetValue(_recNum);
                         _roomSheet.Cell(_row, Columns.RoomSheet.FIAS_ID).SetValue(_ci.FiasID);
                         _roomSheet.Cell(_row, Columns.RoomSheet.APARTMENT).SetValue(_ci.Apartment);
+                        _roomSheet.Cell(_row, Columns.RoomSheet.APARTMENT_TYPE).SetValue(APARTMENT_TYPE);
 
                         progressAction(_processed++ * 100 / _total);
                         _recNum++;
