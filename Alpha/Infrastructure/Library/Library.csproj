@@ -65,15 +65,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML, Version=0.87.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <HintPath>..\..\..\ThirdParty\Packages\ClosedXML.0.87.1\lib\net40\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\ThirdParty\Packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\..\..\ThirdParty\Packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -99,10 +96,10 @@
     <Compile Include="Services\DataMapperService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\CryptoService.cs" />
-    <Compile Include="Services\Excel\ClosedXML\ExcelCell.cs" />
-    <Compile Include="Services\Excel\ClosedXML\ExcelService.cs" />
-    <Compile Include="Services\Excel\ClosedXML\ExcelWorkbook.cs" />
-    <Compile Include="Services\Excel\ClosedXML\ExcelWorksheet.cs" />
+    <Compile Include="Services\Excel\Epplus\ExcelCell.cs" />
+    <Compile Include="Services\Excel\Epplus\ExcelService.cs" />
+    <Compile Include="Services\Excel\Epplus\ExcelWorkbook.cs" />
+    <Compile Include="Services\Excel\Epplus\ExcelWorksheet.cs" />
     <Compile Include="Services\PaymentDistributionService.cs" />
     <Compile Include="Services\ServerTimeService.cs" />
     <Compile Include="Services\SettingsService.cs" />
@@ -157,7 +154,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

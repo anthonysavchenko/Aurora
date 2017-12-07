@@ -13,7 +13,7 @@ using Taumis.Infrastructure.Interface.Services;
 using Taumis.Infrastructure.Library;
 using Taumis.Infrastructure.Library.Services;
 using Taumis.Alpha.Infrastructure.Interface.Services;
-using Taumis.Alpha.Infrastructure.Library.Services.Excel.ClosedXML;
+using Taumis.Alpha.Infrastructure.Library.Services.Excel.Epplus;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
 namespace Taumis.Infrastructure.Shell
