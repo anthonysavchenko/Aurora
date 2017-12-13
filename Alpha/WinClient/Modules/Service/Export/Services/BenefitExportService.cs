@@ -415,7 +415,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 new
                                 {
                                     CustomerID = o.RechargeOpers.Customers.ID,
-                                    o.RechargeOpers.RechargeSets.Period,
+                                    o.RechargeOpers.ChildChargeCorrectionOpers.Period,
                                     Charge = (decimal)0,
                                     Recharge = -1 * o.Value,
                                     Benefit = (decimal)0,
