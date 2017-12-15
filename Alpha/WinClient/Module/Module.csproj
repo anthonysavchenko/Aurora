@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -26,7 +26,7 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -50,10 +50,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -73,6 +69,7 @@
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
       <Project>{d1ce4803-ef0a-40b7-bb2c-7153c63f5fe0}</Project>
       <Name>SQLServerAccessProvider %28Taumis.EnterpriseLibrary.Infrastructure\SQLServerAccessProvider%29</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Win\Common\Common.csproj">
       <Project>{E35914B3-8BB6-4BCB-A85A-516BF2252422}</Project>
@@ -92,6 +89,7 @@
     <ProjectReference Include="..\..\Infrastructure\Interface\Interface.csproj">
       <Project>{576d1311-ba67-4077-8489-7cfad06965f5}</Project>
       <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
       <Project>{01633058-914E-4C6C-BBE5-0793D90F3AC5}</Project>

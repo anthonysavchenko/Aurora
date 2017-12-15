@@ -121,8 +121,8 @@
   <data name="xrTable2.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
-  <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="xrTable2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+  <assembly alias="DevExpress.Data.v17.2" name="DevExpress.Data.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="xrTable2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.2">
     <value>0, 0</value>
   </data>
   <data name="xrTableCell7.Dpi" type="System.Single, mscorlib">
@@ -135,7 +135,7 @@
   <data name="xrTableCell7.Text" xml:space="preserve">
     <value>xrTableCell7</value>
   </data>
-  <data name="xrTableCell7.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell7.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleLeft</value>
   </data>
   <data name="xrTableCell8.Dpi" type="System.Single, mscorlib">
@@ -147,7 +147,7 @@
   <data name="xrTableCell8.Text" xml:space="preserve">
     <value>xrTableCell8</value>
   </data>
-  <data name="xrTableCell8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell9.Dpi" type="System.Single, mscorlib">
@@ -159,7 +159,7 @@
   <data name="xrTableCell9.Text" xml:space="preserve">
     <value>xrTableCell9</value>
   </data>
-  <data name="xrTableCell9.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell9.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell10.Dpi" type="System.Single, mscorlib">
@@ -171,7 +171,7 @@
   <data name="xrTableCell10.Text" xml:space="preserve">
     <value>xrTableCell10</value>
   </data>
-  <data name="xrTableCell10.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell10.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell11.Dpi" type="System.Single, mscorlib">
@@ -183,7 +183,7 @@
   <data name="xrTableCell11.Text" xml:space="preserve">
     <value>xrTableCell11</value>
   </data>
-  <data name="xrTableCell11.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell11.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell12.Dpi" type="System.Single, mscorlib">
@@ -195,7 +195,7 @@
   <data name="xrTableCell12.Text" xml:space="preserve">
     <value>xrTableCell12</value>
   </data>
-  <data name="xrTableCell12.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell12.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableRow2.Dpi" type="System.Single, mscorlib">
@@ -216,7 +216,7 @@
   <data name="xrTable3.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
-  <data name="xrTable3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+  <data name="xrTable3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.2">
     <value>0, 0</value>
   </data>
   <data name="xrTableCell13.Dpi" type="System.Single, mscorlib">
@@ -228,7 +228,7 @@
   <data name="xrTableCell13.Text" xml:space="preserve">
     <value>Вид услуги</value>
   </data>
-  <data name="xrTableCell13.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell13.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell14.Dpi" type="System.Single, mscorlib">
@@ -240,7 +240,7 @@
   <data name="xrTableCell14.Text" xml:space="preserve">
     <value>Ставка оплаты, руб.</value>
   </data>
-  <data name="xrTableCell14.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell14.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell15.Dpi" type="System.Single, mscorlib">
@@ -253,7 +253,7 @@
     <value>Начисления, 
 руб.</value>
   </data>
-  <data name="xrTableCell15.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell15.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell16.Dpi" type="System.Single, mscorlib">
@@ -266,7 +266,7 @@
     <value>Льготы,
 руб.</value>
   </data>
-  <data name="xrTableCell16.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell16.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell17.Dpi" type="System.Single, mscorlib">
@@ -279,7 +279,7 @@
     <value>Перерасчеты, 
 руб.</value>
   </data>
-  <data name="xrTableCell17.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell17.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell18.Dpi" type="System.Single, mscorlib">
@@ -292,7 +292,7 @@
     <value>К оплате, 
 руб.</value>
   </data>
-  <data name="xrTableCell18.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrTableCell18.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.2">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableRow3.Dpi" type="System.Single, mscorlib">
@@ -337,8 +337,8 @@
   <data name="$this.PaperKind" type="System.Drawing.Printing.PaperKind, System.Drawing">
     <value>Custom</value>
   </data>
-  <assembly alias="DevExpress.XtraReports.v13.1" name="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="$this.ReportUnit" type="DevExpress.XtraReports.UI.ReportUnit, DevExpress.XtraReports.v13.1">
+  <assembly alias="DevExpress.XtraReports.v17.2" name="DevExpress.XtraReports.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="$this.ReportUnit" type="DevExpress.XtraReports.UI.ReportUnit, DevExpress.XtraReports.v17.2">
     <value>TenthsOfAMillimeter</value>
   </data>
 </root>

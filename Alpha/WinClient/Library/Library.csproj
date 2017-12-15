@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -26,7 +26,7 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -52,7 +52,8 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -98,6 +99,7 @@
     <ProjectReference Include="..\..\DataBase\DataBase\DataBase.csproj">
       <Project>{A68700E1-4190-442B-8033-CBCC995FBB1B}</Project>
       <Name>DataBase</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Interface\Interface.csproj">
       <Project>{576D1311-BA67-4077-8489-7CFAD06965F5}</Project>
@@ -112,6 +114,7 @@
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
       <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill</RootNamespace>
     <AssemblyName>Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
@@ -43,56 +43,45 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 17.2.4\DevExpress.Data.v17.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Design.v13.1">
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.Design.v13.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Printing.v13.1.Core.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 17.2.4\DevExpress.Printing.v17.2.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Utils.v13.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 17.2.4\DevExpress.Utils.v17.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraBars.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraBars.v13.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 17.2.4\DevExpress.XtraBars.v17.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 17.2.4\DevExpress.XtraEditors.v17.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1.Design">
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraEditors.v13.1.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPrinting.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraPrinting.v13.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 17.2.4\DevExpress.XtraPrinting.v17.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1.Design">
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraPrinting.v13.1.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraReports.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraReports.v13.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 17.2.4\DevExpress.XtraReports.v17.2.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v13.1.Design">
-      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraReports.v13.1.Design.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\..\..\ThirdParty\Packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -189,6 +178,7 @@
     <ProjectReference Include="..\..\..\..\Server\PrintForms\PrintForms.csproj">
       <Project>{d9952a9a-8e35-4e0f-875c-047f577e8c75}</Project>
       <Name>PrintForms</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Interface\Interface.csproj">
       <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
@@ -198,6 +188,7 @@
     <ProjectReference Include="..\..\..\Library\Library.csproj">
       <Project>{E0D31CE8-A3AD-4BA5-AA23-0152750E42A0}</Project>
       <Name>Library</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

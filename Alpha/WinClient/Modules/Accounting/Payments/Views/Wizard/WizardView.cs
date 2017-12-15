@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraWizard;
+﻿using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
@@ -853,7 +854,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             if (e.Column.Name == "NumberGridColumn")
             {
-                e.DisplayText = (e.RowHandle + 1).ToString();
+                GridView _gv = (GridView)sender;
+                int _rowHandle = _gv.GetRowHandle(e.ListSourceRowIndex);
+                e.DisplayText = (_rowHandle + 1).ToString();
             }
         }
     }
