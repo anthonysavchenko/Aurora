@@ -4,7 +4,6 @@ using System.Drawing;
 using DevExpress.XtraReports.UI;
 using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
 using Taumis.Alpha.Server.PrintForms.Reports.DebtBills.Receipt;
-using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;

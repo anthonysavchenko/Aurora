@@ -6,6 +6,7 @@ using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
+using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
@@ -70,14 +71,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         [ServiceDependency]
         public IExcelService ExcelService { get; set; }
 
+        [ServiceDependency]
+        public IServerTimeService ServerTime { get; set; }
+
         #region Help Methods
 
         private Dictionary<int, List<CustomerInfo>> GetData(bool onlyNew)
         {
             using (Entities _db = new Entities())
             {
+                DateTime _period = ServerTime.GetPeriodInfo().LastCharged;
+
                 return _db.Customers
-                    .Where(c => !onlyNew || string.IsNullOrEmpty(c.GisZhkhID))
+                    .Where(c => c.CustomerPoses.Any(p => p.Till > _period) && (!onlyNew || string.IsNullOrEmpty(c.GisZhkhID)))
                     .GroupBy(c => c.Buildings.ID)
                     .Select(g =>
                         new
