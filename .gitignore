@@ -71,3 +71,8 @@
 /Alpha/DataBase/AlphaDatabase/AlphaDatabase/AlphaDatabase.jfm
 /Alpha/CustomerWebSite/.vs
 /Alpha/WinClient/Modules/Accounting/Fines/obj
+/.vs
+/Alpha/Tests/SQLServerAccessProviderTest/obj
+/ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/UnitTest/NUnit/CompositeUI/obj
+/ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/UnitTest/NUnit/CompositeUI.WinForms/obj
+/ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/UnitTest/NUnit/ObjectBuilder/obj

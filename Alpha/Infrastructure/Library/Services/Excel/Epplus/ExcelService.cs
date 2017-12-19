@@ -1,6 +1,6 @@
 ﻿using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.ClosedXML
+namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.Epplus
 {
     public class ExcelService : IExcelService
     {

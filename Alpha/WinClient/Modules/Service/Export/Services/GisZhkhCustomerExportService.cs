@@ -6,6 +6,7 @@ using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
+using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
@@ -19,6 +20,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         private const string ACCOUNT_TYPE = "ЛС УО";
         private const string IS_TENANT = "Нет";
         private const int FIRST_ROW_NUM = 3;
+        private const string APARTMENT_TYPE = "Жилое помещение";
 
         private class Columns
         {
@@ -42,6 +44,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             {
                 public const int REC_NUM = 1;
                 public const int FIAS_ID = 3;
+                public const int APARTMENT_TYPE = 4;
                 public const int APARTMENT = 5;
                 public const int FIRST = 1;
                 public const int LAST = 9;
@@ -68,14 +71,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         [ServiceDependency]
         public IExcelService ExcelService { get; set; }
 
+        [ServiceDependency]
+        public IServerTimeService ServerTime { get; set; }
+
         #region Help Methods
 
         private Dictionary<int, List<CustomerInfo>> GetData(bool onlyNew)
         {
             using (Entities _db = new Entities())
             {
+                DateTime _period = ServerTime.GetPeriodInfo().LastCharged;
+
                 return _db.Customers
-                    .Where(c => !onlyNew || string.IsNullOrEmpty(c.GisZhkhID))
+                    .Where(c => c.CustomerPoses.Any(p => p.Till > _period) && (!onlyNew || string.IsNullOrEmpty(c.GisZhkhID)))
                     .GroupBy(c => c.Buildings.ID)
                     .Select(g =>
                         new
@@ -156,6 +164,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         _roomSheet.Cell(_row, Columns.RoomSheet.REC_NUM).SetValue(_recNum);
                         _roomSheet.Cell(_row, Columns.RoomSheet.FIAS_ID).SetValue(_ci.FiasID);
                         _roomSheet.Cell(_row, Columns.RoomSheet.APARTMENT).SetValue(_ci.Apartment);
+                        _roomSheet.Cell(_row, Columns.RoomSheet.APARTMENT_TYPE).SetValue(APARTMENT_TYPE);
 
                         progressAction(_processed++ * 100 / _total);
                         _recNum++;
