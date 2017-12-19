@@ -8,7 +8,6 @@ using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
-using Taumis.Alpha.Server.PrintForms.Reports.DebtBills;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
