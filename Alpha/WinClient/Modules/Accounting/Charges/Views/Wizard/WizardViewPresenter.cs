@@ -2965,7 +2965,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             {
                 PrivateCounterValues _curCounterValue = _c.Values.First(v => v.Period == currentPeriod);
                 PrivateCounterValues _prevCounterValue = _c.Values.First(v => v.Period == _previousPeriod);
-                decimal _lastByCounterValue = _c.Values.LastOrDefault(v => v.ID != _curCounterValue.ID && !v.ByNorm)?.Value ?? 0;
+                decimal _lastByCounterValue = _c.Values.LastOrDefault(v => !v.ByNorm && v.Period < currentPeriod)?.Value ?? 0;
 
                 decimal _curValue = _curCounterValue.Value;
                 decimal _prevValue = _prevCounterValue.Value;
