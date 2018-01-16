@@ -7,6 +7,6 @@
         int GetRowCount();
         int GetLastUsedColumnNumber();
         void AdjustColumnsToContents();
-
+        void ClearDataValidations();
     }
 }
