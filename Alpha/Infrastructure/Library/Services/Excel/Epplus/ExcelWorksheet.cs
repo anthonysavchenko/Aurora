@@ -30,6 +30,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.Epplus
             return new ExcelCell(_ws.Cells[$"{column}{row}"]);
         }
 
+        public void ClearDataValidations()
+        {
+            _ws.DataValidations.Clear();
+        }
+
         public int GetLastUsedColumnNumber()
         {
             return _ws.Dimension.End.Column;
