@@ -158,25 +158,29 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
 
             foreach (KeyValuePair<int, Balance> _serviceBalance in serviceBalances.Balances)
             {
-                decimal _balanceValue = Math.Abs(distributeByCharge 
+                decimal _balanceValue = distributeByCharge 
                     ? _serviceBalance.Value.Charge > 0
                         ? _serviceBalance.Value.Charge
                         : _serviceBalance.Value.Correction
-                    : _serviceBalance.Value.Total);
-                decimal _value = Math.Round(_coefficient * _balanceValue, 2, MidpointRounding.AwayFromZero);
+                    : _serviceBalance.Value.Total;
 
-                _total += _value;
-
-                if (_total > valueToDistribute)
+                if (_balanceValue > 0)
                 {
-                    _value -= _total - valueToDistribute;
-                    _total = valueToDistribute;
-                }
+                    decimal _value = Math.Round(_coefficient * _balanceValue, 2, MidpointRounding.AwayFromZero);
 
-                if (_value > 0)
-                {
-                    resultDistribution.AddPayment(_serviceBalance.Key, -_value);
-                    _valueSum += _value;
+                    _total += _value;
+
+                    if (_total > valueToDistribute)
+                    {
+                        _value -= _total - valueToDistribute;
+                        _total = valueToDistribute;
+                    }
+
+                    if (_value > 0)
+                    {
+                        resultDistribution.AddPayment(_serviceBalance.Key, -_value);
+                        _valueSum += _value;
+                    }
                 }
             }
 

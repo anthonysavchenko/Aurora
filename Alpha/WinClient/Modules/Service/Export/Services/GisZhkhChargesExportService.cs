@@ -12,9 +12,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
     public class GisZhkhChargesExportService : IGisZhkhChargesExportService
     {
         private const int ROWS_PER_FILE = 50000;
-
         private const string CALCULATED_VALUE = "@";
-        
+        private const string MAINTENANCE = "СОДЖП";
+
         private class Section1_2Sheet
         {
             public const int INDEX = 1;
@@ -29,8 +29,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int NUMBER = 3;
                 public const int PERIOD = 4;
                 public const int AREA = 5;
-                public const int BIK = 12;
-                public const int BANK_ACCOUNT = 13;
+                public const int BIK = 14;
+                public const int BANK_ACCOUNT = 15;
             }
         }
 
@@ -39,29 +39,28 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public const int INDEX = 2;
             public const int FIRST_ROW_NUM = 5;
 
-            public const string PP_CALC_TYPE = "Иное";
+            public const string PP_CALC_TYPE = "Норматив";
 
             public class Columns
             {
                 public const int NUMBER = 1;
                 public const int SERVICE = 2;
-                public const int PRIVATE_VOLUME = 4;
                 public const int PP_VOLUME_TYPE = 5;
                 public const int PP_VOLUME = 6;
                 public const int RATE = 7;
-                public const int RECALCULATION = 11;
-                public const int BENEFIT = 12;
-                public const int INTS_PAYMENT_RUB = 24;
-                public const int INTS_PAYMENT_PERCENT = 25;
-                public const int INTS_PAYMENT_TOTAL = 26;
-                public const int TOTAL = 27;
-                public const int PP_TOTAL = 29;
+                public const int RECALCULATION = 13;
+                public const int BENEFIT = 14;
+                public const int INTS_PAYMENT_RUB = 26;
+                public const int INTS_PAYMENT_PERCENT = 27;
+                public const int INTS_PAYMENT_TOTAL = 28;
+                public const int TOTAL = 29;
+                public const int PP_TOTAL = 31;
             }
         }
 
         private class ServiceSheet
         {
-            public const int INDEX = 5;
+            public const int INDEX = 6;
             public const int FIRST_ROW_NUM = 2;
 
             public class Columns
@@ -125,6 +124,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             try
             {
                 Dictionary<int, BuildingInfo> _buildings;
+                int _maintenanceServiceTypeID;
 
                 using (Entities _db = new Entities())
                 {
@@ -137,6 +137,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 Number = b.Number
                             })
                         .ToDictionary(b => b.ID);
+
+                    _maintenanceServiceTypeID = _db.ServiceTypes.Where(st => st.Code == MAINTENANCE).Select(st => st.ID).First();
                 }
 
                 foreach (KeyValuePair<int, List<CustomerInfo>> _byBuilding in data)
@@ -149,6 +151,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     {
                         IExcelWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
                         IExcelWorksheet _section3_6 = _wb.Worksheet(Section3_6Sheet.INDEX);
+                        
+                        //Ошибка в шаблоне - удаляем проверку на 5 листе
+                        IExcelWorksheet _temp = _wb.Worksheet(5);
+                        _temp.ClearDataValidations();
 
                         int _section1_2Row = Section1_2Sheet.FIRST_ROW_NUM;
                         int _section3_6Row = Section3_6Sheet.FIRST_ROW_NUM;
@@ -167,27 +173,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             {
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.NUMBER).SetValue(_ci.BillID);
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.SERVICE).SetValue(serviceMatchingDict[_bi.ServiceTypeID]);
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RATE).SetValue(_bi.Rate);
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.TOTAL).SetValue(_bi.Total);
 
-                                if(_bi.IsPublicPlaceService)
+                                decimal _total = _bi.Total;
+                                decimal _rate = _bi.Rate;
+                                if (_bi.ServiceTypeID == _maintenanceServiceTypeID)
+                                {
+                                    _total += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Total);
+                                    _rate += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Rate);
+                                }
+                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.TOTAL).SetValue(_total);
+                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RATE).SetValue(_rate);
+
+                                if (_bi.IsPublicPlaceService)
                                 {
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME_TYPE).SetValue(Section3_6Sheet.PP_CALC_TYPE);
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME).SetValue(_ci.Area);
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.INTS_PAYMENT_RUB).SetValue(0);
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.INTS_PAYMENT_PERCENT).SetValue(0);
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.INTS_PAYMENT_TOTAL).SetValue(0);
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_TOTAL).SetValue(_bi.Total);
-                                }
-                                else
-                                {
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PRIVATE_VOLUME).SetValue(_ci.Area);
                                 }
 
                                 if (_bi.Recalculation != 0)
                                 {
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RECALCULATION).SetValue(_bi.Recalculation);
                                 }
+
                                 if (_bi.Benefit != 0)
                                 {
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.BENEFIT).SetValue(Math.Abs(_bi.Benefit));
@@ -310,6 +318,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     {
                         _result.Add(_ws.Cell(i + ServiceSheet.FIRST_ROW_NUM, ServiceSheet.Columns.SERVICE_NAME).Value);
                     }
+                    _result.Sort();
                 }
             }
             catch (Exception _ex)
@@ -333,8 +342,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         .Select(p =>
                             new
                             {
-                                ID = p.Services.ServiceTypes.ID,
-                                Name = p.Services.ServiceTypes.Name
+                                p.Services.ServiceTypes.ID,
+                                p.Services.ServiceTypes.Name
                             })
                         .Distinct()
                         .OrderBy(st => st.Name)
