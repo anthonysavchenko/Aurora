@@ -285,7 +285,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     ServiceType = o.Services.ServiceTypes.ID
                                 }))
                         .Concat(_db.PaymentOperPoses
-                            .Where(o => o.PaymentOpers.PaymentPeriod <= period)
                             .Select(o =>
                                 new
                                 {
