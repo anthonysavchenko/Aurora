@@ -357,19 +357,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Services
                                     p.Value
                                 })
                             .Concat(
-                                _entities.PaymentOperPoses
+                                _entities.PaymentCorrectionOperPoses
                                     .Where(p =>
-                                        p.PaymentOpers.PaymentCorrectionOper != null &&
-                                        p.PaymentOpers.PaymentSets.Intermediaries != null &&
-                                        p.PaymentOpers.CreationDateTime >= since && p.PaymentOpers.CreationDateTime <= till &&
-                                        p.PaymentOpers.PaymentCorrectionOper.CreationDateTime >= since && p.PaymentOpers.PaymentCorrectionOper.CreationDateTime <= till)
+                                        p.PaymentCorrectionOpers.CreationDateTime >= since &&
+                                        p.PaymentCorrectionOpers.CreationDateTime <= till &&
+                                        p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries != null)
                                     .Select(p =>
                                         new
                                         {
-                                            IntermediaryID = p.PaymentOpers.PaymentSets.Intermediaries.ID,
-                                            p.Period,
+                                            IntermediaryID = p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries.ID,
+                                            p.PaymentCorrectionOpers.Period,
                                             ServiceID = p.Services.ID,
-                                            Value = p.Value * -1
+                                            p.Value
                                         }))
                             .GroupBy(
                                 p =>
