@@ -335,7 +335,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PaymentsAndCharges.Views
                                     p =>
                                     new
                                     {
-                                        p.PaymentCorrectionOpers.CreationDateTime,
+                                        CreationDateTime = p.PaymentCorrectionOpers.Period,
                                         CustomerID = p.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
                                         StreetID = p.PaymentCorrectionOpers.PaymentOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = p.PaymentCorrectionOpers.PaymentOpers.Customers.Buildings.ID,
