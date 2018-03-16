@@ -88,6 +88,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Services
                 _db.CommandTimeout = 3600;
 
                 var _data = _db.PaymentOpers
+                    .Where(p => p.PaymentCorrectionOper == null)
                     .Select(p =>
                         new
                         {
