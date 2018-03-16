@@ -178,28 +178,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         Value = -1 * x.Value
                                     }))
                         .Concat(
-                            _db.OverpaymentOpers
-                                .Select(x =>
-                                    new
-                                    {
-                                        CustomerID = x.Customers.ID,
-                                        StreetID = x.Customers.Buildings.Streets.ID,
-                                        BuildingID = x.Customers.Buildings.ID,
-                                        Period = x.CreationDateTime,
-                                        x.Value
-                                    }))
-                        .Concat(
-                            _db.OverpaymentCorrectionOpers
-                                .Select(x =>
-                                    new
-                                    {
-                                        CustomerID = x.ChargeOpers.Customers.ID,
-                                        StreetID = x.ChargeOpers.Customers.Buildings.Streets.ID,
-                                        BuildingID = x.ChargeOpers.Customers.Buildings.ID,
-                                        x.ChargeOpers.ChargeSets.Period,
-                                        x.Value
-                                    }))
-                        .Concat(
                             _db.PaymentOpers
                                 .Select(x =>
                                     new
