@@ -29,8 +29,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int NUMBER = 3;
                 public const int PERIOD = 4;
                 public const int AREA = 5;
-                public const int BIK = 14;
-                public const int BANK_ACCOUNT = 15;
+                public const int BIK = 16;
+                public const int BANK_ACCOUNT = 17;
             }
         }
 
