@@ -170,7 +170,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             int _tabIndex = 1;
             foreach (KeyValuePair<int, string> _pair in _services)
             {
-                string _selectedValue = _gisZhkhServices.Where(s => s == _pair.Value).FirstOrDefault();
+                string _selectedValue = _gisZhkhServices
+                    .Where(s => s.ToLower().Replace(" ", "") == _pair.Value.ToLower().Replace(" ", ""))
+                    .FirstOrDefault();
 
                 View.AddRowToServiceMatchingTable(
                     _pair.Key,
