@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
@@ -13,7 +14,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
     {
         private const int ROWS_PER_FILE = 50000;
         private const string CALCULATED_VALUE = "@";
-        private const string MAINTENANCE = "СОДЖП";
 
         private class Section1_2Sheet
         {
@@ -138,7 +138,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             })
                         .ToDictionary(b => b.ID);
 
-                    _maintenanceServiceTypeID = _db.ServiceTypes.Where(st => st.Code == MAINTENANCE).Select(st => st.ID).First();
+                    _maintenanceServiceTypeID = _db.ServiceTypes.Where(st => st.Code == ServiceTypeConstants.MAINTENANCE).Select(st => st.ID).First();
                 }
 
                 foreach (KeyValuePair<int, List<CustomerInfo>> _byBuilding in data)
@@ -236,10 +236,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     _db.CommandTimeout = 3600;
 
                     List<int> _publicPlaceServiceTypes =
-                        _db.Services
-                            .Where(s => s.ChargeRule == (int)ChargeRuleType.PublicPlaceAreaRate)
-                            .Select(s => s.ServiceTypes.ID)
-                            .Distinct()
+                        _db.ServiceTypes
+                            .Where(s => 
+                                s.Code == ServiceTypeConstants.PP_ELECTRICITY ||
+                                s.Code == ServiceTypeConstants.PP_HOT_WATER ||
+                                s.Code == ServiceTypeConstants.PP_WATER ||
+                                s.Code == ServiceTypeConstants.PP_WASTEWATER)
+                            .Select(s => s.ID)
                             .ToList();
 
                     _result = _db.RegularBillDocSeviceTypePoses
