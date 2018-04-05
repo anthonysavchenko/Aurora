@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>AuroraRepair</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>017.08.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>017.09.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>017.08.0.0</ApplicationVersion>
+    <ApplicationVersion>017.09.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
