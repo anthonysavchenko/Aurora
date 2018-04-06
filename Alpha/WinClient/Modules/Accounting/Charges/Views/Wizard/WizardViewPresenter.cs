@@ -2963,20 +2963,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
             foreach (var _c in _counters)
             {
-                PrivateCounterValues _curCounterValue = _c.Values.First(v => v.Period == currentPeriod);
-                PrivateCounterValues _prevCounterValue = _c.Values.First(v => v.Period == _previousPeriod);
+                PrivateCounterValues _curCounterValue = _c.Values.FirstOrDefault(v => v.Period == currentPeriod);
+                PrivateCounterValues _prevCounterValue = _c.Values.FirstOrDefault(v => v.Period == _previousPeriod);
                 decimal _lastByCounterValue = _c.Values.LastOrDefault(v => !v.ByNorm && v.Period < currentPeriod)?.Value ?? 0;
 
-                decimal _curValue = _curCounterValue.Value;
-                decimal _prevValue = _prevCounterValue.Value;
+                decimal _curValue = _curCounterValue?.Value ?? 0;
+                decimal _prevValue = _prevCounterValue?.Value ?? 0;
 
-                if(!_curCounterValue.ByNorm && _prevCounterValue.ByNorm)
+                if (_curCounterValue != null && _prevCounterValue != null)
                 {
-                    _prevValue = _lastByCounterValue;
-                }
-                else if(_curCounterValue.ByNorm && _c.Values.Any(v => v.Period > currentPeriod && !v.ByNorm))
-                {
-                    _curValue = _lastByCounterValue =_prevValue = 0;
+                    if (!_curCounterValue.ByNorm && _prevCounterValue.ByNorm)
+                    {
+                        _prevValue = _lastByCounterValue;
+                    }
+                    else if (_curCounterValue.ByNorm && _c.Values.Any(v => v.Period > currentPeriod && !v.ByNorm))
+                    {
+                        _curValue = _lastByCounterValue = _prevValue = 0;
+                    }
                 }
 
                 _result.Add(
@@ -2988,7 +2991,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         CurrentValue = _curValue,
                         PreviousValue = _prevValue,
                         LastByCounterValue = _lastByCounterValue,
-                        ByNorm = _curCounterValue.ByNorm
+                        ByNorm = _curCounterValue?.ByNorm ?? false
                     });
             }
 
