@@ -2580,117 +2580,105 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
             using (Entities _entities = new Entities())
             {
-                bool _prevValueNotExist =
-                    _entities.CommonCounters.Any(c => c.CommonCounterValues.All(v => v.Period != previousPeriod)) ||
-                    _entities.PrivateCounters.Any(p => p.PrivateCounterValues.All(v => v.Period != previousPeriod));
+                int[] _privateCountersIds = _entities.CustomerPoses.Where(p => p.Till >= currentPeriod).Select(p => p.ID).ToArray();
 
-                if (!_prevValueNotExist)
+                var _commonCounters =
+                    _entities.CommonCounters
+                        .Where(c => c.CommonCounterValues.All(v => v.Period != currentPeriod))
+                        .ToList();
+
+                var _privateCounters =
+                    _entities.PrivateCounters
+                        .Where(c => _privateCountersIds.Contains(c.ID) && c.PrivateCounterValues.All(v => v.Period != currentPeriod))
+                        .ToList();
+
+                if (_commonCounters.Any() || _privateCounters.Any())
                 {
-                    var _commonCounters =
-                        _entities.CommonCounters
-                            .Where(c => c.CommonCounterValues.All(v => v.Period != currentPeriod))
-                            .ToList();
+                    DialogResult _dialogResult = MessageBox.Show(
+                        "Введены показания не всех приборов учета за текущий учетный период. Использовать показания предыдущего учетного периода для ОДПУ и показания по норме для ПУ?",
+                        "Отсутствуют показания по некоторым приборам учета",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
 
-                    var _privateCounters =
-                        _entities.PrivateCounters
-                            .Where(c => c.PrivateCounterValues.All(v => v.Period != currentPeriod))
-                            .ToList();
-
-                    if (_commonCounters.Any() || _privateCounters.Any())
+                    if (_dialogResult == DialogResult.Yes)
                     {
-                        DialogResult _dialogResult = MessageBox.Show(
-                            "Введены показания не всех приборов учета за текущий учетный период. Использовать показания предыдущего учетного периода для ОДПУ и показания по норме для ПУ?",
-                            "Отсутствуют показания по некоторым приборам учета",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question);
-
-                        if (_dialogResult == DialogResult.Yes)
+                        foreach (CommonCounters _commonCounter in _commonCounters)
                         {
-                            foreach (CommonCounters _commonCounter in _commonCounters)
-                            {
-                                decimal _value =
-                                    _entities.CommonCounterValues
-                                        .Where(
-                                            v =>
-                                                v.CommonCounters.ID == _commonCounter.ID &&
-                                                v.Period == previousPeriod)
-                                        .Select(v => v.Value)
-                                        .FirstOrDefault();
+                            decimal _value =
+                                _entities.CommonCounterValues
+                                    .Where(
+                                        v =>
+                                            v.CommonCounters.ID == _commonCounter.ID &&
+                                            v.Period == previousPeriod)
+                                    .Select(v => v.Value)
+                                    .FirstOrDefault();
 
-                                _entities.AddToCommonCounterValues(
-                                    new CommonCounterValues
-                                    {
-                                        Period = currentPeriod,
-                                        Value = _value,
-                                        CommonCounters = _commonCounter
-                                    });
-                            }
+                            _entities.AddToCommonCounterValues(
+                                new CommonCounterValues
+                                {
+                                    Period = currentPeriod,
+                                    Value = _value,
+                                    CommonCounters = _commonCounter
+                                });
+                        }
 
-                            var _services = _entities.Services
-                                .Where(s => s.ChargeRule == (byte)Service.ChargeRuleType.CounterRate)
-                                .Select(s =>
-                                    new
-                                    {
-                                        s.ID,
-                                        s.Norm
-                                    })
-                                .ToDictionary(s => s.ID, s => s.Norm);
+                        var _services = _entities.Services
+                            .Where(s => s.ChargeRule == (byte)Service.ChargeRuleType.CounterRate)
+                            .Select(s =>
+                                new
+                                {
+                                    s.ID,
+                                    s.Norm
+                                })
+                            .ToDictionary(s => s.ID, s => s.Norm);
 
-                            int[] _customerIDs = _privateCounters.Select(x => x.CustomerID.Value).ToArray();
-                            var _residentCountDict = _entities.Residents
-                                .Where(x => _customerIDs.Contains(x.Customers.ID))
-                                .GroupBy(x => x.Customers.ID)
-                                .Select(g =>
-                                    new
-                                    {
-                                        CustomerID = g.Key,
-                                        ReisdentCount = g.Count()
-                                    })
-                                .ToDictionary(x => x.CustomerID, x => x.ReisdentCount);
+                        int[] _customerIDs = _privateCounters.Select(x => x.CustomerID.Value).ToArray();
+                        var _residentCountDict = _entities.Residents
+                            .Where(x => _customerIDs.Contains(x.Customers.ID))
+                            .GroupBy(x => x.Customers.ID)
+                            .Select(g =>
+                                new
+                                {
+                                    CustomerID = g.Key,
+                                    ReisdentCount = g.Count()
+                                })
+                            .ToDictionary(x => x.CustomerID, x => x.ReisdentCount);
 
-                            foreach (PrivateCounters _pc in _privateCounters)
-                            {
-                                decimal _value =
-                                    _entities.PrivateCounterValues
-                                        .Where(
-                                            v =>
-                                                v.PrivateCounters.ID == _pc.ID &&
-                                                v.Period == previousPeriod)
-                                        .Select(v => v.Value)
-                                        .FirstOrDefault();
+                        foreach (PrivateCounters _pc in _privateCounters)
+                        {
+                            decimal _value =
+                                _entities.PrivateCounterValues
+                                    .Where(
+                                        v =>
+                                            v.PrivateCounters.ID == _pc.ID &&
+                                            v.Period == previousPeriod)
+                                    .Select(v => v.Value)
+                                    .FirstOrDefault();
 
-                                decimal _norm = _services.ContainsKey(_pc.ServiceID.Value) ? _services[_pc.ServiceID.Value] ?? 0 : 0;
-                                int _residentCount = _residentCountDict.ContainsKey(_pc.CustomerID.Value)
-                                    ? _residentCountDict[_pc.CustomerID.Value]
-                                    : 0;
+                            decimal _norm = _services.ContainsKey(_pc.ServiceID.Value) ? _services[_pc.ServiceID.Value] ?? 0 : 0;
+                            int _residentCount = _residentCountDict.ContainsKey(_pc.CustomerID.Value)
+                                ? _residentCountDict[_pc.CustomerID.Value]
+                                : 0;
 
-                                _entities.AddToPrivateCounterValues(
-                                    new PrivateCounterValues
-                                    {
-                                        Period = currentPeriod,
-                                        Value = _value + _norm * _residentCount,
-                                        PrivateCounters = _pc,
-                                        ByNorm = true
-                                    });
-                            }
+                            _entities.AddToPrivateCounterValues(
+                                new PrivateCounterValues
+                                {
+                                    Period = currentPeriod,
+                                    Value = _value + _norm * _residentCount,
+                                    PrivateCounters = _pc,
+                                    ByNorm = true
+                                });
+                        }
 
                         _entities.SaveChanges();
                     }
                     else
                     {
-                            View.ShowMessage(
-                                    "Выполнение начислений невозможно, введите показания всех приборов учета за текущий период",
-                                    "Ошибка");
-                            _result = false;
-                        }
+                        View.ShowMessage(
+                                "Выполнение начислений невозможно, введите показания всех приборов учета за текущий период",
+                                "Ошибка");
+                        _result = false;
                     }
-                }
-                else
-                {
-                    View.ShowMessage(
-                        "Внесены показания не всех приборов учета за прошлый период. Выполнение начислений невозможно.",
-                        "Ошибка");
-                    _result = false;
                 }
             }
             return _result;
