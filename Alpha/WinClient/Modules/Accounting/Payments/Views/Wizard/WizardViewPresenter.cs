@@ -21,6 +21,8 @@ using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
 using Taumis.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
+using Taumis.Alpha.Infrastructure.Interface.Common;
+using Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 {
@@ -420,208 +422,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
         public void SaveCustomerPayments(KeyValuePair<int, WizardPaymentElement[]> customerPaymentsPair)
         {
-            PeriodBalances _periodBalances;
+            Dictionary<DateTime, Dictionary<int, Balance>> _debtBalancesByPeriod;
 
             #region Запрос
 
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                _entities.CommandTimeout = 3600;
-
-                _periodBalances = new PeriodBalances(
-                    _entities.ChargeOperPoses
-                        .Select(
-                            c =>
-                            new
-                            {
-                                CustomerID = c.ChargeOpers.Customers.ID,
-                                c.ChargeOpers.ChargeSets.Period,
-                                ServiceID = c.Services.ID,
-                                ChargeValue = c.Value,
-                                RechargeValue = (decimal)0,
-                                c.Value
-                            })
-                        .Concat(
-                            _entities.ChargeOperPoses
-                                .Where(c => c.ChargeOpers.ChargeCorrectionOpers != null)
-                                .Select(
-                                    c =>
-                                    new
-                                    {
-                                        CustomerID = c.ChargeOpers.Customers.ID,
-                                        c.ChargeOpers.ChargeCorrectionOpers.Period,
-                                        ServiceID = c.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        Value = -1 * c.Value
-                                    }))
-                        .Concat(
-                            _entities.RechargeOperPoses
-                                .Select(
-                                    r =>
-                                    new
-                                    {
-                                        CustomerID = r.RechargeOpers.Customers.ID,
-                                        r.RechargeOpers.RechargeSets.Period,
-                                        ServiceID = r.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = r.Value,
-                                        r.Value
-                                    }))
-                        .Concat(
-                            _entities.RechargeOperPoses
-                                .Where(r => r.RechargeOpers.ChildChargeCorrectionOpers != null)
-                                .Select(
-                                    r =>
-                                    new
-                                    {
-                                        CustomerID = r.RechargeOpers.Customers.ID,
-                                        r.RechargeOpers.ChildChargeCorrectionOpers.Period,
-                                        ServiceID = r.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = -r.Value,
-                                        Value = -r.Value
-                                    }))
-                        .Concat(
-                            _entities.BenefitOperPoses
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.BenefitOpers.ChargeOpers.Customers.ID,
-                                        b.BenefitOpers.ChargeOpers.ChargeSets.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.BenefitOperPoses
-                                .Where(b => b.BenefitOpers.BenefitCorrectionOpers != null)
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.BenefitOpers.ChargeOpers.Customers.ID,
-                                        b.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.RebenefitOperPoses
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.RebenefitOpers.RechargeOpers.Customers.ID,
-                                        b.RebenefitOpers.RechargeOpers.RechargeSets.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.RebenefitOperPoses
-                                .Where(b => b.RebenefitOpers.BenefitCorrectionOpers != null)
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.RebenefitOpers.RechargeOpers.Customers.ID,
-                                        b.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.OverpaymentOperPoses
-                                .Select(
-                                    o =>
-                                    new
-                                    {
-                                        CustomerID = o.OverpaymentOpers.Customers.ID,
-                                        o.Period,
-                                        ServiceID = o.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        o.Value
-                                    }))
-                        .Concat(
-                            _entities.OverpaymentCorrectionOperPoses
-                                .Select(
-                                    o =>
-                                    new
-                                    {
-                                        CustomerID = o.OverpaymentCorrectionOpers.ChargeOpers.Customers.ID,
-                                        o.OverpaymentCorrectionOpers.Period,
-                                        ServiceID = o.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        o.Value
-                                    }))
-                        .Concat(
-                            _entities.PaymentOperPoses
-                                .Select(
-                                    p =>
-                                    new
-                                    {
-                                        CustomerID = p.PaymentOpers.Customers.ID,
-                                        p.Period,
-                                        ServiceID = p.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        p.Value
-                                    }))
-                        .Concat(
-                            _entities.PaymentCorrectionOperPoses
-                                .Select(
-                                    p =>
-                                    new
-                                    {
-                                        CustomerID = p.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
-                                        p.PaymentCorrectionOpers.Period,
-                                        ServiceID = p.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        p.Value
-                                    }))
-                        .Where(c => c.CustomerID == customerPaymentsPair.Key)
-                        .GroupBy(r => r.Period)
-                        .Select(
-                            groupedByPeriod =>
-                            new
-                            {
-                                Period = groupedByPeriod.Key,
-                                Charge = groupedByPeriod.Sum(c => c.ChargeValue),
-                                Rechage = groupedByPeriod.Sum(c => c.RechargeValue),
-                                Total = groupedByPeriod.Sum(c => c.Value),
-                                Balances =
-                                    groupedByPeriod
-                                        .GroupBy(c => c.ServiceID)
-                                        .Select(
-                                            groupedByService =>
-                                            new
-                                            {
-                                                ServiceID = groupedByService.Key,
-                                                ValueSum = groupedByService.Sum(c => c.Value),
-                                                Charged = groupedByService.Sum(c => c.ChargeValue),
-                                                Recharged = groupedByService.Sum(c => c.RechargeValue)
-                                            })
-                            })
-                        .OrderBy(r => r.Period)
-                        .ToDictionary(
-                            periodBalance => periodBalance.Period,
-                            periodBalance =>
-                                new ServiceBalances(
-                                    periodBalance.Balances
-                                        .ToDictionary(
-                                            serviceBalance => serviceBalance.ServiceID,
-                                            serviceBalance =>
-                                            new Balance(serviceBalance.Charged, 0, serviceBalance.Recharged, 0, 0, 0, serviceBalance.ValueSum)),
-                                    new Balance(periodBalance.Charge, 0, periodBalance.Rechage, 0, 0, 0, periodBalance.Total))));
+                _db.CommandTimeout = 3600;
+                _debtBalancesByPeriod = _db.GetCustomerBalancesGroupedByPeriod(customerPaymentsPair.Key, x => x.Total > 0);
             }
 
             #endregion

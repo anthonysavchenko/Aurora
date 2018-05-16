@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Domain.Doc;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
@@ -9,27 +10,6 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
     /// </summary>
     public class Customer : TransDoc
     {
-        /// <summary>
-        /// Тип собственника
-        /// </summary>
-        public enum OwnerTypes
-        {
-            /// <summary>
-            /// Собственнк неизвестен
-            /// </summary>
-            Unknown = 0,
-
-            /// <summary>
-            /// Физическое лицо
-            /// </summary>
-            PhysicalPerson,
-
-            /// <summary>
-            /// Юридицеское лицо
-            /// </summary>
-            JuridicalPerson
-        }
-
         public Customer()
         {
             _customerPoses = new Dictionary<string, CustomerPos>();
