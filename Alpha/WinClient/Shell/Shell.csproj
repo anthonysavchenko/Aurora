@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>6C0A2859CC42C7EFFDDD7EE11BAC2E678CD06773</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8EA24090FABD3959ACD4F2411DCC74565DC1E28F</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -278,10 +278,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Properties\app.manifest" />
-    <None Include="Shell_TemporaryKey.pfx" />
     <Content Include="Templates\GisZhkh_Customer_Export.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Shell_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
