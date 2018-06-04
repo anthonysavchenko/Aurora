@@ -31,6 +31,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int AREA = 5;
                 public const int BIK = 16;
                 public const int BANK_ACCOUNT = 17;
+                public const int REPAIR_RATE = 18;
+                public const int REPAIR_CHARGE = 19;
+                public const int REPAIR_TOTAL = 23;
             }
         }
 
@@ -168,6 +171,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_ci.Area);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_ci.Bik);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
 
                             foreach (BillInfo _bi in _ci.Bills)
                             {
