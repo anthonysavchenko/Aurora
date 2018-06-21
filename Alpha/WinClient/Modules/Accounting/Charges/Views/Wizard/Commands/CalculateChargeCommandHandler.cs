@@ -2,7 +2,7 @@
 using System.Linq;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands.Common;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Common;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands

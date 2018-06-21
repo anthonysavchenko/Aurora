@@ -3,7 +3,7 @@
     /// <summary>
     /// Тип собственника
     /// </summary>
-    public enum OwnerTypes
+    public enum OwnerType
     {
         /// <summary>
         /// Собственнк неизвестен

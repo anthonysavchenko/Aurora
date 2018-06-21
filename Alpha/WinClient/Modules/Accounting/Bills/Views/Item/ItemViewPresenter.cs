@@ -4,14 +4,15 @@ using System;
 using System.Data;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Tabbed;
+using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.EnterpriseLibrary.Win.Services;
 using Taumis.Infrastructure.Interface.Constants;
-using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Item
 {
@@ -55,16 +56,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Item
 
             switch (_set.BillType)
             {
-                case BillSet.BillTypes.Regular:
+                case BillType.Regular:
                     _res = DataMapper<RegularBillDoc, IBaseBillDocDataMapper>().GetList(_set);
                     break;
 
-                case BillSet.BillTypes.Debt:
+                case BillType.Debt:
                     _res = DataMapper<DebtBillDoc, IBaseBillDocDataMapper>().GetList(_set);
                     break;
 
 
-                case BillSet.BillTypes.Total:
+                case BillType.Total:
                     _res = DataMapper<TotalBillDoc, IBaseBillDocDataMapper>().GetList(_set);
                     break;
             }
@@ -106,15 +107,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Item
                     {
                         switch (_set.BillType)
                         {
-                            case BillSet.BillTypes.Regular:
+                            case BillType.Regular:
                                 WorkItem.Controller.RunUsecase(ApplicationUsecaseNames.REGULAR_BILL, new PrintItemsStartUpParams(_ids));
                                 break;
 
-                            case BillSet.BillTypes.Debt:
+                            case BillType.Debt:
                                 WorkItem.Controller.RunUsecase(ApplicationUsecaseNames.DEBT_BILL, new PrintItemsStartUpParams(_ids));
                                 break;
 
-                            case BillSet.BillTypes.Total:
+                            case BillType.Total:
                                 WorkItem.Controller.RunUsecase(ApplicationUsecaseNames.TOTAL_BILL, new PrintItemsStartUpParams(_ids));
                                 break;
                         }  

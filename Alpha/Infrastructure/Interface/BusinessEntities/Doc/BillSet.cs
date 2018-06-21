@@ -45,11 +45,11 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private BillTypes _billType;
+        private BillType _billType;
         /// <summary>
         /// Вид квитанций в наборе
         /// </summary>
-        public BillTypes BillType
+        public BillType BillType
         {
             get
             {

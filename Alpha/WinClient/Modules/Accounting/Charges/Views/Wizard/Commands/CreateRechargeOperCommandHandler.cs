@@ -2,83 +2,76 @@
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands.Common;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Common;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
     public class CreateRechargeOperCommandHandler : ICommandHandler<CreateRechargeOperCommand>
     {
-        private readonly Entities _db;
-
-        public CreateRechargeOperCommandHandler(Entities db)
-        {
-            _db = db;
-        }
-
-        public void Execute(CreateRechargeOperCommand command)
+        public void Execute(CreateRechargeOperCommand cmd)
         {
             RechargeOpers _rechargeOper =
                 new RechargeOpers
                 {
-                    RechargeSets = command.RechargeSet,
-                    CreationDateTime = command.Now,
-                    Customers = command.DbCustomer,
-                    ChargeOpers = command.ChargeOper
+                    RechargeSets = cmd.RechargeSet,
+                    CreationDateTime = cmd.Now,
+                    Customers = cmd.DbCustomer,
+                    ChargeOpers = cmd.ChargeOper
                 };
-            _db.AddToRechargeOpers(_rechargeOper);
+            cmd.Db.AddToRechargeOpers(_rechargeOper);
 
-            if (command.ChargeCorrectionOper != null)
+            if (cmd.ChargeCorrectionOper != null)
             {
-                command.ChargeCorrectionOper.ChildRechargeOpers = _rechargeOper;
+                cmd.ChargeCorrectionOper.ChildRechargeOpers = _rechargeOper;
             }
 
             RebenefitOpers _rebenefitOper = null;
 
-            if (command.BenefitsByPos.Count > 0)
+            if (cmd.BenefitsByPos.Count > 0)
             {
                 _rebenefitOper =
                     new RebenefitOpers
                     {
                         RechargeOpers = _rechargeOper
                     };
-                _db.AddToRebenefitOpers(_rebenefitOper);
+                cmd.Db.AddToRebenefitOpers(_rebenefitOper);
             }
 
-            foreach (CustomerPosInfo _pos in command.CustomerInfo.Poses)
+            foreach (CustomerPosInfo _pos in cmd.CustomerInfo.Poses)
             {
-                if(command.ChargesByPos.ContainsKey(_pos.Id))
+                if(cmd.ChargesByPos.ContainsKey(_pos.Id))
                 {
                     RechargeOperPoses _rechargeOperPos = 
                         new RechargeOperPoses
                         {
                             RechargeOpers = _rechargeOper,
-                            Services = command.Services[_pos.ServiceId],
-                            Contractors = command.Contractors[_pos.ContractorId],
-                            Value = Math.Round(command.ChargesByPos[_pos.Id], 2, MidpointRounding.AwayFromZero)
+                            Services = cmd.Services[_pos.ServiceId],
+                            Contractors = cmd.Contractors[_pos.ContractorId],
+                            Value = Math.Round(cmd.ChargesByPos[_pos.Id], 2, MidpointRounding.AwayFromZero)
                         };
-                    _db.AddToRechargeOperPoses(_rechargeOperPos);
+                    cmd.Db.AddToRechargeOperPoses(_rechargeOperPos);
 
                     _rechargeOper.Value += _rechargeOperPos.Value;
                 }
 
-                if(command.BenefitsByPos.ContainsKey(_pos.Id))
+                if(cmd.BenefitsByPos.ContainsKey(_pos.Id))
                 {
                     RebenefitOperPoses _rebenefitOperPos =
                         new RebenefitOperPoses()
                         {
                             RebenefitOpers = _rebenefitOper,
-                            Services = command.Services[_pos.ServiceId],
+                            Services = cmd.Services[_pos.ServiceId],
                             BenefitRule = (byte)BenefitRuleType.FixedPercent,
-                            Contractors = command.Contractors[_pos.ContractorId],
-                            Value = command.BenefitsByPos[_pos.Id]
+                            Contractors = cmd.Contractors[_pos.ContractorId],
+                            Value = cmd.BenefitsByPos[_pos.Id]
                         };
-                    _db.AddToRebenefitOperPoses(_rebenefitOperPos);
+                    cmd.Db.AddToRebenefitOperPoses(_rebenefitOperPos);
                     _rebenefitOper.Value += _rebenefitOperPos.Value;
                 }
             }
 
-            command.RechargeSet.Quantity++;
-            command.RechargeSet.ValueSum += _rechargeOper.Value;
+            cmd.RechargeSet.Quantity++;
+            cmd.RechargeSet.ValueSum += _rechargeOper.Value;
         }
     }
 }

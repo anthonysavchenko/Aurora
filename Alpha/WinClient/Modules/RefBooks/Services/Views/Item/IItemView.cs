@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
@@ -29,7 +30,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
         /// <summary>
         /// Правило начисления
         /// </summary>
-        Service.ChargeRuleType ChargeRule { get; set; }
+        ChargeRuleType ChargeRule { get; set; }
 
         /// <summary>
         /// Норматив

@@ -7,26 +7,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 {
     public class CreateChargeCommandHandler : ICommandHandler<CreateChargeCommand>
     {
-        private readonly Entities _db;
-
-        public CreateChargeCommandHandler(Entities db)
-        {
-            _db = db;
-        }
-
         public void Execute(CreateChargeCommand command)
         {
-            ChargeSets _chargeSet =_db.ChargeSets.First(x => x.ID == command.ChargeSetId);
-
             var _chargeOper =
                 new ChargeOpers
                 {
                     CreationDateTime = command.Now,
                     Customers = command.DbCustomerStub,
-                    ChargeSets = _chargeSet,
+                    ChargeSets = command.ChargeSet,
                     Value = command.ChargesByPos.Sum(x => x.Value)
                 };
-            _db.ChargeOpers.AddObject(_chargeOper);
+            command.Db.ChargeOpers.AddObject(_chargeOper);
 
             BenefitOpers _benefitOper = null;
 
@@ -38,7 +29,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         ChargeOpers = _chargeOper,
                         Value = command.BenefitsByPos.Sum(x => x.Value)
                     };
-                _db.BenefitOpers.AddObject(_benefitOper);
+                command.Db.BenefitOpers.AddObject(_benefitOper);
             }
 
             foreach (var _pos in command.CustomerInfo.Poses)
@@ -54,7 +45,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             Value = command.ChargesByPos[_pos.Id]
                         };
 
-                    _db.ChargeOperPoses.AddObject(_operPos);
+                    command.Db.ChargeOperPoses.AddObject(_operPos);
                 }
 
                 if (command.BenefitsByPos.ContainsKey(_pos.Id))
@@ -69,12 +60,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             Value = command.BenefitsByPos[_pos.Id]
                         };
 
-                    _db.BenefitOperPoses.AddObject(_operPos);
+                    command.Db.BenefitOperPoses.AddObject(_operPos);
                 }
             }
 
-            _chargeSet.Quantity++;
-            _chargeSet.ValueSum += _chargeOper.Value;
+            command.ChargeSet.Quantity++;
+            command.ChargeSet.ValueSum += _chargeOper.Value;
 
             command.Result = _chargeOper;
         }

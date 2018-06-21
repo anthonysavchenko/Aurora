@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI;
 using System;
@@ -8,21 +6,24 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Common;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.Alpha.Infrastructure.Library.Services;
+using Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Tabbed;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
 using Taumis.Infrastructure.Interface.Constants;
-using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
-using Taumis.Alpha.Infrastructure.Interface.Common;
-using Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 {
@@ -47,7 +48,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         private int _paymentSetID;
         private decimal _totalSum;
         private int _processedCount;
-        private  int _errorsCount;
+        private int _errorsCount;
         private readonly object _statusChangeLock = new object();
         private readonly object _errorLogLock = new object();
 
@@ -304,8 +305,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                     Payments.Values
                         .Select(p => p.Account)
                         .Distinct()
-                        .All(c => 
-                            _entities.ChargeOpers.Any(co => co.Customers.Account == c) || 
+                        .All(c =>
+                            _entities.ChargeOpers.Any(co => co.Customers.Account == c) ||
                             _entities.RechargeOpers.Any(co => co.Customers.Account == c));
             }
 
@@ -371,7 +372,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             View.IsMasterInProgress = true;
 
             _creationDateTime = ServerTime.GetDateTimeInfo().Now;
-            
+
             int _customerID = int.Parse(UserHolder.User.ID);
 
             using (Entities _entities = new Entities())
@@ -430,6 +431,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             {
                 _db.CommandTimeout = 3600;
                 _debtBalancesByPeriod = _db.GetCustomerBalancesGroupedByPeriod(customerPaymentsPair.Key, x => x.Total > 0);
+                Tuple<DateTime, Dictionary<int, Balance>> _lastChargedPeriodBalance =
+                    _db.GetLastChargedPeriodBalance(customerPaymentsPair.Key);
+
+                if (!_debtBalancesByPeriod.ContainsKey(_lastChargedPeriodBalance.Item1))
+                {
+                    _debtBalancesByPeriod.Add(_lastChargedPeriodBalance.Item1, _lastChargedPeriodBalance.Item2);
+                }
             }
 
             #endregion
@@ -462,29 +470,28 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                 service => service.ID,
                                 service => service);
 
-                        PeriodBalances _distribution =
+                        Dictionary<DateTime, Dictionary<int, decimal>> _distribution =
                             PaymentDistributionSrv.DistributePayment(
-                                _periodBalances,
+                                _debtBalancesByPeriod,
                                 _paymentOper.PaymentSets.PaymentDate,
                                 _paymentOper.PaymentPeriod,
                                 ServerTime.GetPeriodInfo().LastCharged,
                                 _paymentOper.Value,
                                 _customer.ID);
 
-                        foreach (KeyValuePair<DateTime, ServiceBalances> _periodBalance in _distribution.Balances)
+                        foreach (var periodBalancePair in _distribution)
                         {
-                            foreach (KeyValuePair<int, Balance> _serviceBalance in _periodBalance.Value.Balances)
+                            foreach (var _serviceValuePair in periodBalancePair.Value)
                             {
                                 PaymentOperPoses _pos = new PaymentOperPoses()
                                 {
                                     PaymentOpers = _paymentOper,
-                                    Period = _periodBalance.Key,
-                                    Services = _services[_serviceBalance.Key],
-                                    Value = _serviceBalance.Value.Payment,
+                                    Period = periodBalancePair.Key,
+                                    Services = _services[_serviceValuePair.Key],
+                                    Value = _serviceValuePair.Value,
                                 };
 
                                 _entities.AddToPaymentOperPoses(_pos);
-                                _periodBalances.AddPayment(_pos.Period, _pos.Services.ID, _pos.Value);
                             }
                         }
 
@@ -779,7 +786,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                     String.Format("{0:MM.yyyy}", _element.Value.Period),
                     _element.Value.Value,
                     _element.Value.Owner != null
-                        ? (_element.Value.Owner.OwnerType == Customer.OwnerTypes.PhysicalPerson
+                        ? (_element.Value.Owner.OwnerType == OwnerType.PhysicalPerson
                             ? _element.Value.Owner.PhysicalPersonShortName
                             : _element.Value.Owner.JuridicalPersonFullName)
                         : String.Empty,
@@ -814,11 +821,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             {
                 string _owner = "Неизвестен";
 
-                if (customer.OwnerType == Customer.OwnerTypes.PhysicalPerson)
+                if (customer.OwnerType == OwnerType.PhysicalPerson)
                 {
                     _owner = customer.PhysicalPersonShortName;
                 }
-                else if (customer.OwnerType == Customer.OwnerTypes.JuridicalPerson)
+                else if (customer.OwnerType == OwnerType.JuridicalPerson)
                 {
                     _owner = customer.JuridicalPersonFullName;
                 }
@@ -919,7 +926,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         internal decimal GetChargeValueByAccountAndPeriod(string account, DateTime period)
         {
             decimal _res;
-            using (var _entities = new Taumis.Alpha.DataBase.Entities())
+            using (var _entities = new Entities())
             {
                 _res =
                     _entities.ChargeOpers

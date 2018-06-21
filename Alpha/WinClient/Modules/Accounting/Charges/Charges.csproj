@@ -100,10 +100,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\Wizard\Commands\Common\CustomerInfo.cs" />
-    <Compile Include="Views\Wizard\Commands\Common\CustomerPosInfo.cs" />
-    <Compile Include="Views\Wizard\Commands\Common\RegisterCommandResult.cs" />
-    <Compile Include="Views\Wizard\Commands\Common\ServicePercentCorrection.cs" />
+    <Compile Include="Views\Wizard\Commands\CalculateDebtDistributionCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CalculateDebtDistributionCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\DbBackup\DbBackupCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\DbBackup\DbBackupCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Common\CustomerInfo.cs" />
+    <Compile Include="Views\Wizard\Common\CustomerPosInfo.cs" />
+    <Compile Include="Views\Wizard\Common\RegisterCommandResult.cs" />
+    <Compile Include="Views\Wizard\Common\ServicePercentCorrection.cs" />
     <Compile Include="Views\Wizard\Commands\CreateChargeCorrectionOperCommand.cs" />
     <Compile Include="Views\Wizard\Commands\CreateRechargeOperCommand.cs" />
     <Compile Include="Views\Wizard\Commands\CreateBillSetsCommand.cs" />
@@ -139,8 +143,11 @@
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Wizard\Commands\RegisterRechargeCommand.cs" />
+    <Compile Include="Views\Wizard\Factories\IWizardCommandDispatcherFactory.cs" />
+    <Compile Include="Views\Wizard\Factories\WizardCommandDispatcherFactory.cs" />
     <Compile Include="Views\Wizard\Queries\GetCustomerInfoQuery.cs" />
     <Compile Include="Views\Wizard\Queries\GetOverpaymentDataQuery.cs" />
+    <Compile Include="Views\Wizard\Queries\GetPercentCorrectionCustomerDataQuery.cs" />
     <Compile Include="Views\Wizard\Queries\GetTotalForCustomerQuery.cs" />
     <Compile Include="Services\Cache.cs" />
     <Compile Include="Services\ICache.cs" />
@@ -188,6 +195,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\Wizard\IWizardView.cs" />
+    <Compile Include="Views\Wizard\Services\IWizardService.cs" />
+    <Compile Include="Views\Wizard\Services\WizardService.cs" />
     <Compile Include="Views\Wizard\WizardView.cs">
       <SubType>UserControl</SubType>
     </Compile>

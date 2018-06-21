@@ -31,7 +31,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         {
                             CreationDateTime = command.CreationDateTime,
                             Number = _db.BillSets.Any() ? _db.BillSets.Max(c => c.Number) + 1 : 1,
-                            BillType = (byte)BillTypes.Regular,
+                            BillType = (byte)BillType.Regular,
                         };
                     _db.AddToBillSets(_billSet);
                     _db.SaveChanges();

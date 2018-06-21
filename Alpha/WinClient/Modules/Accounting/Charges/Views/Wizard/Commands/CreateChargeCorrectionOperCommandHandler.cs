@@ -8,23 +8,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 {
     public class CreateChargeCorrectionOperCommandHandler : ICommandHandler<CreateChargeCorrectionOperCommand>
     {
-        private readonly Entities _db;
-
-        public CreateChargeCorrectionOperCommandHandler(Entities db)
+        public void Execute(CreateChargeCorrectionOperCommand cmd)
         {
-            _db = db;
-        }
-
-        public void Execute(CreateChargeCorrectionOperCommand command)
-        {
-            if (command.ChargeOper == null)
+            if (cmd.ChargeOper == null)
             {
                 throw new ArgumentNullException("chargeOper");
             }
 
-            command.Result = command.ChargeOper.ChargeCorrectionOpers == null
-                ? CorrectCharge(command.ChargeOper, command.Now, command.CurrentPeriod,command.Services, command.Contractors)
-                : CorrectRecharge(command.ChargeOper, command.Now, command.CurrentPeriod, command.Services, command.Contractors);
+            cmd.Result = cmd.ChargeOper.ChargeCorrectionOpers == null
+                ? CorrectCharge(cmd.ChargeOper, cmd.Now, cmd.Period, cmd.Services, cmd.Contractors, cmd.Db)
+                : CorrectRecharge(cmd.ChargeOper, cmd.Now, cmd.Period, cmd.Services, cmd.Contractors, cmd.Db);
         }
 
         private ChargeCorrectionOpers CorrectCharge(
@@ -32,13 +25,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             DateTime now,
             DateTime period,
             Dictionary<int, DataBase.Services> services,
-            Dictionary<int, Contractors> contractors)
+            Dictionary<int, Contractors> contractors,
+            Entities db)
         {
-            var _chargeCorrectionOper = CreateChargeCorrectionOper(now, period, _chargeOper.Value * (-1));
+            var _chargeCorrectionOper = 
+                new ChargeCorrectionOpers
+                {
+                    CreationDateTime = now,
+                    Period = period,
+                    Value = _chargeOper.Value * (-1)
+                };
+            db.AddToChargeCorrectionOpers(_chargeCorrectionOper);
             _chargeOper.ChargeCorrectionOpers = _chargeCorrectionOper;
 
             var _chargeOperPoses =
-                _db.ChargeOperPoses
+                db.ChargeOperPoses
                     .Where(p => p.ChargeOpers.ID == _chargeOper.ID)
                     .Select(p =>
                         new
@@ -58,11 +59,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     Contractors = contractors[_chargePos.ContractorId],
                     Value = _chargePos.Value * (-1)
                 };
-                _db.AddToChargeCorrectionOperPoses(_chargeCorrectionPos);
+                db.AddToChargeCorrectionOperPoses(_chargeCorrectionPos);
             }
 
             BenefitOpers _benefitOper =
-                _db.BenefitOpers
+                db.BenefitOpers
                     .Include("BenefitOperPoses")
                     .FirstOrDefault(b => b.ChargeOpers.ID == _chargeOper.ID);
 
@@ -74,7 +75,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         ChargeCorrectionOpers = _chargeCorrectionOper,
                         Value = _benefitOper.Value * (-1)
                     };
-                _db.AddToBenefitCorrectionOpers(_benefitCorrectionOper);
+                db.AddToBenefitCorrectionOpers(_benefitCorrectionOper);
                 _benefitOper.BenefitCorrectionOpers = _benefitCorrectionOper;
 
                 foreach (var _benefitPos in _benefitOper.BenefitOperPoses)
@@ -87,7 +88,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             Contractors = _benefitPos.Contractors,
                             Value = _benefitPos.Value * (-1)
                         };
-                    _db.AddToBenefitCorrectionOperPoses(_benefitCorrectionOperPos);
+                    db.AddToBenefitCorrectionOperPoses(_benefitCorrectionOperPos);
                 }
             }
 
@@ -99,10 +100,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             DateTime now,
             DateTime period,
             Dictionary<int, DataBase.Services> services,
-            Dictionary<int, Contractors> contractors)
+            Dictionary<int, Contractors> contractors,
+            Entities db)
         {
             RechargeOpers _currentRechargeOper =
-                        _db.RechargeOpers
+                        db.RechargeOpers
                             .FirstOrDefault(r =>
                                 r.ChargeOpers.ID == _chargeOper.ID &&
                                 r.ChildChargeCorrectionOpers == null);
@@ -111,11 +113,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             if (_currentRechargeOper != null)
             {
-                _chargeCorrectionOper = CreateChargeCorrectionOper(now, period, _currentRechargeOper.Value * (-1));
+                _chargeCorrectionOper =
+                    new ChargeCorrectionOpers
+                    {
+                        CreationDateTime = now,
+                        Period = period,
+                        Value = _currentRechargeOper.Value * (-1)
+                    };
+                db.AddToChargeCorrectionOpers(_chargeCorrectionOper);
                 _currentRechargeOper.ChildChargeCorrectionOpers = _chargeCorrectionOper;
 
                 var _poses =
-                    _db.RechargeOperPoses
+                    db.RechargeOperPoses
                         .Where(p => p.RechargeOpers.ID == _currentRechargeOper.ID)
                         .Select(p =>
                             new
@@ -135,11 +144,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         Contractors = contractors[_pos.ContractorId],
                         Value = _pos.Value * (-1)
                     };
-                    _db.AddToChargeCorrectionOperPoses(_chargeCorrectionPos);
+                    db.AddToChargeCorrectionOperPoses(_chargeCorrectionPos);
                 }
 
                 RebenefitOpers _currentRebenefitOper =
-                    _db.RebenefitOpers
+                    db.RebenefitOpers
                         .Include("RebenefitOperPoses")
                         .FirstOrDefault(b => b.RechargeOpers.ID == _currentRechargeOper.ID);
 
@@ -151,7 +160,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             ChargeCorrectionOpers = _chargeCorrectionOper,
                             Value = _currentRebenefitOper.Value * (-1)
                         };
-                    _db.AddToBenefitCorrectionOpers(_benefitCorrectionOper);
+                    db.AddToBenefitCorrectionOpers(_benefitCorrectionOper);
                     _currentRebenefitOper.BenefitCorrectionOpers = _benefitCorrectionOper;
 
                     foreach (var _benefitPos in _currentRebenefitOper.RebenefitOperPoses)
@@ -164,14 +173,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 Contractors = _benefitPos.Contractors,
                                 Value = _benefitPos.Value * (-1)
                             };
-                        _db.AddToBenefitCorrectionOperPoses(_benefitCorrectionOperPos);
+                        db.AddToBenefitCorrectionOperPoses(_benefitCorrectionOperPos);
                     }
                 }
             }
             else
             {
                 RechargeOpers _lastRechargeOper =
-                    _db.RechargeOpers
+                    db.RechargeOpers
                         .Include("ChildChargeCorrectionOpers")
                         .Where(r => r.ChargeOpers.ID == _chargeOper.ID)
                         .OrderByDescending(r => r.CreationDateTime)
@@ -184,24 +193,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             }
 
             return _chargeCorrectionOper;
-        }
-
-        private ChargeCorrectionOpers CreateChargeCorrectionOper(
-            DateTime now,
-            DateTime period,
-            decimal value)
-        {
-            var _oper =
-                new ChargeCorrectionOpers
-                {
-                    CreationDateTime = now,
-                    Period = period,
-                    Value = value
-                };
-
-            _db.AddToChargeCorrectionOpers(_oper);
-
-            return _oper;
         }
     }
 }

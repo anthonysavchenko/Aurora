@@ -9,6 +9,9 @@ using Taumis.Alpha.DataBase;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services
 {
+    /// <summary>
+    /// Сервис распределения платежа
+    /// </summary>
     public class PaymentDistributionService
     {
         [ServiceDependency]
@@ -32,7 +35,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
             decimal paymentValue,
             int customerId)
         {
-
             return Distribute(
                 debtBalances,
                 paymentPeriod,
@@ -88,7 +90,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
                     .OrderBy(p => p)
                     .ToList();
 
-            if (debtBalances.ContainsKey(paymentPeriod))
+            if (debtBalances.ContainsKey(paymentPeriod) && debtBalances[paymentPeriod].Values.Sum(x => x.Total) > 0)
             {
                 _debtPeriods.Insert(0, paymentPeriod);
             }
@@ -113,19 +115,23 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
 
             if (paymentValue > 0)
             {
+                Dictionary<int, Balance> _lastChargedPeriodBalance = debtBalances.Values.LastOrDefault(x => x.GetTotal().Charge > 0);
+
+                if (_lastChargedPeriodBalance == null)
+                {
+                    _lastChargedPeriodBalance = debtBalances.Values.LastOrDefault(x => x.GetTotal().Recharge > 0);
+                }
+
+                Dictionary<int, decimal> _distr = Distribute(paymentValue, _lastChargedPeriodBalance, distributeByCharge: true);
+
                 if (!_result.ContainsKey(lastChargedPeriod))
                 {
-                    _result.Add(lastChargedPeriod, new Dictionary<int, decimal>());
+                    _result.Add(lastChargedPeriod, _distr);
                 }
-
-                Dictionary<int, Balance> _lastServiceBalance = debtBalances.Values.LastOrDefault(x => x.GetTotal().Charge > 0);
-
-                if (_lastServiceBalance == null)
+                else
                 {
-                    _lastServiceBalance = debtBalances.Values.LastOrDefault(x => x.GetTotal().Recharge > 0);
+                    _result[lastChargedPeriod].Add(_distr);
                 }
-
-                Distribute(paymentValue, _lastServiceBalance, distributeByCharge: true);
             }
 
             return _result;

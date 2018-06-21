@@ -2,7 +2,7 @@
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
 using Taumis.Alpha.Infrastructure.Interface.Common;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands.Common;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Common;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
@@ -15,5 +15,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
         public Dictionary<int, DataBase.Services> Services { get; set; }
         public Dictionary<int, Contractors> Contractors { get; set; }
         public int BillSetId { get; set; }
+
+        public Entities Db { get; set; }
     }
 }

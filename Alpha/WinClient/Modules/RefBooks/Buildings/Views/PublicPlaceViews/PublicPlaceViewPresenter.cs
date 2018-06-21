@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
@@ -160,7 +161,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.PublicP
             _table.Columns.Add("ID", typeof(int));
             _table.Columns.Add("Name", typeof(string));
 
-            const int RATE_RULE = (int)Service.ChargeRuleType.PublicPlaceAreaRate;
+            const int RATE_RULE = (int)ChargeRuleType.PublicPlaceAreaRate;
 
             using (Entities _entities = new Entities())
             {

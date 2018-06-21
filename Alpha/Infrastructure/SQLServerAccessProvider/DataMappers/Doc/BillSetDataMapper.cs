@@ -4,6 +4,7 @@ using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.BillSets;
@@ -65,7 +66,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
 
                 _domItem.CreationDateTime = _dbItem.CreationDateTime;
                 _domItem.Number = _dbItem.Number;
-                _domItem.BillType = (BillSet.BillTypes)_dbItem.BillType;
+                _domItem.BillType = (BillType)_dbItem.BillType;
                 _domItem.Quantity = _dbItem.Quantity;
                 _domItem.ValueSum = _dbItem.ValueSum;
             }
@@ -116,21 +117,21 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                     _entities.BillSets
                         .Where(p => p.CreationDateTime >= since && p.CreationDateTime <= till);
 
-                foreach (BillSets _billSet in _result)
+                foreach (DBItem _billSet in _result)
                 {
                     string _billType = null;
 
-                    switch ((BillSet.BillTypes)_billSet.BillType)
+                    switch ((BillType)_billSet.BillType)
                     {
-                        case BillSet.BillTypes.Regular:
+                        case BillType.Regular:
                             _billType = "Ежемесячные";
                             break;
 
-                        case BillSet.BillTypes.Debt:
+                        case BillType.Debt:
                             _billType = "Долговые";
                             break;
 
-                        case BillSet.BillTypes.Total:
+                        case BillType.Total:
                             _billType = "На доплату";
                             break;
 

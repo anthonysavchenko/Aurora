@@ -11,28 +11,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
     public class CreateOverpaymentCommandHandler : ICommandHandler<CreateOverpaymentCommand>
     {
         private readonly PaymentDistributionService _pds;
-        private readonly Entities _db;
 
-        public CreateOverpaymentCommandHandler(PaymentDistributionService pds, Entities db)
+        public CreateOverpaymentCommandHandler(PaymentDistributionService pds)
         {
             _pds = pds;
-            _db = db;
         }
 
-        public void Execute(CreateOverpaymentCommand command)
+        public void Execute(CreateOverpaymentCommand cmd)
         {
-            Dictionary<int, decimal> _total = _db.GetOverpaymentData(command.DbCustomerStub.ID, command.PeriodInfo.LastCharged);
+            Dictionary<int, decimal> _total = cmd.Db.GetOverpaymentData(cmd.DbCustomerStub.ID, cmd.LastChargedPeriod);
 
             if (_total.Count > 0)
             {
                 OverpaymentCorrectionOpers _overpaymentCorrectionOper =
                     new OverpaymentCorrectionOpers
                     {
-                        Period = command.PeriodInfo.LastCharged,
+                        Period = cmd.LastChargedPeriod,
                         Value = -1 * _total.Sum(x => x.Value),
-                        ChargeOpers = command.ChargeOper
+                        ChargeOpers = cmd.ChargeOper
                     };
-                _db.OverpaymentCorrectionOpers.AddObject(_overpaymentCorrectionOper);
+                cmd.Db.OverpaymentCorrectionOpers.AddObject(_overpaymentCorrectionOper);
 
                 foreach (KeyValuePair<int, decimal> _serviceValue in _total)
                 {
@@ -40,28 +38,28 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         new OverpaymentCorrectionOperPoses
                         {
                             OverpaymentCorrectionOpers = _overpaymentCorrectionOper,
-                            Services = command.Services[_serviceValue.Key],
+                            Services = cmd.Services[_serviceValue.Key],
                             Value = -1 * _serviceValue.Value,
                         };
-                    _db.OverpaymentCorrectionOperPoses.AddObject(_pos);
+                    cmd.Db.OverpaymentCorrectionOperPoses.AddObject(_pos);
                 }
 
                 Dictionary<DateTime, Dictionary<int, decimal>> _distribution =
                     _pds.DistributeOverpayment(
-                        command.ChargePeriodBalance, 
+                        cmd.ChargePeriodBalance, 
                         -_overpaymentCorrectionOper.Value, 
-                        command.PeriodInfo.FirstUncharged);
+                        cmd.Period);
 
                 OverpaymentOpers _overpaymentOper =
                     new OverpaymentOpers
                     {
-                        CreationDateTime = command.ChargeOper.CreationDateTime,
-                        Customers = command.DbCustomerStub,
-                        PaymentPeriod = command.PeriodInfo.FirstUncharged,
+                        CreationDateTime = cmd.ChargeOper.CreationDateTime,
+                        Customers = cmd.DbCustomerStub,
+                        PaymentPeriod = cmd.Period,
                         OverpaymentCorrectionOpers = _overpaymentCorrectionOper,
                         Value = -_overpaymentCorrectionOper.Value
                     };
-                _db.OverpaymentOpers.AddObject(_overpaymentOper);
+                cmd.Db.OverpaymentOpers.AddObject(_overpaymentOper);
 
                 foreach (var _pb in _distribution)
                 {
@@ -72,10 +70,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             {
                                 OverpaymentOpers = _overpaymentOper,
                                 Period = _pb.Key,
-                                Services = command.Services[_sb.Key],
+                                Services = cmd.Services[_sb.Key],
                                 Value = _sb.Value,
                             };
-                        _db.OverpaymentOperPoses.AddObject(_pos);
+                        cmd.Db.OverpaymentOperPoses.AddObject(_pos);
                     }
                 }
             }

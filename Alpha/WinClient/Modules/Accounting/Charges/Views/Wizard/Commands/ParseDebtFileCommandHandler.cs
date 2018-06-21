@@ -4,6 +4,7 @@ using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
+using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
@@ -72,7 +73,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         }
                         catch (Exception _ex)
                         {
-                            // Logger.SimpleWrite($"Исключение при разборе строки {_row} : {_ex}");
+                            Logger.SimpleWrite($"ParseDebtFileCommandHandler. Исключение при разборе строки {_row} : {_ex}");
                             // _failCount++;
                         }
                     }

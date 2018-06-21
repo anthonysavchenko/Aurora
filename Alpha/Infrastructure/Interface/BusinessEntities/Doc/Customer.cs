@@ -16,12 +16,12 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             _residents = new Dictionary<string, Resident>();
         }
 
-        private OwnerTypes _ownerType;
+        private OwnerType _ownerType;
 
         /// <summary>
         /// Тип собственника
         /// </summary>
-        public OwnerTypes OwnerType
+        public OwnerType OwnerType
         {
             get
             {

@@ -3,7 +3,7 @@
     /// <summary>
     /// Виды квитанций
     /// </summary>
-    public enum BillTypes
+    public enum BillType
     {
         /// <summary>
         /// Ежемесячные

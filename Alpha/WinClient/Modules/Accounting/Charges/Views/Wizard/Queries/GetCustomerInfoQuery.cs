@@ -2,7 +2,7 @@
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands.Common;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Common;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Queries
 {
@@ -22,7 +22,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
                         Street = c.Buildings.Streets.Name,
                         Building = c.Buildings.Number,
                         Apartment = c.Apartment,
-                        Owner = c.OwnerType == (int)OwnerTypes.JuridicalPerson
+                        Owner = c.OwnerType == (int)OwnerType.JuridicalPerson
                             ? c.JuridicalPersonFullName
                             : c.PhysicalPersonShortName,
                         ResidentsCount = c.Residents.Count(),
