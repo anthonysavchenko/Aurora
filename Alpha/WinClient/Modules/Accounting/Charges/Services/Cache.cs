@@ -59,7 +59,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Services
                         new
                         {
                             b.ID,
-                            Area = b.NonResidentialPlaceArea + b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= period)).Sum(c => c.Square)
+                            Area = 
+                                (b.Customers.Where(c => c.CustomerPoses.Any(p => p.Till >= period)).Sum(c => (decimal?)c.Square) ?? 0) 
+                                + b.NonResidentialPlaceArea,
                         })
                     .ToDictionary(b => b.ID, b => b.Area);
             }

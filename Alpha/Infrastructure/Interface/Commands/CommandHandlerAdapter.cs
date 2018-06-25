@@ -10,12 +10,15 @@
             _handler = handler;
         }
 
-        public void Execute(object command)
+        public bool Execute(object command)
         {
             if (command is TCommand)
             {
                 _handler.Execute((TCommand)command);
+                return true;
             }
+
+            return false;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
     public class CalculateDebtDistributionCommand : ResultCommand<Dictionary<int, decimal>>
     {
         public CustomerInfo CustomerInfo { get; set; }
-        public Cache Cache { get; set; }
+        public ICache Cache { get; set; }
         public decimal DebtValue { get; set; }
     }
 }

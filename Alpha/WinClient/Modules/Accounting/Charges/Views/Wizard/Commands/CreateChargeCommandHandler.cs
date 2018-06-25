@@ -7,67 +7,67 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 {
     public class CreateChargeCommandHandler : ICommandHandler<CreateChargeCommand>
     {
-        public void Execute(CreateChargeCommand command)
+        public void Execute(CreateChargeCommand cmd)
         {
             var _chargeOper =
                 new ChargeOpers
                 {
-                    CreationDateTime = command.Now,
-                    Customers = command.DbCustomerStub,
-                    ChargeSets = command.ChargeSet,
-                    Value = command.ChargesByPos.Sum(x => x.Value)
+                    CreationDateTime = cmd.Now,
+                    Customers = cmd.DbCustomerStub,
+                    ChargeSets = cmd.ChargeSet,
+                    Value = cmd.ChargesByPos.Sum(x => x.Value)
                 };
-            command.Db.ChargeOpers.AddObject(_chargeOper);
+            cmd.Db.ChargeOpers.AddObject(_chargeOper);
 
             BenefitOpers _benefitOper = null;
 
-            if (command.BenefitsByPos.Count > 0)
+            if (cmd.BenefitsByPos.Count > 0)
             {
                 _benefitOper =
                     new BenefitOpers
                     {
                         ChargeOpers = _chargeOper,
-                        Value = command.BenefitsByPos.Sum(x => x.Value)
+                        Value = cmd.BenefitsByPos.Sum(x => x.Value)
                     };
-                command.Db.BenefitOpers.AddObject(_benefitOper);
+                cmd.Db.BenefitOpers.AddObject(_benefitOper);
             }
 
-            foreach (var _pos in command.CustomerInfo.Poses)
+            foreach (var _pos in cmd.CustomerInfo.Poses)
             {
-                if (command.ChargesByPos.ContainsKey(_pos.Id))
+                if (cmd.ChargesByPos.ContainsKey(_pos.Id))
                 {
                     var _operPos =
                         new ChargeOperPoses
                         {
                             ChargeOpers = _chargeOper,
-                            Services = command.Services[_pos.ServiceId],
-                            Contractors = command.Contractors[_pos.ContractorId],
-                            Value = command.ChargesByPos[_pos.Id]
+                            Services = cmd.Services[_pos.ServiceId],
+                            Contractors = cmd.Contractors[_pos.ContractorId],
+                            Value = cmd.ChargesByPos[_pos.Id]
                         };
 
-                    command.Db.ChargeOperPoses.AddObject(_operPos);
+                    cmd.Db.ChargeOperPoses.AddObject(_operPos);
                 }
 
-                if (command.BenefitsByPos.ContainsKey(_pos.Id))
+                if (cmd.BenefitsByPos.ContainsKey(_pos.Id))
                 {
                     var _operPos =
                         new BenefitOperPoses
                         {
                             BenefitOpers = _benefitOper,
-                            Contractors = command.Contractors[_pos.ContractorId],
-                            Services = command.Services[_pos.ServiceId],
+                            Contractors = cmd.Contractors[_pos.ContractorId],
+                            Services = cmd.Services[_pos.ServiceId],
                             BenefitRule = (byte)BenefitRuleType.FixedPercent,
-                            Value = command.BenefitsByPos[_pos.Id]
+                            Value = cmd.BenefitsByPos[_pos.Id]
                         };
 
-                    command.Db.BenefitOperPoses.AddObject(_operPos);
+                    cmd.Db.BenefitOperPoses.AddObject(_operPos);
                 }
             }
 
-            command.ChargeSet.Quantity++;
-            command.ChargeSet.ValueSum += _chargeOper.Value;
+            cmd.ChargeSet.Quantity++;
+            cmd.ChargeSet.ValueSum += _chargeOper.Value;
 
-            command.Result = _chargeOper;
+            cmd.Result = _chargeOper;
         }
     }
 }

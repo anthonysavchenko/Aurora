@@ -39,8 +39,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
                 .Select(p =>
                     new CustomerPosInfo
                     {
+                        Id = p.ID,
                         Rate = p.Rate,
                         ServiceId = p.Services.ID,
+                        ServiceTypeId = p.Services.ServiceTypes.ID,
+                        ServiceTypeCode = p.Services.ServiceTypes.Code,
+                        ServiceTypeName = p.Services.ServiceTypes.Name,
                         ContractorId = p.Contractors.ID,
                         ChargeRule = p.Services.ChargeRule,
                         Norm = p.Services.Norm ?? 0

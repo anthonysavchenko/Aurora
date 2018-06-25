@@ -12,14 +12,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
         {
             int _daysInMonth = DateTime.DaysInMonth(cmd.Period.Year, cmd.Period.Month);
 
-            Dictionary<int, RechargePercentCorrections> _rechargePercentCorrDict = cmd.Db.RechargePercentCorrections
-                .Where(rpc => rpc.CustomerPoses.Customers.ID == cmd.CustomerInfo.Id && rpc.Period == cmd.Period)
-                .ToDictionary(rpc => rpc.CustomerPosID);
+            Dictionary<int, RechargePercentCorrections> _rechargePercentCorrDict = 
+                cmd.Db.RechargePercentCorrections
+                    .Where(rpc => rpc.CustomerPoses.Customers.ID == cmd.CustomerInfo.Id && rpc.Period == cmd.Period)
+                    .ToDictionary(rpc => rpc.CustomerPosID);
 
             foreach (var _posCharge in cmd.ChargesByPos)
             {
                 int _posId = _posCharge.Key;
-                int _serviceId = cmd.CustomerInfo.Poses[_posId].ServiceId;
+                int _serviceId = cmd.CustomerInfo.Poses.First(x => x.Id == _posId).ServiceId;
                 if (cmd.ServicePercentCorrection != null)
                 {
                     RechargePercentCorrections _rpc;
@@ -46,7 +47,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                 if (_rechargePercentCorrDict.ContainsKey(_posId))
                 {
                     RechargePercentCorrections _rpc = _rechargePercentCorrDict[_posId];
-                    cmd.ChargesByPos[_posId] = (_posCharge.Value / _daysInMonth * _rpc.Days * _rpc.Percent) / 100;
+                    decimal _value = (_posCharge.Value / _daysInMonth * _rpc.Days * _rpc.Percent) / 100;
+                    cmd.ChargesByPos[_posId] = Math.Round(_value, 2, MidpointRounding.AwayFromZero);
                 }
             }
         }

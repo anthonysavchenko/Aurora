@@ -22,10 +22,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                 decimal _federalBenefitValue = 0,
                         _localBenefitValue = 0;
 
-                if (_pos.ServiceTypeCodeNumber == ServiceTypeConstants.MAINTENANCE)
+                if (_pos.ServiceTypeCode == ServiceTypeConstants.MAINTENANCE)
                 {
                     _federalBenefitValue = 0;//Math.Round(-1 * rate * benefitSquare / 100 * 50, 2, MidpointRounding.AwayFromZero);
-                    _localBenefitValue = Math.Round(-1 * _pos.Rate * extraSquare / 100 * command.CustomerInfo.LocalBenefitCoefficient, 2, MidpointRounding.AwayFromZero);
+                    _localBenefitValue = -1 * _pos.Rate * extraSquare / 100 * command.CustomerInfo.LocalBenefitCoefficient;
 
                     if ((_federalBenefitValue != 0 || _localBenefitValue != 0) && !command.Result.ContainsKey(_pos.Id))
                     {
@@ -39,7 +39,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
                     if (_localBenefitValue != 0)
                     {
-                        command.Result[_pos.Id] += _localBenefitValue;
+                        command.Result[_pos.Id] += Math.Round(_localBenefitValue, 2, MidpointRounding.AwayFromZero);
                     }
                 }
             }

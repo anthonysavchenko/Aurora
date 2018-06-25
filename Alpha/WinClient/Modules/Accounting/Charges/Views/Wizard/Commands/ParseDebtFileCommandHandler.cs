@@ -36,8 +36,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
                             if (!string.IsNullOrEmpty(_account))
                             {
-                                decimal _debt;
-                                if (!_ws.Cell(_row, 2).TryGetValue(out _debt))
+                                if (!_ws.Cell(_row, 2).TryGetValue(out decimal _debt))
                                 {
                                     throw new ApplicationException($"Не удалось преобразовать значение {_ws.Cell(_row, 2).Value} к типу decimal");
                                 }

@@ -627,17 +627,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportPrimoryeLine(string account, string period, string value)
         {
-            decimal _tempValue;
-            WizardPaymentElement _payment = new WizardPaymentElement();
+            WizardPaymentElement _payment = new WizardPaymentElement
+            {
+                Account = Regex.IsMatch(account, @"\d{8}")
+                    ? string.Format("EG-{0}-{1}-{2}", account.Substring(0, 4), account.Substring(4, 3), account.Substring(7, 1))
+                    : string.Empty,
+                Period = Regex.IsMatch(period, @"\d{2}.\d{4}")
+                    ? new DateTime(Convert.ToInt32(period.Substring(3)), Convert.ToInt32(period.Substring(0, 2)), 1)
+                    : DateTime.MinValue,
+                Value = decimal.TryParse(value, out decimal _tempValue) ? _tempValue : 0,
+            };
 
-            _payment.Account = Regex.IsMatch(account, @"\d{8}")
-                ? String.Format("EG-{0}-{1}-{2}", account.Substring(0, 4), account.Substring(4, 3), account.Substring(7, 1))
-                : String.Empty;
-            _payment.Period = Regex.IsMatch(period, @"\d{2}.\d{4}")
-                ? new DateTime(Convert.ToInt32(period.Substring(3)), Convert.ToInt32(period.Substring(0, 2)), 1)
-                : DateTime.MinValue;
-            _payment.Value = Decimal.TryParse(value, out _tempValue) ? _tempValue : 0;
-            _payment.Owner = !String.IsNullOrEmpty(_payment.Account) ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_payment.Account) : null;
+            _payment.Owner = !string.IsNullOrEmpty(_payment.Account) 
+                ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_payment.Account) 
+                : null;
             _payment.HasError = _payment.Validate();
 
             return _payment;
@@ -652,18 +655,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             string[] _poses = line.Split('|');
 
-            WizardPaymentElement _res = new WizardPaymentElement();
+            WizardPaymentElement _res = new WizardPaymentElement
+            {
+                Account = _poses.Length > 6 ? _poses[6].ToUpper() : String.Empty,
+                Period = _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{2}.\d{4}") 
+                    ? new DateTime(Convert.ToInt32(_poses[8].Substring(3)), Convert.ToInt32(_poses[8].Substring(0, 2)), 1) 
+                    : DateTime.MinValue
+            };
 
-            _res.Account = _poses.Length > 6 ? _poses[6].ToUpper() : String.Empty;
-            _res.Period = _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{2}.\d{4}") ?
-                new DateTime(Convert.ToInt32(_poses[8].Substring(3)), Convert.ToInt32(_poses[8].Substring(0, 2)), 1) :
-                DateTime.MinValue;
             if (_poses.Length > 5)
             {
-                decimal _count;
-                Decimal.TryParse(_poses[5].Replace('.', ','), out _count);
+                decimal.TryParse(_poses[5].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
+
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
                 ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_res.Account)
                 : null;
@@ -682,16 +687,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             string[] _poses = line.Split('|');
 
-            WizardPaymentElement _res = new WizardPaymentElement();
-
-            _res.Account = _poses.Length > 0 ? String.Format("EG-{0}", _poses[0]) : String.Empty;
-            _res.Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") ?
-                new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1) :
-                DateTime.MinValue;
+            WizardPaymentElement _res = new WizardPaymentElement
+            {
+                Account = _poses.Length > 0 ? String.Format("EG-{0}", _poses[0]) : string.Empty,
+                Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") 
+                    ? new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1) 
+                    : DateTime.MinValue
+            };
             if (_poses.Length > 3)
             {
-                decimal _count = 0;
-                Decimal.TryParse(_poses[3].Replace('.', ','), out _count);
+                decimal.TryParse(_poses[3].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
@@ -719,8 +724,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             _res.Period = _lastChargedPeriod;
             if (_poses.Length > 2)
             {
-                decimal _count = 0;
-                Decimal.TryParse(_poses[2].Replace('.', ','), out _count);
+                decimal.TryParse(_poses[2].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
             _res.Owner = !String.IsNullOrEmpty(_res.Account)
@@ -741,18 +745,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             string[] _poses = line.Split('|');
 
-            WizardPaymentElement _res = new WizardPaymentElement();
+            WizardPaymentElement _res = new WizardPaymentElement
+            {
+                Account = _poses.Length > 0 ? _poses[0].ToUpper() : String.Empty,
+                Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") 
+                    ? new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1)
+                    : DateTime.MinValue
+            };
 
-            _res.Account = _poses.Length > 0 ? _poses[0].ToUpper() : String.Empty;
-            _res.Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") ?
-                new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1) :
-                DateTime.MinValue;
             if (_poses.Length > 3)
             {
-                decimal _count = 0;
-                Decimal.TryParse(_poses[3].Replace('.', ','), out _count);
+                decimal.TryParse(_poses[3].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
+
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
                 ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_res.Account)
                 : null;

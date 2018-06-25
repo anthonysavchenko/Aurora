@@ -121,7 +121,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
                             p.Value,
                         }))
                 .Where(p => p.CustomerID == customerId && p.Period < tillPeriod)
-                .Sum(p => p.Value);
+                .Sum(p => (decimal?)p.Value) ?? 0;
         }
     }
 }

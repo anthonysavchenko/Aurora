@@ -4,42 +4,43 @@ using Taumis.Alpha.Infrastructure.Interface.Commands;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Common;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Services;
+using System;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
     public class CalculateChargeCommandHandler : ICommandHandler<CalculateChargeCommand>
     {
-        public void Execute(CalculateChargeCommand command)
+        public void Execute(CalculateChargeCommand cmd)
         {
-            command.Result = new Dictionary<int, decimal>();
+            cmd.Result = new Dictionary<int, decimal>();
 
-            foreach (var _pos in command.CustomerInfo.Poses)
+            foreach (var _pos in cmd.CustomerInfo.Poses)
             {
                 decimal _value = 0;
 
                 switch ((ChargeRuleType)_pos.ChargeRule)
                 {
                     case ChargeRuleType.SquareRate:
-                        _value = _pos.Rate * command.CustomerInfo.Area;
+                        _value = _pos.Rate * cmd.CustomerInfo.Area;
                         break;
 
                     case ChargeRuleType.ResidentsRate:
-                        _value = _pos.Rate * command.CustomerInfo.ResidentsCount;
+                        _value = _pos.Rate * cmd.CustomerInfo.ResidentsCount;
                         break;
 
                     case ChargeRuleType.CounterRate:
                         break;
 
                     case ChargeRuleType.PublicPlaceAreaRate:
-                        _value = CalculatePublicPlaceAreaRate(_pos, command.CustomerInfo, command.Cache);
+                        _value = CalculatePublicPlaceAreaRate(_pos, cmd.CustomerInfo, cmd.Cache);
                         break;
 
                     case ChargeRuleType.PublicPlaceVolumeAreaRate:
-                        _value = CalculatePublicPlaceVolumeAreaRate(_pos, command.CustomerInfo, command.Cache);
+                        _value = CalculatePublicPlaceVolumeAreaRate(_pos, cmd.CustomerInfo, cmd.Cache);
                         break;
 
                     case ChargeRuleType.PublicPlaceBankCommission:
-                        _value = CalculatePublicPlaceBankCommission(_pos, command.CustomerInfo, command.Cache);
+                        _value = CalculatePublicPlaceBankCommission(_pos, cmd.CustomerInfo, cmd.Cache);
                         break;
 
                     case ChargeRuleType.FixedRate:
@@ -48,7 +49,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         break;
                 }
 
-                command.Result.Add(_pos.Id, _value);
+                cmd.Result.Add(_pos.Id, Math.Round(_value, 2, MidpointRounding.AwayFromZero));
             }
         }
 
@@ -60,7 +61,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             if (_buildingArea > 0)
             {
                 decimal _ppArea = cache.GetPublicPlaceArea(customer.BuildingId, pos.ServiceId);
-                decimal _rate = pos.Norm * _ppArea / _buildingArea * pos.Rate;
+                decimal _rate = Math.Round(pos.Norm * _ppArea / _buildingArea * pos.Rate, 2, MidpointRounding.AwayFromZero);
                 _value = customer.Area * _rate;
             }
 
@@ -74,8 +75,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             if (_buildingArea > 0)
             {
-                decimal _volume = cache.GetPublicPlaceServiceVolume(customer.BuildingId, pos.ServiceId);
-                decimal _rate = _volume / _buildingArea * pos.Rate;
+                decimal _ppArea = cache.GetPublicPlaceArea(customer.BuildingId, pos.ServiceId);
+                decimal _normVolume = pos.Norm * _ppArea;
+                decimal _counterVolume = cache.GetPublicPlaceServiceVolume(customer.BuildingId, pos.ServiceId);
+
+                decimal _volume = _normVolume > 0 && _counterVolume > _normVolume 
+                    ? _normVolume 
+                    : _counterVolume;
+
+                decimal _rate = Math.Round(_volume / _buildingArea * pos.Rate, 2, MidpointRounding.AwayFromZero);
                 _value = customer.Area * _rate;
             }
 

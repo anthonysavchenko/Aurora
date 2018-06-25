@@ -31,7 +31,8 @@ namespace Taumis.Alpha.Infrastructure.Interface.Commands
         {
             foreach (var _h in _handlers)
             {
-                _h.Execute(command);
+                if (_h.Execute(command))
+                    break;
             }
         }
     }

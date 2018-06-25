@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
@@ -12,12 +11,13 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Comm
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Services;
 using Taumis.EnterpriseLibrary.Win.Services;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
     public class RegisterChargeCommandHandler : ICommandHandler<RegisterChargeCommand>
     {
-        private readonly Cache _cache = new Cache();
+        private readonly ICache _cache = new Cache();
         private readonly PaymentDistributionService _pds;
         private ICommandDispatcher _dispatcher;
 
@@ -31,22 +31,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
         {
             cmd.Result = new RegisterCommandResult();
 
-            var _createChargeSetCommand =
-                new CreateChargeSetCommand
-                {
-                    Now = cmd.Now,
-                    Period = cmd.Period
-                };
-            _dispatcher.Execute(_createChargeSetCommand);
-            int _chargeSetId = _createChargeSetCommand.Result;
+            _cache.Init(cmd.Period);
 
-            var _createBillSetsCommand =
-                new CreateBillSetsCommand
-                {
-                    CreationDateTime = cmd.Now,
-                };
-            _dispatcher.Execute(_createBillSetsCommand);
-            Dictionary<int, int> _billSetByBuilding = _createBillSetsCommand.Result;
+            int _chargeSetId = CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
+            Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
 
             int[] _customers;
             using (Entities _db = new Entities())
@@ -54,11 +42,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                 _customers = _db.Customers.Select(c => c.ID).ToArray();
             }
 
+            cmd.ResetProgressBar(_customers.Length);
+
             for (int i = 0; i < _customers.Length; i++)
             {
                 int _customerId = _customers[i];
 
-                using (Entities _db = new Entities())
+                using (var _db = new Entities())
                 {
                     _db.CommandTimeout = 3600;
                     try
@@ -69,7 +59,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             .GetCustomerBalancesGroupedByPeriod(_customerId, x => x.Period == cmd.Period)
                             .Values
                             .FirstOrDefault() ?? new Dictionary<int, Balance>();
-                        var _services = _db.Services.Include(x => x.ServiceTypes).ToDictionary(x => x.ID);
+                        var _services = _db.Services.ToDictionary(x => x.ID);
                         var _contractors = _db.Contractors.ToDictionary(x => x.ID);
                         var _dbCustomerStub = new Customers { ID = _customerId };
                         _db.Customers.Attach(_dbCustomerStub);
@@ -82,7 +72,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 CustomerInfo = _customerInfo
                             };
                         _dispatcher.Execute(_calculateChargesCommand);
-                        _periodBalance.AddCharges(_calculateChargesCommand.Result);
+                        _periodBalance.AddCharges(
+                            _calculateChargesCommand.Result
+                                .Join(_customerInfo.Poses,
+                                    x => x.Key,
+                                    y => y.Id,
+                                    (x, y) =>
+                                    new
+                                    {
+                                        y.ServiceId,
+                                        x.Value
+                                    })
+                                .ToDictionary(x => x.ServiceId, x => x.Value));
 
                         var _calculateBenefitsCommand =
                             new CalculateBenefitsCommand
@@ -90,7 +91,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 CustomerInfo = _customerInfo
                             };
                         _dispatcher.Execute(_calculateBenefitsCommand);
-                        _periodBalance.AddBenefits(_calculateBenefitsCommand.Result);
+                        _periodBalance.AddBenefits(
+                            _calculateBenefitsCommand.Result
+                                .Join(_customerInfo.Poses,
+                                    x => x.Key,
+                                    y => y.Id,
+                                    (x, y) =>
+                                    new
+                                    {
+                                        y.ServiceId,
+                                        x.Value
+                                    })
+                                .ToDictionary(x => x.ServiceId, x => x.Value));
 
                         var _createChargeOperCommand =
                             new CreateChargeCommand
@@ -129,7 +141,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 Contractors = _contractors,
                                 CustomerInfo = _customerInfo,
                                 DbCustomerStub = _dbCustomerStub,
-                                Services = _services,
                                 Db = _db
                             });
 
@@ -141,10 +152,74 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     }
                     catch (Exception ex)
                     {
-                        Logger.SimpleWrite($"RegisterChargeCommand. Exception: {ex}");
+                        Logger.SimpleWrite($"RegisterChargeCommand. CustomerId: {_customerId}\r\nException: {ex}");
                     }
                 }
             }
+        }
+
+        private int CreateChargeSet(DateTime now, DateTime period, int authorId)
+        {
+            int _chargeSetId;
+
+            using (Entities _db = new Entities())
+            {
+                Users _user = new Users { ID = authorId };
+                _db.Users.Attach(_user);
+
+                var _chargeSet =
+                    new ChargeSets
+                    {
+                        CreationDateTime = now,
+                        Period = period,
+                        Number = _db.ChargeSets.Any() ? _db.ChargeSets.Max(c => c.Number) + 1 : 1,
+                        Author = _user
+                    };
+
+                _db.ChargeSets.AddObject(_chargeSet);
+                _db.SaveChanges();
+                _chargeSetId = _chargeSet.ID;
+            }
+
+            return _chargeSetId;
+        }
+
+        private Dictionary<int, int> CreateBillSets(DateTime now)
+        {
+            var _result = new Dictionary<int, int>();
+
+            using (Entities _db = new Entities())
+            {
+                var _zipCodes = _db.Buildings
+                    .GroupBy(x => x.ZipCode)
+                    .Select(g =>
+                        new
+                        {
+                            ZipCode = g.Key,
+                            BuildingIds = g.Select(x => x.ID)
+                        })
+                    .ToList();
+
+                foreach (var _zc in _zipCodes)
+                {
+                    BillSets _billSet =
+                        new BillSets()
+                        {
+                            CreationDateTime = now,
+                            Number = _db.BillSets.Any() ? _db.BillSets.Max(c => c.Number) + 1 : 1,
+                            BillType = (byte)BillType.Regular,
+                        };
+                    _db.AddToBillSets(_billSet);
+                    _db.SaveChanges();
+
+                    foreach (int _id in _zc.BuildingIds)
+                    {
+                        _result.Add(_id, _billSet.ID);
+                    }
+                }
+            }
+
+            return _result;
         }
     }
 }

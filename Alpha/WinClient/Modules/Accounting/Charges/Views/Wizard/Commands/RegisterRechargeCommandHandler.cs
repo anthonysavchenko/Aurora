@@ -3,7 +3,6 @@ using System.Linq;
 using System.Data.Entity;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
-using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Common;
@@ -14,7 +13,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
     public class RegisterRechargeCommandHandler : ICommandHandler<RegisterRechargeCommand>
     {
         private readonly ICommandDispatcher _dispatcher;
-        private readonly Cache _cache = new Cache();
+        private readonly ICache _cache = new Cache();
 
         public RegisterRechargeCommandHandler(ICommandDispatcher dispatcher)
         {
@@ -33,23 +32,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             cmd.ResetProgressBar(cmd.CustomerIds.Length * _monthCount);
 
-            int _rechargeSetId;
-            Users _user = new Users { ID = int.Parse(UserHolder.User.ID) };
-
-            using (Entities _db = new Entities())
-            {
-                RechargeSets _rechargeSet =
-                    new RechargeSets
-                    {
-                        CreationDateTime = cmd.Now,
-                        Period = cmd.FirstUnchargedPeriod,
-                        Number = _db.RechargeSets.Any() ? _db.RechargeSets.Max(c => c.Number) + 1 : 1,
-                        Author = _user
-                    };
-                _db.AddToRechargeSets(_rechargeSet);
-                _db.SaveChanges();
-                _rechargeSetId = _rechargeSet.ID;
-            }
+            var _createRechargeSetCommand =
+                new CreateRechargeSetCommand
+                {
+                    AuthorId = cmd.AuthorId,
+                    Now = cmd.Now,
+                    Period = cmd.Period
+                };
+            _dispatcher.Execute(_createRechargeSetCommand);
+            int _rechargeSetId = _createRechargeSetCommand.Result;
 
             while (_period <= cmd.Till)
             {
@@ -57,9 +48,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
                 for (int i = 0; i < cmd.CustomerIds.Length; i++)
                 {
-                    using (Entities _db = new Entities())
+                    using (var _db = new Entities())
                     {
                         _db.CommandTimeout = 3600;
+                        int _customerID = cmd.CustomerIds[i];
 
                         try
                         {
@@ -67,8 +59,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
                             var _contractors = _db.Contractors.ToDictionary(x => x.ID);
                             var _services = _db.Services.ToDictionary(x => x.ID);
-
-                            int _customerID = cmd.CustomerIds[i];
 
                             CustomerInfo _customerInfo = _db.GetCustomerInfo(_customerID, _period);
 
@@ -83,17 +73,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 };
                             _dispatcher.Execute(_calculateChargesCommand);
 
-                            _dispatcher.Execute(
-                                new ApplyPercentCorrectionCommand
-                                {
-                                    Period = _period,
-                                    ChargesByPos = _calculateChargesCommand.Result,
-                                    CustomerInfo = _customerInfo,
-                                    ServicePercentCorrection = cmd.ServicePercentCorrectionByCustomer.ContainsKey(_customerID)
-                                        ? cmd.ServicePercentCorrectionByCustomer[_customerID]
-                                        : null,
-                                    Db = _db
-                                });
+                            if (cmd.ServicePercentCorrectionByCustomer != null)
+                            {
+                                _dispatcher.Execute(
+                                    new ApplyPercentCorrectionCommand
+                                    {
+                                        Period = _period,
+                                        ChargesByPos = _calculateChargesCommand.Result,
+                                        CustomerInfo = _customerInfo,
+                                        ServicePercentCorrection = cmd.ServicePercentCorrectionByCustomer.ContainsKey(_customerID)
+                                            ? cmd.ServicePercentCorrectionByCustomer[_customerID]
+                                            : null,
+                                        Db = _db
+                                    });
+                            }
 
                             var _calculateBenefitsCommand =
                                 new CalculateBenefitsCommand
@@ -118,7 +111,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                         Contractors = _contractors,
                                         Services = _services,
                                         ChargeOper = _chargeOper,
-                                        Period = cmd.FirstUnchargedPeriod,
+                                        Period = cmd.Period,
                                         CustomerInfo = _customerInfo,
                                         Now = cmd.Now,
                                         Db = _db
@@ -143,9 +136,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                     Db = _db
                                 });
 
-                            _rechargeSet.Quantity++;
-                            _rechargeSet.ValueSum += _calculateChargesCommand.Result.Values.Sum(x => x);
-
                             _db.SaveChanges();
 
                             cmd.Result.Total = _rechargeSet.ValueSum;
@@ -154,7 +144,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         }
                         catch (Exception ex)
                         {
-                            Logger.SimpleWrite($"RegisterRechargeCommand. Exception: {ex}");
+                            Logger.SimpleWrite($"RegisterRechargeCommand.CustomerId: {_customerID}\r\nException: {ex}");
                         }
                     }
                     cmd.ProgressAction(1);

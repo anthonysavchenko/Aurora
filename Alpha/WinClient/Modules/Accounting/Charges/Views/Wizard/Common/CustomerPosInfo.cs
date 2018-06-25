@@ -5,7 +5,9 @@
         public int Id { get; set; }
         public decimal Rate { get; set; }
         public int ServiceId { get; set; }
-        public string ServiceTypeCodeNumber { get; set; }
+        public int ServiceTypeId { get; internal set; }
+        public string ServiceTypeName { get; internal set; }
+        public string ServiceTypeCode { get; set; }
         public int ContractorId { get; set; }
         public byte ChargeRule { get; set; }
         public decimal Norm { get; set; }

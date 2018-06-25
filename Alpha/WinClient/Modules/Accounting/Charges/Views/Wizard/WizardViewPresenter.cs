@@ -330,12 +330,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         new RegisterRechargeCommand
                         {
                             ProgressAction = View.AddProgress,
+                            ResetProgressBar = View.ResetProgressBar,
                             CustomerIds = View.SelectedCustomers.AsEnumerable().Select(r => r.Field<int>("ID")).ToArray(),
                             Since = View.SinceCorrectionPeriod,
                             Till = View.TillCorrectionPeriod,
                             Now = ServerTime.GetDateTimeInfo().Now,
-                            FirstUnchargedPeriod = ServerTime.GetPeriodInfo().FirstUncharged,
-                            ServicePercentCorrectionByCustomer = null
+                            Period = ServerTime.GetPeriodInfo().FirstUncharged,
+                            ServicePercentCorrectionByCustomer = null,
+                            AuthorId = int.Parse(UserHolder.User.ID)
                         });
                     break;
                 case ChargeType.PercentCorrection:
@@ -349,7 +351,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             Since = View.PercentCorrectionPeriod,
                             Till = View.PercentCorrectionPeriod,
                             Now = ServerTime.GetDateTimeInfo().Now,
-                            FirstUnchargedPeriod = ServerTime.GetPeriodInfo().FirstUncharged,
+                            Period = ServerTime.GetPeriodInfo().FirstUncharged,
                             ServicePercentCorrectionByCustomer = _rows
                                 .ToDictionary(
                                     r => r.Field<int>("ID"),
@@ -358,7 +360,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     {
                                         Days = r.Field<int>("Days"),
                                         Percent = r.Field<int>("Percent")
-                                    })
+                                    }),
+                            AuthorId = int.Parse(UserHolder.User.ID)
                         });
                     break;
                 case ChargeType.Regular:
@@ -366,9 +369,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         new RegisterChargeCommand
                         {
                             ProgressAction = View.AddProgress,
+                            ResetProgressBar = View.ResetProgressBar,
                             Now = ServerTime.GetDateTimeInfo().Now,
                             Period = ServerTime.GetPeriodInfo().FirstUncharged,
-                            LastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged
+                            LastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged,
+                            AuthorId = int.Parse(UserHolder.User.ID)
                         });
                     break;
                 case ChargeType.Debt:
@@ -380,6 +385,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             Period = ServerTime.GetPeriodInfo().FirstUncharged,
                             ProgressAction = View.AddProgress,
                             ResetProgressBar = View.ResetProgressBar,
+                            AuthorId = int.Parse(UserHolder.User.ID)
                         });
                     View.DebtFileName = string.Empty;
                     break;
@@ -411,10 +417,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                     case WizardPages.ProcessingPage:
                         RunCharges();
-
-                        View.IsMasterInProgress = false;
-                        View.IsMasterCompleted = true;
-                        View.SelectPage(WizardPages.FinishPage);
                         break;
                 }
             }
@@ -489,16 +491,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 Stopwatch _stopwatch = new Stopwatch();
                 _stopwatch.Start();
 
-                    try
-                    {
-                        var _commandDispatcher = _commandDispatcherFactory.Create(ServerTime, _pds, _excelService);
-                        _commandDispatcher.Execute(command);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.SimpleWrite($"Charges. Wizard. Exception: {ex}");
-                        View.ShowMessage("Операция не выполнена", "Ошибка операции");
-                    }
+                try
+                {
+                    View.IsMasterInProgress = true;
+
+                    var _commandDispatcher = _commandDispatcherFactory.Create(ServerTime, _pds, _excelService);
+                    _commandDispatcher.Execute(command);
+                }
+                catch (Exception ex)
+                {
+                    Logger.SimpleWrite($"Charges. Wizard. Exception: {ex}");
+                    View.ShowMessage("Операция не выполнена", "Ошибка операции");
+                }
 
                 ShowResult(command.Result.Processed, command.Result.Total);
 
@@ -512,6 +516,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         {
             View.ResultCount = resultCount;
             View.ResultValue = total;
+            View.IsMasterInProgress = false;
+            View.IsMasterCompleted = true;
+            View.SelectPage(WizardPages.FinishPage);
         }
 
         /// <summary>

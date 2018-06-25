@@ -12,7 +12,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
         public Dictionary<int, Balance> ChargePeriodBalance { get; set; }
         public CustomerInfo CustomerInfo { get; set; }
         public Customers DbCustomerStub { get; set; }
-        public Dictionary<int, DataBase.Services> Services { get; set; }
         public Dictionary<int, Contractors> Contractors { get; set; }
         public int BillSetId { get; set; }
 

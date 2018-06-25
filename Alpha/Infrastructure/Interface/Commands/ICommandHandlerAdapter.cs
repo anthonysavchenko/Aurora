@@ -2,6 +2,6 @@
 {
     public interface ICommandHandlerAdapter
     {
-        void Execute(object command);
+        bool Execute(object command);
     }
 }

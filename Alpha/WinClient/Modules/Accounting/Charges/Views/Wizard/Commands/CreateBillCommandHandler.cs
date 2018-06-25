@@ -64,19 +64,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             if (cmd.ChargePeriodBalance.Count > 0)
             {
                 var _poses = cmd.ChargePeriodBalance
-                    .GroupBy(serviceBalance =>
+                    .Join(cmd.CustomerInfo.Poses,
+                        x => x.Key,
+                        y => y.ServiceId,
+                        (x, y) =>
+                            new
+                            {
+                                y.ServiceTypeId,
+                                y.ServiceTypeName,
+                                Balance = x.Value
+                            })
+                    .GroupBy(x =>
                         new
                         {
-                            ServiceTypeID = cmd.Services[serviceBalance.Key].ServiceTypes.ID,
-                            ServiceTypeName = cmd.Services[serviceBalance.Key].ServiceTypes.Name,
+                            x.ServiceTypeId,
+                            x.ServiceTypeName
                         })
-                    .Select(groupedByServiceType => new
+                    .Select(g => new
                     {
-                        groupedByServiceType.Key.ServiceTypeID,
-                        groupedByServiceType.Key.ServiceTypeName,
-                        Charge = groupedByServiceType.Sum(x => x.Value.Charge),
-                        Benefit = groupedByServiceType.Sum(x => x.Value.Benefit),
-                        Recharge = groupedByServiceType.Sum(x => x.Value.Recharge),
+                        g.Key.ServiceTypeId,
+                        g.Key.ServiceTypeName,
+                        Charge = g.Sum(x => x.Balance.Charge),
+                        Benefit = g.Sum(x => x.Balance.Benefit),
+                        Recharge = g.Sum(x => x.Balance.Recharge),
                     });
 
                 foreach (var _pos in _poses)
@@ -85,7 +95,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         new RegularBillDocSeviceTypePoses
                         {
                             RegularBillDocs = _billDoc,
-                            ServiceTypeID = _pos.ServiceTypeID,
+                            ServiceTypeID = _pos.ServiceTypeId,
                             ServiceTypeName = _pos.ServiceTypeName,
                             PayRate = Math.Round(_pos.Charge / cmd.CustomerInfo.Area, 2, MidpointRounding.AwayFromZero),
                             Charge = _pos.Charge,

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
 
@@ -45,7 +46,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         _distributionSum = command.DebtValue;
                     }
 
-                    command.Result.Add(_posValuePair.Key, _value);
+                    command.Result.Add(_posValuePair.Key, Math.Round(_value, 2, MidpointRounding.AwayFromZero));
                 }
 
                 if (_distributionSum < command.DebtValue)
