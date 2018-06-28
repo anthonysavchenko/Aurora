@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Commands;
+using Taumis.Alpha.Infrastructure.Interface.Common;
+using Taumis.Alpha.Infrastructure.Interface.ExtensionMethods;
 using Taumis.Alpha.Infrastructure.Library.Services;
+using Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Queries;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
@@ -44,9 +47,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     cmd.Db.OverpaymentCorrectionOperPoses.AddObject(_pos);
                 }
 
+                Dictionary<int, Balance> _serviceBalance =
+                    cmd.ChargePeriodBalance.GetTotal().Charge > 0
+                        ? cmd.ChargePeriodBalance
+                        : cmd.Db.GetLastChargedPeriodBalance(cmd.DbCustomerStub.ID).Item2;
+
                 Dictionary<DateTime, Dictionary<int, decimal>> _distribution =
                     _pds.DistributeOverpayment(
-                        cmd.ChargePeriodBalance, 
+                        _serviceBalance, 
                         -_overpaymentCorrectionOper.Value, 
                         cmd.Period);
 

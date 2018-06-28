@@ -649,5 +649,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                 Presenter.UpdateCorrectionTable(CorrectingServiceID.Value, PercentCorrectionPeriod);
             }
         }
+
+        private void ProgressBarControl_Properties_CustomDisplayText(object sender, DevExpress.XtraEditors.Controls.CustomDisplayTextEventArgs e)
+        {
+            e.DisplayText = e.Value.ToString() + " / " + ((ProgressBarControl)sender).Properties.Maximum;
+        }
     }
 }

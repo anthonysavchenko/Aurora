@@ -27,17 +27,35 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
             public IEnumerable<ServiceBalance> ServiceBalances { get; set; }
         }
 
+        public class OperProjection
+        {
+            public int CustomerID { get; set; }
+            public DateTime Period { get; set; }
+            public int ServiceID { get; set; }
+            public decimal Charge { get; set; }
+            public decimal Benefit { get; set; }
+            public decimal Recharge { get; set; }
+            public decimal Payment { get; set; }
+            public decimal Overpayment { get; set; }
+            public decimal OverpaymentCorrection { get; set; }
+            public decimal Total { get; set; }
+        }
+
         public static Dictionary<DateTime, Dictionary<int, Balance>> GetCustomerBalancesGroupedByPeriod(
             this Entities db, 
-            int customerId, 
-            Expression<Func<PeriodBalance, bool>> filter)
+            int customerId,
+            Expression<Func<OperProjection, bool>> beforeGroupFilter = null,
+            Expression<Func<PeriodBalance, bool>> afterGroupFilter = null)
         {
+            beforeGroupFilter = beforeGroupFilter ?? (x => true);
+            afterGroupFilter = afterGroupFilter ?? (x => true);
+
             return db.ChargeOperPoses
                 .Select(p =>
-                    new
+                    new OperProjection
                     {
                         CustomerID = p.ChargeOpers.Customers.ID,
-                        p.ChargeOpers.ChargeSets.Period,
+                        Period = p.ChargeOpers.ChargeSets.Period,
                         ServiceID = p.Services.ID,
                         Charge = p.Value,
                         Benefit = (decimal)0,
@@ -49,10 +67,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                     })
                 .Concat(db.RechargeOperPoses
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.RechargeOpers.Customers.ID,
-                            p.RechargeOpers.RechargeSets.Period,
+                            Period = p.RechargeOpers.RechargeSets.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -65,10 +83,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                 .Concat(db.ChargeOperPoses
                     .Where(p => p.ChargeOpers.ChargeCorrectionOpers != null)
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.ChargeOpers.Customers.ID,
-                            p.ChargeOpers.ChargeCorrectionOpers.Period,
+                            Period = p.ChargeOpers.ChargeCorrectionOpers.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -81,10 +99,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                 .Concat(db.RechargeOperPoses
                     .Where(p => p.RechargeOpers.ChildChargeCorrectionOpers != null)
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.RechargeOpers.Customers.ID,
-                            p.RechargeOpers.ChildChargeCorrectionOpers.Period,
+                            Period = p.RechargeOpers.ChildChargeCorrectionOpers.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -96,10 +114,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                         }))
                 .Concat(db.BenefitOperPoses
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.BenefitOpers.ChargeOpers.Customers.ID,
-                            p.BenefitOpers.ChargeOpers.ChargeSets.Period,
+                            Period = p.BenefitOpers.ChargeOpers.ChargeSets.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = p.Value,
@@ -112,10 +130,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                 .Concat(db.BenefitOperPoses
                     .Where(p => p.BenefitOpers.BenefitCorrectionOpers != null)
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.BenefitOpers.ChargeOpers.Customers.ID,
-                            p.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
+                            Period = p.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -127,10 +145,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                         }))
                 .Concat(db.RebenefitOperPoses
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.RebenefitOpers.RechargeOpers.Customers.ID,
-                            p.RebenefitOpers.RechargeOpers.RechargeSets.Period,
+                            Period = p.RebenefitOpers.RechargeOpers.RechargeSets.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -143,10 +161,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                 .Concat(db.RebenefitOperPoses
                     .Where(p => p.RebenefitOpers.BenefitCorrectionOpers != null)
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.RebenefitOpers.RechargeOpers.Customers.ID,
-                            p.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
+                            Period = p.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -158,10 +176,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                         }))
                 .Concat(db.PaymentOperPoses
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.PaymentOpers.Customers.ID,
-                            p.Period,
+                            Period = p.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -173,10 +191,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                         }))
                 .Concat(db.PaymentCorrectionOperPoses
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
-                            p.PaymentCorrectionOpers.Period,
+                            Period = p.PaymentCorrectionOpers.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -188,10 +206,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                         }))
                 .Concat(db.OverpaymentOperPoses
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.OverpaymentOpers.Customers.ID,
-                            p.Period,
+                            Period = p.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -203,10 +221,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                         }))
                 .Concat(db.OverpaymentCorrectionOperPoses
                     .Select(p =>
-                        new
+                        new OperProjection
                         {
                             CustomerID = p.OverpaymentCorrectionOpers.ChargeOpers.Customers.ID,
-                            p.OverpaymentCorrectionOpers.Period,
+                            Period = p.OverpaymentCorrectionOpers.Period,
                             ServiceID = p.Services.ID,
                             Charge = (decimal)0,
                             Benefit = (decimal)0,
@@ -217,6 +235,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                             Total = p.Value,
                         }))
                 .Where(p => p.CustomerID == customerId)
+                .Where(beforeGroupFilter)
                 .GroupBy(p => p.Period)
                 .Select(groupedByPeriod =>
                     new PeriodBalance
@@ -237,7 +256,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
                                     OverpaymentCorrection = groupedByService.Sum(b => b.OverpaymentCorrection),
                                 }),
                     })
-                .Where(filter)
+                .Where(afterGroupFilter)
                 .ToDictionary(
                     x => x.Period,
                     x => x.ServiceBalances.ToDictionary(

@@ -430,7 +430,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             using (Entities _db = new Entities())
             {
                 _db.CommandTimeout = 3600;
-                _debtBalancesByPeriod = _db.GetCustomerBalancesGroupedByPeriod(customerPaymentsPair.Key, x => x.Total > 0);
+                _debtBalancesByPeriod = _db.GetCustomerBalancesGroupedByPeriod(customerPaymentsPair.Key, afterGroupFilter: x => x.Total > 0);
                 Tuple<DateTime, Dictionary<int, Balance>> _lastChargedPeriodBalance =
                     _db.GetLastChargedPeriodBalance(customerPaymentsPair.Key);
 

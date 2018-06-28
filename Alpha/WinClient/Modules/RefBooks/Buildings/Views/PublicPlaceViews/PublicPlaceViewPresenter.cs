@@ -161,13 +161,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.PublicP
             _table.Columns.Add("ID", typeof(int));
             _table.Columns.Add("Name", typeof(string));
 
-            const int RATE_RULE = (int)ChargeRuleType.PublicPlaceAreaRate;
-
             using (Entities _entities = new Entities())
             {
                 var _services =
                     _entities.Services
-                        .Where(s => s.ChargeRule == RATE_RULE)
+                        .Where(s => 
+                            s.ChargeRule == (int)ChargeRuleType.PublicPlaceAreaRate || 
+                            s.ChargeRule == (int)ChargeRuleType.PublicPlaceVolumeAreaRate)
                         .Select(
                             s =>
                             new

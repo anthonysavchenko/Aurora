@@ -5,6 +5,8 @@ using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Common;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Services;
 using System;
+using Taumis.Alpha.Infrastructure.Interface.Constants;
+using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
@@ -75,8 +77,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             if (_buildingArea > 0)
             {
-                decimal _ppArea = cache.GetPublicPlaceArea(customer.BuildingId, pos.ServiceId);
-                decimal _normVolume = pos.Norm * _ppArea;
+                decimal _normVolume = 0;
+
+                if (pos.ServiceTypeCode == ServiceTypeConstants.PP_ELECTRICITY)
+                {
+                    decimal _ppArea = cache.GetPublicPlaceArea(customer.BuildingId, pos.ServiceId);
+                    _normVolume = pos.Norm * _ppArea;
+                }
+                
                 decimal _counterVolume = cache.GetPublicPlaceServiceVolume(customer.BuildingId, pos.ServiceId);
 
                 decimal _volume = _normVolume > 0 && _counterVolume > _normVolume 

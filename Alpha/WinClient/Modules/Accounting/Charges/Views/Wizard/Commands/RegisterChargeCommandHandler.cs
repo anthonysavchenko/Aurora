@@ -56,7 +56,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         var _chargeSet = _db.ChargeSets.First(x => x.ID == _chargeSetId);
 
                         var _periodBalance = _db
-                            .GetCustomerBalancesGroupedByPeriod(_customerId, x => x.Period == cmd.Period)
+                            .GetCustomerBalancesGroupedByPeriod(_customerId, beforeGroupFilter: x => x.Period == cmd.Period)
                             .Values
                             .FirstOrDefault() ?? new Dictionary<int, Balance>();
                         var _services = _db.Services.ToDictionary(x => x.ID);

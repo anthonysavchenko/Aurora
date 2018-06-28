@@ -29,7 +29,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries
 
             return new Tuple<DateTime, Dictionary<int, Balance>>(
                 _lastChargedPeriod.Value,
-                db.GetCustomerBalancesGroupedByPeriod(customerId, x => x.Period == _lastChargedPeriod.Value)[_lastChargedPeriod.Value]);
+                db.GetCustomerBalancesGroupedByPeriod(customerId, beforeGroupFilter: x => x.Period == _lastChargedPeriod.Value)[_lastChargedPeriod.Value]);
         }
     }
 }
