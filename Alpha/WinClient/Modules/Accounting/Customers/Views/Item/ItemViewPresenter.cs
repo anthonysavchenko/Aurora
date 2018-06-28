@@ -1,27 +1,24 @@
-﻿using System;
+﻿using DevExpress.XtraReports.UI;
+using Microsoft.Practices.CompositeUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DevExpress.XtraReports.UI;
-using Microsoft.Practices.CompositeUI;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports.PersonalData;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Counter;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
-using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
-using Taumis.EnterpriseLibrary.Win.Services;
 using Taumis.Infrastructure.Interface.Services;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports.PersonalData;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Reports.DebtRepayment;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
@@ -134,7 +131,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                                 Login = _email,
                                 Password = CryptoService.HashPassword(_password),
                                 Aka =
-                                    domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson
+                                    domItem.OwnerType == OwnerType.PhysicalPerson
                                         ? domItem.PhysicalPersonShortName
                                         : domItem.JuridicalPersonFullName,
                             };
@@ -160,13 +157,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             _domItem.OwnerType = View.OwnerType;
 
-            if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson)
+            if (_domItem.OwnerType == OwnerType.PhysicalPerson)
             {
                 _domItem.PhysicalPersonFullName = View.PhysicalPersonFullName;
                 _domItem.PhysicalPersonShortName = View.PhysicalPersonShortName;
                 _domItem.JuridicalPersonFullName = String.Empty;
             }
-            else if (_domItem.OwnerType == DomItem.OwnerTypes.JuridicalPerson)
+            else if (_domItem.OwnerType == OwnerType.JuridicalPerson)
             {
                 _domItem.PhysicalPersonFullName = String.Empty;
                 _domItem.PhysicalPersonShortName = String.Empty;
@@ -225,17 +222,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                 _errorMsg.AppendLine(" - Не заполнены поля адреса");
             }
 
-            if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson && String.IsNullOrEmpty(_domItem.PhysicalPersonFullName))
+            if (_domItem.OwnerType == OwnerType.PhysicalPerson && String.IsNullOrEmpty(_domItem.PhysicalPersonFullName))
             {
                 _errorMsg.AppendLine(" - Не заполнено поле \"Полное имя физического лица\"");
             }
 
-            if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson && String.IsNullOrEmpty(_domItem.PhysicalPersonShortName))
+            if (_domItem.OwnerType == OwnerType.PhysicalPerson && String.IsNullOrEmpty(_domItem.PhysicalPersonShortName))
             {
                 _errorMsg.AppendLine(" - Не заполнено поле \"Краткое имя физического лица\"");
             }
 
-            if (_domItem.OwnerType == DomItem.OwnerTypes.JuridicalPerson && String.IsNullOrEmpty(_domItem.JuridicalPersonFullName))
+            if (_domItem.OwnerType == OwnerType.JuridicalPerson && String.IsNullOrEmpty(_domItem.JuridicalPersonFullName))
             {
                 _errorMsg.AppendLine(" - Не заполнено поле \"Полное наименование юридического лица\"");
             }
@@ -270,13 +267,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             View.OwnerType = _domItem.OwnerType;
 
-            if (_domItem.OwnerType == DomItem.OwnerTypes.PhysicalPerson)
+            if (_domItem.OwnerType == OwnerType.PhysicalPerson)
             {
                 View.PhysicalPersonFullName = _domItem.PhysicalPersonFullName;
                 View.PhysicalPersonShortName = _domItem.PhysicalPersonShortName;
                 View.JuridicalPersonFullName = String.Empty;
             }
-            else if (_domItem.OwnerType == DomItem.OwnerTypes.JuridicalPerson)
+            else if (_domItem.OwnerType == OwnerType.JuridicalPerson)
             {
                 View.PhysicalPersonFullName = String.Empty;
                 View.PhysicalPersonShortName = String.Empty;

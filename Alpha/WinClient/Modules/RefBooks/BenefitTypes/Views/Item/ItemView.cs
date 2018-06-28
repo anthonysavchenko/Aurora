@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 //using BaseItemView = System.Windows.Forms.UserControl;
 
@@ -63,18 +63,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BenefitTypes.Views.Item
         /// <summary>
         /// Правило начисления льготы
         /// </summary>
-        public BenefitType.BenefitRuleType BenefitRule
+        public BenefitRuleType BenefitRule
         {
             get
             {
                 if (squareRuleRadioButton.Checked)
                 {
-                    return BenefitType.BenefitRuleType.FiftyPercentBySquare;
+                    return BenefitRuleType.FiftyPercentBySquare;
                 }
 
                 if (fixedRuleRadioButton.Checked)
                 {
-                    return BenefitType.BenefitRuleType.FixedPercent;
+                    return BenefitRuleType.FixedPercent;
                 }
 
                 throw new ApplicationException("Не выбрано правило начисления");
@@ -83,11 +83,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BenefitTypes.Views.Item
             {
                 switch (value)
                 {
-                    case BenefitType.BenefitRuleType.FiftyPercentBySquare:
+                    case BenefitRuleType.FiftyPercentBySquare:
                         squareRuleRadioButton.Checked = true;
                         break;
 
-                    case BenefitType.BenefitRuleType.FixedPercent:
+                    case BenefitRuleType.FixedPercent:
                         fixedRuleRadioButton.Checked = true;
                         break;
 

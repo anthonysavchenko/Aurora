@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Taumis.Alpha.Infrastructure.Interface.Services
 {
-    public class PeriodBalances
+    /*public class PeriodBalances
     {
         public IDictionary<DateTime, ServiceBalances> Balances
         {
@@ -304,5 +304,5 @@ namespace Taumis.Alpha.Infrastructure.Interface.Services
             OverpaymentCorrection += value;
             Total += value;
         }
-    }
+    }*/
 }

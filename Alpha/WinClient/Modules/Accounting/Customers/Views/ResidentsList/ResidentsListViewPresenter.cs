@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Services;
@@ -249,7 +250,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         public override bool NavigatorBtnAppend()
         {
             IItemView _itemView = WorkItem.SmartParts.Get<ItemView>("ItemView");
-            View.OwnerRelationshipEnabled = _itemView.OwnerType == DomItem.OwnerTypes.PhysicalPerson;
+            View.OwnerRelationshipEnabled = _itemView.OwnerType == OwnerType.PhysicalPerson;
             return base.NavigatorBtnAppend();
         }
 

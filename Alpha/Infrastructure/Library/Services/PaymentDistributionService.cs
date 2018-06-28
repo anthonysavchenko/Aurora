@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.CompositeUI;
-using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Common;
 using Taumis.Alpha.Infrastructure.Interface.Services;
+using Taumis.Alpha.Infrastructure.Interface.ExtensionMethods;
+using Taumis.Alpha.DataBase;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services
 {
+    /// <summary>
+    /// Сервис распределения платежа
+    /// </summary>
     public class PaymentDistributionService
     {
         [ServiceDependency]
@@ -22,18 +27,19 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
         /// <param name="paymentValue">Сумма платежа</param>
         /// <param name="customerId">ID абонента</param>
         /// <returns>Распределение платежа по периодам и услугам</returns>
-        public PeriodBalances DistributePayment(PeriodBalances periodBalances, DateTime paymentDate, DateTime paymentPeriod, DateTime lastChargedPeriod, decimal paymentValue, int customerId)
+        public Dictionary<DateTime, Dictionary<int, decimal>> DistributePayment(
+            Dictionary<DateTime, Dictionary<int, Balance>> debtBalances,
+            DateTime paymentDate,
+            DateTime paymentPeriod,
+            DateTime lastChargedPeriod,
+            decimal paymentValue,
+            int customerId)
         {
-            PeriodBalances _result = new PeriodBalances();
-
-            Distribute(
-                _result,
-                periodBalances,
+            return Distribute(
+                debtBalances,
                 paymentPeriod,
                 paymentValue,
                 lastChargedPeriod);
-
-            return _result;
         }
 
         /// <summary>
@@ -43,18 +49,16 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
         /// <param name="overpaymentValue">Сумма переплаты для распределения</param>
         /// <param name="distributionPeriod">Период распределения переплаты</param>
         /// <returns>Распределение переплаты по периодам и услугам</returns>
-        public PeriodBalances DistributeOverpayment(PeriodBalances periodBalances, decimal overpaymentValue, DateTime distributionPeriod)
+        public Dictionary<DateTime, Dictionary<int, decimal>> DistributeOverpayment(
+            Dictionary<int, Balance> chargeBalances,
+            decimal overpaymentValue,
+            DateTime distributionPeriod)
         {
-            PeriodBalances _result = new PeriodBalances();
-
-            Distribute(
-                _result,
-                periodBalances,
+            return Distribute(
+                new Dictionary<DateTime, Dictionary<int, Balance>> { { distributionPeriod, chargeBalances } },
                 distributionPeriod,
                 overpaymentValue,
                 distributionPeriod);
-
-            return _result;
         }
 
         #region Функции распределения
@@ -62,49 +66,48 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
         /// <summary>
         /// Распределяет значение по периодам и услугам
         /// </summary>
-        /// <param name="result">Результат распределения</param>
-        /// <param name="periodBalances">Данные по периодам</param>
+        /// <param name="debtBalances">Данные по периодам</param>
         /// <param name="paymentPeriod">Оплачеваемый период</param>
         /// <param name="paymentValue">Сумма платежа</param>
         /// <param name="lastChargedPeriod">Последний начисленный период</param>
-        private void Distribute(
-            PeriodBalances result,
-            PeriodBalances periodBalances,
+        private Dictionary<DateTime, Dictionary<int, decimal>> Distribute(
+            Dictionary<DateTime, Dictionary<int, Balance>> debtBalances,
             DateTime paymentPeriod,
             decimal paymentValue,
             DateTime lastChargedPeriod)
         {
+            Dictionary<DateTime, Dictionary<int, decimal>> _result = new Dictionary<DateTime, Dictionary<int, decimal>>();
+
             paymentValue = Math.Abs(paymentValue);
 
             List<DateTime> _debtPeriods =
-                periodBalances.Balances
-                    .Where(
-                        b =>
-                        b.Value.TotalBalance.Total > 0 &&
+                debtBalances
+                    .Where(b =>
+                        b.Value.Sum(x => x.Value.Total) > 0 &&
                         b.Key != paymentPeriod &&
                         b.Key <= lastChargedPeriod)
                     .Select(b => b.Key)
                     .OrderBy(p => p)
                     .ToList();
 
-            if (periodBalances.Balances.ContainsKey(paymentPeriod) && periodBalances.Balances[paymentPeriod].TotalBalance.Total > 0)
+            if (debtBalances.ContainsKey(paymentPeriod) && debtBalances[paymentPeriod].Values.Sum(x => x.Total) > 0)
             {
                 _debtPeriods.Insert(0, paymentPeriod);
             }
 
             foreach (DateTime _period in _debtPeriods)
             {
-                result.Balances.Add(_period, new ServiceBalances());
-
                 if (paymentValue > 0)
                 {
-                    ServiceBalances _serviceBalances = periodBalances.Balances[_period];
-                    decimal _valueToDistribute =
-                        paymentValue >= _serviceBalances.TotalBalance.Total
-                            ? _serviceBalances.TotalBalance.Total
-                            : paymentValue;
+                    Dictionary<int, Balance> _serviceBalances = debtBalances[_period];
+                    Balance _totalBalance = _serviceBalances.GetTotal();
 
-                    Distribute(_valueToDistribute, _serviceBalances, result.Balances[_period], false);
+                    decimal _valueToDistribute = paymentValue >= _totalBalance.Total
+                        ? _totalBalance.Total : paymentValue;
+
+                    _result.Add(
+                        _period,
+                        Distribute(_valueToDistribute, _serviceBalances, distributeByCharge: false));
 
                     paymentValue = paymentValue - _valueToDistribute;
                 }
@@ -112,20 +115,30 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
 
             if (paymentValue > 0)
             {
-                if (!result.Balances.ContainsKey(lastChargedPeriod))
+                Dictionary<int, Balance> _lastChargedPeriodBalance = debtBalances.Values.LastOrDefault(x => x.GetTotal().Charge > 0);
+
+                if (_lastChargedPeriodBalance == null)
                 {
-                    result.Balances.Add(lastChargedPeriod, new ServiceBalances());
+                    _lastChargedPeriodBalance = debtBalances.Values.LastOrDefault(x => x.GetTotal().Recharge > 0);
+                    if (_lastChargedPeriodBalance == null)
+                    {
+                        throw new ApplicationException("Невозвожно распределить платеж/переплату. Отсутствуют данные начисления/перерасчета.");
+                    }
                 }
 
-                ServiceBalances _lastServiceBalance = periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Charge > 0);
+                Dictionary<int, decimal> _distr = Distribute(paymentValue, _lastChargedPeriodBalance, distributeByCharge: true);
 
-                if (_lastServiceBalance == null)
+                if (!_result.ContainsKey(lastChargedPeriod))
                 {
-                    _lastServiceBalance = periodBalances.Balances.Values.LastOrDefault(b => b.TotalBalance.Correction > 0);
+                    _result.Add(lastChargedPeriod, _distr);
                 }
-
-                Distribute(paymentValue, _lastServiceBalance, result.Balances[lastChargedPeriod], true);
+                else
+                {
+                    _result[lastChargedPeriod].Add(_distr);
+                }
             }
+
+            return _result;
         }
 
         /// <summary>
@@ -135,20 +148,23 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
         /// <param name="serviceBalances">Данные о балансах по услугам</param>
         /// <param name="resultDistribution">Результат распределения</param>
         /// <param name="distributeByCharge">Флаг распределения только по начислениям</param>
-        private void Distribute(
+        private Dictionary<int, decimal> Distribute(
             decimal valueToDistribute,
-            ServiceBalances serviceBalances,
-            ServiceBalances resultDistribution,
+            Dictionary<int, Balance> serviceBalances,
             bool distributeByCharge)
         {
+            Dictionary<int, decimal> _result = new Dictionary<int, decimal>();
+
+            Balance _totalBalance = serviceBalances.GetTotal();
+
             decimal _total = 0;
             decimal distributeValue = distributeByCharge
-                ? serviceBalances.TotalBalance.Charge > 0
-                    ? serviceBalances.TotalBalance.Charge
-                    : serviceBalances.TotalBalance.Correction
-                : serviceBalances.TotalBalance.Total;
+                ? _totalBalance.Charge > 0
+                    ? _totalBalance.Charge
+                    : _totalBalance.Recharge
+                : _totalBalance.Total;
 
-            if(distributeValue <= 0)
+            if (distributeValue <= 0)
             {
                 throw new ApplicationException($"Не удалось распредилить платеж. Общая сумма, по которой необходимо распределить платеж <= 0: {distributeValue}");
             }
@@ -156,12 +172,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
             decimal _coefficient = valueToDistribute / Math.Abs(distributeValue);
             decimal _valueSum = 0;
 
-            foreach (KeyValuePair<int, Balance> _serviceBalance in serviceBalances.Balances)
+            foreach (KeyValuePair<int, Balance> _serviceBalance in serviceBalances)
             {
-                decimal _balanceValue = distributeByCharge 
+                decimal _balanceValue = distributeByCharge
                     ? _serviceBalance.Value.Charge > 0
                         ? _serviceBalance.Value.Charge
-                        : _serviceBalance.Value.Correction
+                        : _serviceBalance.Value.Recharge
                     : _serviceBalance.Value.Total;
 
                 if (_balanceValue > 0)
@@ -178,7 +194,13 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
 
                     if (_value > 0)
                     {
-                        resultDistribution.AddPayment(_serviceBalance.Key, -_value);
+                        if (!_result.ContainsKey(_serviceBalance.Key))
+                        {
+                            _result.Add(_serviceBalance.Key, 0);
+                        }
+                        // Платеж в системе - значение со знаком минус
+                        _result[_serviceBalance.Key] -= _value;
+
                         _valueSum += _value;
                     }
                 }
@@ -187,12 +209,18 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
             if (valueToDistribute > _valueSum)
             {
                 int _serviceID =
-                    serviceBalances.Balances
+                    serviceBalances
                         .OrderByDescending(balance => Math.Abs(balance.Value.Total))
                         .First().Key;
 
-                resultDistribution.AddPayment(_serviceID, -(valueToDistribute - _valueSum));
+                if (!_result.ContainsKey(_serviceID))
+                {
+                    _result.Add(_serviceID, 0);
+                }
+                _result[_serviceID] -= (valueToDistribute - _valueSum);
             }
+
+            return _result;
         }
 
         #endregion

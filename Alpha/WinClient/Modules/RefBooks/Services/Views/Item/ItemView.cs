@@ -3,8 +3,8 @@ using Microsoft.Practices.ObjectBuilder;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
-using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 //using BaseItemView = System.Windows.Forms.UserControl;
 

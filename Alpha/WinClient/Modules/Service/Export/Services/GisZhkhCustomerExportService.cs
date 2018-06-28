@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.Services;
@@ -95,7 +95,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     {
                                         Account = c.Account,
                                         GisZhkhID = c.GisZhkhID,
-                                        FullName = c.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson ? c.PhysicalPersonFullName : c.JuridicalPersonFullName,
+                                        FullName = c.OwnerType == (int)OwnerType.PhysicalPerson ? c.PhysicalPersonFullName : c.JuridicalPersonFullName,
                                         Square = c.Square,
                                         Apartment = c.Apartment,
                                         FiasID = c.Buildings.FiasID
