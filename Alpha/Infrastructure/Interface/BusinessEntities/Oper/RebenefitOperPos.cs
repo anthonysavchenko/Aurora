@@ -1,4 +1,5 @@
 ﻿using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper
@@ -8,11 +9,11 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper
     /// </summary>
     public class RebenefitOperPos : DomainObject
     {
-        private BenefitType.BenefitRuleType _benefitRule;
+        private BenefitRuleType _benefitRule;
         /// <summary>
         /// Benefit rule
         /// </summary>
-        public BenefitType.BenefitRuleType BenefitRule
+        public BenefitRuleType BenefitRule
         {
             get
             {

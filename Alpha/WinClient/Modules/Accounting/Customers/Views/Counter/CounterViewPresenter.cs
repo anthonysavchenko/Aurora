@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
@@ -149,7 +150,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
 
             using (Entities _db = new Entities())
             {
-                var _services = _db.Services.Where(s => s.ChargeRule == (byte)Service.ChargeRuleType.CounterRate).ToList();
+                var _services = _db.Services.Where(s => s.ChargeRule == (byte)ChargeRuleType.CounterRate).ToList();
 
                 foreach (var _s in _services)
                 {

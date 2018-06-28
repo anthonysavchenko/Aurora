@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.Customers;
 using DomBuilding = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Building;
 using DomCustomerPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
+using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
 using DomResident = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Resident;
 using DomUser = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.User;
-using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
-using System.Linq.Expressions;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
 {
@@ -62,7 +63,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                             })
                         .First();
 
-                _domItem.OwnerType = (DomItem.OwnerTypes)_customer.OwnerType;
+                _domItem.OwnerType = (OwnerType)_customer.OwnerType;
                 _domItem.PhysicalPersonShortName = _customer.PhysicalPersonShortName;
                 _domItem.PhysicalPersonFullName = _customer.PhysicalPersonFullName;
                 _domItem.JuridicalPersonFullName = _customer.JuridicalPersonFullName;
@@ -273,9 +274,9 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                         {
                             c.ID,
                             c.Account,
-                            Owner = c.OwnerType == (int)DomItem.OwnerTypes.PhysicalPerson
+                            Owner = c.OwnerType == (int)OwnerType.PhysicalPerson
                                 ? c.PhysicalPersonFullName
-                                : c.OwnerType == (int)DomItem.OwnerTypes.JuridicalPerson
+                                : c.OwnerType == (int)OwnerType.JuridicalPerson
                                       ? c.JuridicalPersonFullName
                                       : "Неизвестен",
                             ResidentsCount = c.Residents.Count,

@@ -1,14 +1,13 @@
-﻿using DevExpress.Data.Mask;
-using Microsoft.Practices.CompositeUI;
+﻿using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 using Taumis.EnterpriseLibrary.Win.Constants;
@@ -472,7 +471,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PaymentsAndCharges.Views
                                 {
                                     c.ID,
                                     FullName =
-                                        c.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson
+                                        c.OwnerType == (int)OwnerType.PhysicalPerson
                                             ? c.PhysicalPersonFullName
                                             : c.JuridicalPersonFullName,
                                     c.Apartment
