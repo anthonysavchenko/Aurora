@@ -406,7 +406,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                     case WizardPages.BackupPage:
                         View.IsMasterInProgress = true;
                         _commandDispatcherFactory.Create(ServerTime, _pds, _excelService).Execute(
-                            new DbBackupCommand
+                            new BackupDbCommand
                             {
                                 BackupPath = _settingsService.GetBackupPath(),
                                 OnFailedAction = OnBackupFailed,

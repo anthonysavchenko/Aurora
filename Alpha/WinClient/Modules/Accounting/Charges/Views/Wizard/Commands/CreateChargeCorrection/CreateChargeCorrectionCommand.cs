@@ -6,7 +6,7 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Comm
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
-    public class CreateChargeCorrectionOperCommand : ResultCommand<ChargeCorrectionOpers>
+    public class CreateChargeCorrectionCommand : ResultCommand<ChargeCorrectionOpers>
     {
         public ChargeOpers ChargeOper { get; set; }
         public CustomerInfo CustomerInfo { get; set; }

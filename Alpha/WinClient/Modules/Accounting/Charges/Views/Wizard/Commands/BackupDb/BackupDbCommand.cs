@@ -3,7 +3,7 @@ using Taumis.Alpha.Infrastructure.Interface.Commands;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands.DbBackup
 {
-    public class DbBackupCommand : ICommand
+    public class BackupDbCommand : ICommand
     {
         public Action OnSuccess { get; set; }
         public Action<string> OnFailedAction { get; set; }

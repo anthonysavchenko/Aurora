@@ -19,15 +19,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                 new CommandHandlerAdapter<CalculateDebtDistributionCommand>(new CalculateDebtDistributionCommandHandler(_dispatcher)),
                 new CommandHandlerAdapter<CreateBillCommand>(new CreateBillCommandHandler()),
                 new CommandHandlerAdapter<CreateChargeCommand>(new CreateChargeCommandHandler()),
-                new CommandHandlerAdapter<CreateChargeCorrectionOperCommand>(new CreateChargeCorrectionOperCommandHandler()),
+                new CommandHandlerAdapter<CreateChargeCorrectionCommand>(new CreateChargeCorrectionCommandHandler()),
                 new CommandHandlerAdapter<CreateOverpaymentCommand>(new CreateOverpaymentCommandHandler(pds)),
-                new CommandHandlerAdapter<CreateRechargeOperCommand>(new CreateRechargeOperCommandHandler()),
+                new CommandHandlerAdapter<CreateRechargeCommand>(new CreateRechargeCommandHandler()),
                 new CommandHandlerAdapter<CreateRechargeSetCommand>(new CreateRechargeSetCommandHandler()),
                 new CommandHandlerAdapter<ParseDebtFileCommand>(new ParseDebtFileCommandHandler(excelService)),
                 new CommandHandlerAdapter<RegisterChargeCommand>(new RegisterChargeCommandHandler(pds, _dispatcher)),
                 new CommandHandlerAdapter<RegisterRechargeCommand>(new RegisterRechargeCommandHandler(_dispatcher)),
                 new CommandHandlerAdapter<RegisterDebtCommand>(new RegisterDebtCommandHandler(_dispatcher)),
-                new CommandHandlerAdapter<DbBackupCommand>(new DbBackupCommandHandler(sts)));
+                new CommandHandlerAdapter<BackupDbCommand>(new BackupDbCommandHandler(sts)));
 
             return _dispatcher;
         }

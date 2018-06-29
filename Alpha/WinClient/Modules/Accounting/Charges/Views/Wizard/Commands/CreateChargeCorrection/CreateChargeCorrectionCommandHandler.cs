@@ -6,9 +6,9 @@ using Taumis.Alpha.Infrastructure.Interface.Commands;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
-    public class CreateChargeCorrectionOperCommandHandler : ICommandHandler<CreateChargeCorrectionOperCommand>
+    public class CreateChargeCorrectionCommandHandler : ICommandHandler<CreateChargeCorrectionCommand>
     {
-        public void Execute(CreateChargeCorrectionOperCommand cmd)
+        public void Execute(CreateChargeCorrectionCommand cmd)
         {
             if (cmd.ChargeOper == null)
             {

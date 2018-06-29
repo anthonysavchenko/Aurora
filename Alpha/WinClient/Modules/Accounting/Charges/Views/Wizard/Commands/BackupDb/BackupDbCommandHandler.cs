@@ -11,16 +11,16 @@ using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands.DbBackup
 {
-    public class DbBackupCommandHandler : ICommandHandler<DbBackupCommand>
+    public class BackupDbCommandHandler : ICommandHandler<BackupDbCommand>
     {
         private readonly IServerTimeService _timeService;
 
-        public DbBackupCommandHandler(IServerTimeService timeService)
+        public BackupDbCommandHandler(IServerTimeService timeService)
         {
             _timeService = timeService;
         }
 
-        public void Execute(DbBackupCommand command)
+        public void Execute(BackupDbCommand command)
         {
             if (string.IsNullOrEmpty(command.BackupPath))
             {

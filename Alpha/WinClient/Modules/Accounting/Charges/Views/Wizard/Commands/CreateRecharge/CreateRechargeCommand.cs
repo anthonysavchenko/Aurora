@@ -6,7 +6,7 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Comm
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands
 {
-    public class CreateRechargeOperCommand : ICommand
+    public class CreateRechargeCommand : ICommand
     {
         public RechargeSets RechargeSet { get; set; }
         public ChargeOpers ChargeOper { get; set; }

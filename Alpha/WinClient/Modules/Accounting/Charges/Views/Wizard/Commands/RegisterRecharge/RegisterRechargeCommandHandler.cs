@@ -106,7 +106,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             if (_chargeOper != null)
                             {
                                 var _correctionCommand =
-                                    new CreateChargeCorrectionOperCommand
+                                    new CreateChargeCorrectionCommand
                                     {
                                         Contractors = _contractors,
                                         Services = _services,
@@ -121,7 +121,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             }
 
                             _dispatcher.Execute(
-                                new CreateRechargeOperCommand
+                                new CreateRechargeCommand
                                 {
                                     BenefitsByPos = _calculateBenefitsCommand.Result,
                                     ChargesByPos = _calculateChargesCommand.Result,

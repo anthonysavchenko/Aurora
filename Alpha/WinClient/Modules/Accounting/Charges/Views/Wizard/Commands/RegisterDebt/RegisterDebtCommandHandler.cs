@@ -72,7 +72,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         _dispatcher.Execute(_calculateDebtDistrCommand);
 
                         var _createRechargeOperCommand =
-                            new CreateRechargeOperCommand
+                            new CreateRechargeCommand
                             {
                                 BenefitsByPos = new Dictionary<int, decimal>(),
                                 ChargeCorrectionOper = null,
