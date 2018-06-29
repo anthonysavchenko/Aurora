@@ -63,10 +63,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             if (cmd.ChargePeriodBalance.Count > 0)
             {
+                // TODO подумать как оптимизировать, чтобы постоянно не запрашивать типы услуг по услугам
+                var _services = cmd.Db.Services
+                    .Where(x => cmd.ChargePeriodBalance.Keys.Contains(x.ID))
+                    .Select(x =>
+                        new
+                        {
+                            x.ID,
+                            ServiceTypeId = x.ServiceTypes.ID,
+                            ServiceTypeName = x.ServiceTypes.Name
+                        })
+                    .ToList();
+
                 var _poses = cmd.ChargePeriodBalance
-                    .Join(cmd.CustomerInfo.Poses,
+                    .Join(_services,
                         x => x.Key,
-                        y => y.ServiceId,
+                        y => y.ID,
                         (x, y) =>
                             new
                             {
@@ -80,14 +92,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             x.ServiceTypeId,
                             x.ServiceTypeName
                         })
-                    .Select(g => new
-                    {
-                        g.Key.ServiceTypeId,
-                        g.Key.ServiceTypeName,
-                        Charge = g.Sum(x => x.Balance.Charge),
-                        Benefit = g.Sum(x => x.Balance.Benefit),
-                        Recharge = g.Sum(x => x.Balance.Recharge),
-                    });
+                    .Select(g => 
+                        new
+                        {
+                            g.Key.ServiceTypeId,
+                            g.Key.ServiceTypeName,
+                            Charge = g.Sum(x => x.Balance.Charge),
+                            Benefit = g.Sum(x => x.Balance.Benefit),
+                            Recharge = g.Sum(x => x.Balance.Recharge),
+                        });
 
                 foreach (var _pos in _poses)
                 {
