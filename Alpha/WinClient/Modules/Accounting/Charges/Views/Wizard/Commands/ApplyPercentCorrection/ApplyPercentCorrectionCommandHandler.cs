@@ -17,14 +17,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     .Where(rpc => rpc.CustomerPoses.Customers.ID == cmd.CustomerInfo.Id && rpc.Period == cmd.Period)
                     .ToDictionary(rpc => rpc.CustomerPosID);
 
-            foreach (var _posCharge in cmd.ChargesByPos)
+            if (cmd.ServicePercentCorrection != null)
             {
-                int _posId = _posCharge.Key;
-                int _serviceId = cmd.CustomerInfo.Poses.First(x => x.Id == _posId).ServiceId;
-                if (cmd.ServicePercentCorrection != null)
+                List<int> _posIds = cmd.CustomerInfo.Poses
+                    .Where(x => x.ServiceId == cmd.ServicePercentCorrection.ServiceId)
+                    .Select(x => x.Id)
+                    .ToList();
+
+                foreach (int _posId in _posIds)
                 {
                     RechargePercentCorrections _rpc;
-                    if (_rechargePercentCorrDict.ContainsKey(_posCharge.Key))
+                    if (_rechargePercentCorrDict.ContainsKey(_posId))
                     {
                         _rpc = _rechargePercentCorrDict[_posId];
                     }
@@ -43,12 +46,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     _rpc.Percent = cmd.ServicePercentCorrection.Percent;
                     _rpc.Days = cmd.ServicePercentCorrection.Days > _daysInMonth ? _daysInMonth : cmd.ServicePercentCorrection.Days;
                 }
+            }
 
-                if (_rechargePercentCorrDict.ContainsKey(_posId))
+            foreach (var _pair in _rechargePercentCorrDict)
+            {
+                if (cmd.ChargesByPos.ContainsKey(_pair.Key))
                 {
-                    RechargePercentCorrections _rpc = _rechargePercentCorrDict[_posId];
-                    decimal _value = (_posCharge.Value / _daysInMonth * _rpc.Days * _rpc.Percent) / 100;
-                    cmd.ChargesByPos[_posId] = Math.Round(_value, 2, MidpointRounding.AwayFromZero);
+                    decimal _chargeValue = cmd.ChargesByPos[_pair.Key];
+
+                    RechargePercentCorrections _rpc = _rechargePercentCorrDict[_pair.Key];
+                    decimal _value = (_chargeValue / _daysInMonth * _rpc.Days * _rpc.Percent) / 100;
+                    cmd.ChargesByPos[_pair.Key] -= Math.Round(_value, 2, MidpointRounding.AwayFromZero);
                 }
             }
         }

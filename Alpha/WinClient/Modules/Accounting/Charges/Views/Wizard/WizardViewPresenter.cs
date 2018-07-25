@@ -359,7 +359,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     new ServicePercentCorrection
                                     {
                                         Days = r.Field<int>("Days"),
-                                        Percent = r.Field<int>("Percent")
+                                        Percent = r.Field<int>("Percent"),
+                                        ServiceId = View.CorrectingServiceID.Value
                                     }),
                             AuthorId = int.Parse(UserHolder.User.ID)
                         });

@@ -73,20 +73,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 };
                             _dispatcher.Execute(_calculateChargesCommand);
 
-                            if (cmd.ServicePercentCorrectionByCustomer != null)
-                            {
-                                _dispatcher.Execute(
-                                    new ApplyPercentCorrectionCommand
-                                    {
-                                        Period = _period,
-                                        ChargesByPos = _calculateChargesCommand.Result,
-                                        CustomerInfo = _customerInfo,
-                                        ServicePercentCorrection = cmd.ServicePercentCorrectionByCustomer.ContainsKey(_customerID)
-                                            ? cmd.ServicePercentCorrectionByCustomer[_customerID]
-                                            : null,
-                                        Db = _db
-                                    });
-                            }
+                            _dispatcher.Execute(
+                                new ApplyPercentCorrectionCommand
+                                {
+                                    Period = _period,
+                                    ChargesByPos = _calculateChargesCommand.Result,
+                                    CustomerInfo = _customerInfo,
+                                    ServicePercentCorrection = cmd.ServicePercentCorrectionByCustomer != null && cmd.ServicePercentCorrectionByCustomer.ContainsKey(_customerID)
+                                        ? cmd.ServicePercentCorrectionByCustomer[_customerID]
+                                        : null,
+                                    Db = _db
+                                });
 
                             var _calculateBenefitsCommand =
                                 new CalculateBenefitsCommand
