@@ -101,6 +101,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
         private decimal CalculatePublicPlaceBankCommission(CustomerPosInfo pos, CustomerInfo customer, ICache cache)
         {
             decimal _rateSum = customer.Poses
+               .Where(p => ((ChargeRuleType)p.ChargeRule) == ChargeRuleType.PublicPlaceAreaRate)
                .Sum(p =>
                {
                    decimal _rate = 0;
@@ -109,7 +110,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                    if (_buildingArea > 0)
                    {
                        decimal _ppArea = cache.GetPublicPlaceArea(customer.BuildingId, p.ServiceId);
-                       _rate = p.Norm * _ppArea / _buildingArea * pos.Rate;
+                       _rate = Math.Round(p.Norm * _ppArea / _buildingArea * p.Rate, 2, MidpointRounding.AwayFromZero);
                    }
 
                    return _rate;
