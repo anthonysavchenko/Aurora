@@ -245,10 +245,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                 View.ShowMessage("»справьте ошибки в данных перед их сохранением.", "ќшибка ввода данных");
                                 _next = WizardSteps.Unknown;
                             }
-                            else if (!IsDistributionAvailable())
+                            else if (!IsDistributionAvailable(out string _accounts))
                             {
                                 View.ShowMessage(
-                                    "Ќе по всем абонентам были сделаны начислени€. Ќевозможно внести платеж по абоненту, если по нему не сделано ни одного начислени€ или перерасчета.",
+                                    $"{_accounts} отсутствуют начислени€. Ќевозможно внести платеж по абоненту, если по нему не сделано ни одного начислени€ или перерасчета.",
                                     "Ќевозможно выполнить операцию");
                                 _next = WizardSteps.Unknown;
                             }
@@ -295,19 +295,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             return _next;
         }
 
-        bool IsDistributionAvailable()
+        private bool IsDistributionAvailable(out string accounts)
         {
             bool _result;
 
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                _result =
+                var _accounts =
                     Payments.Values
                         .Select(p => p.Account)
                         .Distinct()
-                        .All(c =>
-                            _entities.ChargeOpers.Any(co => co.Customers.Account == c) ||
-                            _entities.RechargeOpers.Any(co => co.Customers.Account == c));
+                        .Where(c =>
+                            _db.ChargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0) 
+                            || _db.RechargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0))
+                        .ToArray();
+
+                _result = _accounts.Length == 0;
+
+                accounts = string.Join(", ", _accounts);
             }
 
             return _result;
