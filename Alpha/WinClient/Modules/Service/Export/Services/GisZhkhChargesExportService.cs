@@ -62,7 +62,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         private class ServiceSheet
         {
-            public const int INDEX = 6;
+            public const int INDEX = 7;
             public const int FIRST_ROW_NUM = 2;
 
             public class Columns
