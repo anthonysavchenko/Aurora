@@ -34,6 +34,7 @@
             this.ProgressBarControl = new DevExpress.XtraEditors.ProgressBarControl();
             this.progressProcentLabel = new System.Windows.Forms.Label();
             this.ChooseMethodWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.importCounterRadioButton = new System.Windows.Forms.RadioButton();
             this.importPublicPlaceServiceVolumeTemplate = new System.Windows.Forms.LinkLabel();
             this.importPublicPlaceServiceVolumesRadioButton = new System.Windows.Forms.RadioButton();
             this.importNewCustomersRadioButton = new System.Windows.Forms.RadioButton();
@@ -82,7 +83,7 @@
             this.ProcessingWizardPage,
             this.FinishWizardPage});
             this.ImportWizardControl.PreviousText = "< &Назад";
-            this.ImportWizardControl.Size = new System.Drawing.Size(1513, 879);
+            this.ImportWizardControl.Size = new System.Drawing.Size(1473, 879);
             this.ImportWizardControl.Text = "Мастер импорта данных";
             this.ImportWizardControl.UseAcceptButton = false;
             this.ImportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ImportWizardControl_SelectedPageChanged);
@@ -99,7 +100,7 @@
             this.ProcessingWizardPage.Controls.Add(this.panel1);
             this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания обработки данных...";
             this.ProcessingWizardPage.Name = "ProcessingWizardPage";
-            this.ProcessingWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1441, 734);
             this.ProcessingWizardPage.Text = "Обработка данных";
             // 
             // panel1
@@ -109,7 +110,7 @@
             this.panel1.Controls.Add(this.progressProcentLabel);
             this.panel1.Location = new System.Drawing.Point(0, 329);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1481, 55);
+            this.panel1.Size = new System.Drawing.Size(1441, 55);
             this.panel1.TabIndex = 2;
             // 
             // ProgressBarControl
@@ -119,7 +120,7 @@
             this.ProgressBarControl.Name = "ProgressBarControl";
             this.ProgressBarControl.Properties.Step = 1;
             this.ProgressBarControl.ShowProgressInTaskBar = true;
-            this.ProgressBarControl.Size = new System.Drawing.Size(1481, 34);
+            this.ProgressBarControl.Size = new System.Drawing.Size(1441, 34);
             this.ProgressBarControl.TabIndex = 0;
             // 
             // progressProcentLabel
@@ -127,13 +128,14 @@
             this.progressProcentLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressProcentLabel.Location = new System.Drawing.Point(0, 34);
             this.progressProcentLabel.Name = "progressProcentLabel";
-            this.progressProcentLabel.Size = new System.Drawing.Size(1481, 21);
+            this.progressProcentLabel.Size = new System.Drawing.Size(1441, 21);
             this.progressProcentLabel.TabIndex = 1;
             this.progressProcentLabel.Text = "Загрузка данных...";
             this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ChooseMethodWizardPage
             // 
+            this.ChooseMethodWizardPage.Controls.Add(this.importCounterRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importPublicPlaceServiceVolumeTemplate);
             this.ChooseMethodWizardPage.Controls.Add(this.importPublicPlaceServiceVolumesRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importNewCustomersRadioButton);
@@ -141,8 +143,19 @@
             this.ChooseMethodWizardPage.Controls.Add(this.importCustomerPosesRadioButton);
             this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
             this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
-            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1441, 734);
             this.ChooseMethodWizardPage.Text = "Мастер импорта данных";
+            // 
+            // importCounterRadioButton
+            // 
+            this.importCounterRadioButton.AutoSize = true;
+            this.importCounterRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.importCounterRadioButton.Location = new System.Drawing.Point(23, 113);
+            this.importCounterRadioButton.Name = "importCounterRadioButton";
+            this.importCounterRadioButton.Size = new System.Drawing.Size(145, 17);
+            this.importCounterRadioButton.TabIndex = 5;
+            this.importCounterRadioButton.Text = "Импорт приборов учета";
+            this.importCounterRadioButton.UseVisualStyleBackColor = false;
             // 
             // importPublicPlaceServiceVolumeTemplate
             // 
@@ -162,7 +175,7 @@
             this.importPublicPlaceServiceVolumesRadioButton.Location = new System.Drawing.Point(23, 90);
             this.importPublicPlaceServiceVolumesRadioButton.Name = "importPublicPlaceServiceVolumesRadioButton";
             this.importPublicPlaceServiceVolumesRadioButton.Size = new System.Drawing.Size(599, 17);
-            this.importPublicPlaceServiceVolumesRadioButton.TabIndex = 43;
+            this.importPublicPlaceServiceVolumesRadioButton.TabIndex = 4;
             this.importPublicPlaceServiceVolumesRadioButton.Text = "Импорт данных по потребленным объемам коммунального ресурса при содержании общедо" +
     "мового имущества";
             this.importPublicPlaceServiceVolumesRadioButton.UseVisualStyleBackColor = false;
@@ -187,7 +200,7 @@
             this.importGisZhkhCustomerIDsRadioButton.Location = new System.Drawing.Point(23, 67);
             this.importGisZhkhCustomerIDsRadioButton.Name = "importGisZhkhCustomerIDsRadioButton";
             this.importGisZhkhCustomerIDsRadioButton.Size = new System.Drawing.Size(280, 17);
-            this.importGisZhkhCustomerIDsRadioButton.TabIndex = 42;
+            this.importGisZhkhCustomerIDsRadioButton.TabIndex = 3;
             this.importGisZhkhCustomerIDsRadioButton.Text = "Импорт идентификаторов абонентов из ГИС ЖКХ";
             this.importGisZhkhCustomerIDsRadioButton.UseVisualStyleBackColor = false;
             // 
@@ -207,7 +220,7 @@
             this.FinishWizardPage.Controls.Add(this.resultTextBox);
             this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
-            this.FinishWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.FinishWizardPage.Size = new System.Drawing.Size(1441, 734);
             this.FinishWizardPage.Text = "Обработка данных завершена";
             // 
             // resultTextBox
@@ -218,7 +231,7 @@
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.ReadOnly = true;
             this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.resultTextBox.Size = new System.Drawing.Size(1481, 734);
+            this.resultTextBox.Size = new System.Drawing.Size(1441, 734);
             this.resultTextBox.TabIndex = 16;
             // 
             // FileWizardPage
@@ -227,7 +240,7 @@
             this.FileWizardPage.Controls.Add(this.filePanel);
             this.FileWizardPage.DescriptionText = "Выберите файл, из которого будут импортированны данные";
             this.FileWizardPage.Name = "FileWizardPage";
-            this.FileWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.FileWizardPage.Size = new System.Drawing.Size(1441, 734);
             this.FileWizardPage.Text = "Выбор файла";
             // 
             // periodPanel
@@ -243,7 +256,7 @@
             this.periodPanel.Name = "periodPanel";
             this.periodPanel.RowCount = 1;
             this.periodPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.periodPanel.Size = new System.Drawing.Size(1481, 28);
+            this.periodPanel.Size = new System.Drawing.Size(1441, 28);
             this.periodPanel.TabIndex = 39;
             // 
             // periodDateEdit
@@ -290,7 +303,7 @@
             this.filePanel.RowCount = 1;
             this.filePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.filePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.filePanel.Size = new System.Drawing.Size(1481, 28);
+            this.filePanel.Size = new System.Drawing.Size(1441, 28);
             this.filePanel.TabIndex = 38;
             // 
             // label7
@@ -306,7 +319,7 @@
             // selectFileButton
             // 
             this.selectFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectFileButton.Location = new System.Drawing.Point(1364, 3);
+            this.selectFileButton.Location = new System.Drawing.Point(1324, 3);
             this.selectFileButton.Name = "selectFileButton";
             this.selectFileButton.Size = new System.Drawing.Size(114, 22);
             this.selectFileButton.TabIndex = 37;
@@ -321,7 +334,7 @@
             this.filePathTextEdit.Name = "filePathTextEdit";
             this.filePathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.filePathTextEdit.Properties.ReadOnly = true;
-            this.filePathTextEdit.Size = new System.Drawing.Size(1155, 20);
+            this.filePathTextEdit.Size = new System.Drawing.Size(1115, 20);
             this.filePathTextEdit.TabIndex = 36;
             // 
             // LayoutView
@@ -332,7 +345,7 @@
             this.AutoSize = true;
             this.Controls.Add(this.ImportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1513, 879);
+            this.Size = new System.Drawing.Size(1473, 879);
             ((System.ComponentModel.ISupportInitialize)(this.ImportWizardControl)).EndInit();
             this.ImportWizardControl.ResumeLayout(false);
             this.ProcessingWizardPage.ResumeLayout(false);
@@ -376,5 +389,6 @@
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.DateEdit periodDateEdit;
         private System.Windows.Forms.LinkLabel importPublicPlaceServiceVolumeTemplate;
+        private System.Windows.Forms.RadioButton importCounterRadioButton;
     }
 }
