@@ -9074,11 +9074,13 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="number">Initial value of the Number property.</param>
-        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number)
+        /// <param name="model">Initial value of the Model property.</param>
+        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number, global::System.String model)
         {
             PrivateCounters privateCounters = new PrivateCounters();
             privateCounters.ID = id;
             privateCounters.Number = number;
+            privateCounters.Model = model;
             return privateCounters;
         }
 
@@ -9184,6 +9186,30 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Int32> _ServiceID;
         partial void OnServiceIDChanging(Nullable<global::System.Int32> value);
         partial void OnServiceIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Model
+        {
+            get
+            {
+                return _Model;
+            }
+            set
+            {
+                OnModelChanging(value);
+                ReportPropertyChanging("Model");
+                _Model = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Model");
+                OnModelChanged();
+            }
+        }
+        private global::System.String _Model;
+        partial void OnModelChanging(global::System.String value);
+        partial void OnModelChanged();
 
         #endregion
 
@@ -9329,12 +9355,14 @@ namespace Taumis.Alpha.DataBase
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="period">Initial value of the Period property.</param>
         /// <param name="value">Initial value of the Value property.</param>
-        public static PrivateCounterValues CreatePrivateCounterValues(global::System.Int32 id, global::System.DateTime period, global::System.Decimal value)
+        /// <param name="collectDate">Initial value of the CollectDate property.</param>
+        public static PrivateCounterValues CreatePrivateCounterValues(global::System.Int32 id, global::System.DateTime period, global::System.Decimal value, global::System.DateTime collectDate)
         {
             PrivateCounterValues privateCounterValues = new PrivateCounterValues();
             privateCounterValues.ID = id;
             privateCounterValues.Period = period;
             privateCounterValues.Value = value;
+            privateCounterValues.CollectDate = collectDate;
             return privateCounterValues;
         }
 
@@ -9416,6 +9444,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.Decimal _Value;
         partial void OnValueChanging(global::System.Decimal value);
         partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CollectDate
+        {
+            get
+            {
+                return _CollectDate;
+            }
+            set
+            {
+                OnCollectDateChanging(value);
+                ReportPropertyChanging("CollectDate");
+                _CollectDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectDate");
+                OnCollectDateChanged();
+            }
+        }
+        private global::System.DateTime _CollectDate;
+        partial void OnCollectDateChanging(global::System.DateTime value);
+        partial void OnCollectDateChanged();
 
         #endregion
 

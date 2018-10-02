@@ -8,3 +8,11 @@
     CONSTRAINT [FK_PaymentCorrectionOperPoses_Services] FOREIGN KEY ([Service]) REFERENCES [dbo].[Services] ([ID])
 );
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_PaymentCorrectionOper]
+    ON [dbo].[PaymentCorrectionOperPoses]([PaymentCorrectionOper] ASC)
+    INCLUDE([Value], [Service]);
+

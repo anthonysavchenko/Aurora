@@ -96,9 +96,9 @@
         public const string STREETS = "usecase://RefBook/Streets";
 
         /// <summary>
-        /// Улицы
+        /// Приборы учета
         /// </summary>
-        public const string COUNTERS = "usecase://RefBook/Counters";
+        public const string COUNTERS = "usecase://Accounting/Counters";
 
         /// <summary>
         /// Улицы

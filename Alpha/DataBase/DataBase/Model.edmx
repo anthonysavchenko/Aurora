@@ -346,6 +346,7 @@
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CustomerID" Type="int" />
           <Property Name="ServiceID" Type="int" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="PrivateCounterValues">
           <Key>
@@ -355,6 +356,7 @@
           <Property Name="Period" Type="date" Nullable="false" />
           <Property Name="Value" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="PrivateCounter" Type="int" Nullable="false" />
+          <Property Name="CollectDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="PublicPlaces">
           <Key>
@@ -1446,7 +1448,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RechargePercentCorrections_CustomerPoses">
-          <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="1" />
+          <End Role="CustomerPoses" Type="Self.CustomerPoses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RechargePercentCorrections" Type="Self.RechargePercentCorrections" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerPoses">
@@ -2783,6 +2787,7 @@
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="PrivateCounters" ToRole="Customers" />
           <Property Name="ServiceID" Type="Int32" />
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Services" FromRole="PrivateCounters" ToRole="Services" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PrivateCounterValues">
           <Key>
@@ -2792,6 +2797,7 @@
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" FromRole="PrivateCounterValues" ToRole="PrivateCounters" />
+          <Property Name="CollectDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="RebenefitOperPoses">
           <Key>
@@ -3814,6 +3820,7 @@
           <EntitySetMapping Name="PrivateCounters">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.PrivateCounters)">
               <MappingFragment StoreEntitySet="PrivateCounters">
+                <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -3824,6 +3831,7 @@
           <EntitySetMapping Name="PrivateCounterValues">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.PrivateCounterValues)">
               <MappingFragment StoreEntitySet="PrivateCounterValues">
+                <ScalarProperty Name="CollectDate" ColumnName="CollectDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
