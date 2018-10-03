@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBooks;
 using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
@@ -177,6 +178,24 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             {
                 Load();
                 _bankDetail = value;
+            }
+        }
+
+        private CounterValueCollectDistrict _counterValueCollectDistrict;
+        /// <summary>
+        /// Участок сбора показаний приборов учета
+        /// </summary>
+        public CounterValueCollectDistrict CounterValueCollectDistrict
+        {
+            get
+            {
+                Load();
+                return _counterValueCollectDistrict;
+            }
+            set
+            {
+                Load();
+                _counterValueCollectDistrict = value;
             }
         }
     }

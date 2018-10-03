@@ -28,6 +28,7 @@
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.dll" />
 
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.CounterValueCollectDistricts.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.ServiceTypes.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Contractors.dll" />

@@ -104,6 +104,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Services), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CustomerPoses), "RechargePercentCorrections", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargePercentCorrections), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CounterValueCollectDistricts), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
 
 #endregion
 
@@ -983,6 +984,22 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<RechargePercentCorrections> _RechargePercentCorrections;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CounterValueCollectDistricts> CounterValueCollectDistricts
+        {
+            get
+            {
+                if ((_CounterValueCollectDistricts == null))
+                {
+                    _CounterValueCollectDistricts = base.CreateObjectSet<CounterValueCollectDistricts>("CounterValueCollectDistricts");
+                }
+                return _CounterValueCollectDistricts;
+            }
+        }
+        private ObjectSet<CounterValueCollectDistricts> _CounterValueCollectDistricts;
 
         #endregion
 
@@ -1402,6 +1419,14 @@ namespace Taumis.Alpha.DataBase
         public void AddToRechargePercentCorrections(RechargePercentCorrections rechargePercentCorrections)
         {
             base.AddObject("RechargePercentCorrections", rechargePercentCorrections);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CounterValueCollectDistricts EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCounterValueCollectDistricts(CounterValueCollectDistricts counterValueCollectDistricts)
+        {
+            base.AddObject("CounterValueCollectDistricts", counterValueCollectDistricts);
         }
 
         #endregion
@@ -3210,6 +3235,30 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Int32> _BankDetailID;
         partial void OnBankDetailIDChanging(Nullable<global::System.Int32> value);
         partial void OnBankDetailIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CounterValueCollectDistrictID
+        {
+            get
+            {
+                return _CounterValueCollectDistrictID;
+            }
+            set
+            {
+                OnCounterValueCollectDistrictIDChanging(value);
+                ReportPropertyChanging("CounterValueCollectDistrictID");
+                _CounterValueCollectDistrictID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CounterValueCollectDistrictID");
+                OnCounterValueCollectDistrictIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CounterValueCollectDistrictID;
+        partial void OnCounterValueCollectDistrictIDChanging(Nullable<global::System.Int32> value);
+        partial void OnCounterValueCollectDistrictIDChanged();
 
         #endregion
 
@@ -3375,6 +3424,44 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaceServiceVolumes>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "PublicPlaceServiceVolumes", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts")]
+        public CounterValueCollectDistricts CounterValueCollectDistricts
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CounterValueCollectDistricts> CounterValueCollectDistrictsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts", value);
                 }
             }
         }
@@ -5437,6 +5524,114 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RebenefitOperPoses>("AlphaDataBaseModel.FK_RebenefitOperPoses_Contractors", "RebenefitOperPoses", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CounterValueCollectDistricts")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CounterValueCollectDistricts : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CounterValueCollectDistricts object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static CounterValueCollectDistricts CreateCounterValueCollectDistricts(global::System.Int32 id, global::System.String name)
+        {
+            CounterValueCollectDistricts counterValueCollectDistricts = new CounterValueCollectDistricts();
+            counterValueCollectDistricts.ID = id;
+            counterValueCollectDistricts.Name = name;
+            return counterValueCollectDistricts;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "Buildings")]
+        public EntityCollection<Buildings> Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Buildings>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Buildings>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "Buildings", value);
                 }
             }
         }

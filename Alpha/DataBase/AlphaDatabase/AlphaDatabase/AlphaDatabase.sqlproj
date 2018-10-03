@@ -115,5 +115,6 @@
     <Build Include="dbo\Tables\BankDetails.sql" />
     <Build Include="dbo\Tables\PublicPlaceServiceVolumes.sql" />
     <Build Include="dbo\Tables\RechargePercentCorrections.sql" />
+    <Build Include="dbo\Tables\CounterValueCollectDistricts.sql" />
   </ItemGroup>
 </Project>

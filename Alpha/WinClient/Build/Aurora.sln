@@ -124,6 +124,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebtAndFine", "..\Modules\R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Counters", "..\Modules\Accounting\Counters\Counters.csproj", "{2C535C51-BDE5-49EA-9B49-0E5B1BF99CAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CounterValueCollectDistricts", "..\Modules\RefBooks\CounterValueCollectDistricts\CounterValueCollectDistricts.csproj", "{78A0FF01-3813-4424-9B24-42025B5DBABA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -306,6 +308,10 @@ Global
 		{2C535C51-BDE5-49EA-9B49-0E5B1BF99CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C535C51-BDE5-49EA-9B49-0E5B1BF99CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C535C51-BDE5-49EA-9B49-0E5B1BF99CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78A0FF01-3813-4424-9B24-42025B5DBABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78A0FF01-3813-4424-9B24-42025B5DBABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78A0FF01-3813-4424-9B24-42025B5DBABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78A0FF01-3813-4424-9B24-42025B5DBABA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -361,6 +367,7 @@ Global
 		{D9952A9A-8E35-4E0F-875C-047F577E8C75} = {56E24C79-100E-4900-B3FC-30A251F54EB2}
 		{DA43ED63-24A8-4CFC-B2D0-6C30EBF4F42D} = {2AD49FD1-4664-403A-A09B-427DBBD862FD}
 		{2C535C51-BDE5-49EA-9B49-0E5B1BF99CAC} = {D0A96142-2366-4EAD-97FE-A865C2CD07EC}
+		{78A0FF01-3813-4424-9B24-42025B5DBABA} = {1EEDBDEB-10F8-4D79-82B6-35280BD782FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2EDC818-CE5F-4276-A7A6-2AEE0C27C3B9}

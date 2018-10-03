@@ -61,6 +61,8 @@
             this.countersTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.publicPlacePlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.counterValueCollectDistrictLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.floorCountSpinEdit.Properties)).BeginInit();
             this.countersTableLayoutPanel.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.counterValueCollectDistrictLookUpEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -86,7 +89,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 66);
+            this.label2.Location = new System.Drawing.Point(156, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 2;
@@ -125,10 +128,10 @@
             // 
             // zipCodeTextBox
             // 
-            this.zipCodeTextBox.Location = new System.Drawing.Point(107, 63);
+            this.zipCodeTextBox.Location = new System.Drawing.Point(258, 36);
             this.zipCodeTextBox.Mask = "000000";
             this.zipCodeTextBox.Name = "zipCodeTextBox";
-            this.zipCodeTextBox.Size = new System.Drawing.Size(43, 20);
+            this.zipCodeTextBox.Size = new System.Drawing.Size(49, 20);
             this.zipCodeTextBox.TabIndex = 6;
             // 
             // counterViewPlaceholder
@@ -175,6 +178,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.counterValueCollectDistrictLookUpEdit);
+            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.bankDetailsLookUpEdit);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.groupBox3);
@@ -301,7 +306,7 @@
             // 
             // fiasIdTextBox
             // 
-            this.fiasIdTextBox.Location = new System.Drawing.Point(107, 90);
+            this.fiasIdTextBox.Location = new System.Drawing.Point(107, 88);
             this.fiasIdTextBox.MaxLength = 36;
             this.fiasIdTextBox.Name = "fiasIdTextBox";
             this.fiasIdTextBox.Size = new System.Drawing.Size(200, 20);
@@ -310,7 +315,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(39, 93);
+            this.label9.Location = new System.Drawing.Point(39, 91);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 13);
             this.label9.TabIndex = 20;
@@ -437,6 +442,29 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Площадь МОП";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(33, 66);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(68, 13);
+            this.label14.TabIndex = 25;
+            this.label14.Text = "Участок п/у";
+            // 
+            // counterValueCollectDistrictLookUpEdit
+            // 
+            this.counterValueCollectDistrictLookUpEdit.Location = new System.Drawing.Point(107, 62);
+            this.counterValueCollectDistrictLookUpEdit.Name = "counterValueCollectDistrictLookUpEdit";
+            this.counterValueCollectDistrictLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.counterValueCollectDistrictLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Наименование")});
+            this.counterValueCollectDistrictLookUpEdit.Properties.DisplayMember = "Name";
+            this.counterValueCollectDistrictLookUpEdit.Properties.ValueMember = "ID";
+            this.counterValueCollectDistrictLookUpEdit.Size = new System.Drawing.Size(200, 20);
+            this.counterValueCollectDistrictLookUpEdit.TabIndex = 26;
+            this.counterValueCollectDistrictLookUpEdit.Tag = "";
+            // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -459,6 +487,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.floorCountSpinEdit.Properties)).EndInit();
             this.countersTableLayoutPanel.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.counterValueCollectDistrictLookUpEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -498,5 +527,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private DevExpress.XtraEditors.LookUpEdit bankDetailsLookUpEdit;
         private System.Windows.Forms.Label label13;
+        private DevExpress.XtraEditors.LookUpEdit counterValueCollectDistrictLookUpEdit;
+        private System.Windows.Forms.Label label14;
     }
 }

@@ -144,5 +144,10 @@
         /// Банковские реквизиты
         /// </summary>
         public const string BANK_DETAILS = "usecase://RefBook/BankDetails";
+        
+        /// <summary>
+        /// Участки сбора показаний приборов учета
+        /// </summary>
+        public const string COUNTER_VALUE_COLLECT_DISTRICTS = "usecase://RefBook/CounterValueCollectDistrict";
     }
 }
