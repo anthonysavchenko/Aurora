@@ -119,12 +119,14 @@
     <Compile Include="Views\Top\TopView.designer.cs">
       <DependentUpon>TopView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Top\TopViewPresenter.cs" />
     <Compile Include="Views\Wizard\IWizardView.cs" />
     <Compile Include="Views\Wizard\Model\CounterLastValue.cs" />
+    <Compile Include="Views\Wizard\Model\CustomerInfo.cs" />
     <Compile Include="Views\Wizard\Queries\GetCustomerCountersQuery.cs" />
     <Compile Include="Views\Wizard\Queries\GetCustomerInfoQuery.cs" />
     <Compile Include="Views\Wizard\Queries\GetCounterLastValueQuery.cs" />
-    <Compile Include="Views\Wizard\WizardItem.cs" />
+    <Compile Include="Views\Wizard\Model\WizardItem.cs" />
     <Compile Include="Views\Wizard\WizardView.cs">
       <SubType>UserControl</SubType>
     </Compile>

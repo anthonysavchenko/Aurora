@@ -46,9 +46,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             // 
             this._gridViewOfListView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.ID,
+            this.accountColumn,
             this.numberColumn,
             this.serviceColumn,
-            this.accountColumn,
             this.addressColumn});
             this._gridViewOfListView.GridControl = _gridControlOfListView;
             this._gridViewOfListView.GroupCount = 1;
@@ -58,8 +58,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             this._gridViewOfListView.OptionsBehavior.AllowIncrementalSearch = true;
             this._gridViewOfListView.OptionsBehavior.Editable = false;
             this._gridViewOfListView.OptionsSelection.MultiSelect = true;
-            this._gridViewOfListView.OptionsView.GroupFooterShowMode = DevExpress.XtraGrid.Views.Grid.GroupFooterShowMode.VisibleAlways;
-            this._gridViewOfListView.OptionsView.ShowFooter = true;
+            this._gridViewOfListView.OptionsView.GroupFooterShowMode = DevExpress.XtraGrid.Views.Grid.GroupFooterShowMode.Hidden;
             this._gridViewOfListView.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.addressColumn, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
@@ -77,7 +76,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             this.numberColumn.FieldName = "Number";
             this.numberColumn.Name = "numberColumn";
             this.numberColumn.Visible = true;
-            this.numberColumn.VisibleIndex = 0;
+            this.numberColumn.VisibleIndex = 1;
             // 
             // serviceColumn
             // 
@@ -86,15 +85,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             this.serviceColumn.Name = "serviceColumn";
             this.serviceColumn.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.serviceColumn.Visible = true;
-            this.serviceColumn.VisibleIndex = 1;
+            this.serviceColumn.VisibleIndex = 2;
             // 
             // accountColumn
             // 
-            this.accountColumn.Caption = "Абонент";
+            this.accountColumn.Caption = "Лицевой счет";
             this.accountColumn.FieldName = "Account";
             this.accountColumn.Name = "accountColumn";
             this.accountColumn.Visible = true;
-            this.accountColumn.VisibleIndex = 2;
+            this.accountColumn.VisibleIndex = 0;
             // 
             // addressColumn
             // 
@@ -129,6 +128,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
         }
 
         #endregion
+
         private DevExpress.XtraGrid.GridControl _gridControlOfListView;
         private DevExpress.XtraGrid.Views.Grid.GridView _gridViewOfListView;
         private DevExpress.XtraGrid.Columns.GridColumn ID;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Services;
@@ -43,13 +44,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         }
 
         /// <summary>
-        /// Первое отображение вида
-        /// </summary>
-        public override void OnViewReady()
-        {
-        }
-
-        /// <summary>
         /// Завершает работу мастера
         /// </summary>
         internal void FinishWizard()
@@ -67,19 +61,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         public void StartWizard()
         {
             Items = new Dictionary<int, WizardItem>();
-            CurrentItem = null;
 
             View.IsMasterCompleted = false;
             View.IsMasterInProgress = false;
 
             FillDataGrid();
-            FillView();
+            CreateItem();
 
             View.CurrentItemHasError = false;
             View.CurrentItemMessage = string.Empty;
 
             View.ResultCount = 0;
-            View.ResultValue = 0;
             View.ResultErrorCount = 0;
             View.ResetProgressBar(1);
 
@@ -102,10 +94,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             {
                 switch (prevPage.Name)
                 {
-                    case "CollectDataWizardPage":
+                    case "collectDataWizardPage":
                         {
                             // Проверяем наличие хоть одной записи
-                            if (Items.Count == 1 && string.IsNullOrEmpty(Items[0].Account))
+                            if (Items.Count == 1 && string.IsNullOrEmpty(Items[0].CustomerInfo.Account))
                             {
                                 View.ShowMessage("Введите хотя бы один платеж.", "Ошибка ввода данных");
                                 _next = WizardSteps.Unknown;
@@ -123,9 +115,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                         }
                         break;
 
-                    case "ProcessingWizardPage":
+                    case "processingWizardPage":
                         {
-                            if (page.Name == "CollectDataWizardPage")
+                            if (page.Name == "collectDataWizardPage")
                             {
                                 _next = WizardSteps.CollectDataPage;
                             }
@@ -136,6 +128,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                         }
                         break;
                 }
+            }
+            else if (prevPage.Name == "finishWizardPage")
+            {
+                _next = WizardSteps.CollectDataPage;
             }
 
             return _next;
@@ -153,13 +149,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             {
                 switch (page.Name)
                 {
-                    case "ProcessingWizardPage":
+                    case "processingWizardPage":
                         {
                             switch (prevPage.Name)
                             {
-                                case "CollectDataWizardPage":
+                                case "collectDataWizardPage":
                                     {
-                                        FillDataGrid();
                                         View.ResetProgressBar(Items.Count);
                                         Thread _thread = new Thread(Save);
                                         _thread.Start();
@@ -168,7 +163,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                             }
                         }
                         break;
-                    case "CollectDataWizardPage":
+                    case "collectDataWizardPage":
                         View.SetAccountFocus();
                         break;
                 }
@@ -185,21 +180,40 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
             _processedCount = _errorsCount = 0;
 
-            using (var _db = new Entities())
+            foreach (var _item in Items.Values)
             {
-                foreach (var _item in Items.Values)
+                using (var _db = new Entities())
                 {
-                    _db.PrivateCounterValues.AddObject(
-                        new PrivateCounterValues
-                        {
-                            CollectDate = _item.CollectDate,
-                            Period = new DateTime(_item.CollectDate.Year, _item.CollectDate.Month, 1),
-                            Value = _item.Value,
-                            PrivateCounters = _db.PrivateCounters.First(x => x.ID == _item.CounterId)
-                        });
-                }
+                    try
+                    {
+                        var _period = new DateTime(_item.CollectDate.Year, _item.CollectDate.Month, 1);
 
-                _db.SaveChanges();
+                        PrivateCounterValues _value = _db.PrivateCounterValues
+                            .FirstOrDefault(x => x.Period == _period && x.PrivateCounters.ID == _item.CounterId);
+
+                        if (_value == null)
+                        {
+                            _value =
+                                new PrivateCounterValues
+                                {
+                                    Period = _period,
+                                    PrivateCounters = _db.PrivateCounters.First(x => x.ID == _item.CounterId)
+                                };
+                            _db.PrivateCounterValues.AddObject(_value);
+                        }
+
+                        _value.CollectDate = _item.CollectDate;
+                        _value.Value = _item.CounterValue;
+                        _db.SaveChanges();
+                        _processedCount++;
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.SimpleWrite(
+                            $"Ошибка при сохранении показния ПУ(ID: {_item.CounterId}, Value{_item.CounterValue}, CollectDate: {_item.CollectDate}): {ex}");
+                        _errorsCount++;
+                    }
+                }
             }
 
             View.ResultCount = _processedCount;
@@ -229,11 +243,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             {
                 _data.Rows.Add(
                     _pair.Key,
-                    _pair.Value.Account,
+                    _pair.Value.CustomerInfo.Account,
                     _pair.Value.CounterNumber,
                     _pair.Value.CollectDate.ToString("dd.MM.yyyy"),
                     _pair.Value.CollectDate.ToString("MM.yyyy"),
-                    _pair.Value.Value,
+                    _pair.Value.CounterValue,
                     _pair.Value.HasError);
             }
 
@@ -248,17 +262,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         {
             if (!string.IsNullOrEmpty(account))
             {
-                WizardItem _item;
                 using (Entities _db = new Entities())
                 {
-                    _item = _db.GetCustomerInfo(account);
+                    CurrentItem.CustomerInfo = _db.GetCustomerInfo(account);
                 }
-                _item.CollectDate = ServerTime.GetDateTimeInfo().Now.Date;
-                AddItem(_item);
+
+                if (CurrentItem.CustomerInfo != null)
+                {
+
+                    CurrentItem.CollectDate = ServerTime.GetDateTimeInfo().Now.Date;
+                    AddItem();
+                }
             }
             else
             {
-                CurrentItem = null;
+                CurrentItem.CustomerInfo = null;
             }
 
             FillView();
@@ -266,29 +284,41 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
         private void FillView()
         {
-            if (CurrentItem != null)
+            if (CurrentItem != null && CurrentItem.CustomerInfo != null)
             {
-                View.Apartment = CurrentItem.Apartment;
-                View.Area = CurrentItem.Area.ToString("0.00 кв.м.");
-                View.Building = CurrentItem.Building;
-                View.CustomerName = CurrentItem.CustomerName;
-                View.Street = CurrentItem.Street;
+                View.Account = CurrentItem.CustomerInfo.Account;
+                View.Apartment = CurrentItem.CustomerInfo.Apartment;
+                View.Area = CurrentItem.CustomerInfo.Area.ToString("0.00 кв.м.");
+                View.Building = CurrentItem.CustomerInfo.Building;
+                View.CustomerName = CurrentItem.CustomerInfo.CustomerName;
+                View.Street = CurrentItem.CustomerInfo.Street;
                 View.CollectDate = CurrentItem.CollectDate;
-                View.CounterValue = CurrentItem.Value;
+                View.CounterValue = CurrentItem.CounterValue;
+
                 using (var _db = new Entities())
                 {
-                    View.Counters = _db.GetCustomerCounters(CurrentItem.CustomerId);
+                    View.Counters = _db.GetCustomerCounters(CurrentItem.CustomerInfo.CustomerId);
                 }
+
+                if (View.Counters.Rows.Count > 0 && CurrentItem.CounterId < 1)
+                {
+                    CurrentItem.CounterId = (int)View.Counters.Rows[0]["ID"];
+                }
+
+                View.CounterId = CurrentItem.CounterId;
             }
             else
             {
+                View.Account = string.Empty;
                 View.Apartment = string.Empty;
                 View.Area = string.Empty;
                 View.Building = string.Empty;
                 View.CustomerName = string.Empty;
                 View.Street = string.Empty;
                 View.Counters = null;
+                View.CounterModel = string.Empty;
                 View.CollectDate = DateTime.MinValue;
+                View.PrevCounterValue = 0;
                 View.CounterValue = 0;
             }
         }
@@ -308,7 +338,47 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// </summary>
         public bool ValidateCurrentItem()
         {
-            return true;
+            string _message = string.Empty;
+            bool _hasErrors = true;
+
+            if (CurrentItem != null && CurrentItem.CustomerInfo != null)
+            {
+                CurrentItem.CounterId = View.CounterId;
+                CurrentItem.CollectDate = View.CollectDate;
+                CurrentItem.Period = new DateTime(CurrentItem.CollectDate.Year, CurrentItem.CollectDate.Month, 1);
+                CurrentItem.CounterValue = View.CounterValue;
+
+                if (!Regex.IsMatch(CurrentItem.CustomerInfo.Account, @"EG-\d{4}-\d{3}-\d{1}"))
+                {
+                    _message += "Некорректный лицевой счет. \r\n";
+                }
+
+                if (CurrentItem.CounterId <= 0)
+                {
+                    _message += "Не указан прибор учета. \r\n";
+                }
+
+                if (CurrentItem.CounterValue <= 0)
+                {
+                    _message += "Некорректное показание. \r\n";
+                }
+                else if (CurrentItem.PrevCounterValue > 0 && CurrentItem.CounterValue < CurrentItem.PrevCounterValue)
+                {
+                    _message += "Текущее показание меньше предыдущего";
+                }
+
+                _hasErrors = !string.IsNullOrEmpty(_message);
+            }
+
+            View.CurrentItemHasError = _hasErrors;
+            View.CurrentItemMessage = _hasErrors ? _message : "Данные корректны";
+
+            if (CurrentItem.Period == CurrentItem.PrevCounterValuePeriod)
+            {
+                View.CurrentItemMessage += "\r\nЗа указанный период уже внесено показание. Оно будет перезаписано.";
+            }
+
+            return !_hasErrors;
         }
 
         /// <summary>
@@ -316,13 +386,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// </summary>
         public void CreateItem()
         {
-            AddItem(new WizardItem());
+            CurrentItem = new WizardItem();
+            FillView();
         }
 
-        private void AddItem(WizardItem item)
+        public void DublicateItem()
+        {
+            CurrentItem =
+                new WizardItem
+                {
+                    CustomerInfo = CurrentItem.CustomerInfo,
+                    CollectDate = CurrentItem.CollectDate
+                };
+
+            AddItem();
+            View.CounterValue = 0;
+        }
+
+        private void AddItem()
         {
             int _key = Items.Keys.Any() ? Items.Keys.Max() + 1 : 1;
-            CurrentItem = item;
             Items.Add(_key, CurrentItem);
 
             View.Items.Rows.Add(
@@ -363,7 +446,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             const decimal MONTH_NORM = 200;
 
             decimal _value;
-            DateTime _period = ServerTime.GetPeriodInfo().FirstUncharged;
 
             CounterLastValue _lastValue;
             using (var _db = new Entities())
@@ -373,8 +455,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
             if (_lastValue != null)
             {
-                int _mounthCount = (int)((_period - _lastValue.Period).TotalDays / 30);
-                _value = _mounthCount * MONTH_NORM;
+                int _mounthCount = (int)((CurrentItem.Period - _lastValue.Period).TotalDays / 30);
+                _value = _mounthCount * MONTH_NORM + _lastValue.Value;
             }
             else
             {
@@ -382,6 +464,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             }
 
             return _value;
+        }
+
+        /// <summary>
+        /// Устанавливает значение пред. показания прибора учета
+        /// </summary>
+        public void SetPrevCounterValue()
+        {
+            int _counterId = View.CounterId;
+
+            if (_counterId > 0)
+            {
+                CurrentItem.CounterId = _counterId;
+                CounterLastValue _lastValue;
+                using (var _db = new Entities())
+                {
+                    _lastValue = _db.GetCounterLastValue(CurrentItem.CounterId);
+                }
+
+                if (_lastValue != null)
+                {
+                    CurrentItem.PrevCounterValue = _lastValue.Value;
+                    CurrentItem.PrevCounterValuePeriod = _lastValue.Period;
+                }
+                else
+                {
+                    CurrentItem.PrevCounterValue = 0;
+                    CurrentItem.PrevCounterValuePeriod = DateTime.MinValue;
+                }
+
+                
+                View.PrevCounterValue = CurrentItem.PrevCounterValue;
+            }
         }
     }
 }

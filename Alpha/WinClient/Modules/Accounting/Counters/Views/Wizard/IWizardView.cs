@@ -23,7 +23,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
         #region CollectDataPage
 
-        DataTable Counters { set; }
+        DataTable Counters { get; set; }
         DataTable Items { get; set; }
 
         void SetAccountFocus();
@@ -34,8 +34,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         string Building { set; }
         string Apartment { set; }
         string Area { set; }
+        decimal PrevCounterValue { set; }
         decimal CounterValue { get; set; }
         int CounterId { get; set; }
+        string CounterModel { set; }
         DateTime CollectDate { get; set; }
 
         /// <summary>
@@ -56,11 +58,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// Итоговое количество обработанных записей
         /// </summary>
         int ResultCount { set; }
-
-        /// <summary>
-        /// Итоговая сумма 
-        /// </summary>
-        decimal ResultValue { set; }
 
         /// <summary>
         /// Итоговое количество ошибок в процессе обработки

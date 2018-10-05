@@ -1,46 +1,13 @@
 ﻿using System;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard.Model
 {
     /// <summary>
     /// Класс с информацией о введенных данных в мастере
     /// </summary>
     public class WizardItem
     {
-        /// <summary>
-        /// Лицевой счет
-        /// </summary>
-        public string Account { get; set; }
-
-        /// <summary>
-        /// ФИО абонента
-        /// </summary>
-        public string CustomerName { get; set; }
-
-        /// <summary>
-        /// ID абонента
-        /// </summary>
-        public int CustomerId { get; set; }
-
-        /// <summary>
-        /// Улица
-        /// </summary>
-        public string Street { get; set; }
-
-        /// <summary>
-        /// Номер дома
-        /// </summary>
-        public string Building { get; set; }
-
-        /// <summary>
-        /// Квартира
-        /// </summary>
-        public string Apartment { get; set; }
-
-        /// <summary>
-        /// Площадь квартиры
-        /// </summary>
-        public decimal Area { get; set; }
+        public CustomerInfo CustomerInfo { get; set; }
 
         /// <summary>
         /// ID прибора учета
@@ -63,9 +30,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         public DateTime CollectDate { get; set; }
 
         /// <summary>
+        /// Период сбора показния
+        /// </summary>
+        public DateTime Period { get; set; }
+
+        /// <summary>
         /// Показание
         /// </summary>
-        public decimal Value { get; set; }
+        public decimal CounterValue { get; set; }
+
+        /// <summary>
+        /// Период снятия пред. показаний
+        /// </summary>
+        public DateTime PrevCounterValuePeriod { get; set; }
+
+        /// <summary>
+        /// Предыдущее показание
+        /// </summary>
+        public decimal PrevCounterValue { get; set; }
 
         /// <summary>
         /// Признак наличия ошибки

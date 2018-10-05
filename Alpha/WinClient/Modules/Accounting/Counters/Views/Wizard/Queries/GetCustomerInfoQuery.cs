@@ -1,17 +1,18 @@
 ﻿using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard.Model;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard.Queries
 {
     public static class GetCustomerInfoQuery
     {
-        public static WizardItem GetCustomerInfo(this Entities db, string account)
+        public static CustomerInfo GetCustomerInfo(this Entities db, string account)
         {
             return db.Customers
                 .Where(x => x.Account == account)
                 .Select(x =>
-                    new WizardItem
+                    new CustomerInfo
                     {
                         Account = x.Account,
                         Apartment = x.Apartment,
@@ -23,7 +24,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                             : x.PhysicalPersonShortName,
                         Street = x.Buildings.Streets.Name
                     })
-                .First();
+                .FirstOrDefault();
         }
 
     }

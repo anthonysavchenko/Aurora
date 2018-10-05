@@ -66,6 +66,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.streetValueLabel = new System.Windows.Forms.Label();
             this.deleteItemButton = new DevExpress.XtraEditors.SimpleButton();
             this.counterInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.prevValueLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.counterLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.counterModelLabel = new System.Windows.Forms.Label();
             this.couterValueLabel = new System.Windows.Forms.Label();
@@ -76,8 +79,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.finishWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.TotalErrorCountLabel = new DevExpress.XtraEditors.LabelControl();
             this.TotalErrorCountValueLabel = new DevExpress.XtraEditors.LabelControl();
-            this.TotalAmountLabelValue = new DevExpress.XtraEditors.LabelControl();
-            this.TotalAmountLabel = new DevExpress.XtraEditors.LabelControl();
             this.TotalProcessedValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.TotalProcessedLabel = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.counterWizardControl)).BeginInit();
@@ -200,7 +201,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.counterValueGridView.OptionsSelection.MultiSelect = true;
             this.counterValueGridView.OptionsView.ShowGroupPanel = false;
             this.counterValueGridView.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.PaymentsGridView_CustomDrawCell);
-            this.counterValueGridView.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.PaymentsGridView_SelectionChanged);
             this.counterValueGridView.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.PaymentsGridView_FocusedRowChanged);
             this.counterValueGridView.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.PaymentsGridView_CustomColumnDisplayText);
             // 
@@ -366,11 +366,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.accountTextEdit.Size = new System.Drawing.Size(212, 20);
             this.accountTextEdit.TabIndex = 1;
             this.accountTextEdit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AnyControl_KeyDown);
-            this.accountTextEdit.Leave += new System.EventHandler(this.AnyControl_Leave);
             // 
             // addNewButton
             // 
-            this.addNewButton.Location = new System.Drawing.Point(187, 406);
+            this.addNewButton.Location = new System.Drawing.Point(187, 402);
             this.addNewButton.Name = "addNewButton";
             this.addNewButton.Size = new System.Drawing.Size(77, 23);
             this.addNewButton.TabIndex = 5;
@@ -469,7 +468,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // 
             // deleteItemButton
             // 
-            this.deleteItemButton.Location = new System.Drawing.Point(270, 406);
+            this.deleteItemButton.Location = new System.Drawing.Point(270, 402);
             this.deleteItemButton.Name = "deleteItemButton";
             this.deleteItemButton.Size = new System.Drawing.Size(76, 23);
             this.deleteItemButton.TabIndex = 6;
@@ -479,6 +478,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // counterInfoGroupBox
             // 
             this.counterInfoGroupBox.BackColor = System.Drawing.Color.Transparent;
+            this.counterInfoGroupBox.Controls.Add(this.prevValueLabel);
+            this.counterInfoGroupBox.Controls.Add(this.label2);
+            this.counterInfoGroupBox.Controls.Add(this.label1);
             this.counterInfoGroupBox.Controls.Add(this.counterLookUpEdit);
             this.counterInfoGroupBox.Controls.Add(this.counterModelLabel);
             this.counterInfoGroupBox.Controls.Add(this.couterValueLabel);
@@ -488,10 +490,37 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.counterInfoGroupBox.Controls.Add(this.valueTextEdit);
             this.counterInfoGroupBox.Location = new System.Drawing.Point(3, 233);
             this.counterInfoGroupBox.Name = "counterInfoGroupBox";
-            this.counterInfoGroupBox.Size = new System.Drawing.Size(343, 145);
+            this.counterInfoGroupBox.Size = new System.Drawing.Size(343, 163);
             this.counterInfoGroupBox.TabIndex = 3;
             this.counterInfoGroupBox.TabStop = false;
             this.counterInfoGroupBox.Text = "Прибор учета";
+            // 
+            // prevValueLabel
+            // 
+            this.prevValueLabel.AutoSize = true;
+            this.prevValueLabel.Location = new System.Drawing.Point(119, 108);
+            this.prevValueLabel.Name = "prevValueLabel";
+            this.prevValueLabel.Size = new System.Drawing.Size(13, 13);
+            this.prevValueLabel.TabIndex = 7;
+            this.prevValueLabel.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(96, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Пред . показание";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 56);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Модель";
             // 
             // counterLookUpEdit
             // 
@@ -517,13 +546,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.counterModelLabel.AutoSize = true;
             this.counterModelLabel.Location = new System.Drawing.Point(119, 56);
             this.counterModelLabel.Name = "counterModelLabel";
-            this.counterModelLabel.Size = new System.Drawing.Size(0, 13);
+            this.counterModelLabel.Size = new System.Drawing.Size(10, 13);
             this.counterModelLabel.TabIndex = 3;
+            this.counterModelLabel.Text = "-";
             // 
             // couterValueLabel
             // 
             this.couterValueLabel.AutoSize = true;
-            this.couterValueLabel.Location = new System.Drawing.Point(17, 109);
+            this.couterValueLabel.Location = new System.Drawing.Point(17, 134);
             this.couterValueLabel.Name = "couterValueLabel";
             this.couterValueLabel.Size = new System.Drawing.Size(63, 13);
             this.couterValueLabel.TabIndex = 4;
@@ -532,7 +562,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // periodLabel
             // 
             this.periodLabel.AutoSize = true;
-            this.periodLabel.Location = new System.Drawing.Point(17, 83);
+            this.periodLabel.Location = new System.Drawing.Point(17, 81);
             this.periodLabel.Name = "periodLabel";
             this.periodLabel.Size = new System.Drawing.Size(84, 13);
             this.periodLabel.TabIndex = 3;
@@ -550,7 +580,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // collectDateEdit
             // 
             this.collectDateEdit.EditValue = null;
-            this.collectDateEdit.Location = new System.Drawing.Point(119, 80);
+            this.collectDateEdit.Location = new System.Drawing.Point(119, 78);
             this.collectDateEdit.Name = "collectDateEdit";
             this.collectDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -558,7 +588,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.collectDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
             this.collectDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
-            this.collectDateEdit.Properties.DisplayFormat.FormatString = "MM.yyyy";
+            this.collectDateEdit.Properties.DisplayFormat.FormatString = "dd.MM.yyyy";
             this.collectDateEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.collectDateEdit.Properties.EditFormat.FormatString = "MM.yyyy";
             this.collectDateEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -571,7 +601,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // valueTextEdit
             // 
             this.valueTextEdit.EditValue = "";
-            this.valueTextEdit.Location = new System.Drawing.Point(119, 106);
+            this.valueTextEdit.Location = new System.Drawing.Point(119, 131);
             this.valueTextEdit.Name = "valueTextEdit";
             this.valueTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.valueTextEdit.Properties.Mask.EditMask = "n";
@@ -588,8 +618,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.finishWizardPage.AllowCancel = false;
             this.finishWizardPage.Controls.Add(this.TotalErrorCountLabel);
             this.finishWizardPage.Controls.Add(this.TotalErrorCountValueLabel);
-            this.finishWizardPage.Controls.Add(this.TotalAmountLabelValue);
-            this.finishWizardPage.Controls.Add(this.TotalAmountLabel);
             this.finishWizardPage.Controls.Add(this.TotalProcessedValueLabel);
             this.finishWizardPage.Controls.Add(this.TotalProcessedLabel);
             this.finishWizardPage.DescriptionText = "Для окончания нажмите Завершить";
@@ -600,7 +628,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // TotalErrorCountLabel
             // 
             this.TotalErrorCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TotalErrorCountLabel.Location = new System.Drawing.Point(12, 76);
+            this.TotalErrorCountLabel.Location = new System.Drawing.Point(12, 46);
             this.TotalErrorCountLabel.Name = "TotalErrorCountLabel";
             this.TotalErrorCountLabel.Size = new System.Drawing.Size(40, 13);
             this.TotalErrorCountLabel.TabIndex = 10;
@@ -609,29 +637,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // TotalErrorCountValueLabel
             // 
             this.TotalErrorCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TotalErrorCountValueLabel.Location = new System.Drawing.Point(113, 76);
+            this.TotalErrorCountValueLabel.Location = new System.Drawing.Point(113, 46);
             this.TotalErrorCountValueLabel.Name = "TotalErrorCountValueLabel";
             this.TotalErrorCountValueLabel.Size = new System.Drawing.Size(6, 13);
             this.TotalErrorCountValueLabel.TabIndex = 11;
             this.TotalErrorCountValueLabel.Text = "0";
-            // 
-            // TotalAmountLabelValue
-            // 
-            this.TotalAmountLabelValue.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TotalAmountLabelValue.Location = new System.Drawing.Point(113, 43);
-            this.TotalAmountLabelValue.Name = "TotalAmountLabelValue";
-            this.TotalAmountLabelValue.Size = new System.Drawing.Size(6, 13);
-            this.TotalAmountLabelValue.TabIndex = 12;
-            this.TotalAmountLabelValue.Text = "0";
-            // 
-            // TotalAmountLabel
-            // 
-            this.TotalAmountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TotalAmountLabel.Location = new System.Drawing.Point(12, 43);
-            this.TotalAmountLabel.Name = "TotalAmountLabel";
-            this.TotalAmountLabel.Size = new System.Drawing.Size(86, 13);
-            this.TotalAmountLabel.TabIndex = 7;
-            this.TotalAmountLabel.Text = "На общую сумму";
             // 
             // TotalProcessedValueLabel
             // 
@@ -705,8 +715,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         private DevExpress.XtraWizard.WizardPage finishWizardPage;
         private DevExpress.XtraEditors.LabelControl TotalErrorCountLabel;
         private DevExpress.XtraEditors.LabelControl TotalErrorCountValueLabel;
-        private DevExpress.XtraEditors.LabelControl TotalAmountLabelValue;
-        private DevExpress.XtraEditors.LabelControl TotalAmountLabel;
         private DevExpress.XtraEditors.LabelControl TotalProcessedValueLabel;
         private DevExpress.XtraEditors.LabelControl TotalProcessedLabel;
         private DevExpress.XtraEditors.SimpleButton addNewButton;
@@ -737,6 +745,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         private DevExpress.XtraGrid.Columns.GridColumn periodGridColumn;
         private DevExpress.XtraEditors.LookUpEdit counterLookUpEdit;
         private DevExpress.XtraGrid.Columns.GridColumn counterIdGridColumn;
+        private System.Windows.Forms.Label prevValueLabel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.ObjectBuilder;
 using System;
+using System.Data;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
@@ -13,6 +15,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
         public TopView()
         {
             InitializeComponent();
+        }
+
+        [CreateNew]
+        public new TopViewPresenter Presenter
+        {
+            set => base.Presenter = value;
+            get => (TopViewPresenter)base.Presenter;
         }
 
         /// <summary>
@@ -105,6 +114,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
             }
         }
 
+        public DataTable Districts
+        {
+            set
+            {
+                districtLookUpEdit.Properties.DataSource = value;
+                districtLookUpEdit.Properties.ForceInitialize();
+            }
+        }
+
         private void StreetTextBox_Enter(object sender, EventArgs e)
         {
             addressRadioButton.Checked = true;
@@ -123,6 +141,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
         private void HouseTextBox_Enter(object sender, EventArgs e)
         {
             addressRadioButton.Checked = true;
+        }
+
+        private void printCollectFormButton_Click(object sender, EventArgs e)
+        {
+            int _id = districtLookUpEdit.ItemIndex != -1
+                ? (int)districtLookUpEdit.GetColumnValue("ID")
+                : -1;
+
+            if (_id > 0)
+            {
+                Presenter.PrintCollectForm(_id);
+            }
         }
     }
 }

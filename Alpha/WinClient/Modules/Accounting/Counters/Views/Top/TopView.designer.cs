@@ -45,11 +45,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.FromLabel = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.printCollectFormButton = new System.Windows.Forms.Button();
+            this.districtLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.districtLookUpEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.showOnlyWoPeriodValuesCheckBox);
             this.groupBox1.Controls.Add(this.zipCodeRadioButton);
             this.groupBox1.Controls.Add(this.accountRadioButton);
@@ -64,10 +72,9 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.FromLabel);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(732, 130);
+            this.groupBox1.Size = new System.Drawing.Size(472, 130);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фильтр";
@@ -126,9 +133,9 @@
             // 
             // ApartmentTextBox
             // 
-            this.ApartmentTextBox.Location = new System.Drawing.Point(450, 21);
+            this.ApartmentTextBox.Location = new System.Drawing.Point(416, 22);
             this.ApartmentTextBox.Name = "ApartmentTextBox";
-            this.ApartmentTextBox.Size = new System.Drawing.Size(65, 20);
+            this.ApartmentTextBox.Size = new System.Drawing.Size(40, 20);
             this.ApartmentTextBox.TabIndex = 3;
             this.ApartmentTextBox.Enter += new System.EventHandler(this.HouseTextBox_Enter);
             // 
@@ -136,7 +143,7 @@
             // 
             this.HouseTextBox.Location = new System.Drawing.Point(341, 21);
             this.HouseTextBox.Name = "HouseTextBox";
-            this.HouseTextBox.Size = new System.Drawing.Size(65, 20);
+            this.HouseTextBox.Size = new System.Drawing.Size(40, 20);
             this.HouseTextBox.TabIndex = 2;
             this.HouseTextBox.Enter += new System.EventHandler(this.HouseTextBox_Enter);
             // 
@@ -151,7 +158,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(421, 24);
+            this.label2.Location = new System.Drawing.Point(387, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(23, 13);
             this.label2.TabIndex = 6;
@@ -201,15 +208,66 @@
             this.FromLabel.TabIndex = 5;
             this.FromLabel.Text = "Улица";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.printCollectFormButton);
+            this.groupBox2.Controls.Add(this.districtLookUpEdit);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox2.Location = new System.Drawing.Point(478, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(254, 130);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Форма сбора показаний";
+            // 
+            // printCollectFormButton
+            // 
+            this.printCollectFormButton.Location = new System.Drawing.Point(173, 98);
+            this.printCollectFormButton.Name = "printCollectFormButton";
+            this.printCollectFormButton.Size = new System.Drawing.Size(75, 23);
+            this.printCollectFormButton.TabIndex = 9;
+            this.printCollectFormButton.Text = "Печать";
+            this.printCollectFormButton.UseVisualStyleBackColor = true;
+            this.printCollectFormButton.Click += new System.EventHandler(this.printCollectFormButton_Click);
+            // 
+            // districtLookUpEdit
+            // 
+            this.districtLookUpEdit.Location = new System.Drawing.Point(61, 21);
+            this.districtLookUpEdit.Name = "districtLookUpEdit";
+            this.districtLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.districtLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ID", "ID", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Наименование")});
+            this.districtLookUpEdit.Properties.DisplayMember = "Name";
+            this.districtLookUpEdit.Properties.NullText = "<Введите значение>";
+            this.districtLookUpEdit.Properties.ValueMember = "ID";
+            this.districtLookUpEdit.Size = new System.Drawing.Size(187, 20);
+            this.districtLookUpEdit.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Участок";
+            // 
             // TopView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "TopView";
             this.Size = new System.Drawing.Size(732, 130);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.districtLookUpEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -231,8 +289,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox showOnlyWoPeriodValuesCheckBox;
-
-
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button printCollectFormButton;
+        private DevExpress.XtraEditors.LookUpEdit districtLookUpEdit;
     }
 }
 

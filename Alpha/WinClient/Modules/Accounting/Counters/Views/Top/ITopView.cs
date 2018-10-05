@@ -1,4 +1,5 @@
-﻿using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
+﻿using System.Data;
+using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
 {
@@ -59,5 +60,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
         /// Фильтр
         /// </summary>
         FilterType Filter { get; }
+
+        /// <summary>
+        /// Участки сбора показаний приборов учета
+        /// </summary>
+        DataTable Districts { set; }
     }
 }

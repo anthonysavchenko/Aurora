@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
+using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 {
@@ -106,69 +107,122 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             var _errors = new StringBuilder();
             object _locker = new object();
 
-            Parallel.ForEach(rows, row =>
+            var _grouped = rows
+                .GroupBy(x =>
+                    new
+                    {
+                        x.Street,
+                        x.Building,
+                        x.Apartment
+                    })
+                .Select(g =>
+                    new
+                    {
+                        g.Key.Street,
+                        g.Key.Building,
+                        g.Key.Apartment,
+                        Rows = g.Select(x => x).ToList()
+                    });
+
+            Parallel.ForEach(_grouped, item =>
             {
                 try
                 {
                     using (var _db = new Entities())
                     {
-                        Customers _customer = _db.Customers
-                            .Where(x =>
-                                x.Buildings.Streets.Name == row.Street
-                                && x.Buildings.Number == row.Building
-                                && x.Apartment == row.Apartment)
-                            .FirstOrDefault();
+                        Customers _customer = GetCustomer(item.Street, item.Building, item.Apartment, _db);
 
                         if (_customer == null)
                         {
-                            throw new ApplicationException($"Абонент не найден.");
+                            throw new ApplicationException("Абонент не найден");
                         }
 
-                        PrivateCounters _counter = _db.PrivateCounters
-                            .FirstOrDefault(x => x.Number == row.CounterNumber && x.CustomerID == _customer.ID);
-
-                        if (_counter == null)
+                        if (item.Rows.Count > 1)
                         {
-                            _counter =
-                                new PrivateCounters
-                                {
-                                    Number = row.CounterNumber,
-                                    Model = row.CounterModel,
-                                    Customers = _customer,
-                                    ServiceID = 58
-                                };
-                            _db.PrivateCounters.AddObject(_counter);
+                            if (item.Rows[0].FirstValue > item.Rows[1].FirstValue)
+                            {
+                                item.Rows[0].CounterNumber = item.Rows[0].CounterNumber + " - Д";
+                                item.Rows[1].CounterNumber = item.Rows[1].CounterNumber + " - Н";
+                            }
+                            else
+                            {
+                                item.Rows[1].CounterNumber = item.Rows[1].CounterNumber + " - Д";
+                                item.Rows[0].CounterNumber = item.Rows[0].CounterNumber + " - Н";
+                            }
                         }
 
-                        bool _valueExist = _db.PrivateCounterValues
-                            .Any(x => x.CollectDate == row.FirstCollectDate && x.PrivateCounters.ID == _counter.ID);
-
-                        if (!_valueExist)
+                        foreach (ParsedRow _row in item.Rows)
                         {
-                            _db.PrivateCounterValues.AddObject(
-                                new PrivateCounterValues
-                                {
-                                    PrivateCounters = _counter,
-                                    CollectDate = row.FirstCollectDate,
-                                    Period = new DateTime(row.FirstCollectDate.Year, row.FirstCollectDate.Month, 1),
-                                    Value = row.FirstValue
-                                });
-                        }
+                            try
+                            {
+                                PrivateCounters _counter = _db.PrivateCounters
+                                    .FirstOrDefault(x => x.Number == _row.CounterNumber && x.CustomerID == _customer.ID);
 
-                        _db.SaveChanges();
+                                if (_counter == null)
+                                {
+                                    _counter =
+                                        new PrivateCounters
+                                        {
+                                            Number = _row.CounterNumber,
+                                            Model = _row.CounterModel,
+                                            Customers = _customer,
+                                            ServiceID = 58
+                                        };
+                                    _db.PrivateCounters.AddObject(_counter);
+                                }
+
+                                bool _valueExist = _db.PrivateCounterValues
+                                    .Any(x => x.CollectDate == _row.FirstCollectDate && x.PrivateCounters.ID == _counter.ID);
+
+                                if (!_valueExist)
+                                {
+                                    _db.PrivateCounterValues.AddObject(
+                                        new PrivateCounterValues
+                                        {
+                                            PrivateCounters = _counter,
+                                            CollectDate = _row.FirstCollectDate,
+                                            Period = new DateTime(_row.FirstCollectDate.Year, _row.FirstCollectDate.Month, 1),
+                                            Value = _row.FirstValue
+                                        });
+                                    _db.SaveChanges();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                lock (_locker)
+                                {
+                                    _errors.AppendLine($"Строка №{_row.RowNumber}. {ex.Message}");
+                                    Logger.SimpleWrite($"Строка {_row.RowNumber}\t{_row.Street}\t{_row.Building}\t{_row.Apartment}\t{_row.CounterModel}\t{_row.CounterNumber}\t0\t{_row.FirstCollectDate}\t{_row.FirstValue}");
+                                }
+                            }
+                        }
                     }
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
-                    lock (_locker)
+                    item.Rows.ForEach(_row =>
                     {
-                        _errors.AppendLine($"Строка №{row.RowNumber}. {ex.Message}");
-                    }
+                        lock (_locker)
+                        {
+                            _errors.AppendLine($"Строка №{_row.RowNumber}. {ex.Message}");
+                            Logger.SimpleWrite($"Строка {_row.RowNumber}\t{_row.Street}\t{_row.Building}\t{_row.Apartment}\t{_row.CounterModel}\t{_row.CounterNumber}\t0\t{_row.FirstCollectDate}\t{_row.FirstValue}");
+                        }
+                    });
                 }
 
                 lock (_locker)
                 {
                     reportProgressAction(_progress++ * 50 / rows.Count + 50);
+                }
+
+                Customers GetCustomer(string street, string building, string apartment, Entities db)
+                {
+                    return db.Customers
+                        .Where(x =>
+                            x.Buildings.Streets.Name == street
+                            && x.Buildings.Number == building
+                            && x.Apartment == apartment)
+                        .FirstOrDefault();
                 }
             });
 

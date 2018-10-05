@@ -36,28 +36,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         public DataTable Items
         {
             get => (DataTable)counterValueGridControl.DataSource;
-            set
-            {
-                counterValueGridControl.Invoke(new MethodInvoker(() => counterValueGridControl.DataSource = value));
-                //PaymentsGridView.BestFitColumns();
-
-                if (value != null)
-                {
-                    FillTotalLabels();
-                }
-            }
+            set => counterValueGridControl.Invoke(new MethodInvoker(() => counterValueGridControl.DataSource = value));
         }
-        
+
         public DataTable Counters
         {
+            get => (DataTable)counterLookUpEdit.Properties.DataSource;
             set
             {
                 counterLookUpEdit.Properties.DataSource = value;
                 counterLookUpEdit.Properties.ForceInitialize();
-                if (value != null && value.Rows.Count > 0)
-                {
-                    counterLookUpEdit.EditValue = value.Rows[0]["ID"];
-                }
             }
         }
 
@@ -136,7 +124,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             {
                 return counterLookUpEdit.ItemIndex != -1
                     ? (int)counterLookUpEdit.GetColumnValue("ID")
-                    : 0;
+                    : -1;
             }
             set
             {
@@ -158,9 +146,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             ? counterLookUpEdit.GetColumnValue("Number").ToString()
             : string.Empty;
 
-        private string CounterModel => counterLookUpEdit.ItemIndex != -1
-            ? counterLookUpEdit.GetColumnValue("Model").ToString()
-            : string.Empty;
+        public string CounterModel
+        {
+            set => counterModelLabel.Text = value;
+        }
+
+        public decimal PrevCounterValue { set => prevValueLabel.Text = value.ToString("0.000"); }
 
         /// <summary>
         /// Сумма платежа в выбранной позиции
@@ -223,11 +214,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// Итоговое количество обработанных записей
         /// </summary>
         public int ResultCount { set => TotalProcessedValueLabel.Invoke(new MethodInvoker(() => TotalProcessedValueLabel.Text = value.ToString())); }
-
-        /// <summary>
-        /// Итоговая сумма 
-        /// </summary>
-        public decimal ResultValue { set => TotalAmountLabelValue.Invoke(new MethodInvoker(() => TotalAmountLabelValue.Text = value.ToString("C2"))); }
 
         /// <summary>
         /// Итоговое количество ошибок в процессе обработки
@@ -340,6 +326,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             if (e.FocusedRowHandle >= 0)
             {
                 Presenter.OnProcesingDataRowChanged(Convert.ToInt32(counterValueGridView.GetDataRow(e.FocusedRowHandle)["ID"]));
+                ValidateCurrentItem();
             }
         }
 
@@ -348,15 +335,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// </summary>
         private void AnyControl_Leave(object sender, EventArgs e)
         {
-            if (((Control)sender).Name == "accountTextEdit")
-            {
-                Presenter.SetCustomer(Account);
-                counterValueGridView.FocusedRowHandle = counterValueGridView.RowCount - 1;
-                counterValueGridView.ClearSelection();
-                counterValueGridView.SelectRow(counterValueGridView.RowCount - 1);
-                FillSelectedPaymentsTotalLabels();
-                FillTotalLabels();
-            }
             ValidateCurrentItem();
         }
 
@@ -371,6 +349,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                 switch (((Control)sender).Name)
                 {
                     case "accountTextEdit":
+                        Presenter.SetCustomer(Account);
+                        counterValueGridView.FocusedRowHandle = counterValueGridView.RowCount - 1;
+                        counterValueGridView.ClearSelection();
+                        counterValueGridView.SelectRow(counterValueGridView.RowCount - 1);
                         counterLookUpEdit.Focus();
                         break;
                     case "counterLookUpEdit":
@@ -414,7 +396,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// </summary>
         private void AddNewButton_Click(object sender, EventArgs e)
         {
-            accountTextEdit.Focus();
+            if (Counters.Rows.Count > 1 && counterLookUpEdit.ItemIndex < Counters.Rows.Count - 1)
+            {
+                int _selectedCounterIndex = counterLookUpEdit.ItemIndex;
+                Presenter.DublicateItem();
+                counterValueGridView.FocusedRowHandle = counterValueGridView.RowCount - 1;
+                counterValueGridView.ClearSelection();
+                counterValueGridView.SelectRow(counterValueGridView.RowCount - 1);
+
+                counterLookUpEdit.EditValue = Counters.Rows[_selectedCounterIndex + 1]["ID"];
+                counterLookUpEdit.Focus();
+            }
+            else
+            {
+                Presenter.CreateItem();
+                accountTextEdit.Focus();
+            }
         }
 
         /// <summary>
@@ -424,21 +421,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         {
             Presenter.DeleteItems(counterValueGridView.GetSelectedRows().Select(handle => Convert.ToInt32(counterValueGridView.GetDataRow(handle)["ID"])).ToList());
             counterValueGridView.FocusedRowHandle = 0;
-            Presenter.OnProcesingDataRowChanged(Convert.ToInt32(counterValueGridView.GetDataRow(0)["ID"]));
             counterValueGridView.ClearSelection();
             counterValueGridView.SelectRow(0);
-            FillSelectedPaymentsTotalLabels();
-            FillTotalLabels();
 
             accountTextEdit.Focus();
-        }
-
-        /// <summary>
-        /// Обрабатывает выделение строк в таблице
-        /// </summary>
-        private void PaymentsGridView_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
-        {
-            FillSelectedPaymentsTotalLabels();
         }
 
         #endregion
@@ -452,46 +438,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
             int _currentRow = counterValueGridView.FocusedRowHandle;
 
-            bool _valueChanged = (decimal)counterValueGridView.GetRowCellValue(_currentRow, "Value") != CounterValue;
-
-            counterValueGridView.SetRowCellValue(_currentRow, "Account", Account);
-            counterValueGridView.SetRowCellValue(_currentRow, "CollectDate", CollectDate.ToString("dd.MM.yyyy"));
-            counterValueGridView.SetRowCellValue(_currentRow, "Period", CollectDate.ToString("MM.yyyy"));
-            counterValueGridView.SetRowCellValue(_currentRow, "Counter", CounterNumber);
-            counterValueGridView.SetRowCellValue(_currentRow, "Value", CounterValue);
-            counterValueGridView.SetRowCellValue(_currentRow, "HasError", _hasErrors);
-
-            counterValueGridView.RefreshData();
-
-            if (_valueChanged)
+            if (_currentRow >= 0)
             {
-                FillSelectedPaymentsTotalLabels();
-                FillTotalLabels();
+                bool _valueChanged = (decimal)counterValueGridView.GetRowCellValue(_currentRow, "Value") != CounterValue;
+
+                counterValueGridView.SetRowCellValue(_currentRow, "Account", Account);
+                counterValueGridView.SetRowCellValue(_currentRow, "CollectDate", CollectDate.ToString("dd.MM.yyyy"));
+                counterValueGridView.SetRowCellValue(_currentRow, "Period", CollectDate.ToString("MM.yyyy"));
+                counterValueGridView.SetRowCellValue(_currentRow, "Counter", CounterNumber);
+                counterValueGridView.SetRowCellValue(_currentRow, "Value", CounterValue);
+                counterValueGridView.SetRowCellValue(_currentRow, "HasError", _hasErrors);
+
+                counterValueGridView.RefreshData();
             }
-        }
-
-
-        /// <summary>
-        /// Заполняет итоговые поля по выбранным строкам
-        /// </summary>
-        private void FillSelectedPaymentsTotalLabels()
-        {
-
-            decimal _sum = 0;
-            int[] _selectedRows = counterValueGridView.GetSelectedRows();
-
-            for (int i = 0; i < _selectedRows.Length; i++)
-            {
-                _sum += (decimal)counterValueGridView.GetDataRow(_selectedRows[i])["Value"];
-            }
-        }
-
-        /// <summary>
-        /// Заполняет итоговые поля по всем строкам
-        /// </summary>
-        private void FillTotalLabels()
-        {
-            //paymentsCountLabel.Invoke(new MethodInvoker(() => paymentsCountLabel.Text = ((DataTable)counterValueGridControl.DataSource).Rows.Count.ToString()));
         }
 
         /// <summary>
@@ -507,7 +466,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
         private void counterLookUpEdit_Properties_EditValueChanged(object sender, EventArgs e)
         {
-            counterModelLabel.Text = CounterModel;
+            CounterModel = counterLookUpEdit.ItemIndex != -1
+                ? counterLookUpEdit.GetColumnValue("Model").ToString()
+                : string.Empty; ;
+            Presenter.SetPrevCounterValue();
         }
     }
 }
