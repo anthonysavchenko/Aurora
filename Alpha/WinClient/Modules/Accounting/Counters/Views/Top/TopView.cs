@@ -146,7 +146,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
         private void printCollectFormButton_Click(object sender, EventArgs e)
         {
             int _id = districtLookUpEdit.ItemIndex != -1
-                ? (int)districtLookUpEdit.GetColumnValue("ID")
+                ? int.Parse(districtLookUpEdit.GetColumnValue("ID").ToString())
                 : -1;
 
             if (_id > 0)
