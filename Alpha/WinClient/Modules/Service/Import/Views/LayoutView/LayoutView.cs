@@ -58,6 +58,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     _action = WizardAction.ImportPublicPlaceServiceVolumes;
                 }
+                else if (importCounterRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportCounters;
+                }
 
                 return _action;
             }

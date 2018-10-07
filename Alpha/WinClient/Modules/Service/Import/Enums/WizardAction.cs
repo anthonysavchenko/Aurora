@@ -23,6 +23,11 @@
         /// <summary>
         /// Импортировать данные по потребленным объемам коммунального ресурса при содержании общедомового имущества за период
         /// </summary>
-        ImportPublicPlaceServiceVolumes
+        ImportPublicPlaceServiceVolumes,
+
+        /// <summary>
+        /// Имортировать данные приборов учета из файла Excel
+        /// </summary>
+        ImportCounters
     }
 }

@@ -189,7 +189,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             }
             catch (Exception _ex)
             {
-                message = $"Не удалось прочитать строку {0}.\r\n\r\n{_ex.Message}";
+                message = $"Не удалось прочитать строку {_currentRow}.\r\n\r\n{_ex.Message}";
             }
 
             return _rows;

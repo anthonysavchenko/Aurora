@@ -16,8 +16,16 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_Service]
     ON [dbo].[BenefitOperPoses]([Service] ASC)
     INCLUDE([Value], [BenefitOper]);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_BenefitOper]
+    ON [dbo].[BenefitOperPoses]([BenefitOper] ASC)
+    INCLUDE([Value], [Service]);
 

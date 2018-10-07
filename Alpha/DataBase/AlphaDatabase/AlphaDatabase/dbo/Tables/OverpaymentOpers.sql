@@ -9,3 +9,9 @@
     CONSTRAINT [FK_OverpaymentOpers_Customers] FOREIGN KEY ([Customer]) REFERENCES [dbo].[Customers] ([ID]),
     CONSTRAINT [FK_OverpaymentOpers_OverpaymentCorrectionOpers] FOREIGN KEY ([OverpaymentCorrectionOper]) REFERENCES [dbo].[OverpaymentCorrectionOpers] ([ID])
 );
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Customer]
+    ON [dbo].[OverpaymentOpers]([Customer] ASC);
+
