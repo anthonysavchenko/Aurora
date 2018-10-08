@@ -564,9 +564,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.periodLabel.AutoSize = true;
             this.periodLabel.Location = new System.Drawing.Point(17, 81);
             this.periodLabel.Name = "periodLabel";
-            this.periodLabel.Size = new System.Drawing.Size(84, 13);
+            this.periodLabel.Size = new System.Drawing.Size(71, 13);
             this.periodLabel.TabIndex = 3;
-            this.periodLabel.Text = "Дата внесения";
+            this.periodLabel.Text = "Дата снятия";
             // 
             // intermediaryLabel
             // 
