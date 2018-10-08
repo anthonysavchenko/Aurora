@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBooks;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
@@ -70,5 +71,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         /// Банковские реквизиты
         /// </summary>
         BankDetail BankDetail { get; set; }
+
+        /// <summary>
+        /// Список участков сбора показаний приборов учета
+        /// </summary>
+        DataTable CounterValueCollectDistrictSource { set; }
+
+        /// <summary>
+        /// Участок сбора показаний приборов учета
+        /// </summary>
+        CounterValueCollectDistrict CounterValueCollectDistrict { get; set; }
     }
 }

@@ -12,3 +12,10 @@
 
 
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_RechargeOper]
+    ON [dbo].[ChargeCorrectionOpers]([RechargeOper] ASC);
+

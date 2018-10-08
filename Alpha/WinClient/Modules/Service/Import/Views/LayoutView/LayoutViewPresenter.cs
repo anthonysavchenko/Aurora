@@ -22,17 +22,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         [ServiceDependency]
         public IPublicPlaceServiceVolumesImportService PublicPlaceServiceVolumesImportService { get; set; }
 
-        private readonly IImportService _gisZhkhCustomersImportService;
-        private readonly IImportService _newCustomersImportService;
-        private readonly IImportService _customerPosesImportService;
-
-        public LayoutViewPresenter()
-        {
-            _gisZhkhCustomersImportService = new GisZhkhCustomersImportService(ExcelService);
-            _newCustomersImportService = new NewCustomersImportService(ExcelService);
-            _customerPosesImportService = new CustomerPosesImportService(ExcelService);
-        }
-
         /// <summary>
         /// Обрабатывает активацию модуля
         /// </summary>
@@ -174,6 +163,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                         break;
                     case WizardAction.ImportPublicPlaceServiceVolumes:
                         args.Result = PublicPlaceServiceVolumesImportService.ProcessFile(View.FilePath, View.Period, _reportProgressAction); 
+                        break;
+                    case WizardAction.ImportCounters:
+                        args.Result = new PrivateCounterImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
                         break;
                 }
             };

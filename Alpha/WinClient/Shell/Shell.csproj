@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>018.07.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.01.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>018.07.0.0</ApplicationVersion>
+    <ApplicationVersion>019.01.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -351,6 +351,10 @@
       <Project>{09b1c60c-4cd5-4ae9-a9c1-109a304c56b0}</Project>
       <Name>Charges %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Charges%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\Accounting\Counters\Counters.csproj">
+      <Project>{2c535c51-bde5-49ea-9b49-0e5b1bf99cac}</Project>
+      <Name>Counters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\Accounting\Customers\Customers.csproj">
       <Project>{4851aaa2-d26c-4a08-b6cf-5a347cf72560}</Project>
       <Name>Customers</Name>
@@ -390,6 +394,10 @@
     <ProjectReference Include="..\Modules\RefBooks\Contractors\Contractors.csproj">
       <Project>{2cfa7ad5-897f-484d-bd6d-cf94e2739b08}</Project>
       <Name>Contractors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\CounterValueCollectDistricts\CounterValueCollectDistricts.csproj">
+      <Project>{78a0ff01-3813-4424-9b24-42025b5dbaba}</Project>
+      <Name>CounterValueCollectDistricts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\RefBooks\Intermediaries\Intermediaries.csproj">
       <Project>{0fd61dfb-3d9d-45ff-8c31-6a77ff791e68}</Project>
@@ -496,12 +504,12 @@
   <ItemGroup>
     <PublishFile Include="ProfileCatalog.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

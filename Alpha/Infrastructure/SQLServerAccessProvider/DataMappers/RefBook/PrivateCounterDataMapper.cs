@@ -54,6 +54,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                     _dbItem = _entities.PrivateCounters.First(p => p.ID == _id);
                 }
 
+                _dbItem.Model = domObj.Model;
                 _dbItem.Number = domObj.Number;
                 _dbItem.CustomerID = int.Parse(domObj.Customer.ID);
                 _dbItem.ServiceID = int.Parse(domObj.Service.ID);
@@ -83,6 +84,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                         .Include("CustomerPoses")
                         .First(x => x.ID == _id);
 
+                _domItem.Model = _dbItem.Model;
                 _domItem.Number = _dbItem.Number;
                 _domItem.Customer = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(_dbItem.CustomerID.ToString());
                 _domItem.Service = (DomService)DataMapperService.get(typeof(DomService)).find(_dbItem.ServiceID.ToString());

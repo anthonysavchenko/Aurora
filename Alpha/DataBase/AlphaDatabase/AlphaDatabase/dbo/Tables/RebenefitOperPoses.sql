@@ -13,3 +13,11 @@
 
 
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_RebenefitOper]
+    ON [dbo].[RebenefitOperPoses]([RebenefitOper] ASC)
+    INCLUDE([Value], [Service]);
+

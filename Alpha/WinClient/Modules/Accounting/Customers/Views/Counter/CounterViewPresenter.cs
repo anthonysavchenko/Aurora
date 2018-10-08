@@ -84,6 +84,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             curItem.Number = View.Number.Trim();
             curItem.Service = View.Service;
+            curItem.Model = string.Empty;
         }
 
         /// <summary>
