@@ -133,8 +133,11 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _tempId = Convert.ToInt32(domObj.BankDetail.ID);
                 _dbItem.BankDetails = _entities.BankDetails.First(b => b.ID == _tempId);
 
-                _tempId = Convert.ToInt32(domObj.CounterValueCollectDistrict.ID);
-                _dbItem.CounterValueCollectDistricts = _entities.CounterValueCollectDistricts.First(x => x.ID == _tempId);
+                if (domObj.CounterValueCollectDistrict != null)
+                {
+                    _tempId = Convert.ToInt32(domObj.CounterValueCollectDistrict.ID);
+                    _dbItem.CounterValueCollectDistricts = _entities.CounterValueCollectDistricts.First(x => x.ID == _tempId);
+                }
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
