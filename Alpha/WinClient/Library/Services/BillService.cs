@@ -21,7 +21,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         {
             StringBuilder _builder = new StringBuilder();
 
-            _builder.AppendLine("Директор Слаутенко А.В. г. Владивосток, ул. Рылеева, 8.");
+            _builder.AppendLine("г. Владивосток, ул. Рылеева, 8.");
 
             if (bankDetail != null)
             {
