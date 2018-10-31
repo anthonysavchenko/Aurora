@@ -19,6 +19,7 @@
     </Dependencies>
     <Modules>
 
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.CounterValueCollectForm.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.dll" />

@@ -149,5 +149,10 @@
         /// Участки сбора показаний приборов учета
         /// </summary>
         public const string COUNTER_VALUE_COLLECT_DISTRICTS = "usecase://RefBook/CounterValueCollectDistrict";
+
+        /// <summary>
+        /// Печатная форма сбора показаний приборов учета
+        /// </summary>
+        public const string COUNTER_VALUE_COLLECT_FORM = "usecase://Report/CounterValueCollectForm";
     }
 }
