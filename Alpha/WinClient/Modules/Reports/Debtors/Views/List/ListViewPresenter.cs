@@ -232,6 +232,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                 if(View.DebtMonthCount > 0)
                 {
                     DateTime _lastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged;
+                    int debtMonthCount = View.DebtMonthCount;
 
                     _raw2 = _raw2
                         .Join(_db.ChargeOpers
@@ -251,9 +252,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         DebtValue = x.Value,
                                         ChargeValue = c.Value
                                     })
-                        .Where(x => (
-                            x.ChargeValue > 0 && Math.Round(x.DebtValue / x.ChargeValue, 0, MidpointRounding.AwayFromZero) >= View.DebtMonthCount) 
-                            || x.DebtValue > 0)
+                        .Where(x => x.ChargeValue > 0 && Math.Round(x.DebtValue / x.ChargeValue, 0, MidpointRounding.AwayFromZero) >= debtMonthCount)
                         .Select(x =>
                             new
                             {
