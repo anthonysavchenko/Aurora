@@ -251,7 +251,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         DebtValue = x.Value,
                                         ChargeValue = c.Value
                                     })
-                        .Where(x => Math.Round(x.DebtValue / x.ChargeValue, 0, MidpointRounding.AwayFromZero) >= View.DebtMonthCount)
+                        .Where(x => (
+                            x.ChargeValue > 0 && Math.Round(x.DebtValue / x.ChargeValue, 0, MidpointRounding.AwayFromZero) >= View.DebtMonthCount) 
+                            || x.DebtValue > 0)
                         .Select(x =>
                             new
                             {
