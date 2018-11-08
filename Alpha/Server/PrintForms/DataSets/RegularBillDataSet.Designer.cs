@@ -1912,6 +1912,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             private global::System.Data.DataColumn columnColdWaterSharedCounterValue;
             
+            private global::System.Data.DataColumn columnWasteServiceVolume;
+            
             private global::System.Data.DataColumn columnWastePublicPlaceServiceVolume;
             
             private global::System.Data.DataColumn columnCustomerId;
@@ -2023,6 +2025,14 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WasteServiceVolumeColumn {
+                get {
+                    return this.columnWasteServiceVolume;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn WastePublicPlaceServiceVolumeColumn {
                 get {
                     return this.columnWastePublicPlaceServiceVolume;
@@ -2074,7 +2084,7 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public PublicPlaceDataRow AddPublicPlaceDataRow(string ElectricityServiceVolume, string ElectricityPublicPlaceServiceVolume, string ElectricitySharedCounterValue, string HotWaterServiceVolume, string HotWaterPublicPlaceServiceVolume, string HotWaterSharedCounterValue, string ColdWaterServiceVolume, string ColdWaterPublicPlaceServiceVolume, string ColdWaterSharedCounterValue, string WastePublicPlaceServiceVolume, CustomersRow parentCustomersRowByCustomers_PublicPlaceData) {
+            public PublicPlaceDataRow AddPublicPlaceDataRow(string ElectricityServiceVolume, string ElectricityPublicPlaceServiceVolume, string ElectricitySharedCounterValue, string HotWaterServiceVolume, string HotWaterPublicPlaceServiceVolume, string HotWaterSharedCounterValue, string ColdWaterServiceVolume, string ColdWaterPublicPlaceServiceVolume, string ColdWaterSharedCounterValue, string WasteServiceVolume, string WastePublicPlaceServiceVolume, CustomersRow parentCustomersRowByCustomers_PublicPlaceData) {
                 PublicPlaceDataRow rowPublicPlaceDataRow = ((PublicPlaceDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ElectricityServiceVolume,
@@ -2086,10 +2096,11 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                         ColdWaterServiceVolume,
                         ColdWaterPublicPlaceServiceVolume,
                         ColdWaterSharedCounterValue,
+                        WasteServiceVolume,
                         WastePublicPlaceServiceVolume,
                         null};
                 if ((parentCustomersRowByCustomers_PublicPlaceData != null)) {
-                    columnValuesArray[10] = parentCustomersRowByCustomers_PublicPlaceData[0];
+                    columnValuesArray[11] = parentCustomersRowByCustomers_PublicPlaceData[0];
                 }
                 rowPublicPlaceDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPublicPlaceDataRow);
@@ -2122,6 +2133,7 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 this.columnColdWaterServiceVolume = base.Columns["ColdWaterServiceVolume"];
                 this.columnColdWaterPublicPlaceServiceVolume = base.Columns["ColdWaterPublicPlaceServiceVolume"];
                 this.columnColdWaterSharedCounterValue = base.Columns["ColdWaterSharedCounterValue"];
+                this.columnWasteServiceVolume = base.Columns["WasteServiceVolume"];
                 this.columnWastePublicPlaceServiceVolume = base.Columns["WastePublicPlaceServiceVolume"];
                 this.columnCustomerId = base.Columns["CustomerId"];
             }
@@ -2147,6 +2159,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 base.Columns.Add(this.columnColdWaterPublicPlaceServiceVolume);
                 this.columnColdWaterSharedCounterValue = new global::System.Data.DataColumn("ColdWaterSharedCounterValue", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnColdWaterSharedCounterValue);
+                this.columnWasteServiceVolume = new global::System.Data.DataColumn("WasteServiceVolume", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWasteServiceVolume);
                 this.columnWastePublicPlaceServiceVolume = new global::System.Data.DataColumn("WastePublicPlaceServiceVolume", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWastePublicPlaceServiceVolume);
                 this.columnCustomerId = new global::System.Data.DataColumn("CustomerId", typeof(int), null, global::System.Data.MappingType.Element);
@@ -3502,6 +3516,22 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string WasteServiceVolume {
+                get {
+                    try {
+                        return ((string)(this[this.tablePublicPlaceData.WasteServiceVolumeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WasteServiceVolume\' in table \'PublicPlaceData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePublicPlaceData.WasteServiceVolumeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public string WastePublicPlaceServiceVolume {
                 get {
                     try {
@@ -3650,6 +3680,18 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetColdWaterSharedCounterValueNull() {
                 this[this.tablePublicPlaceData.ColdWaterSharedCounterValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWasteServiceVolumeNull() {
+                return this.IsNull(this.tablePublicPlaceData.WasteServiceVolumeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWasteServiceVolumeNull() {
+                this[this.tablePublicPlaceData.WasteServiceVolumeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

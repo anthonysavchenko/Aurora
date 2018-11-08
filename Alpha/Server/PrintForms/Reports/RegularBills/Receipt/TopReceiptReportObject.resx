@@ -279,6 +279,9 @@
   <data name="xrTableCell8.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="xrTableCell8.Text" xml:space="preserve">
+    <value>xrTableCell8</value>
+  </data>
   <data name="xrTableCell8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
   </data>

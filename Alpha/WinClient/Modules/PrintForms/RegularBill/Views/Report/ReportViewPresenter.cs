@@ -267,9 +267,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                         "306,320",
                         "0",
                         "712,320",
-                        "",
+                        "580",
                         "15,244",
                         "",
+                        "592,244",
                         "30,488",
                         customerId);
 
@@ -280,9 +281,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                         "415,100",
                         "0",
                         "133985,700",
-                        "",
+                        "1300",
                         "46,436",
                         "",
+                        "1346,436",
                         "92,872",
                         customerId);*/
                     break;
@@ -298,6 +300,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                         "2384",
                         "40,499",
                         "49831; 50607",
+                        "2424,499",
                         "40,499",
                         customerId);
                     break;
@@ -309,9 +312,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                         "0,734/13,184",
                         "0",
                         "",
-                        "",
+                        "1235",
                         "16,480",
                         "",
+                        "1251,480",
                         "32,960",
                         customerId);
                     break;
@@ -323,9 +327,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                         "56,600",
                         "0",
                         "126757,100",
-                        "",
+                        "1350",
                         "5,760",
                         "2546",
+                        "1355,76",
                         "11,520",
                         customerId);
                     break;
@@ -337,9 +342,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                         "357,092",
                         "0",
                         "1317,793",
-                        "",
+                        "570",
                         "12,104",
                         "",
+                        "582,104",
                         "24,208",
                         customerId);
                     break;
