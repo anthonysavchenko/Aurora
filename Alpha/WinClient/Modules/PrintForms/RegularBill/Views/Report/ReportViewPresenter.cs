@@ -108,6 +108,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     DataTable _chargeDataTable = _data.Tables["ChargeData"];
                     DataTable _counterDataTable = _data.Tables["CounterData"];
                     DataTable _sharedCounterDataTable = _data.Tables["SharedCounterData"];
+                    DataTable _publicPlaceDataTable = _data.Tables["PublicPlaceData"];
                     DateTime _now = ServerTime.GetDateTimeInfo().Now;
 
                     using (Entities _entities = new Entities())
@@ -148,7 +149,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                                 : b.Customers.JuridicalPersonFullName,
                                         b.RegularBillDocSeviceTypePoses,
                                         b.RegularBillDocCounterPoses,
-                                        b.RegularBillDocSharedCounterPoses
+                                        b.RegularBillDocSharedCounterPoses,
+                                        BuildingID = b.Customers.Buildings.ID
                                     })
                                 .ToList()
                                 .OrderBy(b => b.Street)
@@ -190,6 +192,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                                 _chargeDataTable.Rows.Add(_row);
                             }
+
+                            FillPublicPlaceDataTable(_bill.CustomerID, _bill.BuildingID, _publicPlaceDataTable);
 
                             string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.BankDetails.INN, _bill.Period, _bill.Value);
                             string _qrCode = BillService.GenerateQrCodeString(
@@ -249,6 +253,99 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             return null;
+        }
+
+        private void FillPublicPlaceDataTable(int customerId, int buildingId, DataTable ppTable)
+        {
+            switch (buildingId)
+            {
+                case 1:
+                    ppTable.Rows.Add(
+                        "20340",
+                        "0",
+                        "10009339",
+                        "306,320",
+                        "0",
+                        "712,320",
+                        "",
+                        "15,244",
+                        "",
+                        "30,488",
+                        customerId);
+
+                    /*ppTable.Rows.Add(
+                        "22548",
+                        "0",
+                        "40004949; 46000349",
+                        "415,100",
+                        "0",
+                        "133985,700",
+                        "",
+                        "46,436",
+                        "",
+                        "92,872",
+                        customerId);*/
+                    break;
+
+                case 3:
+                    ppTable.Rows.Add(
+                        "61742",
+                        "0",
+                        "11003725; 11004481; 11004965; 11005977",
+                        "641",
+                        "0",
+                        "4645; 4612; 5487; 3945; 3589; 4102; 4012",
+                        "2384",
+                        "40,499",
+                        "49831; 50607",
+                        "40,499",
+                        customerId);
+                    break;
+                case 24:
+                    ppTable.Rows.Add(
+                        "29040",
+                        "0",
+                        "10000955",
+                        "0,734/13,184",
+                        "0",
+                        "",
+                        "",
+                        "16,480",
+                        "",
+                        "32,960",
+                        customerId);
+                    break;
+                case 9:
+                    ppTable.Rows.Add(
+                        "18120",
+                        "301",
+                        "10001234; 10002714",
+                        "56,600",
+                        "0",
+                        "126757,100",
+                        "",
+                        "5,760",
+                        "2546",
+                        "11,520",
+                        customerId);
+                    break;
+                case 7:
+                    ppTable.Rows.Add(
+                        "8078",
+                        "0",
+                        "",
+                        "357,092",
+                        "0",
+                        "1317,793",
+                        "",
+                        "12,104",
+                        "",
+                        "24,208",
+                        customerId);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private string GetBottomInfoString(string street, string building)
