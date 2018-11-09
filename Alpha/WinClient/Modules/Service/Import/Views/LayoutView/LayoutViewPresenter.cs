@@ -71,10 +71,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 View.ShowMessage("Выберите файл для импорта данных", "Ошибка");
             }
 
-            if (View.WizardAction == WizardAction.ImportPublicPlaceServiceVolumes)
-            {
-                _result = ValidateImportPeriod(View.Period);
-            }
+            _result = ValidateImportPeriod(View.Period);
 
             return _result;
         }
@@ -85,7 +82,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
 
             using (Entities _db = new Entities())
             {
-                _result = _db.PublicPlaceServiceVolumes.Any(x => x.Period == period);
+                _result = View.WizardAction == WizardAction.ImportPublicPlaceServiceVolumes 
+                    ? _db.PublicPlaceServiceVolumes.Any(x => x.Period == period)
+                    : View.WizardAction == WizardAction.ImportElectricitySharedCounterVolumes 
+                        ? _db.ElectricitySharedCounterVolumes.Any(x => x.Period == period)
+                        : _db.PrivateCounterValues.Any(x => x.Period == period);
             }
 
             if(_result)
@@ -162,10 +163,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                         args.Result = new GisZhkhCustomersImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
                         break;
                     case WizardAction.ImportPublicPlaceServiceVolumes:
-                        args.Result = PublicPlaceServiceVolumesImportService.ProcessFile(View.FilePath, View.Period, _reportProgressAction); 
+                        args.Result = PublicPlaceServiceVolumesImportService.ProcessFile(View.FilePath, _reportProgressAction, View.Period); 
                         break;
                     case WizardAction.ImportCounters:
-                        args.Result = new PrivateCounterImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
+                        args.Result = new PrivateCounterImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction, View.Period);
+                        break;
+                    case WizardAction.ImportElectricitySharedCounterVolumes:
+                        args.Result = new ElectricitySharedCounterVolumeImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction, View.Period);
                         break;
                 }
             };

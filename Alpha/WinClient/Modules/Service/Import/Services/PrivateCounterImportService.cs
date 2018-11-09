@@ -45,13 +45,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             _excelService = excelService;
         }
 
-        public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period)
         {
             List<ParsedRow> _parsedRows = ParseFile(inputFileName, reportProgressAction, out string message);
 
             if (string.IsNullOrEmpty(message) && _parsedRows.Count > 0)
             {
-                message = Save(_parsedRows, reportProgressAction);
+                message = Save(_parsedRows, period.Value, reportProgressAction);
             }
 
             return message;
@@ -109,7 +109,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 };
         }
 
-        private string Save(List<ParsedRow> rows, Action<int> reportProgressAction)
+        private string Save(List<ParsedRow> rows, DateTime period, Action<int> reportProgressAction)
         {
             int _progress = 1;
             var _errors = new StringBuilder();
@@ -147,7 +147,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 .Where(x =>
                                     x.Buildings.Streets.Name == item.Street
                                     && x.Buildings.Number == item.Building
-                                    && x.Apartment == item.Apartment)
+                                    && x.Apartment == item.Apartment
+                                    && x.CustomerPoses.Any(y => y.Till >= period))
                                 .FirstOrDefault()
                             : _db.Customers.FirstOrDefault(x => x.Account == item.Account);
 
@@ -167,6 +168,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 : item.Rows[1].CounterNumber + " - Д";
                         }
 
+                        int _serviceId = _db.CustomerPoses
+                            .Where(x => x.Till >= period && x.Customers.ID == _customer.ID && x.Services.ServiceTypes.ID == 39)
+                            .Select(x => x.Services.ID)
+                            .FirstOrDefault();
+
+                        if (_serviceId <= 0)
+                        {
+                            throw new ApplicationException($"У абонента {_customer.Account} нет услуг ОДН по э/э");
+                        }
+
                         foreach (ParsedRow _row in item.Rows)
                         {
                             try
@@ -182,7 +193,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                             Number = _row.CounterNumber,
                                             Model = _row.CounterModel,
                                             Customers = _customer,
-                                            ServiceID = 58
+                                            ServiceID = _serviceId
                                         };
                                     _db.PrivateCounters.AddObject(_counter);
                                 }
@@ -197,7 +208,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                         {
                                             PrivateCounters = _counter,
                                             CollectDate = _row.FirstCollectDate,
-                                            Period = new DateTime(_row.FirstCollectDate.Year, _row.FirstCollectDate.Month, 1),
+                                            Period = period,
                                             Value = _row.FirstValue
                                         });
                                     _db.SaveChanges();

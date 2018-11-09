@@ -242,6 +242,15 @@
           <Property Name="Period" Type="date" Nullable="false" />
           <Property Name="CustomerID" Type="int" />
         </EntityType>
+        <EntityType Name="ElectricitySharedCounterVolumes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildingID" Type="int" Nullable="false" />
+          <Property Name="Volume" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="Period" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Intermediaries">
           <Key>
             <PropertyRef Name="ID" />
@@ -1031,6 +1040,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ElectricitySharedCounterVolumes_Buildings">
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
+          <End Role="ElectricitySharedCounterVolumes" Type="Self.ElectricitySharedCounterVolumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ElectricitySharedCounterVolumes">
+              <PropertyRef Name="BuildingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers">
           <End Role="OverpaymentCorrectionOpers" Type="Self.OverpaymentCorrectionOpers" Multiplicity="1" />
           <End Role="OverpaymentCorrectionOperPoses" Type="Self.OverpaymentCorrectionOperPoses" Multiplicity="*" />
@@ -1664,6 +1685,7 @@
           <EntitySet Name="CustomerPoses" EntityType="Self.CustomerPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DebtBillDocs" EntityType="Self.DebtBillDocs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ElectricitySharedCounterVolumes" EntityType="Self.ElectricitySharedCounterVolumes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Intermediaries" EntityType="Self.Intermediaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OverpaymentCorrectionOperPoses" EntityType="Self.OverpaymentCorrectionOperPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OverpaymentCorrectionOpers" EntityType="Self.OverpaymentCorrectionOpers" Schema="dbo" store:Type="Tables" />
@@ -1839,6 +1861,10 @@
           <AssociationSet Name="FK_DebtBillDocs_Customers" Association="Self.FK_DebtBillDocs_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="DebtBillDocs" EntitySet="DebtBillDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ElectricitySharedCounterVolumes_Buildings" Association="Self.FK_ElectricitySharedCounterVolumes_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="ElectricitySharedCounterVolumes" EntitySet="ElectricitySharedCounterVolumes" />
           </AssociationSet>
           <AssociationSet Name="FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers" Association="Self.FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers">
             <End Role="OverpaymentCorrectionOpers" EntitySet="OverpaymentCorrectionOpers" />
@@ -2442,6 +2468,11 @@
           <AssociationSet Name="FK_Buildings_CounterValueCollectDistricts" Association="AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts">
             <End Role="CounterValueCollectDistricts" EntitySet="CounterValueCollectDistricts" />
             <End Role="Buildings" EntitySet="Buildings" />
+          </AssociationSet>
+          <EntitySet Name="ElectricitySharedCounterVolumes" EntityType="AlphaDataBaseModel.ElectricitySharedCounterVolumes" />
+          <AssociationSet Name="FK_ElectricitySharedCounterVolumes_Buildings" Association="AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="ElectricitySharedCounterVolumes" EntitySet="ElectricitySharedCounterVolumes" />
           </AssociationSet></EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
@@ -2531,6 +2562,7 @@
           <NavigationProperty Name="PublicPlaceServiceVolumes" Relationship="AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings" FromRole="Buildings" ToRole="PublicPlaceServiceVolumes" />
           <Property Name="CounterValueCollectDistrictID" Type="Int32" />
           <NavigationProperty Name="CounterValueCollectDistricts" Relationship="AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts" FromRole="Buildings" ToRole="CounterValueCollectDistricts" />
+          <NavigationProperty Name="ElectricitySharedCounterVolumes" Relationship="AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings" FromRole="Buildings" ToRole="ElectricitySharedCounterVolumes" />
         </EntityType>
         <EntityType Name="ChargeCorrectionOperPoses">
           <Key>
@@ -3568,6 +3600,28 @@
             </Principal>
             <Dependent Role="Buildings">
               <PropertyRef Name="CounterValueCollectDistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ElectricitySharedCounterVolumes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildingID" Type="Int32" Nullable="false" />
+          <Property Name="Volume" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings" FromRole="ElectricitySharedCounterVolumes" ToRole="Buildings" />
+        </EntityType>
+        <Association Name="FK_ElectricitySharedCounterVolumes_Buildings">
+          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.ElectricitySharedCounterVolumes" Role="ElectricitySharedCounterVolumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ElectricitySharedCounterVolumes">
+              <PropertyRef Name="BuildingID" />
             </Dependent>
           </ReferentialConstraint>
         </Association></Schema>
@@ -4725,6 +4779,16 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ElectricitySharedCounterVolumes">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.ElectricitySharedCounterVolumes">
+              <MappingFragment StoreEntitySet="ElectricitySharedCounterVolumes">
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
           </EntitySetMapping></EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -5359,6 +5423,8 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RechargePercentCorrections" Width="1.5" PointX="13.5" PointY="39.375" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RechargePercentCorrections_CustomerPoses" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CounterValueCollectDistricts" Width="1.5" PointX="6.5" PointY="0.875" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts" /></edmx:Diagram></edmx:Diagrams>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.ElectricitySharedCounterVolumes" Width="1.5" PointX="3" PointY="73" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings" /></edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

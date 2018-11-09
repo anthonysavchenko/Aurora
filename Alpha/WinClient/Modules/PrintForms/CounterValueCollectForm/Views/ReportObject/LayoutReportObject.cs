@@ -1,7 +1,7 @@
 ﻿using System.Data;
-//using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
+using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
-using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;
+//using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.CounterValueCollectForm.Views.ReportObject
 {

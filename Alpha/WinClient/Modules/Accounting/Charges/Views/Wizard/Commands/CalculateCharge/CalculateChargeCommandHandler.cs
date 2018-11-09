@@ -79,11 +79,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             {
                 decimal _normVolume = 0;
 
-                if (pos.ServiceTypeCode == ServiceTypeConstants.PP_ELECTRICITY)
+                /*if (pos.ServiceTypeCode == ServiceTypeConstants.PP_ELECTRICITY)
                 {
                     decimal _ppArea = cache.GetPublicPlaceArea(customer.BuildingId, pos.ServiceId);
                     _normVolume = pos.Norm * _ppArea;
-                }
+                }*/
                 
                 decimal _counterVolume = cache.GetPublicPlaceServiceVolume(customer.BuildingId, pos.ServiceId);
 

@@ -91,6 +91,11 @@
         public const string PUBLIC_PLACE_DEBT_AND_FINE_REPORT = "usecase://Report/PublicPlaceDebtAndFineReport";
 
         /// <summary>
+        /// Льготы
+        /// </summary>
+        public const string PRE_CHARGE_REPORT = "usecase://Report/PreChargeReport";
+
+        /// <summary>
         /// Улицы
         /// </summary>
         public const string STREETS = "usecase://RefBook/Streets";
