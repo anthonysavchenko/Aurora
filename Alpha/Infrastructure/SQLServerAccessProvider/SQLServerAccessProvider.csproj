@@ -101,6 +101,7 @@
     <Compile Include="DataMappers\RefBook\CommonCounterValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\ContractorDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\CounterValueCollectDistrictDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\ElectricitySharedCounterVolumeDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\IntermediaryDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterValueDataMapper.cs" />

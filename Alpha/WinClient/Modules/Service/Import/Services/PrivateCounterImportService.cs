@@ -20,11 +20,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public const int COUNTER_NUMBER = 5;
             public const int FIRST_COLLECT_DATE = 7;
             public const int FIRST_VALUE = 8;
+            public const int ACCOUNT = 9;
+            public const int DAY_NIGHT = 10;
         }
 
         private class ParsedRow
         {
             public int RowNumber { get; set; }
+            public string Account { get; set; }
             public string Street { get; set; }
             public string Building { get; set; }
             public string Apartment { get; set; }
@@ -32,6 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public string CounterNumber { get; set; }
             public DateTime FirstCollectDate { get; set; }
             public decimal FirstValue { get; set; }
+            public bool IsNightCounter { get; set; }
         }
 
         private IExcelService _excelService;
@@ -41,13 +45,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             _excelService = excelService;
         }
 
-        public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period)
         {
             List<ParsedRow> _parsedRows = ParseFile(inputFileName, reportProgressAction, out string message);
 
             if (string.IsNullOrEmpty(message) && _parsedRows.Count > 0)
             {
-                message = Save(_parsedRows, reportProgressAction);
+                message = Save(_parsedRows, period.Value, reportProgressAction);
             }
 
             return message;
@@ -87,21 +91,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
         {
             sheet.Cell(row, Columns.FIRST_COLLECT_DATE).TryGetValue(out DateTime collectDate);
 
+            string _dayNightChar = sheet.Cell(row, Columns.DAY_NIGHT).Value;
+
             return
                 new ParsedRow
                 {
                     RowNumber = row,
+                    Account = sheet.Cell(row, Columns.ACCOUNT).Value,
                     Street = sheet.Cell(row, Columns.STREET).Value,
                     Building = sheet.Cell(row, Columns.BUILDING).Value,
                     Apartment = sheet.Cell(row, Columns.APARTMENT).Value,
                     CounterModel = sheet.Cell(row, Columns.COUNTER_MODEL).Value,
                     CounterNumber = sheet.Cell(row, Columns.COUNTER_NUMBER).Value,
                     FirstCollectDate = collectDate,
-                    FirstValue = Convert.ToDecimal(sheet.Cell(row, Columns.FIRST_VALUE).Value)
+                    FirstValue = Convert.ToDecimal(sheet.Cell(row, Columns.FIRST_VALUE).Value),
+                    IsNightCounter = !string.IsNullOrEmpty(_dayNightChar) && _dayNightChar == "Н"
                 };
         }
 
-        private string Save(List<ParsedRow> rows, Action<int> reportProgressAction)
+        private string Save(List<ParsedRow> rows, DateTime period, Action<int> reportProgressAction)
         {
             int _progress = 1;
             var _errors = new StringBuilder();
@@ -113,7 +121,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                     {
                         x.Street,
                         x.Building,
-                        x.Apartment
+                        x.Apartment,
+                        x.Account,
+                        x.CounterNumber
                     })
                 .Select(g =>
                     new
@@ -121,6 +131,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                         g.Key.Street,
                         g.Key.Building,
                         g.Key.Apartment,
+                        g.Key.Account,
+                        g.Key.CounterNumber,
                         Rows = g.Select(x => x).ToList()
                     });
 
@@ -130,7 +142,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 {
                     using (var _db = new Entities())
                     {
-                        Customers _customer = GetCustomer(item.Street, item.Building, item.Apartment, _db);
+                        Customers _customer = string.IsNullOrEmpty(item.Account)
+                            ? _db.Customers
+                                .Where(x =>
+                                    x.Buildings.Streets.Name == item.Street
+                                    && x.Buildings.Number == item.Building
+                                    && x.Apartment == item.Apartment
+                                    && x.CustomerPoses.Any(y => y.Till >= period))
+                                .FirstOrDefault()
+                            : _db.Customers.FirstOrDefault(x => x.Account == item.Account);
 
                         if (_customer == null)
                         {
@@ -139,16 +159,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
                         if (item.Rows.Count > 1)
                         {
-                            if (item.Rows[0].FirstValue > item.Rows[1].FirstValue)
-                            {
-                                item.Rows[0].CounterNumber = item.Rows[0].CounterNumber + " - Д";
-                                item.Rows[1].CounterNumber = item.Rows[1].CounterNumber + " - Н";
-                            }
-                            else
-                            {
-                                item.Rows[1].CounterNumber = item.Rows[1].CounterNumber + " - Д";
-                                item.Rows[0].CounterNumber = item.Rows[0].CounterNumber + " - Н";
-                            }
+                            item.Rows[0].CounterNumber = item.Rows[0].IsNightCounter 
+                                ? item.Rows[0].CounterNumber + " - Н"
+                                : item.Rows[0].CounterNumber + " - Д";
+
+                            item.Rows[1].CounterNumber = item.Rows[1].IsNightCounter
+                                ? item.Rows[1].CounterNumber + " - Н"
+                                : item.Rows[1].CounterNumber + " - Д";
+                        }
+
+                        int _serviceId = _db.CustomerPoses
+                            .Where(x => x.Till >= period && x.Customers.ID == _customer.ID && x.Services.ServiceTypes.ID == 39)
+                            .Select(x => x.Services.ID)
+                            .FirstOrDefault();
+
+                        if (_serviceId <= 0)
+                        {
+                            throw new ApplicationException($"У абонента {_customer.Account} нет услуг ОДН по э/э");
                         }
 
                         foreach (ParsedRow _row in item.Rows)
@@ -166,7 +193,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                             Number = _row.CounterNumber,
                                             Model = _row.CounterModel,
                                             Customers = _customer,
-                                            ServiceID = 58
+                                            ServiceID = _serviceId
                                         };
                                     _db.PrivateCounters.AddObject(_counter);
                                 }
@@ -181,7 +208,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                         {
                                             PrivateCounters = _counter,
                                             CollectDate = _row.FirstCollectDate,
-                                            Period = new DateTime(_row.FirstCollectDate.Year, _row.FirstCollectDate.Month, 1),
+                                            Period = period,
                                             Value = _row.FirstValue
                                         });
                                     _db.SaveChanges();
@@ -213,16 +240,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 lock (_locker)
                 {
                     reportProgressAction(_progress++ * 50 / rows.Count + 50);
-                }
-
-                Customers GetCustomer(string street, string building, string apartment, Entities db)
-                {
-                    return db.Customers
-                        .Where(x =>
-                            x.Buildings.Streets.Name == street
-                            && x.Buildings.Number == building
-                            && x.Apartment == apartment)
-                        .FirstOrDefault();
                 }
             });
 

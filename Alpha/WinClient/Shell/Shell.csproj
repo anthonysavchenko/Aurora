@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.04.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.05.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>019.04.0.0</ApplicationVersion>
+    <ApplicationVersion>019.05.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -363,6 +363,10 @@
       <Project>{a5cd4f63-a6bb-4589-8acf-00b232539603}</Project>
       <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Payments%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\PrintForms\CounterValueCollectForm\CounterValueCollectForm.csproj">
+      <Project>{0143d5d1-62be-46ce-82ce-8327e8339cc5}</Project>
+      <Name>CounterValueCollectForm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\PrintForms\DebtBill\DebtBill.csproj">
       <Project>{fd895b41-2d71-4fb5-9f65-27c1970e98b8}</Project>
       <Name>DebtBill</Name>
@@ -447,6 +451,10 @@
       <Project>{34de1895-e259-4d9a-bda3-ea1fa575839c}</Project>
       <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Reports\Payments%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\PreChargeReport\PreChargeReport.csproj">
+      <Project>{0ab17c7d-1bf8-4437-b7b2-5e1695e2e7d0}</Project>
+      <Name>PreChargeReport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\Service\Export\Export.csproj">
       <Project>{afe2b538-d282-4bd5-baff-b95c4d48b5fa}</Project>
       <Name>Export</Name>
@@ -504,12 +512,12 @@
   <ItemGroup>
     <PublishFile Include="ProfileCatalog.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

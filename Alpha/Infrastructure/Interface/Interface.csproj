@@ -153,6 +153,7 @@
     <Compile Include="BusinessEntities\RefBooks\CommonCounterValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\Contractors.cs" />
     <Compile Include="BusinessEntities\RefBooks\CounterValueCollectDistrict.cs" />
+    <Compile Include="BusinessEntities\RefBooks\ElectricitySharedCounterVolume.cs" />
     <Compile Include="BusinessEntities\RefBooks\Intermediary.cs" />
     <Compile Include="BusinessEntities\RefBooks\PaymentName.cs" />
     <Compile Include="BusinessEntities\RefBooks\PrivateCounter.cs" />

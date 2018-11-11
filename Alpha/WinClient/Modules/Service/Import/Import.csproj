@@ -84,6 +84,7 @@
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomerPosesImportService.cs" />
+    <Compile Include="Services\ElectricitySharedCounterVolumeImportService.cs" />
     <Compile Include="Services\GisZhkhCustomersImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\IPublicPlaceServiceVolumesImportService.cs" />

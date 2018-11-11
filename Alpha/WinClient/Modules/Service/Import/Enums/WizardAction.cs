@@ -28,6 +28,11 @@
         /// <summary>
         /// Имортировать данные приборов учета из файла Excel
         /// </summary>
-        ImportCounters
+        ImportCounters,
+
+        /// <summary>
+        /// Импортировать объемы потребеления электроэнергии по ОДПУ
+        /// </summary>
+        ImportElectricitySharedCounterVolumes
     }
 }
