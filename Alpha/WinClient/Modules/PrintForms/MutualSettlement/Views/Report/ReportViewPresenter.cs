@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Constants;
@@ -438,7 +438,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     ? string.Format("{0} - ", _periodBalance.Period.ToString("MMMM yyyy"))
                                     : "по ",
                                 _now,
-                                _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson
+                                _customer.OwnerType == (int)OwnerType.JuridicalPerson
                                     ? _customer.JuridicalPersonFullName
                                     : _customer.PhysicalPersonShortName,
                                 string.Format("ул. {0}, {1}, кв. {2}",

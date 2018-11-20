@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using Taumis.Alpha.DataBase;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
-using System.Text;
 using System.IO;
+using System.Linq;
+using System.Text;
+using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
@@ -231,7 +231,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         {
                             c.Account,
                             c.Apartment,
-                            Owner = c.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson ? c.PhysicalPersonFullName : c.JuridicalPersonFullName,
+                            Owner = c.OwnerType == (int)OwnerType.PhysicalPerson ? c.PhysicalPersonFullName : c.JuridicalPersonFullName,
                             x.BuildingID,
                             x.Value,
                             x.BankDetailID

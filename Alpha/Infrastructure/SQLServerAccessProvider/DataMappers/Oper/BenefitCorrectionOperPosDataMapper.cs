@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.BenefitCorrectionOperPoses;
 using DomBenefitCorrectionOper = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper.BenefitCorrectionOper;
-using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper.BenefitCorrectionOperPos;
 using DomContractor = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Contractor;
+using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper.BenefitCorrectionOperPos;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Oper
 {
@@ -91,7 +92,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Oper
                         .Include("BenefitCorrectionOpers")
                         .First(x => x.ID == _id);
 
-                _domItem.BenefitRule = (BenefitType.BenefitRuleType)_dbItem.BenefitRule;
+                _domItem.BenefitRule = (BenefitRuleType)_dbItem.BenefitRule;
                 _domItem.Value = _dbItem.Value;
                 _domItem.Service = (Service)DataMapperService.get(typeof(Service)).find(_dbItem.Services.ID.ToString());
                 _domItem.BenefitCorrectionOper = (DomBenefitCorrectionOper)DataMapperService.get(typeof(DomBenefitCorrectionOper)).find(_dbItem.BenefitCorrectionOpers.ID.ToString());

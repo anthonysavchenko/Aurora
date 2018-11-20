@@ -91,6 +91,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Queries\BuildingAreaQuery.cs" />
+    <Compile Include="Queries\PublicPlaceAreaByBuildingQuery.cs" />
     <Compile Include="Services\BaseUnitOfWork.cs" />
     <Compile Include="Services\DomainWithDataMapperHelperService.cs" />
     <Compile Include="Services\DataMapperService.cs" />
@@ -130,8 +132,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
-      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Project>{8C62E512-6540-4BA6-860B-1AE6AE64821C}</Project>
+      <Name>Common</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI\CompositeUI.csproj">
@@ -149,7 +151,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{576D1311-BA67-4077-8489-7CFAD06965F5}</Project>
-      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+      <Name>Interface</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
@@ -158,6 +160,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

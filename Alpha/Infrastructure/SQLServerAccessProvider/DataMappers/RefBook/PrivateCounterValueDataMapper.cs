@@ -52,6 +52,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                     _dbItem = _entities.PrivateCounterValues.First(p => p.ID == _id);
                 }
 
+                _dbItem.CollectDate = domObj.CollectDate;
                 _dbItem.Period = domObj.Period;
                 _dbItem.Value = domObj.Value;
 
@@ -82,6 +83,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                         .Include("PrivateCounters")
                         .First(x => x.ID == _id);
 
+                _domItem.CollectDate = _dbItem.CollectDate;
                 _domItem.Period = _dbItem.Period;
                 _domItem.Value = _dbItem.Value;
                 _domItem.PrivateCounter =

@@ -1,7 +1,7 @@
 ﻿using System;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Oper;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 
@@ -19,7 +19,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Paymen
 
             View.Account = _domItem.Customer.Account;
             View.Owner =
-                _domItem.Customer.OwnerType == Customer.OwnerTypes.PhysicalPerson
+                _domItem.Customer.OwnerType == OwnerType.PhysicalPerson
                     ? _domItem.Customer.PhysicalPersonShortName
                     : _domItem.Customer.JuridicalPersonFullName;
             View.Apartment = _domItem.Customer.Apartment;

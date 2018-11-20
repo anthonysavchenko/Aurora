@@ -1,18 +1,17 @@
-﻿using System.Data.Entity.Core;
-using DevExpress.XtraWizard;
+﻿using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Windows.Forms;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Tabbed;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
-using OperationTypes = Taumis.Alpha.Infrastructure.Interface.Enums.OperationTypes;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
 {
@@ -282,7 +281,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                     new BillSets
                     {
                         CreationDateTime = _now,
-                        BillType = (byte)BillSet.BillTypes.Debt,
+                        BillType = (byte)BillType.Debt,
                         Number = _entities.BillSets.Any() ? _entities.BillSets.Max(c => c.Number) + 1 : 1,
                     };
 
@@ -461,7 +460,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                                 Address = _customer.Buildings != null 
                                     ? ($"ул. {_customer.Buildings.Streets.Name}, {_customer.Buildings.Number}, кв. {_customer.Apartment}")
                                     : string.Empty,
-                                Owner = _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson ?
+                                Owner = _customer.OwnerType == (int)OwnerType.JuridicalPerson ?
                                         _customer.JuridicalPersonFullName :
                                         _customer.PhysicalPersonShortName,
                                 Customers = _customer
@@ -520,7 +519,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                         new BillSets()
                         {
                             CreationDateTime = _now,
-                            BillType = (byte)BillSet.BillTypes.Total,
+                            BillType = (byte)BillType.Total,
                             Quantity = 0,
                             Number = _entities.BillSets.Any() ? _entities.BillSets.Max(c => c.Number) + 1 : 1,
                         };
@@ -787,7 +786,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Bills.Views.Wizard
                                     CreationDateTime = _now,
                                     Account = _customer.Account,
                                     Address = $"ул. {_customer.Buildings.Streets.Name}, {_customer.Buildings.Number}, кв. {_customer.Apartment}",
-                                    Owner = _customer.OwnerType == (int)Customer.OwnerTypes.JuridicalPerson 
+                                    Owner = _customer.OwnerType == (int)OwnerType.JuridicalPerson 
                                         ? _customer.JuridicalPersonFullName 
                                         : _customer.PhysicalPersonShortName,
                                     Customers = _customer,

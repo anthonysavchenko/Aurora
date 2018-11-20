@@ -17,3 +17,11 @@
 
 
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [<Name of Missing Index, sysname,>]
+    ON [dbo].[RegularBillDocSeviceTypePoses]([RegularBillDoc] ASC)
+    INCLUDE([ID], [ServiceTypeName], [PayRate], [Charge], [Benefit], [Recalculation], [Payable], [ServiceTypeID]);
+

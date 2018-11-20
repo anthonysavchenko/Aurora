@@ -100,6 +100,8 @@
     <Compile Include="DataMappers\RefBook\CommonCounterDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\CommonCounterValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\ContractorDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\CounterValueCollectDistrictDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\ElectricitySharedCounterVolumeDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\IntermediaryDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterValueDataMapper.cs" />
@@ -112,6 +114,8 @@
     <Compile Include="DataMappers\RefBook\StreetDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\UserDataMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetCustomerBalancesGroupedByPeriodQuery.cs" />
+    <Compile Include="Queries\GetLastChargedPeriodBalanceQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">

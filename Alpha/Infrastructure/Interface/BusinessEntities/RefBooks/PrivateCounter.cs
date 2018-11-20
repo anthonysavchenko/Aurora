@@ -5,10 +5,28 @@ using Taumis.EnterpriseLibrary.Win;
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
 {
     /// <summary>
-    /// Частный счетчик
+    /// Индивидуальный прибор учета
     /// </summary>
     public class PrivateCounter : DomainObject
     {
+        private string _model;
+        /// <summary>
+        /// Модель прибора учета
+        /// </summary>
+        public string Model
+        {
+            get
+            {
+                Load();
+                return _model;
+            }
+            set
+            {
+                Load();
+                _model = value;
+            }
+        }
+
         private string _number;
         /// <summary>
         /// Номер
@@ -63,16 +81,9 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             }
         }
 
-        private readonly Dictionary<string, PrivateCounterValue> _values = new Dictionary<string, PrivateCounterValue>();
         /// <summary>
         /// Значения/показания
         /// </summary>
-        public Dictionary<string, PrivateCounterValue> Values
-        {
-            get
-            {
-                return _values;
-            }
-        }
+        public Dictionary<string, PrivateCounterValue> Values { get; } = new Dictionary<string, PrivateCounterValue>();
     }
 }

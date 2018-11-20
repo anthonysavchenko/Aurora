@@ -35,7 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         #region Implementation of IGisZhkhDataImportService
 
-        public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period = null)
         {
             string _resultMessage;
 

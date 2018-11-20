@@ -27,6 +27,8 @@ namespace Taumis.Infrastructure.Module
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.BankDetailDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.PublicPlaceServiceVolumeDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.RechargePercentCorrectionDataMapper());
+            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.CounterValueCollectDistrictDataMapper());
+            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.ElectricitySharedCounterVolumeDataMapper());
 
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Oper.ChargeOperDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Oper.ChargeOperPosDataMapper());

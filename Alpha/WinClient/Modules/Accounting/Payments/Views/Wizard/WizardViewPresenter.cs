@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI;
 using System;
@@ -8,19 +6,24 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Common;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
+using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.Alpha.Infrastructure.Library.Services;
+using Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Tabbed;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
 using Taumis.Infrastructure.Interface.Constants;
-using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 {
@@ -45,7 +48,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         private int _paymentSetID;
         private decimal _totalSum;
         private int _processedCount;
-        private  int _errorsCount;
+        private int _errorsCount;
         private readonly object _statusChangeLock = new object();
         private readonly object _errorLogLock = new object();
 
@@ -236,10 +239,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                 View.ShowMessage("Исправьте ошибки в данных перед их сохранением.", "Ошибка ввода данных");
                                 _next = WizardSteps.Unknown;
                             }
-                            else if (!IsDistributionAvailable())
+                            else if (!IsDistributionAvailable(out string _accounts))
                             {
                                 View.ShowMessage(
-                                    "Не по всем абонентам были сделаны начисления. Невозможно внести платеж по абоненту, если по нему не сделано ни одного начисления или перерасчета.",
+                                    $"{_accounts} отсутствуют начисления. Невозможно внести платеж по абоненту, если по нему не сделано ни одного начисления или перерасчета.",
                                     "Невозможно выполнить операцию");
                                 _next = WizardSteps.Unknown;
                             }
@@ -286,19 +289,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             return _next;
         }
 
-        bool IsDistributionAvailable()
+        private bool IsDistributionAvailable(out string accounts)
         {
             bool _result;
 
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                _result =
+                var _accounts =
                     Payments.Values
                         .Select(p => p.Account)
                         .Distinct()
-                        .All(c => 
-                            _entities.ChargeOpers.Any(co => co.Customers.Account == c)
-                            || _entities.RechargeOpers.Any(ro => ro.Customers.Account == c));
+                        .Where(c =>
+                            _db.ChargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0) 
+                            || _db.RechargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0))
+                        .ToArray();
+
+                _result = _accounts.Length == 0;
+
+                accounts = string.Join(", ", _accounts);
             }
 
             return _result;
@@ -363,7 +371,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             View.IsMasterInProgress = true;
 
             _creationDateTime = ServerTime.GetDateTimeInfo().Now;
-            
+
             int _customerID = int.Parse(UserHolder.User.ID);
 
             using (Entities _entities = new Entities())
@@ -414,208 +422,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
         public void SaveCustomerPayments(KeyValuePair<int, WizardPaymentElement[]> customerPaymentsPair)
         {
-            PeriodBalances _periodBalances;
+            Dictionary<DateTime, Dictionary<int, Balance>> _debtBalancesByPeriod;
 
             #region Запрос
 
-            using (Entities _entities = new Entities())
+            using (Entities _db = new Entities())
             {
-                _entities.CommandTimeout = 3600;
+                _db.CommandTimeout = 3600;
+                _debtBalancesByPeriod = _db.GetCustomerBalancesGroupedByPeriod(customerPaymentsPair.Key, afterGroupFilter: x => x.Total > 0);
+                Tuple<DateTime, Dictionary<int, Balance>> _lastChargedPeriodBalance =
+                    _db.GetLastChargedPeriodBalance(customerPaymentsPair.Key);
 
-                _periodBalances = new PeriodBalances(
-                    _entities.ChargeOperPoses
-                        .Select(
-                            c =>
-                            new
-                            {
-                                CustomerID = c.ChargeOpers.Customers.ID,
-                                c.ChargeOpers.ChargeSets.Period,
-                                ServiceID = c.Services.ID,
-                                ChargeValue = c.Value,
-                                RechargeValue = (decimal)0,
-                                c.Value
-                            })
-                        .Concat(
-                            _entities.ChargeOperPoses
-                                .Where(c => c.ChargeOpers.ChargeCorrectionOpers != null)
-                                .Select(
-                                    c =>
-                                    new
-                                    {
-                                        CustomerID = c.ChargeOpers.Customers.ID,
-                                        c.ChargeOpers.ChargeCorrectionOpers.Period,
-                                        ServiceID = c.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        Value = -1 * c.Value
-                                    }))
-                        .Concat(
-                            _entities.RechargeOperPoses
-                                .Select(
-                                    r =>
-                                    new
-                                    {
-                                        CustomerID = r.RechargeOpers.Customers.ID,
-                                        r.RechargeOpers.RechargeSets.Period,
-                                        ServiceID = r.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = r.Value,
-                                        r.Value
-                                    }))
-                        .Concat(
-                            _entities.RechargeOperPoses
-                                .Where(r => r.RechargeOpers.ChildChargeCorrectionOpers != null)
-                                .Select(
-                                    r =>
-                                    new
-                                    {
-                                        CustomerID = r.RechargeOpers.Customers.ID,
-                                        r.RechargeOpers.ChildChargeCorrectionOpers.Period,
-                                        ServiceID = r.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = -r.Value,
-                                        Value = -r.Value
-                                    }))
-                        .Concat(
-                            _entities.BenefitOperPoses
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.BenefitOpers.ChargeOpers.Customers.ID,
-                                        b.BenefitOpers.ChargeOpers.ChargeSets.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.BenefitOperPoses
-                                .Where(b => b.BenefitOpers.BenefitCorrectionOpers != null)
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.BenefitOpers.ChargeOpers.Customers.ID,
-                                        b.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.RebenefitOperPoses
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.RebenefitOpers.RechargeOpers.Customers.ID,
-                                        b.RebenefitOpers.RechargeOpers.RechargeSets.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.RebenefitOperPoses
-                                .Where(b => b.RebenefitOpers.BenefitCorrectionOpers != null)
-                                .Select(
-                                    b =>
-                                    new
-                                    {
-                                        CustomerID = b.RebenefitOpers.RechargeOpers.Customers.ID,
-                                        b.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                        ServiceID = b.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        b.Value
-                                    }))
-                        .Concat(
-                            _entities.OverpaymentOperPoses
-                                .Select(
-                                    o =>
-                                    new
-                                    {
-                                        CustomerID = o.OverpaymentOpers.Customers.ID,
-                                        o.Period,
-                                        ServiceID = o.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        o.Value
-                                    }))
-                        .Concat(
-                            _entities.OverpaymentCorrectionOperPoses
-                                .Select(
-                                    o =>
-                                    new
-                                    {
-                                        CustomerID = o.OverpaymentCorrectionOpers.ChargeOpers.Customers.ID,
-                                        o.OverpaymentCorrectionOpers.Period,
-                                        ServiceID = o.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        o.Value
-                                    }))
-                        .Concat(
-                            _entities.PaymentOperPoses
-                                .Select(
-                                    p =>
-                                    new
-                                    {
-                                        CustomerID = p.PaymentOpers.Customers.ID,
-                                        p.Period,
-                                        ServiceID = p.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        p.Value
-                                    }))
-                        .Concat(
-                            _entities.PaymentCorrectionOperPoses
-                                .Select(
-                                    p =>
-                                    new
-                                    {
-                                        CustomerID = p.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
-                                        p.PaymentCorrectionOpers.Period,
-                                        ServiceID = p.Services.ID,
-                                        ChargeValue = (decimal)0,
-                                        RechargeValue = (decimal)0,
-                                        p.Value
-                                    }))
-                        .Where(c => c.CustomerID == customerPaymentsPair.Key)
-                        .GroupBy(r => r.Period)
-                        .Select(
-                            groupedByPeriod =>
-                            new
-                            {
-                                Period = groupedByPeriod.Key,
-                                Charge = groupedByPeriod.Sum(c => c.ChargeValue),
-                                Rechage = groupedByPeriod.Sum(c => c.RechargeValue),
-                                Total = groupedByPeriod.Sum(c => c.Value),
-                                Balances =
-                                    groupedByPeriod
-                                        .GroupBy(c => c.ServiceID)
-                                        .Select(
-                                            groupedByService =>
-                                            new
-                                            {
-                                                ServiceID = groupedByService.Key,
-                                                ValueSum = groupedByService.Sum(c => c.Value),
-                                                Charged = groupedByService.Sum(c => c.ChargeValue),
-                                                Recharged = groupedByService.Sum(c => c.RechargeValue)
-                                            })
-                            })
-                        .OrderBy(r => r.Period)
-                        .ToDictionary(
-                            periodBalance => periodBalance.Period,
-                            periodBalance =>
-                                new ServiceBalances(
-                                    periodBalance.Balances
-                                        .ToDictionary(
-                                            serviceBalance => serviceBalance.ServiceID,
-                                            serviceBalance =>
-                                            new Balance(serviceBalance.Charged, 0, serviceBalance.Recharged, 0, 0, 0, serviceBalance.ValueSum)),
-                                    new Balance(periodBalance.Charge, 0, periodBalance.Rechage, 0, 0, 0, periodBalance.Total))));
+                if (!_debtBalancesByPeriod.ContainsKey(_lastChargedPeriodBalance.Item1))
+                {
+                    _debtBalancesByPeriod.Add(_lastChargedPeriodBalance.Item1, _lastChargedPeriodBalance.Item2);
+                }
             }
 
             #endregion
@@ -648,29 +469,28 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                                 service => service.ID,
                                 service => service);
 
-                        PeriodBalances _distribution =
+                        Dictionary<DateTime, Dictionary<int, decimal>> _distribution =
                             PaymentDistributionSrv.DistributePayment(
-                                _periodBalances,
+                                _debtBalancesByPeriod,
                                 _paymentOper.PaymentSets.PaymentDate,
                                 _paymentOper.PaymentPeriod,
                                 ServerTime.GetPeriodInfo().LastCharged,
                                 _paymentOper.Value,
                                 _customer.ID);
 
-                        foreach (KeyValuePair<DateTime, ServiceBalances> _periodBalance in _distribution.Balances)
+                        foreach (var periodBalancePair in _distribution)
                         {
-                            foreach (KeyValuePair<int, Balance> _serviceBalance in _periodBalance.Value.Balances)
+                            foreach (var _serviceValuePair in periodBalancePair.Value)
                             {
                                 PaymentOperPoses _pos = new PaymentOperPoses()
                                 {
                                     PaymentOpers = _paymentOper,
-                                    Period = _periodBalance.Key,
-                                    Services = _services[_serviceBalance.Key],
-                                    Value = _serviceBalance.Value.Payment,
+                                    Period = periodBalancePair.Key,
+                                    Services = _services[_serviceValuePair.Key],
+                                    Value = _serviceValuePair.Value,
                                 };
 
                                 _entities.AddToPaymentOperPoses(_pos);
-                                _periodBalances.AddPayment(_pos.Period, _pos.Services.ID, _pos.Value);
                             }
                         }
 
@@ -827,18 +647,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             string[] _poses = line.Split('|');
 
-            WizardPaymentElement _res = new WizardPaymentElement();
+            WizardPaymentElement _res = new WizardPaymentElement
+            {
+                Account = _poses.Length > 6 ? _poses[6].ToUpper() : String.Empty,
+                Period = _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{2}.\d{4}") 
+                    ? new DateTime(Convert.ToInt32(_poses[8].Substring(3)), Convert.ToInt32(_poses[8].Substring(0, 2)), 1) 
+                    : DateTime.MinValue
+            };
 
-            _res.Account = _poses.Length > 6 ? _poses[6].ToUpper() : String.Empty;
-            _res.Period = _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{2}.\d{4}") ?
-                new DateTime(Convert.ToInt32(_poses[8].Substring(3)), Convert.ToInt32(_poses[8].Substring(0, 2)), 1) :
-                DateTime.MinValue;
             if (_poses.Length > 5)
             {
-                decimal _count;
-                Decimal.TryParse(_poses[5].Replace('.', ','), out _count);
+                decimal.TryParse(_poses[5].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
+
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
                 ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_res.Account)
                 : null;
@@ -894,8 +716,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             _res.Period = _lastChargedPeriod;
             if (_poses.Length > 2)
             {
-                decimal _count = 0;
-                Decimal.TryParse(_poses[2].Replace('.', ','), out _count);
+                decimal.TryParse(_poses[2].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
             _res.Owner = !String.IsNullOrEmpty(_res.Account)
@@ -916,16 +737,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             string[] _poses = line.Split('|');
 
-            WizardPaymentElement _res = new WizardPaymentElement();
+            WizardPaymentElement _res = new WizardPaymentElement
+            {
+                Account = _poses.Length > 0 ? _poses[0].ToUpper() : String.Empty,
+                Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") 
+                    ? new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1)
+                    : DateTime.MinValue
+            };
 
-            _res.Account = _poses.Length > 0 ? _poses[0].ToUpper() : String.Empty;
-            _res.Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") ?
-                new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1) :
-                DateTime.MinValue;
             if (_poses.Length > 3)
             {
-                decimal _count = 0;
-                Decimal.TryParse(_poses[3].Replace('.', ','), out _count);
+                decimal.TryParse(_poses[3].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
@@ -998,7 +820,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                     String.Format("{0:MM.yyyy}", _element.Value.Period),
                     _element.Value.Value,
                     _element.Value.Owner != null
-                        ? (_element.Value.Owner.OwnerType == Customer.OwnerTypes.PhysicalPerson
+                        ? (_element.Value.Owner.OwnerType == OwnerType.PhysicalPerson
                             ? _element.Value.Owner.PhysicalPersonShortName
                             : _element.Value.Owner.JuridicalPersonFullName)
                         : String.Empty,
@@ -1033,11 +855,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             {
                 string _owner = "Неизвестен";
 
-                if (customer.OwnerType == Customer.OwnerTypes.PhysicalPerson)
+                if (customer.OwnerType == OwnerType.PhysicalPerson)
                 {
                     _owner = customer.PhysicalPersonShortName;
                 }
-                else if (customer.OwnerType == Customer.OwnerTypes.JuridicalPerson)
+                else if (customer.OwnerType == OwnerType.JuridicalPerson)
                 {
                     _owner = customer.JuridicalPersonFullName;
                 }
@@ -1138,7 +960,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         internal decimal GetChargeValueByAccountAndPeriod(string account, DateTime period)
         {
             decimal _res;
-            using (var _entities = new Taumis.Alpha.DataBase.Entities())
+            using (var _entities = new Entities())
             {
                 _res =
                     _entities.ChargeOpers

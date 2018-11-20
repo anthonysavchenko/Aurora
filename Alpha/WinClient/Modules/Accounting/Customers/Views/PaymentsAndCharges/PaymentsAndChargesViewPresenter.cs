@@ -1,18 +1,18 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Practices.CompositeUI.EventBroker;
+﻿using Microsoft.Practices.CompositeUI.EventBroker;
 using System;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Common.Modules.StartUpParams;
 using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.Infrastructure.Interface.Constants;
-using OperTypes = Taumis.Alpha.Infrastructure.Interface.Enums.OperationTypes;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.PaymentsAndCharges
 {
@@ -90,7 +90,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                 LinkOperationID = c.ID,
                                 Period = c.ChargeSets.Period,
                                 CreationDateTime = c.CreationDateTime,
-                                OperationType = (int)OperTypes.Charge,
+                                OperationType = (int)OperationType.Charge,
                                 Value = c.Value
                             })
                         .Concat(
@@ -103,7 +103,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         LinkOperationID = r.ID,
                                         Period = r.RechargeSets.Period,
                                         CreationDateTime = r.CreationDateTime,
-                                        OperationType = (int)OperTypes.Recharge,
+                                        OperationType = (int)OperationType.Recharge,
                                         Value = r.Value
                                     }))
                         .Concat(
@@ -116,7 +116,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         LinkOperationID = c.ID,
                                         Period = c.ChargeCorrectionOpers.Period,
                                         CreationDateTime = c.ChargeCorrectionOpers.CreationDateTime,
-                                        OperationType = (int)OperTypes.ChargeCorrection,
+                                        OperationType = (int)OperationType.ChargeCorrection,
                                         Value = -1 * c.Value
                                     }))
                         .Concat(
@@ -129,7 +129,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         LinkOperationID = r.ID,
                                         Period = r.ChildChargeCorrectionOpers.Period,
                                         CreationDateTime = r.ChildChargeCorrectionOpers.CreationDateTime,
-                                        OperationType = (int)OperTypes.RechargeCorrection,
+                                        OperationType = (int)OperationType.RechargeCorrection,
                                         Value = -1 * r.Value
                                     }))
                         .Concat(
@@ -142,7 +142,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         LinkOperationID = b.ChargeOpers.ID,
                                         Period = b.ChargeOpers.ChargeSets.Period,
                                         CreationDateTime = b.ChargeOpers.CreationDateTime,
-                                        OperationType = (int)OperTypes.Benefit,
+                                        OperationType = (int)OperationType.Benefit,
                                         Value = b.Value
                                     }))
                         .Concat(
@@ -155,7 +155,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         LinkOperationID = r.RechargeOpers.ID,
                                         Period = r.RechargeOpers.RechargeSets.Period,
                                         CreationDateTime = r.RechargeOpers.CreationDateTime,
-                                        OperationType = (int)OperTypes.Rebenefit,
+                                        OperationType = (int)OperationType.Rebenefit,
                                         Value = r.Value
                                     }))
                         .Concat(
@@ -168,7 +168,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         LinkOperationID = c.ChargeOpers.ID,
                                         Period = c.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         CreationDateTime = c.BenefitCorrectionOpers.ChargeCorrectionOpers.CreationDateTime,
-                                        OperationType = (int)OperTypes.BenefitCorrection,
+                                        OperationType = (int)OperationType.BenefitCorrection,
                                         Value = -1 * c.Value
                                     }))
                         .Concat(
@@ -181,7 +181,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                         LinkOperationID = r.RechargeOpers.ID,
                                         Period = r.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
                                         CreationDateTime = r.BenefitCorrectionOpers.ChargeCorrectionOpers.CreationDateTime,
-                                        OperationType = (int)OperTypes.RebenefitCorrection,
+                                        OperationType = (int)OperationType.RebenefitCorrection,
                                         Value = -1 * r.Value
                                     }))
                         .Concat(
@@ -194,7 +194,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                             LinkOperationID = p.ID,
                                             Period = p.CreationDateTime,
                                             CreationDateTime = p.CreationDateTime,
-                                            OperationType = p.PaymentSets.Intermediaries != null ? (int)OperTypes.Payment : (int)OperTypes.Act,
+                                            OperationType = p.PaymentSets.Intermediaries != null ? (int)OperationType.Payment : (int)OperationType.Act,
                                             Value = p.Value
                                         }))
                         .Concat(
@@ -207,7 +207,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                                             LinkOperationID = p.PaymentOpers.ID,
                                             Period = p.Period,
                                             CreationDateTime = p.CreationDateTime,
-                                            OperationType = p.PaymentOpers.PaymentSets.Intermediaries != null ? (int)OperTypes.PaymentCorrection : (int)OperTypes.ActCorrection,
+                                            OperationType = p.PaymentOpers.PaymentSets.Intermediaries != null ? (int)OperationType.PaymentCorrection : (int)OperationType.ActCorrection,
                                             Value = p.Value
                                         }))
                         .OrderBy(c => c.CreationDateTime)
@@ -217,7 +217,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                     _operations,
                     o =>
                     {
-                        if (o.OperationType == (int)OperTypes.Payment || o.OperationType == (int)OperTypes.Act)
+                        if (o.OperationType == (int)OperationType.Payment || o.OperationType == (int)OperationType.Act)
                             o.Period = new DateTime(o.Period.Year, o.Period.Month, 1);
                     });
 
@@ -231,33 +231,33 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                             new
                             {
                                 Period = g.Key,
-                                Charged = g.Sum(o => o.OperationType == (int)OperTypes.Charge ? o.Value : 0),
+                                Charged = g.Sum(o => o.OperationType == (int)OperationType.Charge ? o.Value : 0),
                                 Benefit =
                                     -1 * g.Sum(
                                         o =>
-                                        o.OperationType == (int)OperTypes.Benefit ||
-                                        o.OperationType == (int)OperTypes.BenefitCorrection ||
-                                        o.OperationType == (int)OperTypes.Rebenefit ||
-                                        o.OperationType == (int)OperTypes.RebenefitCorrection
+                                        o.OperationType == (int)OperationType.Benefit ||
+                                        o.OperationType == (int)OperationType.BenefitCorrection ||
+                                        o.OperationType == (int)OperationType.Rebenefit ||
+                                        o.OperationType == (int)OperationType.RebenefitCorrection
                                             ? o.Value : 0),
                                 Recharged =
                                     g.Sum(
                                         o =>
-                                        o.OperationType == (int)OperTypes.Recharge ||
-                                        o.OperationType == (int)OperTypes.ChargeCorrection ||
-                                        o.OperationType == (int)OperTypes.RechargeCorrection
+                                        o.OperationType == (int)OperationType.Recharge ||
+                                        o.OperationType == (int)OperationType.ChargeCorrection ||
+                                        o.OperationType == (int)OperationType.RechargeCorrection
                                             ? o.Value : 0),
                                 Payed =
                                     -1 * g.Sum(
                                         o =>
-                                        o.OperationType == (int)OperTypes.Payment ||
-                                        o.OperationType == (int)OperTypes.PaymentCorrection
+                                        o.OperationType == (int)OperationType.Payment ||
+                                        o.OperationType == (int)OperationType.PaymentCorrection
                                             ? o.Value : 0),
                                 Acts =
                                     -1 * g.Sum(
                                         o =>
-                                        o.OperationType == (int)OperTypes.Act ||
-                                        o.OperationType == (int)OperTypes.ActCorrection
+                                        o.OperationType == (int)OperationType.Act ||
+                                        o.OperationType == (int)OperationType.ActCorrection
                                             ? o.Value : 0),
                                 Balance = g.Sum(o => o.Value)
                             })
@@ -268,34 +268,34 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
                 {
                     string _operatinCaption = String.Empty;
 
-                    switch ((OperTypes)_operation.OperationType)
+                    switch ((OperationType)_operation.OperationType)
                     {
-                        case OperTypes.Charge:
+                        case OperationType.Charge:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_CHARGE;
                             break;
-                        case OperTypes.Payment:
-                        case OperTypes.Act:
+                        case OperationType.Payment:
+                        case OperationType.Act:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_PAYMENT;
                             break;
-                        case OperTypes.PaymentCorrection:
-                        case OperTypes.ActCorrection:
+                        case OperationType.PaymentCorrection:
+                        case OperationType.ActCorrection:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_PAYMENT_CORRECTION;
                             break;
-                        case OperTypes.Benefit:
+                        case OperationType.Benefit:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_BENEFIT;
                             break;
-                        case OperTypes.ChargeCorrection:
-                        case OperTypes.RechargeCorrection:
+                        case OperationType.ChargeCorrection:
+                        case OperationType.RechargeCorrection:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_CHARGE_CORRECTION;
                             break;
-                        case OperTypes.BenefitCorrection:
-                        case OperTypes.RebenefitCorrection:
+                        case OperationType.BenefitCorrection:
+                        case OperationType.RebenefitCorrection:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_BENEFIT_CORRECTION;
                             break;
-                        case OperTypes.Recharge:
+                        case OperationType.Recharge:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_RECHARGE;
                             break;
-                        case OperTypes.Rebenefit:
+                        case OperationType.Rebenefit:
                             _operatinCaption = ModuleUIExtensionSiteNames.OPERATION_CAPTION_REBENEFIT;
                             break;
                     }
@@ -346,30 +346,30 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
         /// <param name="operationType">Тип операции</param>
         public void SelectOperationLink(int operationID, int operationType)
         {
-            switch ((OperTypes)operationType)
+            switch ((OperationType)operationType)
             {
-                case OperTypes.Payment:
-                case OperTypes.PaymentCorrection:
-                case OperTypes.Act:
-                case OperTypes.ActCorrection:
+                case OperationType.Payment:
+                case OperationType.PaymentCorrection:
+                case OperationType.Act:
+                case OperationType.ActCorrection:
                     WorkItem.Controller.RunUsecase(
                             ApplicationUsecaseNames.PAYMENTS,
                             new ShowDetailsStartUpParams<PaymentOper>(GetItem<PaymentOper>(operationID.ToString())));
                     break;
 
-                case OperTypes.Charge:
-                case OperTypes.ChargeCorrection:
-                case OperTypes.Benefit:
-                case OperTypes.BenefitCorrection:
+                case OperationType.Charge:
+                case OperationType.ChargeCorrection:
+                case OperationType.Benefit:
+                case OperationType.BenefitCorrection:
                     WorkItem.Controller.RunUsecase(
                             ApplicationUsecaseNames.CHARGES,
                             new ShowDetailsStartUpParams<ChargeOper>(GetItem<ChargeOper>(operationID.ToString())));
                     break;
 
-                case OperTypes.Recharge:
-                case OperTypes.Rebenefit:
-                case OperTypes.RechargeCorrection:
-                case OperTypes.RebenefitCorrection:
+                case OperationType.Recharge:
+                case OperationType.Rebenefit:
+                case OperationType.RechargeCorrection:
+                case OperationType.RebenefitCorrection:
                     WorkItem.Controller.RunUsecase(
                             ApplicationUsecaseNames.CHARGES,
                             new ShowDetailsStartUpParams<RechargeOper>(GetItem<RechargeOper>(operationID.ToString())));

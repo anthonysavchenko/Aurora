@@ -5,6 +5,7 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Oper;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.List;
@@ -62,7 +63,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.ChargeD
 
             View.Account = _oper.Customer.Account;
             View.Owner =
-                _oper.Customer.OwnerType == Customer.OwnerTypes.PhysicalPerson
+                _oper.Customer.OwnerType == OwnerType.PhysicalPerson
                     ? _oper.Customer.PhysicalPersonShortName
                     : _oper.Customer.JuridicalPersonFullName;
             View.Apartment = _oper.Customer.Apartment;
