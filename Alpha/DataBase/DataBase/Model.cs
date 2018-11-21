@@ -106,6 +106,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CustomerPoses), "RechargePercentCorrections", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargePercentCorrections), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CounterValueCollectDistricts), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_ElectricitySharedCounterVolumes_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "ElectricitySharedCounterVolumes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.ElectricitySharedCounterVolumes), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingConsumptions_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "BuildingConsumptions", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingConsumptions), true)]
 
 #endregion
 
@@ -1017,6 +1018,22 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<ElectricitySharedCounterVolumes> _ElectricitySharedCounterVolumes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BuildingConsumptions> BuildingConsumptions
+        {
+            get
+            {
+                if ((_BuildingConsumptions == null))
+                {
+                    _BuildingConsumptions = base.CreateObjectSet<BuildingConsumptions>("BuildingConsumptions");
+                }
+                return _BuildingConsumptions;
+            }
+        }
+        private ObjectSet<BuildingConsumptions> _BuildingConsumptions;
 
         #endregion
 
@@ -1452,6 +1469,14 @@ namespace Taumis.Alpha.DataBase
         public void AddToElectricitySharedCounterVolumes(ElectricitySharedCounterVolumes electricitySharedCounterVolumes)
         {
             base.AddObject("ElectricitySharedCounterVolumes", electricitySharedCounterVolumes);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BuildingConsumptions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBuildingConsumptions(BuildingConsumptions buildingConsumptions)
+        {
+            base.AddObject("BuildingConsumptions", buildingConsumptions);
         }
 
         #endregion
@@ -3008,6 +3033,546 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingConsumptions")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BuildingConsumptions : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BuildingConsumptions object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="buildingID">Initial value of the BuildingID property.</param>
+        /// <param name="period">Initial value of the Period property.</param>
+        /// <param name="electrVol">Initial value of the ElectrVol property.</param>
+        /// <param name="electrOdnVol">Initial value of the ElectrOdnVol property.</param>
+        /// <param name="electrCounterValue">Initial value of the ElectrCounterValue property.</param>
+        /// <param name="hotWaterVol">Initial value of the HotWaterVol property.</param>
+        /// <param name="hotWaterOdnVol">Initial value of the HotWaterOdnVol property.</param>
+        /// <param name="hotWaterCounterValue">Initial value of the HotWaterCounterValue property.</param>
+        /// <param name="coldWaterVol">Initial value of the ColdWaterVol property.</param>
+        /// <param name="coldWaterOdnVol">Initial value of the ColdWaterOdnVol property.</param>
+        /// <param name="coldWaterCounterValue">Initial value of the ColdWaterCounterValue property.</param>
+        /// <param name="wasteWaterVol">Initial value of the WasteWaterVol property.</param>
+        /// <param name="wasteWaterOdnVol">Initial value of the WasteWaterOdnVol property.</param>
+        /// <param name="wasteWaterCounterValue">Initial value of the WasteWaterCounterValue property.</param>
+        /// <param name="heatingVol">Initial value of the HeatingVol property.</param>
+        /// <param name="heatingOdnVol">Initial value of the HeatingOdnVol property.</param>
+        /// <param name="heatingCounterValue">Initial value of the HeatingCounterValue property.</param>
+        public static BuildingConsumptions CreateBuildingConsumptions(global::System.Int32 id, global::System.Int32 buildingID, global::System.DateTime period, global::System.String electrVol, global::System.String electrOdnVol, global::System.String electrCounterValue, global::System.String hotWaterVol, global::System.String hotWaterOdnVol, global::System.String hotWaterCounterValue, global::System.String coldWaterVol, global::System.String coldWaterOdnVol, global::System.String coldWaterCounterValue, global::System.String wasteWaterVol, global::System.String wasteWaterOdnVol, global::System.String wasteWaterCounterValue, global::System.String heatingVol, global::System.String heatingOdnVol, global::System.String heatingCounterValue)
+        {
+            BuildingConsumptions buildingConsumptions = new BuildingConsumptions();
+            buildingConsumptions.ID = id;
+            buildingConsumptions.BuildingID = buildingID;
+            buildingConsumptions.Period = period;
+            buildingConsumptions.ElectrVol = electrVol;
+            buildingConsumptions.ElectrOdnVol = electrOdnVol;
+            buildingConsumptions.ElectrCounterValue = electrCounterValue;
+            buildingConsumptions.HotWaterVol = hotWaterVol;
+            buildingConsumptions.HotWaterOdnVol = hotWaterOdnVol;
+            buildingConsumptions.HotWaterCounterValue = hotWaterCounterValue;
+            buildingConsumptions.ColdWaterVol = coldWaterVol;
+            buildingConsumptions.ColdWaterOdnVol = coldWaterOdnVol;
+            buildingConsumptions.ColdWaterCounterValue = coldWaterCounterValue;
+            buildingConsumptions.WasteWaterVol = wasteWaterVol;
+            buildingConsumptions.WasteWaterOdnVol = wasteWaterOdnVol;
+            buildingConsumptions.WasteWaterCounterValue = wasteWaterCounterValue;
+            buildingConsumptions.HeatingVol = heatingVol;
+            buildingConsumptions.HeatingOdnVol = heatingOdnVol;
+            buildingConsumptions.HeatingCounterValue = heatingCounterValue;
+            return buildingConsumptions;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BuildingID
+        {
+            get
+            {
+                return _BuildingID;
+            }
+            set
+            {
+                OnBuildingIDChanging(value);
+                ReportPropertyChanging("BuildingID");
+                _BuildingID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BuildingID");
+                OnBuildingIDChanged();
+            }
+        }
+        private global::System.Int32 _BuildingID;
+        partial void OnBuildingIDChanging(global::System.Int32 value);
+        partial void OnBuildingIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Period
+        {
+            get
+            {
+                return _Period;
+            }
+            set
+            {
+                OnPeriodChanging(value);
+                ReportPropertyChanging("Period");
+                _Period = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Period");
+                OnPeriodChanged();
+            }
+        }
+        private global::System.DateTime _Period;
+        partial void OnPeriodChanging(global::System.DateTime value);
+        partial void OnPeriodChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ElectrVol
+        {
+            get
+            {
+                return _ElectrVol;
+            }
+            set
+            {
+                OnElectrVolChanging(value);
+                ReportPropertyChanging("ElectrVol");
+                _ElectrVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ElectrVol");
+                OnElectrVolChanged();
+            }
+        }
+        private global::System.String _ElectrVol;
+        partial void OnElectrVolChanging(global::System.String value);
+        partial void OnElectrVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ElectrOdnVol
+        {
+            get
+            {
+                return _ElectrOdnVol;
+            }
+            set
+            {
+                OnElectrOdnVolChanging(value);
+                ReportPropertyChanging("ElectrOdnVol");
+                _ElectrOdnVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ElectrOdnVol");
+                OnElectrOdnVolChanged();
+            }
+        }
+        private global::System.String _ElectrOdnVol;
+        partial void OnElectrOdnVolChanging(global::System.String value);
+        partial void OnElectrOdnVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ElectrCounterValue
+        {
+            get
+            {
+                return _ElectrCounterValue;
+            }
+            set
+            {
+                OnElectrCounterValueChanging(value);
+                ReportPropertyChanging("ElectrCounterValue");
+                _ElectrCounterValue = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ElectrCounterValue");
+                OnElectrCounterValueChanged();
+            }
+        }
+        private global::System.String _ElectrCounterValue;
+        partial void OnElectrCounterValueChanging(global::System.String value);
+        partial void OnElectrCounterValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String HotWaterVol
+        {
+            get
+            {
+                return _HotWaterVol;
+            }
+            set
+            {
+                OnHotWaterVolChanging(value);
+                ReportPropertyChanging("HotWaterVol");
+                _HotWaterVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("HotWaterVol");
+                OnHotWaterVolChanged();
+            }
+        }
+        private global::System.String _HotWaterVol;
+        partial void OnHotWaterVolChanging(global::System.String value);
+        partial void OnHotWaterVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String HotWaterOdnVol
+        {
+            get
+            {
+                return _HotWaterOdnVol;
+            }
+            set
+            {
+                OnHotWaterOdnVolChanging(value);
+                ReportPropertyChanging("HotWaterOdnVol");
+                _HotWaterOdnVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("HotWaterOdnVol");
+                OnHotWaterOdnVolChanged();
+            }
+        }
+        private global::System.String _HotWaterOdnVol;
+        partial void OnHotWaterOdnVolChanging(global::System.String value);
+        partial void OnHotWaterOdnVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String HotWaterCounterValue
+        {
+            get
+            {
+                return _HotWaterCounterValue;
+            }
+            set
+            {
+                OnHotWaterCounterValueChanging(value);
+                ReportPropertyChanging("HotWaterCounterValue");
+                _HotWaterCounterValue = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("HotWaterCounterValue");
+                OnHotWaterCounterValueChanged();
+            }
+        }
+        private global::System.String _HotWaterCounterValue;
+        partial void OnHotWaterCounterValueChanging(global::System.String value);
+        partial void OnHotWaterCounterValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ColdWaterVol
+        {
+            get
+            {
+                return _ColdWaterVol;
+            }
+            set
+            {
+                OnColdWaterVolChanging(value);
+                ReportPropertyChanging("ColdWaterVol");
+                _ColdWaterVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ColdWaterVol");
+                OnColdWaterVolChanged();
+            }
+        }
+        private global::System.String _ColdWaterVol;
+        partial void OnColdWaterVolChanging(global::System.String value);
+        partial void OnColdWaterVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ColdWaterOdnVol
+        {
+            get
+            {
+                return _ColdWaterOdnVol;
+            }
+            set
+            {
+                OnColdWaterOdnVolChanging(value);
+                ReportPropertyChanging("ColdWaterOdnVol");
+                _ColdWaterOdnVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ColdWaterOdnVol");
+                OnColdWaterOdnVolChanged();
+            }
+        }
+        private global::System.String _ColdWaterOdnVol;
+        partial void OnColdWaterOdnVolChanging(global::System.String value);
+        partial void OnColdWaterOdnVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ColdWaterCounterValue
+        {
+            get
+            {
+                return _ColdWaterCounterValue;
+            }
+            set
+            {
+                OnColdWaterCounterValueChanging(value);
+                ReportPropertyChanging("ColdWaterCounterValue");
+                _ColdWaterCounterValue = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ColdWaterCounterValue");
+                OnColdWaterCounterValueChanged();
+            }
+        }
+        private global::System.String _ColdWaterCounterValue;
+        partial void OnColdWaterCounterValueChanging(global::System.String value);
+        partial void OnColdWaterCounterValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String WasteWaterVol
+        {
+            get
+            {
+                return _WasteWaterVol;
+            }
+            set
+            {
+                OnWasteWaterVolChanging(value);
+                ReportPropertyChanging("WasteWaterVol");
+                _WasteWaterVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("WasteWaterVol");
+                OnWasteWaterVolChanged();
+            }
+        }
+        private global::System.String _WasteWaterVol;
+        partial void OnWasteWaterVolChanging(global::System.String value);
+        partial void OnWasteWaterVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String WasteWaterOdnVol
+        {
+            get
+            {
+                return _WasteWaterOdnVol;
+            }
+            set
+            {
+                OnWasteWaterOdnVolChanging(value);
+                ReportPropertyChanging("WasteWaterOdnVol");
+                _WasteWaterOdnVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("WasteWaterOdnVol");
+                OnWasteWaterOdnVolChanged();
+            }
+        }
+        private global::System.String _WasteWaterOdnVol;
+        partial void OnWasteWaterOdnVolChanging(global::System.String value);
+        partial void OnWasteWaterOdnVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String WasteWaterCounterValue
+        {
+            get
+            {
+                return _WasteWaterCounterValue;
+            }
+            set
+            {
+                OnWasteWaterCounterValueChanging(value);
+                ReportPropertyChanging("WasteWaterCounterValue");
+                _WasteWaterCounterValue = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("WasteWaterCounterValue");
+                OnWasteWaterCounterValueChanged();
+            }
+        }
+        private global::System.String _WasteWaterCounterValue;
+        partial void OnWasteWaterCounterValueChanging(global::System.String value);
+        partial void OnWasteWaterCounterValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String HeatingVol
+        {
+            get
+            {
+                return _HeatingVol;
+            }
+            set
+            {
+                OnHeatingVolChanging(value);
+                ReportPropertyChanging("HeatingVol");
+                _HeatingVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("HeatingVol");
+                OnHeatingVolChanged();
+            }
+        }
+        private global::System.String _HeatingVol;
+        partial void OnHeatingVolChanging(global::System.String value);
+        partial void OnHeatingVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String HeatingOdnVol
+        {
+            get
+            {
+                return _HeatingOdnVol;
+            }
+            set
+            {
+                OnHeatingOdnVolChanging(value);
+                ReportPropertyChanging("HeatingOdnVol");
+                _HeatingOdnVol = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("HeatingOdnVol");
+                OnHeatingOdnVolChanged();
+            }
+        }
+        private global::System.String _HeatingOdnVol;
+        partial void OnHeatingOdnVolChanging(global::System.String value);
+        partial void OnHeatingOdnVolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String HeatingCounterValue
+        {
+            get
+            {
+                return _HeatingCounterValue;
+            }
+            set
+            {
+                OnHeatingCounterValueChanging(value);
+                ReportPropertyChanging("HeatingCounterValue");
+                _HeatingCounterValue = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("HeatingCounterValue");
+                OnHeatingCounterValueChanged();
+            }
+        }
+        private global::System.String _HeatingCounterValue;
+        partial void OnHeatingCounterValueChanging(global::System.String value);
+        partial void OnHeatingCounterValueChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingConsumptions_Buildings", "Buildings")]
+        public Buildings Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingConsumptions_Buildings", "Buildings").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingConsumptions_Buildings", "Buildings").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Buildings> BuildingsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingConsumptions_Buildings", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingConsumptions_Buildings", "Buildings", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="Buildings")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -3509,6 +4074,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ElectricitySharedCounterVolumes>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "ElectricitySharedCounterVolumes", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingConsumptions_Buildings", "BuildingConsumptions")]
+        public EntityCollection<BuildingConsumptions> BuildingConsumptions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingConsumptions>("AlphaDataBaseModel.FK_BuildingConsumptions_Buildings", "BuildingConsumptions");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingConsumptions>("AlphaDataBaseModel.FK_BuildingConsumptions_Buildings", "BuildingConsumptions", value);
                 }
             }
         }

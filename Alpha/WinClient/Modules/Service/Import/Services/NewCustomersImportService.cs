@@ -320,5 +320,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 ? $"Импорт данных выполнен успешно"
                 : $"Не удалось полностью обработать данные из файла\r\n\r\nДобавлено {_addedCustomersCount} из {rows.Count} абонентов\r\n\r\n{resultMessage}\r\n\r\nПодробности:\r\n{_errors}";
         }
+
+        public bool GenerateImportTemplate(string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

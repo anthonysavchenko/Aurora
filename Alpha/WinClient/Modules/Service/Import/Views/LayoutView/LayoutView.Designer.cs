@@ -36,6 +36,8 @@
             this.ChooseMethodWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.importElectricityVolumesRadioButton = new System.Windows.Forms.RadioButton();
             this.importCounterRadioButton = new System.Windows.Forms.RadioButton();
+            this.importBuildingConsumptionInfoTemplateLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.importBuildingConsumptionInfoRadioButton = new System.Windows.Forms.RadioButton();
             this.importPublicPlaceServiceVolumeTemplate = new System.Windows.Forms.LinkLabel();
             this.importPublicPlaceServiceVolumesRadioButton = new System.Windows.Forms.RadioButton();
             this.importNewCustomersRadioButton = new System.Windows.Forms.RadioButton();
@@ -138,6 +140,8 @@
             // 
             this.ChooseMethodWizardPage.Controls.Add(this.importElectricityVolumesRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importCounterRadioButton);
+            this.ChooseMethodWizardPage.Controls.Add(this.importBuildingConsumptionInfoTemplateLinkLabel);
+            this.ChooseMethodWizardPage.Controls.Add(this.importBuildingConsumptionInfoRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importPublicPlaceServiceVolumeTemplate);
             this.ChooseMethodWizardPage.Controls.Add(this.importPublicPlaceServiceVolumesRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importNewCustomersRadioButton);
@@ -169,6 +173,28 @@
             this.importCounterRadioButton.TabIndex = 5;
             this.importCounterRadioButton.Text = "Импорт приборов учета";
             this.importCounterRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // importBuildingConsumptionInfoTemplateLinkLabel
+            // 
+            this.importBuildingConsumptionInfoTemplateLinkLabel.AutoSize = true;
+            this.importBuildingConsumptionInfoTemplateLinkLabel.Location = new System.Drawing.Point(484, 161);
+            this.importBuildingConsumptionInfoTemplateLinkLabel.Name = "importBuildingConsumptionInfoTemplateLinkLabel";
+            this.importBuildingConsumptionInfoTemplateLinkLabel.Size = new System.Drawing.Size(46, 13);
+            this.importBuildingConsumptionInfoTemplateLinkLabel.TabIndex = 46;
+            this.importBuildingConsumptionInfoTemplateLinkLabel.TabStop = true;
+            this.importBuildingConsumptionInfoTemplateLinkLabel.Text = "Шаблон";
+            this.importBuildingConsumptionInfoTemplateLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.importBuildingConsumptionInfoTemplateLinkLabel_LinkClicked);
+            // 
+            // importBuildingConsumptionInfoRadioButton
+            // 
+            this.importBuildingConsumptionInfoRadioButton.AutoSize = true;
+            this.importBuildingConsumptionInfoRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.importBuildingConsumptionInfoRadioButton.Location = new System.Drawing.Point(23, 159);
+            this.importBuildingConsumptionInfoRadioButton.Name = "importBuildingConsumptionInfoRadioButton";
+            this.importBuildingConsumptionInfoRadioButton.Size = new System.Drawing.Size(455, 17);
+            this.importBuildingConsumptionInfoRadioButton.TabIndex = 45;
+            this.importBuildingConsumptionInfoRadioButton.Text = "Импорт справочных данных об общедомовом потреблении коммунальных ресурсов";
+            this.importBuildingConsumptionInfoRadioButton.UseVisualStyleBackColor = false;
             // 
             // importPublicPlaceServiceVolumeTemplate
             // 
@@ -404,5 +430,7 @@
         private System.Windows.Forms.LinkLabel importPublicPlaceServiceVolumeTemplate;
         private System.Windows.Forms.RadioButton importCounterRadioButton;
         private System.Windows.Forms.RadioButton importElectricityVolumesRadioButton;
+        private System.Windows.Forms.LinkLabel importBuildingConsumptionInfoTemplateLinkLabel;
+        private System.Windows.Forms.RadioButton importBuildingConsumptionInfoRadioButton;
     }
 }

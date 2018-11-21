@@ -151,6 +151,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 : $"Импорт успешно завершен. {_processedMessage}";
         }
 
+        public bool GenerateImportTemplate(string path)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

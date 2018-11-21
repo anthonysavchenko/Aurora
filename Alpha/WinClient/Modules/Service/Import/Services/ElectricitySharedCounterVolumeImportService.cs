@@ -125,5 +125,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
             return _erorrs.Length > 0 ? _erorrs.ToString() : "Импорт данных выполнен успешно";
         }
+
+        public bool GenerateImportTemplate(string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

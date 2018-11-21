@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.ObjectBuilder;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +8,7 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services;
+using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
@@ -16,11 +18,27 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
     /// </summary>
     public class LayoutViewPresenter : BaseLayoutViewPresenter<ILayoutView>
     {
-        [ServiceDependency]
-        public IExcelService ExcelService { get; set; }
+        private readonly IImportService _gisZhkhCustomersImportService;
+        private readonly IImportService _newCustomersImportService;
+        private readonly IImportService _customerPosesImportService;
+        private readonly IImportService _privateCounterImportService;
+        private readonly IImportService _buildingConsumptionImportService;
+        private readonly IImportService _electricitySharedCounterVolumeImportService;
+        private readonly IImportService _publicPlaceServiceVolumesImportService;
 
-        [ServiceDependency]
-        public IPublicPlaceServiceVolumesImportService PublicPlaceServiceVolumesImportService { get; set; }
+        [InjectionConstructor]
+        public LayoutViewPresenter(
+            [ServiceDependency]IExcelService excelService,
+            [ServiceDependency]IServerTimeService serverTimeService)
+        {
+            _gisZhkhCustomersImportService = new GisZhkhCustomersImportService(excelService);
+            _newCustomersImportService = new NewCustomersImportService(excelService);
+            _customerPosesImportService = new CustomerPosesImportService(excelService);
+            _buildingConsumptionImportService = new BuildingConsumptionImportService(excelService);
+            _privateCounterImportService = new PrivateCounterImportService(excelService);
+            _electricitySharedCounterVolumeImportService = new ElectricitySharedCounterVolumeImportService(excelService);
+            _publicPlaceServiceVolumesImportService = new PublicPlaceServiceVolumesImportService(excelService, serverTimeService);
+        }
 
         /// <summary>
         /// Обрабатывает активацию модуля
@@ -133,7 +151,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
 
             if(_dialog.ShowDialog() == DialogResult.OK )
             {
-                string _info = PublicPlaceServiceVolumesImportService.GenerateTemplate(_dialog.FileName)
+                string _info = _publicPlaceServiceVolumesImportService.GenerateImportTemplate(_dialog.FileName)
+                    ? "Шаблон успешно создан"
+                    : "Не удалось создать шаблон";
+                View.ShowMessage(_info, "Инфо");
+            }
+        }
+
+        public void GenerateBuildingConsumptionImportTemplate()
+        {
+            SaveFileDialog _dialog =
+                new SaveFileDialog
+                {
+                    Filter = "Excel 2007 (*.xlsx)|*.xlsx",
+                    RestoreDirectory = true,
+                    FileName = "Import.xlsx"
+                };
+
+            if (_dialog.ShowDialog() == DialogResult.OK)
+            {
+                string _info = _buildingConsumptionImportService.GenerateImportTemplate(_dialog.FileName)
                     ? "Шаблон успешно создан"
                     : "Не удалось создать шаблон";
                 View.ShowMessage(_info, "Инфо");
@@ -154,22 +191,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 switch (View.WizardAction)
                 {
                     case WizardAction.ImportNewCustomers:
-                        args.Result = new NewCustomersImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
+                        args.Result = _newCustomersImportService.ProcessFile(View.FilePath, _reportProgressAction);
                         break;
                     case WizardAction.ImportCustomerPoses:
-                        args.Result = new CustomerPosesImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
+                        args.Result = _customerPosesImportService.ProcessFile(View.FilePath, _reportProgressAction);
                         break;
                     case WizardAction.ImportGisZhkhCustomerIDs:
-                        args.Result = new GisZhkhCustomersImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction);
+                        args.Result = _gisZhkhCustomersImportService.ProcessFile(View.FilePath, _reportProgressAction);
                         break;
                     case WizardAction.ImportPublicPlaceServiceVolumes:
-                        args.Result = PublicPlaceServiceVolumesImportService.ProcessFile(View.FilePath, _reportProgressAction, View.Period); 
+                        args.Result = _publicPlaceServiceVolumesImportService.ProcessFile(View.FilePath, _reportProgressAction, View.Period); 
                         break;
                     case WizardAction.ImportCounters:
-                        args.Result = new PrivateCounterImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction, View.Period);
+                        args.Result = _privateCounterImportService.ProcessFile(View.FilePath, _reportProgressAction, View.Period);
                         break;
                     case WizardAction.ImportElectricitySharedCounterVolumes:
-                        args.Result = new ElectricitySharedCounterVolumeImportService(ExcelService).ProcessFile(View.FilePath, _reportProgressAction, View.Period);
+                        args.Result = _electricitySharedCounterVolumeImportService.ProcessFile(View.FilePath, _reportProgressAction, View.Period);
+                        break;
+                    case WizardAction.ImportBuildingConsumptionInfo:
+                        args.Result = _buildingConsumptionImportService.ProcessFile(View.FilePath, _reportProgressAction, View.Period);
                         break;
                 }
             };
