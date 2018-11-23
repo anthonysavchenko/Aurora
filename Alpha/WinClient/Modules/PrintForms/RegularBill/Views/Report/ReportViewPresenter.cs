@@ -108,6 +108,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     DataTable _chargeDataTable = _data.Tables["ChargeData"];
                     DataTable _counterDataTable = _data.Tables["CounterData"];
                     DataTable _sharedCounterDataTable = _data.Tables["SharedCounterData"];
+                    DataTable _buildingConsumptionDataTable = _data.Tables["BuildingConsumptionData"];
                     DateTime _now = ServerTime.GetDateTimeInfo().Now;
 
                     using (Entities _entities = new Entities())
@@ -142,13 +143,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                         Email = b.Customers.User.Login,
                                         b.Customers.OwnerType,
                                         b.Customers.Buildings.BankDetails,
-                                        FullName = 
-                                            b.Customers.OwnerType == (int)OwnerType.PhysicalPerson 
-                                                ? b.Customers.PhysicalPersonFullName 
+                                        FullName =
+                                            b.Customers.OwnerType == (int)OwnerType.PhysicalPerson
+                                                ? b.Customers.PhysicalPersonFullName
                                                 : b.Customers.JuridicalPersonFullName,
                                         b.RegularBillDocSeviceTypePoses,
                                         b.RegularBillDocCounterPoses,
-                                        b.RegularBillDocSharedCounterPoses
+                                        b.RegularBillDocSharedCounterPoses,
+                                        BuildingConsumptionPoses = _entities.BuildingConsumptions
+                                            .Where(x => x.BuildingID == b.Customers.Buildings.ID && x.Period == b.Period)
+                                            .ToList()
                                     })
                                 .ToList()
                                 .OrderBy(b => b.Street)
@@ -189,6 +193,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _row["CustomerId"] = _bill.CustomerID;
 
                                 _chargeDataTable.Rows.Add(_row);
+                            }
+
+                            foreach (var _pos in _bill.BuildingConsumptionPoses)
+                            {
+                                _buildingConsumptionDataTable.Rows.Add(
+                                    _pos.ElectrVol,
+                                    _pos.ElectrOdnVol,
+                                    _pos.ElectrCounterValue,
+                                    _pos.HotWaterVol,
+                                    _pos.HotWaterOdnVol,
+                                    _pos.HotWaterCounterValue,
+                                    _pos.ColdWaterVol,
+                                    _pos.ColdWaterOdnVol,
+                                    _pos.ColdWaterCounterValue,
+                                    _pos.WasteWaterVol,
+                                    _pos.WasteWaterOdnVol,
+                                    _pos.HeatingVol,
+                                    _pos.HeatingOdnVol,
+                                    _pos.HeatingCounterValue,
+                                    _bill.CustomerID);
                             }
 
                             string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.BankDetails.INN, _bill.Period, _bill.Value);

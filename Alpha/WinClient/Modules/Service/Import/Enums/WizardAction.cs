@@ -33,6 +33,11 @@
         /// <summary>
         /// Импортировать объемы потребеления электроэнергии по ОДПУ
         /// </summary>
-        ImportElectricitySharedCounterVolumes
+        ImportElectricitySharedCounterVolumes,
+
+        /// <summary>
+        /// Импортировать данные об общедомовом потреблении коммунальных ресурсов
+        /// </summary>
+        ImportBuildingConsumptionInfo
     }
 }

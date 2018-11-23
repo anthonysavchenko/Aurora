@@ -269,5 +269,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 ExcludedRate = _excludedRate
             };
         }
+
+        public bool GenerateImportTemplate(string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
