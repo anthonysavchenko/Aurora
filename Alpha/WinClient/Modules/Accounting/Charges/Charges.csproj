@@ -61,10 +61,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML, Version=0.87.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\ThirdParty\Packages\ClosedXML.0.87.1\lib\net40\ClosedXML.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
@@ -90,10 +86,6 @@
       <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraWizard.v13.1.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\ThirdParty\Packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -108,6 +100,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\Wizard\Commands\CalculateDebtDistribution\CalculateDebtDistributionCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CalculateDebtDistribution\CalculateDebtDistributionCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateRechargeSet\CreateRechargeSetCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\BackupDb\BackupDbCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\BackupDb\BackupDbCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Common\CustomerInfo.cs" />
+    <Compile Include="Views\Wizard\Common\CustomerPosInfo.cs" />
+    <Compile Include="Views\Wizard\Common\RegisterCommandResult.cs" />
+    <Compile Include="Views\Wizard\Common\ServicePercentCorrection.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateChargeCorrection\CreateChargeCorrectionCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateRecharge\CreateRechargeCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CalculateBenefits\CalculateBenefitsCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\CalculateCharge\CalculateChargeCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\CalculateBenefits\CalculateBenefitsCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CalculateCharge\CalculateChargeCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateBill\CreateBillCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateCharge\CreateChargeCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateOverpayment\CreateOverpaymentCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\ApplyPercentCorrection\ApplyPercentCorrectionCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateChargeCorrection\CreateChargeCorrectionCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateRecharge\CreateRechargeCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\ParseDebtFile\ParseDebtFileCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\ParseDebtFile\ParseDebtFileCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\RegisterDebt\RegisterDebtCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\RegisterDebt\RegisterDebtCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\RegisterRecharge\RegisterRechargeCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\ApplyPercentCorrection\ApplyPercentCorrectionCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\RegisterCharge\RegisterChargeCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateBill\CreateBillCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateCharge\CreateChargeCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateOverpayment\CreateOverpaymentCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Commands\RegisterCharge\RegisterChargeCommandHandler.cs" />
     <Compile Include="Constants\ChargeSetTypes.cs" />
     <Compile Include="Constants\ModuleStateNames.cs" />
     <Compile Include="Constants\ModuleUIExtensionSiteNames.cs" />
@@ -115,6 +139,16 @@
     <Compile Include="Constants\TabNames.cs" />
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Wizard\Commands\RegisterRecharge\RegisterRechargeCommand.cs" />
+    <Compile Include="Views\Wizard\Commands\CreateRechargeSet\CreateRechargeSetCommandHandler.cs" />
+    <Compile Include="Views\Wizard\Factories\IWizardCommandDispatcherFactory.cs" />
+    <Compile Include="Views\Wizard\Factories\WizardCommandDispatcherFactory.cs" />
+    <Compile Include="Views\Wizard\Queries\GetCustomerInfoQuery.cs" />
+    <Compile Include="Views\Wizard\Queries\GetOverpaymentDataQuery.cs" />
+    <Compile Include="Views\Wizard\Queries\GetPercentCorrectionCustomerDataQuery.cs" />
+    <Compile Include="Views\Wizard\Queries\GetTotalForCustomerQuery.cs" />
+    <Compile Include="Services\Cache.cs" />
+    <Compile Include="Services\ICache.cs" />
     <Compile Include="Views\ChargeDetail\ChargeDetailView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -159,6 +193,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\Wizard\IWizardView.cs" />
+    <Compile Include="Views\Wizard\Services\IWizardService.cs" />
+    <Compile Include="Views\Wizard\Services\WizardService.cs" />
     <Compile Include="Views\Wizard\WizardView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -252,14 +288,16 @@
       <Name>Library %28Taumis.Alpha.Infrastructure\Library%29</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
+      <Project>{01633058-914e-4c6c-bbe5-0793d90f3ac5}</Project>
+      <Name>SQLServerAccessProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Interface\Interface.csproj">
       <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
       <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

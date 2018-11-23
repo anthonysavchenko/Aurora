@@ -38,12 +38,14 @@
             this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.BuildingConsumptionSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.BuildingConsumptionSubreport,
             this.TopReceiptSubreport});
             resources.ApplyResources(this.Detail, "Detail");
             this.Detail.KeepTogether = true;
@@ -101,6 +103,13 @@
             resources.ApplyResources(this.bottomMarginBand1, "bottomMarginBand1");
             this.bottomMarginBand1.Name = "bottomMarginBand1";
             // 
+            // BuildingConsumptionSubreport
+            // 
+            resources.ApplyResources(this.BuildingConsumptionSubreport, "BuildingConsumptionSubreport");
+            this.BuildingConsumptionSubreport.Id = 0;
+            this.BuildingConsumptionSubreport.Name = "BuildingConsumptionSubreport";
+            this.BuildingConsumptionSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.BuildingConsumptionReportObject();
+            // 
             // ReceiptLayoutReportObject
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -133,5 +142,6 @@
         private Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet dataSet1;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
+        private DevExpress.XtraReports.UI.XRSubreport BuildingConsumptionSubreport;
     }
 }

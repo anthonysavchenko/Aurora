@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
@@ -232,6 +232,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                 if(View.DebtMonthCount > 0)
                 {
                     DateTime _lastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged;
+                    int debtMonthCount = View.DebtMonthCount;
 
                     _raw2 = _raw2
                         .Join(_db.ChargeOpers
@@ -251,7 +252,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         DebtValue = x.Value,
                                         ChargeValue = c.Value
                                     })
-                        .Where(x => Math.Round(x.DebtValue / x.ChargeValue, 0, MidpointRounding.AwayFromZero) >= View.DebtMonthCount)
+                        .Where(x => x.ChargeValue > 0 && Math.Round(x.DebtValue / x.ChargeValue, 0, MidpointRounding.AwayFromZero) >= debtMonthCount)
                         .Select(x =>
                             new
                             {
@@ -284,7 +285,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                             (x, y) =>
                                 new
                                 {
-                                    FullName = y.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson
+                                    FullName = y.OwnerType == (int)OwnerType.PhysicalPerson
                                         ? y.PhysicalPersonFullName
                                         : y.JuridicalPersonFullName,
                                     y.StreetName,

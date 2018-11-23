@@ -3,9 +3,9 @@ using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System.Data;
 using System.Drawing;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
-using OperTypes = Taumis.Alpha.Infrastructure.Interface.Enums.OperationTypes;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.PaymentsAndCharges
 {
@@ -69,22 +69,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
         {
             if (e.RowHandle >= 0)
             {
-                switch ((OperTypes)(int)((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(e.RowHandle, PaymentAndChargesColumnNames.COLUMN_OPERATION_TYPE))
+                switch ((OperationType)(int)((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(e.RowHandle, PaymentAndChargesColumnNames.COLUMN_OPERATION_TYPE))
                 {
-                    case OperTypes.Charge:
-                    case OperTypes.PaymentCorrection:
-                    case OperTypes.Recharge:
-                    case OperTypes.BenefitCorrection:
-                    case OperTypes.ActCorrection:
+                    case OperationType.Charge:
+                    case OperationType.PaymentCorrection:
+                    case OperationType.Recharge:
+                    case OperationType.BenefitCorrection:
+                    case OperationType.ActCorrection:
                         e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
                         break;
 
-                    case OperTypes.Payment:
-                    case OperTypes.Benefit:
-                    case OperTypes.ChargeCorrection:
-                    case OperTypes.RechargeCorrection:
-                    case OperTypes.Rebenefit:
-                    case OperTypes.Act:
+                    case OperationType.Payment:
+                    case OperationType.Benefit:
+                    case OperationType.ChargeCorrection:
+                    case OperationType.RechargeCorrection:
+                    case OperationType.Rebenefit:
+                    case OperationType.Act:
                         e.Appearance.BackColor = Color.FromArgb(200, 250, 200);
                         break;
                 }

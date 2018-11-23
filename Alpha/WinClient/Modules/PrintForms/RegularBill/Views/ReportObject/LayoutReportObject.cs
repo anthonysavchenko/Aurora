@@ -92,7 +92,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
         private void Receipt1Subreport_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
-            ((IReceiptLayoutReportObject)ReceiptSubreport.ReportSource).CustomerId = Convert.ToInt32(GetCurrentColumnValue("CustomerId"));
+            int _customerId = Convert.ToInt32(GetCurrentColumnValue("CustomerId"));
+            var _subreport = ((IReceiptLayoutReportObject)ReceiptSubreport.ReportSource);
+            _subreport.CustomerId = _customerId;
+
+            DataRow[] _rows = ((DataSet)DataSource).Tables["BuildingConsumptionData"].Select($"CustomerId = {_customerId}");
+            _subreport.ShowBuildingConsumptionData = _rows.Length > 0;
         }
 
         private void cutLine_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)

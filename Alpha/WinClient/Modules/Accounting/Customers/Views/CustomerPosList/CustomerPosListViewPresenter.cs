@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
@@ -13,8 +14,8 @@ using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.EnterpriseLibrary.Win.Services;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 using DomItemPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos;
-using DomServiceSinceTill = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos.ServiceSinceTill;
 using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
+using DomServiceSinceTill = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos.ServiceSinceTill;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
@@ -240,7 +241,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                 message = String.Format("Отсутствуют обязательные поля:\r\n{0}", message);
             }
             else if (
-                curItem.Service.ChargeRule == DomService.ChargeRuleType.CounterRate 
+                curItem.Service.ChargeRule == ChargeRuleType.CounterRate 
                 && curItem.PrivateCounter == null 
                 && EditItemMode == ModuleEditItemModes.Single)
             {

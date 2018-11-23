@@ -157,6 +157,12 @@
     <Compile Include="Reports\RegularBills\Receipt\ReceiptWithCountLayoutReportObject.designer.cs">
       <DependentUpon>ReceiptWithCountLayoutReportObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\BuildingConsumptionReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegularBills\Receipt\BuildingConsumptionReportObject.designer.cs">
+      <DependentUpon>BuildingConsumptionReportObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\RegularBills\Receipt\ServiceTableReportObject.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -291,6 +297,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RegularBills\Receipt\ReceiptWithCountLayoutReportObject.resx">
       <DependentUpon>ReceiptWithCountLayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegularBills\Receipt\BuildingConsumptionReportObject.resx">
+      <DependentUpon>BuildingConsumptionReportObject.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RegularBills\Receipt\ServiceTableReportObject.resx">

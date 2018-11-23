@@ -16,7 +16,7 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.ReportView
         /// </summary>
         /// <param name="_gc">Ссылка на экземпляр GridControl </param>
         /// <param name="_gv">Ссылка на экземпляр GridView</param>
-        protected void InitReportConponents(GridControl _gc, GridView _gv)
+        protected void InitReportComponents(GridControl _gc, GridView _gv)
         {
             _gridControl = _gc;
             _gridView = _gv;

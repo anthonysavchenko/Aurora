@@ -3,7 +3,7 @@
     /// <summary>
     /// Типы операций
     /// </summary>
-    public enum OperationTypes
+    public enum OperationType
     {
         Charge = 0,
         Payment = 1,

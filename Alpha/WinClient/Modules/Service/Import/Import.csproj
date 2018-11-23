@@ -84,11 +84,13 @@
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomerPosesImportService.cs" />
+    <Compile Include="Services\ElectricitySharedCounterVolumeImportService.cs" />
     <Compile Include="Services\GisZhkhCustomersImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
-    <Compile Include="Services\IPublicPlaceServiceVolumesImportService.cs" />
+    <Compile Include="Services\BuildingConsumptionImportService.cs" />
     <Compile Include="Services\NewCustomersImportService.cs" />
     <Compile Include="Enums\WizardPages.cs" />
+    <Compile Include="Services\PrivateCounterImportService.cs" />
     <Compile Include="Services\PublicPlaceServiceVolumesImportService.cs" />
     <Compile Include="Views\LayoutView\ILayoutView.cs" />
     <Compile Include="Views\LayoutView\LayoutView.cs">

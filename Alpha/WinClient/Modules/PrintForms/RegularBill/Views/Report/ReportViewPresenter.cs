@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
-using Microsoft.Practices.CompositeUI;
-using Microsoft.Practices.CompositeUI.EventBroker;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.Server.PrintForms.Constants;
 using Taumis.Alpha.Server.PrintForms.DataSets;
@@ -108,6 +108,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     DataTable _chargeDataTable = _data.Tables["ChargeData"];
                     DataTable _counterDataTable = _data.Tables["CounterData"];
                     DataTable _sharedCounterDataTable = _data.Tables["SharedCounterData"];
+                    DataTable _buildingConsumptionDataTable = _data.Tables["BuildingConsumptionData"];
                     DateTime _now = ServerTime.GetDateTimeInfo().Now;
 
                     using (Entities _entities = new Entities())
@@ -142,13 +143,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                         Email = b.Customers.User.Login,
                                         b.Customers.OwnerType,
                                         b.Customers.Buildings.BankDetails,
-                                        FullName = 
-                                            b.Customers.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
-                                                ? b.Customers.PhysicalPersonFullName 
+                                        FullName =
+                                            b.Customers.OwnerType == (int)OwnerType.PhysicalPerson
+                                                ? b.Customers.PhysicalPersonFullName
                                                 : b.Customers.JuridicalPersonFullName,
                                         b.RegularBillDocSeviceTypePoses,
                                         b.RegularBillDocCounterPoses,
-                                        b.RegularBillDocSharedCounterPoses
+                                        b.RegularBillDocSharedCounterPoses,
+                                        BuildingConsumptionPoses = _entities.BuildingConsumptions
+                                            .Where(x => x.BuildingID == b.Customers.Buildings.ID && x.Period == b.Period)
+                                            .ToList()
                                     })
                                 .ToList()
                                 .OrderBy(b => b.Street)
@@ -191,6 +195,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _chargeDataTable.Rows.Add(_row);
                             }
 
+                            foreach (var _pos in _bill.BuildingConsumptionPoses)
+                            {
+                                _buildingConsumptionDataTable.Rows.Add(
+                                    _pos.ElectrVol,
+                                    _pos.ElectrOdnVol,
+                                    _pos.ElectrCounterValue,
+                                    _pos.HotWaterVol,
+                                    _pos.HotWaterOdnVol,
+                                    _pos.HotWaterCounterValue,
+                                    _pos.ColdWaterVol,
+                                    _pos.ColdWaterOdnVol,
+                                    _pos.ColdWaterCounterValue,
+                                    _pos.WasteWaterVol,
+                                    _pos.WasteWaterOdnVol,
+                                    _pos.HeatingVol,
+                                    _pos.HeatingOdnVol,
+                                    _pos.HeatingCounterValue,
+                                    _bill.CustomerID);
+                            }
+
                             string _barcode = BillService.GenerateBarCodeString(_bill.Account, _bill.BankDetails.INN, _bill.Period, _bill.Value);
                             string _qrCode = BillService.GenerateQrCodeString(
                                 "ООО \"Жилищные услуги\"",
@@ -201,7 +225,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.BankDetails.INN,
                                 "Квартплата",
                                 _bill.Account, 
-                                _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
+                                _bill.OwnerType == (int)OwnerType.PhysicalPerson 
                                     ? _bill.FullName
                                     : string.Empty,
                                 _bill.Address,

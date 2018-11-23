@@ -1,25 +1,10 @@
-﻿using Taumis.EnterpriseLibrary.Win;
+﻿using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
 {
     public class BenefitType : DomainObject
     {
-        /// <summary>
-        /// Тип правила начисления льготы
-        /// </summary>
-        public enum BenefitRuleType : byte
-        {
-            /// <summary>
-            /// 50% по норме площади в зависимости от количества жильцов
-            /// </summary>
-            FiftyPercentBySquare,
-
-            /// <summary>
-            /// Фиксированный процент
-            /// </summary>
-            FixedPercent
-        }
-
         private string _name;
 
         /// <summary>

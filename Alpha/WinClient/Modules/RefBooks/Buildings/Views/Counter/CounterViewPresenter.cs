@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
@@ -161,7 +162,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
             _table.Columns.Add("ID", typeof(int));
             _table.Columns.Add("Name", typeof(string));
 
-            const int COUNTER_RATE_RULE = (int)Service.ChargeRuleType.CounterRate;
+            const int COUNTER_RATE_RULE = (int)ChargeRuleType.CounterRate;
 
             using (Entities _entities = new Entities())
             {

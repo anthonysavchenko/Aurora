@@ -6,7 +6,6 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
-using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 {
@@ -63,7 +62,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         private class ServiceSheet
         {
-            public const int INDEX = 6;
+            public const int INDEX = 8;
             public const int FIRST_ROW_NUM = 2;
 
             public class Columns
@@ -174,7 +173,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
-
+                            
                             foreach (BillInfo _bi in _ci.Bills)
                             {
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.NUMBER).SetValue(_ci.BillID);

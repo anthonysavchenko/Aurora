@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
 
@@ -42,7 +42,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public short Floor { get; set; }
             public string Apartment { get; set; }
             public string Name { get; set; }
-            public Customer.OwnerTypes OwnerType { get; set; }
+            public OwnerType OwnerType { get; set; }
             public decimal Area { get; set; }
             public bool IsPrivate { get; set; }
             public int RoomCount { get; set; }
@@ -57,7 +57,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             _excelService = excelService;
         }
 
-        public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period = null)
         {
             string _resultMessage;
 
@@ -134,10 +134,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             int _roomCount,
                 _residentCount;
 
-            Customer.OwnerTypes _ownerType =
+            OwnerType _ownerType =
                 sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
-                    ? Customer.OwnerTypes.JuridicalPerson
-                    : Customer.OwnerTypes.PhysicalPerson;
+                    ? OwnerType.JuridicalPerson
+                    : OwnerType.PhysicalPerson;
 
             sheet.Cell(row, Columns.AREA).TryGetValue(out _area);
             sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out _entrance);
@@ -189,7 +189,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             }
             catch (Exception _ex)
             {
-                message = $"Не удалось прочитать строку {0}.\r\n\r\n{_ex.Message}";
+                message = $"Не удалось прочитать строку {_currentRow}.\r\n\r\n{_ex.Message}";
             }
 
             return _rows;
@@ -213,7 +213,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
                         _accountExist = _db.Customers.Any(c =>
                             c.Account == _row.Account ||
-                            (_row.OwnerType == Customer.OwnerTypes.PhysicalPerson && c.Buildings.Streets.Name == _row.StreetName && c.Buildings.Number == _row.BuildingNum && c.Apartment == _row.Apartment));
+                            (_row.OwnerType == OwnerType.PhysicalPerson && c.Buildings.Streets.Name == _row.StreetName && c.Buildings.Number == _row.BuildingNum && c.Apartment == _row.Apartment));
 
                         if (!_accountExist)
                         {
@@ -260,7 +260,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 };
 
 
-                            if (_row.OwnerType == Customer.OwnerTypes.PhysicalPerson)
+                            if (_row.OwnerType == OwnerType.PhysicalPerson)
                             {
                                 _customer.PhysicalPersonFullName = FirstLettersToUpper(_row.Name);
                                 _customer.PhysicalPersonShortName = GetLastNameAndInitial(_row.Name);
@@ -319,6 +319,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             resultMessage = _errors.Length == 0 && _allreadyExistedAccounts.Count == 0 && _failedRows.Count == 0
                 ? $"Импорт данных выполнен успешно"
                 : $"Не удалось полностью обработать данные из файла\r\n\r\nДобавлено {_addedCustomersCount} из {rows.Count} абонентов\r\n\r\n{resultMessage}\r\n\r\nПодробности:\r\n{_errors}";
+        }
+
+        public bool GenerateImportTemplate(string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }
