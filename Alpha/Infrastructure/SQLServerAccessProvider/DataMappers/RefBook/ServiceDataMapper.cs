@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.Services;
@@ -51,7 +52,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _domItem.Name = service.Name;
                 _domItem.Code = service.Code;
                 _domItem.ServiceType = (DomServiceType)DataMapperService.get(typeof(DomServiceType)).find(service.ServiceTypes.ID.ToString());
-                _domItem.ChargeRule = (DomItem.ChargeRuleType)service.ChargeRule;
+                _domItem.ChargeRule = (ChargeRuleType)service.ChargeRule;
                 _domItem.Norm = service.Norm;
                 _domItem.Measure = service.Measure;
             }

@@ -35,7 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         #region Implementation of IGisZhkhDataImportService
 
-        public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period = null)
         {
             string _resultMessage;
 
@@ -149,6 +149,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             resultMessage = _errors.Length > 0
                 ? $"Импорт завершен с ошибками. {_processedMessage} Подробности:\r\n\r\n{_errors}"
                 : $"Импорт успешно завершен. {_processedMessage}";
+        }
+
+        public bool GenerateImportTemplate(string path)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

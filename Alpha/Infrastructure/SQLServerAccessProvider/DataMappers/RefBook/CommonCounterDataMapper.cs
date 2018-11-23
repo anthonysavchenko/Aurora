@@ -111,6 +111,5 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
         }
 
         #endregion
-
     }
 }

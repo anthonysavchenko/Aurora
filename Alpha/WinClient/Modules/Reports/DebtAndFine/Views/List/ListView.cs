@@ -18,7 +18,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
         public ListView()
         {
             InitializeComponent();
-            InitReportConponents(gridControlOfListView, gridViewOfListView);
+            InitReportComponents(gridControlOfListView, gridViewOfListView);
         }
 
         [CreateNew]

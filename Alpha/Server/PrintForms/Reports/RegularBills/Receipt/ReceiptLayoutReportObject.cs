@@ -15,6 +15,7 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt
             set
             {
                 ((TopReceiptReportObject)TopReceiptSubreport.ReportSource).CustomerId = value;
+                ((BuildingConsumptionReportObject)BuildingConsumptionSubreport.ReportSource).CustId.Value = value;
             }
         }
 
@@ -23,6 +24,7 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt
             set
             {
                 ((TopReceiptReportObject)TopReceiptSubreport.ReportSource).ReportDataSource = value;
+                ((BuildingConsumptionReportObject)BuildingConsumptionSubreport.ReportSource).DataSource = value;
             }
         }
 
@@ -33,5 +35,7 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt
                 Detail.Visible = value;
             }
         }
+
+        public bool ShowBuildingConsumptionData { set => BuildingConsumptionSubreport.Visible = value; }
     }
 }

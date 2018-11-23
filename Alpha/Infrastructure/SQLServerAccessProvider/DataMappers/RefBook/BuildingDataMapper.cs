@@ -11,6 +11,7 @@ using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.B
 using DomStreet = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Street;
 using DomPublicPlace = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PublicPlace;
 using DomBankDetail = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.BankDetail;
+using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBooks;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
@@ -64,6 +65,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _domItem.NonResidentialPlaceArea = _dbItem.NonResidentialPlaceArea;
                 _domItem.BankDetail = _dbItem.BankDetailID.HasValue 
                     ? (DomBankDetail)DataMapperService.get(typeof (DomBankDetail)).find(_dbItem.BankDetailID.Value.ToString())
+                    : null;
+                _domItem.CounterValueCollectDistrict = _dbItem.CounterValueCollectDistrictID.HasValue
+                    ? (CounterValueCollectDistrict)DataMapperService.get(typeof(CounterValueCollectDistrict))
+                        .find(_dbItem.CounterValueCollectDistrictID.Value.ToString())
                     : null;
 
                 IDataMapper _commonCounterDataMapper = DataMapperService.get(typeof(DomCommonCounter));
@@ -127,6 +132,12 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
                 _tempId = Convert.ToInt32(domObj.BankDetail.ID);
                 _dbItem.BankDetails = _entities.BankDetails.First(b => b.ID == _tempId);
+
+                if (domObj.CounterValueCollectDistrict != null)
+                {
+                    _tempId = Convert.ToInt32(domObj.CounterValueCollectDistrict.ID);
+                    _dbItem.CounterValueCollectDistricts = _entities.CounterValueCollectDistricts.First(x => x.ID == _tempId);
+                }
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();

@@ -58,6 +58,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     _action = WizardAction.ImportPublicPlaceServiceVolumes;
                 }
+                else if (importCounterRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportCounters;
+                }
+                else if (importElectricityVolumesRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportElectricitySharedCounterVolumes;
+                }
+                else if (importBuildingConsumptionInfoRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportBuildingConsumptionInfo;
+                }
 
                 return _action;
             }
@@ -174,6 +186,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             switch (WizardAction)
             {
                 case WizardAction.ImportPublicPlaceServiceVolumes:
+                case WizardAction.ImportElectricitySharedCounterVolumes:
+                case WizardAction.ImportCounters:
+                case WizardAction.ImportBuildingConsumptionInfo:
                     filePanel.Visible = true;
                     periodPanel.Visible = true;
                     break;
@@ -227,6 +242,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         private void importPublicPlaceServiceVolumeTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Presenter.GenerateImportPublicPlaceServiceVolumeTemplate();
+        }
+
+        private void importBuildingConsumptionInfoTemplateLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Presenter.GenerateBuildingConsumptionImportTemplate();
         }
     }
 }
