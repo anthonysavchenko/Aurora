@@ -3057,11 +3057,10 @@ namespace Taumis.Alpha.DataBase
         /// <param name="coldWaterCounterValue">Initial value of the ColdWaterCounterValue property.</param>
         /// <param name="wasteWaterVol">Initial value of the WasteWaterVol property.</param>
         /// <param name="wasteWaterOdnVol">Initial value of the WasteWaterOdnVol property.</param>
-        /// <param name="wasteWaterCounterValue">Initial value of the WasteWaterCounterValue property.</param>
         /// <param name="heatingVol">Initial value of the HeatingVol property.</param>
         /// <param name="heatingOdnVol">Initial value of the HeatingOdnVol property.</param>
         /// <param name="heatingCounterValue">Initial value of the HeatingCounterValue property.</param>
-        public static BuildingConsumptions CreateBuildingConsumptions(global::System.Int32 id, global::System.Int32 buildingID, global::System.DateTime period, global::System.String electrVol, global::System.String electrOdnVol, global::System.String electrCounterValue, global::System.String hotWaterVol, global::System.String hotWaterOdnVol, global::System.String hotWaterCounterValue, global::System.String coldWaterVol, global::System.String coldWaterOdnVol, global::System.String coldWaterCounterValue, global::System.String wasteWaterVol, global::System.String wasteWaterOdnVol, global::System.String wasteWaterCounterValue, global::System.String heatingVol, global::System.String heatingOdnVol, global::System.String heatingCounterValue)
+        public static BuildingConsumptions CreateBuildingConsumptions(global::System.Int32 id, global::System.Int32 buildingID, global::System.DateTime period, global::System.String electrVol, global::System.String electrOdnVol, global::System.String electrCounterValue, global::System.String hotWaterVol, global::System.String hotWaterOdnVol, global::System.String hotWaterCounterValue, global::System.String coldWaterVol, global::System.String coldWaterOdnVol, global::System.String coldWaterCounterValue, global::System.String wasteWaterVol, global::System.String wasteWaterOdnVol, global::System.String heatingVol, global::System.String heatingOdnVol, global::System.String heatingCounterValue)
         {
             BuildingConsumptions buildingConsumptions = new BuildingConsumptions();
             buildingConsumptions.ID = id;
@@ -3078,7 +3077,6 @@ namespace Taumis.Alpha.DataBase
             buildingConsumptions.ColdWaterCounterValue = coldWaterCounterValue;
             buildingConsumptions.WasteWaterVol = wasteWaterVol;
             buildingConsumptions.WasteWaterOdnVol = wasteWaterOdnVol;
-            buildingConsumptions.WasteWaterCounterValue = wasteWaterCounterValue;
             buildingConsumptions.HeatingVol = heatingVol;
             buildingConsumptions.HeatingOdnVol = heatingOdnVol;
             buildingConsumptions.HeatingCounterValue = heatingCounterValue;
@@ -3427,30 +3425,6 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _WasteWaterOdnVol;
         partial void OnWasteWaterOdnVolChanging(global::System.String value);
         partial void OnWasteWaterOdnVolChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String WasteWaterCounterValue
-        {
-            get
-            {
-                return _WasteWaterCounterValue;
-            }
-            set
-            {
-                OnWasteWaterCounterValueChanging(value);
-                ReportPropertyChanging("WasteWaterCounterValue");
-                _WasteWaterCounterValue = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("WasteWaterCounterValue");
-                OnWasteWaterCounterValueChanged();
-            }
-        }
-        private global::System.String _WasteWaterCounterValue;
-        partial void OnWasteWaterCounterValueChanging(global::System.String value);
-        partial void OnWasteWaterCounterValueChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

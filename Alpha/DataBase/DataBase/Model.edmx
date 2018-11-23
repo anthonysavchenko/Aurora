@@ -95,7 +95,6 @@
           <Property Name="ColdWaterCounterValue" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="WasteWaterVol" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="WasteWaterOdnVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="WasteWaterCounterValue" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="HeatingVol" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="HeatingOdnVol" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="HeatingCounterValue" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -3691,7 +3690,6 @@
           <Property Name="ColdWaterCounterValue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="WasteWaterVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="WasteWaterOdnVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="WasteWaterCounterValue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="HeatingVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="HeatingOdnVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="HeatingCounterValue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -4881,7 +4879,6 @@
                 <ScalarProperty Name="HeatingCounterValue" ColumnName="HeatingCounterValue" />
                 <ScalarProperty Name="HeatingOdnVol" ColumnName="HeatingOdnVol" />
                 <ScalarProperty Name="HeatingVol" ColumnName="HeatingVol" />
-                <ScalarProperty Name="WasteWaterCounterValue" ColumnName="WasteWaterCounterValue" />
                 <ScalarProperty Name="WasteWaterOdnVol" ColumnName="WasteWaterOdnVol" />
                 <ScalarProperty Name="WasteWaterVol" ColumnName="WasteWaterVol" />
                 <ScalarProperty Name="ColdWaterCounterValue" ColumnName="ColdWaterCounterValue" />

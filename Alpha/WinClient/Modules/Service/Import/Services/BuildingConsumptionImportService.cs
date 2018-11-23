@@ -29,10 +29,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public const string COLD_WATER_COUNTER_VALUE = "K";
             public const string WASTE_WATER_VOL = "L";
             public const string WASTE_WATER_ODN_VOL = "M";
-            public const string WASTE_WATER_COUNTER_VALUE = "N";
-            public const string HEATING_VOL = "O";
-            public const string HEATING_ODN_VOL = "P";
-            public const string HEATING_COUNTER_VALUE = "Q";
+            public const string HEATING_VOL = "N";
+            public const string HEATING_ODN_VOL = "O";
+            public const string HEATING_COUNTER_VALUE = "P";
         }
 
         private class ParsedRow
@@ -50,7 +49,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public string ColdWaterCounterValue { get; set; }
             public string WasteWaterVol { get; set; }
             public string WasteWaterOdnVol { get; set; }
-            public string WasteWaterCounterValue { get; set; }
             public string HeatingVol { get; set; }
             public string HeatingOdnVol { get; set; }
             public string HeatingCounterValue { get; set; }
@@ -120,7 +118,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                         _item.ColdWaterCounterValue = _row.ColdWaterCounterValue;
                         _item.WasteWaterVol = _row.WasteWaterVol;
                         _item.WasteWaterOdnVol = _row.WasteWaterOdnVol;
-                        _item.WasteWaterCounterValue = _row.WasteWaterCounterValue;
                         _item.HeatingVol = _row.HeatingVol;
                         _item.HeatingOdnVol = _row.HeatingOdnVol;
                         _item.HeatingCounterValue = _row.HeatingCounterValue;
@@ -150,12 +147,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                     int _rowCount = _xws.GetRowCount();
                     _rows = new List<ParsedRow>(_rowCount);
 
-                    while (_row < _rowCount)
+                    while (_row <= _rowCount)
                     {
                         _rows.Add(
                             new ParsedRow
                             {
-                                RowNumber = _row++,
+                                RowNumber = _row,
                                 BuildingId = Convert.ToInt32(_xws.Cell(_row, Columns.BUILDING_ID).Value),
                                 ElectrVol = _xws.Cell(_row, Columns.ELECTR_VOL).Value,
                                 ElectrOdnVol = _xws.Cell(_row, Columns.ELECTR_ODN_VOL).Value,
@@ -168,13 +165,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 ColdWaterCounterValue = _xws.Cell(_row, Columns.COLD_WATER_COUNTER_VALUE).Value,
                                 WasteWaterVol = _xws.Cell(_row, Columns.WASTE_WATER_VOL).Value,
                                 WasteWaterOdnVol = _xws.Cell(_row, Columns.WASTE_WATER_ODN_VOL).Value,
-                                WasteWaterCounterValue = _xws.Cell(_row, Columns.WASTE_WATER_COUNTER_VALUE).Value,
                                 HeatingVol = _xws.Cell(_row, Columns.HEATING_VOL).Value,
                                 HeatingOdnVol = _xws.Cell(_row, Columns.HEATING_ODN_VOL).Value,
                                 HeatingCounterValue = _xws.Cell(_row, Columns.HEATING_COUNTER_VALUE).Value,
                             });
-
                         reportProgressAction(_row * 50 / _rowCount);
+                        _row++;
                     }
 
                     message = string.Empty;
@@ -241,8 +237,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 && !(string.IsNullOrEmpty(row.ElectrVol) && string.IsNullOrEmpty(row.ElectrOdnVol) && string.IsNullOrEmpty(row.ElectrCounterVol)
                 && string.IsNullOrEmpty(row.HotWaterVol) && string.IsNullOrEmpty(row.HotWaterOdnVol) && string.IsNullOrEmpty(row.HotWaterCounterValue)
                 && string.IsNullOrEmpty(row.ColdWaterVol) && string.IsNullOrEmpty(row.ColdWaterOdnVol) && string.IsNullOrEmpty(row.ColdWaterCounterValue)
-                && string.IsNullOrEmpty(row.WasteWaterVol) && string.IsNullOrEmpty(row.WasteWaterOdnVol) && string.IsNullOrEmpty(row.WasteWaterCounterValue)
-                && string.IsNullOrEmpty(row.HeatingVol) && string.IsNullOrEmpty(row.HeatingOdnVol) && string.IsNullOrEmpty(row.HeatingCounterValue));
+                && string.IsNullOrEmpty(row.HeatingVol) && string.IsNullOrEmpty(row.HeatingOdnVol) && string.IsNullOrEmpty(row.HeatingCounterValue)
+                && string.IsNullOrEmpty(row.WasteWaterVol) && string.IsNullOrEmpty(row.WasteWaterOdnVol));
         }
     }
 }
