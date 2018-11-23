@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
-using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 {
@@ -49,7 +49,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             _excelService = excelService;
         }
 
-        public string ProcessFile(string inputFileName, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period = null)
         {
             string _resultMessage;
 
@@ -268,6 +268,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 ExcludedAccounts = _excludedAccounts,
                 ExcludedRate = _excludedRate
             };
+        }
+
+        public bool GenerateImportTemplate(string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }

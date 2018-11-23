@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BenefitTypes.Views.Item
@@ -34,7 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BenefitTypes.Views.Item
             _domItem.Name = View.BenefitName.Trim();
             _domItem.Code = View.BenefitCode.Trim();
             _domItem.BenefitRule = View.BenefitRule;
-            _domItem.FixedPercent = _domItem.BenefitRule == BenefitType.BenefitRuleType.FixedPercent
+            _domItem.FixedPercent = _domItem.BenefitRule == BenefitRuleType.FixedPercent
                                         ? Convert.ToByte(View.BenefitFixedPercent)
                                         : (byte?)null;
         }

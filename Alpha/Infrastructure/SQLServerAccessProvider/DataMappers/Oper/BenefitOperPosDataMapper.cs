@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.BenefitOperPoses;
 using DomBenefitOper = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper.BenefitOper;
-using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper.BenefitOperPos;
 using DomContractor = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Contractor;
+using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper.BenefitOperPos;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Oper
 {
@@ -91,7 +92,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Oper
                         .Include("BenefitOpers")
                         .First(x => x.ID == _id);
 
-                _domItem.BenefitRule = (BenefitType.BenefitRuleType)_dbItem.BenefitRule;
+                _domItem.BenefitRule = (BenefitRuleType)_dbItem.BenefitRule;
                 _domItem.Value = _dbItem.Value;
                 _domItem.Service = (Service)DataMapperService.get(typeof(Service)).find(_dbItem.Services.ID.ToString());
                 _domItem.BenefitOper = (DomBenefitOper)DataMapperService.get(typeof(DomBenefitOper)).find(_dbItem.BenefitOpers.ID.ToString());

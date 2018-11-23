@@ -91,14 +91,19 @@
         public const string PUBLIC_PLACE_DEBT_AND_FINE_REPORT = "usecase://Report/PublicPlaceDebtAndFineReport";
 
         /// <summary>
+        /// Льготы
+        /// </summary>
+        public const string PRE_CHARGE_REPORT = "usecase://Report/PreChargeReport";
+
+        /// <summary>
         /// Улицы
         /// </summary>
         public const string STREETS = "usecase://RefBook/Streets";
 
         /// <summary>
-        /// Улицы
+        /// Приборы учета
         /// </summary>
-        public const string COUNTERS = "usecase://RefBook/Counters";
+        public const string COUNTERS = "usecase://Accounting/Counters";
 
         /// <summary>
         /// Улицы
@@ -144,5 +149,15 @@
         /// Банковские реквизиты
         /// </summary>
         public const string BANK_DETAILS = "usecase://RefBook/BankDetails";
+        
+        /// <summary>
+        /// Участки сбора показаний приборов учета
+        /// </summary>
+        public const string COUNTER_VALUE_COLLECT_DISTRICTS = "usecase://RefBook/CounterValueCollectDistrict";
+
+        /// <summary>
+        /// Печатная форма сбора показаний приборов учета
+        /// </summary>
+        public const string COUNTER_VALUE_COLLECT_FORM = "usecase://Report/CounterValueCollectForm";
     }
 }

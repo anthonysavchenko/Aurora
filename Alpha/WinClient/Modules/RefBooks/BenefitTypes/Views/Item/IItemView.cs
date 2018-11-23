@@ -1,4 +1,5 @@
 ﻿using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BenefitTypes.Views.Item
@@ -18,7 +19,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.BenefitTypes.Views.Item
         /// <summary>
         /// Правило начисления льготы
         /// </summary>
-        BenefitType.BenefitRuleType BenefitRule { get; set; }
+        BenefitRuleType BenefitRule { get; set; }
 
         /// <summary>
         /// Процент льготы

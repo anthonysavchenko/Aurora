@@ -10,3 +10,10 @@
     CONSTRAINT [FK_ChargeCorrectionOperPoses_Services] FOREIGN KEY ([Service]) REFERENCES [dbo].[Services] ([ID])
 );
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_ChargeCorrectionOper]
+    ON [dbo].[ChargeCorrectionOperPoses]([ChargeCorrectionOper] ASC);
+

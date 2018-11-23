@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0143D5D1-62BE-46CE-82CE-8327E8339CC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.CounterValueCollectForm</RootNamespace>
+    <AssemblyName>Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.CounterValueCollectForm</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Build\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Build\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Design.v13.1">
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.Design.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Printing.v13.1.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Utils.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraBars.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1.Design">
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraEditors.v13.1.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraPrinting.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v13.1.Design">
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraPrinting.v13.1.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraReports.v13.1.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1.Design">
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraReports.v13.1.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\ModuleStateNames.cs" />
+    <Compile Include="DataSets\CollectFormDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectFormDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layout\LayoutView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Layout\LayoutView.Designer.cs">
+      <DependentUpon>LayoutView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportObject\LayoutReportObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\ReportObject\LayoutReportObject.designer.cs">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Report\IReportView.cs" />
+    <Compile Include="Views\Report\Queries\GetReportDataQuery.cs" />
+    <Compile Include="Views\Report\ReportView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Report\ReportView.designer.cs">
+      <DependentUpon>ReportView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Report\ReportViewPresenter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
+      <Project>{8c62e512-6540-4ba6-860b-1ae6ae64821c}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\EnterpriseLibrary\Win\Common\Common.csproj">
+      <Project>{E35914B3-8BB6-4BCB-A85A-516BF2252422}</Project>
+      <Name>Common %28Taumis.EnterpriseLibrary.Win\Common%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
+      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
+      <Name>CompositeUI.WinForms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI\CompositeUI.csproj">
+      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
+      <Name>CompositeUI</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
+      <Name>ObjectBuilder</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DataBase\DataBase\DataBase.csproj">
+      <Project>{A68700E1-4190-442B-8033-CBCC995FBB1B}</Project>
+      <Name>DataBase</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Infrastructure\Interface\Interface.csproj">
+      <Project>{576D1311-BA67-4077-8489-7CFAD06965F5}</Project>
+      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Interface\Interface.csproj">
+      <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
+      <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Library\Library.csproj">
+      <Project>{E0D31CE8-A3AD-4BA5-AA23-0152750E42A0}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Layout\LayoutView.resx">
+      <DependentUpon>LayoutView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportObject\LayoutReportObject.resx">
+      <DependentUpon>LayoutReportObject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\ReportView.resx">
+      <DependentUpon>ReportView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataSets\CollectFormDataSet.xsc">
+      <DependentUpon>CollectFormDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\CollectFormDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CollectFormDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSets\CollectFormDataSet.xss">
+      <DependentUpon>CollectFormDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Print_32x32.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

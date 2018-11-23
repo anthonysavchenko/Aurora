@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora 2073</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>017.13.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.06.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>017.13.0.0</ApplicationVersion>
+    <ApplicationVersion>019.06.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -282,6 +282,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Shell_TemporaryKey.pfx" />
+    <Content Include="Templates\BuildingConsumptionImport.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
@@ -351,6 +354,10 @@
       <Project>{09b1c60c-4cd5-4ae9-a9c1-109a304c56b0}</Project>
       <Name>Charges %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Charges%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\Accounting\Counters\Counters.csproj">
+      <Project>{2c535c51-bde5-49ea-9b49-0e5b1bf99cac}</Project>
+      <Name>Counters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\Accounting\Customers\Customers.csproj">
       <Project>{4851aaa2-d26c-4a08-b6cf-5a347cf72560}</Project>
       <Name>Customers</Name>
@@ -358,6 +365,10 @@
     <ProjectReference Include="..\Modules\Accounting\Payments\Payments.csproj">
       <Project>{a5cd4f63-a6bb-4589-8acf-00b232539603}</Project>
       <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Payments%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\PrintForms\CounterValueCollectForm\CounterValueCollectForm.csproj">
+      <Project>{0143d5d1-62be-46ce-82ce-8327e8339cc5}</Project>
+      <Name>CounterValueCollectForm</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\PrintForms\DebtBill\DebtBill.csproj">
       <Project>{fd895b41-2d71-4fb5-9f65-27c1970e98b8}</Project>
@@ -390,6 +401,10 @@
     <ProjectReference Include="..\Modules\RefBooks\Contractors\Contractors.csproj">
       <Project>{2cfa7ad5-897f-484d-bd6d-cf94e2739b08}</Project>
       <Name>Contractors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\CounterValueCollectDistricts\CounterValueCollectDistricts.csproj">
+      <Project>{78a0ff01-3813-4424-9b24-42025b5dbaba}</Project>
+      <Name>CounterValueCollectDistricts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\RefBooks\Intermediaries\Intermediaries.csproj">
       <Project>{0fd61dfb-3d9d-45ff-8c31-6a77ff791e68}</Project>
@@ -438,6 +453,10 @@
     <ProjectReference Include="..\Modules\Reports\Payments\Payments.csproj">
       <Project>{34de1895-e259-4d9a-bda3-ea1fa575839c}</Project>
       <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Reports\Payments%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Reports\PreChargeReport\PreChargeReport.csproj">
+      <Project>{0ab17c7d-1bf8-4437-b7b2-5e1695e2e7d0}</Project>
+      <Name>PreChargeReport</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Service\Export\Export.csproj">
       <Project>{afe2b538-d282-4bd5-baff-b95c4d48b5fa}</Project>

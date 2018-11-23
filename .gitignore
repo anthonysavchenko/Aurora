@@ -75,3 +75,14 @@
 /ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/UnitTest/NUnit/CompositeUI/obj
 /ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/UnitTest/NUnit/CompositeUI.WinForms/obj
 /ThirdParty/Microsoft.Practices/Microsoft.Practices.Win/UnitTest/NUnit/ObjectBuilder/obj
+/Alpha/WinClient/Modules/Accounting/Counters/obj/Debug
+/Alpha/WinClient/Modules/Accounting/Counters/obj/Release
+/Alpha/WinClient/Modules/RefBooks/CounterValueCollectDistricts/obj/Debug
+/Alpha/WinClient/Modules/RefBooks/CounterValueCollectDistricts/obj/Release
+/Alpha/WinClient/Modules/PrintForms/CounterValueCollectForm/obj/Debug
+/Alpha/WinClient/Modules/Reports/PreChargeReport/obj/Debug
+/Alpha/WinClient/Modules/Reports/PreChargeReport/obj/Release
+/Alpha/WinClient/Modules/PrintForms/CounterValueCollectForm/obj/Debug
+/Alpha/WinClient/Modules/PrintForms/CounterValueCollectForm/obj/Release
+/Alpha/WinClient/Modules/Reports/PreChargeReport/obj/Debug
+/Alpha/WinClient/Modules/Reports/PreChargeReport/obj/Release

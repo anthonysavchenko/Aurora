@@ -1,4 +1,5 @@
-﻿using Taumis.Alpha.Infrastructure.Library.Services;
+﻿using Taumis.Alpha.Infrastructure.Interface.Commands;
+using Taumis.Alpha.Infrastructure.Library.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.ChargeDetail;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Item;
@@ -6,6 +7,9 @@ using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Layout;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.List;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Tabbed;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Commands;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Factories;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.Services;
 using Taumis.EnterpriseLibrary.Win.Common.Modules.StartUpParams;
 using Taumis.EnterpriseLibrary.Win.Modules.CommonModule;
 using Taumis.Infrastructure.Interface.Constants;
@@ -60,6 +64,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges
         protected override void AddServices()
         {
             AddLocalService<PaymentDistributionService, PaymentDistributionService>();
+            AddLocalService<WizardCommandDispatcherFactory, IWizardCommandDispatcherFactory>();
+            AddLocalService<WizardService, IWizardService>();
         }
     }
 }

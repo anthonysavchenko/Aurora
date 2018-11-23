@@ -10,9 +10,7 @@ using Microsoft.Practices.ObjectBuilder;
 using Taumis.Alpha.Server.PrintForms.Constants;
 using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.Server.PrintForms.Reports.RegularBills;
-using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
-using DataSet = Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets.DataSet;
 using LayoutReportObject = Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.ReportObject.LayoutReportObject;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Report

@@ -1,18 +1,17 @@
-﻿using Microsoft.Practices.CompositeUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.Services;
-using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 {
-    public class PublicPlaceServiceVolumesImportService : IPublicPlaceServiceVolumesImportService
+    public class PublicPlaceServiceVolumesImportService : IImportService
     {
         public const int SERVICE_FIRST_COLUMN = 3;
         public const int TITLE_ROW = 1;
@@ -47,15 +46,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public string Address { get; set; }
         }
 
-        [ServiceDependency]
-        public IExcelService ExcelService { get; set; }
+        private readonly IExcelService _excelService;
+        private readonly IServerTimeService _serverTimeService;
 
-        [ServiceDependency]
-        public IServerTimeService ServerTimeService { get; set; }
-
-        public bool GenerateTemplate(string filePath)
+        public PublicPlaceServiceVolumesImportService(IExcelService excelService, IServerTimeService serverTimeService)
         {
-            DateTime _now = ServerTimeService.GetDateTimeInfo().Now;
+            _excelService = excelService;
+            _serverTimeService = serverTimeService;
+        }
+
+        public bool GenerateImportTemplate(string path)
+        {
+            DateTime _now = _serverTimeService.GetDateTimeInfo().Now;
             List<Service> _services;
             List<Building> _buildings;
             bool _result;
@@ -91,7 +93,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                         .ToList();
                 }
 
-                using (IExcelWorkbook _wb = ExcelService.CreateWorkbook())
+                using (IExcelWorkbook _wb = _excelService.CreateWorkbook())
                 {
                     IExcelWorksheet _wsData = _wb.AddWorksheet("Данные");
                     IExcelWorksheet _wsService = _wb.AddWorksheet("Справочник услуг");
@@ -110,7 +112,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                     }
 
                     _row = 1;
-                    foreach(Building _b in _buildings)
+                    foreach (Building _b in _buildings)
                     {
                         _row++;
                         _wsData.Cell(_row, BuildingColumns.ID).SetValue(_b.ID);
@@ -119,11 +121,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
                     _wsData.AdjustColumnsToContents();
                     _wsService.AdjustColumnsToContents();
-                    _wb.SaveAs(filePath);
+                    _wb.SaveAs(path);
                 }
                 _result = true;
             }
-            catch(Exception _ex)
+            catch (Exception _ex)
             {
                 _result = false;
                 Logger.SimpleWrite($"Импорт. Шаблон импорта СОД. Ошибка {_ex}");
@@ -132,18 +134,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             return _result;
         }
 
-        public string ProcessFile(string inputFileName, DateTime period, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period)
         {
             StringBuilder _errors = new StringBuilder();
             Dictionary<int, List<ServiceVolume>> _data = GetData(inputFileName, reportProgressAction, _errors);
 
-            if(_errors.Length == 0 && _data != null && _data.Count > 0)
+            if (_errors.Length == 0 && _data != null && _data.Count > 0)
             {
-                SaveData(_data, period, reportProgressAction, _errors);
+                SaveData(_data, period.Value, reportProgressAction, _errors);
             }
 
-            return _errors.Length > 0 
-                ? $"Не удалось завершить операцию импорта.\r\n{_errors}" 
+            return _errors.Length > 0
+                ? $"Не удалось завершить операцию импорта.\r\n{_errors}"
                 : "Импорт успешно выполнен.";
         }
 
@@ -163,7 +165,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                         int.Parse(_ws.Cell(r, ServiceColumns.ID).Value));
                 }
             }
-            catch(Exception _ex)
+            catch (Exception _ex)
             {
                 Logger.SimpleWrite($"Импорт объемов СОД. Не удалось разобрать раздел с услугами: {_ex}");
             }
@@ -177,7 +179,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
             try
             {
-                using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(inputFileName))
+                using (IExcelWorkbook _wb = _excelService.OpenWorkbook(inputFileName))
                 {
                     Dictionary<string, int> _services = GetServices(_wb);
 
@@ -244,7 +246,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                     }
                 }
             }
-            catch(IOException _ex)
+            catch (IOException _ex)
             {
                 errors.AppendLine("Ошибка при открытии файла для чтения. Убедитесь, что файл не открыт в другой программе.");
                 Logger.SimpleWrite($"PublicPlaceServiceVolumesImportService. {_ex}");
@@ -263,15 +265,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             using (Entities _db = new Entities())
             {
                 int _processed = 0;
-                foreach(var _b in data)
+                foreach (var _b in data)
                 {
-                    foreach(ServiceVolume _sv in _b.Value)
+                    foreach (ServiceVolume _sv in _b.Value)
                     {
                         PublicPlaceServiceVolumes _item = _db.PublicPlaceServiceVolumes
                             .Where(p => p.Period == period && p.ServiceID == _sv.Service && p.BuildingID == _b.Key)
                             .FirstOrDefault();
 
-                        if(_sv.Volume > 0)
+                        if (_sv.Volume > 0)
                         {
                             if (_item == null)
                             {
@@ -287,7 +289,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             _item.Period = period;
                             _item.Volume = _sv.Volume;
                         }
-                        else if(_item != null)
+                        else if (_item != null)
                         {
                             _db.DeleteObject(_item);
                         }
@@ -298,7 +300,5 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 _db.SaveChanges();
             }
         }
-
-        
     }
 }

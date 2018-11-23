@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.EnterpriseLibrary.Win.Services;
-using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Services.Views.Item
 {

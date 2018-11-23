@@ -87,6 +87,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
         {
             curItem.Period = View.Period;
             curItem.Value = View.Value;
+            curItem.CollectDate = DateTime.Now;
         }
 
         /// <summary>
