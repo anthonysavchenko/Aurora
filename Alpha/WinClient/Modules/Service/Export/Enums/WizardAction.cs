@@ -23,6 +23,11 @@
         /// <summary>
         /// Экспорт начислений в файл для импорта в ГИС ЖКХ
         /// </summary>
-        ExportChargesForGisZhkh
+        ExportChargesForGisZhkh,
+
+        /// <summary>
+        /// Экспорт показаний приборов учета в форму ДЭК
+        /// </summary>
+        ExportCounterValues
     }
 }
