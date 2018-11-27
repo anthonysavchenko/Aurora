@@ -33,6 +33,7 @@
             this.ProgressBarControl = new System.Windows.Forms.ProgressBar();
             this.progressProcentLabel = new System.Windows.Forms.Label();
             this.ChooseMethodWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.exportCounterValuesRadioBtn = new System.Windows.Forms.RadioButton();
             this.exportChargesForGizZhkhRadioBtn = new System.Windows.Forms.RadioButton();
             this.exportBenefitRadioBtn = new System.Windows.Forms.RadioButton();
             this.exportCustomersForGisZhkhRadioBtn = new System.Windows.Forms.RadioButton();
@@ -52,6 +53,13 @@
             this.tblPeriod = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.periodDateEdit = new DevExpress.XtraEditors.DateEdit();
+            this.tblExportCounterValues = new System.Windows.Forms.TableLayoutPanel();
+            this.form2FilePathTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.collectFormFilePathTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.btnSelectForm2File = new System.Windows.Forms.Button();
+            this.btnSelectCollectFormFile = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.tblOutputPath = new System.Windows.Forms.TableLayoutPanel();
             this.btnSelectExportPath = new System.Windows.Forms.Button();
             this.outputPathTextEdit = new DevExpress.XtraEditors.TextEdit();
@@ -79,6 +87,9 @@
             this.tblPeriod.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties)).BeginInit();
+            this.tblExportCounterValues.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.form2FilePathTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectFormFilePathTextEdit.Properties)).BeginInit();
             this.tblOutputPath.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputPathTextEdit.Properties)).BeginInit();
             this.tblTemplate.SuspendLayout();
@@ -108,7 +119,7 @@
             this.ProcessingWizardPage,
             this.FinishWizardPage});
             this.ExportWizardControl.PreviousText = "< &Назад";
-            this.ExportWizardControl.Size = new System.Drawing.Size(1513, 879);
+            this.ExportWizardControl.Size = new System.Drawing.Size(1552, 879);
             this.ExportWizardControl.Text = "Мастер экспорта данных";
             this.ExportWizardControl.UseAcceptButton = false;
             this.ExportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ExportWizardControl_SelectedPageChanged);
@@ -125,7 +136,7 @@
             this.ProcessingWizardPage.Controls.Add(this.progressProcentLabel);
             this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания экспорта данных...";
             this.ProcessingWizardPage.Name = "ProcessingWizardPage";
-            this.ProcessingWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1520, 734);
             this.ProcessingWizardPage.Text = "Экспорт данных";
             // 
             // ProgressBarControl
@@ -133,7 +144,7 @@
             this.ProgressBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ProgressBarControl.Location = new System.Drawing.Point(3, 356);
             this.ProgressBarControl.Name = "ProgressBarControl";
-            this.ProgressBarControl.Size = new System.Drawing.Size(1475, 23);
+            this.ProgressBarControl.Size = new System.Drawing.Size(1514, 23);
             this.ProgressBarControl.Step = 0;
             this.ProgressBarControl.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.ProgressBarControl.TabIndex = 2;
@@ -143,21 +154,33 @@
             this.progressProcentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.progressProcentLabel.Location = new System.Drawing.Point(3, 382);
             this.progressProcentLabel.Name = "progressProcentLabel";
-            this.progressProcentLabel.Size = new System.Drawing.Size(1475, 18);
+            this.progressProcentLabel.Size = new System.Drawing.Size(1514, 18);
             this.progressProcentLabel.TabIndex = 1;
             this.progressProcentLabel.Text = "Выполнено 0%";
             this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ChooseMethodWizardPage
             // 
+            this.ChooseMethodWizardPage.Controls.Add(this.exportCounterValuesRadioBtn);
             this.ChooseMethodWizardPage.Controls.Add(this.exportChargesForGizZhkhRadioBtn);
             this.ChooseMethodWizardPage.Controls.Add(this.exportBenefitRadioBtn);
             this.ChooseMethodWizardPage.Controls.Add(this.exportCustomersForGisZhkhRadioBtn);
             this.ChooseMethodWizardPage.Controls.Add(this.exportChargesForBanksRadioBtn);
             this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
             this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
-            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1520, 734);
             this.ChooseMethodWizardPage.Text = "Мастер экспорта данных";
+            // 
+            // exportCounterValuesRadioBtn
+            // 
+            this.exportCounterValuesRadioBtn.AutoSize = true;
+            this.exportCounterValuesRadioBtn.BackColor = System.Drawing.Color.Transparent;
+            this.exportCounterValuesRadioBtn.Location = new System.Drawing.Point(23, 113);
+            this.exportCounterValuesRadioBtn.Name = "exportCounterValuesRadioBtn";
+            this.exportCounterValuesRadioBtn.Size = new System.Drawing.Size(279, 17);
+            this.exportCounterValuesRadioBtn.TabIndex = 5;
+            this.exportCounterValuesRadioBtn.Text = "Экспорт показаний приборов учета  в форму ДЭК";
+            this.exportCounterValuesRadioBtn.UseVisualStyleBackColor = false;
             // 
             // exportChargesForGizZhkhRadioBtn
             // 
@@ -211,11 +234,12 @@
             this.FileWizardPage.Controls.Add(this.tblGizZhkhInfo);
             this.FileWizardPage.Controls.Add(this.tblBankExportInfo);
             this.FileWizardPage.Controls.Add(this.tblPeriod);
+            this.FileWizardPage.Controls.Add(this.tblExportCounterValues);
             this.FileWizardPage.Controls.Add(this.tblOutputPath);
             this.FileWizardPage.Controls.Add(this.tblTemplate);
             this.FileWizardPage.DescriptionText = "Выберите шаблон и путь для экспорта данных";
             this.FileWizardPage.Name = "FileWizardPage";
-            this.FileWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.FileWizardPage.Size = new System.Drawing.Size(1520, 734);
             this.FileWizardPage.Text = "Выбор файла";
             // 
             // tblBenefitExportInfo
@@ -226,11 +250,11 @@
             this.tblBenefitExportInfo.Controls.Add(this.label5, 0, 0);
             this.tblBenefitExportInfo.Controls.Add(this.startPeriodDateEdit, 1, 0);
             this.tblBenefitExportInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tblBenefitExportInfo.Location = new System.Drawing.Point(0, 180);
+            this.tblBenefitExportInfo.Location = new System.Drawing.Point(0, 236);
             this.tblBenefitExportInfo.Name = "tblBenefitExportInfo";
             this.tblBenefitExportInfo.RowCount = 1;
             this.tblBenefitExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblBenefitExportInfo.Size = new System.Drawing.Size(1481, 27);
+            this.tblBenefitExportInfo.Size = new System.Drawing.Size(1520, 27);
             this.tblBenefitExportInfo.TabIndex = 48;
             // 
             // label5
@@ -272,12 +296,12 @@
             this.tblGizZhkhInfo.Controls.Add(this.label4, 0, 0);
             this.tblGizZhkhInfo.Controls.Add(this.allRadioBtn, 1, 0);
             this.tblGizZhkhInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tblGizZhkhInfo.Location = new System.Drawing.Point(0, 133);
+            this.tblGizZhkhInfo.Location = new System.Drawing.Point(0, 189);
             this.tblGizZhkhInfo.Name = "tblGizZhkhInfo";
             this.tblGizZhkhInfo.RowCount = 2;
             this.tblGizZhkhInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblGizZhkhInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblGizZhkhInfo.Size = new System.Drawing.Size(1481, 47);
+            this.tblGizZhkhInfo.Size = new System.Drawing.Size(1520, 47);
             this.tblGizZhkhInfo.TabIndex = 47;
             // 
             // onlyNewRadioBtn
@@ -321,13 +345,13 @@
             this.tblBankExportInfo.Controls.Add(this.chkSbrfFormat, 1, 0);
             this.tblBankExportInfo.Controls.Add(this.label3, 0, 0);
             this.tblBankExportInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tblBankExportInfo.Location = new System.Drawing.Point(0, 87);
+            this.tblBankExportInfo.Location = new System.Drawing.Point(0, 143);
             this.tblBankExportInfo.Name = "tblBankExportInfo";
             this.tblBankExportInfo.RowCount = 2;
             this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblBankExportInfo.Size = new System.Drawing.Size(1481, 46);
+            this.tblBankExportInfo.Size = new System.Drawing.Size(1520, 46);
             this.tblBankExportInfo.TabIndex = 46;
             // 
             // chkPrimSocBankFormat
@@ -370,13 +394,13 @@
             this.tblPeriod.Controls.Add(this.label1, 0, 0);
             this.tblPeriod.Controls.Add(this.periodDateEdit, 1, 0);
             this.tblPeriod.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tblPeriod.Location = new System.Drawing.Point(0, 60);
+            this.tblPeriod.Location = new System.Drawing.Point(0, 116);
             this.tblPeriod.Name = "tblPeriod";
             this.tblPeriod.RowCount = 1;
             this.tblPeriod.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblPeriod.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tblPeriod.Size = new System.Drawing.Size(1481, 27);
-            this.tblPeriod.TabIndex = 50;
+            this.tblPeriod.Size = new System.Drawing.Size(1520, 27);
+            this.tblPeriod.TabIndex = 51;
             // 
             // label1
             // 
@@ -408,6 +432,91 @@
             this.periodDateEdit.Size = new System.Drawing.Size(131, 20);
             this.periodDateEdit.TabIndex = 6;
             // 
+            // tblExportCounterValues
+            // 
+            this.tblExportCounterValues.ColumnCount = 3;
+            this.tblExportCounterValues.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tblExportCounterValues.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblExportCounterValues.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tblExportCounterValues.Controls.Add(this.form2FilePathTextEdit, 1, 1);
+            this.tblExportCounterValues.Controls.Add(this.collectFormFilePathTextEdit, 1, 0);
+            this.tblExportCounterValues.Controls.Add(this.btnSelectForm2File, 2, 1);
+            this.tblExportCounterValues.Controls.Add(this.btnSelectCollectFormFile, 2, 0);
+            this.tblExportCounterValues.Controls.Add(this.label9, 0, 1);
+            this.tblExportCounterValues.Controls.Add(this.label6, 0, 0);
+            this.tblExportCounterValues.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tblExportCounterValues.Location = new System.Drawing.Point(0, 60);
+            this.tblExportCounterValues.Name = "tblExportCounterValues";
+            this.tblExportCounterValues.RowCount = 2;
+            this.tblExportCounterValues.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblExportCounterValues.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblExportCounterValues.Size = new System.Drawing.Size(1520, 56);
+            this.tblExportCounterValues.TabIndex = 50;
+            // 
+            // form2FilePathTextEdit
+            // 
+            this.form2FilePathTextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.form2FilePathTextEdit.Location = new System.Drawing.Point(153, 33);
+            this.form2FilePathTextEdit.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.form2FilePathTextEdit.Name = "form2FilePathTextEdit";
+            this.form2FilePathTextEdit.Properties.Mask.EditMask = "\\d+";
+            this.form2FilePathTextEdit.Properties.ReadOnly = true;
+            this.form2FilePathTextEdit.Size = new System.Drawing.Size(1264, 20);
+            this.form2FilePathTextEdit.TabIndex = 52;
+            // 
+            // collectFormFilePathTextEdit
+            // 
+            this.collectFormFilePathTextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.collectFormFilePathTextEdit.Location = new System.Drawing.Point(153, 5);
+            this.collectFormFilePathTextEdit.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.collectFormFilePathTextEdit.Name = "collectFormFilePathTextEdit";
+            this.collectFormFilePathTextEdit.Properties.Mask.EditMask = "\\d+";
+            this.collectFormFilePathTextEdit.Properties.ReadOnly = true;
+            this.collectFormFilePathTextEdit.Size = new System.Drawing.Size(1264, 20);
+            this.collectFormFilePathTextEdit.TabIndex = 52;
+            // 
+            // btnSelectForm2File
+            // 
+            this.btnSelectForm2File.Location = new System.Drawing.Point(1423, 31);
+            this.btnSelectForm2File.Name = "btnSelectForm2File";
+            this.btnSelectForm2File.Size = new System.Drawing.Size(94, 22);
+            this.btnSelectForm2File.TabIndex = 52;
+            this.btnSelectForm2File.Text = "Выбрать...";
+            this.btnSelectForm2File.UseVisualStyleBackColor = true;
+            this.btnSelectForm2File.Click += new System.EventHandler(this.btnSelectForm2File_Click);
+            // 
+            // btnSelectCollectFormFile
+            // 
+            this.btnSelectCollectFormFile.Location = new System.Drawing.Point(1423, 3);
+            this.btnSelectCollectFormFile.Name = "btnSelectCollectFormFile";
+            this.btnSelectCollectFormFile.Size = new System.Drawing.Size(94, 22);
+            this.btnSelectCollectFormFile.TabIndex = 52;
+            this.btnSelectCollectFormFile.Text = "Выбрать...";
+            this.btnSelectCollectFormFile.UseVisualStyleBackColor = true;
+            this.btnSelectCollectFormFile.Click += new System.EventHandler(this.btnSelectCollectFormFile_Click);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(94, 35);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 13);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "Форма 2";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(23, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(124, 13);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "Маршрутный лист ДЭК";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // tblOutputPath
             // 
             this.tblOutputPath.ColumnCount = 3;
@@ -423,12 +532,12 @@
             this.tblOutputPath.RowCount = 1;
             this.tblOutputPath.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblOutputPath.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tblOutputPath.Size = new System.Drawing.Size(1481, 30);
+            this.tblOutputPath.Size = new System.Drawing.Size(1520, 30);
             this.tblOutputPath.TabIndex = 49;
             // 
             // btnSelectExportPath
             // 
-            this.btnSelectExportPath.Location = new System.Drawing.Point(1384, 3);
+            this.btnSelectExportPath.Location = new System.Drawing.Point(1423, 3);
             this.btnSelectExportPath.Name = "btnSelectExportPath";
             this.btnSelectExportPath.Size = new System.Drawing.Size(94, 23);
             this.btnSelectExportPath.TabIndex = 4;
@@ -444,7 +553,7 @@
             this.outputPathTextEdit.Name = "outputPathTextEdit";
             this.outputPathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.outputPathTextEdit.Properties.ReadOnly = true;
-            this.outputPathTextEdit.Size = new System.Drawing.Size(1225, 20);
+            this.outputPathTextEdit.Size = new System.Drawing.Size(1264, 20);
             this.outputPathTextEdit.TabIndex = 3;
             // 
             // label8
@@ -473,7 +582,7 @@
             this.tblTemplate.RowCount = 1;
             this.tblTemplate.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblTemplate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tblTemplate.Size = new System.Drawing.Size(1481, 30);
+            this.tblTemplate.Size = new System.Drawing.Size(1520, 30);
             this.tblTemplate.TabIndex = 45;
             // 
             // templatePathTextEdit
@@ -484,7 +593,7 @@
             this.templatePathTextEdit.Name = "templatePathTextEdit";
             this.templatePathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.templatePathTextEdit.Properties.ReadOnly = true;
-            this.templatePathTextEdit.Size = new System.Drawing.Size(1225, 20);
+            this.templatePathTextEdit.Size = new System.Drawing.Size(1264, 20);
             this.templatePathTextEdit.TabIndex = 1;
             // 
             // label7
@@ -500,7 +609,7 @@
             // 
             // btnSelectTemplate
             // 
-            this.btnSelectTemplate.Location = new System.Drawing.Point(1384, 3);
+            this.btnSelectTemplate.Location = new System.Drawing.Point(1423, 3);
             this.btnSelectTemplate.Name = "btnSelectTemplate";
             this.btnSelectTemplate.Size = new System.Drawing.Size(94, 23);
             this.btnSelectTemplate.TabIndex = 2;
@@ -513,7 +622,7 @@
             this.FinishWizardPage.Controls.Add(this.resultTextBox);
             this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
-            this.FinishWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.FinishWizardPage.Size = new System.Drawing.Size(1520, 734);
             this.FinishWizardPage.Text = "Экспорт данных завершен";
             // 
             // resultTextBox
@@ -524,7 +633,7 @@
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.ReadOnly = true;
             this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.resultTextBox.Size = new System.Drawing.Size(1481, 734);
+            this.resultTextBox.Size = new System.Drawing.Size(1520, 734);
             this.resultTextBox.TabIndex = 16;
             // 
             // ServiceMatchingWizardPage
@@ -533,7 +642,7 @@
             this.ServiceMatchingWizardPage.Controls.Add(this.tblServiceMatching);
             this.ServiceMatchingWizardPage.DescriptionText = "Сопоставьте оказанные за период виды услуг с услугами ГИС ЖКХ из шаблона";
             this.ServiceMatchingWizardPage.Name = "ServiceMatchingWizardPage";
-            this.ServiceMatchingWizardPage.Size = new System.Drawing.Size(1481, 734);
+            this.ServiceMatchingWizardPage.Size = new System.Drawing.Size(1520, 734);
             this.ServiceMatchingWizardPage.Text = "Экспорт начислений для ГИС ЖКХ";
             // 
             // serviceMatchingTableProgressBarPanel
@@ -542,7 +651,7 @@
             this.serviceMatchingTableProgressBarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serviceMatchingTableProgressBarPanel.Location = new System.Drawing.Point(0, 0);
             this.serviceMatchingTableProgressBarPanel.Name = "serviceMatchingTableProgressBarPanel";
-            this.serviceMatchingTableProgressBarPanel.Size = new System.Drawing.Size(1481, 734);
+            this.serviceMatchingTableProgressBarPanel.Size = new System.Drawing.Size(1520, 734);
             this.serviceMatchingTableProgressBarPanel.TabIndex = 3;
             // 
             // label2
@@ -551,7 +660,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(3, 356);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1475, 25);
+            this.label2.Size = new System.Drawing.Size(1514, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Загрузка данных...";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -568,7 +677,7 @@
             this.tblServiceMatching.RowCount = 2;
             this.tblServiceMatching.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblServiceMatching.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblServiceMatching.Size = new System.Drawing.Size(1481, 734);
+            this.tblServiceMatching.Size = new System.Drawing.Size(1520, 734);
             this.tblServiceMatching.TabIndex = 2;
             // 
             // LayoutView
@@ -577,7 +686,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.ExportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1513, 879);
+            this.Size = new System.Drawing.Size(1552, 879);
             ((System.ComponentModel.ISupportInitialize)(this.ExportWizardControl)).EndInit();
             this.ExportWizardControl.ResumeLayout(false);
             this.ProcessingWizardPage.ResumeLayout(false);
@@ -596,6 +705,10 @@
             this.tblPeriod.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties)).EndInit();
+            this.tblExportCounterValues.ResumeLayout(false);
+            this.tblExportCounterValues.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.form2FilePathTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectFormFilePathTextEdit.Properties)).EndInit();
             this.tblOutputPath.ResumeLayout(false);
             this.tblOutputPath.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputPathTextEdit.Properties)).EndInit();
@@ -649,5 +762,13 @@
         private System.Windows.Forms.Panel serviceMatchingTableProgressBarPanel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ProgressBar ProgressBarControl;
+        private System.Windows.Forms.RadioButton exportCounterValuesRadioBtn;
+        private System.Windows.Forms.TableLayoutPanel tblExportCounterValues;
+        private DevExpress.XtraEditors.TextEdit form2FilePathTextEdit;
+        private DevExpress.XtraEditors.TextEdit collectFormFilePathTextEdit;
+        private System.Windows.Forms.Button btnSelectForm2File;
+        private System.Windows.Forms.Button btnSelectCollectFormFile;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label6;
     }
 }
