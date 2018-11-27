@@ -90,11 +90,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BenefitExportService.cs" />
     <Compile Include="Services\ChargeExportService.cs" />
+    <Compile Include="Services\CounterValuesExportService.cs" />
     <Compile Include="Services\ExportResult.cs" />
     <Compile Include="Services\GisZhkhChargesExportService.cs" />
     <Compile Include="Services\GisZhkhCustomerExportService.cs" />
     <Compile Include="Services\IBenefitExportService.cs" />
     <Compile Include="Services\IChargeExportService.cs" />
+    <Compile Include="Services\ICounterValuesExportService.cs" />
     <Compile Include="Services\IGisZhkhChargesExportService.cs" />
     <Compile Include="Services\IGisZhkhCustomerExportService.cs" />
     <Compile Include="Views\LayoutView\ILayoutView.cs" />

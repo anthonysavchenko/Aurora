@@ -52,6 +52,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             get => outputPathTextEdit.Text;
         }
 
+        public string CollectFormPath
+        {
+            get => collectFormFilePathTextEdit.Text;
+            set => collectFormFilePathTextEdit.Text = value;
+        }
+
+        public string Form2Path
+        {
+            get => form2FilePathTextEdit.Text;
+            set => form2FilePathTextEdit.Text = value;
+        }
+
         /// <summary>
         /// Учетный период, за который будут экспортированы начисления
         /// </summary>
@@ -96,9 +108,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                 {
                     _action = WizardAction.ExportCustomersForGisZhkh;
                 }
-                else if(exportChargesForGizZhkhRadioBtn.Checked)
+                else if (exportChargesForGizZhkhRadioBtn.Checked)
                 {
                     _action = WizardAction.ExportChargesForGisZhkh;
+                }
+                else if (exportCounterValuesRadioBtn.Checked)
+                {
+                    _action = WizardAction.ExportCounterValues;
                 }
 
                 return _action;
@@ -185,6 +201,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             }
         }
 
+        
+
         public void ClearServiceMatchingTable()
         {
             tblServiceMatching.Controls.Clear();
@@ -193,10 +211,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         }
 
         public void AddRowToServiceMatchingTable(
-            int serviceTypeID, 
-            string serviceTypeName, 
-            List<string> matchingValues, 
-            string selectedValue, 
+            int serviceTypeID,
+            string serviceTypeName,
+            List<string> matchingValues,
+            string selectedValue,
             int tabIndex)
         {
             tblServiceMatching.RowCount++;
@@ -255,10 +273,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                 int _serviceID = 0;
                 string _gisZhkhSeviceName = string.Empty;
 
-                foreach(Control _c in _cList)
+                foreach (Control _c in _cList)
                 {
                     ComboBox _cb = _c as ComboBox;
-                    if(_cb != null)
+                    if (_cb != null)
                     {
                         _cb.Invoke(new MethodInvoker(() => _gisZhkhSeviceName = _cb.SelectedItem?.ToString() ?? string.Empty));
                     }
@@ -326,6 +344,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = false;
+                    tblExportCounterValues.Visible = false;
                     break;
                 case WizardAction.ExportCustomersForGisZhkh:
                     tblPeriod.Visible = false;
@@ -334,6 +353,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = false;
+                    tblExportCounterValues.Visible = false;
                     break;
                 case WizardAction.ExportBenefitData:
                     tblPeriod.Visible = false;
@@ -342,6 +362,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = true;
                     tblOutputPath.Visible = false;
                     tblTemplate.Visible = true;
+                    tblExportCounterValues.Visible = false;
                     break;
                 case WizardAction.ExportChargesForGisZhkh:
                     tblPeriod.Visible = true;
@@ -350,6 +371,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = true;
+                    tblExportCounterValues.Visible = false;
+                    break;
+                case WizardAction.ExportCounterValues:
+                    tblPeriod.Visible = true;
+                    tblBankExportInfo.Visible = false;
+                    tblGizZhkhInfo.Visible = false;
+                    tblBenefitExportInfo.Visible = false;
+                    tblOutputPath.Visible = false;
+                    tblTemplate.Visible = false;
+                    tblExportCounterValues.Visible = true;
                     break;
                 default:
                     tblPeriod.Visible = false;
@@ -362,30 +393,45 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             }
         }
 
+        private string OpenFileDialog()
+        {
+            OpenFileDialog _openFileDialog =
+                new OpenFileDialog
+                {
+                    InitialDirectory = Application.StartupPath + @"\Data",
+                    Title = "Открыть файл",
+                    Filter = "Книга Microsoft Excel (*.xlsx)|*.xlsx",
+                    FilterIndex = 0,
+                    DefaultExt = "xlsx",
+                    RestoreDirectory = true,
+                };
+
+            return _openFileDialog.ShowDialog() == DialogResult.OK
+                ? _openFileDialog.FileName
+                : string.Empty;
+        }
+
         #region Event Handlers
 
         private void btnSelectTemplate_Click(object sender, EventArgs e)
         {
-            OpenFileDialog _openFileDialog = new OpenFileDialog
-            {
-                InitialDirectory = Application.StartupPath + @"\Data",
-                Title = "Открыть файл",
-                Filter = "Книга Microsoft Excel (*.xlsx)|*.xlsx",
-                FilterIndex = 0,
-                DefaultExt = "xlsx",
-                RestoreDirectory = true,
-            };
+            templatePathTextEdit.Text = OpenFileDialog();
+        }
 
-            if (_openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                templatePathTextEdit.Text = _openFileDialog.FileName;
-            }
+        private void btnSelectCollectFormFile_Click(object sender, EventArgs e)
+        {
+            collectFormFilePathTextEdit.Text = OpenFileDialog();
+        }
+
+        private void btnSelectForm2File_Click(object sender, EventArgs e)
+        {
+            form2FilePathTextEdit.Text = OpenFileDialog();
         }
 
         private void btnSelectExportPath_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog _dialog = new FolderBrowserDialog();
-            if(_dialog.ShowDialog() == DialogResult.OK)
+            if (_dialog.ShowDialog() == DialogResult.OK)
             {
                 outputPathTextEdit.Text = _dialog.SelectedPath;
             }
