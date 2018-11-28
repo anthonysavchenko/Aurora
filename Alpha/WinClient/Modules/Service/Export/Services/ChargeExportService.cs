@@ -330,7 +330,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 if (_format == ChargeExportFormatType.Sberbank)
                                 {
                                     string _account = _record.Account.Replace("EG-", string.Empty);
-                                    _line = $"{_account};{_record.Owner};Владивосток, {_record.Street}, {_record.Building}{_apartment};{_period:MM.yy};{ _record.Value};";
+                                    _line = $"{_account};{_record.Owner};Владивосток, {_record.Street}, {_record.Building}{_apartment};{_period:MMyy};{ _record.Value};";
                                 }
                                 else
                                 {
