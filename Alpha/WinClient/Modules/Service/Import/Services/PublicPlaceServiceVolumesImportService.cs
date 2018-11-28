@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.Services;
-using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 {
@@ -132,14 +132,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             return _result;
         }
 
-        public string ProcessFile(string inputFileName, DateTime period, Action<int> reportProgressAction)
+        public string ProcessFile(string inputFileName, Action<int> reportProgressAction, DateTime? period)
         {
             StringBuilder _errors = new StringBuilder();
             Dictionary<int, List<ServiceVolume>> _data = GetData(inputFileName, reportProgressAction, _errors);
 
             if(_errors.Length == 0 && _data != null && _data.Count > 0)
             {
-                SaveData(_data, period, reportProgressAction, _errors);
+                SaveData(_data, period.Value, reportProgressAction, _errors);
             }
 
             return _errors.Length > 0 

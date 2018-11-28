@@ -152,6 +152,8 @@
     <Compile Include="BusinessEntities\RefBooks\CommonCounterCoefficient.cs" />
     <Compile Include="BusinessEntities\RefBooks\CommonCounterValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\Contractors.cs" />
+    <Compile Include="BusinessEntities\RefBooks\CounterValueCollectDistrict.cs" />
+    <Compile Include="BusinessEntities\RefBooks\ElectricitySharedCounterVolume.cs" />
     <Compile Include="BusinessEntities\RefBooks\Intermediary.cs" />
     <Compile Include="BusinessEntities\RefBooks\PaymentName.cs" />
     <Compile Include="BusinessEntities\RefBooks\PrivateCounter.cs" />
@@ -164,6 +166,14 @@
     <Compile Include="BusinessEntities\RefBooks\ServiceType.cs" />
     <Compile Include="BusinessEntities\RefBooks\Street.cs" />
     <Compile Include="BusinessEntities\RefBooks\User.cs" />
+    <Compile Include="Commands\CommandDispatcher.cs" />
+    <Compile Include="Commands\CommandHandlerAdapter.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ICommandDispatcher.cs" />
+    <Compile Include="Commands\ICommandHandler.cs" />
+    <Compile Include="Commands\ICommandHandlerAdapter.cs" />
+    <Compile Include="Commands\IResultCommand.cs" />
+    <Compile Include="Commands\ResultCommand.cs" />
     <Compile Include="Constants\ApplicationEventNames.cs" />
     <Compile Include="Constants\ApplicationUIExtensionSiteNames.cs" />
     <Compile Include="Constants\ApplicationUsecaseNames.cs" />
@@ -187,7 +197,14 @@
     <Compile Include="DataMappers\Oper\IPaymentOperPosDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\IBuildingDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\IUserDataMapper.cs" />
-    <Compile Include="Enums\OperationTypes.cs" />
+    <Compile Include="Common\Balance.cs" />
+    <Compile Include="Enums\BenefitRuleType.cs" />
+    <Compile Include="Enums\BillType.cs" />
+    <Compile Include="Enums\ChargeRuleType.cs" />
+    <Compile Include="Enums\OperationType.cs" />
+    <Compile Include="Enums\OwnerType.cs" />
+    <Compile Include="ExtensionMethods\BalanceDictionaryExtension.cs" />
+    <Compile Include="ExtensionMethods\DictionaryExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

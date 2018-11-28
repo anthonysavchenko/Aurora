@@ -58,6 +58,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     _action = WizardAction.ImportPublicPlaceServiceVolumes;
                 }
+                else if (importCounterRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportCounters;
+                }
+                else if (importElectricityVolumesRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportElectricitySharedCounterVolumes;
+                }
 
                 return _action;
             }
@@ -174,6 +182,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             switch (WizardAction)
             {
                 case WizardAction.ImportPublicPlaceServiceVolumes:
+                case WizardAction.ImportElectricitySharedCounterVolumes:
+                case WizardAction.ImportCounters:
                     filePanel.Visible = true;
                     periodPanel.Visible = true;
                     break;

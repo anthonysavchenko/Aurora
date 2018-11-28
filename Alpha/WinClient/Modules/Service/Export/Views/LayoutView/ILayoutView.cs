@@ -32,6 +32,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         string TemplatePath { get; set; }
 
         /// <summary>
+        /// Файл маршрутного листа ДЭК (для экпорта показаний приборов учета)
+        /// </summary>
+        string CollectFormPath { get; set; }
+
+        /// <summary>
+        /// Файл формы с показаниями для ДЭК (для экпорта показаний приборов учета)
+        /// </summary>
+        string Form2Path { get; set; }
+
+        /// <summary>
         /// Учетный период, за который будут экспортированы начисления
         /// </summary>
         DateTime Period { get; set; }

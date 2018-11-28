@@ -104,6 +104,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Customers), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounters_Services", "Services", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.Services), "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounters), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CustomerPoses), "RechargePercentCorrections", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargePercentCorrections), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CounterValueCollectDistricts), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_ElectricitySharedCounterVolumes_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "ElectricitySharedCounterVolumes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.ElectricitySharedCounterVolumes), true)]
 
 #endregion
 
@@ -983,6 +985,38 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<RechargePercentCorrections> _RechargePercentCorrections;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CounterValueCollectDistricts> CounterValueCollectDistricts
+        {
+            get
+            {
+                if ((_CounterValueCollectDistricts == null))
+                {
+                    _CounterValueCollectDistricts = base.CreateObjectSet<CounterValueCollectDistricts>("CounterValueCollectDistricts");
+                }
+                return _CounterValueCollectDistricts;
+            }
+        }
+        private ObjectSet<CounterValueCollectDistricts> _CounterValueCollectDistricts;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ElectricitySharedCounterVolumes> ElectricitySharedCounterVolumes
+        {
+            get
+            {
+                if ((_ElectricitySharedCounterVolumes == null))
+                {
+                    _ElectricitySharedCounterVolumes = base.CreateObjectSet<ElectricitySharedCounterVolumes>("ElectricitySharedCounterVolumes");
+                }
+                return _ElectricitySharedCounterVolumes;
+            }
+        }
+        private ObjectSet<ElectricitySharedCounterVolumes> _ElectricitySharedCounterVolumes;
 
         #endregion
 
@@ -1402,6 +1436,22 @@ namespace Taumis.Alpha.DataBase
         public void AddToRechargePercentCorrections(RechargePercentCorrections rechargePercentCorrections)
         {
             base.AddObject("RechargePercentCorrections", rechargePercentCorrections);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CounterValueCollectDistricts EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCounterValueCollectDistricts(CounterValueCollectDistricts counterValueCollectDistricts)
+        {
+            base.AddObject("CounterValueCollectDistricts", counterValueCollectDistricts);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ElectricitySharedCounterVolumes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToElectricitySharedCounterVolumes(ElectricitySharedCounterVolumes electricitySharedCounterVolumes)
+        {
+            base.AddObject("ElectricitySharedCounterVolumes", electricitySharedCounterVolumes);
         }
 
         #endregion
@@ -3210,6 +3260,30 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Int32> _BankDetailID;
         partial void OnBankDetailIDChanging(Nullable<global::System.Int32> value);
         partial void OnBankDetailIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CounterValueCollectDistrictID
+        {
+            get
+            {
+                return _CounterValueCollectDistrictID;
+            }
+            set
+            {
+                OnCounterValueCollectDistrictIDChanging(value);
+                ReportPropertyChanging("CounterValueCollectDistrictID");
+                _CounterValueCollectDistrictID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CounterValueCollectDistrictID");
+                OnCounterValueCollectDistrictIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CounterValueCollectDistrictID;
+        partial void OnCounterValueCollectDistrictIDChanging(Nullable<global::System.Int32> value);
+        partial void OnCounterValueCollectDistrictIDChanged();
 
         #endregion
 
@@ -3375,6 +3449,66 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PublicPlaceServiceVolumes>("AlphaDataBaseModel.FK_PublicPlaceServiceVolumes_Buildings", "PublicPlaceServiceVolumes", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts")]
+        public CounterValueCollectDistricts CounterValueCollectDistricts
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CounterValueCollectDistricts> CounterValueCollectDistrictsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CounterValueCollectDistricts>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_ElectricitySharedCounterVolumes_Buildings", "ElectricitySharedCounterVolumes")]
+        public EntityCollection<ElectricitySharedCounterVolumes> ElectricitySharedCounterVolumes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ElectricitySharedCounterVolumes>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "ElectricitySharedCounterVolumes");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ElectricitySharedCounterVolumes>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "ElectricitySharedCounterVolumes", value);
                 }
             }
         }
@@ -5448,6 +5582,114 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CounterValueCollectDistricts")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CounterValueCollectDistricts : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CounterValueCollectDistricts object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static CounterValueCollectDistricts CreateCounterValueCollectDistricts(global::System.Int32 id, global::System.String name)
+        {
+            CounterValueCollectDistricts counterValueCollectDistricts = new CounterValueCollectDistricts();
+            counterValueCollectDistricts.ID = id;
+            counterValueCollectDistricts.Name = name;
+            return counterValueCollectDistricts;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "Buildings")]
+        public EntityCollection<Buildings> Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Buildings>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Buildings>("AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts", "Buildings", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CustomerPoses")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -6907,6 +7149,182 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Customers>("AlphaDataBaseModel.FK_DebtBillDocs_Customers", "Customers", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="ElectricitySharedCounterVolumes")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ElectricitySharedCounterVolumes : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ElectricitySharedCounterVolumes object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="buildingID">Initial value of the BuildingID property.</param>
+        /// <param name="volume">Initial value of the Volume property.</param>
+        /// <param name="period">Initial value of the Period property.</param>
+        public static ElectricitySharedCounterVolumes CreateElectricitySharedCounterVolumes(global::System.Int32 id, global::System.Int32 buildingID, global::System.Decimal volume, global::System.DateTime period)
+        {
+            ElectricitySharedCounterVolumes electricitySharedCounterVolumes = new ElectricitySharedCounterVolumes();
+            electricitySharedCounterVolumes.ID = id;
+            electricitySharedCounterVolumes.BuildingID = buildingID;
+            electricitySharedCounterVolumes.Volume = volume;
+            electricitySharedCounterVolumes.Period = period;
+            return electricitySharedCounterVolumes;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BuildingID
+        {
+            get
+            {
+                return _BuildingID;
+            }
+            set
+            {
+                OnBuildingIDChanging(value);
+                ReportPropertyChanging("BuildingID");
+                _BuildingID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BuildingID");
+                OnBuildingIDChanged();
+            }
+        }
+        private global::System.Int32 _BuildingID;
+        partial void OnBuildingIDChanging(global::System.Int32 value);
+        partial void OnBuildingIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Volume
+        {
+            get
+            {
+                return _Volume;
+            }
+            set
+            {
+                OnVolumeChanging(value);
+                ReportPropertyChanging("Volume");
+                _Volume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Volume");
+                OnVolumeChanged();
+            }
+        }
+        private global::System.Decimal _Volume;
+        partial void OnVolumeChanging(global::System.Decimal value);
+        partial void OnVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Period
+        {
+            get
+            {
+                return _Period;
+            }
+            set
+            {
+                OnPeriodChanging(value);
+                ReportPropertyChanging("Period");
+                _Period = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Period");
+                OnPeriodChanged();
+            }
+        }
+        private global::System.DateTime _Period;
+        partial void OnPeriodChanging(global::System.DateTime value);
+        partial void OnPeriodChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_ElectricitySharedCounterVolumes_Buildings", "Buildings")]
+        public Buildings Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "Buildings").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "Buildings").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Buildings> BuildingsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Buildings>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "Buildings", value);
                 }
             }
         }
@@ -9074,11 +9492,13 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="number">Initial value of the Number property.</param>
-        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number)
+        /// <param name="model">Initial value of the Model property.</param>
+        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number, global::System.String model)
         {
             PrivateCounters privateCounters = new PrivateCounters();
             privateCounters.ID = id;
             privateCounters.Number = number;
+            privateCounters.Model = model;
             return privateCounters;
         }
 
@@ -9184,6 +9604,30 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Int32> _ServiceID;
         partial void OnServiceIDChanging(Nullable<global::System.Int32> value);
         partial void OnServiceIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Model
+        {
+            get
+            {
+                return _Model;
+            }
+            set
+            {
+                OnModelChanging(value);
+                ReportPropertyChanging("Model");
+                _Model = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Model");
+                OnModelChanged();
+            }
+        }
+        private global::System.String _Model;
+        partial void OnModelChanging(global::System.String value);
+        partial void OnModelChanged();
 
         #endregion
 
@@ -9329,12 +9773,14 @@ namespace Taumis.Alpha.DataBase
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="period">Initial value of the Period property.</param>
         /// <param name="value">Initial value of the Value property.</param>
-        public static PrivateCounterValues CreatePrivateCounterValues(global::System.Int32 id, global::System.DateTime period, global::System.Decimal value)
+        /// <param name="collectDate">Initial value of the CollectDate property.</param>
+        public static PrivateCounterValues CreatePrivateCounterValues(global::System.Int32 id, global::System.DateTime period, global::System.Decimal value, global::System.DateTime collectDate)
         {
             PrivateCounterValues privateCounterValues = new PrivateCounterValues();
             privateCounterValues.ID = id;
             privateCounterValues.Period = period;
             privateCounterValues.Value = value;
+            privateCounterValues.CollectDate = collectDate;
             return privateCounterValues;
         }
 
@@ -9416,6 +9862,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.Decimal _Value;
         partial void OnValueChanging(global::System.Decimal value);
         partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CollectDate
+        {
+            get
+            {
+                return _CollectDate;
+            }
+            set
+            {
+                OnCollectDateChanging(value);
+                ReportPropertyChanging("CollectDate");
+                _CollectDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectDate");
+                OnCollectDateChanged();
+            }
+        }
+        private global::System.DateTime _CollectDate;
+        partial void OnCollectDateChanging(global::System.DateTime value);
+        partial void OnCollectDateChanged();
 
         #endregion
 

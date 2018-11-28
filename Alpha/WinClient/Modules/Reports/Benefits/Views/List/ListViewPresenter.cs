@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Benefits.Views.List
@@ -195,7 +195,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Benefits.Views.List
 
                 if (View.ShowOnlyFederalBenefits)
                 {
-                    _query = _query.Where(r => r.BenefitTypes.BenefitRule == (int)BenefitType.BenefitRuleType.FiftyPercentBySquare);
+                    _query = _query.Where(r => r.BenefitTypes.BenefitRule == (int)BenefitRuleType.FiftyPercentBySquare);
                 }
 
                 var _residents =
@@ -219,7 +219,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Benefits.Views.List
                                 r.BenefitTypes.BenefitRule,
                                 BenefitType = r.BenefitTypes.Name,
                                 r.ResidentDocument,
-                                Rate = (decimal?)r.Customers.CustomerPoses.Sum(c => c.Services.ChargeRule == (int)Service.ChargeRuleType.SquareRate ? c.Rate : 0),
+                                Rate = (decimal?)r.Customers.CustomerPoses.Sum(c => c.Services.ChargeRule == (int)ChargeRuleType.SquareRate ? c.Rate : 0),
                                 CustomerID = r.Customers.ID
                             })
                         .OrderBy(
@@ -257,7 +257,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Benefits.Views.List
                         _resident.LiftPresence ? "Да" : "Нет",
                         _resident.RubbishChutePresence ? "Да" : "Нет",
                         _resident.Square,
-                        _resident.BenefitRule == (byte)BenefitType.BenefitRuleType.FiftyPercentBySquare
+                        _resident.BenefitRule == (byte)BenefitRuleType.FiftyPercentBySquare
                             ? "Местные льготы"
                             : "Скидки",
                         _resident.BenefitType,

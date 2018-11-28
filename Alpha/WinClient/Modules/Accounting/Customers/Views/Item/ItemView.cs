@@ -3,6 +3,7 @@ using Microsoft.Practices.ObjectBuilder;
 using System;
 using System.Data;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 
@@ -65,16 +66,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         /// <summary>
         /// Тип собственника
         /// </summary>
-        public DomItem.OwnerTypes OwnerType
+        public OwnerType OwnerType
         {
             set
             {
                 switch (value)
                 {
-                    case DomItem.OwnerTypes.PhysicalPerson:
+                    case OwnerType.PhysicalPerson:
                         PhysicalPersonRadioButton.Checked = true;
                         break;
-                    case DomItem.OwnerTypes.JuridicalPerson:
+                    case OwnerType.JuridicalPerson:
                         JuridicalPersonRadioButton.Checked = true;
                         break;
                     default:
@@ -84,15 +85,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             }
             get
             {
-                DomItem.OwnerTypes _value = DomItem.OwnerTypes.Unknown;
+                OwnerType _value = OwnerType.Unknown;
 
                 if (PhysicalPersonRadioButton.Checked)
                 {
-                    _value = DomItem.OwnerTypes.PhysicalPerson;
+                    _value = OwnerType.PhysicalPerson;
                 }
                 else if (JuridicalPersonRadioButton.Checked)
                 {
-                    _value = DomItem.OwnerTypes.JuridicalPerson;
+                    _value = OwnerType.JuridicalPerson;
                 }
 
                 return _value;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
@@ -8,27 +9,6 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
     /// </summary>
     public class BillSet : DomainObject
     {
-        /// <summary>
-        /// Виды квитанций
-        /// </summary>
-        public enum BillTypes
-        {
-            /// <summary>
-            /// Ежемесячные
-            /// </summary>
-            Regular,
-
-            /// <summary>
-            /// Долговые
-            /// </summary>
-            Debt,
-
-            /// <summary>
-            /// За период
-            /// </summary>
-            Total
-        }
-
         private DateTime _creationDateTime;
         /// <summary>
         /// Дата создания
@@ -65,11 +45,11 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private BillTypes _billType;
+        private BillType _billType;
         /// <summary>
         /// Вид квитанций в наборе
         /// </summary>
-        public BillTypes BillType
+        public BillType BillType
         {
             get
             {

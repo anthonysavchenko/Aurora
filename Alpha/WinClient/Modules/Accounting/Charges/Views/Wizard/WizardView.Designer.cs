@@ -236,6 +236,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ProgressBarControl.Location = new System.Drawing.Point(0, 32);
             this.ProgressBarControl.Name = "ProgressBarControl";
+            this.ProgressBarControl.Properties.PercentView = false;
+            this.ProgressBarControl.Properties.ShowTitle = true;
+            this.ProgressBarControl.Properties.CustomDisplayText += new DevExpress.XtraEditors.Controls.CustomDisplayTextEventHandler(this.ProgressBarControl_Properties_CustomDisplayText);
+            this.ProgressBarControl.ShowProgressInTaskBar = true;
             this.ProgressBarControl.Size = new System.Drawing.Size(855, 26);
             this.ProgressBarControl.TabIndex = 0;
             // 
@@ -1369,6 +1373,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             | System.Windows.Forms.AnchorStyles.Right)));
             this.backupProgressBar.Location = new System.Drawing.Point(2, 32);
             this.backupProgressBar.Name = "backupProgressBar";
+            this.backupProgressBar.Properties.ShowTitle = true;
             this.backupProgressBar.Size = new System.Drawing.Size(855, 26);
             this.backupProgressBar.TabIndex = 1;
             // 

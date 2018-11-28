@@ -487,29 +487,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
         /// <param name="page">Шаг</param>
         public void SelectPage(WizardPages page)
         {
-            switch (page)
+            BaseWizardPage _wp = ConvertWizardPage(page);
+            if (_wp != null)
             {
-                case WizardPages.ChooseMethodPage:
-                    PaymentWizardControl.SelectedPage = ChooseMethodWizardPage;
-                    break;
-                case WizardPages.CustomersPage:
-                    PaymentWizardControl.SelectedPage = CustomersWizardPage;
-                    break;
-                case WizardPages.PercentPage:
-                    PaymentWizardControl.SelectedPage = PercentWizardPage;
-                    break;
-                case WizardPages.ChoosePeriodPage:
-                    PaymentWizardControl.SelectedPage = ChoosePeriodWizardPage;
-                    break;
-                case WizardPages.BackupPage:
-                    PaymentWizardControl.SelectedPage = BackupWizardPage;
-                    break;
-                case WizardPages.ProcessingPage:
-                    PaymentWizardControl.SelectedPage = ProcessingWizardPage;
-                    break;
-                case WizardPages.FinishPage:
-                    PaymentWizardControl.SelectedPage = FinishWizardPage;
-                    break;
+                PaymentWizardControl.Invoke(new MethodInvoker(() => PaymentWizardControl.SelectedPage = _wp));
             }
         }
 
@@ -680,6 +661,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             {
                 Presenter.UpdateCorrectionTable(CorrectingServiceID.Value, PercentCorrectionPeriod);
             }
+        }
+
+        private void ProgressBarControl_Properties_CustomDisplayText(object sender, DevExpress.XtraEditors.Controls.CustomDisplayTextEventArgs e)
+        {
+            e.DisplayText = e.Value.ToString() + " / " + ((ProgressBarControl)sender).Properties.Maximum;
         }
     }
 }

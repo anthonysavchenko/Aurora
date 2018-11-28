@@ -8,6 +8,24 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
     /// </summary>
     public class PrivateCounterValue : DomainObject
     {
+        private DateTime _collectDate;
+        /// <summary>
+        /// Дата сбора показаний
+        /// </summary>
+        public DateTime CollectDate
+        {
+            get
+            {
+                Load();
+                return _collectDate;
+            }
+            set
+            {
+                Load();
+                _collectDate = value;
+            }
+        }
+
         private DateTime _period;
         /// <summary>
         /// Период

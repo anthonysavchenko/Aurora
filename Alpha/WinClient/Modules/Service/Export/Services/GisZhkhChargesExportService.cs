@@ -6,7 +6,6 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.EnterpriseLibrary.Win.Services;
-using ChargeRuleType = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service.ChargeRuleType;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 {
@@ -63,7 +62,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         private class ServiceSheet
         {
-            public const int INDEX = 6;
+            public const int INDEX = 8;
             public const int FIRST_ROW_NUM = 2;
 
             public class Columns
@@ -102,6 +101,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         [ServiceDependency]
         public IExcelService ExcelService { get; set; }
+
+        private int[] _repairBuildingIds = new[] { 272, 280, 281, 329, 352, 353, 390, 401, 421, 448, 449, 463, 568, 612, 619, 620, 631, 634, 681, 685, 722, 733, 750, 751 };
 
         public ExportResult Export(string outputPath, string templatePath, DateTime period, Dictionary<int, string> serviceMatchingDict, Action<int> progressAction)
         {
@@ -150,6 +151,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                     string _fileName = $"{_building.Street.Replace(' ', '_')}_{_building.Number.Replace(' ', '_').Replace('\\', '_').Replace('/', '_')}_ПД_{period:yyyy-MM}.xlsx";
 
+                    bool _repair = _repairBuildingIds.Contains(_building.ID);
+
                     using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(templatePath))
                     {
                         IExcelWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
@@ -171,9 +174,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_ci.Area);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_ci.Bik);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
+
+                            // TODO: экспорт по кап. ремонту в ГИС ЖКХ. 
+                            // Пока что тупо проверяем по ID дома и пишем 0, в остальных случаях ничего не делаем, иначе возникнет ошибка при импорте в ГИС ЖКХ
+                            if (_repair)
+                            {
+                                _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
+                                _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
+                                _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
+                            }
 
                             foreach (BillInfo _bi in _ci.Bills)
                             {

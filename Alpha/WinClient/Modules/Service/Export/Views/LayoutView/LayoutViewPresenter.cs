@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 using Taumis.EnterpriseLibrary.Win.Services;
-using System.Linq;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 {
@@ -29,6 +28,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
 
         [ServiceDependency]
         public IGisZhkhChargesExportService GisZhkhChargesExportService { get; set; }
+
+        [ServiceDependency]
+        public ICounterValuesExportService CounterValuesExportService { get; set; }
 
         /// <summary>
         /// Обрабатывает отображение вью
@@ -90,7 +92,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
             WizardAction _action = View.WizardAction;
 
             StringBuilder _msg = new StringBuilder();
-            if ((_action == WizardAction.ExportChargesForBanks 
+            if ((_action == WizardAction.ExportChargesForBanks
                 || _action == WizardAction.ExportChargesForGisZhkh
                 || _action == WizardAction.ExportCustomersForGisZhkh)
                 && string.IsNullOrEmpty(View.OutputPath))
@@ -105,17 +107,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                 _msg.AppendLine("- Выберите файл шаблона");
             }
 
-            if (_action == WizardAction.ExportChargesForBanks)
+            if ((_action == WizardAction.ExportChargesForBanks || _action == WizardAction.ExportCounterValues)
+                && View.Period == DateTime.MinValue)
             {
-                if (View.Period == DateTime.MinValue)
-                {
-                    _msg.AppendLine("- Выберите период");
-                }
+                _msg.AppendLine("- Выберите период");
+            }
 
-                if (!View.SbrfChecked && !View.PrimSocBankChecked)
-                {
-                    _msg.AppendLine("- Укажите формат");
-                }
+            if (_action == WizardAction.ExportChargesForBanks && !View.SbrfChecked && !View.PrimSocBankChecked)
+            {
+                _msg.AppendLine("- Укажите формат");
+            }
+
+            if (_action == WizardAction.ExportCounterValues 
+                && string.IsNullOrEmpty(View.CollectFormPath) 
+                && string.IsNullOrEmpty(View.Form2Path))
+            {
+                _msg.AppendLine("- Укажите путь к файлам с формой ДЭК");
             }
 
             bool _result = _msg.Length == 0;
@@ -136,6 +143,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     case WizardPages.FilePage:
                         View.OutputPath = string.Empty;
                         View.TemplatePath = string.Empty;
+                        View.CollectFormPath = string.Empty;
+                        View.Form2Path = string.Empty;
                         View.Period = ServerTime.GetPeriodInfo().LastCharged;
                         View.StartPeriod = new DateTime(2015, 7, 1);
                         View.SbrfChecked = true;
@@ -208,6 +217,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                             break;
                         case WizardAction.ExportChargesForGisZhkh:
                             args.Result = GisZhkhChargesExportService.Export(View.OutputPath, View.TemplatePath, View.Period, View.GetServiceMatchingDict(), ((BackgroundWorker)sender).ReportProgress);
+                            break;
+                        case WizardAction.ExportCounterValues:
+                            args.Result = CounterValuesExportService.Export(View.CollectFormPath, View.Form2Path, View.Period, ((BackgroundWorker)sender).ReportProgress);
                             break;
                     }
                 }

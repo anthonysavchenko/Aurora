@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.BenefitTypes;
@@ -28,7 +29,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
                 _domItem.Name = _dbItem.Name;
                 _domItem.Code = _dbItem.Code;
-                _domItem.BenefitRule = (DomItem.BenefitRuleType)_dbItem.BenefitRule;
+                _domItem.BenefitRule = (BenefitRuleType)_dbItem.BenefitRule;
                 _domItem.FixedPercent = _dbItem.FixedPercent;
             }
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBooks;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.CounterValue;
@@ -22,6 +23,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         {
             View.Streets = GetList<Street>();
             View.BankDetailsSource = GetList<BankDetail>();
+            View.CounterValueCollectDistrictSource = GetList<CounterValueCollectDistrict>();
         }
 
         #region Overrides of BaseItemViewPresenter<IItemView,Service>
@@ -41,6 +43,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
             View.FiasID = _domItem.FiasID;
             View.NonResidentialPlaceArea = _domItem.NonResidentialPlaceArea;
             View.BankDetail = _domItem.BankDetail;
+            View.CounterValueCollectDistrict = _domItem.CounterValueCollectDistrict;
 
             if (_domItem.IsNew)
             {
@@ -136,6 +139,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
             _domItem.FiasID = View.FiasID;
             _domItem.NonResidentialPlaceArea = View.NonResidentialPlaceArea;
             _domItem.BankDetail = View.BankDetail;
+            _domItem.CounterValueCollectDistrict = View.CounterValueCollectDistrict;
         }
 
         /// <summary>

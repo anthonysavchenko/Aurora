@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 
@@ -23,7 +24,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         /// <summary>
         /// Тип собственника
         /// </summary>
-        DomItem.OwnerTypes OwnerType { set; get; }
+        OwnerType OwnerType { set; get; }
 
         /// <summary>
         /// Полное имя физического лица

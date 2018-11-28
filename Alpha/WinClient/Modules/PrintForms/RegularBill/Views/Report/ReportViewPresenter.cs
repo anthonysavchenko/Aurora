@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
-using Microsoft.Practices.CompositeUI;
-using Microsoft.Practices.CompositeUI.EventBroker;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.Server.PrintForms.Constants;
 using Taumis.Alpha.Server.PrintForms.DataSets;
@@ -146,7 +146,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                         b.Customers.OwnerType,
                                         b.Customers.Buildings.BankDetails,
                                         FullName = 
-                                            b.Customers.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
+                                            b.Customers.OwnerType == (int)OwnerType.PhysicalPerson 
                                                 ? b.Customers.PhysicalPersonFullName 
                                                 : b.Customers.JuridicalPersonFullName,
                                         b.RegularBillDocSeviceTypePoses,
@@ -206,7 +206,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.BankDetails.INN,
                                 "Капремонт",
                                 _bill.Account, 
-                                _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
+                                _bill.OwnerType == (int)OwnerType.PhysicalPerson 
                                     ? _bill.FullName
                                     : string.Empty,
                                 _bill.Address,

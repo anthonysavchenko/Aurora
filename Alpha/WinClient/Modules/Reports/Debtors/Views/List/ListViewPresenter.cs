@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
@@ -284,7 +284,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                             (x, y) =>
                                 new
                                 {
-                                    FullName = y.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson
+                                    FullName = y.OwnerType == (int)OwnerType.PhysicalPerson
                                         ? y.PhysicalPersonFullName
                                         : y.JuridicalPersonFullName,
                                     y.StreetName,
