@@ -307,8 +307,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                 foreach (ChargeExportFormatType _format in formats)
                 {
-                    Encoding _encoding = Encoding.GetEncoding(1251);
-                    string _postfix = _format == ChargeExportFormatType.Sberbank ? $"_{period:MMyyyy}" : string.Empty;
+                    Encoding _encoding;
+                    string _postfix;
+                    if (_format == ChargeExportFormatType.Sberbank)
+                    {
+                        _encoding = Encoding.UTF8;
+                        _postfix = "_UTF";
+                    }
+                    else
+                    {
+                        _encoding = Encoding.GetEncoding(1251);
+                        _postfix = string.Empty;
+                    }
 
                     foreach (KeyValuePair<int, List<CustomerInfo>> _pair in _data)
                     {
@@ -321,24 +331,27 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             DateTime _period = new DateTime(period.Year, period.Month, 1);
                             foreach (var _record in _pair.Value)
                             {
-                                string _apartment = string.IsNullOrEmpty(_record.Apartment)
-                                    ? string.Empty
-                                    : $", {_record.Apartment}";
-
-                                string _line;
-
                                 if (_format == ChargeExportFormatType.Sberbank)
                                 {
-                                    string _account = _record.Account.Replace("EG-", string.Empty);
-                                    _line = $"{_account};{_record.Owner};Владивосток, {_record.Street}, {_record.Building}{_apartment};{_period:MMyy};{ _record.Value};";
+                                    _file.WriteLine("{0}|{1}|{2}|{3}",
+                                        _record.Account.Replace("EG-", string.Empty),
+                                        _record.Owner,
+                                        _period.ToString("MM.yyyy"),
+                                        _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
                                 }
                                 else
                                 {
-                                    string _account = _record.Account.Replace("EG-", string.Empty);
-                                    _line = $"EG|{_account}|{_record.Owner}|{_record.Street}, {_record.Building}{_apartment}|{ _record.Value.ToString().Replace(',', '.')}";
+                                    _file.WriteLine(
+                                        "EG|{0}|{1}|{2}, {3}{4}|{5}",
+                                        _record.Account.Replace("EG-", String.Empty),
+                                        _record.Owner,
+                                        _record.Street,
+                                        _record.Building,
+                                        string.IsNullOrEmpty(_record.Apartment)
+                                            ? string.Empty
+                                            : string.Format(", {0}", _record.Apartment),
+                                        _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
                                 }
-
-                                _file.WriteLine(_line);
                             }
                         }
                     }
