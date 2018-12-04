@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -235,7 +234,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                     case "CheckDataWizardPage":
                         {
                             // Проверяем наличие хоть одной записи
-                            if (Payments.Count == 1 && string.IsNullOrEmpty(Payments[0].Account))
+                            if (Payments.Count == 1 && String.IsNullOrEmpty(Payments[0].Account))
                             {
                                 View.ShowMessage("Введите хотя бы один платеж.", "Ошибка ввода данных");
                                 _next = WizardSteps.Unknown;
@@ -307,7 +306,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                         .Select(p => p.Account)
                         .Distinct()
                         .Where(c =>
-                            _db.ChargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0) 
+                            _db.ChargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0)
                             || _db.RechargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0))
                         .ToArray();
 
@@ -564,13 +563,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                 }
                 else
                 {
-                    Encoding _encoding = _intermediaryID == IntermediaryConstants.SBRF_ID
-                        ? Encoding.GetEncoding(1251)
-                        : Encoding.UTF8;
+                    List<string> _lines = new List<string>();
 
-                    string[] _lines = File.ReadAllLines(View.FileName, _encoding);
+                    using (StreamReader _file = File.OpenText(View.FileName))
+                    {
+                        while (!_file.EndOfStream)
+                        {
+                            string _line = _file.ReadLine();
 
-                    View.ResetProgressBar(_lines.Length);
+                            if (!string.IsNullOrEmpty(_line))
+                            {
+                                _lines.Add(_line);
+                            }
+                        }
+                    }
+
+                    View.ResetProgressBar(_lines.Count);
 
                     List<WizardPaymentElement> _elements;
 
@@ -581,12 +589,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                             _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportPrimsocbankLine).ToList();
                             break;
                         case IntermediaryConstants.SBRF_ID:
-                            _elements = _lines
-                                .Where(x => !string.IsNullOrEmpty(x) && !x.StartsWith("="))
-                                .AsParallel()
-                                .AsOrdered()
-                                .Select(ProcessImportSbrfLine)
-                                .ToList();
+                            _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportSbrfLine).ToList();
                             break;
                         case IntermediaryConstants.MOSOBLBANK_ID:
                             _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportMosoblbankLine).ToList();
@@ -610,7 +613,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             }
             catch (Exception _exception)
             {
-                Logger.SimpleWrite(string.Format("Import file error. Line: {0}; {1}", _currentRow, _exception));
+                Logger.SimpleWrite(String.Format("Import file error. Line: {0}; {1}", _currentRow, _exception));
                 View.ShowMessage("Невозможно обработать данные файла", "Ошибка импорта");
                 Payments = new Dictionary<int, WizardPaymentElement>();
             }
@@ -640,8 +643,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                 Value = decimal.TryParse(value, out decimal _tempValue) ? _tempValue : 0,
             };
 
-            _payment.Owner = !string.IsNullOrEmpty(_payment.Account) 
-                ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_payment.Account) 
+            _payment.Owner = !string.IsNullOrEmpty(_payment.Account)
+                ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_payment.Account)
                 : null;
             _payment.HasError = _payment.Validate();
 
@@ -659,9 +662,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
             WizardPaymentElement _res = new WizardPaymentElement
             {
-                Account = _poses.Length > 6 ? _poses[6].ToUpper() : string.Empty,
-                Period = _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{2}.\d{4}") 
-                    ? new DateTime(Convert.ToInt32(_poses[8].Substring(3)), Convert.ToInt32(_poses[8].Substring(0, 2)), 1) 
+                Account = _poses.Length > 6 ? _poses[6].ToUpper() : String.Empty,
+                Period = _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{2}.\d{4}")
+                    ? new DateTime(Convert.ToInt32(_poses[8].Substring(3)), Convert.ToInt32(_poses[8].Substring(0, 2)), 1)
                     : DateTime.MinValue
             };
 
@@ -687,18 +690,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         /// <returns>Набор данных по платежу</returns>
         private WizardPaymentElement ProcessImportSbrfLine(string line)
         {
-            string[] _poses = line.Split(';');
+            string[] _poses = line.Split('|');
 
             WizardPaymentElement _res = new WizardPaymentElement
             {
-                Account = _poses.Length > 6 ? string.Format("EG-{0}", _poses[5]) : string.Empty,
-                Period = _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{4}") 
-                    ? new DateTime(Convert.ToInt32("20" + _poses[8].Substring(2)), Convert.ToInt32(_poses[8].Substring(0, 2)), 1) 
+                Account = _poses.Length > 0 ? String.Format("EG-{0}", _poses[0]) : string.Empty,
+                Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}")
+                    ? new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1)
                     : DateTime.MinValue
             };
-            if (_poses.Length > 10)
+            if (_poses.Length > 3)
             {
-                decimal.TryParse(_poses[9], out decimal _count);
+                decimal.TryParse(_poses[3].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
             _res.Owner = !string.IsNullOrEmpty(_res.Account)
@@ -722,14 +725,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             WizardPaymentElement _res = new WizardPaymentElement();
             DateTime _lastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged;
 
-            _res.Account = _poses.Length > 1 ? _poses[1].ToUpper() : string.Empty;
+            _res.Account = _poses.Length > 1 ? _poses[1].ToUpper() : String.Empty;
             _res.Period = _lastChargedPeriod;
             if (_poses.Length > 2)
             {
                 decimal.TryParse(_poses[2].Replace('.', ','), out decimal _count);
                 _res.Value = _count;
             }
-            _res.Owner = !string.IsNullOrEmpty(_res.Account)
+            _res.Owner = !String.IsNullOrEmpty(_res.Account)
                 ? DomainWithDataMapperHelperServ.DataMapper<Customer, ICustomerDataMapper>().GetItem(_res.Account)
                 : null;
 
@@ -749,8 +752,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
             WizardPaymentElement _res = new WizardPaymentElement
             {
-                Account = _poses.Length > 0 ? _poses[0].ToUpper() : string.Empty,
-                Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}") 
+                Account = _poses.Length > 0 ? _poses[0].ToUpper() : String.Empty,
+                Period = _poses.Length > 2 && Regex.IsMatch(_poses[2], @"\d{2}.\d{4}")
                     ? new DateTime(Convert.ToInt32(_poses[2].Substring(3)), Convert.ToInt32(_poses[2].Substring(0, 2)), 1)
                     : DateTime.MinValue
             };
@@ -791,13 +794,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                 _data.Rows.Add(
                     _element.Key,
                     _element.Value.Account,
-                    string.Format("{0:MM.yyyy}", _element.Value.Period),
+                    String.Format("{0:MM.yyyy}", _element.Value.Period),
                     _element.Value.Value,
                     _element.Value.Owner != null
                         ? (_element.Value.Owner.OwnerType == OwnerType.PhysicalPerson
                             ? _element.Value.Owner.PhysicalPersonShortName
                             : _element.Value.Owner.JuridicalPersonFullName)
-                        : string.Empty,
+                        : String.Empty,
                     _element.Value.HasError);
             }
 
@@ -846,11 +849,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             }
             else
             {
-                View.CurrentOwner = string.Empty;
-                View.CurrentStreet = string.Empty;
-                View.CurrentHouse = string.Empty;
-                View.CurrentApartment = string.Empty;
-                View.CurrentSquare = string.Empty;
+                View.CurrentOwner = String.Empty;
+                View.CurrentStreet = String.Empty;
+                View.CurrentHouse = String.Empty;
+                View.CurrentApartment = String.Empty;
+                View.CurrentSquare = String.Empty;
             }
         }
 
@@ -862,11 +865,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         {
             CurrentPayment = Payments[pos];
 
-            View.CurrentBarcode = string.Empty;
+            View.CurrentBarcode = String.Empty;
             View.CurrentAccount = CurrentPayment.Account;
             View.CurrentPeriod = CurrentPayment.Period;
             View.CurrentValue = CurrentPayment.Value;
-            View.CurrentIntermediary = View.Intermediary != null ? View.Intermediary.Name : string.Empty;
+            View.CurrentIntermediary = View.Intermediary != null ? View.Intermediary.Name : String.Empty;
 
             View.CurrentItemMessage = CurrentPayment.ErrorMessage;
             View.CurrentItemHasError = CurrentPayment.HasError;
@@ -901,10 +904,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
 
             View.ProcessingData.Rows.Add(
                 _key,
-                string.Empty,
-                string.Empty,
+                String.Empty,
+                String.Empty,
                 0,
-                string.Empty,
+                String.Empty,
                 false);
         }
 
