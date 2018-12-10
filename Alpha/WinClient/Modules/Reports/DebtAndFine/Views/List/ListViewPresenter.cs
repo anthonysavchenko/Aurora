@@ -520,7 +520,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                     _days300 = 0;
                 }
 
-                _days130 = (now - _payLimitDate.AddDays(DAYS_300)).Days;
+                _days130 = (now - _payLimitDate.AddDays(FREE_DAYS + DAYS_300)).Days;
                 if(_days130 < 0)
                 {
                     _days130 = 0;
