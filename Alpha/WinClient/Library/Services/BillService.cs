@@ -20,7 +20,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         {
             StringBuilder _builder = new StringBuilder();
 
-            _builder.AppendLine("Председатель ТСЖ Садардинов И.В.");
+            _builder.AppendLine("Председатель ТСЖ Тихонов И.А.");
 
             if (bankDetail != null)
             {
