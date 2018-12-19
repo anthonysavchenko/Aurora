@@ -1711,311 +1711,314 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                     .OrderBy(p => p.ChargeRule)
                                     .ToList();
 
-                            Dictionary<int, Services> _services = 
-                                _db.Services
-                                    .Include(s => s.ServiceTypes)
-                                    .ToDictionary(s => s.ID, s => s);
-
-                            Dictionary<int, Contractors> _contractors = _db.Contractors
-                                    .ToDictionary(
-                                        contractor => contractor.ID,
-                                        contractor => contractor);
-
-                            if (!_buildingAreaDict.ContainsKey(_customer.BuildingID))
+                            if (_customerPoses.Count > 0)
                             {
-                                _buildingAreaDict.Add(
-                                    _customer.BuildingID,
-                                    _db.Customers
-                                        .Where(c =>
-                                            c.Buildings.ID == _customer.BuildingID &&
-                                            c.CustomerPoses.Any(p => p.Till >= _period))
-                                        .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea);
+                                Dictionary<int, Services> _services =
+                                    _db.Services
+                                        .Include(s => s.ServiceTypes)
+                                        .ToDictionary(s => s.ID, s => s);
 
-                            }
-                            decimal _buildingArea = _buildingAreaDict[_customer.BuildingID];
+                                Dictionary<int, Contractors> _contractors = _db.Contractors
+                                        .ToDictionary(
+                                            contractor => contractor.ID,
+                                            contractor => contractor);
 
-                            if (!_buildingHeatedAreaDict.ContainsKey(_customer.BuildingID))
-                            {
-                                _buildingHeatedAreaDict.Add(
-                                    _customer.BuildingID,
-                                    _db.Customers
-                                        .Where(c =>
-                                            c.Buildings.ID == _customer.BuildingID &&
-                                            c.CustomerPoses.Any(p => p.Till >= _period))
-                                        .Sum(c => c.HeatedArea));
-                            }
-                            decimal _buildingHeatedArea = _buildingHeatedAreaDict[_customer.BuildingID];
-
-                            RechargeOpers _rechargeOper =
-                                new RechargeOpers
+                                if (!_buildingAreaDict.ContainsKey(_customer.BuildingID))
                                 {
-                                    RechargeSets = _rechargeSet,
-                                    CreationDateTime = _currentDate,
-                                    Customers = _dbCustomer,
-                                    ChargeOpers = _chargeOper
-                                };
-                            _db.AddToRechargeOpers(_rechargeOper);
+                                    _buildingAreaDict.Add(
+                                        _customer.BuildingID,
+                                        _db.Customers
+                                            .Where(c =>
+                                                c.Buildings.ID == _customer.BuildingID &&
+                                                c.CustomerPoses.Any(p => p.Till >= _period))
+                                            .Sum(c => c.Square) + _customer.BuildingNonResidentialPlaceArea);
 
-                            if (_chargeCorrectionOper != null)
-                            {
-                                _chargeCorrectionOper.ChildRechargeOpers = _rechargeOper;
-                            }
+                                }
+                                decimal _buildingArea = _buildingAreaDict[_customer.BuildingID];
 
-                            RebenefitOpers _rebenefitOper = null;
-
-                            decimal _benefitNormalSquare,
-                                    _benefitSquare,
-                                    _extraSquare;
-
-                            CalculateBenefitSquare(
-                                _customer.ResidentsCount,
-                                _customer.FederalBenefitResidentsCount,
-                                _customer.Square,
-                                out _benefitNormalSquare,
-                                out _benefitSquare,
-                                out _extraSquare);
-
-                            DateTime _previousPeriod = _period.AddMonths(-1);
-
-                            Dictionary<int, CounterInfo> _privateCounters = GetPrivateCounterInfo(_customerID, _period, _db);
-
-                            var _commonCountersByService =
-                                _db.CommonCounters
-                                    .Where(c => c.Buildings.ID == _customer.BuildingID)
-                                    .Select(c =>
-                                        new
-                                        {
-                                            c.Number,
-                                            ServiceID = c.Services.ID,
-                                            PrevValue = c.CommonCounterValues.FirstOrDefault(v => v.Period == _previousPeriod),
-                                            CurValue = c.CommonCounterValues.FirstOrDefault(v => v.Period == _period),
-                                        })
-                                    .GroupBy(c => c.ServiceID)
-                                    .ToDictionary(g => g.Key, g => g.First());
-
-                            foreach (var _customerPos in _customerPoses)
-                            {
-                                decimal _federalBenefit = 0;
-                                decimal _localBenefit = 0;
-
-                                //Перенести правило начисления по услуге в тип услуги
-                                decimal _value = 0;
-
-                                switch ((Service.ChargeRuleType)_customerPos.ChargeRule)
+                                if (!_buildingHeatedAreaDict.ContainsKey(_customer.BuildingID))
                                 {
-                                    case Service.ChargeRuleType.SquareRate:
-                                        _value = _customerPos.Rate * _customer.Square;
-                                        CountBenefits(
-                                            _services[_customerPos.ServiceID].ServiceTypes.ID,
-                                            _customerPos.Rate,
-                                            _benefitSquare,
-                                            _extraSquare,
-                                            _customer.LocalBenefitCoefficient,
-                                            out _federalBenefit,
-                                            out _localBenefit);
-                                        break;
+                                    _buildingHeatedAreaDict.Add(
+                                        _customer.BuildingID,
+                                        _db.Customers
+                                            .Where(c =>
+                                                c.Buildings.ID == _customer.BuildingID &&
+                                                c.CustomerPoses.Any(p => p.Till >= _period))
+                                            .Sum(c => c.HeatedArea));
+                                }
+                                decimal _buildingHeatedArea = _buildingHeatedAreaDict[_customer.BuildingID];
 
-                                    case Service.ChargeRuleType.ResidentsRate:
-                                        _value = _customerPos.Rate * _customer.ResidentsCount;
-                                        break;
+                                RechargeOpers _rechargeOper =
+                                    new RechargeOpers
+                                    {
+                                        RechargeSets = _rechargeSet,
+                                        CreationDateTime = _currentDate,
+                                        Customers = _dbCustomer,
+                                        ChargeOpers = _chargeOper
+                                    };
+                                _db.AddToRechargeOpers(_rechargeOper);
 
-                                    case Service.ChargeRuleType.CounterRate:
-                                        if (_customerPos.PrivateCounterID.HasValue)
-                                        {
-                                            CounterInfo _ci = _privateCounters[_customerPos.PrivateCounterID.Value];
-                                            _value = (_ci.CurrentValue - _ci.PreviousValue) * _customerPos.Rate;
-                                        }
-                                        break;
+                                if (_chargeCorrectionOper != null)
+                                {
+                                    _chargeCorrectionOper.ChildRechargeOpers = _rechargeOper;
+                                }
 
-                                    case Service.ChargeRuleType.CommonCounterByAreaRate:
-                                        if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
-                                        {
-                                            var _counter = _commonCountersByService[_customerPos.ServiceID];
-                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
+                                RebenefitOpers _rebenefitOper = null;
 
-                                            if (_consumption > 0)
+                                decimal _benefitNormalSquare,
+                                        _benefitSquare,
+                                        _extraSquare;
+
+                                CalculateBenefitSquare(
+                                    _customer.ResidentsCount,
+                                    _customer.FederalBenefitResidentsCount,
+                                    _customer.Square,
+                                    out _benefitNormalSquare,
+                                    out _benefitSquare,
+                                    out _extraSquare);
+
+                                DateTime _previousPeriod = _period.AddMonths(-1);
+
+                                Dictionary<int, CounterInfo> _privateCounters = GetPrivateCounterInfo(_customerID, _period, _db);
+
+                                var _commonCountersByService =
+                                    _db.CommonCounters
+                                        .Where(c => c.Buildings.ID == _customer.BuildingID)
+                                        .Select(c =>
+                                            new
                                             {
-                                                decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingArea, 2, MidpointRounding.AwayFromZero);
-                                                _value = _rate * _customer.Square;
+                                                c.Number,
+                                                ServiceID = c.Services.ID,
+                                                PrevValue = c.CommonCounterValues.FirstOrDefault(v => v.Period == _previousPeriod),
+                                                CurValue = c.CommonCounterValues.FirstOrDefault(v => v.Period == _period),
+                                            })
+                                        .GroupBy(c => c.ServiceID)
+                                        .ToDictionary(g => g.Key, g => g.First());
+
+                                foreach (var _customerPos in _customerPoses)
+                                {
+                                    decimal _federalBenefit = 0;
+                                    decimal _localBenefit = 0;
+
+                                    //Перенести правило начисления по услуге в тип услуги
+                                    decimal _value = 0;
+
+                                    switch ((Service.ChargeRuleType)_customerPos.ChargeRule)
+                                    {
+                                        case Service.ChargeRuleType.SquareRate:
+                                            _value = _customerPos.Rate * _customer.Square;
+                                            CountBenefits(
+                                                _services[_customerPos.ServiceID].ServiceTypes.ID,
+                                                _customerPos.Rate,
+                                                _benefitSquare,
+                                                _extraSquare,
+                                                _customer.LocalBenefitCoefficient,
+                                                out _federalBenefit,
+                                                out _localBenefit);
+                                            break;
+
+                                        case Service.ChargeRuleType.ResidentsRate:
+                                            _value = _customerPos.Rate * _customer.ResidentsCount;
+                                            break;
+
+                                        case Service.ChargeRuleType.CounterRate:
+                                            if (_customerPos.PrivateCounterID.HasValue)
+                                            {
+                                                CounterInfo _ci = _privateCounters[_customerPos.PrivateCounterID.Value];
+                                                _value = (_ci.CurrentValue - _ci.PreviousValue) * _customerPos.Rate;
                                             }
-                                        }
-                                        break;
+                                            break;
 
-                                    case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
-                                        if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
-                                        {
-                                            var _counter = _commonCountersByService[_customerPos.ServiceID];
-                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
-
-                                            if (_consumption > 0)
+                                        case Service.ChargeRuleType.CommonCounterByAreaRate:
+                                            if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
                                             {
-                                                decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingHeatedArea, 2, MidpointRounding.AwayFromZero);
-                                                _value = _rate * _customer.HeatedArea;
+                                                var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
+
+                                                if (_consumption > 0)
+                                                {
+                                                    decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingArea, 2, MidpointRounding.AwayFromZero);
+                                                    _value = _rate * _customer.Square;
+                                                }
                                             }
-                                        }
-                                        break;
+                                            break;
 
-                                    case Service.ChargeRuleType.PublicPlaceAreaRate:
-                                        {
-                                            PublicPlaces _pp = _db.PublicPlaces
-                                                .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
-
-                                            decimal? _norm = _services[_customerPos.ServiceID].Norm;
-
-                                            if (_pp != null && _norm.HasValue && _buildingArea > 0)
+                                        case Service.ChargeRuleType.CommonCounterByHeatedAreaRate:
+                                            if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
                                             {
-                                                decimal _rate = Math.Round(_norm.Value * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
+
+                                                if (_consumption > 0)
+                                                {
+                                                    decimal _rate = Math.Round(_consumption * _customerPos.Rate / _buildingHeatedArea, 2, MidpointRounding.AwayFromZero);
+                                                    _value = _rate * _customer.HeatedArea;
+                                                }
+                                            }
+                                            break;
+
+                                        case Service.ChargeRuleType.PublicPlaceAreaRate:
+                                            {
+                                                PublicPlaces _pp = _db.PublicPlaces
+                                                    .FirstOrDefault(pp => pp.ServiceID == _customerPos.ServiceID && pp.BuildingID == _customer.BuildingID);
+
+                                                decimal? _norm = _services[_customerPos.ServiceID].Norm;
+
+                                                if (_pp != null && _norm.HasValue && _buildingArea > 0)
+                                                {
+                                                    decimal _rate = Math.Round(_norm.Value * _pp.Area / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
+                                                    _value = _customer.Square * _rate;
+                                                    // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
+                                                    _customerPos.Rate = _rate;
+                                                }
+                                            }
+                                            break;
+
+                                        case Service.ChargeRuleType.PublicPlaceVolumeAreaRate:
+                                            {
+                                                decimal _volume = _db.PublicPlaceServiceVolumes
+                                                    .Where(x => x.BuildingID == _customer.BuildingID && x.ServiceID == _customerPos.ServiceID && x.Period == _period)
+                                                    .Select(x => x.Volume)
+                                                    .FirstOrDefault();
+
+                                                decimal _rate =
+                                                    Math.Round(_volume / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
                                                 _value = _customer.Square * _rate;
-                                                // Заменяем тариф для внесения в квитанцию и вычисления комиссии за банковские услуги
                                                 _customerPos.Rate = _rate;
                                             }
-                                        }
-                                        break;
+                                            break;
 
-                                    case Service.ChargeRuleType.PublicPlaceVolumeAreaRate:
-                                        {
-                                            decimal _volume = _db.PublicPlaceServiceVolumes
-                                                .Where(x => x.BuildingID == _customer.BuildingID && x.ServiceID == _customerPos.ServiceID && x.Period == _period)
-                                                .Select(x => x.Volume)
-                                                .FirstOrDefault();
-
-                                            decimal _rate =
-                                                Math.Round(_volume / _buildingArea * _customerPos.Rate, 2, MidpointRounding.AwayFromZero);
-                                            _value = _customer.Square * _rate;
-                                            _customerPos.Rate = _rate;
-                                        }
-                                        break;
-
-                                    case Service.ChargeRuleType.PublicPlaceBankCommission:
-                                        {
-                                            decimal _publicPlaceAreaRateSum = _customerPoses
-                                                .Where(p => p.ChargeRule == (byte)Service.ChargeRuleType.PublicPlaceAreaRate)
-                                                .Sum(p => p.Rate);
-                                            decimal _rate = Math.Round(_publicPlaceAreaRateSum * _customerPos.Rate / 100, 2, MidpointRounding.AwayFromZero);
-                                            _value = _rate * _customer.Square;
-                                            // Заменяем тариф для внесения в квитанцию 
-                                            _customerPos.Rate = _rate;
-                                        }
-                                        break;
-                                    case Service.ChargeRuleType.CommonCounterByAssignedCustomerAreaRate:
-                                        decimal _serviceArea;
-
-                                        if (!_areaByServiceAndBuilding.ContainsKey(_customerPos.ServiceID))
-                                        {
-                                            _areaByServiceAndBuilding.Add(_customerPos.ServiceID, new Dictionary<int, decimal>());
-                                        }
-
-                                        if (!_areaByServiceAndBuilding[_customerPos.ServiceID].ContainsKey(_customer.BuildingID))
-                                        {
-                                            _areaByServiceAndBuilding[_customerPos.ServiceID].Add(
-                                                _customer.BuildingID,
-                                                _db.CustomerPoses
-                                                    .Where(p =>
-                                                        p.Customers.Buildings.ID == _customer.BuildingID &&
-                                                        p.Services.ID == _customerPos.ServiceID)
-                                                    .GroupBy(p => new { p.Customers.ID, p.Customers.Square })
-                                                    .Select(p => p.Key.Square)
-                                                    .Sum());
-                                        }
-
-                                        _serviceArea = _areaByServiceAndBuilding[_customerPos.ServiceID][_customer.BuildingID];
-
-                                        if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
-                                        {
-                                            var _counter = _commonCountersByService[_customerPos.ServiceID];
-                                            decimal _prevValue = _counter.PrevValue?.Value ?? 0;
-                                            decimal _consumption = _counter.CurValue.Value - _prevValue;
-
-                                            if (_consumption > 0)
+                                        case Service.ChargeRuleType.PublicPlaceBankCommission:
                                             {
-                                                decimal _rate = Math.Round(_consumption * _customerPos.Rate / _serviceArea, 2, MidpointRounding.AwayFromZero);
+                                                decimal _publicPlaceAreaRateSum = _customerPoses
+                                                    .Where(p => p.ChargeRule == (byte)Service.ChargeRuleType.PublicPlaceAreaRate)
+                                                    .Sum(p => p.Rate);
+                                                decimal _rate = Math.Round(_publicPlaceAreaRateSum * _customerPos.Rate / 100, 2, MidpointRounding.AwayFromZero);
                                                 _value = _rate * _customer.Square;
+                                                // Заменяем тариф для внесения в квитанцию 
+                                                _customerPos.Rate = _rate;
                                             }
+                                            break;
+                                        case Service.ChargeRuleType.CommonCounterByAssignedCustomerAreaRate:
+                                            decimal _serviceArea;
+
+                                            if (!_areaByServiceAndBuilding.ContainsKey(_customerPos.ServiceID))
+                                            {
+                                                _areaByServiceAndBuilding.Add(_customerPos.ServiceID, new Dictionary<int, decimal>());
+                                            }
+
+                                            if (!_areaByServiceAndBuilding[_customerPos.ServiceID].ContainsKey(_customer.BuildingID))
+                                            {
+                                                _areaByServiceAndBuilding[_customerPos.ServiceID].Add(
+                                                    _customer.BuildingID,
+                                                    _db.CustomerPoses
+                                                        .Where(p =>
+                                                            p.Customers.Buildings.ID == _customer.BuildingID &&
+                                                            p.Services.ID == _customerPos.ServiceID)
+                                                        .GroupBy(p => new { p.Customers.ID, p.Customers.Square })
+                                                        .Select(p => p.Key.Square)
+                                                        .Sum());
+                                            }
+
+                                            _serviceArea = _areaByServiceAndBuilding[_customerPos.ServiceID][_customer.BuildingID];
+
+                                            if (_commonCountersByService.ContainsKey(_customerPos.ServiceID))
+                                            {
+                                                var _counter = _commonCountersByService[_customerPos.ServiceID];
+                                                decimal _prevValue = _counter.PrevValue?.Value ?? 0;
+                                                decimal _consumption = _counter.CurValue.Value - _prevValue;
+
+                                                if (_consumption > 0)
+                                                {
+                                                    decimal _rate = Math.Round(_consumption * _customerPos.Rate / _serviceArea, 2, MidpointRounding.AwayFromZero);
+                                                    _value = _rate * _customer.Square;
+                                                }
+                                            }
+                                            break;
+                                        case Service.ChargeRuleType.FixedRate:
+                                        default:
+                                            _value = _customerPos.Rate;
+                                            break;
+                                    }
+
+                                    if (_value > 0)
+                                    {
+                                        bool _isPercentCorrection = _chargeType == ChargeType.PercentCorrection && _customerPos.ServiceID == View.CorrectingServiceID.Value;
+                                        if (_isPercentCorrection || _rechargePercentCorrDict.ContainsKey(_customerPos.ID))
+                                        {
+                                            _value -= CalculatePercentCorrection(
+                                                _value,
+                                                _period,
+                                                _customerPos.ID,
+                                                _isPercentCorrection ? _rechageInfoByCustomer[_customer.ID] : null,
+                                                _rechargePercentCorrDict,
+                                                _db);
                                         }
-                                        break;
-                                    case Service.ChargeRuleType.FixedRate:
-                                    default:
-                                        _value = _customerPos.Rate;
-                                        break;
-                                }
 
-                                if (_value > 0)
-                                {
-                                    bool _isPercentCorrection = _chargeType == ChargeType.PercentCorrection && _customerPos.ServiceID == View.CorrectingServiceID.Value;
-                                    if (_isPercentCorrection || _rechargePercentCorrDict.ContainsKey(_customerPos.ID))
-                                    {
-                                        _value -= CalculatePercentCorrection(
-                                            _value, 
-                                            _period,
-                                            _customerPos.ID,
-                                            _isPercentCorrection ? _rechageInfoByCustomer[_customer.ID] : null,
-                                            _rechargePercentCorrDict,
-                                            _db);
-                                    }
+                                        RechargeOperPoses _rechargeOperPos = new RechargeOperPoses()
+                                        {
+                                            RechargeOpers = _rechargeOper,
+                                            Services = _services[_customerPos.ServiceID],
+                                            Contractors = _contractors[_customerPos.ContractorID],
+                                            Value = Math.Round(_value, 2, MidpointRounding.AwayFromZero)
+                                        };
+                                        _db.AddToRechargeOperPoses(_rechargeOperPos);
+                                        _rechargeOper.Value += _rechargeOperPos.Value;
 
-                                    RechargeOperPoses _rechargeOperPos = new RechargeOperPoses()
-                                    {
-                                        RechargeOpers = _rechargeOper,
-                                        Services = _services[_customerPos.ServiceID],
-                                        Contractors = _contractors[_customerPos.ContractorID],
-                                        Value = Math.Round(_value, 2, MidpointRounding.AwayFromZero)
-                                    };
-                                    _db.AddToRechargeOperPoses(_rechargeOperPos);
-                                    _rechargeOper.Value += _rechargeOperPos.Value;
+                                        if ((_federalBenefit < 0 || _localBenefit < 0) && _rebenefitOper == null)
+                                        {
+                                            _rebenefitOper =
+                                                new RebenefitOpers
+                                                {
+                                                    RechargeOpers = _rechargeOper
+                                                };
+                                            _db.AddToRebenefitOpers(_rebenefitOper);
+                                        }
 
-                                    if ((_federalBenefit < 0 || _localBenefit < 0) && _rebenefitOper == null)
-                                    {
-                                        _rebenefitOper =
-                                            new RebenefitOpers
-                                            {
-                                                RechargeOpers = _rechargeOper
-                                            };
-                                        _db.AddToRebenefitOpers(_rebenefitOper);
-                                    }
+                                        if (_federalBenefit < 0)
+                                        {
+                                            RebenefitOperPoses _rebenefitOperPos =
+                                                new RebenefitOperPoses
+                                                {
+                                                    RebenefitOpers = _rebenefitOper,
+                                                    Services = _services[_customerPos.ServiceID],
+                                                    BenefitRule = (byte)BenefitType.BenefitRuleType.FiftyPercentBySquare,
+                                                    Contractors = _contractors[_customerPos.ContractorID],
+                                                    Value = _federalBenefit
+                                                };
+                                            _db.AddToRebenefitOperPoses(_rebenefitOperPos);
+                                            _rebenefitOper.Value += _rebenefitOperPos.Value;
+                                        }
 
-                                    if (_federalBenefit < 0)
-                                    {
-                                        RebenefitOperPoses _rebenefitOperPos =
-                                            new RebenefitOperPoses
-                                            {
-                                                RebenefitOpers = _rebenefitOper,
-                                                Services = _services[_customerPos.ServiceID],
-                                                BenefitRule = (byte)BenefitType.BenefitRuleType.FiftyPercentBySquare,
-                                                Contractors = _contractors[_customerPos.ContractorID],
-                                                Value = _federalBenefit
-                                            };
-                                        _db.AddToRebenefitOperPoses(_rebenefitOperPos);
-                                        _rebenefitOper.Value += _rebenefitOperPos.Value;
-                                    }
-
-                                    if (_localBenefit < 0)
-                                    {
-                                        RebenefitOperPoses _rebenefitOperPos =
-                                            new RebenefitOperPoses()
-                                            {
-                                                RebenefitOpers = _rebenefitOper,
-                                                Services = _services[_customerPos.ServiceID],
-                                                BenefitRule = (byte)BenefitType.BenefitRuleType.FixedPercent,
-                                                Contractors = _contractors[_customerPos.ContractorID],
-                                                Value = _localBenefit
-                                            };
-                                        _db.AddToRebenefitOperPoses(_rebenefitOperPos);
-                                        _rebenefitOper.Value += _rebenefitOperPos.Value;
+                                        if (_localBenefit < 0)
+                                        {
+                                            RebenefitOperPoses _rebenefitOperPos =
+                                                new RebenefitOperPoses()
+                                                {
+                                                    RebenefitOpers = _rebenefitOper,
+                                                    Services = _services[_customerPos.ServiceID],
+                                                    BenefitRule = (byte)BenefitType.BenefitRuleType.FixedPercent,
+                                                    Contractors = _contractors[_customerPos.ContractorID],
+                                                    Value = _localBenefit
+                                                };
+                                            _db.AddToRebenefitOperPoses(_rebenefitOperPos);
+                                            _rebenefitOper.Value += _rebenefitOperPos.Value;
+                                        }
                                     }
                                 }
+
+                                _rechargeSet.Quantity++;
+                                _rechargeSet.ValueSum += _rechargeOper.Value;
+
+                                #endregion
+
+                                _db.SaveChanges();
+
+                                _resultValue = _rechargeSet.ValueSum;
+                                _resultCount = _rechargeSet.Quantity;
                             }
-
-                            _rechargeSet.Quantity++;
-                            _rechargeSet.ValueSum += _rechargeOper.Value;
-
-                            #endregion
-
-                            _db.SaveChanges();
-
-                            _resultValue = _rechargeSet.ValueSum;
-                            _resultCount = _rechargeSet.Quantity;
                         }
                         catch (Exception _ex)
                         {
