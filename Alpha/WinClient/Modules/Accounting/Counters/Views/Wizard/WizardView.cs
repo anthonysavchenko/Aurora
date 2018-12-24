@@ -1,10 +1,12 @@
-﻿using DevExpress.XtraWizard;
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
 using System.Data;
-using System.Linq;
 using System.Windows.Forms;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 
 //using BaseView = System.Windows.Forms.UserControl;
@@ -39,15 +41,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             set => counterValueGridControl.Invoke(new MethodInvoker(() => counterValueGridControl.DataSource = value));
         }
 
-        public DataTable Counters
+        public void ShowEditor()
         {
-            get => (DataTable)counterLookUpEdit.Properties.DataSource;
-            set
-            {
-                counterLookUpEdit.Properties.DataSource = value;
-                counterLookUpEdit.Properties.ForceInitialize();
-            }
+            counterValueGridView.Focus();
+            counterValueGridView.FocusedRowHandle = 0;
+            counterValueGridView.FocusedColumn = counterValueGridView.Columns["Value"];
+            counterValueGridView.ShowEditor();
         }
+
+        public decimal CounterValue { set => counterValueGridView.SetFocusedRowCellValue(WizardTableColumnNames.VALUE, value); }
+        public DateTime CollectDateTime { set => counterValueGridView.SetFocusedRowCellValue(WizardTableColumnNames.COLLECT_DATE, value); }
 
         /// <summary>
         /// Сбрасывает текущее состояние процесса обработки
@@ -71,141 +74,58 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
         #endregion
 
-        #region CollectDataPage
+        #region BuildingSelectPage
 
-        /// <summary>
-        /// Устанавливает фокус на поле с номером счета
-        /// </summary>
-        public void SetAccountFocus()
+        public DataTable Streets { set => streetLookUpEdit.Properties.DataSource = value; }
+
+        public DataTable Buildings { set => buildingLookUpEdit.Properties.DataSource = value; }
+
+        public string StreetId
         {
-            accountTextEdit.Focus();
+            get => (string)streetLookUpEdit.EditValue;
+            set => streetLookUpEdit.EditValue = value;
         }
 
-        /// <summary>
-        /// Лицевой счет в выбранной позиции
-        /// </summary>
-        public string Account
+        public string BuildingId
         {
-            get => accountTextEdit.Text;
-            set => accountTextEdit.Text = value;
+            get => (string)buildingLookUpEdit.EditValue;
+            set => buildingLookUpEdit.EditValue = value;
         }
 
-        /// <summary>
-        /// ФИО собственника
-        /// </summary>
-        public string CustomerName { set => ownerValueLabel.Text = value; }
-
-        /// <summary>
-        /// Улица в выбранной позиции
-        /// </summary>
-        public string Street { set => streetValueLabel.Text = value; }
-
-        /// <summary>
-        /// Дом в выбранной позиции
-        /// </summary>
-        public string Building { set => houseValueLabel.Text = value; }
-
-        /// <summary>
-        /// Квартира в выбранной позиции
-        /// </summary>
-        public string Apartment { set => apartmentValueLabel.Text = value; }
-
-        /// <summary>
-        /// Площадь в выбранной позиции
-        /// </summary>
-        public string Area { set => squareValuelabel.Text = value; }
-
-        /// <summary>
-        /// ID прибора учета
-        /// </summary>
-        public int CounterId
+        public DateTime Period
         {
             get
             {
-                return counterLookUpEdit.ItemIndex != -1
-                    ? (int)counterLookUpEdit.GetColumnValue("ID")
-                    : -1;
+                DateTime _temp = DateTime.MinValue;
+                periodDateEdit.Invoke(new MethodInvoker(() => _temp = periodDateEdit.DateTime));
+                return new DateTime(_temp.Year, _temp.Month, 1);
             }
             set
             {
-                if (value > 0)
-                {
-                    ((System.ComponentModel.ISupportInitialize)(counterLookUpEdit.Properties)).BeginInit();
-                    counterLookUpEdit.Properties.ValueMember = "ID";
-                    counterLookUpEdit.EditValue = value;
-                    ((System.ComponentModel.ISupportInitialize)(counterLookUpEdit.Properties)).EndInit();
-                }
-                else
-                {
-                    counterLookUpEdit.EditValue = null;
-                }
+                periodDateEdit.DateTime = value;
             }
         }
 
-        private string CounterNumber => counterLookUpEdit.ItemIndex != -1
-            ? counterLookUpEdit.GetColumnValue("Number").ToString()
-            : string.Empty;
+        #region Обработчики событий
 
-        public string CounterModel
+        private void filterLookUpEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
-            set => counterModelLabel.Text = value;
-        }
-
-        public decimal PrevCounterValue { set => prevValueLabel.Text = value.ToString("0.000"); }
-
-        /// <summary>
-        /// Сумма платежа в выбранной позиции
-        /// </summary>
-        public decimal CounterValue
-        {
-            get
+            if (e.Button.Kind == ButtonPredefines.Delete)
             {
-                decimal _res = 0;
-                if (!string.IsNullOrEmpty(valueTextEdit.Text))
-                {
-                    decimal.TryParse(valueTextEdit.Text.Replace(".", ","), out _res);
-                }
-                return _res;
+                ((LookUpEdit)sender).EditValue = null;
             }
-            set => valueTextEdit.Text = value.ToString();
         }
 
-        /// <summary>
-        /// Период  в выбранной позиции
-        /// </summary>
-        public DateTime CollectDate
+        private void streetLookUpEdit_EditValueChanged(object sender, EventArgs e)
         {
-            get => collectDateEdit.DateTime.Date;
-            set => collectDateEdit.EditValue = value;
-        }
-
-        /// <summary>
-        /// Сообщение о корректности данных в выбранной позиции
-        /// </summary>
-        public string CurrentItemMessage
-        {
-            get => errorMessageTextBox.Text.Trim();
-            set => errorMessageTextBox.Text = value;
-        }
-
-        /// <summary>
-        /// Признак наличия ошибок в выбранной позиции
-        /// </summary>
-        public bool CurrentItemHasError
-        {
-            set
+            if (streetLookUpEdit.ItemIndex != -1)
             {
-                if (value)
-                {
-                    errorMessageTextBox.BackColor = System.Drawing.Color.FromArgb(255, 192, 192);
-                }
-                else
-                {
-                    errorMessageTextBox.BackColor = System.Drawing.Color.FromArgb(192, 255, 192);
-                }
+                Presenter.FillBuildingList();
             }
         }
 
+        #endregion
+        
         #endregion
 
         #region FinishPage
@@ -250,6 +170,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
             switch (page)
             {
+                case WizardSteps.BuildingSelectPage:
+                    _wizPage = buildingSelectWizardPage;
+                    break;
                 case WizardSteps.ProcessingPage:
                     _wizPage = processingWizardPage;
                     break;
@@ -293,8 +216,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// </summary>
         private void PaymentWizardControl_SelectedPageChanging(object sender, WizardPageChangingEventArgs e)
         {
-            switch (Presenter.OnSelectedPageChanging(e.PrevPage, e.Page, e.Direction))
+            switch (Presenter.OnSelectedPageChanging(ConverWizardStep(e.PrevPage.Name), ConverWizardStep(e.Page.Name), e.Direction))
             {
+                case WizardSteps.BuildingSelectPage:
+                    e.Page = buildingSelectWizardPage;
+                    break;
                 case WizardSteps.CollectDataPage:
                     e.Page = collectDataWizardPage;
                     break;
@@ -313,71 +239,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// <summary>
         /// Обрабатывает событие перехода на новую страницу
         /// </summary>
-        private void PaymentWizardControl_SelectedPageChanged(object sender, DevExpress.XtraWizard.WizardPageChangedEventArgs e)
+        private void PaymentWizardControl_SelectedPageChanged(object sender, WizardPageChangedEventArgs e)
         {
-            Presenter.OnSelectedPageChanged(e.Page, e.PrevPage, e.Direction);
-        }
-
-        /// <summary>
-        /// Обрабатывает событие выбора строки в таблице с обработанными данными
-        /// </summary>
-        private void PaymentsGridView_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
-        {
-            if (e.FocusedRowHandle >= 0)
-            {
-                Presenter.OnProcesingDataRowChanged(Convert.ToInt32(counterValueGridView.GetDataRow(e.FocusedRowHandle)["ID"]));
-                ValidateCurrentItem();
-            }
-        }
-
-        /// <summary>
-        /// Обрабатывает покидание любого контрола ввода
-        /// </summary>
-        private void AnyControl_Leave(object sender, EventArgs e)
-        {
-            ValidateCurrentItem();
-        }
-
-        /// <summary>
-        /// Обрабатывает нажатие кнопки Enter в любом конроле
-        /// </summary>
-        private void AnyControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                // Приходится перебирать контролы, т.к. мастер по умолчанию забирает на себя приоритет
-                switch (((Control)sender).Name)
-                {
-                    case "accountTextEdit":
-                        Presenter.SetCustomer(Account);
-                        counterValueGridView.FocusedRowHandle = counterValueGridView.RowCount - 1;
-                        counterValueGridView.ClearSelection();
-                        counterValueGridView.SelectRow(counterValueGridView.RowCount - 1);
-                        counterLookUpEdit.Focus();
-                        break;
-                    case "counterLookUpEdit":
-                        collectDateEdit.Focus();
-                        break;
-                    case "collectDateEdit":
-                        valueTextEdit.Focus();
-                        break;
-                    case "valueTextEdit":
-                        addNewButton.Focus();
-                        break;
-                }
-            }
-            base.OnKeyDown(e);
-        }
-
-        /// <summary>
-        /// Обрабатывает получение фокуса текстовым полем с суммой платежа
-        /// </summary>
-        private void ValueTextEdit_Enter(object sender, EventArgs e)
-        {
-            if (CounterValue == 0)
-            {
-                CounterValue = Presenter.GetSuggestedValue();
-            }
+            Presenter.OnSelectedPageChanged(
+                ConverWizardStep(e.PrevPage?.Name ?? string.Empty), ConverWizardStep(e.Page?.Name ?? string.Empty), e.Direction);
         }
 
         /// <summary>
@@ -385,91 +250,66 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// </summary>
         private void PaymentsGridView_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            if ((bool)counterValueGridView.GetRowCellValue(e.RowHandle, "HasError") == true)
+            DataRow _row = counterValueGridView.GetDataRow(e.RowHandle);
+            if (!string.IsNullOrEmpty(_row[WizardTableColumnNames.ERROR_MESSAGE].ToString()))
             {
                 e.Appearance.BackColor = System.Drawing.Color.FromArgb(255, 192, 192);
             }
         }
 
-        /// <summary>
-        /// Обработка создания новой записи
-        /// </summary>
-        private void AddNewButton_Click(object sender, EventArgs e)
-        {
-            if (Counters.Rows.Count > 1 && counterLookUpEdit.ItemIndex < Counters.Rows.Count - 1)
-            {
-                int _selectedCounterIndex = counterLookUpEdit.ItemIndex;
-                Presenter.DublicateItem();
-                counterValueGridView.FocusedRowHandle = counterValueGridView.RowCount - 1;
-                counterValueGridView.ClearSelection();
-                counterValueGridView.SelectRow(counterValueGridView.RowCount - 1);
+        #endregion
 
-                counterLookUpEdit.EditValue = Counters.Rows[_selectedCounterIndex + 1]["ID"];
-                counterLookUpEdit.Focus();
+        private WizardSteps ConverWizardStep(string pageName)
+        {
+            switch(pageName)
+            {
+                case "buildingSelectWizardPage":
+                    return WizardSteps.BuildingSelectPage;
+                case "collectDataWizardPage":
+                    return WizardSteps.CollectDataPage;
+                case "processingWizardPage":
+                    return WizardSteps.ProcessingPage;
+                case "finishWizardPage":
+                    return WizardSteps.FinishPage;
+                default:
+                    return WizardSteps.Unknown;
+            }
+        }
+
+        private void counterValueGridView_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            counterValueGridView.SelectAll();
+            //Presenter.SetSuggestedValue(counterValueGridView.FocusedColumn.FieldName, counterValueGridView.GetFocusedDataRow());
+        }
+
+        private void counterValueGridView_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            if (e.FocusedRowHandle >= 0)
+            {
+                DataRow _row = counterValueGridView.GetDataRow(e.FocusedRowHandle);
+                SetError(_row[WizardTableColumnNames.ERROR_MESSAGE].ToString());
+            }
+        }
+
+        private void counterValueGridView_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            DataRow _row = counterValueGridView.GetFocusedDataRow();
+            Presenter.ValidateRow(_row);
+            SetError(_row[WizardTableColumnNames.ERROR_MESSAGE].ToString());
+        }
+
+        private void SetError(string errorMessage)
+        {
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                errorMessageTextBox.BackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+                errorMessageTextBox.Text = "Данные корректны";
             }
             else
             {
-                Presenter.CreateItem();
-                accountTextEdit.Focus();
+                errorMessageTextBox.BackColor = System.Drawing.Color.FromArgb(255, 192, 192);
+                errorMessageTextBox.Text = errorMessage;
             }
-        }
-
-        /// <summary>
-        /// Обрабатывает нажатие на кнопку "Удалить"
-        /// </summary>
-        private void DeleteItemButton_Click(object sender, EventArgs e)
-        {
-            Presenter.DeleteItems(counterValueGridView.GetSelectedRows().Select(handle => Convert.ToInt32(counterValueGridView.GetDataRow(handle)["ID"])).ToList());
-            counterValueGridView.FocusedRowHandle = 0;
-            counterValueGridView.ClearSelection();
-            counterValueGridView.SelectRow(0);
-
-            accountTextEdit.Focus();
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Обработка изменения значения любого введенного поля платежа
-        /// </summary>
-        private void ValidateCurrentItem()
-        {
-            bool _hasErrors = !Presenter.ValidateCurrentItem();
-
-            int _currentRow = counterValueGridView.FocusedRowHandle;
-
-            if (_currentRow >= 0)
-            {
-                bool _valueChanged = (decimal)counterValueGridView.GetRowCellValue(_currentRow, "Value") != CounterValue;
-
-                counterValueGridView.SetRowCellValue(_currentRow, "Account", Account);
-                counterValueGridView.SetRowCellValue(_currentRow, "CollectDate", CollectDate.ToString("dd.MM.yyyy"));
-                counterValueGridView.SetRowCellValue(_currentRow, "Period", CollectDate.ToString("MM.yyyy"));
-                counterValueGridView.SetRowCellValue(_currentRow, "Counter", CounterNumber);
-                counterValueGridView.SetRowCellValue(_currentRow, "Value", CounterValue);
-                counterValueGridView.SetRowCellValue(_currentRow, "HasError", _hasErrors);
-
-                counterValueGridView.RefreshData();
-            }
-        }
-
-        /// <summary>
-        /// Заполняет номер строки
-        /// </summary>
-        private void PaymentsGridView_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
-        {
-            if (e.Column.Name == "NumberGridColumn")
-            {
-                e.DisplayText = (e.RowHandle + 1).ToString();
-            }
-        }
-
-        private void counterLookUpEdit_Properties_EditValueChanged(object sender, EventArgs e)
-        {
-            CounterModel = counterLookUpEdit.ItemIndex != -1
-                ? counterLookUpEdit.GetColumnValue("Model").ToString()
-                : string.Empty; ;
-            Presenter.SetPrevCounterValue();
         }
     }
 }

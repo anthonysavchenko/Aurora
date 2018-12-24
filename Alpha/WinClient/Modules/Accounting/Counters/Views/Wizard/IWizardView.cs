@@ -21,34 +21,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
         #endregion
 
+        #region BuildingSelectPage
+
+        DataTable Streets { set; }
+        DataTable Buildings { set; }
+        string StreetId { get; set; }
+        string BuildingId { get; set; }
+        DateTime Period { get; set; }
+
+        #endregion
+
         #region CollectDataPage
 
-        DataTable Counters { get; set; }
         DataTable Items { get; set; }
 
-        void SetAccountFocus();
+        void ShowEditor();
 
-        string Account { get; set; }
-        string CustomerName { set; }
-        string Street { set; }
-        string Building { set; }
-        string Apartment { set; }
-        string Area { set; }
-        decimal PrevCounterValue { set; }
-        decimal CounterValue { get; set; }
-        int CounterId { get; set; }
-        string CounterModel { set; }
-        DateTime CollectDate { get; set; }
-
-        /// <summary>
-        /// Сообщение о корректности данных в выбранной позиции
-        /// </summary>
-        string CurrentItemMessage { get; set; }
-
-        /// <summary>
-        /// Признак наличия ошибок в выбранной позиции
-        /// </summary>
-        bool CurrentItemHasError { set; }
+        decimal CounterValue { set; }
+        DateTime CollectDateTime { set; }
 
         #endregion
 
@@ -93,6 +83,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
     /// </summary>
     public enum WizardSteps
     {
+        BuildingSelectPage,
         CollectDataPage,
         ProcessingPage,
         FinishPage,

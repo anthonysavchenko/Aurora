@@ -33,10 +33,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
         {
             this._gridViewOfListView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.accountColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.numberColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.serviceColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.accountColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.addressColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.apartmentGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.fullNameGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             _gridControlOfListView = new DevExpress.XtraGrid.GridControl();
             ((System.ComponentModel.ISupportInitialize)(this._gridViewOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(_gridControlOfListView)).BeginInit();
@@ -47,6 +49,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             this._gridViewOfListView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.ID,
             this.accountColumn,
+            this.apartmentGridColumn,
+            this.fullNameGridColumn,
             this.numberColumn,
             this.serviceColumn,
             this.addressColumn});
@@ -70,23 +74,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             this.ID.OptionsColumn.AllowEdit = false;
             this.ID.OptionsColumn.ReadOnly = true;
             // 
-            // numberColumn
-            // 
-            this.numberColumn.Caption = "Номер";
-            this.numberColumn.FieldName = "Number";
-            this.numberColumn.Name = "numberColumn";
-            this.numberColumn.Visible = true;
-            this.numberColumn.VisibleIndex = 1;
-            // 
-            // serviceColumn
-            // 
-            this.serviceColumn.Caption = "Услуга";
-            this.serviceColumn.FieldName = "Service";
-            this.serviceColumn.Name = "serviceColumn";
-            this.serviceColumn.UnboundType = DevExpress.Data.UnboundColumnType.String;
-            this.serviceColumn.Visible = true;
-            this.serviceColumn.VisibleIndex = 2;
-            // 
             // accountColumn
             // 
             this.accountColumn.Caption = "Лицевой счет";
@@ -95,6 +82,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             this.accountColumn.Visible = true;
             this.accountColumn.VisibleIndex = 0;
             // 
+            // numberColumn
+            // 
+            this.numberColumn.Caption = "Номер";
+            this.numberColumn.FieldName = "Number";
+            this.numberColumn.Name = "numberColumn";
+            this.numberColumn.Visible = true;
+            this.numberColumn.VisibleIndex = 3;
+            // 
+            // serviceColumn
+            // 
+            this.serviceColumn.Caption = "Услуга";
+            this.serviceColumn.FieldName = "Service";
+            this.serviceColumn.Name = "serviceColumn";
+            this.serviceColumn.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.serviceColumn.Visible = true;
+            this.serviceColumn.VisibleIndex = 4;
+            // 
             // addressColumn
             // 
             this.addressColumn.Caption = "Адрес";
@@ -102,6 +106,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             this.addressColumn.Name = "addressColumn";
             this.addressColumn.Visible = true;
             this.addressColumn.VisibleIndex = 3;
+            // 
+            // apartmentGridColumn
+            // 
+            this.apartmentGridColumn.Caption = "Квартира";
+            this.apartmentGridColumn.FieldName = "Apartment";
+            this.apartmentGridColumn.Name = "apartmentGridColumn";
+            this.apartmentGridColumn.Visible = true;
+            this.apartmentGridColumn.VisibleIndex = 1;
+            // 
+            // fullNameGridColumn
+            // 
+            this.fullNameGridColumn.Caption = "ФИО";
+            this.fullNameGridColumn.FieldName = "FullName";
+            this.fullNameGridColumn.Name = "fullNameGridColumn";
+            this.fullNameGridColumn.Visible = true;
+            this.fullNameGridColumn.VisibleIndex = 2;
             // 
             // _gridControlOfListView
             // 
@@ -136,5 +156,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
         private DevExpress.XtraGrid.Columns.GridColumn serviceColumn;
         private DevExpress.XtraGrid.Columns.GridColumn addressColumn;
         private DevExpress.XtraGrid.Columns.GridColumn accountColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn apartmentGridColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn fullNameGridColumn;
     }
 }
