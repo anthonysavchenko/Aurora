@@ -36,9 +36,6 @@
             this.accountRadioButton = new System.Windows.Forms.RadioButton();
             this.addressRadioButton = new System.Windows.Forms.RadioButton();
             this.zipCodeTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.ApartmentTextBox = new System.Windows.Forms.TextBox();
-            this.HouseTextBox = new System.Windows.Forms.TextBox();
-            this.StreetTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.AccountTextBox = new System.Windows.Forms.TextBox();
             this.ToLabel = new System.Windows.Forms.Label();
@@ -49,6 +46,9 @@
             this.printCollectFormButton = new System.Windows.Forms.Button();
             this.districtLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.label4 = new System.Windows.Forms.Label();
+            this.ApartmentTextBox = new System.Windows.Forms.TextBox();
+            this.HouseTextBox = new System.Windows.Forms.TextBox();
+            this.StreetTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.districtLookUpEdit.Properties)).BeginInit();
@@ -130,30 +130,6 @@
             this.zipCodeTextBox.Size = new System.Drawing.Size(148, 20);
             this.zipCodeTextBox.TabIndex = 5;
             this.zipCodeTextBox.Enter += new System.EventHandler(this.zipCodeTextBox_Enter);
-            // 
-            // ApartmentTextBox
-            // 
-            this.ApartmentTextBox.Location = new System.Drawing.Point(416, 22);
-            this.ApartmentTextBox.Name = "ApartmentTextBox";
-            this.ApartmentTextBox.Size = new System.Drawing.Size(40, 20);
-            this.ApartmentTextBox.TabIndex = 3;
-            this.ApartmentTextBox.Enter += new System.EventHandler(this.HouseTextBox_Enter);
-            // 
-            // HouseTextBox
-            // 
-            this.HouseTextBox.Location = new System.Drawing.Point(341, 21);
-            this.HouseTextBox.Name = "HouseTextBox";
-            this.HouseTextBox.Size = new System.Drawing.Size(40, 20);
-            this.HouseTextBox.TabIndex = 2;
-            this.HouseTextBox.Enter += new System.EventHandler(this.HouseTextBox_Enter);
-            // 
-            // StreetTextBox
-            // 
-            this.StreetTextBox.Location = new System.Drawing.Point(151, 21);
-            this.StreetTextBox.Name = "StreetTextBox";
-            this.StreetTextBox.Size = new System.Drawing.Size(148, 20);
-            this.StreetTextBox.TabIndex = 1;
-            this.StreetTextBox.Enter += new System.EventHandler(this.StreetTextBox_Enter);
             // 
             // label2
             // 
@@ -255,6 +231,30 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Участок";
             // 
+            // ApartmentTextBox
+            // 
+            this.ApartmentTextBox.Location = new System.Drawing.Point(416, 21);
+            this.ApartmentTextBox.Name = "ApartmentTextBox";
+            this.ApartmentTextBox.Size = new System.Drawing.Size(40, 20);
+            this.ApartmentTextBox.TabIndex = 3;
+            this.ApartmentTextBox.Enter += new System.EventHandler(this.HouseTextBox_Enter);
+            // 
+            // HouseTextBox
+            // 
+            this.HouseTextBox.Location = new System.Drawing.Point(341, 21);
+            this.HouseTextBox.Name = "HouseTextBox";
+            this.HouseTextBox.Size = new System.Drawing.Size(40, 20);
+            this.HouseTextBox.TabIndex = 2;
+            this.HouseTextBox.Enter += new System.EventHandler(this.HouseTextBox_Enter);
+            // 
+            // StreetTextBox
+            // 
+            this.StreetTextBox.Location = new System.Drawing.Point(151, 21);
+            this.StreetTextBox.Name = "StreetTextBox";
+            this.StreetTextBox.Size = new System.Drawing.Size(148, 20);
+            this.StreetTextBox.TabIndex = 1;
+            this.StreetTextBox.Enter += new System.EventHandler(this.StreetTextBox_Enter);
+            // 
             // TopView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,14 +278,11 @@
         private System.Windows.Forms.TextBox AccountTextBox;
         private System.Windows.Forms.Label ToLabel;
         private System.Windows.Forms.Label FromLabel;
-        private System.Windows.Forms.TextBox HouseTextBox;
-        private System.Windows.Forms.TextBox StreetTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox zipCodeTextBox;
         private System.Windows.Forms.RadioButton addressRadioButton;
         private System.Windows.Forms.RadioButton zipCodeRadioButton;
         private System.Windows.Forms.RadioButton accountRadioButton;
-        private System.Windows.Forms.TextBox ApartmentTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox showOnlyWoPeriodValuesCheckBox;
@@ -293,6 +290,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button printCollectFormButton;
         private DevExpress.XtraEditors.LookUpEdit districtLookUpEdit;
+        private System.Windows.Forms.TextBox ApartmentTextBox;
+        private System.Windows.Forms.TextBox HouseTextBox;
+        private System.Windows.Forms.TextBox StreetTextBox;
     }
 }
 

@@ -590,6 +590,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 });
                         }
 
+                        DateTime _now = ServerTime.GetDateTimeInfo().Now;
+
                         foreach (PrivateCounters _privateCounter in _privateCounters)
                         {
                             decimal _value =
@@ -604,6 +606,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             _entities.AddToPrivateCounterValues(
                                 new PrivateCounterValues
                                 {
+                                    CollectDate = _now,
                                     Period = currentPeriod,
                                     Value = _value,
                                     PrivateCounters = _privateCounter

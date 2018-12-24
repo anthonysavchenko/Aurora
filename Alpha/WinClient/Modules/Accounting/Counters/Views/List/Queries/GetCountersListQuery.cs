@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Queries
@@ -68,10 +69,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Q
                         Service = x.Services.Name,
                         x.Customers.Account,
                         Address = x.Customers.Buildings.Streets.Name + ", " + x.Customers.Buildings.Number,
-                        IsPrivate = true
+                        x.Customers.Apartment,
+                        FullName = x.Customers.OwnerType == (int)OwnerType.PhysicalPerson
+                            ? x.Customers.PhysicalPersonFullName
+                            : x.Customers.JuridicalPersonFullName,
                     })
                 .OrderBy(x => x.Address)
-                .ThenBy(x => x.Account)
+                .ThenBy(x => x.Apartment)
                 .ToList();
 
             foreach (var _c in _counters)
@@ -81,7 +85,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Q
                     _c.Number,
                     _c.Service,
                     _c.Account,
-                    _c.Address);
+                    _c.Address,
+                    _c.Apartment,
+                    _c.FullName);
             }
 
             return _table;
@@ -95,6 +101,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Q
             _table.Columns.Add("Service");
             _table.Columns.Add("Account");
             _table.Columns.Add("Address");
+            _table.Columns.Add("Apartment");
+            _table.Columns.Add("FullName");
 
             DataSet _ds =
                 new DataSet

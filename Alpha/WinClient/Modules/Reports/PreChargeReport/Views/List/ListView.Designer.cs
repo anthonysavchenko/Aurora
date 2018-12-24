@@ -75,7 +75,6 @@
             // 
             // gridViewOfListView
             // 
-            this.gridViewOfListView.Appearance.GroupRow.Options.UseTextOptions = true;
             this.gridViewOfListView.Appearance.GroupRow.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.gridViewOfListView.Appearance.HeaderPanel.Options.UseTextOptions = true;
             this.gridViewOfListView.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -91,6 +90,10 @@
             this.diffGridColumn});
             this.gridViewOfListView.GridControl = this.gridControlOfListView;
             this.gridViewOfListView.GroupCount = 2;
+            this.gridViewOfListView.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NormCharge", this.normChargeGridColumn, ""),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CounterCharge", this.counterChargeGridColumn, ""),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Diff", this.diffGridColumn, "")});
             this.gridViewOfListView.Name = "gridViewOfListView";
             this.gridViewOfListView.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewOfListView.OptionsBehavior.Editable = false;

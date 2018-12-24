@@ -102,7 +102,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Tabbed
             {
                 case TabNames.LIST:
                     ManageCommandsForPaymentSetListTab();
-                    ((IBaseListView)WorkItem.SmartParts.Get(ModuleViewNames.LIST_VIEW)).RefreshList();
+                    //((IBaseListView)WorkItem.SmartParts.Get(ModuleViewNames.LIST_VIEW)).RefreshList();
                     break;
 
                 case TabNames.DETAIL:
