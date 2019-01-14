@@ -23,7 +23,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             _table.Columns.Add(WizardTableColumnNames.PREV_COLLECT_DATE, typeof(DateTime));
             _table.Columns.Add(WizardTableColumnNames.PREV_VALUE, typeof(decimal));
             _table.Columns.Add(WizardTableColumnNames.VALUE, typeof(decimal));
-            _table.Columns.Add(WizardTableColumnNames.COLLECT_DATE, typeof(DateTime));
             _table.Columns.Add(WizardTableColumnNames.ERROR_MESSAGE);
             _table.PrimaryKey = new DataColumn[] { _table.Columns[WizardTableColumnNames.ID] };
 
@@ -54,6 +53,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                     })
                 .ToList()
                 .OrderBy(x => x.Apartment, new StringWithNumbersComparer())
+                .ThenBy(x => x.Number)
                 .ToList()
                 .ForEach(x => _table.Rows.Add(
                     x.ID,
@@ -65,7 +65,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                     x.PrevValue?.Period ?? DateTime.MinValue,
                     x.PrevValue?.CollectDate ?? DateTime.MinValue,
                     x.PrevValue?.Value ?? 0,
-                    DBNull.Value,
                     DBNull.Value,
                     string.Empty));
 

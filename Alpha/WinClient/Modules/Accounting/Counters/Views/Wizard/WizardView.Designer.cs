@@ -45,7 +45,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.counterModelGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.prevValueGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.valueGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.collectDateGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.collectDateRepositoryItem = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.counterIdGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.errorsGroupBox = new System.Windows.Forms.GroupBox();
@@ -62,6 +61,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.streetLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.collectDateEdit = new DevExpress.XtraEditors.DateEdit();
             ((System.ComponentModel.ISupportInitialize)(this.counterWizardControl)).BeginInit();
             this.counterWizardControl.SuspendLayout();
             this.processingWizardPage.SuspendLayout();
@@ -79,6 +80,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buildingLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectDateEdit.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectDateEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // counterWizardControl
@@ -172,7 +175,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.counterModelGridColumn,
             this.prevValueGridColumn,
             this.valueGridColumn,
-            this.collectDateGridColumn,
             this.counterIdGridColumn});
             this.counterValueGridView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.counterValueGridView.GridControl = this.counterValueGridControl;
@@ -256,15 +258,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             this.valueGridColumn.Name = "valueGridColumn";
             this.valueGridColumn.Visible = true;
             this.valueGridColumn.VisibleIndex = 6;
-            // 
-            // collectDateGridColumn
-            // 
-            this.collectDateGridColumn.Caption = "Дата внесения";
-            this.collectDateGridColumn.ColumnEdit = this.collectDateRepositoryItem;
-            this.collectDateGridColumn.FieldName = "CollectDate";
-            this.collectDateGridColumn.Name = "collectDateGridColumn";
-            this.collectDateGridColumn.Visible = true;
-            this.collectDateGridColumn.VisibleIndex = 7;
             // 
             // collectDateRepositoryItem
             // 
@@ -359,6 +352,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // 
             // buildingSelectWizardPage
             // 
+            this.buildingSelectWizardPage.Controls.Add(this.collectDateEdit);
+            this.buildingSelectWizardPage.Controls.Add(this.label1);
             this.buildingSelectWizardPage.Controls.Add(this.periodDateEdit);
             this.buildingSelectWizardPage.Controls.Add(this.buildingLookUpEdit);
             this.buildingSelectWizardPage.Controls.Add(this.streetLookUpEdit);
@@ -373,7 +368,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // periodDateEdit
             // 
             this.periodDateEdit.EditValue = null;
-            this.periodDateEdit.Location = new System.Drawing.Point(83, 72);
+            this.periodDateEdit.Location = new System.Drawing.Point(104, 68);
             this.periodDateEdit.Name = "periodDateEdit";
             this.periodDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -389,7 +384,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // 
             // buildingLookUpEdit
             // 
-            this.buildingLookUpEdit.Location = new System.Drawing.Point(326, 32);
+            this.buildingLookUpEdit.Location = new System.Drawing.Point(347, 32);
             this.buildingLookUpEdit.Name = "buildingLookUpEdit";
             this.buildingLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
@@ -405,7 +400,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // 
             // streetLookUpEdit
             // 
-            this.streetLookUpEdit.Location = new System.Drawing.Point(83, 32);
+            this.streetLookUpEdit.Location = new System.Drawing.Point(104, 32);
             this.streetLookUpEdit.Name = "streetLookUpEdit";
             this.streetLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
@@ -423,7 +418,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 75);
+            this.label4.Location = new System.Drawing.Point(53, 71);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 2;
@@ -432,7 +427,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(290, 35);
+            this.label3.Location = new System.Drawing.Point(311, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(30, 13);
             this.label3.TabIndex = 1;
@@ -441,11 +436,37 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             // streetLabel
             // 
             this.streetLabel.AutoSize = true;
-            this.streetLabel.Location = new System.Drawing.Point(38, 35);
+            this.streetLabel.Location = new System.Drawing.Point(59, 35);
             this.streetLabel.Name = "streetLabel";
             this.streetLabel.Size = new System.Drawing.Size(39, 13);
             this.streetLabel.TabIndex = 0;
             this.streetLabel.Text = "Улица";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 108);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Дата сбора";
+            // 
+            // collectDateEdit
+            // 
+            this.collectDateEdit.EditValue = null;
+            this.collectDateEdit.Location = new System.Drawing.Point(104, 105);
+            this.collectDateEdit.Name = "collectDateEdit";
+            this.collectDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.collectDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
+            this.collectDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
+            this.collectDateEdit.Properties.DisplayFormat.FormatString = "dd.MM.yyyy";
+            this.collectDateEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.collectDateEdit.Properties.EditFormat.FormatString = "dd.MM.yyyy";
+            this.collectDateEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.collectDateEdit.Properties.Mask.EditMask = "dd.MM.yyyy";
+            this.collectDateEdit.Size = new System.Drawing.Size(201, 20);
+            this.collectDateEdit.TabIndex = 34;
             // 
             // WizardView
             // 
@@ -474,6 +495,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buildingLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectDateEdit.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectDateEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -487,7 +510,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         private DevExpress.XtraGrid.GridControl counterValueGridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView counterValueGridView;
         private DevExpress.XtraGrid.Columns.GridColumn accountGridColumn;
-        private DevExpress.XtraGrid.Columns.GridColumn collectDateGridColumn;
         private DevExpress.XtraGrid.Columns.GridColumn valueGridColumn;
         private DevExpress.XtraGrid.Columns.GridColumn counterNumGridColumn;
         private System.Windows.Forms.TextBox errorMessageTextBox;
@@ -511,6 +533,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         private DevExpress.XtraEditors.DateEdit periodDateEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit collectDateRepositoryItem;
         private DevExpress.XtraGrid.Columns.GridColumn fullNameGridColumn;
+        private DevExpress.XtraEditors.DateEdit collectDateEdit;
+        private System.Windows.Forms.Label label1;
     }
 }
 
