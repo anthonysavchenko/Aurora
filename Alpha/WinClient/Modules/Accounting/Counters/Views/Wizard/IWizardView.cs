@@ -28,6 +28,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         string StreetId { get; set; }
         string BuildingId { get; set; }
         DateTime Period { get; set; }
+        DateTime CollectDate { get; set; }
 
         #endregion
 
@@ -38,7 +39,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         void ShowEditor();
 
         decimal CounterValue { set; }
-        DateTime CollectDateTime { set; }
 
         #endregion
 

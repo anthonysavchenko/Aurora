@@ -50,7 +50,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         }
 
         public decimal CounterValue { set => counterValueGridView.SetFocusedRowCellValue(WizardTableColumnNames.VALUE, value); }
-        public DateTime CollectDateTime { set => counterValueGridView.SetFocusedRowCellValue(WizardTableColumnNames.COLLECT_DATE, value); }
 
         /// <summary>
         /// Сбрасывает текущее состояние процесса обработки
@@ -104,6 +103,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             {
                 periodDateEdit.DateTime = value;
             }
+        }
+
+        public DateTime CollectDate
+        {
+            get => collectDateEdit.DateTime.Date;
+            set => collectDateEdit.DateTime = value;
         }
 
         #region Обработчики событий
@@ -279,7 +284,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         private void counterValueGridView_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
             counterValueGridView.SelectAll();
-            //Presenter.SetSuggestedValue(counterValueGridView.FocusedColumn.FieldName, counterValueGridView.GetFocusedDataRow());
         }
 
         private void counterValueGridView_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)

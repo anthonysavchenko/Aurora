@@ -38,7 +38,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             View.StreetId = string.Empty;
             View.BuildingId = string.Empty;
             View.Period = ServerTime.GetPeriodInfo().FirstUncharged;
-            _suggestCollectDate = ServerTime.GetDateTimeInfo().Now.Date;
+            View.CollectDate = ServerTime.GetDateTimeInfo().Now.Date;
 
             View.ResultCount = 0;
             View.ResultErrorCount = 0;
@@ -146,19 +146,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 
             _processedCount = _errorsCount = 0;
 
+            DateTime _period = View.Period;
+            DateTime _collectDateTime = View.CollectDate;
+
             foreach (DataRow _row in View.Items.Rows)
             {
                 decimal _counterValue = _row[WizardTableColumnNames.VALUE] != DBNull.Value
                     ? _row.Field<decimal>(WizardTableColumnNames.VALUE)
                     : 0;
 
-                DateTime _collectDateTime = _row[WizardTableColumnNames.COLLECT_DATE] != DBNull.Value
-                    ? _row.Field<DateTime>(WizardTableColumnNames.COLLECT_DATE)
-                    : DateTime.MinValue;
-
-                DateTime _period = View.Period;
-
-                if (_counterValue <= 0 || _collectDateTime == DateTime.MinValue)
+                if (_counterValue <= 0)
                 {
                     continue;
                 }
@@ -216,49 +213,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             }
         }
 
-        public void SetSuggestedValue(string focusedCellFieldName, DataRow currentRow)
-        {
-            switch (focusedCellFieldName)
-            {
-                case WizardTableColumnNames.VALUE:
-                    SetCounterValue(currentRow);
-                    break;
-                case WizardTableColumnNames.COLLECT_DATE:
-                    if (currentRow[WizardTableColumnNames.COLLECT_DATE] == DBNull.Value)
-                    {
-                        View.CollectDateTime = _suggestCollectDate;
-                    }
-                    break;
-            }
-        }
-
-        private void SetCounterValue(DataRow currentRow)
-        {
-            const decimal MONTH_NORM = 200;
-
-            decimal _value = currentRow[WizardTableColumnNames.VALUE] != DBNull.Value 
-                ? currentRow.Field<decimal>(WizardTableColumnNames.VALUE)
-                : 0;
-
-            if (_value <= 0)
-            {
-                decimal _lastValue = currentRow["PrevValue"] != DBNull.Value ? currentRow.Field<decimal>("PrevValue") : 0;
-
-                if (_lastValue > 0)
-                {
-                    DateTime _currentPeriod = View.Period;
-                    DateTime _prevPeriod = currentRow.Field<DateTime>("PrevPeriod");
-                    int _mounthCount = (int)((_currentPeriod - _prevPeriod).TotalDays / 30);
-                    _value = _mounthCount * MONTH_NORM + _lastValue;
-                }
-                else
-                {
-                    _value = MONTH_NORM;
-                }
-                View.CounterValue = _value;
-            }
-        }
-
         public void ValidateRow(DataRow dataRow)
         {
             decimal _value = dataRow[WizardTableColumnNames.VALUE] != DBNull.Value
@@ -271,18 +225,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             string _errorMessage = _value == 0 || _value >= _prevValue
                 ? string.Empty
                 : "- ¬веденное показание меньше, чем показание за прошлый период";
-
-            DateTime _collectDate = dataRow[WizardTableColumnNames.COLLECT_DATE] != DBNull.Value
-                ? dataRow.Field<DateTime>(WizardTableColumnNames.COLLECT_DATE)
-                : DateTime.MinValue;
-            DateTime _prevCollectDate = dataRow[WizardTableColumnNames.PREV_COLLECT_DATE] != DBNull.Value
-                ? dataRow.Field<DateTime>(WizardTableColumnNames.PREV_COLLECT_DATE)
-                : DateTime.MinValue;
-
-            if (_collectDate == DateTime.MinValue || _collectDate < _prevCollectDate)
-            {
-                _errorMessage = $"{_errorMessage}\r\n- ƒата сбора показаний меньше, чем за прошлый период";
-            }
 
             dataRow[WizardTableColumnNames.ERROR_MESSAGE] = _errorMessage;
         }
