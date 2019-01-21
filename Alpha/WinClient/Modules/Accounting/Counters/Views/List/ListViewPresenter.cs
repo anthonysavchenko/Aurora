@@ -3,11 +3,11 @@ using System;
 using System.Data;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Queries;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Tabbed;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
-using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
+using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
@@ -15,7 +15,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
     /// <summary>
     /// Презентер
     /// </summary>
-    public class ListViewPresenter : BaseMultipleListViewPresenter<IBaseMultipleListView, DomPrivateCounter>
+    public class ListViewPresenter : BaseListViewPresenter<IBaseListView, DomPrivateCounter>
     {
         public override void OnViewReady()
         {
@@ -32,7 +32,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
             DataTable _table;
             DateTime _currentPeriod = ServerTime.GetPeriodInfo().FirstUncharged;
             var _topView = ((ITopView)WorkItem.SmartParts.Get("TopView"));
-            bool _showOnlyWoPeriodValues = _topView.ShowOnlyWoPeriodValue;
 
             using (var _db = new Entities())
             {
@@ -44,7 +43,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
                     _topView.Building,
                     _topView.Apartment,
                     _topView.ZipCode,
-                    _showOnlyWoPeriodValues);
+                    _topView.ShowOnlyWoPeriodValue,
+                    _topView.ShowAll);
             }
 
             return _table;

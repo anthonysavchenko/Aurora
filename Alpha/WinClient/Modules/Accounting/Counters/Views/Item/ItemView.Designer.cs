@@ -38,10 +38,12 @@
             this.periodColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.valueColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.PaymentTypeGroupBox = new System.Windows.Forms.GroupBox();
-            this.counterModel = new System.Windows.Forms.Label();
+            this.counterArchivedCheckBox = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.counterServicesLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.counterModelTextBox = new System.Windows.Forms.TextBox();
+            this.counterNumTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.counterService = new System.Windows.Forms.Label();
-            this.counterNum = new System.Windows.Forms.Label();
             this.periodLabel = new System.Windows.Forms.Label();
             this.intermediaryLabel = new System.Windows.Forms.Label();
             this.customerOwner = new System.Windows.Forms.Label();
@@ -70,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).BeginInit();
             this.PaymentTypeGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.counterServicesLookUpEdit.Properties)).BeginInit();
             this.customerGroupBox.SuspendLayout();
             this.buildingGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -172,27 +175,65 @@
             // 
             // PaymentTypeGroupBox
             // 
-            this.PaymentTypeGroupBox.Controls.Add(this.counterModel);
+            this.PaymentTypeGroupBox.Controls.Add(this.counterArchivedCheckBox);
+            this.PaymentTypeGroupBox.Controls.Add(this.label6);
+            this.PaymentTypeGroupBox.Controls.Add(this.counterServicesLookUpEdit);
+            this.PaymentTypeGroupBox.Controls.Add(this.counterModelTextBox);
+            this.PaymentTypeGroupBox.Controls.Add(this.counterNumTextBox);
             this.PaymentTypeGroupBox.Controls.Add(this.label1);
-            this.PaymentTypeGroupBox.Controls.Add(this.counterService);
-            this.PaymentTypeGroupBox.Controls.Add(this.counterNum);
             this.PaymentTypeGroupBox.Controls.Add(this.periodLabel);
             this.PaymentTypeGroupBox.Controls.Add(this.intermediaryLabel);
             this.PaymentTypeGroupBox.Location = new System.Drawing.Point(3, 2);
             this.PaymentTypeGroupBox.Name = "PaymentTypeGroupBox";
-            this.PaymentTypeGroupBox.Size = new System.Drawing.Size(343, 106);
+            this.PaymentTypeGroupBox.Size = new System.Drawing.Size(343, 133);
             this.PaymentTypeGroupBox.TabIndex = 2;
             this.PaymentTypeGroupBox.TabStop = false;
             this.PaymentTypeGroupBox.Text = "Прибор учета";
             // 
-            // counterModel
+            // counterArchivedCheckBox
             // 
-            this.counterModel.AutoSize = true;
-            this.counterModel.Location = new System.Drawing.Point(136, 78);
-            this.counterModel.Name = "counterModel";
-            this.counterModel.Size = new System.Drawing.Size(62, 13);
-            this.counterModel.TabIndex = 41;
-            this.counterModel.Text = "Еще что-то";
+            this.counterArchivedCheckBox.AutoSize = true;
+            this.counterArchivedCheckBox.Location = new System.Drawing.Point(107, 103);
+            this.counterArchivedCheckBox.Name = "counterArchivedCheckBox";
+            this.counterArchivedCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.counterArchivedCheckBox.TabIndex = 46;
+            this.counterArchivedCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 103);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Архивный";
+            // 
+            // counterServicesLookUpEdit
+            // 
+            this.counterServicesLookUpEdit.Location = new System.Drawing.Point(107, 48);
+            this.counterServicesLookUpEdit.Name = "counterServicesLookUpEdit";
+            this.counterServicesLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.counterServicesLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Название")});
+            this.counterServicesLookUpEdit.Properties.DisplayMember = "Name";
+            this.counterServicesLookUpEdit.Properties.ValueMember = "ID";
+            this.counterServicesLookUpEdit.Size = new System.Drawing.Size(230, 20);
+            this.counterServicesLookUpEdit.TabIndex = 44;
+            // 
+            // counterModelTextBox
+            // 
+            this.counterModelTextBox.Location = new System.Drawing.Point(107, 75);
+            this.counterModelTextBox.Name = "counterModelTextBox";
+            this.counterModelTextBox.Size = new System.Drawing.Size(230, 20);
+            this.counterModelTextBox.TabIndex = 43;
+            // 
+            // counterNumTextBox
+            // 
+            this.counterNumTextBox.Location = new System.Drawing.Point(107, 22);
+            this.counterNumTextBox.Name = "counterNumTextBox";
+            this.counterNumTextBox.Size = new System.Drawing.Size(230, 20);
+            this.counterNumTextBox.TabIndex = 42;
             // 
             // label1
             // 
@@ -202,24 +243,6 @@
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 40;
             this.label1.Text = "Модель";
-            // 
-            // counterService
-            // 
-            this.counterService.AutoSize = true;
-            this.counterService.Location = new System.Drawing.Point(136, 51);
-            this.counterService.Name = "counterService";
-            this.counterService.Size = new System.Drawing.Size(40, 13);
-            this.counterService.TabIndex = 39;
-            this.counterService.Text = "Что-то";
-            // 
-            // counterNum
-            // 
-            this.counterNum.AutoSize = true;
-            this.counterNum.Location = new System.Drawing.Point(136, 25);
-            this.counterNum.Name = "counterNum";
-            this.counterNum.Size = new System.Drawing.Size(33, 13);
-            this.counterNum.TabIndex = 38;
-            this.counterNum.Text = "value";
             // 
             // periodLabel
             // 
@@ -361,9 +384,9 @@
             this.customerGroupBox.Controls.Add(this.ownerLabel);
             this.customerGroupBox.Controls.Add(this.customerAccount);
             this.customerGroupBox.Controls.Add(this.customerOwner);
-            this.customerGroupBox.Location = new System.Drawing.Point(3, 128);
+            this.customerGroupBox.Location = new System.Drawing.Point(3, 141);
             this.customerGroupBox.Name = "customerGroupBox";
-            this.customerGroupBox.Size = new System.Drawing.Size(343, 206);
+            this.customerGroupBox.Size = new System.Drawing.Size(343, 193);
             this.customerGroupBox.TabIndex = 40;
             this.customerGroupBox.TabStop = false;
             this.customerGroupBox.Text = "Абонент";
@@ -451,9 +474,9 @@
             this.buildingGroupBox.Controls.Add(this.buildingCollectionSector);
             this.buildingGroupBox.Controls.Add(this.buildingNum);
             this.buildingGroupBox.Controls.Add(this.buildingStreet);
-            this.buildingGroupBox.Location = new System.Drawing.Point(3, 128);
+            this.buildingGroupBox.Location = new System.Drawing.Point(3, 141);
             this.buildingGroupBox.Name = "buildingGroupBox";
-            this.buildingGroupBox.Size = new System.Drawing.Size(343, 206);
+            this.buildingGroupBox.Size = new System.Drawing.Size(343, 193);
             this.buildingGroupBox.TabIndex = 32;
             this.buildingGroupBox.TabStop = false;
             this.buildingGroupBox.Text = "Дом";
@@ -474,6 +497,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.counterValueGridView)).EndInit();
             this.PaymentTypeGroupBox.ResumeLayout(false);
             this.PaymentTypeGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.counterServicesLookUpEdit.Properties)).EndInit();
             this.customerGroupBox.ResumeLayout(false);
             this.customerGroupBox.PerformLayout();
             this.buildingGroupBox.ResumeLayout(false);
@@ -490,8 +514,6 @@
         private System.Windows.Forms.GroupBox PaymentTypeGroupBox;
         private System.Windows.Forms.Label periodLabel;
         private System.Windows.Forms.Label intermediaryLabel;
-        private System.Windows.Forms.Label counterService;
-        private System.Windows.Forms.Label counterNum;
         private DevExpress.XtraGrid.Columns.GridColumn periodColumn;
         private DevExpress.XtraGrid.Columns.GridColumn ID;
         private System.Windows.Forms.Label customerOwner;
@@ -507,7 +529,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label customerArea;
         private System.Windows.Forms.GroupBox customerGroupBox;
-        private System.Windows.Forms.Label counterModel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label buildingStreet;
         private System.Windows.Forms.Label buildingNum;
@@ -519,5 +540,10 @@
         private System.Windows.Forms.Label buildingDwellersNum;
         private System.Windows.Forms.GroupBox buildingGroupBox;
         private DevExpress.XtraGrid.Columns.GridColumn dateColumn;
+        private System.Windows.Forms.TextBox counterModelTextBox;
+        private System.Windows.Forms.TextBox counterNumTextBox;
+        private System.Windows.Forms.CheckBox counterArchivedCheckBox;
+        private System.Windows.Forms.Label label6;
+        private DevExpress.XtraEditors.LookUpEdit counterServicesLookUpEdit;
     }
 }

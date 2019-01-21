@@ -1,9 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI.Commands;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard;
-using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseTabbedView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 
@@ -69,22 +67,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Tabbed
         }
 
         /// <summary>
-        /// Выполняет подготовительные действия перед началом редактирования домена
-        /// </summary>
-        /// <param name="_cancelAction">Признак отмены действия</param>
-        protected override void PrepareDomainEditing(out bool _cancelAction)
-        {
-            string _curId = (string)WorkItem.State[Params.CurrentItemIdStateName];
-
-            _cancelAction = string.IsNullOrEmpty(_curId);
-
-            if (!_cancelAction)
-            {
-                WorkItem.State[Params.CurrentItemStateName] = GetItem<PrivateCounter>(_curId);
-            }
-        }
-
-        /// <summary>
         /// Выполняет действия при входе на закладку
         /// </summary>
         /// <param name="_tabPageName">Имя закладки</param>
@@ -98,26 +80,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Tabbed
                 View.HideWizardTab();
             }
 
-            switch (_tabPageName)
-            {
-                case TabNames.LIST:
-                    ManageCommandsForPaymentSetListTab();
-                    //((IBaseListView)WorkItem.SmartParts.Get(ModuleViewNames.LIST_VIEW)).RefreshList();
-                    break;
-
-                case TabNames.DETAIL:
-                    if (((string)WorkItem.State[Params.LeavingTabNameStateName]) == TabNames.LIST)
-                    {
-                        PrepareDomainEditing(out _cancelAction);
-                    }
-                    if (!_cancelAction)
-                    {
-                        ManageCommandsForListTab();
-                        IItemView _view = (IItemView)WorkItem.SmartParts.Get(ModuleViewNames.ITEM_VIEW);
-                        _view.ShowDomainOnView();
-                    }
-                    break;
-            }
+            base.OnEnterTabPage(_tabPageName, out _cancelAction);
         }
 
         /// <summary>

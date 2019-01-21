@@ -155,7 +155,6 @@
     <Compile Include="BusinessEntities\RefBooks\CounterValueCollectDistrict.cs" />
     <Compile Include="BusinessEntities\RefBooks\ElectricitySharedCounterVolume.cs" />
     <Compile Include="BusinessEntities\RefBooks\Intermediary.cs" />
-    <Compile Include="BusinessEntities\RefBooks\PaymentName.cs" />
     <Compile Include="BusinessEntities\RefBooks\PrivateCounter.cs" />
     <Compile Include="BusinessEntities\RefBooks\PrivateCounterValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\PublicPlace.cs" />
