@@ -12,6 +12,7 @@ using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.EnterpriseLibrary.Win.Services;
+using Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
 using DomItemPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos;
 using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
@@ -75,24 +76,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 
         private DataTable GetServices()
         {
-            DataTable _table = new DataTable();
-            _table.Columns.Add("ID", typeof(int));
-            _table.Columns.Add("Name", typeof(string));
+            DataTable _table;
 
-            using (Entities _db = new Entities())
+            using (var _db = new Entities())
             {
-                var _services = _db.Services
-                    .Select(x =>
-                        new
-                        {
-                            x.ID,
-                            x.Name
-                        });
-
-                foreach (var _s in _services)
-                {
-                    _table.Rows.Add(_s.ID, _s.Name);
-                }
+                _table = _db.GetServicesForComboBox();
             }
 
             return _table;

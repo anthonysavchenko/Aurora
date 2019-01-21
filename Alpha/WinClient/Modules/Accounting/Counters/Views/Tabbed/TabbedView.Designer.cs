@@ -84,7 +84,7 @@
             this.tabDetail.Size = new System.Drawing.Size(721, 397);
             this.tabDetail.TabIndex = 1;
             this.tabDetail.Tag = "tabDetail";
-            this.tabDetail.Text = "Показания";
+            this.tabDetail.Text = "Детали";
             this.tabDetail.UseVisualStyleBackColor = true;
             // 
             // _itemViewPlaceholder
@@ -108,7 +108,7 @@
             this.tabList.Padding = new System.Windows.Forms.Padding(3);
             this.tabList.Size = new System.Drawing.Size(721, 397);
             this.tabList.TabIndex = 0;
-            this.tabList.Text = "Приборы учета";
+            this.tabList.Text = "Список";
             this.tabList.UseVisualStyleBackColor = true;
             // 
             // _listViewPlaceholder

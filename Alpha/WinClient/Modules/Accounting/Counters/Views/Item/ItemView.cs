@@ -1,15 +1,16 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System.Data;
+using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Model;
-using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
+using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 //using BaseView = System.Windows.Forms.UserControl;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item
 {
     [SmartPart]
-    public partial class ItemView : BaseView, IItemView
+    public partial class ItemView : BaseItemView, IItemView
     {
         /// <summary>
         /// Конструктор
@@ -25,30 +26,50 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item
         [CreateNew]
         public new ItemViewPresenter Presenter
         {
-            set
-            {
-                base.Presenter = value;
-            }
-            get
-            {
-                return (ItemViewPresenter)base.Presenter;
-            }
+            get => (ItemViewPresenter)base.Presenter;
+            set => base.Presenter = value;
         }
 
         /// <summary>
         /// Номер прибора учета
         /// </summary>
-        public string CounterNum { set => counterNum.Text = value; }
+        public string CounterNum
+        {
+            get => counterNumTextBox.Text;
+            set => counterNumTextBox.Text = value;
+        }
 
         /// <summary>
         /// Данные абонента
         /// </summary>
-        public string CounterService { set => counterService.Text = value; }
+        public Service CounterService
+        {
+            get => GetSimpleItemViewMapper.ViewToDomain<Service>(counterServicesLookUpEdit);
+            set => GetSimpleItemViewMapper.DomainToView(value, counterServicesLookUpEdit);
+        }
 
         /// <summary>
         /// Модель прибор учета
         /// </summary>
-        public string CounterModel { set => counterModel.Text = value; }
+        public string CounterModel
+        {
+            get => counterModelTextBox.Text;
+            set => counterModelTextBox.Text = value;
+        }
+
+        public DataTable Services
+        {
+            set => counterServicesLookUpEdit.Properties.DataSource = value;
+        }
+
+        /// <summary>
+        /// Актуальность счетчика
+        /// </summary>
+        public bool Archived
+        {
+            get => counterArchivedCheckBox.Checked;
+            set => counterArchivedCheckBox.Checked = value;
+        }
 
         /// <summary>
         /// Данные абонента
@@ -96,14 +117,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item
                 counterValueGridControl.DataSource = value;
                 counterValueGridControl.RefreshDataSource();
             }
-        }
-
-        /// <summary>
-        /// Отображает домен на виде
-        /// </summary>
-        public void ShowDomainOnView()
-        {
-            Presenter.ShowDomainOnView();
         }
     }
 }

@@ -58,6 +58,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _dbItem.Number = domObj.Number;
                 _dbItem.CustomerID = int.Parse(domObj.Customer.ID);
                 _dbItem.ServiceID = int.Parse(domObj.Service.ID);
+                _dbItem.Archived = domObj.Archived;
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -88,6 +89,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _domItem.Number = _dbItem.Number;
                 _domItem.Customer = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(_dbItem.CustomerID.ToString());
                 _domItem.Service = (DomService)DataMapperService.get(typeof(DomService)).find(_dbItem.ServiceID.ToString());
+                _domItem.Archived = _dbItem.Archived;
 
                 IDataMapper _dataMapper = DataMapperService.get(typeof(DomPrivateCounterValue));
 

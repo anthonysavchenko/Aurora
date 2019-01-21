@@ -253,6 +253,9 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView
         /// <param name="_id">Id выбранного элемента списка</param>
         public virtual void OnRowChanged(string _id)
         {
+            if (string.IsNullOrEmpty(_id))
+                return;
+
             // Id текущего элемента списка
             WorkItem.State[Params.CurrentItemIdStateName] = _id;
 

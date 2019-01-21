@@ -364,6 +364,7 @@
           <Property Name="CustomerID" Type="int" />
           <Property Name="ServiceID" Type="int" />
           <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Archived" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PrivateCounterValues">
           <Key>
@@ -2852,6 +2853,7 @@
           <Property Name="ServiceID" Type="Int32" />
           <NavigationProperty Name="Services" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Services" FromRole="PrivateCounters" ToRole="Services" />
           <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Archived" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="PrivateCounterValues">
           <Key>
@@ -3927,6 +3929,7 @@
           <EntitySetMapping Name="PrivateCounters">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.PrivateCounters)">
               <MappingFragment StoreEntitySet="PrivateCounters">
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />

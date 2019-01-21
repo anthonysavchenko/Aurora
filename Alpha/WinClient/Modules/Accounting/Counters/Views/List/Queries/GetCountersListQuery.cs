@@ -18,12 +18,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Q
             string building,
             string apartment,
             string zipCode,
-            bool showOnlyWoPeriodValues)
+            bool showOnlyWoPeriodValues,
+            bool showAll)
         {
             DataTable _table = CreateDataTable();
 
             var _raw = db.PrivateCounters
-                .Where(x => !showOnlyWoPeriodValues || x.PrivateCounterValues.All(y => y.Period != currentPeriod));
+                .Where(x => (showAll || !x.Archived) && (!showOnlyWoPeriodValues || x.PrivateCounterValues.All(y => y.Period != currentPeriod)));
 
             switch (filterType)
             {
@@ -73,6 +74,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Q
                         FullName = x.Customers.OwnerType == (int)OwnerType.PhysicalPerson
                             ? x.Customers.PhysicalPersonFullName
                             : x.Customers.JuridicalPersonFullName,
+                        x.Archived
                     })
                 .OrderBy(x => x.Address)
                 .ThenBy(x => x.Apartment)
@@ -87,7 +89,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Q
                     _c.Account,
                     _c.Address,
                     _c.Apartment,
-                    _c.FullName);
+                    _c.FullName,
+                    _c.Archived);
             }
 
             return _table;
@@ -103,6 +106,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Q
             _table.Columns.Add("Address");
             _table.Columns.Add("Apartment");
             _table.Columns.Add("FullName");
+            _table.Columns.Add("Archived", typeof(bool));
 
             DataSet _ds =
                 new DataSet

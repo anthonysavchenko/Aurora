@@ -116,6 +116,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetCustomerBalancesGroupedByPeriodQuery.cs" />
     <Compile Include="Queries\GetLastChargedPeriodBalanceQuery.cs" />
+    <Compile Include="Queries\GetServicesForComboBoxQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">

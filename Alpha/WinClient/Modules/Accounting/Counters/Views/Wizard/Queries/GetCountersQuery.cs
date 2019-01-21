@@ -34,7 +34,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             _ds.Tables.Add(_table);
 
             db.PrivateCounters
-                .Where(x => x.Customers.Buildings.ID == buildingId)
+                .Where(x => !x.Archived && x.Customers.Buildings.ID == buildingId)
                 .Select(x =>
                     new
                     {
