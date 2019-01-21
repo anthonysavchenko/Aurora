@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Model;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Models;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Queries
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries
 {
     public static class GetCounterInfoQuery
     {

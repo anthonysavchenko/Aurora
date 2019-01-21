@@ -5,7 +5,7 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Queries
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries
 {
     public static class GetCoutersDataTableQuery
     {

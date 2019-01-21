@@ -2,8 +2,8 @@
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.SQLAccessProvider.Queries;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Model;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Queries;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Models;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 

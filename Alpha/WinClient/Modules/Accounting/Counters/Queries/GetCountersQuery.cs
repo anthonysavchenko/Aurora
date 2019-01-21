@@ -6,7 +6,7 @@ using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Constants;
 using Taumis.Infrastructure.Interface.Services;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard.Queries
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries
 {
     public static class GetCountersQuery
     {

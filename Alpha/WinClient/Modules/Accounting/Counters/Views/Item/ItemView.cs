@@ -2,7 +2,7 @@
 using Microsoft.Practices.ObjectBuilder;
 using System.Data;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Model;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Models;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 //using BaseView = System.Windows.Forms.UserControl;

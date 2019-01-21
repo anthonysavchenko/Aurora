@@ -17,6 +17,7 @@ using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Custo
 using DomItemPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos;
 using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
 using DomServiceSinceTill = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.CustomerPos.ServiceSinceTill;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Queries;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
@@ -47,7 +48,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         public override DataTable GetElemList()
         {
             DataTable _table;
-            string[] _selectedIDs = (string[])WorkItem.State[ModuleStateNames.SELECTED_ITEM_IDS];
 
             if (EditItemMode == ModuleEditItemModes.Multiple)
             {
@@ -62,7 +62,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             }
             else if (WorkItem.State[CommonStateNames.EditItemState].ToString() == CommonEditItemStates.Edit)
             {
-                _table = DataMapper<DomItemPos, ICustomerPosDataMapper>().GetList((DomItem)WorkItem.State[CommonStateNames.CurrentItem]);
+                string _id = WorkItem.State[CommonStateNames.CurrentItemId].ToString();
+                using (var _db = new Entities())
+                {
+                    _table = _db.GetCustomerPosesDataTable(int.Parse(_id), View.ShowAll);
+                }
             }
             else
             {

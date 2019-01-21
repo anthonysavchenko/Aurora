@@ -1,4 +1,6 @@
-﻿using DevExpress.XtraGrid.Views.Grid;
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
@@ -7,13 +9,11 @@ using System.Drawing;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using DomContractor = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Contractor;
 using DomService = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Service;
-using DevExpress.XtraGrid.Views.Base;
-using DevExpress.XtraEditors;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
     [SmartPart]
-    public partial class CustomerPosListView : BaseSimpleListView, ICustomerPosListView
+    public partial class CustomerPosListView : /*System.Windows.Forms.UserControl//*/BaseSimpleListView, ICustomerPosListView
     {
         public CustomerPosListView()
         {
@@ -70,12 +70,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         /// </summary>
         public bool IsEditingAllowed { set => gridViewOfServicesListView.OptionsBehavior.Editable = value; }
 
+        public bool ShowAll => showAllCheckBox.Checked;
+
         /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>
         public void BindActivate(EventHandler handler)
         {
             Presenter.BindChangeHandlers(Controls, handler);
+            showAllCheckBox.CheckedChanged -= handler;
         }
 
         /// <summary>
@@ -127,6 +130,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             gridViewOfServicesListView.PostEditor();
             gridViewOfServicesListView.SetFocusedRowCellValue("Counter", null);
+        }
+
+        private void showAllCheckBox_Click(object sender, EventArgs e)
+        {
+            Presenter.RefreshList();
         }
     }
 }

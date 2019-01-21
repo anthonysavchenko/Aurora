@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List.Queries;
+using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Tabbed;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;

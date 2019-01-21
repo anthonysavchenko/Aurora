@@ -1,4 +1,4 @@
-﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Model
+﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Models
 {
     public class CounterInfo
     {
