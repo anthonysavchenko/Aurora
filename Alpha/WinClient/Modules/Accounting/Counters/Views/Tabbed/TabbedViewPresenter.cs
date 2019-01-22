@@ -78,9 +78,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Tabbed
             if (_tabPageName != TabNames.WIZARD)
             {
                 View.HideWizardTab();
+                base.OnEnterTabPage(_tabPageName, out _cancelAction);
             }
-
-            base.OnEnterTabPage(_tabPageName, out _cancelAction);
         }
 
         /// <summary>
