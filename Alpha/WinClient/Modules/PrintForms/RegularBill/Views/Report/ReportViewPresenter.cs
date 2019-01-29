@@ -308,7 +308,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Горбачева Вера Александровна, тел 255-82-23";
             }
 
-            if(street == "магнитогорская" || street == "ульяновская" || street == "енисейская" || street == "шилкинская")
+            if(street == "магнитогорская" || street == "ульяновская" || street == "енисейская" || street == "шилкинская" || street == "полетаева")
             {
                 return "Управляющий по дому - Шевелева Надежда Дмитриевна, тел. 277-02-99";
             }
@@ -357,7 +357,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if(street == "магнитогорская"
-                || street == "енисейская")
+                || street == "енисейская"
+                || street == "полетаева")
             {
                 return "2-667-206, 2-666-964";
             }
