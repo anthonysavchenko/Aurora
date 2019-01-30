@@ -158,12 +158,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             switch (View.ChargeType)
             {
                 case ChargeType.Regular:
-                    PeriodInfo _periodInfo = ServerTime.GetPeriodInfo();
+                    /*PeriodInfo _periodInfo = ServerTime.GetPeriodInfo();
                     if (IsAllCounterValuesPresent(_periodInfo.FirstUncharged, _periodInfo.LastCharged)
                         && IsPublicPlaceServiceVolumesFilledUp(ServerTime.GetDateTimeInfo().Now, _periodInfo.FirstUncharged))
                     {
                         _next = WizardPages.BackupPage;
-                    }
+                    }*/
+                    _next = WizardPages.ProcessingPage;
                     break;
 
                 case ChargeType.Correction:

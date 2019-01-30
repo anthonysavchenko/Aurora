@@ -31,16 +31,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
         {
             cmd.Result = new RegisterCommandResult();
 
-            _cache.Init(cmd.Period);
-
-            int _chargeSetId = CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
+            int _chargeSetId = 1081;
             Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
 
-            int[] _customers;
+            int[] _customers = new[] { 29384 };
             using (Entities _db = new Entities())
             {
-                _customers = _db.Customers.Select(c => c.ID).ToArray();
+                var chargeSet = _db.ChargeSets.First(x => x.ID == 1081);
+                cmd.Now = chargeSet.CreationDateTime;
+                cmd.Period = chargeSet.Period;
+                cmd.LastChargedPeriod = cmd.Period.AddMonths(-1);
+                cmd.AuthorId = 2;
             }
+
+            _cache.Init(cmd.Period);
 
             cmd.ResetProgressBar(_customers.Length);
 
@@ -202,15 +206,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
                 foreach (var _zc in _zipCodes)
                 {
-                    BillSets _billSet =
-                        new BillSets()
-                        {
-                            CreationDateTime = now,
-                            Number = _db.BillSets.Any() ? _db.BillSets.Max(c => c.Number) + 1 : 1,
-                            BillType = (byte)BillType.Regular,
-                        };
-                    _db.AddToBillSets(_billSet);
-                    _db.SaveChanges();
+                    int b = _zc.BuildingIds.First();
+                    DateTime p = new DateTime(2019, 2, 1);
+                    BillSets _billSet = _db.RegularBillDocs
+                        .Where(x => x.Period == p && x.Customers.Buildings.ID == b)
+                        .Select(x => x.BillSets)
+                        .FirstOrDefault();
+
+                    if (_billSet == null)
+                    {
+                        _billSet =
+                            new BillSets()
+                            {
+                                CreationDateTime = now,
+                                Number = _db.BillSets.Any() ? _db.BillSets.Max(c => c.Number) + 1 : 1,
+                                BillType = (byte)BillType.Regular,
+                            };
+                        _db.AddToBillSets(_billSet);
+                        _db.SaveChanges();
+                    }
 
                     foreach (int _id in _zc.BuildingIds)
                     {
