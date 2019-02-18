@@ -56,6 +56,8 @@
             this.payBeforeDateLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel11 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLine2 = new DevExpress.XtraReports.UI.XRLine();
+            this.xrBarCode1 = new DevExpress.XtraReports.UI.XRBarCode();
+            this.xrLabel12 = new DevExpress.XtraReports.UI.XRLabel();
             this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel15 = new DevExpress.XtraReports.UI.XRLabel();
@@ -75,8 +77,6 @@
             this.payerAkaLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel13 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrBarCode1 = new DevExpress.XtraReports.UI.XRBarCode();
-            this.xrLabel12 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -374,6 +374,31 @@
             this.xrLine2.LineWidth = 3;
             this.xrLine2.Name = "xrLine2";
             // 
+            // xrBarCode1
+            // 
+            this.xrBarCode1.AutoModule = true;
+            this.xrBarCode1.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BankBarCodeString")});
+            resources.ApplyResources(this.xrBarCode1, "xrBarCode1");
+            this.xrBarCode1.Module = 5F;
+            this.xrBarCode1.Name = "xrBarCode1";
+            this.xrBarCode1.Padding = new DevExpress.XtraPrinting.PaddingInfo(25, 25, 0, 0, 254F);
+            this.xrBarCode1.ShowText = false;
+            this.xrBarCode1.StylePriority.UseFont = false;
+            this.xrBarCode1.StylePriority.UseTextAlignment = false;
+            code39Generator1.WideNarrowRatio = 3F;
+            this.xrBarCode1.Symbology = code39Generator1;
+            // 
+            // xrLabel12
+            // 
+            this.xrLabel12.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BankBarCodeLabel")});
+            resources.ApplyResources(this.xrLabel12, "xrLabel12");
+            this.xrLabel12.Name = "xrLabel12";
+            this.xrLabel12.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel12.StylePriority.UseFont = false;
+            this.xrLabel12.StylePriority.UseTextAlignment = false;
+            // 
             // serviceTableSubreport
             // 
             this.serviceTableSubreport.CanShrink = true;
@@ -560,31 +585,6 @@
             this.xrLabel13.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel13.StylePriority.UseFont = false;
             this.xrLabel13.StylePriority.UseTextAlignment = false;
-            // 
-            // xrBarCode1
-            // 
-            this.xrBarCode1.AutoModule = true;
-            this.xrBarCode1.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BankBarCodeString")});
-            resources.ApplyResources(this.xrBarCode1, "xrBarCode1");
-            this.xrBarCode1.Module = 5F;
-            this.xrBarCode1.Name = "xrBarCode1";
-            this.xrBarCode1.Padding = new DevExpress.XtraPrinting.PaddingInfo(25, 25, 0, 0, 254F);
-            this.xrBarCode1.ShowText = false;
-            this.xrBarCode1.StylePriority.UseFont = false;
-            this.xrBarCode1.StylePriority.UseTextAlignment = false;
-            code39Generator1.WideNarrowRatio = 3F;
-            this.xrBarCode1.Symbology = code39Generator1;
-            // 
-            // xrLabel12
-            // 
-            this.xrLabel12.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BankBarCodeLabel")});
-            resources.ApplyResources(this.xrLabel12, "xrLabel12");
-            this.xrLabel12.Name = "xrLabel12";
-            this.xrLabel12.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel12.StylePriority.UseFont = false;
-            this.xrLabel12.StylePriority.UseTextAlignment = false;
             // 
             // xrControlStyle1
             // 

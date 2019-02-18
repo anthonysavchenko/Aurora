@@ -1064,7 +1064,7 @@
     <value>0, 142.687515</value>
   </data>
   <data name="bankQrCode.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>375, 375</value>
+    <value>285, 285</value>
   </data>
   <data name="bankQrCode.Text" xml:space="preserve">
     <value>bankQrCode</value>
