@@ -118,24 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="xrLabel8.Dpi" type="System.Single, mscorlib">
+  <data name="xrLabel9.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="xrLabel8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8pt</value>
+  <data name="xrLabel9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 7pt</value>
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="xrLabel8.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 368</value>
+  <data name="xrLabel9.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>0, 0</value>
   </data>
-  <data name="xrLabel8.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1990.99927, 42</value>
+  <data name="xrLabel9.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>150, 34</value>
   </data>
-  <data name="xrLabel8.Text" xml:space="preserve">
-    <value>xrLabel8</value>
+  <data name="xrLabel9.Text" xml:space="preserve">
+    <value>Дата печати</value>
   </data>
-  <data name="xrLabel8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrLabel9.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="printDateLabel.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="printDateLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 7pt</value>
+  </data>
+  <data name="printDateLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>150.000046, 0</value>
+  </data>
+  <data name="printDateLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>150, 34</value>
+  </data>
+  <data name="printDateLabel.Text" xml:space="preserve">
+    <value>printDateLabel</value>
+  </data>
+  <data name="printDateLabel.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
   </data>
   <data name="billDateLabel.Dpi" type="System.Single, mscorlib">
@@ -178,7 +196,7 @@
     <value>254</value>
   </data>
   <data name="xrPanel1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 33.9999847</value>
+    <value>3, 34.0000038</value>
   </data>
   <data name="xrPanel1.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>281, 144</value>
@@ -193,7 +211,7 @@
     <value>DarkGray</value>
   </data>
   <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 178.000015</value>
+    <value>3, 178</value>
   </data>
   <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>281, 114.000015</value>
@@ -203,6 +221,24 @@
   </data>
   <data name="xrLabel6.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
+  </data>
+  <data name="bankQrCode.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="bankQrCode.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>5.99995661, 311.615875</value>
+  </data>
+  <data name="bankQrCode.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>275, 275</value>
+  </data>
+  <data name="xrPanel2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrPanel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>0, 0</value>
+  </data>
+  <data name="xrPanel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>303.5076, 610.6883</value>
   </data>
   <data name="xrLabel3.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -406,52 +442,16 @@
     <value>254</value>
   </data>
   <data name="serviceTableSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>390.999847, 136</value>
+    <value>391.000031, 136.000015</value>
   </data>
   <data name="serviceTableSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1600, 106</value>
-  </data>
-  <data name="printDateLabel.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="printDateLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 7pt</value>
-  </data>
-  <data name="printDateLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>150, 0</value>
-  </data>
-  <data name="printDateLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>150, 34</value>
-  </data>
-  <data name="printDateLabel.Text" xml:space="preserve">
-    <value>printDateLabel</value>
-  </data>
-  <data name="printDateLabel.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="xrLabel9.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="xrLabel9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 7pt</value>
-  </data>
-  <data name="xrLabel9.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 0</value>
-  </data>
-  <data name="xrLabel9.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>150, 34</value>
-  </data>
-  <data name="xrLabel9.Text" xml:space="preserve">
-    <value>Дата печати</value>
-  </data>
-  <data name="xrLabel9.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
-    <value>MiddleLeft</value>
+    <value>1600.00012, 390.688232</value>
   </data>
   <data name="xrTable3.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrTable3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>987.9994, 241.999985</value>
+    <value>987.998962, 526.688232</value>
   </data>
   <data name="xrTableCell13.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -550,16 +550,33 @@
     <value>Tahoma, 6pt</value>
   </data>
   <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>390.999847, 241.999985</value>
+    <value>390.999329, 526.688232</value>
   </data>
   <data name="xrLabel4.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>596.9995, 84</value>
+    <value>596.999634, 125.999939</value>
   </data>
   <data name="xrLabel4.Text" xml:space="preserve">
-    <value>Оплатить в Бухгалтерию ТСЖ или ОАО АКБ "Приморье".
-В случае неоплаты Вам будет начислена Пеня 0,0275% от суммы платежа за каждый день просрочки</value>
+    <value>Оплатить в Бухгалтерию ТСЖ или Дальневосточный банк ПАО Сбербанк.В случае неоплаты Вам будет начислена Пеня 0,0275% от суммы платежа за каждый день просрочки</value>
   </data>
   <data name="xrLabel4.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="payBeforeDateLabel.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="payBeforeDateLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 7pt, style=Bold</value>
+  </data>
+  <data name="payBeforeDateLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>155.000229, 610.688354</value>
+  </data>
+  <data name="payBeforeDateLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>235.999069, 42.00006</value>
+  </data>
+  <data name="payBeforeDateLabel.Text" xml:space="preserve">
+    <value>payBeforeDateLabel</value>
+  </data>
+  <data name="payBeforeDateLabel.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
   </data>
   <data name="xrLabel11.Dpi" type="System.Single, mscorlib">
@@ -569,7 +586,7 @@
     <value>Tahoma, 7pt</value>
   </data>
   <data name="xrLabel11.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 326</value>
+    <value>0, 610.688354</value>
   </data>
   <data name="xrLabel11.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>155, 42</value>
@@ -580,29 +597,29 @@
   <data name="xrLabel11.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
   </data>
-  <data name="payBeforeDateLabel.Dpi" type="System.Single, mscorlib">
+  <data name="xrLabel8.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
-  <data name="payBeforeDateLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 7pt, style=Bold</value>
+  <data name="xrLabel8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8pt</value>
   </data>
-  <data name="payBeforeDateLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>155, 326</value>
+  <data name="xrLabel8.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>0, 652.6884</value>
   </data>
-  <data name="payBeforeDateLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>446.9995, 42</value>
+  <data name="xrLabel8.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>1990.99927, 42</value>
   </data>
-  <data name="payBeforeDateLabel.Text" xml:space="preserve">
-    <value>payBeforeDateLabel</value>
+  <data name="xrLabel8.Text" xml:space="preserve">
+    <value>xrLabel8</value>
   </data>
-  <data name="payBeforeDateLabel.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+  <data name="xrLabel8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
   </data>
   <data name="Detail.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>410</value>
+    <value>694.6884</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

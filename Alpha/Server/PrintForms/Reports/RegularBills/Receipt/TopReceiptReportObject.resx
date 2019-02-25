@@ -541,7 +541,7 @@
     <value>Tahoma, 7pt</value>
   </data>
   <data name="xrLabel11.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 326</value>
+    <value>3.00000644, 325.999878</value>
   </data>
   <data name="xrLabel11.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>155, 42</value>
@@ -559,7 +559,7 @@
     <value>Tahoma, 7pt, style=Bold</value>
   </data>
   <data name="payBeforeDateLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>154.999985, 325.999969</value>
+    <value>158, 325.999878</value>
   </data>
   <data name="payBeforeDateLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>304.291626, 42.00006</value>
@@ -574,7 +574,7 @@
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>368.000031</value>
+    <value>367.999969</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

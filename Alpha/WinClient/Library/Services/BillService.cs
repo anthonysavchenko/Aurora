@@ -99,19 +99,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
             string bic,
             string corrAccount,
             string inn,
-            string category,
+            string kpp,
             string account, 
             string fullName, 
-            string address, 
-            DateTime period, 
+            string address,
             decimal sum)
         {
-            /*string _accountNum = account.Substring(3);
+            string _accountNum = account;
             // Сумма в копейках
             int _sum = Convert.ToInt32(sum * 100);
 
             string _qrStr =
-                $"ST00012|Name={name}|PersonalAcc={bankAccount}|BankName={bankName}|BIC={bic}|CorrespAcc={corrAccount}|PayeeINN={inn}|Category={category}|PersAcc={_accountNum}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
+                $"ST00012|Name={name}|PersonalAcc={bankAccount}|BankName={bankName}|BIC={bic}|CorrespAcc={corrAccount}|PayeeINN={inn}|KPP={kpp}|PersAcc={_accountNum}|PayerAddress={address}|Sum={_sum}";
 
             if (!string.IsNullOrEmpty(fullName))
             {
@@ -137,8 +136,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
                 }
             }
 
-            return _qrStr;*/
-            return string.Empty;
+            return _qrStr;
         }
 
         /// <summary>

@@ -29,14 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BottomReceiptReportObject));
+            DevExpress.XtraPrinting.BarCode.QRCodeGenerator qrCodeGenerator1 = new DevExpress.XtraPrinting.BarCode.QRCodeGenerator();
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
-            this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrPanel2 = new DevExpress.XtraReports.UI.XRPanel();
+            this.xrLabel9 = new DevExpress.XtraReports.UI.XRLabel();
+            this.printDateLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrPanel1 = new DevExpress.XtraReports.UI.XRPanel();
             this.billDateLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.repNameLbl = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
+            this.bankQrCode = new DevExpress.XtraReports.UI.XRBarCode();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.payerAkaLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
@@ -49,8 +53,6 @@
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.bankDetailsLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
-            this.printDateLabel = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel9 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTable3 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow3 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell13 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -62,8 +64,9 @@
             this.xrTableCell17 = new DevExpress.XtraReports.UI.XRTableCell();
             this.totalChargeTableCell = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel11 = new DevExpress.XtraReports.UI.XRLabel();
             this.payBeforeDateLabel = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel11 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -79,9 +82,7 @@
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.xrLabel8,
-            this.xrPanel1,
-            this.xrLabel6,
+            this.xrPanel2,
             this.xrLabel3,
             this.payerAkaLabel,
             this.xrLabel1,
@@ -94,28 +95,54 @@
             this.xrLabel2,
             this.bankDetailsLabel,
             this.serviceTableSubreport,
-            this.printDateLabel,
-            this.xrLabel9,
             this.xrTable3,
             this.xrLabel4,
+            this.payBeforeDateLabel,
             this.xrLabel11,
-            this.payBeforeDateLabel});
+            this.xrLabel8});
             resources.ApplyResources(this.Detail, "Detail");
             this.Detail.KeepTogether = true;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             this.Detail.StylePriority.UseTextAlignment = false;
             // 
-            // xrLabel8
+            // xrPanel2
             // 
-            this.xrLabel8.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.Fine")});
-            resources.ApplyResources(this.xrLabel8, "xrLabel8");
-            this.xrLabel8.Name = "xrLabel8";
-            this.xrLabel8.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel8.StylePriority.UseFont = false;
-            this.xrLabel8.StylePriority.UseTextAlignment = false;
-            this.xrLabel8.WordWrap = false;
+            this.xrPanel2.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.xrPanel2.CanGrow = false;
+            this.xrPanel2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel9,
+            this.printDateLabel,
+            this.xrPanel1,
+            this.xrLabel6,
+            this.bankQrCode});
+            resources.ApplyResources(this.xrPanel2, "xrPanel2");
+            this.xrPanel2.Name = "xrPanel2";
+            this.xrPanel2.StylePriority.UseBorders = false;
+            this.xrPanel2.StylePriority.UseBorderWidth = false;
+            // 
+            // xrLabel9
+            // 
+            this.xrLabel9.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Top;
+            resources.ApplyResources(this.xrLabel9, "xrLabel9");
+            this.xrLabel9.Name = "xrLabel9";
+            this.xrLabel9.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 254F);
+            this.xrLabel9.StylePriority.UseFont = false;
+            this.xrLabel9.StylePriority.UsePadding = false;
+            this.xrLabel9.StylePriority.UseTextAlignment = false;
+            this.xrLabel9.WordWrap = false;
+            // 
+            // printDateLabel
+            // 
+            this.printDateLabel.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Top;
+            this.printDateLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.PrintDateTime")});
+            resources.ApplyResources(this.printDateLabel, "printDateLabel");
+            this.printDateLabel.Name = "printDateLabel";
+            this.printDateLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.printDateLabel.StylePriority.UseFont = false;
+            this.printDateLabel.StylePriority.UseTextAlignment = false;
+            this.printDateLabel.WordWrap = false;
             // 
             // xrPanel1
             // 
@@ -164,6 +191,27 @@
             this.xrLabel6.StylePriority.UseForeColor = false;
             this.xrLabel6.StylePriority.UsePadding = false;
             this.xrLabel6.StylePriority.UseTextAlignment = false;
+            // 
+            // bankQrCode
+            // 
+            this.bankQrCode.AutoModule = true;
+            this.bankQrCode.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+            | DevExpress.XtraPrinting.BorderSide.Right) 
+            | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.bankQrCode.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.BankQrCodeString")});
+            resources.ApplyResources(this.bankQrCode, "bankQrCode");
+            this.bankQrCode.Module = 12.7F;
+            this.bankQrCode.Name = "bankQrCode";
+            this.bankQrCode.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 10, 10, 10, 254F);
+            this.bankQrCode.ShowText = false;
+            this.bankQrCode.StylePriority.UseBorders = false;
+            this.bankQrCode.StylePriority.UseFont = false;
+            this.bankQrCode.StylePriority.UsePadding = false;
+            this.bankQrCode.StylePriority.UseTextAlignment = false;
+            qrCodeGenerator1.CompactionMode = DevExpress.XtraPrinting.BarCode.QRCodeCompactionMode.Byte;
+            qrCodeGenerator1.Version = DevExpress.XtraPrinting.BarCode.QRCodeVersion.Version1;
+            this.bankQrCode.Symbology = qrCodeGenerator1;
             // 
             // xrLabel3
             // 
@@ -281,29 +329,6 @@
             this.serviceTableSubreport.Id = 0;
             this.serviceTableSubreport.Name = "serviceTableSubreport";
             this.serviceTableSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.ServiceTableReportObject();
-            // 
-            // printDateLabel
-            // 
-            this.printDateLabel.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Top;
-            this.printDateLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.PrintDateTime")});
-            resources.ApplyResources(this.printDateLabel, "printDateLabel");
-            this.printDateLabel.Name = "printDateLabel";
-            this.printDateLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.printDateLabel.StylePriority.UseFont = false;
-            this.printDateLabel.StylePriority.UseTextAlignment = false;
-            this.printDateLabel.WordWrap = false;
-            // 
-            // xrLabel9
-            // 
-            this.xrLabel9.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Top;
-            resources.ApplyResources(this.xrLabel9, "xrLabel9");
-            this.xrLabel9.Name = "xrLabel9";
-            this.xrLabel9.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 254F);
-            this.xrLabel9.StylePriority.UseFont = false;
-            this.xrLabel9.StylePriority.UsePadding = false;
-            this.xrLabel9.StylePriority.UseTextAlignment = false;
-            this.xrLabel9.WordWrap = false;
             // 
             // xrTable3
             // 
@@ -439,15 +464,6 @@
             this.xrLabel4.StylePriority.UseFont = false;
             this.xrLabel4.StylePriority.UseTextAlignment = false;
             // 
-            // xrLabel11
-            // 
-            resources.ApplyResources(this.xrLabel11, "xrLabel11");
-            this.xrLabel11.Name = "xrLabel11";
-            this.xrLabel11.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabel11.StylePriority.UseFont = false;
-            this.xrLabel11.StylePriority.UseTextAlignment = false;
-            this.xrLabel11.WordWrap = false;
-            // 
             // payBeforeDateLabel
             // 
             this.payBeforeDateLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
@@ -458,6 +474,26 @@
             this.payBeforeDateLabel.StylePriority.UseFont = false;
             this.payBeforeDateLabel.StylePriority.UseTextAlignment = false;
             this.payBeforeDateLabel.WordWrap = false;
+            // 
+            // xrLabel11
+            // 
+            resources.ApplyResources(this.xrLabel11, "xrLabel11");
+            this.xrLabel11.Name = "xrLabel11";
+            this.xrLabel11.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel11.StylePriority.UseFont = false;
+            this.xrLabel11.StylePriority.UseTextAlignment = false;
+            this.xrLabel11.WordWrap = false;
+            // 
+            // xrLabel8
+            // 
+            this.xrLabel8.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.Fine")});
+            resources.ApplyResources(this.xrLabel8, "xrLabel8");
+            this.xrLabel8.Name = "xrLabel8";
+            this.xrLabel8.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel8.StylePriority.UseFont = false;
+            this.xrLabel8.StylePriority.UseTextAlignment = false;
+            this.xrLabel8.WordWrap = false;
             // 
             // xrControlStyle1
             // 
@@ -543,8 +579,6 @@
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle2;
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle3;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
-        private DevExpress.XtraReports.UI.XRLabel printDateLabel;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel9;
         private DevExpress.XtraReports.UI.XRSubreport serviceTableSubreport;
         public DevExpress.XtraReports.Parameters.Parameter CustId;
         private Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet dataSet1;
@@ -574,10 +608,14 @@
         private DevExpress.XtraReports.UI.XRLabel payBeforeDateLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel11;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel6;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel8;
+        private DevExpress.XtraReports.UI.XRPanel xrPanel2;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel9;
+        private DevExpress.XtraReports.UI.XRLabel printDateLabel;
         private DevExpress.XtraReports.UI.XRPanel xrPanel1;
         private DevExpress.XtraReports.UI.XRLabel billDateLabel;
         private DevExpress.XtraReports.UI.XRLabel repNameLbl;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel8;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel6;
+        private DevExpress.XtraReports.UI.XRBarCode bankQrCode;
     }
 }

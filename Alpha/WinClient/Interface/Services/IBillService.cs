@@ -44,11 +44,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Interface.Services
             string bic,
             string corrAccount,
             string inn,
-            string category,
+            string kpp,
             string account,
             string fullName,
             string address,
-            DateTime period,
             decimal sum);
 
         /// <summary>

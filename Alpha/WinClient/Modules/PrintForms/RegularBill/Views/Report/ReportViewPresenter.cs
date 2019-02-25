@@ -195,14 +195,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                             }
 
                             string _barcode = string.Empty;//BillService.GenerateBarCodeString(_bill.Account, _bill.Period);
-                            string _qrCode = string.Empty;/*BillService.GenerateQrCodeString(
-                                _bill.Account, 
-                                _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson 
+                            string _qrCode = BillService.GenerateQrCodeString(
+                                "ТСЖ Инженерный",
+                                _bill.BankDetails.Account,
+                                _bill.BankDetails.Name,
+                                _bill.BankDetails.BIK,
+                                _bill.BankDetails.CorrAccount,
+                                _bill.BankDetails.INN,
+                                _bill.BankDetails.KPP,
+                                _bill.Account,
+                                _bill.OwnerType == (int)Customer.OwnerTypes.PhysicalPerson
                                     ? _bill.FullName
                                     : string.Empty,
                                 _bill.Address,
-                                _bill.Period,
-                                _bill.Value);*/
+                                _bill.Value);
 
                             _customersTable.Rows.Add(
                                 _bill.CustomerID,
