@@ -47,6 +47,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         bool RemoveEmptyBillsEnabled { set; }
 
         /// <summary>
+        /// Убрать муниципальные квитанции
+        /// </summary>
+        bool RemoveMunicipalBills { set; get; }
+
+        /// <summary>
+        /// Доступность удаления муниципальных квитанций
+        /// </summary>
+        bool RemoveMunicipalBillsEnabled { set; }
+
+        /// <summary>
         /// Печатать одной квитанции на листе
         /// </summary>
         bool OneBillOnSheet { set; get; }
