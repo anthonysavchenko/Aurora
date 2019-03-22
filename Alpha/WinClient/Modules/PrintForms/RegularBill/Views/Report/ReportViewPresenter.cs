@@ -296,13 +296,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                || street == "острякова проспект"
                || street == "некрасовская" 
                || street == "станюковича"
-               || (street == "красного знамени проспект" && (building == "93" || building == "107"))
+               || (street == "красного знамени проспект" && (building == "93" || building == "107" || building == "88"))
                || street == "терешковой")
             {
                 return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
             }
 
-            if(street == "адмирала спиридонова" || street == "адмирала кузнецова" || street == "луговая")
+            if(street == "адмирала спиридонова" || street == "адмирала кузнецова" || street == "луговая" || street == "баляева")
             {
                 return "Управляющий по дому - Горбачева Вера Александровна, тел 255-82-23";
             }
