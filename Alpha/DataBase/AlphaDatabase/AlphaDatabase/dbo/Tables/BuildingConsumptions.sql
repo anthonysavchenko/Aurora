@@ -2,23 +2,25 @@
     [ID]                    INT            IDENTITY (1, 1) NOT NULL,
     [BuildingID]            INT            NOT NULL,
     [Period]                DATE           NOT NULL,
-    [ElectrVol]             NVARCHAR (100) NOT NULL,
-    [ElectrOdnVol]          NVARCHAR (100) NOT NULL,
-    [ElectrCounterValue]    NVARCHAR (100) NOT NULL,
-    [HotWaterVol]           NVARCHAR (100) NOT NULL,
-    [HotWaterOdnVol]        NVARCHAR (100) NOT NULL,
-    [HotWaterCounterValue]  NVARCHAR (100) NOT NULL,
-    [ColdWaterVol]          NVARCHAR (100) NOT NULL,
-    [ColdWaterOdnVol]       NVARCHAR (100) NOT NULL,
-    [ColdWaterCounterValue] NVARCHAR (100) NOT NULL,
-    [WasteWaterVol]         NVARCHAR (100) NOT NULL,
-    [WasteWaterOdnVol]      NVARCHAR (100) NOT NULL,
-    [HeatingVol]            NVARCHAR (100) NOT NULL,
-    [HeatingOdnVol]         NVARCHAR (100) NOT NULL,
-    [HeatingCounterValue]   NVARCHAR (100) NOT NULL,
+    [ElectrVol]             NVARCHAR (255) NOT NULL,
+    [ElectrOdnVol]          NVARCHAR (255) NOT NULL,
+    [ElectrCounterValue]    NVARCHAR (255) NOT NULL,
+    [HotWaterVol]           NVARCHAR (255) NOT NULL,
+    [HotWaterOdnVol]        NVARCHAR (255) NOT NULL,
+    [HotWaterCounterValue]  NVARCHAR (255) NOT NULL,
+    [ColdWaterVol]          NVARCHAR (255) NOT NULL,
+    [ColdWaterOdnVol]       NVARCHAR (255) NOT NULL,
+    [ColdWaterCounterValue] NVARCHAR (255) NOT NULL,
+    [WasteWaterVol]         NVARCHAR (255) NOT NULL,
+    [WasteWaterOdnVol]      NVARCHAR (255) NOT NULL,
+    [HeatingVol]            NVARCHAR (255) NOT NULL,
+    [HeatingOdnVol]         NVARCHAR (255) NOT NULL,
+    [HeatingCounterValue]   NVARCHAR (255) NOT NULL,
     CONSTRAINT [PK_BuildingConsumptions] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_BuildingConsumptions_Buildings] FOREIGN KEY ([BuildingID]) REFERENCES [dbo].[Buildings] ([ID])
 );
+
+
 
 
 GO
