@@ -7,7 +7,7 @@ using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
 {
     [SmartPart]
-    public partial class TopView : BaseView, ITopView
+    public partial class TopView : /*System.Windows.Forms.UserControl//*/BaseView, ITopView
     {
         /// <summary>
         /// Конструктор
@@ -27,68 +27,37 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
         /// <summary>
         /// Строка целиком
         /// </summary>
-        public bool ShowOnlyWoPeriodValue
-        {
-            get
-            {
-                return showOnlyWoPeriodValuesCheckBox.Checked;
-            }
-        }
+        public bool ShowOnlyWoPeriodValue => showOnlyWoPeriodValuesCheckBox.Checked;
+
+        /// <summary>
+        /// Показать все
+        /// </summary>
+        public bool ShowAll => showAllCheckBox.Checked;
 
         /// <summary>
         /// Наименование улицы
         /// </summary>
-        public string Street
-        {
-            get
-            {
-                return StreetTextBox.Text;
-            }
-        }
+        public string Street => StreetTextBox.Text;
 
         /// <summary>
         /// Номер дома
         /// </summary>
-        public string Building
-        {
-            get
-            {
-                return HouseTextBox.Text;
-            }
-        }
+        public string Building => HouseTextBox.Text;
 
         /// <summary>
         /// Номер квартиры
         /// </summary>
-        public string Apartment
-        {
-            get
-            {
-                return ApartmentTextBox.Text;
-            }
-        }
+        public string Apartment => ApartmentTextBox.Text;
 
         /// <summary>
         /// Номер аккаунта
         /// </summary>
-        public string Account
-        {
-            get
-            {
-                return AccountTextBox.Text;
-            }
-        }
+        public string Account => AccountTextBox.Text;
 
         /// <summary>
         /// Почтовый индекс
         /// </summary>
-        public string ZipCode
-        {
-            get
-            {
-                return zipCodeTextBox.Text;
-            }
-        }
+        public string ZipCode => zipCodeTextBox.Text;
 
         /// <summary>
         /// Фильтр

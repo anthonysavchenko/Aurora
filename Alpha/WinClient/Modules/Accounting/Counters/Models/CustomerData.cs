@@ -1,6 +1,6 @@
-﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard.Model
+﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Models
 {
-    public class CustomerInfo
+    public class CustomerData
     {
         /// <summary>
         /// Лицевой счет
@@ -8,14 +8,9 @@
         public string Account { get; set; }
 
         /// <summary>
-        /// ФИО абонента
+        /// Собственник
         /// </summary>
-        public string CustomerName { get; set; }
-
-        /// <summary>
-        /// ID абонента
-        /// </summary>
-        public int CustomerId { get; set; }
+        public string Owner { get; set; }
 
         /// <summary>
         /// Улица
@@ -23,7 +18,7 @@
         public string Street { get; set; }
 
         /// <summary>
-        /// Номер дома
+        /// Дом
         /// </summary>
         public string Building { get; set; }
 
@@ -33,7 +28,7 @@
         public string Apartment { get; set; }
 
         /// <summary>
-        /// Площадь квартиры
+        /// Площадь
         /// </summary>
         public decimal Area { get; set; }
     }

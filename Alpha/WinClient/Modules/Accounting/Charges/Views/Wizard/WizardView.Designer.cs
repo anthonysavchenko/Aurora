@@ -678,7 +678,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             // 
             this.accountTextEdit.Location = new System.Drawing.Point(148, 31);
             this.accountTextEdit.Name = "accountTextEdit";
-            this.accountTextEdit.Properties.Mask.EditMask = "EG-0000-000-0";
+            this.accountTextEdit.Properties.Mask.EditMask = "0000-000-0";
             this.accountTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Simple;
             this.accountTextEdit.Size = new System.Drawing.Size(148, 20);
             this.accountTextEdit.TabIndex = 6;

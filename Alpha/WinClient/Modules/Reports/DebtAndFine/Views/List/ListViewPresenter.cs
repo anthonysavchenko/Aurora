@@ -319,7 +319,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
                             .ToList();
 
                         var _raw = GetBalance(_customerID, View.Since, View.Till, _all, _db)
-                            .Select(b => GetRecord(b, _now, _fineRate, _repair, _oldMaintenance, _recycling, _newMaintenance, _electr, _hotWater, _water))
+                            .Select(b => GetRecord(b, _now, Math.Round(_fineRate, 2 , MidpointRounding.AwayFromZero), _repair, _oldMaintenance, _recycling, _newMaintenance, _electr, _hotWater, _water))
                             .GroupBy(b => b.Year)
                             .Select(byYear =>
                                 new

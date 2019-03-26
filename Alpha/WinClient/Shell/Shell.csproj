@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>AuroraRepair</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.10.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.20.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>019.10.0.0</ApplicationVersion>
+    <ApplicationVersion>019.20.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -231,12 +231,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ShellApplication.cs" />
-    <Compile Include="Config\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Config\WinConfigService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
@@ -272,10 +266,6 @@
     </Content>
     <None Include="App.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Config\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Properties\app.manifest" />
     <Content Include="Templates\GisZhkh_Customer_Export.xlsx">

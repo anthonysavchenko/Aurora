@@ -1,13 +1,13 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
+using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 
-//using BaseMultipleListView = System.Windows.Forms.UserControl;
+//using BaseListView = System.Windows.Forms.UserControl;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.List
 {
     [SmartPart]
-    public partial class ListView : BaseMultipleListView
+    public partial class ListView : BaseListView
     {
         public ListView()
         {

@@ -49,6 +49,7 @@
             this.printCollectFormButton = new System.Windows.Forms.Button();
             this.districtLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.label4 = new System.Windows.Forms.Label();
+            this.showAllCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.districtLookUpEdit.Properties)).BeginInit();
@@ -58,6 +59,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.showAllCheckBox);
             this.groupBox1.Controls.Add(this.showOnlyWoPeriodValuesCheckBox);
             this.groupBox1.Controls.Add(this.zipCodeRadioButton);
             this.groupBox1.Controls.Add(this.accountRadioButton);
@@ -133,7 +135,7 @@
             // 
             // ApartmentTextBox
             // 
-            this.ApartmentTextBox.Location = new System.Drawing.Point(416, 22);
+            this.ApartmentTextBox.Location = new System.Drawing.Point(416, 21);
             this.ApartmentTextBox.Name = "ApartmentTextBox";
             this.ApartmentTextBox.Size = new System.Drawing.Size(40, 20);
             this.ApartmentTextBox.TabIndex = 3;
@@ -255,6 +257,16 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Участок";
             // 
+            // showAllCheckBox
+            // 
+            this.showAllCheckBox.AutoSize = true;
+            this.showAllCheckBox.Location = new System.Drawing.Point(214, 107);
+            this.showAllCheckBox.Name = "showAllCheckBox";
+            this.showAllCheckBox.Size = new System.Drawing.Size(96, 17);
+            this.showAllCheckBox.TabIndex = 14;
+            this.showAllCheckBox.Text = "Показать все";
+            this.showAllCheckBox.UseVisualStyleBackColor = true;
+            // 
             // TopView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,14 +290,11 @@
         private System.Windows.Forms.TextBox AccountTextBox;
         private System.Windows.Forms.Label ToLabel;
         private System.Windows.Forms.Label FromLabel;
-        private System.Windows.Forms.TextBox HouseTextBox;
-        private System.Windows.Forms.TextBox StreetTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox zipCodeTextBox;
         private System.Windows.Forms.RadioButton addressRadioButton;
         private System.Windows.Forms.RadioButton zipCodeRadioButton;
         private System.Windows.Forms.RadioButton accountRadioButton;
-        private System.Windows.Forms.TextBox ApartmentTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox showOnlyWoPeriodValuesCheckBox;
@@ -293,6 +302,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button printCollectFormButton;
         private DevExpress.XtraEditors.LookUpEdit districtLookUpEdit;
+        private System.Windows.Forms.TextBox ApartmentTextBox;
+        private System.Windows.Forms.TextBox HouseTextBox;
+        private System.Windows.Forms.TextBox StreetTextBox;
+        private System.Windows.Forms.CheckBox showAllCheckBox;
     }
 }
 

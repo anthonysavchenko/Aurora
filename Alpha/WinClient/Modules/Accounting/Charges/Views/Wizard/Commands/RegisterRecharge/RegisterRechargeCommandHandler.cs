@@ -141,6 +141,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         }
                         catch (Exception ex)
                         {
+                            cmd.Result.Errors++;
                             Logger.SimpleWrite($"RegisterRechargeCommand.CustomerId: {_customerID}\r\nException: {ex}");
                         }
                     }

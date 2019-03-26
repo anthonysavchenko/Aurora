@@ -85,5 +85,23 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
         /// Значения/показания
         /// </summary>
         public Dictionary<string, PrivateCounterValue> Values { get; } = new Dictionary<string, PrivateCounterValue>();
+
+        private bool _archived;
+        /// <summary>
+        /// Признак архивности
+        /// </summary>
+        public bool Archived
+        {
+            get
+            {
+                Load();
+                return _archived;
+            }
+            set
+            {
+                Load();
+                _archived = value;
+            }
+        }
     }
 }

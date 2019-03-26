@@ -485,7 +485,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             View.SelectedCustomers = CreateCustomersTable();
         }
 
-        private void Execute(ResultCommand<RegisterCommandResult> command)
+        private void Execute(ResultCommand<RegisterCommandResult> cmd)
         {
             var _thread = new Thread(() =>
             {
@@ -497,7 +497,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                     View.IsMasterInProgress = true;
 
                     var _commandDispatcher = _commandDispatcherFactory.Create(ServerTime, _pds, _excelService);
-                    _commandDispatcher.Execute(command);
+                    _commandDispatcher.Execute(cmd);
                 }
                 catch (Exception ex)
                 {
@@ -505,7 +505,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                     View.ShowMessage("Операция не выполнена", "Ошибка операции");
                 }
 
-                ShowResult(command.Result.Processed, command.Result.Total);
+                ShowResult(cmd.Result.Processed, cmd.Result.Errors, cmd.Result.Total);
 
                 _stopwatch.Stop();
                 Logger.SimpleWrite($"Потрачено: {_stopwatch.Elapsed}");
@@ -513,10 +513,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
             _thread.Start();
         }
 
-        private void ShowResult(int resultCount, decimal total)
+        private void ShowResult(int resultCount, int errorCount, decimal total)
         {
             View.ResultCount = resultCount;
             View.ResultValue = total;
+            View.ResultErrorCount = errorCount;
             View.IsMasterInProgress = false;
             View.IsMasterCompleted = true;
             View.SelectPage(WizardPages.FinishPage);
@@ -590,6 +591,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                                 });
                         }
 
+                        DateTime _now = ServerTime.GetDateTimeInfo().Now;
+
                         foreach (PrivateCounters _privateCounter in _privateCounters)
                         {
                             decimal _value =
@@ -604,6 +607,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             _entities.AddToPrivateCounterValues(
                                 new PrivateCounterValues
                                 {
+                                    CollectDate = _now,
                                     Period = currentPeriod,
                                     Value = _value,
                                     PrivateCounters = _privateCounter

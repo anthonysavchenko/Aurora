@@ -397,7 +397,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             this.AccountTextEdit.Location = new System.Drawing.Point(119, 25);
             this.AccountTextEdit.Name = "AccountTextEdit";
             this.AccountTextEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.AccountTextEdit.Properties.Mask.EditMask = "EG-\\d\\d\\d\\d-\\d\\d\\d-\\d";
+            this.AccountTextEdit.Properties.Mask.EditMask = "\\d\\d\\d\\d-\\d\\d\\d-\\d";
             this.AccountTextEdit.Properties.Mask.IgnoreMaskBlank = false;
             this.AccountTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.AccountTextEdit.Properties.Mask.PlaceHolder = '0';

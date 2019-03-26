@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Item.Queries
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries
 {
     public static class GetCounterValuesQuery
     {

@@ -809,7 +809,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             {
                 try
                 {
-                    CurrentAccount = String.Format("EG-{0}-{1}-{2}", _barcode.Substring(3, 4), _barcode.Substring(7, 3), _barcode.Substring(10, 1));
+                    CurrentAccount = String.Format("{0}-{1}-{2}", _barcode.Substring(3, 4), _barcode.Substring(7, 3), _barcode.Substring(10, 1));
                     CurrentPeriod = new DateTime(Int32.Parse(_barcode.Substring(11, 4)), Int32.Parse(_barcode.Substring(15, 2)), 1);
                 }
                 catch

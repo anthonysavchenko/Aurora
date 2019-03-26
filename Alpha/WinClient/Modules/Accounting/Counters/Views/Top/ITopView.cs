@@ -27,9 +27,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Top
     public interface ITopView : IBaseView
     {
         /// <summary>
-        /// Строка целиком
+        /// Показать только без показаний за текущий период
         /// </summary>
         bool ShowOnlyWoPeriodValue { get; }
+
+        /// <summary>
+        /// Показать все
+        /// </summary>
+        bool ShowAll { get; }
 
         /// <summary>
         /// Наименование улицы

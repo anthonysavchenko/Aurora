@@ -9493,12 +9493,14 @@ namespace Taumis.Alpha.DataBase
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="number">Initial value of the Number property.</param>
         /// <param name="model">Initial value of the Model property.</param>
-        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number, global::System.String model)
+        /// <param name="archived">Initial value of the Archived property.</param>
+        public static PrivateCounters CreatePrivateCounters(global::System.Int32 id, global::System.String number, global::System.String model, global::System.Boolean archived)
         {
             PrivateCounters privateCounters = new PrivateCounters();
             privateCounters.ID = id;
             privateCounters.Number = number;
             privateCounters.Model = model;
+            privateCounters.Archived = archived;
             return privateCounters;
         }
 
@@ -9628,6 +9630,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Model;
         partial void OnModelChanging(global::System.String value);
         partial void OnModelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Archived
+        {
+            get
+            {
+                return _Archived;
+            }
+            set
+            {
+                OnArchivedChanging(value);
+                ReportPropertyChanging("Archived");
+                _Archived = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Archived");
+                OnArchivedChanged();
+            }
+        }
+        private global::System.Boolean _Archived;
+        partial void OnArchivedChanging(global::System.Boolean value);
+        partial void OnArchivedChanged();
 
         #endregion
 

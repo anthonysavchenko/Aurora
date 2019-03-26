@@ -3,6 +3,7 @@
     public class RegisterCommandResult
     {
         public int Processed { get; set; }
+        public int Errors { get; set; }
         public decimal Total { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
     {
         private const int ROWS_PER_FILE = 50000;
         private const string CALCULATED_VALUE = "@";
-
+        // TODO перенести в настройки
         private class Section1_2Sheet
         {
             public const int INDEX = 1;
@@ -28,11 +28,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int NUMBER = 3;
                 public const int PERIOD = 4;
                 public const int AREA = 5;
-                public const int BIK = 16;
-                public const int BANK_ACCOUNT = 17;
-                public const int REPAIR_RATE = 18;
-                public const int REPAIR_CHARGE = 19;
-                public const int REPAIR_TOTAL = 23;
+                public const int BIK = 17;
+                public const int BANK_ACCOUNT = 18;
+                public const int REPAIR_RATE = 19;
+                public const int REPAIR_CHARGE = 20;
+                public const int REPAIR_TOTAL = 24;
             }
         }
 
@@ -47,16 +47,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             {
                 public const int NUMBER = 1;
                 public const int SERVICE = 2;
-                public const int PP_VOLUME_TYPE = 5;
-                public const int PP_VOLUME = 6;
-                public const int RATE = 7;
-                public const int RECALCULATION = 13;
-                public const int BENEFIT = 14;
-                public const int INTS_PAYMENT_RUB = 26;
-                public const int INTS_PAYMENT_PERCENT = 27;
-                public const int INTS_PAYMENT_TOTAL = 28;
-                public const int TOTAL = 29;
-                public const int PP_TOTAL = 31;
+                public const int PP_VOLUME_TYPE = 6;
+                public const int PP_VOLUME = 7;
+                public const int RATE = 8;
+                public const int RECALCULATION = 14;
+                public const int BENEFIT = 15;
+                public const int INTS_PAYMENT_RUB = 27;
+                public const int INTS_PAYMENT_PERCENT = 28;
+                public const int INTS_PAYMENT_TOTAL = 29;
+                public const int TOTAL = 30;
+                public const int PP_TOTAL = 32;
             }
         }
 
