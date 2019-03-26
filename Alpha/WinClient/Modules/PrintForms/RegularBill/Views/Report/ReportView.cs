@@ -155,13 +155,39 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         }
 
         /// <summary>
-        /// Доступность удаления квитанцийс нулевыми начислениями
+        /// Доступность удаления квитанций с нулевыми начислениями
         /// </summary>
         public bool RemoveEmptyBillsEnabled
         {
             set
             {
                 RemoveEmptyBillsCheckBox.Enabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Убрать муниципальные квитанции
+        /// </summary>
+        public bool RemoveMunicipalBills
+        {
+            set
+            {
+                RemoveMunicipalBillsCheckBox.Checked = value;
+            }
+            get
+            {
+                return RemoveMunicipalBillsCheckBox.Checked;
+            }
+        }
+
+        /// <summary>
+        /// Доступность удаления муниципальных квитанций
+        /// </summary>
+        public bool RemoveMunicipalBillsEnabled
+        {
+            set
+            {
+                RemoveMunicipalBillsCheckBox.Enabled = value;
             }
         }
 
@@ -280,6 +306,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         }
 
         private void OneBillOnSheetCheckBox_Click(object sender, EventArgs e)
+        {
+            UpdateReport();
+        }
+
+        private void RemoveMunicipalBillsCheckBox_Click(object sender, EventArgs e)
         {
             UpdateReport();
         }

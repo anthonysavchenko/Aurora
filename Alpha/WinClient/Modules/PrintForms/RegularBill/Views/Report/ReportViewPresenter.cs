@@ -119,7 +119,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                         var _bills =
                             _entities.RegularBillDocs
-                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue != 0))
+                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue != 0)  && (!View.RemoveMunicipalBills || b.Customers.IsPrivate))
                                 .Select(b =>
                                     new
                                     {
@@ -309,7 +309,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if(street == "магнитогорская"
-                || street == "енисейская")
+                || street == "енисейская"
+                || street == "полетаева")
             {
                 return "2-667-206, 2-666-964";
             }
@@ -453,15 +454,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             if (_billIDStrings.Count() > 1)
             {
                 View.RemoveEmptyBills = true;
+                View.RemoveMunicipalBills = true;
                 View.OneBillOnSheet = false;
                 View.RemoveEmptyBillsEnabled = true;
+                View.RemoveMunicipalBillsEnabled = true;
                 View.OneBillOnSheetEnabled = true;
             }
             else
             {
                 View.RemoveEmptyBills = false;
+                View.RemoveMunicipalBills = false;
                 View.OneBillOnSheet = true;
                 View.RemoveEmptyBillsEnabled = false;
+                View.RemoveMunicipalBillsEnabled = false;
                 View.OneBillOnSheetEnabled = false;
             }
 

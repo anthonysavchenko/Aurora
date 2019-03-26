@@ -97,6 +97,7 @@
             this.OneBillOnSheetCheckBox = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSend = new System.Windows.Forms.Button();
+            this.RemoveMunicipalBillsCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.printBarManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.printPreviewRepositoryItemComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrinterLookUpEdit.Properties)).BeginInit();
@@ -109,11 +110,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.printControl1.ForeColor = System.Drawing.Color.White;
             this.printControl1.IsMetric = true;
-            this.printControl1.Location = new System.Drawing.Point(292, 4);
-            this.printControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.printControl1.Location = new System.Drawing.Point(219, 3);
             this.printControl1.Name = "printControl1";
             this.printControl1.ShowPageMargins = false;
-            this.printControl1.Size = new System.Drawing.Size(1001, 555);
+            this.printControl1.Size = new System.Drawing.Size(751, 451);
             this.printControl1.TabIndex = 0;
             // 
             // printBarManager1
@@ -186,32 +186,28 @@
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Margin = new System.Windows.Forms.Padding(4);
-            this.barDockControlTop.Size = new System.Drawing.Size(1297, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(973, 0);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 562);
-            this.barDockControlBottom.Margin = new System.Windows.Forms.Padding(4);
-            this.barDockControlBottom.Size = new System.Drawing.Size(1297, 0);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 457);
+            this.barDockControlBottom.Size = new System.Drawing.Size(973, 0);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlLeft.Margin = new System.Windows.Forms.Padding(4);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 562);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 457);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(1297, 0);
-            this.barDockControlRight.Margin = new System.Windows.Forms.Padding(4);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 562);
+            this.barDockControlRight.Location = new System.Drawing.Point(973, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 457);
             // 
             // printPreviewStaticItem1
             // 
@@ -745,10 +741,9 @@
             // PrintButton
             // 
             this.PrintButton.Image = global::Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Properties.Resources.Print_32x32;
-            this.PrintButton.Location = new System.Drawing.Point(36, 4);
-            this.PrintButton.Margin = new System.Windows.Forms.Padding(4);
+            this.PrintButton.Location = new System.Drawing.Point(27, 3);
             this.PrintButton.Name = "PrintButton";
-            this.PrintButton.Size = new System.Drawing.Size(104, 71);
+            this.PrintButton.Size = new System.Drawing.Size(78, 58);
             this.PrintButton.TabIndex = 1;
             this.PrintButton.Text = "Печатать";
             this.PrintButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -758,10 +753,9 @@
             // 
             // ExportPDFButton
             // 
-            this.ExportPDFButton.Location = new System.Drawing.Point(4, 161);
-            this.ExportPDFButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ExportPDFButton.Location = new System.Drawing.Point(3, 131);
             this.ExportPDFButton.Name = "ExportPDFButton";
-            this.ExportPDFButton.Size = new System.Drawing.Size(136, 30);
+            this.ExportPDFButton.Size = new System.Drawing.Size(102, 24);
             this.ExportPDFButton.TabIndex = 4;
             this.ExportPDFButton.Text = "Сохранить в PDF";
             this.ExportPDFButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -770,10 +764,9 @@
             // 
             // ExportXLSButton
             // 
-            this.ExportXLSButton.Location = new System.Drawing.Point(148, 161);
-            this.ExportXLSButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ExportXLSButton.Location = new System.Drawing.Point(111, 131);
             this.ExportXLSButton.Name = "ExportXLSButton";
-            this.ExportXLSButton.Size = new System.Drawing.Size(136, 30);
+            this.ExportXLSButton.Size = new System.Drawing.Size(102, 24);
             this.ExportXLSButton.TabIndex = 5;
             this.ExportXLSButton.Text = "Сохранить в XLS";
             this.ExportXLSButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -782,8 +775,7 @@
             // 
             // PrinterLookUpEdit
             // 
-            this.PrinterLookUpEdit.Location = new System.Drawing.Point(4, 111);
-            this.PrinterLookUpEdit.Margin = new System.Windows.Forms.Padding(4);
+            this.PrinterLookUpEdit.Location = new System.Drawing.Point(3, 90);
             this.PrinterLookUpEdit.Name = "PrinterLookUpEdit";
             this.PrinterLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -792,16 +784,15 @@
             this.PrinterLookUpEdit.Properties.DisplayMember = "Name";
             this.PrinterLookUpEdit.Properties.NullText = "Нет установленых принтеров";
             this.PrinterLookUpEdit.Properties.ValueMember = "Name";
-            this.PrinterLookUpEdit.Size = new System.Drawing.Size(280, 22);
+            this.PrinterLookUpEdit.Size = new System.Drawing.Size(210, 20);
             this.PrinterLookUpEdit.TabIndex = 3;
             // 
             // RemoveEmptyBillsCheckBox
             // 
             this.RemoveEmptyBillsCheckBox.AutoSize = true;
-            this.RemoveEmptyBillsCheckBox.Location = new System.Drawing.Point(4, 198);
-            this.RemoveEmptyBillsCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RemoveEmptyBillsCheckBox.Location = new System.Drawing.Point(3, 161);
             this.RemoveEmptyBillsCheckBox.Name = "RemoveEmptyBillsCheckBox";
-            this.RemoveEmptyBillsCheckBox.Size = new System.Drawing.Size(260, 21);
+            this.RemoveEmptyBillsCheckBox.Size = new System.Drawing.Size(202, 17);
             this.RemoveEmptyBillsCheckBox.TabIndex = 6;
             this.RemoveEmptyBillsCheckBox.Text = "Убрать квитанции без начислений";
             this.RemoveEmptyBillsCheckBox.UseVisualStyleBackColor = true;
@@ -810,10 +801,9 @@
             // OneBillOnSheetCheckBox
             // 
             this.OneBillOnSheetCheckBox.AutoSize = true;
-            this.OneBillOnSheetCheckBox.Location = new System.Drawing.Point(4, 226);
-            this.OneBillOnSheetCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.OneBillOnSheetCheckBox.Location = new System.Drawing.Point(3, 207);
             this.OneBillOnSheetCheckBox.Name = "OneBillOnSheetCheckBox";
-            this.OneBillOnSheetCheckBox.Size = new System.Drawing.Size(192, 21);
+            this.OneBillOnSheetCheckBox.Size = new System.Drawing.Size(149, 17);
             this.OneBillOnSheetCheckBox.TabIndex = 7;
             this.OneBillOnSheetCheckBox.Text = "Одна квитанция на лист";
             this.OneBillOnSheetCheckBox.UseVisualStyleBackColor = true;
@@ -823,19 +813,19 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(4, 91);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(3, 74);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 17);
+            this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 40;
             this.label2.Text = "Принтер";
             // 
             // btnSend
             // 
             this.btnSend.Image = global::Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Properties.Resources.Email_32x32;
-            this.btnSend.Location = new System.Drawing.Point(148, 4);
+            this.btnSend.Location = new System.Drawing.Point(111, 3);
+            this.btnSend.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(104, 71);
+            this.btnSend.Size = new System.Drawing.Size(78, 58);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "Отправить";
             this.btnSend.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -843,13 +833,25 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // RemoveMunicipalBillsCheckBox
+            // 
+            this.RemoveMunicipalBillsCheckBox.AutoSize = true;
+            this.RemoveMunicipalBillsCheckBox.Location = new System.Drawing.Point(3, 184);
+            this.RemoveMunicipalBillsCheckBox.Name = "RemoveMunicipalBillsCheckBox";
+            this.RemoveMunicipalBillsCheckBox.Size = new System.Drawing.Size(203, 17);
+            this.RemoveMunicipalBillsCheckBox.TabIndex = 6;
+            this.RemoveMunicipalBillsCheckBox.Text = "Убрать муниципальные квитанции";
+            this.RemoveMunicipalBillsCheckBox.UseVisualStyleBackColor = true;
+            this.RemoveMunicipalBillsCheckBox.Click += new System.EventHandler(this.RemoveMunicipalBillsCheckBox_Click);
+            // 
             // ReportView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.OneBillOnSheetCheckBox);
+            this.Controls.Add(this.RemoveMunicipalBillsCheckBox);
             this.Controls.Add(this.RemoveEmptyBillsCheckBox);
             this.Controls.Add(this.PrinterLookUpEdit);
             this.Controls.Add(this.ExportXLSButton);
@@ -860,9 +862,8 @@
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ReportView";
-            this.Size = new System.Drawing.Size(1297, 562);
+            this.Size = new System.Drawing.Size(973, 457);
             ((System.ComponentModel.ISupportInitialize)(this.printBarManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.printPreviewRepositoryItemComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrinterLookUpEdit.Properties)).EndInit();
@@ -938,5 +939,6 @@
         private System.Windows.Forms.CheckBox OneBillOnSheetCheckBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.CheckBox RemoveMunicipalBillsCheckBox;
     }
 }
