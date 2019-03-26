@@ -134,7 +134,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     string _accPart2 = _normalizedStr.Substring(4, 3);
                     string _accPart3 = _normalizedStr.Substring(7, 1);
 
-                    _goodAccountStr = $"EG-{_accPart1}-{_accPart2}-{_accPart3}";
+                    _goodAccountStr = $"{_accPart1}-{_accPart2}-{_accPart3}";
                 }
                 else
                 {

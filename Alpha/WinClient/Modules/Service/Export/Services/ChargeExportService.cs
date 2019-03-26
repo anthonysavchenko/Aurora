@@ -329,13 +329,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                                 if (_format == ChargeExportFormatType.Sberbank)
                                 {
-                                    string _account = _record.Account.Replace("EG-", string.Empty);
-                                    _line = $"{_account};{_record.Owner};Владивосток, {_record.Street}, {_record.Building}{_apartment};{_period:MMyy};{ _record.Value};";
+                                    _line = $"{_record.Account};{_record.Owner};Владивосток, {_record.Street}, {_record.Building}{_apartment};{_period:MMyy};{ _record.Value};";
                                 }
                                 else
                                 {
-                                    string _account = _record.Account.Replace("EG-", string.Empty);
-                                    _line = $"EG|{_account}|{_record.Owner}|{_record.Street}, {_record.Building}{_apartment}|{ _record.Value.ToString().Replace(',', '.')}";
+                                    _line = $"EG|{_record.Account}|{_record.Owner}|{_record.Street}, {_record.Building}{_apartment}|{ _record.Value.ToString().Replace(',', '.')}";
                                 }
 
                                 _file.WriteLine(_line);

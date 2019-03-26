@@ -296,11 +296,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                     if (_lastCustomer != null)
                     {
                         long _lastAccount = Convert.ToInt64(String.Format("{0}{1}{2}", _lastCustomer.Account.Substring(3, 4), _lastCustomer.Account.Substring(8, 3), _lastCustomer.Account.Substring(12, 1)));
-                        _account = (_lastAccount + 1).ToString().Insert(7, "-").Insert(4, "-").Insert(0, "EG-");
+                        _account = (_lastAccount + 1).ToString().Insert(7, "-").Insert(4, "-");
                     }
                     else
                     {
-                        _account = "EG-1111-111-1";
+                        _account = "1111-111-1";
                     }
                 }
             }

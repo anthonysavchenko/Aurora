@@ -373,7 +373,7 @@
             this.accountValueLabel.Name = "accountValueLabel";
             this.accountValueLabel.Size = new System.Drawing.Size(85, 13);
             this.accountValueLabel.TabIndex = 36;
-            this.accountValueLabel.Text = "EG-0000-000-00";
+            this.accountValueLabel.Text = "0000-000-00";
             // 
             // ownerValueLabel
             // 

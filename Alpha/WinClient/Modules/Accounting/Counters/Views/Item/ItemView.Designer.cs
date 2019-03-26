@@ -278,7 +278,7 @@
             this.customerAccount.Name = "customerAccount";
             this.customerAccount.Size = new System.Drawing.Size(85, 13);
             this.customerAccount.TabIndex = 36;
-            this.customerAccount.Text = "EG-0000-000-00";
+            this.customerAccount.Text = "0000-000-00";
             // 
             // ownerLabel
             // 

@@ -63,7 +63,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             bool _res = true;
             ErrorMessage = String.Empty;
 
-            if (!Regex.IsMatch(Account, @"EG-\d{4}-\d{3}-\d{1}"))
+            if (!Regex.IsMatch(Account, @"\d{4}-\d{3}-\d{1}"))
             {
                 ErrorMessage += "Некорректный Лицевой счет. \r\n";
                 _res = false;

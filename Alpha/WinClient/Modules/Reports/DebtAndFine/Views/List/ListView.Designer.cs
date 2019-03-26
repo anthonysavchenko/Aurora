@@ -670,7 +670,7 @@
             // 
             this.accountTextEdit.Location = new System.Drawing.Point(73, 88);
             this.accountTextEdit.Name = "accountTextEdit";
-            this.accountTextEdit.Properties.Mask.EditMask = "EG-0000-000-0";
+            this.accountTextEdit.Properties.Mask.EditMask = "0000-000-0";
             this.accountTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Simple;
             this.accountTextEdit.Size = new System.Drawing.Size(201, 20);
             this.accountTextEdit.TabIndex = 45;
