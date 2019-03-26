@@ -68,7 +68,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <returns>Строка для штрих кода</returns>
         public string GenerateBarCodeString(string account, DateTime period)
         {
-            string _accountNum = $"{account.Substring(3, 4)}{account.Substring(8, 3)}{account.Substring(12, 1)}";
+            string _accountNum = $"{account.Substring(0, 4)}{account.Substring(5, 3)}{account.Substring(9, 1)}";
             string _barcode = $"{BARCODE_COMPANY_CODE}{_accountNum}{period:yyyyMM}{BARCODE_SERVICE_CODE}";
 
             int _barcodeSum = _barcode.Sum(c => int.Parse(c.ToString()));
@@ -106,12 +106,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
             DateTime period, 
             decimal sum)
         {
-            string _accountNum = account.Substring(3);
             // Сумма в копейках
             int _sum = Convert.ToInt32(sum * 100);
 
             string _qrStr =
-                $"ST00012|Name={name}|PersonalAcc={bankAccount}|BankName={bankName}|BIC={bic}|CorrespAcc={corrAccount}|PayeeINN={inn}|Category={category}|PersAcc={_accountNum}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
+                $"ST00012|Name={name}|PersonalAcc={bankAccount}|BankName={bankName}|BIC={bic}|CorrespAcc={corrAccount}|PayeeINN={inn}|Category={category}|PersAcc={account}|PayerAddress={address}|Sum={_sum}|PaymPeriod={period:MM.yyyy}";
 
             if (!string.IsNullOrEmpty(fullName))
             {
