@@ -4,15 +4,12 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.DataMappers.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Tabbed;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Queries;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
 using Taumis.EnterpriseLibrary.Win.Services;
-using DomBuilding = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Building;
-using DomStreet = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Street;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
 {
@@ -33,7 +30,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             View.IsMasterCompleted = false;
             View.IsMasterInProgress = false;
 
-            View.Streets = GetList<DomStreet>();
+            FillStreets();
             View.StreetId = string.Empty;
             View.BuildingId = string.Empty;
             View.Period = ServerTime.GetPeriodInfo().FirstUncharged;
@@ -73,8 +70,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                     case WizardSteps.BuildingSelectPage:
                         if (ValidateBuildingSelectPage(out string message))
                         {
-                            FillDataGrid();
-                            _next = WizardSteps.CollectDataPage;
+                            try
+                            {
+                                FillDataGrid();
+                                _next = WizardSteps.CollectDataPage;
+                            }
+                            catch (Exception ex)
+                            {
+                                View.ShowMessage(ex.ToString(), "Ошибка выборки данных");
+                            }
                         }
                         else
                         {
@@ -123,9 +127,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             }
         }
 
+        private void FillStreets()
+        {
+            using (Entities db = new Entities())
+            {
+                View.Streets = db.GetCountersStreets();
+            }
+        }
+
         public void FillBuildingList()
         {
-            View.Buildings = DataMapper<DomBuilding, IBuildingDataMapper>().GetBuildingsOnStreet(GetItem<DomStreet>(View.StreetId));
+            using (Entities db = new Entities())
+            {
+                View.Buildings = db.GetBuildingsWithCountersOnStreet(int.Parse(View.StreetId));
+            }
         }
 
         private bool ValidateBuildingSelectPage(out string message)
