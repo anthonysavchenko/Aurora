@@ -333,7 +333,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 }
                                 else
                                 {
-                                    _line = $"EG|{_record.Account}|{_record.Owner}|{_record.Street}, {_record.Building}{_apartment}|{ _record.Value.ToString().Replace(',', '.')}";
+                                    _line = $"{_record.Account}|{_record.Owner}|{_record.Street}, {_record.Building}{_apartment}|{ _record.Value.ToString().Replace(',', '.')}";
                                 }
 
                                 _file.WriteLine(_line);

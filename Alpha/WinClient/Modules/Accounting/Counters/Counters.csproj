@@ -81,7 +81,9 @@
     <Compile Include="Models\BuildingData.cs" />
     <Compile Include="Models\CounterInfo.cs" />
     <Compile Include="Models\CustomerData.cs" />
+    <Compile Include="Queries\GetBuildingsWithCountersOnStreetQuery.cs" />
     <Compile Include="Queries\GetCounterInfoQuery.cs" />
+    <Compile Include="Queries\GetCountersStreetsQuery.cs" />
     <Compile Include="Queries\GetCounterValuesQuery.cs" />
     <Compile Include="Views\Layout\LayoutView.cs">
       <SubType>UserControl</SubType>
