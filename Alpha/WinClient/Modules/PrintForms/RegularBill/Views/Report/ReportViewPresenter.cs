@@ -263,7 +263,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         /// <returns>Строка для штрих кода</returns>
         private string GenerateBarCodeString(string account, int buildingID, DateTime period)
         {
-            string _accountNum = $"{account.Substring(3, 4)}{account.Substring(8, 3)}{account.Substring(12, 1)}";
+            string _accountNum = $"{account.Substring(0, 4)}{account.Substring(5, 3)}{account.Substring(9, 1)}";
             string _providerCode = $"K061{buildingID:000000000}";
 
             string _barcode =
