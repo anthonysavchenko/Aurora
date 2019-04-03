@@ -308,7 +308,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                         .Distinct()
                         .Where(c =>
                             _db.ChargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0)
-                            || _db.RechargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0))
+                            && _db.RechargeOpers.Where(x => x.Customers.Account == c).All(x => x.Value == 0))
                         .ToArray();
 
                 _result = _accounts.Length == 0;

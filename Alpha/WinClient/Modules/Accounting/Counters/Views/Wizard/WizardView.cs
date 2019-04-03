@@ -95,8 +95,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         {
             get
             {
-                DateTime _temp = DateTime.MinValue;
-                periodDateEdit.Invoke(new MethodInvoker(() => _temp = periodDateEdit.DateTime));
+                DateTime _temp = periodDateEdit.DateTime;
                 return new DateTime(_temp.Year, _temp.Month, 1);
             }
             set
