@@ -70,15 +70,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
                     case WizardSteps.BuildingSelectPage:
                         if (ValidateBuildingSelectPage(out string message))
                         {
-                            try
-                            {
-                                FillDataGrid();
-                                _next = WizardSteps.CollectDataPage;
-                            }
-                            catch (Exception ex)
-                            {
-                                View.ShowMessage(ex.ToString(), "Ошибка выборки данных");
-                            }
+                            FillDataGrid();
+                            _next = WizardSteps.CollectDataPage;
                         }
                         else
                         {
@@ -221,9 +214,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         /// </summary>
         private void FillDataGrid()
         {
+            DataTable _table;
             using (var _db = new Entities())
             {
-                View.Items = _db.GetCounters(int.Parse(View.BuildingId), View.Period);
+                _table = _db.GetCounters(int.Parse(View.BuildingId), View.Period);
+            }
+
+            try
+            {
+                View.Items = _table;
+            }
+            catch (Exception ex)
+            {
+                View.ShowMessage(ex.ToString(), "Ошибка выборки данных");
             }
         }
 

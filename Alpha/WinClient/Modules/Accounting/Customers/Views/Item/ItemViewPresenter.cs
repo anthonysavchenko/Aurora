@@ -295,7 +295,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
                     Taumis.Alpha.DataBase.Customers _lastCustomer = _entities.Customers.OrderByDescending(customer => customer.Account).FirstOrDefault();
                     if (_lastCustomer != null)
                     {
-                        long _lastAccount = Convert.ToInt64(String.Format("{0}{1}{2}", _lastCustomer.Account.Substring(3, 4), _lastCustomer.Account.Substring(8, 3), _lastCustomer.Account.Substring(12, 1)));
+                        long _lastAccount = Convert.ToInt64(String.Format("{0}{1}{2}", _lastCustomer.Account.Substring(0, 4), _lastCustomer.Account.Substring(5, 3), _lastCustomer.Account.Substring(9, 1)));
                         _account = (_lastAccount + 1).ToString().Insert(7, "-").Insert(4, "-");
                     }
                     else

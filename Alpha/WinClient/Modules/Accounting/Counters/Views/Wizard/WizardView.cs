@@ -38,7 +38,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
         public DataTable Items
         {
             get => (DataTable)counterValueGridControl.DataSource;
-            set => counterValueGridControl.Invoke(new MethodInvoker(() => counterValueGridControl.DataSource = value));
+            set => counterValueGridControl.DataSource = value;
         }
 
         public void ShowEditor()
@@ -290,7 +290,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Counters.Views.Wizard
             if (e.FocusedRowHandle >= 0)
             {
                 DataRow _row = counterValueGridView.GetDataRow(e.FocusedRowHandle);
-                SetError(_row[WizardTableColumnNames.ERROR_MESSAGE].ToString());
+                SetError(_row != null ? _row[WizardTableColumnNames.ERROR_MESSAGE].ToString() : string.Empty);
             }
         }
 
