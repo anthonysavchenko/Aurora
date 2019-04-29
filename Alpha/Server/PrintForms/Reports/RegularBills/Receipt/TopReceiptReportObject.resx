@@ -1061,10 +1061,10 @@
     <value>Courier New, 8.25pt</value>
   </data>
   <data name="bankQrCode.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 142.687515</value>
+    <value>0, 142.6875</value>
   </data>
   <data name="bankQrCode.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>285, 285</value>
+    <value>308, 308</value>
   </data>
   <data name="bankQrCode.Text" xml:space="preserve">
     <value>bankQrCode</value>
