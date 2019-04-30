@@ -118,22 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="xrPageBreak1.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="xrPageBreak1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 1006.87506</value>
-  </data>
   <data name="xrLabel8.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="xrLabel8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
+  <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="xrLabel8.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>147.458344, 137.0832</value>
+    <value>52.2080536, 137.0832</value>
   </data>
   <data name="xrLabel8.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>399.0208, 62.9999847</value>
@@ -148,16 +142,16 @@
     <value>254</value>
   </data>
   <data name="xrLabel2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>983.5414, 293.3542</value>
+    <value>1504.77051, 214.145844</value>
   </data>
   <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>623.9166, 66</value>
   </data>
   <data name="xrLabel2.Text" xml:space="preserve">
-    <value>Количество проживающих:</value>
+    <value>Количество проживающих1:</value>
   </data>
   <data name="xrLabel2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
@@ -169,13 +163,13 @@
     <value>254</value>
   </data>
   <data name="payerAddressLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="payerAddressLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>546.4792, 214.145844</value>
+    <value>451.2289, 214.145844</value>
   </data>
   <data name="payerAddressLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1356.97925, 63.99997</value>
+    <value>946.874756, 63.99997</value>
   </data>
   <data name="payerAddressLabel.Text" xml:space="preserve">
     <value>payerAddressLabel</value>
@@ -190,13 +184,13 @@
     <value>254</value>
   </data>
   <data name="payerAkaLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="payerAkaLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>546.4792, 137.0832</value>
+    <value>451.2289, 137.0832</value>
   </data>
   <data name="payerAkaLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1356.979, 63</value>
+    <value>946.8749, 63</value>
   </data>
   <data name="payerAkaLabel.Text" xml:space="preserve">
     <value>payerAkaLabel</value>
@@ -205,16 +199,16 @@
     <value>254</value>
   </data>
   <data name="xrLabel5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="xrLabel5.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>147.458344, 293.3542</value>
+    <value>1504.43726, 137.0832</value>
   </data>
   <data name="xrLabel5.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>399.0208, 66</value>
   </data>
   <data name="xrLabel5.Text" xml:space="preserve">
-    <value>Общая площадь:</value>
+    <value>Общая площадь1:</value>
   </data>
   <data name="xrLabel5.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleLeft</value>
@@ -223,13 +217,13 @@
     <value>254</value>
   </data>
   <data name="areaLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="areaLabel.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>Black</value>
   </data>
   <data name="areaLabel.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>546.4792, 293.3542</value>
+    <value>1903.45813, 137.0832</value>
   </data>
   <data name="areaLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>296, 66</value>
@@ -244,10 +238,10 @@
     <value>254</value>
   </data>
   <data name="xrLabel7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="xrLabel7.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>147.458344, 374.729218</value>
+    <value>52.2080536, 298.000061</value>
   </data>
   <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>399.020782, 64.00009</value>
@@ -262,10 +256,10 @@
     <value>254</value>
   </data>
   <data name="xrLabel9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="xrLabel9.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>147.458344, 214.145844</value>
+    <value>52.2080536, 214.145844</value>
   </data>
   <data name="xrLabel9.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>399.0208, 63.99997</value>
@@ -280,10 +274,10 @@
     <value>254</value>
   </data>
   <data name="xrLabel10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt, style=Bold</value>
+    <value>Tahoma, 14.25pt, style=Bold</value>
   </data>
   <data name="xrLabel10.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1446.729, 0</value>
+    <value>1753.64551, 0</value>
   </data>
   <data name="xrLabel10.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>456.729248, 85.00001</value>
@@ -291,32 +285,14 @@
   <data name="xrLabel10.Text" xml:space="preserve">
     <value>xrLabel10</value>
   </data>
-  <data name="xrLabel3.BackColor" type="System.Drawing.Color, System.Drawing">
-    <value>Transparent</value>
-  </data>
-  <data name="xrLabel3.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <data name="xrLabel3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
-  </data>
-  <data name="xrLabel3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>546.4792, 374.729218</value>
-  </data>
-  <data name="xrLabel3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1356.979, 63.99997</value>
-  </data>
-  <data name="xrLabel3.Text" xml:space="preserve">
-    <value>xrLabel3</value>
-  </data>
   <data name="xrLabel11.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="xrLabel11.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="xrLabel11.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1607.45813, 293.3542</value>
+    <value>2128.68726, 214.145844</value>
   </data>
   <data name="xrLabel11.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>296, 66</value>
@@ -331,13 +307,13 @@
     <value>254</value>
   </data>
   <data name="xrLabel12.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt</value>
+    <value>Tahoma, 14.25pt</value>
   </data>
   <data name="xrLabel12.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>147.458344, 483.354218</value>
+    <value>52.2080536, 396.041718</value>
   </data>
   <data name="xrLabel12.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1755.99976, 196.291687</value>
+    <value>2748.35425, 122.208282</value>
   </data>
   <data name="xrLabel12.Text" xml:space="preserve">
     <value>По Вашему лицевому счету произведены начисления (с учетом актов и перерасчетов) и получены оплаты (с учетом субсидий) за жилое помещение, как указано ниже.</value>
@@ -349,13 +325,13 @@
     <value>254</value>
   </data>
   <data name="xrLabel4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt, style=Bold</value>
+    <value>Tahoma, 14.25pt, style=Bold</value>
   </data>
   <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>147.458344, 0</value>
+    <value>425.270569, 0</value>
   </data>
   <data name="xrLabel4.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1299.27075, 85.00001</value>
+    <value>1328.37476, 85.00001</value>
   </data>
   <data name="xrLabel4.Text" xml:space="preserve">
     <value>Справка взаиморасчетов за жилищные услуги от</value>
@@ -367,16 +343,16 @@
     <value>254</value>
   </data>
   <data name="ServiceTypesXRSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>0, 695.854248</value>
+    <value>0, 539.750061</value>
   </data>
   <data name="ServiceTypesXRSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 299.646057</value>
+    <value>2872, 299.646057</value>
   </data>
   <data name="Detail.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>1033.875</value>
+    <value>897.7501</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -391,7 +367,7 @@
     <value>254</value>
   </data>
   <data name="bottomMarginBand1.HeightF" type="System.Single, mscorlib">
-    <value>51</value>
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -399,14 +375,17 @@
   <data name="$this.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <data name="$this.Landscape" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="$this.Margins" type="System.Drawing.Printing.Margins, System.Drawing">
-    <value>48, 50, 51, 51</value>
+    <value>48, 50, 51, 0</value>
   </data>
   <data name="$this.PageHeight" type="System.Int32, mscorlib">
-    <value>2970</value>
+    <value>2100</value>
   </data>
   <data name="$this.PageWidth" type="System.Int32, mscorlib">
-    <value>2100</value>
+    <value>2970</value>
   </data>
   <data name="$this.PaperKind" type="System.Drawing.Printing.PaperKind, System.Drawing">
     <value>A4</value>

@@ -26,6 +26,8 @@
               <xs:element name="Act" msprop:Generator_ColumnVarNameInTable="columnAct" msprop:Generator_ColumnPropNameInRow="Act" msprop:Generator_ColumnPropNameInTable="ActColumn" msprop:Generator_UserColumnName="Act" type="xs:string" minOccurs="0" />
               <xs:element name="Payment" msprop:Generator_ColumnVarNameInTable="columnPayment" msprop:Generator_ColumnPropNameInRow="Payment" msprop:Generator_ColumnPropNameInTable="PaymentColumn" msprop:Generator_UserColumnName="Payment" type="xs:string" minOccurs="0" />
               <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:string" minOccurs="0" />
+              <xs:element name="PaymentOnCreate" msprop:Generator_ColumnVarNameInTable="columnPaymentOnCreate" msprop:Generator_ColumnPropNameInRow="PaymentOnCreate" msprop:Generator_ColumnPropNameInTable="PaymentOnCreateColumn" msprop:Generator_UserColumnName="PaymentOnCreate" type="xs:string" minOccurs="0" />
+              <xs:element name="PaymentOnPeriod" msprop:Generator_ColumnVarNameInTable="columnPaymentOnPeriod" msprop:Generator_ColumnPropNameInRow="PaymentOnPeriod" msprop:Generator_ColumnPropNameInTable="PaymentOnPeriodColumn" msprop:Generator_UserColumnName="PaymentOnPeriod" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -33,13 +35,17 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ReportNumber" msprop:Generator_ColumnVarNameInTable="columnReportNumber" msprop:Generator_ColumnPropNameInRow="ReportNumber" msprop:Generator_ColumnPropNameInTable="ReportNumberColumn" msprop:Generator_UserColumnName="ReportNumber" type="xs:string" minOccurs="0" />
-              <xs:element name="SinceTillPeriods" msprop:Generator_ColumnVarNameInTable="columnSinceTillPeriods" msprop:Generator_ColumnPropNameInRow="SinceTillPeriods" msprop:Generator_ColumnPropNameInTable="SinceTillPeriodsColumn" msprop:Generator_UserColumnName="SinceTillPeriods" type="xs:string" minOccurs="0" />
+              <xs:element name="Since" msprop:Generator_ColumnVarNameInTable="columnSince" msprop:Generator_ColumnPropNameInRow="Since" msprop:Generator_ColumnPropNameInTable="SinceColumn" msprop:Generator_UserColumnName="Since" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Till" msprop:Generator_ColumnVarNameInTable="columnTill" msprop:Generator_ColumnPropNameInRow="Till" msprop:Generator_ColumnPropNameInTable="TillColumn" msprop:Generator_UserColumnName="Till" type="xs:dateTime" minOccurs="0" />
               <xs:element name="DateCreated" msprop:Generator_ColumnVarNameInTable="columnDateCreated" msprop:Generator_ColumnPropNameInRow="DateCreated" msprop:Generator_ColumnPropNameInTable="DateCreatedColumn" msprop:Generator_UserColumnName="DateCreated" type="xs:dateTime" minOccurs="0" />
               <xs:element name="OwnerName" msprop:Generator_ColumnVarNameInTable="columnOwnerName" msprop:Generator_ColumnPropNameInRow="OwnerName" msprop:Generator_ColumnPropNameInTable="OwnerNameColumn" msprop:Generator_UserColumnName="OwnerName" type="xs:string" minOccurs="0" />
               <xs:element name="Address" msprop:Generator_ColumnVarNameInTable="columnAddress" msprop:Generator_ColumnPropNameInRow="Address" msprop:Generator_ColumnPropNameInTable="AddressColumn" msprop:Generator_UserColumnName="Address" type="xs:string" minOccurs="0" />
               <xs:element name="Square" msprop:Generator_ColumnVarNameInTable="columnSquare" msprop:Generator_ColumnPropNameInRow="Square" msprop:Generator_ColumnPropNameInTable="SquareColumn" msprop:Generator_UserColumnName="Square" type="xs:string" minOccurs="0" />
               <xs:element name="ResidentsCount" msprop:Generator_ColumnVarNameInTable="columnResidentsCount" msprop:Generator_ColumnPropNameInRow="ResidentsCount" msprop:Generator_ColumnPropNameInTable="ResidentsCountColumn" msprop:Generator_UserColumnName="ResidentsCount" type="xs:string" minOccurs="0" />
               <xs:element name="Author" msprop:Generator_ColumnVarNameInTable="columnAuthor" msprop:Generator_ColumnPropNameInRow="Author" msprop:Generator_ColumnPropNameInTable="AuthorColumn" msprop:Generator_UserColumnName="Author" type="xs:string" minOccurs="0" />
+              <xs:element name="TotaltBeforeSince" msprop:Generator_ColumnVarNameInTable="columnTotaltBeforeSince" msprop:Generator_ColumnPropNameInRow="TotaltBeforeSince" msprop:Generator_ColumnPropNameInTable="TotaltBeforeSinceColumn" msprop:Generator_UserColumnName="TotaltBeforeSince" type="xs:string" minOccurs="0" />
+              <xs:element name="PeriodTotal" msprop:Generator_ColumnVarNameInTable="columnPeriodTotal" msprop:Generator_ColumnPropNameInRow="PeriodTotal" msprop:Generator_ColumnPropNameInTable="PeriodTotalColumn" msprop:Generator_UserColumnName="PeriodTotal" type="xs:string" minOccurs="0" />
+              <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

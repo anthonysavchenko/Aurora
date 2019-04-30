@@ -97,9 +97,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         public override void ManageCommandsForNotListTab()
         {
             base.ManageCommandsForNotListTab();
-
-            WorkItem.RootWorkItem.Commands[CommonCommandNames.PrintItem].Status =
-                View.CurrentTab == ModuleTabNames.PAYMENTS_AND_CHARGES ? CommandStatus.Enabled : CommandStatus.Disabled;
+            WorkItem.RootWorkItem.Commands[CommonCommandNames.PrintItem].Status = CommandStatus.Disabled;
         }
 
         /// <summary>

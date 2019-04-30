@@ -107,6 +107,12 @@
       <DependentUpon>LayoutView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Report\IReportView.cs" />
+    <Compile Include="Views\Report\Models\Balance.cs" />
+    <Compile Include="Views\Report\Models\PeriodBalance.cs" />
+    <Compile Include="Views\Report\Models\ServiceBalances.cs" />
+    <Compile Include="Views\Report\Models\ServiceBalanceKey.cs" />
+    <Compile Include="Views\Report\Queries\GetDebtQuery.cs" />
+    <Compile Include="Views\Report\Queries\GetReportDataQuery.cs" />
     <Compile Include="Views\Report\ReportView.cs">
       <SubType>UserControl</SubType>
     </Compile>
