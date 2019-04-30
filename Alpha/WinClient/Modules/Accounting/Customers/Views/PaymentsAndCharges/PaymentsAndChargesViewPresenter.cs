@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.CompositeUI.EventBroker;
-using System;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
     /// <summary>
     /// Презентер
     /// </summary>
-    public class PaymentsAndChargesViewPresenter : BaseSimpleListViewPresenter<IBaseSimpleListView, ChargeOper>
+    public class PaymentsAndChargesViewPresenter : BaseSimpleListViewPresenter<IPaymentsAndChargesView, ChargeOper>
     {
         /// <summary>
         /// Класс общих данных операций
@@ -39,6 +38,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
         public override void OnViewReady()
         {
             RefreshRefBooks();
+            var _lastCharged = ServerTime.GetPeriodInfo().LastCharged;
+            View.Since = _lastCharged.AddMonths(-1);
+            View.Till = _lastCharged;
         }
 
         /// <summary>
@@ -390,14 +392,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
         /// <summary>
         /// Обработчик глобального события "Печать"
         /// </summary>
-        [EventSubscription(ModuleEventNames.PRINT_PAYMENTS_AND_CHARGES, ThreadOption.UserInterface)]
-        public void PrintItemFired(object sender, EventArgs eventArgs)
+        public void CreateMutualSettlementBill()
         {
             string _customerId = ((Customer)WorkItem.State[CommonStateNames.CurrentItem]).ID;
 
             WorkItem.Controller.RunUsecase(
                 ApplicationUsecaseNames.MUTUAL_SETTLEMENT,
-                new PrintDocStartUpParams(_customerId));
+                new MutualSettlementStartUpParams(View.Since, View.Till, _customerId));
         }
     }
 }

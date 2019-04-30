@@ -2,6 +2,6 @@
 {
     public static class ModuleStateNames
     {
-        public const string START_UP_PARAMS_CUSTOMER_ID = "state://MutualSettlement/StartUpParamsCustomerID";
+        public const string START_UP_PARAMS = "state://MutualSettlement/StartUpParams";
     }
 }

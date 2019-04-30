@@ -198,6 +198,7 @@
     <Compile Include="Views\List\ListViewPresenter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\PaymentsAndCharges\IPaymentsAndChargesView.cs" />
     <Compile Include="Views\PaymentsAndCharges\PaymentsAndChargesView.cs">
       <SubType>UserControl</SubType>
     </Compile>

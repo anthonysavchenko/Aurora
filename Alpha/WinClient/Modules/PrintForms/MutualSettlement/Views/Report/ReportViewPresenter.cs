@@ -6,7 +6,10 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.Server.PrintForms.DataSets;
+using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Views.Report.Models;
+using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.Views.Report.Queries;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 using Taumis.EnterpriseLibrary.Win.Services;
 
@@ -17,77 +20,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
     /// </summary>
     public class ReportViewPresenter : BaseReportForReportObjectPresenter<IReportView, EmptyReportParams>
     {
-        private class ServiceBalances
-        {
-            public IDictionary<Key, Balance> Balances
-            {
-                set;
-                get;
-            }
-
-            public ServiceBalances()
-            {
-                Balances = new Dictionary<Key, Balance>();
-            }
-
-            public void Add(Key key, Balance value)
-            {
-                if (!Balances.ContainsKey(key))
-                {
-                    Balances.Add(key, new Balance());
-                }
-
-                Balances[key].Add(value);
-            }
-        }
-
-        private class Key
-        {
-            public int ID
-            {
-                set;
-                get;
-            }
-
-            public string Name
-            {
-                set;
-                get;
-            }
-
-            public override int GetHashCode()
-            {
-                return ID.GetHashCode();
-            }
-
-            public override bool Equals(object obj)
-            {
-                return obj != null && ((Key)obj).ID == ID;
-            }
-        }
-
-        private class Balance
-        {
-            public decimal Charge { get; set; }
-            public decimal Benefit { get; set; }
-            public decimal Recharge { get; set; }
-            public decimal Payable { get; set; }
-            public decimal Payment { get; set; }
-            public decimal Act { get; set; }
-            public decimal Debt { get; set; }
-
-            public void Add(Balance value)
-            {
-                Charge += value.Charge;
-                Benefit += value.Benefit;
-                Recharge += value.Recharge;
-                Payable += value.Payable;
-                Payment += value.Payment;
-                Act += value.Act;
-                Debt += value.Debt;
-            }
-        }
-
         /// <summary>
         /// Данные
         /// </summary>
@@ -122,293 +54,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                 _data = new MutualSettlementDataSet();
                 DataTable _settlementTable = _data.Tables["MutualSettlement"];
                 DataTable _posesTable = _data.Tables["MutualSettlementPoses"];
-                int _customerId = int.Parse(WorkItem.State[ModuleStateNames.START_UP_PARAMS_CUSTOMER_ID].ToString());
+                var _startUpParams = (MutualSettlementStartUpParams)WorkItem.State[ModuleStateNames.START_UP_PARAMS];
+                int _customerId = int.Parse(_startUpParams.CustomerId);
 
                 using (Entities _entities = new Entities())
                 {
                     _entities.CommandTimeout = 3600;
 
-                    #region Запросы
-
-                    var _periodBalances =
-                        _entities.ChargeOperPoses
-                            .Select(
-                                c =>
-                                new
-                                {
-                                    CustomerID = c.ChargeOpers.Customers.ID,
-                                    c.ChargeOpers.ChargeSets.Period,
-                                    ServiceTypeID = c.Services.ServiceTypes.ID,
-                                    Charge = c.Value,
-                                    Recharge = (decimal)0,
-                                    Benefit = (decimal)0,
-                                    Payment = (decimal)0,
-                                    Acts = (decimal)0
-                                })
-                            .Concat(
-                                _entities.RechargeOperPoses
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.RechargeOpers.Customers.ID,
-                                            c.RechargeOpers.RechargeSets.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = c.Value,
-                                            Benefit = (decimal)0,
-                                            Payment = (decimal)0,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.ChargeOperPoses
-                                    .Where(c => c.ChargeOpers.ChargeCorrectionOpers != null)
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.ChargeOpers.Customers.ID,
-                                            c.ChargeOpers.ChargeCorrectionOpers.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = -1 * c.Value,
-                                            Benefit = (decimal)0,
-                                            Payment = (decimal)0,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.RechargeOperPoses
-                                    .Where(r => r.RechargeOpers.ChildChargeCorrectionOpers != null)
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.RechargeOpers.Customers.ID,
-                                            c.RechargeOpers.ChildChargeCorrectionOpers.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = -1 * c.Value,
-                                            Benefit = (decimal)0,
-                                            Payment = (decimal)0,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.BenefitOperPoses
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.BenefitOpers.ChargeOpers.Customers.ID,
-                                            c.BenefitOpers.ChargeOpers.ChargeSets.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = c.Value,
-                                            Payment = (decimal)0,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.RebenefitOperPoses
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.RebenefitOpers.RechargeOpers.Customers.ID,
-                                            c.RebenefitOpers.RechargeOpers.RechargeSets.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = c.Value,
-                                            Payment = (decimal)0,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.BenefitOperPoses
-                                    .Where(c => c.BenefitOpers.BenefitCorrectionOpers != null)
-                                    .Select(
-                                        c =>
-                                        new
-                                        {
-                                            CustomerID = c.BenefitOpers.ChargeOpers.Customers.ID,
-                                            c.BenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = -1 * c.Value,
-                                            Payment = (decimal)0,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.RebenefitOperPoses
-                                    .Where(r => r.RebenefitOpers.BenefitCorrectionOpers != null)
-                                    .Select(c =>
-                                        new
-                                        {
-                                            CustomerID = c.RebenefitOpers.RechargeOpers.Customers.ID,
-                                            c.RebenefitOpers.BenefitCorrectionOpers.ChargeCorrectionOpers.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = -1 * c.Value,
-                                            Payment = (decimal)0,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.PaymentOperPoses
-                                    .Where(p => p.PaymentOpers.PaymentSets.Intermediaries != null)
-                                    .Select(c =>
-                                        new
-                                        {
-                                            CustomerID = c.PaymentOpers.Customers.ID,
-                                            Period = c.PaymentOpers.CreationDateTime,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = (decimal)0,
-                                            Payment = c.Value,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.PaymentCorrectionOperPoses
-                                    .Where(p => p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries != null)
-                                    .Select(c =>
-                                        new
-                                        {
-                                            CustomerID = c.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
-                                            c.PaymentCorrectionOpers.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = (decimal)0,
-                                            Payment = c.Value,
-                                            Acts = (decimal)0
-                                        }))
-                            .Concat(
-                                _entities.PaymentOperPoses
-                                    .Where(p => p.PaymentOpers.PaymentSets.Intermediaries == null)
-                                    .Select(c =>
-                                        new
-                                        {
-                                            CustomerID = c.PaymentOpers.Customers.ID,
-                                            Period = c.PaymentOpers.CreationDateTime,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = (decimal)0,
-                                            Payment = (decimal)0,
-                                            Acts = c.Value
-                                        }))
-                            .Concat(
-                                _entities.PaymentCorrectionOperPoses
-                                    .Where(p => p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries == null)
-                                    .Select(c =>
-                                        new
-                                        {
-                                            CustomerID = c.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
-                                            c.PaymentCorrectionOpers.Period,
-                                            ServiceTypeID = c.Services.ServiceTypes.ID,
-                                            Charge = (decimal)0,
-                                            Recharge = (decimal)0,
-                                            Benefit = (decimal)0,
-                                            Payment = (decimal)0,
-                                            Acts = c.Value
-                                        }))
-                            .Where(c => c.CustomerID == _customerId)
-                            .GroupBy(c =>
-                                new
-                                {
-                                    c.Period.Year,
-                                    c.Period.Month,
-                                    c.ServiceTypeID
-                                })
-                            .Select(g =>
-                                new
-                                {
-                                    g.Key.Year,
-                                    g.Key.Month,
-                                    g.Key.ServiceTypeID,
-                                    Charge = g.Sum(c => c.Charge),
-                                    Recharge = g.Sum(c => c.Recharge),
-                                    Benefit = g.Sum(c => c.Benefit),
-                                    Payment = g.Sum(c => c.Payment),
-                                    Acts = g.Sum(c => c.Acts)
-                                })
-                            .ToList()
-                            .Join(
-                                _entities.ServiceTypes
-                                    .Select(s =>
-                                        new
-                                        {
-                                            s.ID,
-                                            s.Name
-                                        })
-                                    .ToList(),
-                                c => c.ServiceTypeID,
-                                s => s.ID,
-                                (c, s) =>
-                                new
-                                {
-                                    c.Year,
-                                    c.Month,
-                                    c.ServiceTypeID,
-                                    ServiceTypeName = s.Name,
-                                    c.Charge,
-                                    c.Recharge,
-                                    c.Benefit,
-                                    c.Payment, 
-                                    c.Acts
-                                })
-                            .GroupBy(c => new { c.Year, c.Month })
-                            .Select(g =>
-                                new
-                                {
-                                    Period = new DateTime(g.Key.Year, g.Key.Month, 1),
-                                    ServiceBalances = 
-                                        new ServiceBalances
-                                        {
-                                            Balances = g
-                                                .GroupBy(c =>
-                                                    new
-                                                    {
-                                                        c.ServiceTypeID,
-                                                        c.ServiceTypeName
-                                                    })
-                                                    .Select(gs =>
-                                                        new
-                                                        {
-                                                            gs.Key.ServiceTypeID,
-                                                            gs.Key.ServiceTypeName,
-                                                            Charge = gs.Sum(c => c.Charge),
-                                                            Recharge = gs.Sum(c => c.Recharge),
-                                                            Benefit = gs.Sum(c => c.Benefit),
-                                                            Payment = gs.Sum(c => c.Payment),
-                                                            Acts = gs.Sum(c => c.Acts)
-                                                        })
-                                                    .OrderBy(sb => sb.ServiceTypeName)
-                                                    .ToDictionary(
-                                                        sb =>
-                                                        new Key
-                                                        {
-                                                            ID = sb.ServiceTypeID,
-                                                            Name = sb.ServiceTypeName
-                                                        },
-                                                        sb =>
-                                                        new Balance
-                                                        {
-                                                            Charge = sb.Charge,
-                                                            Benefit = sb.Benefit,
-                                                            Recharge = sb.Recharge,
-                                                            Payable = sb.Charge + sb.Benefit + sb.Recharge,
-                                                            Payment = sb.Payment,
-                                                            Act = sb.Acts,
-                                                            Debt = sb.Charge + sb.Benefit + sb.Recharge + sb.Payment + sb.Acts
-                                                        })
-                                        }
-                                })
-                            .OrderBy(c => c.Period)
-                            .ToArray();
-
-                    #endregion
+                    decimal _debt = _entities.GetDebt(_customerId, _startUpParams.Since);
+                    var _periodBalances = _entities.GetReportData(_startUpParams.Since, _startUpParams.Till, _customerId);
                     
                     int _reportNumber = 0;
                     int _groupNumber = 0;
@@ -432,11 +86,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                         // Заполенение таблицы отчетов
                         if (_previousPeriod == DateTime.MinValue || _periodBalance.Period != _previousPeriod.AddMonths(1))
                         {
+                            decimal _totalDebt = 
+                                Math.Round(_periodBalances.Sum(x => x.ServiceBalances.Balances.Values.Sum(y => y.Debt)), 2, MidpointRounding.AwayFromZero);
+
                             _lastReportRow = _settlementTable.Rows.Add(
                                 ++_reportNumber,
-                                _previousPeriod != DateTime.MinValue
-                                    ? string.Format("{0} - ", _periodBalance.Period.ToString("MMMM yyyy"))
-                                    : "по ",
+                                _previousPeriod == DateTime.MinValue
+                                    ? _startUpParams.Since
+                                    : _previousPeriod,
+                                _startUpParams.Till,
                                 _now,
                                 _customer.OwnerType == (int)OwnerType.JuridicalPerson
                                     ? _customer.JuridicalPersonFullName
@@ -447,11 +105,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                      _customer.Apartment),
                                 string.Format("{0} кв.м.", _customer.Square),
                                 _customer.Residents.Count(),
-                                UserHolder.User.Aka);
+                                UserHolder.User.Aka,
+                                _debt,
+                                _totalDebt,
+                                _totalDebt + _debt);
                         }
 
                         // Заполнение таблицы балансов по типам услуг за месяц
-                        foreach (KeyValuePair<Key, Balance> _serviceTypeBalance in _periodBalance.ServiceBalances.Balances)
+                        foreach (KeyValuePair<ServiceBalanceKey, Balance> _serviceTypeBalance in _periodBalance.ServiceBalances.Balances)
                         {
                             _yearBalances.Add(_serviceTypeBalance.Key, _serviceTypeBalance.Value);
                             _reportBalances.Add(_serviceTypeBalance.Key, _serviceTypeBalance.Value);
@@ -467,7 +128,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                 _serviceTypeBalance.Value.Payable,
                                 Math.Abs(_serviceTypeBalance.Value.Act),
                                 Math.Abs(_serviceTypeBalance.Value.Payment),
-                                _serviceTypeBalance.Value.Debt);
+                                _serviceTypeBalance.Value.Debt,
+                                Math.Abs(_serviceTypeBalance.Value.PaymentOnCreateDate),
+                                Math.Abs(_serviceTypeBalance.Value.PaymentOnEnterPeriod));
                         }
 
                         _groupNumber++;
@@ -475,7 +138,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                         // Заполенение таблицы балансов по типа услуг за год
                         if (i + 1 == _periodBalances.Length || _periodBalances[i + 1].Period.Year != _periodBalance.Period.Year)
                         {
-                            foreach (KeyValuePair<Key, Balance> _serviceTypeBalance in _yearBalances.Balances)
+                            foreach (KeyValuePair<ServiceBalanceKey, Balance> _serviceTypeBalance in _yearBalances.Balances)
                             {
                                 _posesTable.Rows.Add(
                                     _reportNumber,
@@ -488,7 +151,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     _serviceTypeBalance.Value.Payable,
                                     Math.Abs(_serviceTypeBalance.Value.Act),
                                     Math.Abs(_serviceTypeBalance.Value.Payment),
-                                    _serviceTypeBalance.Value.Debt);
+                                    _serviceTypeBalance.Value.Debt,
+                                    Math.Abs(_serviceTypeBalance.Value.PaymentOnCreateDate),
+                                    Math.Abs(_serviceTypeBalance.Value.PaymentOnEnterPeriod));
                             }
 
                             _yearBalances.Balances.Clear();
@@ -501,7 +166,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                             _lastReportRow["SinceTillPeriods"] = 
                                 string.Format("{0}{1:MMMM yyyy}", _lastReportRow["SinceTillPeriods"], _periodBalance.Period);
 
-                            foreach (KeyValuePair<Key, Balance> _serviceTypeBalance in _reportBalances.Balances)
+                            foreach (KeyValuePair<ServiceBalanceKey, Balance> _serviceTypeBalance in _reportBalances.Balances)
                             {
                                 _posesTable.Rows.Add(
                                     _reportNumber,
@@ -514,7 +179,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                     _serviceTypeBalance.Value.Payable,
                                     Math.Abs(_serviceTypeBalance.Value.Act),
                                     Math.Abs(_serviceTypeBalance.Value.Payment),
-                                    _serviceTypeBalance.Value.Debt);
+                                    _serviceTypeBalance.Value.Debt,
+                                    Math.Abs(_serviceTypeBalance.Value.PaymentOnCreateDate),
+                                    Math.Abs(_serviceTypeBalance.Value.PaymentOnEnterPeriod));
                             }
 
                             _reportBalances.Balances.Clear();

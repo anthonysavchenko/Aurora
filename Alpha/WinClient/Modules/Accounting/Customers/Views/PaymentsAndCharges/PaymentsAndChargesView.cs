@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraGrid.Views.Base;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
+using System;
 using System.Data;
 using System.Drawing;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
@@ -13,7 +14,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
     /// Вид деталей
     /// </summary>
     [SmartPart]
-    public partial class PaymentsAndChargesView : BaseSimpleListView
+    public partial class PaymentsAndChargesView : BaseSimpleListView, IPaymentsAndChargesView
     {
         /// <summary>
         /// Конструктор
@@ -55,6 +56,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             }
         }
 
+        public DateTime Since
+        {
+            get => sinceDateEdit.DateTime;
+            set => sinceDateEdit.DateTime = value;
+        }
+
+        public DateTime Till
+        {
+            get => tillDateEdit.DateTime;
+            set => tillDateEdit.DateTime = value;
+        }
+
         private void SubGridViewOfListView_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
         {
             if (e.RowHandle >= 0 && e.Column.FieldName == PaymentAndChargesColumnNames.COLUMN_OPERATION_NAME)
@@ -91,9 +104,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
             }
         }
 
-        private void TotalBillLinkLabel_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        private void btnCreateTotalBill_Click(object sender, System.EventArgs e)
         {
             Presenter.SelectTotalBillLink();
+        }
+
+        private void btnCreateMutualSettlementBill_Click(object sender, System.EventArgs e)
+        {
+            Presenter.CreateMutualSettlementBill();
         }
     }
 }

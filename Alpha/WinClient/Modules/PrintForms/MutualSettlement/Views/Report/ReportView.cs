@@ -12,7 +12,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
     /// Вид с отчетом
     /// </summary>
     [SmartPart]
-    public partial class ReportView : BaseReportForReportObjectView<LayoutReportObject>, IReportView
+    public partial class ReportView : /*System.Windows.Forms.UserControl//*/BaseReportForReportObjectView<LayoutReportObject>, IReportView
     {
         /// <summary>
         /// Конструктор

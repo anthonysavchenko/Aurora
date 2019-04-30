@@ -336,6 +336,10 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             private global::System.Data.DataColumn columnTotal;
             
+            private global::System.Data.DataColumn columnPaymentOnCreate;
+            
+            private global::System.Data.DataColumn columnPaymentOnPeriod;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public MutualSettlementPosesDataTable() {
@@ -459,6 +463,22 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PaymentOnCreateColumn {
+                get {
+                    return this.columnPaymentOnCreate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PaymentOnPeriodColumn {
+                get {
+                    return this.columnPaymentOnPeriod;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -494,7 +514,7 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MutualSettlementPosesRow AddMutualSettlementPosesRow(string ReportNumber, string GroupHeader, int GroupNumber, string ServiceTypeName, string Charge, string Benefit, string Correction, string Subtotal, string Act, string Payment, string Total) {
+            public MutualSettlementPosesRow AddMutualSettlementPosesRow(string ReportNumber, string GroupHeader, int GroupNumber, string ServiceTypeName, string Charge, string Benefit, string Correction, string Subtotal, string Act, string Payment, string Total, string PaymentOnCreate, string PaymentOnPeriod) {
                 MutualSettlementPosesRow rowMutualSettlementPosesRow = ((MutualSettlementPosesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ReportNumber,
@@ -507,7 +527,9 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                         Subtotal,
                         Act,
                         Payment,
-                        Total};
+                        Total,
+                        PaymentOnCreate,
+                        PaymentOnPeriod};
                 rowMutualSettlementPosesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMutualSettlementPosesRow);
                 return rowMutualSettlementPosesRow;
@@ -541,6 +563,8 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 this.columnAct = base.Columns["Act"];
                 this.columnPayment = base.Columns["Payment"];
                 this.columnTotal = base.Columns["Total"];
+                this.columnPaymentOnCreate = base.Columns["PaymentOnCreate"];
+                this.columnPaymentOnPeriod = base.Columns["PaymentOnPeriod"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -568,6 +592,10 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 base.Columns.Add(this.columnPayment);
                 this.columnTotal = new global::System.Data.DataColumn("Total", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotal);
+                this.columnPaymentOnCreate = new global::System.Data.DataColumn("PaymentOnCreate", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentOnCreate);
+                this.columnPaymentOnPeriod = new global::System.Data.DataColumn("PaymentOnPeriod", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentOnPeriod);
                 this.columnBenefit.AllowDBNull = false;
             }
             
@@ -704,7 +732,9 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             private global::System.Data.DataColumn columnReportNumber;
             
-            private global::System.Data.DataColumn columnSinceTillPeriods;
+            private global::System.Data.DataColumn columnSince;
+            
+            private global::System.Data.DataColumn columnTill;
             
             private global::System.Data.DataColumn columnDateCreated;
             
@@ -717,6 +747,12 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             private global::System.Data.DataColumn columnResidentsCount;
             
             private global::System.Data.DataColumn columnAuthor;
+            
+            private global::System.Data.DataColumn columnTotaltBeforeSince;
+            
+            private global::System.Data.DataColumn columnPeriodTotal;
+            
+            private global::System.Data.DataColumn columnTotal;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -761,9 +797,17 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn SinceTillPeriodsColumn {
+            public global::System.Data.DataColumn SinceColumn {
                 get {
-                    return this.columnSinceTillPeriods;
+                    return this.columnSince;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TillColumn {
+                get {
+                    return this.columnTill;
                 }
             }
             
@@ -817,6 +861,30 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TotaltBeforeSinceColumn {
+                get {
+                    return this.columnTotaltBeforeSince;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PeriodTotalColumn {
+                get {
+                    return this.columnPeriodTotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TotalColumn {
+                get {
+                    return this.columnTotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -852,17 +920,21 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MutualSettlementRow AddMutualSettlementRow(string ReportNumber, string SinceTillPeriods, System.DateTime DateCreated, string OwnerName, string Address, string Square, string ResidentsCount, string Author) {
+            public MutualSettlementRow AddMutualSettlementRow(string ReportNumber, System.DateTime Since, System.DateTime Till, System.DateTime DateCreated, string OwnerName, string Address, string Square, string ResidentsCount, string Author, string TotaltBeforeSince, string PeriodTotal, string Total) {
                 MutualSettlementRow rowMutualSettlementRow = ((MutualSettlementRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ReportNumber,
-                        SinceTillPeriods,
+                        Since,
+                        Till,
                         DateCreated,
                         OwnerName,
                         Address,
                         Square,
                         ResidentsCount,
-                        Author};
+                        Author,
+                        TotaltBeforeSince,
+                        PeriodTotal,
+                        Total};
                 rowMutualSettlementRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMutualSettlementRow);
                 return rowMutualSettlementRow;
@@ -886,13 +958,17 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
                 this.columnReportNumber = base.Columns["ReportNumber"];
-                this.columnSinceTillPeriods = base.Columns["SinceTillPeriods"];
+                this.columnSince = base.Columns["Since"];
+                this.columnTill = base.Columns["Till"];
                 this.columnDateCreated = base.Columns["DateCreated"];
                 this.columnOwnerName = base.Columns["OwnerName"];
                 this.columnAddress = base.Columns["Address"];
                 this.columnSquare = base.Columns["Square"];
                 this.columnResidentsCount = base.Columns["ResidentsCount"];
                 this.columnAuthor = base.Columns["Author"];
+                this.columnTotaltBeforeSince = base.Columns["TotaltBeforeSince"];
+                this.columnPeriodTotal = base.Columns["PeriodTotal"];
+                this.columnTotal = base.Columns["Total"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -900,8 +976,10 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             private void InitClass() {
                 this.columnReportNumber = new global::System.Data.DataColumn("ReportNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnReportNumber);
-                this.columnSinceTillPeriods = new global::System.Data.DataColumn("SinceTillPeriods", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSinceTillPeriods);
+                this.columnSince = new global::System.Data.DataColumn("Since", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSince);
+                this.columnTill = new global::System.Data.DataColumn("Till", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTill);
                 this.columnDateCreated = new global::System.Data.DataColumn("DateCreated", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateCreated);
                 this.columnOwnerName = new global::System.Data.DataColumn("OwnerName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -914,6 +992,12 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
                 base.Columns.Add(this.columnResidentsCount);
                 this.columnAuthor = new global::System.Data.DataColumn("Author", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAuthor);
+                this.columnTotaltBeforeSince = new global::System.Data.DataColumn("TotaltBeforeSince", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotaltBeforeSince);
+                this.columnPeriodTotal = new global::System.Data.DataColumn("PeriodTotal", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPeriodTotal);
+                this.columnTotal = new global::System.Data.DataColumn("Total", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotal);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1228,6 +1312,40 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string PaymentOnCreate {
+                get {
+                    try {
+                        return ((string)(this[this.tableMutualSettlementPoses.PaymentOnCreateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentOnCreate\' in table \'MutualSettlementPoses\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableMutualSettlementPoses.PaymentOnCreateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string PaymentOnPeriod {
+                get {
+                    try {
+                        return ((string)(this[this.tableMutualSettlementPoses.PaymentOnPeriodColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentOnPeriod\' in table \'MutualSettlementPoses\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableMutualSettlementPoses.PaymentOnPeriodColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsReportNumberNull() {
                 return this.IsNull(this.tableMutualSettlementPoses.ReportNumberColumn);
             }
@@ -1345,6 +1463,30 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             public void SetTotalNull() {
                 this[this.tableMutualSettlementPoses.TotalColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPaymentOnCreateNull() {
+                return this.IsNull(this.tableMutualSettlementPoses.PaymentOnCreateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPaymentOnCreateNull() {
+                this[this.tableMutualSettlementPoses.PaymentOnCreateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPaymentOnPeriodNull() {
+                return this.IsNull(this.tableMutualSettlementPoses.PaymentOnPeriodColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPaymentOnPeriodNull() {
+                this[this.tableMutualSettlementPoses.PaymentOnPeriodColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1379,17 +1521,33 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string SinceTillPeriods {
+            public System.DateTime Since {
                 get {
                     try {
-                        return ((string)(this[this.tableMutualSettlement.SinceTillPeriodsColumn]));
+                        return ((global::System.DateTime)(this[this.tableMutualSettlement.SinceColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SinceTillPeriods\' in table \'MutualSettlement\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Since\' in table \'MutualSettlement\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMutualSettlement.SinceTillPeriodsColumn] = value;
+                    this[this.tableMutualSettlement.SinceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime Till {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableMutualSettlement.TillColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Till\' in table \'MutualSettlement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMutualSettlement.TillColumn] = value;
                 }
             }
             
@@ -1491,6 +1649,54 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string TotaltBeforeSince {
+                get {
+                    try {
+                        return ((string)(this[this.tableMutualSettlement.TotaltBeforeSinceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotaltBeforeSince\' in table \'MutualSettlement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMutualSettlement.TotaltBeforeSinceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string PeriodTotal {
+                get {
+                    try {
+                        return ((string)(this[this.tableMutualSettlement.PeriodTotalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PeriodTotal\' in table \'MutualSettlement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMutualSettlement.PeriodTotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Total {
+                get {
+                    try {
+                        return ((string)(this[this.tableMutualSettlement.TotalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Total\' in table \'MutualSettlement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMutualSettlement.TotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsReportNumberNull() {
                 return this.IsNull(this.tableMutualSettlement.ReportNumberColumn);
             }
@@ -1503,14 +1709,26 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsSinceTillPeriodsNull() {
-                return this.IsNull(this.tableMutualSettlement.SinceTillPeriodsColumn);
+            public bool IsSinceNull() {
+                return this.IsNull(this.tableMutualSettlement.SinceColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetSinceTillPeriodsNull() {
-                this[this.tableMutualSettlement.SinceTillPeriodsColumn] = global::System.Convert.DBNull;
+            public void SetSinceNull() {
+                this[this.tableMutualSettlement.SinceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsTillNull() {
+                return this.IsNull(this.tableMutualSettlement.TillColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetTillNull() {
+                this[this.tableMutualSettlement.TillColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1583,6 +1801,42 @@ namespace Taumis.Alpha.Server.PrintForms.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetAuthorNull() {
                 this[this.tableMutualSettlement.AuthorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsTotaltBeforeSinceNull() {
+                return this.IsNull(this.tableMutualSettlement.TotaltBeforeSinceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetTotaltBeforeSinceNull() {
+                this[this.tableMutualSettlement.TotaltBeforeSinceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPeriodTotalNull() {
+                return this.IsNull(this.tableMutualSettlement.PeriodTotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPeriodTotalNull() {
+                this[this.tableMutualSettlement.PeriodTotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsTotalNull() {
+                return this.IsNull(this.tableMutualSettlement.TotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetTotalNull() {
+                this[this.tableMutualSettlement.TotalColumn] = global::System.Convert.DBNull;
             }
         }
         
