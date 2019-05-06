@@ -33,6 +33,11 @@
         /// <summary>
         /// Импортировать объемы потребеления электроэнергии по ОДПУ
         /// </summary>
-        ImportElectricitySharedCounterVolumes
+        ImportElectricitySharedCounterVolumes,
+
+        /// <summary>
+        /// Импортировать данные для учета льгот детям войны
+        /// </summary>
+        ImportChildrenOfWarBenefitData
     }
 }

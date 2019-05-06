@@ -83,6 +83,7 @@
     <Compile Include="Enums\WizardAction.cs" />
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ChildrenOfWarBenefitDataImportService.cs" />
     <Compile Include="Services\CustomerPosesImportService.cs" />
     <Compile Include="Services\ElectricitySharedCounterVolumeImportService.cs" />
     <Compile Include="Services\GisZhkhCustomersImportService.cs" />
