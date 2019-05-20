@@ -150,7 +150,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                             }))
                 .Concat(
                     db.PaymentOperPoses
-                        .Where(p => p.PaymentOpers.PaymentSets.Intermediaries != null)
+                        .Where(p => p.PaymentOpers.PaymentCorrectionOper == null)
                         .Select(c =>
                             new
                             {
@@ -166,47 +166,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                 PaymentOnEnterPeriod = (decimal)0
                             }))
                 .Concat(
-                    db.PaymentCorrectionOperPoses
-                        .Where(p => p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries != null)
-                        .Select(c =>
-                            new
-                            {
-                                CustomerID = c.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
-                                c.PaymentCorrectionOpers.Period,
-                                ServiceTypeID = c.Services.ServiceTypes.ID,
-                                Charge = (decimal)0,
-                                Recharge = (decimal)0,
-                                Benefit = (decimal)0,
-                                Payment = c.Value,
-                                Acts = (decimal)0,
-                                PaymentOnCreateDate = (decimal)0,
-                                PaymentOnEnterPeriod = (decimal)0
-                            }))
-                .Concat(
                     db.PaymentOperPoses
-                        .Where(p => p.PaymentOpers.PaymentSets.Intermediaries == null)
+                        .Where(p => p.PaymentOpers.PaymentSets.Intermediaries == null && p.PaymentOpers.PaymentCorrectionOper == null)
                         .Select(c =>
                             new
                             {
                                 CustomerID = c.PaymentOpers.Customers.ID,
                                 Period = c.PaymentOpers.CreationDateTime,
-                                ServiceTypeID = c.Services.ServiceTypes.ID,
-                                Charge = (decimal)0,
-                                Recharge = (decimal)0,
-                                Benefit = (decimal)0,
-                                Payment = (decimal)0,
-                                Acts = c.Value,
-                                PaymentOnCreateDate = (decimal)0,
-                                PaymentOnEnterPeriod = (decimal)0
-                            }))
-                .Concat(
-                    db.PaymentCorrectionOperPoses
-                        .Where(p => p.PaymentCorrectionOpers.PaymentOpers.PaymentSets.Intermediaries == null)
-                        .Select(c =>
-                            new
-                            {
-                                CustomerID = c.PaymentCorrectionOpers.PaymentOpers.Customers.ID,
-                                c.PaymentCorrectionOpers.Period,
                                 ServiceTypeID = c.Services.ServiceTypes.ID,
                                 Charge = (decimal)0,
                                 Recharge = (decimal)0,
@@ -346,7 +312,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                                 PaymentOnCreateDate = sb.PaymentOnCreateDate,
                                                 PaymentOnEnterPeriod = sb.PaymentOnEnterPeriod,
                                                 Act = sb.Acts,
-                                                Debt = sb.Charge + sb.Benefit + sb.Recharge + sb.Payment + sb.Acts
+                                                Debt = sb.Charge + sb.Benefit + sb.Recharge + sb.PaymentOnCreateDate + sb.Acts
                                             })
                             }
                     })

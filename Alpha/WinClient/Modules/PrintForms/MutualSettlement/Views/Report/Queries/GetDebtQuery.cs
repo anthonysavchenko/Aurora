@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 
@@ -96,7 +97,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                             new
                             {
                                 CustomerID = c.PaymentOpers.Customers.ID,
-                                c.Period,
+                                Period = c.PaymentOpers.CreationDateTime,
                                 c.Value,
                             }))
                 .Concat(
@@ -109,7 +110,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                 c.Value,
                             }))
                 .Where(x => x.CustomerID == customerId && x.Period < till)
-                .Sum(x => x.Value);
+                .Sum(x => (decimal?)x.Value) ?? 0;
 
             return Math.Round(_debt, 2, MidpointRounding.AwayFromZero);
         }

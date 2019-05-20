@@ -58,13 +58,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
 
         public DateTime Since
         {
-            get => sinceDateEdit.DateTime;
+            get => new DateTime(sinceDateEdit.DateTime.Year, sinceDateEdit.DateTime.Month, 1);
             set => sinceDateEdit.DateTime = value;
         }
 
         public DateTime Till
         {
-            get => tillDateEdit.DateTime;
+            get => new DateTime(
+                tillDateEdit.DateTime.Year, 
+                tillDateEdit.DateTime.Month, 
+                DateTime.DaysInMonth(tillDateEdit.DateTime.Year, tillDateEdit.DateTime.Month));
             set => tillDateEdit.DateTime = value;
         }
 
