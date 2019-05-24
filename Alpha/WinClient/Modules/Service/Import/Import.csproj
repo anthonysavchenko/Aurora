@@ -66,8 +66,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraWizard.v13.1.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetDBF">
+      <HintPath>..\..\..\..\..\ThirdParty\Packages\DotNetDBF.6.0.0.2\lib\net35\DotNetDBF.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetDBF.Enumerable">
+      <HintPath>..\..\..\..\..\ThirdParty\Packages\dotnetdbf.enumerable.6.0.0.2\lib\net40\DotNetDBF.Enumerable.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamitey">
+      <HintPath>..\..\..\..\..\ThirdParty\Packages\Dynamitey.2.0.9.136\lib\net40\Dynamitey.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="ImpromptuInterface">
+      <HintPath>..\..\..\..\..\ThirdParty\Packages\ImpromptuInterface.7.0.1\lib\net40\ImpromptuInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -83,26 +95,31 @@
     <Compile Include="Enums\WizardAction.cs" />
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetCustomersByAddressQuery.cs" />
+    <Compile Include="Services\ChildrenOfWarBenefitImportService.cs" />
     <Compile Include="Services\CustomerPosesImportService.cs" />
     <Compile Include="Services\ElectricitySharedCounterVolumeImportService.cs" />
     <Compile Include="Services\GisZhkhCustomersImportService.cs" />
+    <Compile Include="Services\IChildrenOfWarBenefitImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\IPublicPlaceServiceVolumesImportService.cs" />
     <Compile Include="Services\NewCustomersImportService.cs" />
     <Compile Include="Enums\WizardPages.cs" />
     <Compile Include="Services\PrivateCounterImportService.cs" />
     <Compile Include="Services\PublicPlaceServiceVolumesImportService.cs" />
-    <Compile Include="Views\LayoutView\ILayoutView.cs" />
-    <Compile Include="Views\LayoutView\LayoutView.cs">
+    <Compile Include="Views\Layout\DataValidator.cs" />
+    <Compile Include="Views\Layout\ILayoutView.cs" />
+    <Compile Include="Views\Layout\LayoutView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\LayoutView\LayoutView.Designer.cs">
+    <Compile Include="Views\Layout\LayoutView.Designer.cs">
       <DependentUpon>LayoutView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\LayoutView\LayoutViewPresenter.cs" />
+    <Compile Include="Views\Layout\LayoutViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\LayoutView\LayoutView.resx">
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\Layout\LayoutView.resx">
       <DependentUpon>LayoutView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

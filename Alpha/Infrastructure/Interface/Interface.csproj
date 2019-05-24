@@ -176,6 +176,7 @@
     <Compile Include="Constants\ApplicationEventNames.cs" />
     <Compile Include="Constants\ApplicationUIExtensionSiteNames.cs" />
     <Compile Include="Constants\ApplicationUsecaseNames.cs" />
+    <Compile Include="Constants\BenefitTypeCodes.cs" />
     <Compile Include="Constants\ServiceTypeConstants.cs" />
     <Compile Include="Constants\SettingNames.cs" />
     <Compile Include="Constants\StringFormats.cs" />

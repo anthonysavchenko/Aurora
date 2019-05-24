@@ -188,6 +188,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\Packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetDBF, Version=6.0.0.2, Culture=neutral, PublicKeyToken=9c071727b589770e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\ThirdParty\Packages\DotNetDBF.6.0.0.2\lib\net35\DotNetDBF.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetDBF.Enumerable, Version=6.0.0.2, Culture=neutral, PublicKeyToken=859f68cd621a0776, processorArchitecture=MSIL">
+      <HintPath>..\..\..\ThirdParty\Packages\dotnetdbf.enumerable.6.0.0.2\lib\net40\DotNetDBF.Enumerable.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamitey, Version=2.0.9.136, Culture=neutral, PublicKeyToken=cbf53ea3aeb972c6, processorArchitecture=MSIL">
+      <HintPath>..\..\..\ThirdParty\Packages\Dynamitey.2.0.9.136\lib\net40\Dynamitey.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
@@ -196,6 +205,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ImpromptuInterface, Version=7.0.1.0, Culture=neutral, PublicKeyToken=0b1781c923b2975b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\ThirdParty\Packages\ImpromptuInterface.7.0.1\lib\net40\ImpromptuInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -267,6 +280,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <Content Include="Templates\GisZhkh_Customer_Export.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

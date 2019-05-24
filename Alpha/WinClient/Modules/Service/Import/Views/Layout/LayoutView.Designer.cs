@@ -1,4 +1,4 @@
-﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
+﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Views.Layout
 {
     partial class LayoutView
     {
@@ -34,6 +34,7 @@
             this.ProgressBarControl = new DevExpress.XtraEditors.ProgressBarControl();
             this.progressProcentLabel = new System.Windows.Forms.Label();
             this.ChooseMethodWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.importChildrenOfWarBenefitRadioButton = new System.Windows.Forms.RadioButton();
             this.importElectricityVolumesRadioButton = new System.Windows.Forms.RadioButton();
             this.importCounterRadioButton = new System.Windows.Forms.RadioButton();
             this.importPublicPlaceServiceVolumeTemplate = new System.Windows.Forms.LinkLabel();
@@ -44,6 +45,11 @@
             this.FinishWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.resultTextBox = new System.Windows.Forms.TextBox();
             this.FileWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.addressPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.buildingLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.streetLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.periodPanel = new System.Windows.Forms.TableLayoutPanel();
             this.periodDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,6 +65,9 @@
             this.ChooseMethodWizardPage.SuspendLayout();
             this.FinishWizardPage.SuspendLayout();
             this.FileWizardPage.SuspendLayout();
+            this.addressPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buildingLookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).BeginInit();
             this.periodPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties)).BeginInit();
@@ -84,7 +93,7 @@
             this.ProcessingWizardPage,
             this.FinishWizardPage});
             this.ImportWizardControl.PreviousText = "< &Назад";
-            this.ImportWizardControl.Size = new System.Drawing.Size(2175, 879);
+            this.ImportWizardControl.Size = new System.Drawing.Size(1451, 893);
             this.ImportWizardControl.Text = "Мастер импорта данных";
             this.ImportWizardControl.UseAcceptButton = false;
             this.ImportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ImportWizardControl_SelectedPageChanged);
@@ -101,7 +110,7 @@
             this.ProcessingWizardPage.Controls.Add(this.panel1);
             this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания обработки данных...";
             this.ProcessingWizardPage.Name = "ProcessingWizardPage";
-            this.ProcessingWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1419, 748);
             this.ProcessingWizardPage.Text = "Обработка данных";
             // 
             // panel1
@@ -109,9 +118,9 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.ProgressBarControl);
             this.panel1.Controls.Add(this.progressProcentLabel);
-            this.panel1.Location = new System.Drawing.Point(0, 329);
+            this.panel1.Location = new System.Drawing.Point(0, 336);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2143, 55);
+            this.panel1.Size = new System.Drawing.Size(1419, 55);
             this.panel1.TabIndex = 2;
             // 
             // ProgressBarControl
@@ -121,7 +130,7 @@
             this.ProgressBarControl.Name = "ProgressBarControl";
             this.ProgressBarControl.Properties.Step = 1;
             this.ProgressBarControl.ShowProgressInTaskBar = true;
-            this.ProgressBarControl.Size = new System.Drawing.Size(2143, 34);
+            this.ProgressBarControl.Size = new System.Drawing.Size(1419, 34);
             this.ProgressBarControl.TabIndex = 0;
             // 
             // progressProcentLabel
@@ -129,13 +138,14 @@
             this.progressProcentLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressProcentLabel.Location = new System.Drawing.Point(0, 34);
             this.progressProcentLabel.Name = "progressProcentLabel";
-            this.progressProcentLabel.Size = new System.Drawing.Size(2143, 21);
+            this.progressProcentLabel.Size = new System.Drawing.Size(1419, 21);
             this.progressProcentLabel.TabIndex = 1;
             this.progressProcentLabel.Text = "Загрузка данных...";
             this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ChooseMethodWizardPage
             // 
+            this.ChooseMethodWizardPage.Controls.Add(this.importChildrenOfWarBenefitRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importElectricityVolumesRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importCounterRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importPublicPlaceServiceVolumeTemplate);
@@ -145,8 +155,19 @@
             this.ChooseMethodWizardPage.Controls.Add(this.importCustomerPosesRadioButton);
             this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
             this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
-            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1419, 748);
             this.ChooseMethodWizardPage.Text = "Мастер импорта данных";
+            // 
+            // importChildrenOfWarBenefitRadioButton
+            // 
+            this.importChildrenOfWarBenefitRadioButton.AutoSize = true;
+            this.importChildrenOfWarBenefitRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.importChildrenOfWarBenefitRadioButton.Location = new System.Drawing.Point(23, 159);
+            this.importChildrenOfWarBenefitRadioButton.Name = "importChildrenOfWarBenefitRadioButton";
+            this.importChildrenOfWarBenefitRadioButton.Size = new System.Drawing.Size(377, 17);
+            this.importChildrenOfWarBenefitRadioButton.TabIndex = 46;
+            this.importChildrenOfWarBenefitRadioButton.Text = "Импортировать данные л/с для учета льгот категории \"Дети войны\"";
+            this.importChildrenOfWarBenefitRadioButton.UseVisualStyleBackColor = false;
             // 
             // importElectricityVolumesRadioButton
             // 
@@ -233,7 +254,7 @@
             this.FinishWizardPage.Controls.Add(this.resultTextBox);
             this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
-            this.FinishWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.FinishWizardPage.Size = new System.Drawing.Size(1419, 748);
             this.FinishWizardPage.Text = "Обработка данных завершена";
             // 
             // resultTextBox
@@ -244,17 +265,90 @@
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.ReadOnly = true;
             this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.resultTextBox.Size = new System.Drawing.Size(2143, 734);
+            this.resultTextBox.Size = new System.Drawing.Size(1419, 748);
             this.resultTextBox.TabIndex = 16;
             // 
             // FileWizardPage
             // 
+            this.FileWizardPage.Controls.Add(this.addressPanel);
             this.FileWizardPage.Controls.Add(this.periodPanel);
             this.FileWizardPage.Controls.Add(this.filePanel);
             this.FileWizardPage.DescriptionText = "Выберите файл, из которого будут импортированны данные";
             this.FileWizardPage.Name = "FileWizardPage";
-            this.FileWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.FileWizardPage.Size = new System.Drawing.Size(1419, 748);
             this.FileWizardPage.Text = "Выбор файла";
+            // 
+            // addressPanel
+            // 
+            this.addressPanel.ColumnCount = 4;
+            this.addressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.addressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.addressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            this.addressPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.addressPanel.Controls.Add(this.buildingLookUpEdit, 3, 0);
+            this.addressPanel.Controls.Add(this.label2, 0, 0);
+            this.addressPanel.Controls.Add(this.label3, 2, 0);
+            this.addressPanel.Controls.Add(this.streetLookUpEdit, 1, 0);
+            this.addressPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.addressPanel.Location = new System.Drawing.Point(0, 56);
+            this.addressPanel.Name = "addressPanel";
+            this.addressPanel.RowCount = 1;
+            this.addressPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.addressPanel.Size = new System.Drawing.Size(1419, 28);
+            this.addressPanel.TabIndex = 40;
+            // 
+            // buildingLookUpEdit
+            // 
+            this.buildingLookUpEdit.Location = new System.Drawing.Point(467, 3);
+            this.buildingLookUpEdit.Name = "buildingLookUpEdit";
+            this.buildingLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)});
+            this.buildingLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Number", "Номер дома")});
+            this.buildingLookUpEdit.Properties.DisplayMember = "Number";
+            this.buildingLookUpEdit.Properties.NullText = "(все)";
+            this.buildingLookUpEdit.Properties.ValueMember = "ID";
+            this.buildingLookUpEdit.Size = new System.Drawing.Size(102, 20);
+            this.buildingLookUpEdit.TabIndex = 41;
+            this.buildingLookUpEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.filterLookUpEdit_ButtonClick);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(155, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Улица:";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(428, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.TabIndex = 37;
+            this.label3.Text = "Дом:";
+            // 
+            // streetLookUpEdit
+            // 
+            this.streetLookUpEdit.Location = new System.Drawing.Point(203, 3);
+            this.streetLookUpEdit.Name = "streetLookUpEdit";
+            this.streetLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)});
+            this.streetLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Название")});
+            this.streetLookUpEdit.Properties.DisplayMember = "Name";
+            this.streetLookUpEdit.Properties.NullText = "(все)";
+            this.streetLookUpEdit.Properties.ValueMember = "ID";
+            this.streetLookUpEdit.Size = new System.Drawing.Size(214, 20);
+            this.streetLookUpEdit.TabIndex = 36;
+            this.streetLookUpEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.filterLookUpEdit_ButtonClick);
+            this.streetLookUpEdit.EditValueChanged += new System.EventHandler(this.streetLookUpEdit_EditValueChanged);
             // 
             // periodPanel
             // 
@@ -269,7 +363,7 @@
             this.periodPanel.Name = "periodPanel";
             this.periodPanel.RowCount = 1;
             this.periodPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.periodPanel.Size = new System.Drawing.Size(2143, 28);
+            this.periodPanel.Size = new System.Drawing.Size(1419, 28);
             this.periodPanel.TabIndex = 39;
             // 
             // periodDateEdit
@@ -316,7 +410,7 @@
             this.filePanel.RowCount = 1;
             this.filePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.filePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.filePanel.Size = new System.Drawing.Size(2143, 28);
+            this.filePanel.Size = new System.Drawing.Size(1419, 28);
             this.filePanel.TabIndex = 38;
             // 
             // label7
@@ -332,7 +426,7 @@
             // selectFileButton
             // 
             this.selectFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectFileButton.Location = new System.Drawing.Point(2026, 3);
+            this.selectFileButton.Location = new System.Drawing.Point(1302, 3);
             this.selectFileButton.Name = "selectFileButton";
             this.selectFileButton.Size = new System.Drawing.Size(114, 22);
             this.selectFileButton.TabIndex = 37;
@@ -347,7 +441,7 @@
             this.filePathTextEdit.Name = "filePathTextEdit";
             this.filePathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.filePathTextEdit.Properties.ReadOnly = true;
-            this.filePathTextEdit.Size = new System.Drawing.Size(1817, 20);
+            this.filePathTextEdit.Size = new System.Drawing.Size(1093, 20);
             this.filePathTextEdit.TabIndex = 36;
             // 
             // LayoutView
@@ -358,7 +452,7 @@
             this.AutoSize = true;
             this.Controls.Add(this.ImportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(2175, 879);
+            this.Size = new System.Drawing.Size(1451, 893);
             ((System.ComponentModel.ISupportInitialize)(this.ImportWizardControl)).EndInit();
             this.ImportWizardControl.ResumeLayout(false);
             this.ProcessingWizardPage.ResumeLayout(false);
@@ -369,6 +463,10 @@
             this.FinishWizardPage.ResumeLayout(false);
             this.FinishWizardPage.PerformLayout();
             this.FileWizardPage.ResumeLayout(false);
+            this.addressPanel.ResumeLayout(false);
+            this.addressPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buildingLookUpEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.streetLookUpEdit.Properties)).EndInit();
             this.periodPanel.ResumeLayout(false);
             this.periodPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodDateEdit.Properties.CalendarTimeProperties)).EndInit();
@@ -404,5 +502,11 @@
         private System.Windows.Forms.LinkLabel importPublicPlaceServiceVolumeTemplate;
         private System.Windows.Forms.RadioButton importCounterRadioButton;
         private System.Windows.Forms.RadioButton importElectricityVolumesRadioButton;
+        private System.Windows.Forms.RadioButton importChildrenOfWarBenefitRadioButton;
+        private System.Windows.Forms.TableLayoutPanel addressPanel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private DevExpress.XtraEditors.LookUpEdit streetLookUpEdit;
+        private DevExpress.XtraEditors.LookUpEdit buildingLookUpEdit;
     }
 }

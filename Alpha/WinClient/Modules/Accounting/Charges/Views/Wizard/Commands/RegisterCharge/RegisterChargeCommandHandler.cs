@@ -36,11 +36,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             int _chargeSetId = CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
             Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
 
-            int[] _customers;
-            using (Entities _db = new Entities())
+            int[] _customers = new int[] { 42743, 44954, 49615 };
+            /*using (Entities _db = new Entities())
             {
                 _customers = _db.Customers.Select(c => c.ID).ToArray();
-            }
+            }*/
 
             cmd.ResetProgressBar(_customers.Length);
 

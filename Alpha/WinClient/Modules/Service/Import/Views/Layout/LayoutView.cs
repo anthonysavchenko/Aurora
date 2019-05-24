@@ -1,13 +1,16 @@
-﻿using DevExpress.XtraWizard;
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraWizard;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
+using System.Data;
 using System.Windows.Forms;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 //using BaseLayoutView = System.Windows.Forms.UserControl;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Views.Layout
 {
     /// <summary>
     /// Вью формы
@@ -65,6 +68,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 else if (importElectricityVolumesRadioButton.Checked)
                 {
                     _action = WizardAction.ImportElectricitySharedCounterVolumes;
+                }
+                else if (importChildrenOfWarBenefitRadioButton.Checked)
+                {
+                    _action = WizardAction.ImportChildrenOfWarBenefit;
                 }
 
                 return _action;
@@ -126,15 +133,33 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             set => resultTextBox.Text = value;
         }
 
+        public DataTable Streets { set => streetLookUpEdit.Properties.DataSource = value; }
+
+        public DataTable Buildings { set => buildingLookUpEdit.Properties.DataSource = value; }
+
+        public string StreetId
+        {
+            get => (string)streetLookUpEdit.EditValue;
+            set => streetLookUpEdit.EditValue = value;
+        }
+
+        public string BuildingId
+        {
+            get => (string)buildingLookUpEdit.EditValue;
+            set => buildingLookUpEdit.EditValue = value;
+        }
+
         private void selectFileButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog _openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = Application.StartupPath + @"\Data",
                 Title = "Открыть файл",
-                Filter = "Книга Microsoft Excel (*.xlsx)|*.xlsx",
-                FilterIndex = 0,
-                DefaultExt = "xlsx",
+                Filter = importChildrenOfWarBenefitRadioButton.Checked 
+                    ? "Data Base File (*.DBF)|*.DBF"
+                    : "Книга Microsoft Excel (*.xlsx)|*.xlsx",
+                FilterIndex = 1,
+                DefaultExt =  "xlsx",
                 RestoreDirectory = true,
             };
 
@@ -186,10 +211,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 case WizardAction.ImportCounters:
                     filePanel.Visible = true;
                     periodPanel.Visible = true;
+                    addressPanel.Visible = false;
+                    break;
+                case WizardAction.ImportChildrenOfWarBenefit:
+                    filePanel.Visible = true;
+                    periodPanel.Visible = false;
+                    addressPanel.Visible = true;
                     break;
                 default:
                     filePanel.Visible = true;
                     periodPanel.Visible = false;
+                    addressPanel.Visible = false;
                     break;
             }
         }
@@ -221,6 +253,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             resultTextBox.Text = string.Empty;
             ProgressBarControl.EditValue = 0;
             progressProcentLabel.Text = "Обработано 0%";
+            BuildingId = string.Empty;
+            buildingLookUpEdit.Properties.DataSource = null;
+            StreetId = string.Empty;
         }
 
         private void ImportWizardControl_FinishClick(object sender, System.ComponentModel.CancelEventArgs e)
@@ -237,6 +272,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         private void importPublicPlaceServiceVolumeTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Presenter.GenerateImportPublicPlaceServiceVolumeTemplate();
+        }
+
+        private void filterLookUpEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            if (e.Button.Kind == ButtonPredefines.Delete)
+            {
+                ((LookUpEdit)sender).EditValue = null;
+            }
+        }
+
+        private void streetLookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (streetLookUpEdit.ItemIndex != -1)
+            {
+                Presenter.FillBuildingList();
+            }
         }
     }
 }
