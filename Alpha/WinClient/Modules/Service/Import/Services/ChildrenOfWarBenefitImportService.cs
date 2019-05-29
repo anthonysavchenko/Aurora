@@ -78,11 +78,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             new ParsedRow
                             {
                                 RowNumber = ++_currentRow,
-                                Apartment = _xws.Cell(_currentRow, Columns.APARTMENT).Value,
-                                Surname = _xws.Cell(_currentRow, Columns.SURNAME).Value,
-                                Name = _xws.Cell(_currentRow, Columns.NAME).Value,
-                                Patronymic = _xws.Cell(_currentRow, Columns.PATRONOMIC).Value,
-                                Share =Convert.ToDecimal(_dt.Compute(_xws.Cell(_currentRow, Columns.SHARE).Value, ""))
+                                Apartment = _xws.Cell(_currentRow, Columns.APARTMENT).Value.Trim(),
+                                Surname = _xws.Cell(_currentRow, Columns.SURNAME).Value.Trim(),
+                                Name = _xws.Cell(_currentRow, Columns.NAME).Value.Trim(),
+                                Patronymic = _xws.Cell(_currentRow, Columns.PATRONOMIC).Value.Trim(),
+                                Share =Convert.ToDecimal(_dt.Compute(_xws.Cell(_currentRow, Columns.SHARE).Value.Trim(), ""))
                             });
 
                         reportProgressAction(_currentRow * 50 / _rowCount);
@@ -243,14 +243,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             }
             else
             {
-                bool _benefitResidentDoesntExist = account.Residents.All(x =>
-                    x.Resident.Surname != row.Surname
-                    && x.Resident.FirstName != row.Name
-                    && x.Resident.Patronymic != row.Patronymic);
+                var _resident = account.Residents.FirstOrDefault(x =>
+                    x.Resident.Surname.Trim() == row.Surname
+                    && x.Resident.FirstName.Trim() == row.Name
+                    && x.Resident.Patronymic.Trim() == row.Patronymic);
 
-                if (_benefitResidentDoesntExist)
+                if (_resident == null)
                 {
                     CreateBenefitResident(account.Customer, row, db);
+                }
+                else if (_resident.BenefitTypeCode != BenefitTypeCodes.CHILDREN_OF_WAR)
+                {
+                    _resident.Resident.BenefitTypes = db.BenefitTypes.First(x => x.Code == BenefitTypeCodes.CHILDREN_OF_WAR);
                 }
             }
         }
