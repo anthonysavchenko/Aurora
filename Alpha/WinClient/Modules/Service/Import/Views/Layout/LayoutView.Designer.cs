@@ -164,9 +164,9 @@
             this.importChildrenOfWarBenefitRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.importChildrenOfWarBenefitRadioButton.Location = new System.Drawing.Point(23, 159);
             this.importChildrenOfWarBenefitRadioButton.Name = "importChildrenOfWarBenefitRadioButton";
-            this.importChildrenOfWarBenefitRadioButton.Size = new System.Drawing.Size(377, 17);
+            this.importChildrenOfWarBenefitRadioButton.Size = new System.Drawing.Size(335, 17);
             this.importChildrenOfWarBenefitRadioButton.TabIndex = 46;
-            this.importChildrenOfWarBenefitRadioButton.Text = "Импортировать данные л/с для учета льгот категории \"Дети войны\"";
+            this.importChildrenOfWarBenefitRadioButton.Text = "Импорт данных л/с для учета льгот категории \"Дети войны\"";
             this.importChildrenOfWarBenefitRadioButton.UseVisualStyleBackColor = false;
             // 
             // importElectricityVolumesRadioButton

@@ -1,9 +1,7 @@
-﻿using DotNetDBF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
@@ -20,8 +18,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
     {
         private class Columns
         {
-            //public const int STREET = 4;
-            //public const int BUILDING = 5;
             public const int APARTMENT = 7;
             public const int SURNAME = 9;
             public const int NAME = 10;
@@ -32,8 +28,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
         private class ParsedRow
         {
             public int RowNumber { get; set; }
-            /*public string Street { get; set; }
-            public string Building { get; set; }*/
             public string Apartment { get; set; }
             public string Surname { get; set; }
             public string Name { get; set; }
@@ -41,7 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public decimal Share { get; set; }
         }
 
-        //private IExcelService _excelService;
+        private IExcelService _excelService;
         private readonly IServerTimeService _serverTimeService;
 
         public ChildrenOfWarBenefitImportService(IExcelService excelService, IServerTimeService serverTimeService)
@@ -72,7 +66,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
             try
             {
-                /*using (IExcelWorkbook _xwb = _excelService.OpenWorkbook(fileName))
+                using (IExcelWorkbook _xwb = _excelService.OpenWorkbook(fileName))
                 {
                     IExcelWorksheet _xws = _xwb.Worksheet(1);
                     int _rowCount = _xws.GetRowCount();
@@ -84,8 +78,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             new ParsedRow
                             {
                                 RowNumber = ++_currentRow,
-                                Street = _xws.Cell(_currentRow, Columns.STREET).Value.Replace("ул. ", string.Empty),
-                                Building = _xws.Cell(_currentRow, Columns.BUILDING).Value,
                                 Apartment = _xws.Cell(_currentRow, Columns.APARTMENT).Value,
                                 Surname = _xws.Cell(_currentRow, Columns.SURNAME).Value,
                                 Name = _xws.Cell(_currentRow, Columns.NAME).Value,
@@ -94,34 +86,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             });
 
                         reportProgressAction(_currentRow * 50 / _rowCount);
-                    }
-                }*/
-
-                using (Stream fs = File.Open(fileName, FileMode.Open, FileAccess.Read))
-                {
-                    using (var dbf = new DBFReader(fs))
-                    {
-                        dbf.CharEncoding = Encoding.GetEncoding(866);
-                        _currentRow = 0;
-                        int _rowCount = dbf.RecordCount;
-                        _rows = new List<ParsedRow>(_rowCount);
-
-                        while (_currentRow < _rowCount)
-                        {
-                            var _xws = dbf.NextRecord();
-                            _rows.Add(
-                                new ParsedRow
-                                {
-                                    RowNumber = ++_currentRow,
-                                    Apartment = _xws[Columns.APARTMENT - 1].ToString(),
-                                    Surname = _xws[Columns.SURNAME - 1].ToString(),
-                                    Name = _xws[Columns.NAME - 1].ToString(),
-                                    Patronymic = _xws[Columns.PATRONOMIC - 1].ToString(),
-                                    Share = Convert.ToDecimal(_dt.Compute(_xws[Columns.SHARE - 1].ToString(), ""))
-                                });
-
-                            reportProgressAction(_currentRow * 50 / _rowCount);
-                        }
                     }
                 }
 

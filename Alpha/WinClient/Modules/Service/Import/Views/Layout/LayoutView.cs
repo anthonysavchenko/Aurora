@@ -155,9 +155,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Views.Layout
             {
                 InitialDirectory = Application.StartupPath + @"\Data",
                 Title = "Открыть файл",
-                Filter = importChildrenOfWarBenefitRadioButton.Checked 
-                    ? "Data Base File (*.DBF)|*.DBF"
-                    : "Книга Microsoft Excel (*.xlsx)|*.xlsx",
+                Filter = "Книга Microsoft Excel (*.xlsx)|*.xlsx",
                 FilterIndex = 1,
                 DefaultExt =  "xlsx",
                 RestoreDirectory = true,
