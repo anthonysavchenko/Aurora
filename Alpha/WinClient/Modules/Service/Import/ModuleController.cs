@@ -1,6 +1,7 @@
 ﻿using Taumis.Alpha.Infrastructure.Library.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Views.Layout;
 using Taumis.EnterpriseLibrary.Win.Common.Modules.StartUpParams;
 using Taumis.EnterpriseLibrary.Win.Modules.CommonModule;
 using Taumis.Infrastructure.Interface.Constants;
@@ -36,6 +37,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         {
             AddLocalService<PaymentDistributionService, PaymentDistributionService>();
             AddLocalService<PublicPlaceServiceVolumesImportService, IPublicPlaceServiceVolumesImportService>();
+            AddLocalService<ChildrenOfWarBenefitImportService, IChildrenOfWarBenefitImportService>();
         }
     }
 }

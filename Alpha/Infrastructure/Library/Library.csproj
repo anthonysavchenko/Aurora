@@ -92,7 +92,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Queries\BuildingAreaQuery.cs" />
+    <Compile Include="Queries\BuildingsForComboBoxQuery.cs" />
+    <Compile Include="Queries\NewAccountNumQuery.cs" />
     <Compile Include="Queries\PublicPlaceAreaByBuildingQuery.cs" />
+    <Compile Include="Queries\StreetsForComboBoxQuery.cs" />
     <Compile Include="Services\BaseUnitOfWork.cs" />
     <Compile Include="Services\DomainWithDataMapperHelperService.cs" />
     <Compile Include="Services\DataMapperService.cs" />
