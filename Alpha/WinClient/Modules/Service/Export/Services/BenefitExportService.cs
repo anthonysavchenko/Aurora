@@ -182,7 +182,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 throw new ApplicationException($"Не удалось распознать период отчета: {periodStr}");
             }
 
-            return _period;
+            return new DateTime(_period.Year, _period.Month, 1);
         }
 
         private List<CustomerInfo> GetCustomerInfoList(DateTime period, DateTime startPeriod, List<int> customerIds)
