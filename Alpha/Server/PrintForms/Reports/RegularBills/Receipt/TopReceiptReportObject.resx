@@ -610,7 +610,7 @@
     <value>254</value>
   </data>
   <data name="xrLabel13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9pt</value>
+    <value>Tahoma, 11pt, style=Bold</value>
   </data>
   <data name="xrLabel13.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>391.000031, 451.999939</value>
@@ -619,7 +619,7 @@
     <value>1600.00037, 285.687561</value>
   </data>
   <data name="xrLabel13.Text" xml:space="preserve">
-    <value>Оплата в любых филиалах Сбербанка</value>
+    <value>ОПЛАТА ТОЛЬКО В ФИЛИАЛАХ СБЕРБАНКА</value>
   </data>
   <data name="xrLabel13.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
