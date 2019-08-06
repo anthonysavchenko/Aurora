@@ -289,8 +289,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел 271-80-55";
             }
 
-            if(street == "гульбиновича" 
-               || street == "окатовая" 
+            if (street == "гульбиновича")
+            {
+                return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
+            }
+
+            if (street == "окатовая" 
                || street == "западная" 
                || street == "океанский проспект"
                || street == "острякова проспект"
