@@ -84,6 +84,8 @@
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetCustomersByAddressQuery.cs" />
+    <Compile Include="Queries\GetNotActualBenefitAccountsSquareQuery.cs" />
+    <Compile Include="Queries\GetResidentsOfNotActualFullShareBenefitAccountsQuery.cs" />
     <Compile Include="Services\ChildrenOfWarBenefitImportService.cs" />
     <Compile Include="Services\CustomerPosesImportService.cs" />
     <Compile Include="Services\ElectricitySharedCounterVolumeImportService.cs" />

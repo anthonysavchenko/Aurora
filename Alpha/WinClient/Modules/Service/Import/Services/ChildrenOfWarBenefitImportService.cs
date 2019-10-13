@@ -35,7 +35,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             public decimal Share { get; set; }
         }
 
-        private IExcelService _excelService;
+        private readonly IExcelService _excelService;
         private readonly IServerTimeService _serverTimeService;
 
         public ChildrenOfWarBenefitImportService(IExcelService excelService, IServerTimeService serverTimeService)
@@ -46,9 +46,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         public string ProcessFile(string inputFileName, Action<int> reportProgressAction, int buildingId)
         {
-            string _resultMessage;
-
-            List<ParsedRow> _rows = ParseFile(inputFileName, reportProgressAction, out _resultMessage);
+            List<ParsedRow> _rows = ParseFile(inputFileName, reportProgressAction, out string _resultMessage);
 
             if (_rows != null && _rows.Count > 0)
             {
@@ -144,6 +142,33 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 }
 
                 reportProgressAction(_count++ * 50 / rows.Count + 50);
+            }
+
+            try
+            {
+                using (var _db = new Entities())
+                {
+                    _db
+                        .GetResidentsOfNotActualFullShareBenefitAccounts(
+                            buildingId,
+                            rows.Select(x => x.Apartment).ToList(),
+                            _curPeriod)
+                        .ForEach(x => x.BenefitTypes = null);
+
+                    _db.SaveChanges();
+
+                    _db
+                        .GetNotActualBenefitAccountsSquare(
+                            buildingId,
+                            _curPeriod.AddMonths(-1))
+                        .ForEach(x => x.ParentCustomer.Square += x.BenefitCustomerSquare);
+
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                _errors.AppendLine($"Ошибка при обработке неактуальных льгот: { ex.Message }");
             }
 
             string _processedMessage = $"\r\n\r\nОбработано строк {_processedCount} из {rows.Count}\r\n\r\n";
@@ -300,7 +325,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                         DateTime _lastCharged = firstUnchargedPeriod.AddMonths(-1);
 
                         db.CustomerPoses
-                            .Where(x => x.Customers.ID == _parentAccount.Customer.ID && x.Till == _lastCharged)
+                            .Where(x => x.Customers.ID == _benefitAccount.Customer.ID && x.Till == _lastCharged)
                             .ToList()
                             .ForEach(x => x.Till = firstUnchargedPeriod);
                     }
