@@ -219,7 +219,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                             args.Result = GisZhkhChargesExportService.Export(View.OutputPath, View.TemplatePath, View.Period, View.GetServiceMatchingDict(), ((BackgroundWorker)sender).ReportProgress);
                             break;
                         case WizardAction.ExportCounterValues:
-                            args.Result = CounterValuesExportService.Export(View.CollectFormPath, View.Form2Path, View.Period, ((BackgroundWorker)sender).ReportProgress);
+                            args.Result = CounterValuesExportService.Demo(View.CollectFormPath, View.Form2Path, "D:\\calc.xlsx", ((BackgroundWorker)sender).ReportProgress);
+                            //args.Result = CounterValuesExportService.Export(View.CollectFormPath, View.Form2Path, View.Period, ((BackgroundWorker)sender).ReportProgress);
                             break;
                     }
                 }
