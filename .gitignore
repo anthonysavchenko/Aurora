@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -86,3 +86,4 @@
 /Alpha/WinClient/Modules/PrintForms/CounterValueCollectForm/obj/Release
 /Alpha/WinClient/Modules/Reports/PreChargeReport/obj/Debug
 /Alpha/WinClient/Modules/Reports/PreChargeReport/obj/Release
+Alpha/WinClient/Modules/Service/Processing/obj/

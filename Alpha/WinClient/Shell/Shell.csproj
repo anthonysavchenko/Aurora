@@ -37,7 +37,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PublishUrl>..\Build\Bin\Deploy\aurora\</PublishUrl>
+    <PublishUrl>..\Build\Bin\Deploy\aurora-test\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -47,16 +47,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://download.taumis.ru/aurora/</InstallUrl>
+    <InstallUrl>http://download.taumis.ru/aurora-test/</InstallUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.30.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.30.1.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>019.30.0.0</ApplicationVersion>
+    <ApplicationVersion>019.30.1.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -452,6 +452,10 @@
     <ProjectReference Include="..\Modules\Service\Import\Import.csproj">
       <Project>{a3b8700e-f478-4004-9d3a-714d2b041d8a}</Project>
       <Name>Import</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Service\Processing\Processing.csproj">
+      <Project>{e0312fdc-7d3e-4d23-a37a-9e470ec006bb}</Project>
+      <Name>Processing</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Service\Settings\Settings.csproj">
       <Project>{7a533ba4-4d51-49f5-a5d5-5a615dac0688}</Project>

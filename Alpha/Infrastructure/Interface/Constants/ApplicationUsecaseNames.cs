@@ -159,5 +159,10 @@
         /// Печатная форма сбора показаний приборов учета
         /// </summary>
         public const string COUNTER_VALUE_COLLECT_FORM = "usecase://Report/CounterValueCollectForm";
+
+        /// <summary>
+        /// Обработка
+        /// </summary>
+        public const string PROCESSING = "usecase://Services/Processing";
     }
 }
