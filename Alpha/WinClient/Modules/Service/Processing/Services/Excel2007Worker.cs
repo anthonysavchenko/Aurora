@@ -79,6 +79,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services
             }
 
             /// <summary>
+            /// Конструктор
+            /// </summary>
+            /// <param name="_app">Экземпляр приложения Excel</param>
+            /// <param name="_index">Номер вкладки</param>
+            /// <param name="_ExcelAssembly">Сборка</param>
+            public ExcelSheet(object _app, int _index, Assembly _ExcelAssembly)
+            {
+                ExcelAssembly = _ExcelAssembly;
+
+                object[] _indexes = { _index };
+
+                object Worksheets = _app.GetType().InvokeMember("Worksheets", BindingFlags.GetProperty, null, _app, null);
+
+                _sheet = Worksheets.GetType().InvokeMember("Item", BindingFlags.GetProperty, null, Worksheets, _indexes);
+            }
+
+            /// <summary>
             /// Возвращает значение ячейки по адресу
             /// </summary>
             /// <param name="_cell">Адрес ячейки (напр. "B23")</param>
@@ -370,6 +387,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services
         /// <param name="_index">Название закладки</param>
         /// <returns>Закладка</returns>
         public ExcelSheet GetSheet(string _index)
+        {
+            return new ExcelSheet(_app, _index, ExcelAssembly);
+        }
+
+        /// <summary>
+        /// Возвращает закладку 
+        /// </summary>
+        /// <param name="_index">Номер закладки</param>
+        /// <returns>Закладка</returns>
+        public ExcelSheet GetSheet(int _index)
         {
             return new ExcelSheet(_app, _index, ExcelAssembly);
         }

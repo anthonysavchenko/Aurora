@@ -12,7 +12,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout
         /// <summary>
         /// Результат выполнения обработки.
         /// </summary>
-        string Result { get; set; }
+        string Result { set; }
 
         /// <summary>
         /// Очищает данные.

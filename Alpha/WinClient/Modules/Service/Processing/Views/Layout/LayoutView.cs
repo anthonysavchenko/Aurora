@@ -55,13 +55,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout
         /// </summary>
         public string Result
         {
-            get
-            {
-                return ResultTextBox.Text;
-            }
             set
             {
-                ResultTextBox.Text = value;
+                ResultTextBox.AppendText(value + "\r\n");
             }
         }
 

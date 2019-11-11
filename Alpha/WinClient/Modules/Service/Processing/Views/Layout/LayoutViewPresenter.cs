@@ -63,21 +63,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
 
                 if (!Directory.Exists(sourceDirectoryPath))
                 {
-                    View.Result += $"Некорректно указана папка с файлами. Такой папки не существует.\r\n";
+                    View.Result = $"Некорректно указана папка с файлами. Такой папки не существует.";
                 }
                 else
                 {
-                    View.Result += $"Поиск файлов по адресу {sourceDirectoryPath}.\r\n";
+                    View.Result = $"Поиск файлов по адресу {sourceDirectoryPath}.";
 
                     string[] files = Directory.GetFiles(sourceDirectoryPath, "*.xls", SearchOption.TopDirectoryOnly);
 
                     if (files.Length < 1)
                     {
-                        View.Result += $"В указанной папке не найдено ни одного файла в формате Excel 97-2003 с расширением .xls.\r\n";
+                        View.Result = $"В указанной папке не найдено ни одного файла в формате Excel 97-2003 с расширением .xls.";
                     }
                     else
                     {
-                        View.Result += $"Найдено {files.Length} файлов.\r\n";
+                        View.Result = $"Найдено {files.Length} файлов.";
 
                         try
                         {
@@ -87,42 +87,62 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                             {
                                 Directory.CreateDirectory(targetDirectoryPath);
 
-                                View.Result += $"Создана новая папка для переименнованных файлов.\r\n";
+                                View.Result = $"Создана новая папка для переименнованных файлов {targetDirectoryPath}.";
                             }
                         }
                         catch (Exception e)
                         {
-                            View.Result += $"Ошибка при создании новой папки для переименнованных файлов. Возможно, не хватает прав доступа." +
-                                $"Попробуйте создать папку \"Переименованные\" вручную.\r\n";
+                            View.Result = $"Ошибка при создании новой папки для переименнованных файлов. Возможно, не хватает прав доступа." +
+                                $"Попробуйте создать папку \"Переименованные\" вручную.";
                             Logger.SimpleWrite($"Processing error: {e}");
                         }
 
                         if (Directory.Exists(targetDirectoryPath))
                         {
-                            foreach (string filePath in files)
+                            for (int i = 0; i < files.Length; i++)
                             {
-                                View.Result += $"Обработка файла {filePath}.\r\n";
+                                View.Result = $"\r\n{i + 1}. Обработка файла {files[i]}.";
 
                                 string building = string.Empty;
+                                string form1_address = string.Empty;
+                                string form2_address = string.Empty;
                                 string address = string.Empty;
                                 Excel2007Worker worker = new Excel2007Worker();
 
                                 try
                                 {
-                                    worker.OpenFile(filePath);
-                                    Excel2007Worker.ExcelSheet sheet = worker.GetSheet("Лист1");
-                                    address = sheet.GetCellText("E1");
+                                    worker.OpenFile(files[i]);
+                                    Excel2007Worker.ExcelSheet sheet = worker.GetSheet(1);
+                                    int rowsCount = sheet.RowsCount;
+                                    form1_address = rowsCount > 0 ? sheet.GetCellText("E1") : string.Empty;
+                                    form2_address = rowsCount > 13 ? sheet.GetCellText("C14") : string.Empty;
                                     worker.Close();
 
-                                    View.Result += $"Найден адрес первой квартиры \"{address}\".\r\n";
+                                    View.Result = $"Прочитаны ячейки E1 = \"{form1_address}\" и С14 = \"{form2_address}\".";
                                 }
                                 catch (Exception e)
                                 {
-                                    View.Result += $"Ошибка при открытии файла Excel. Убедитесь:\r\n - что на компьютере установлен Excel,\r\n - что файл не " +
-                                        $"открыт в другой программе,\r\n - что в файле присутствует Лист1,\r\n - что в ячейке E1 файла записан адрес первой " +
-                                        $"квартиры.\r\n";
+                                    View.Result = $"Ошибка при открытии файла Excel. Убедитесь, что на компьютере установлен Excel, и файл " +
+                                        $"не открыт в другом окне или другой программе.";
                                     Logger.SimpleWrite($"Processing error: {e}");
                                     worker.Close();
+                                    continue;
+                                }
+
+                                if (form1_address.StartsWith("г. Владивосток, "))
+                                {
+                                    address = form1_address;
+                                    View.Result = $"Найден адрес первой квартиры \"{address}\".";
+                                }
+                                else if (form2_address.StartsWith("г. Владивосток, "))
+                                {
+                                    address = form2_address;
+                                    View.Result = $"Найден адрес первой квартиры \"{address}\".";
+                                }
+                                else
+                                {
+                                    View.Result = "Ошибка определения формата файла, убедитесь что в ячейках E1 или C14 файла записан адрес первой " +
+                                        "квартиры.";
                                     continue;
                                 }
 
@@ -132,11 +152,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     int buildingNumberStartIndex = address.IndexOf(", кв.");
                                     building = address.Remove(buildingNumberStartIndex);
 
-                                    View.Result += $"Найден адрес дома \"{building}\".\r\n";
+                                    View.Result = $"Найден адрес дома \"{building}\".";
                                 }
                                 catch (Exception e)
                                 {
-                                    View.Result += $"Ошибка при поиске адреса дома.\r\n";
+                                    View.Result = $"Ошибка при определении адреса дома, убедитесь что в ячейках E1 или C14 файла записан адрес первой " +
+                                        $"квартиры.";
                                     Logger.SimpleWrite($"Processing error: {e}");
                                     continue;
                                 }
@@ -145,22 +166,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                 {
                                     string newFilePath = Path.Combine(
                                         targetDirectoryPath,
-                                        building + " " + Path.GetFileNameWithoutExtension(filePath) + Path.GetExtension(filePath));
+                                        building + " (" + Path.GetFileNameWithoutExtension(files[i]) + ")" + Path.GetExtension(files[i]));
 
                                     if (!File.Exists(newFilePath))
                                     {
-                                        File.Copy(filePath, newFilePath);
+                                        File.Copy(files[i], newFilePath);
 
-                                        View.Result += $"Файл переименован в {newFilePath}.\r\n";
+                                        View.Result = $"Файл переименован в {newFilePath}.";
                                     }
                                     else
                                     {
-                                        View.Result += $"Файл уже был переименован ранее в {newFilePath}.\r\n";
+                                        View.Result = $"Файл уже был переименован ранее в {newFilePath}.";
                                     }
                                 }
                                 catch (Exception e)
                                 {
-                                    View.Result += $"Ошибка при переименовании файла.\r\n";
+                                    View.Result = $"Ошибка при переименовании файла. Возможно, не хватает прав для копирования файлов, попробуйте " +
+                                        $"переместить файлы в другую папку и запустить программу от имени администратора.";
                                     Logger.SimpleWrite($"Processing error: {e}");
                                     continue;
                                 }
@@ -169,12 +191,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                     }
                 }
 
-                View.Result += $"Обработка завершена.\r\n\r\n";
+                View.Result = $"\r\nОбработка завершена.\r\n";
             }
             catch (Exception e)
             {
                 Logger.SimpleWrite($"Processing error: {e}");
-                View.Result += $"Произошла ошибка. Обработка не выполнена. Подробности: {e}\r\n\r\n";
+                View.Result = $"\r\nПроизошла ошибка. Обработка не выполнена. Подробности: {e}\r\n";
             }
         }
     }
