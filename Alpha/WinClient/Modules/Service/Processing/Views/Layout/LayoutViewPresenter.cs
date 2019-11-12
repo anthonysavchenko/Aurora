@@ -104,8 +104,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                 View.Result = $"\r\n{i + 1}. Обработка файла {files[i]}.";
 
                                 string building = string.Empty;
-                                string form1_address = string.Empty;
-                                string form2_address = string.Empty;
+                                string form1_for_filling_address = string.Empty;
+                                string form2_for_printing_address = string.Empty;
                                 string address = string.Empty;
                                 Excel2007Worker worker = new Excel2007Worker();
 
@@ -114,11 +114,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     worker.OpenFile(files[i]);
                                     Excel2007Worker.ExcelSheet sheet = worker.GetSheet(1);
                                     int rowsCount = sheet.RowsCount;
-                                    form1_address = rowsCount > 0 ? sheet.GetCellText("E1") : string.Empty;
-                                    form2_address = rowsCount > 13 ? sheet.GetCellText("C14") : string.Empty;
+                                    form1_for_filling_address = rowsCount > 0 ? sheet.GetCellText("E1") : string.Empty;
+                                    form2_for_printing_address = rowsCount > 13 ? sheet.GetCellText("C14") : string.Empty;
                                     worker.Close();
 
-                                    View.Result = $"Прочитаны ячейки E1 = \"{form1_address}\" и С14 = \"{form2_address}\".";
+                                    View.Result = $"Прочитаны ячейки E1 = \"{form1_for_filling_address}\" и С14 = \"{form2_for_printing_address}\".";
                                 }
                                 catch (Exception e)
                                 {
@@ -129,14 +129,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     continue;
                                 }
 
-                                if (form1_address.StartsWith("г. Владивосток, "))
+                                if (form1_for_filling_address.StartsWith("г. Владивосток, "))
                                 {
-                                    address = form1_address;
+                                    address = form1_for_filling_address;
                                     View.Result = $"Найден адрес первой квартиры \"{address}\".";
                                 }
-                                else if (form2_address.StartsWith("г. Владивосток, "))
+                                else if (form2_for_printing_address.StartsWith("г. Владивосток, "))
                                 {
-                                    address = form2_address;
+                                    address = form2_for_printing_address;
                                     View.Result = $"Найден адрес первой квартиры \"{address}\".";
                                 }
                                 else
@@ -164,9 +164,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
 
                                 try
                                 {
-                                    string newFilePath = Path.Combine(
-                                        targetDirectoryPath,
-                                        building + " (" + Path.GetFileNameWithoutExtension(files[i]) + ")" + Path.GetExtension(files[i]));
+                                    string newFilePath = 
+                                        !string.IsNullOrEmpty(form1_for_filling_address)
+                                            ? Path.Combine(
+                                                targetDirectoryPath,
+                                                Path.GetFileNameWithoutExtension(files[i]) + " " + building + Path.GetExtension(files[i]))
+                                            : Path.Combine(
+                                                targetDirectoryPath,
+                                                building + " (" + Path.GetFileNameWithoutExtension(files[i]) + ")" + Path.GetExtension(files[i]));
 
                                     if (!File.Exists(newFilePath))
                                     {
