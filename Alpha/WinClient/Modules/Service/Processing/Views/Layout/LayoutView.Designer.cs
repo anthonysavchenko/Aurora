@@ -30,10 +30,10 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ProcessButton = new System.Windows.Forms.Button();
             this.ChooseButton = new System.Windows.Forms.Button();
             this.DirectoryPathTextBox = new System.Windows.Forms.TextBox();
             this.ResultTextBox = new System.Windows.Forms.TextBox();
-            this.ProcessButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -64,6 +64,17 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Переименование файлов ДЭК";
+            // 
+            // ProcessButton
+            // 
+            this.ProcessButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProcessButton.Location = new System.Drawing.Point(1254, 15);
+            this.ProcessButton.Name = "ProcessButton";
+            this.ProcessButton.Size = new System.Drawing.Size(100, 23);
+            this.ProcessButton.TabIndex = 3;
+            this.ProcessButton.Text = "&Переименовать";
+            this.ProcessButton.UseVisualStyleBackColor = true;
+            this.ProcessButton.Click += new System.EventHandler(this.ProcessButton_Click);
             // 
             // ChooseButton
             // 
@@ -99,17 +110,6 @@
             this.ResultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ResultTextBox.Size = new System.Drawing.Size(1351, 840);
             this.ResultTextBox.TabIndex = 5;
-            // 
-            // ProcessButton
-            // 
-            this.ProcessButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProcessButton.Location = new System.Drawing.Point(1254, 15);
-            this.ProcessButton.Name = "ProcessButton";
-            this.ProcessButton.Size = new System.Drawing.Size(100, 23);
-            this.ProcessButton.TabIndex = 3;
-            this.ProcessButton.Text = "&Переименовать";
-            this.ProcessButton.UseVisualStyleBackColor = true;
-            this.ProcessButton.Click += new System.EventHandler(this.ProcessButton_Click);
             // 
             // groupBox2
             // 
