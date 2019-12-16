@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout;
@@ -12,6 +13,27 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
 {
     public class LayoutViewPresenter : BaseLayoutViewPresenter<ILayoutView>
     {
+        public class Month
+        {
+            public string N;
+            public string T;
+            public string AN;
+            public string BP;
+            public string BU;
+        }
+
+        public class Building
+        {
+            public string address;
+
+            public Dictionary<DateTime, Month> months;
+
+            public Building()
+            {
+                months = new Dictionary<DateTime, Month>();
+            }
+        }
+
         /// <summary>
         /// Выполняет действия при загрузке вида.
         /// </summary>
@@ -60,6 +82,34 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
             {
                 string sourceDirectoryPath = View.DirectoryPath;
                 string targetDirectoryPath = string.Empty;
+                var buildings = new List<Building>();
+                var months = new Dictionary<DateTime, string>
+                {
+                    { new DateTime(2017, 1, 1), "D" },
+                    { new DateTime(2017, 2, 1), "E" },
+                    { new DateTime(2017, 3, 1), "F" },
+                    { new DateTime(2017, 4, 1), "G" },
+                    { new DateTime(2017, 5, 1), "H" },
+                    { new DateTime(2017, 6, 1), "I" },
+                    { new DateTime(2017, 7, 1), "J" },
+                    { new DateTime(2017, 8, 1), "K" },
+                    { new DateTime(2017, 9, 1), "L" },
+                    { new DateTime(2017, 10, 1), "M" },
+                    { new DateTime(2017, 11, 1), "N" },
+                    { new DateTime(2017, 12, 1), "O" },
+                    { new DateTime(2018, 1, 1), "P" },
+                    { new DateTime(2018, 2, 1), "Q" },
+                    { new DateTime(2018, 3, 1), "R" },
+                    { new DateTime(2018, 4, 1), "S" },
+                    { new DateTime(2018, 5, 1), "T" },
+                    { new DateTime(2018, 6, 1), "U" },
+                    { new DateTime(2018, 7, 1), "V" },
+                    { new DateTime(2018, 8, 1), "W" },
+                    { new DateTime(2018, 9, 1), "X" },
+                    { new DateTime(2018, 10, 1), "Y" },
+                    { new DateTime(2018, 11, 1), "Z" },
+                    { new DateTime(2018, 12, 1), "AA" }
+                };
 
                 if (!Directory.Exists(sourceDirectoryPath))
                 {
@@ -81,32 +131,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
 
                         try
                         {
-                            targetDirectoryPath = Path.Combine(sourceDirectoryPath, "Переименованные");
+                            targetDirectoryPath = Path.Combine(sourceDirectoryPath, "Результат");
 
                             if (!Directory.Exists(targetDirectoryPath))
                             {
                                 Directory.CreateDirectory(targetDirectoryPath);
 
-                                View.Result = $"Создана новая папка для переименнованных файлов {targetDirectoryPath}.";
+                                View.Result = $"Создана новая папка для файла с результатом {targetDirectoryPath}.";
                             }
                         }
                         catch (Exception e)
                         {
-                            View.Result = $"Ошибка при создании новой папки для переименнованных файлов. Возможно, не хватает прав доступа." +
-                                $"Попробуйте создать папку \"Переименованные\" вручную.";
+                            View.Result = $"\r\nОшибка при создании новой папки для файла с результатом. Возможно, не хватает прав доступа." +
+                                $"Попробуйте создать папку \"Результат\" вручную.";
                             Logger.SimpleWrite($"Processing error: {e}");
                         }
 
                         if (Directory.Exists(targetDirectoryPath))
                         {
+                            Array.Sort(files);
+
                             for (int i = 0; i < files.Length; i++)
                             {
                                 View.Result = $"\r\n{i + 1}. Обработка файла {files[i]}.";
 
-                                string building = string.Empty;
-                                string form1_for_filling_address = string.Empty;
-                                string form2_for_printing_address = string.Empty;
-                                string address = string.Empty;
+                                DateTime month = DateTime.Parse(Path.GetFileNameWithoutExtension(files[i]));
+
                                 Excel2007Worker worker = new Excel2007Worker();
 
                                 try
@@ -114,83 +164,216 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     worker.OpenFile(files[i]);
                                     Excel2007Worker.ExcelSheet sheet = worker.GetSheet(1);
                                     int rowsCount = sheet.RowsCount;
-                                    form1_for_filling_address = rowsCount > 0 ? sheet.GetCellText("E1") : string.Empty;
-                                    form2_for_printing_address = rowsCount > 13 ? sheet.GetCellText("C14") : string.Empty;
-                                    worker.Close();
 
-                                    View.Result = $"Прочитаны ячейки E1 = \"{form1_for_filling_address}\" и С14 = \"{form2_for_printing_address}\".";
+                                    for (int j = 8; j < rowsCount; j++)
+                                    {
+                                        string buildingAddress =
+                                            sheet
+                                                .GetCellValue($"C{j}")
+                                                .Replace(".", "")
+                                                .Replace(",", "")
+                                                .Replace("-", "")
+                                                .Replace(" (бывший 5А)", "")
+                                                .ToUpper();
+
+                                        string n = string.Empty;
+                                        string t = string.Empty;
+                                        string an = string.Empty;
+                                        string bp = string.Empty;
+                                        string bu = string.Empty;
+
+                                        if (buildingAddress.StartsWith("Г ВЛАДИВОСТОК "))
+                                        {
+                                            buildingAddress = buildingAddress.Replace("Г ВЛАДИВОСТОК ", "");
+
+                                            n = sheet.GetCellValue($"N{j}");
+                                            t = sheet.GetCellValue($"T{j}");
+                                            an = sheet.GetCellValue($"AN{j}");
+                                            bp = sheet.GetCellValue($"BP{j}");
+                                            bu = sheet.GetCellValue($"BU{j}");
+
+                                            Building existedBuilding = buildings.Find(b => b.address == buildingAddress);
+
+                                            if (existedBuilding == null)
+                                            {
+                                                existedBuilding = new Building();
+                                                existedBuilding.address = buildingAddress;
+                                                buildings.Add(existedBuilding);
+                                            }
+
+                                            existedBuilding.months.Add(month, new Month() { N = n, T = t, AN = an, BP = bp, BU = bu });
+
+                                            View.Result = $"Найден дом и данные: C{j} = \"{buildingAddress}\", N{j} = \"{n}\", T{j} = \"{t}\", " +
+                                                $"AN{j} = \"{an}\", BP{j} = \"{bp}\", BU{j} = \"{bu}\".";
+                                        }
+                                    }
+
+                                    worker.Close();
                                 }
                                 catch (Exception e)
                                 {
-                                    View.Result = $"Ошибка при открытии файла Excel. Убедитесь, что на компьютере установлен Excel, и файл " +
+                                    View.Result = $"\r\nОшибка при открытии файла Excel. Убедитесь, что на компьютере установлен Excel, и файл " +
                                         $"не открыт в другом окне или другой программе.";
                                     Logger.SimpleWrite($"Processing error: {e}");
                                     worker.Close();
                                     continue;
                                 }
+                            }
 
-                                if (form1_for_filling_address.StartsWith("г. Владивосток, "))
-                                {
-                                    address = form1_for_filling_address;
-                                    View.Result = $"Найден адрес первой квартиры \"{address}\".";
-                                }
-                                else if (form2_for_printing_address.StartsWith("г. Владивосток, "))
-                                {
-                                    address = form2_for_printing_address;
-                                    View.Result = $"Найден адрес первой квартиры \"{address}\".";
-                                }
-                                else
-                                {
-                                    View.Result = "Ошибка определения формата файла, убедитесь что в ячейках E1 или C14 файла записан адрес первой " +
-                                        "квартиры.";
-                                    continue;
-                                }
+                            Excel2007Worker worker1 = new Excel2007Worker();
+                            string currentBuilding = string.Empty;
 
-                                try
-                                {
-                                    address = address.Replace("г. Владивосток, ", string.Empty);
-                                    int buildingNumberStartIndex = address.IndexOf(", кв.");
-                                    building = address.Remove(buildingNumberStartIndex);
+                            try
+                            {
+                                buildings.Sort((x, y) => x.address.CompareTo(y.address));
 
-                                    View.Result = $"Найден адрес дома \"{building}\".";
-                                }
-                                catch (Exception e)
-                                {
-                                    View.Result = $"Ошибка при определении адреса дома, убедитесь что в ячейках E1 или C14 файла записан адрес первой " +
-                                        $"квартиры.";
-                                    Logger.SimpleWrite($"Processing error: {e}");
-                                    continue;
-                                }
+                                Excel2007Worker.ExcelSheet sheet1 = worker1.CreateFile(Path.Combine(targetDirectoryPath, "total.xls"), "Лист1");
 
-                                try
-                                {
-                                    string newFilePath = 
-                                        !string.IsNullOrEmpty(form1_for_filling_address)
-                                            ? Path.Combine(
-                                                targetDirectoryPath,
-                                                Path.GetFileNameWithoutExtension(files[i]) + " " + building + Path.GetExtension(files[i]))
-                                            : Path.Combine(
-                                                targetDirectoryPath,
-                                                building + " (" + Path.GetFileNameWithoutExtension(files[i]) + ")" + Path.GetExtension(files[i]));
+                                View.Result = $"\r\nCохранение данных.";
 
-                                    if (!File.Exists(newFilePath))
+                                sheet1.SetCellValue($"A1", "Адрес");
+                                sheet1.SetCellValue($"B1", "ЭЭ наличие ОДПУ / норматив");
+                                sheet1.SetCellValue($"C1", "Параметры");
+
+                                sheet1.SetCellValue($"D1", "01.01.2017");
+                                sheet1.SetCellValue($"E1", "01.02.2017");
+                                sheet1.SetCellValue($"F1", "01.03.2017");
+                                sheet1.SetCellValue($"G1", "01.04.2017");
+                                sheet1.SetCellValue($"H1", "01.05.2017");
+                                sheet1.SetCellValue($"I1", "01.06.2017");
+
+                                sheet1.SetCellValue($"J1", "01.07.2017");
+                                sheet1.SetCellValue($"K1", "01.08.2017");
+                                sheet1.SetCellValue($"L1", "01.09.2017");
+                                sheet1.SetCellValue($"M1", "01.10.2017");
+                                sheet1.SetCellValue($"N1", "01.11.2017");
+                                sheet1.SetCellValue($"O1", "01.12.2017");
+
+                                sheet1.SetCellValue($"P1", "01.01.2018");
+                                sheet1.SetCellValue($"Q1", "01.02.2018");
+                                sheet1.SetCellValue($"R1", "01.03.2018");
+                                sheet1.SetCellValue($"S1", "01.04.2018");
+                                sheet1.SetCellValue($"T1", "01.05.2018");
+                                sheet1.SetCellValue($"U1", "01.06.2018");
+
+                                sheet1.SetCellValue($"V1", "01.07.2018");
+                                sheet1.SetCellValue($"W1", "01.08.2018");
+                                sheet1.SetCellValue($"X1", "01.09.2018");
+                                sheet1.SetCellValue($"Y1", "01.10.2018");
+                                sheet1.SetCellValue($"Z1", "01.11.2018");
+                                sheet1.SetCellValue($"AA1", "01.12.2018");
+
+                                sheet1.SetColumnWidth("A", "A", 40);
+                                sheet1.SetColumnWidth("B", "AA", 10);
+                                sheet1.SetColumnWidth("C", "C", 110);
+
+                                for (int k = 0; k < buildings.Count; k++)
+                                {
+                                    currentBuilding = buildings[k].address;
+
+                                    /* 1 */
+                                    sheet1.SetCellValue($"A{k * 10 + 2}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 2}", "ОДПУ УК ФР (до 08.2019 данные файла \"Расходы по ОДПУ\")");
+
+                                    /* 2 */
+                                    sheet1.SetCellValue($"A{k * 10 + 3}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 3}", "ОДПУ ДЭК (данные файлов ДЭК \"Расчет ОДН месяц\", столбец N)");
+
+                                    foreach (var month in months)
                                     {
-                                        File.Copy(files[i], newFilePath);
+                                        if (buildings[k].months.ContainsKey(month.Key)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].N)
+                                            && decimal.Parse(buildings[k].months[month.Key].N) != 0)
+                                        {
+                                            sheet1.SetCellValue($"{month.Value}{k * 10 + 3}", decimal.Parse(buildings[k].months[month.Key].N));
+                                        }
+                                    }
 
-                                        View.Result = $"Файл переименован в {newFilePath}.";
-                                    }
-                                    else
+                                    /* 3 */
+                                    sheet1.SetCellValue($"A{k * 10 + 4}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 4}", "кВт для распределения ДЭК (столбец T, файл \"Расчет ОДН месяц\"), кВт.ч");
+
+                                    foreach (var month in months)
                                     {
-                                        View.Result = $"Файл уже был переименован ранее в {newFilePath}.";
+                                        if (buildings[k].months.ContainsKey(month.Key)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].T)
+                                            && decimal.Parse(buildings[k].months[month.Key].T) != 0)
+                                        {
+                                            sheet1.SetCellValue($"{month.Value}{k * 10 + 4}", decimal.Parse(buildings[k].months[month.Key].T));
+                                        }
                                     }
+
+                                    /* 4 */
+                                    sheet1.SetCellValue($"A{k * 10 + 5}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 5}", "ИПУ УК ФР");
+
+                                    /* 5 */
+                                    sheet1.SetCellValue($"A{k * 10 + 6}", buildings[k].address);
+                                    sheet1.SetCellValue(
+                                        $"C{k * 10 + 6}",
+                                        "ИПУ ДЭК (данные файлов ДЭК \"Расчет ОДН месяц\", столбец AM = cумма AK+AL), с 01.10.2017 сумма в столбце AN");
+
+                                    foreach (var month in months)
+                                    {
+                                        if (buildings[k].months.ContainsKey(month.Key)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].AN)
+                                            && decimal.Parse(buildings[k].months[month.Key].AN) != 0)
+                                        {
+                                            sheet1.SetCellValue($"{month.Value}{k * 10 + 6}", decimal.Parse(buildings[k].months[month.Key].AN));
+                                        }
+                                    }
+
+                                    /* 6 */
+                                    sheet1.SetCellValue($"A{k * 10 + 7}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 7}", "ОДН УК ФР (таблица 6784 для РКЦ месяц)");
+
+                                    /* 7 */
+                                    sheet1.SetCellValue($"A{k * 10 + 8}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 8}", "ОДН ДЭК (данные файлов ДЭК, столбец BO \"Расчет ОДН месяц\", столбец BP)");
+
+                                    foreach (var month in months)
+                                    {
+                                        if (buildings[k].months.ContainsKey(month.Key)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].BP)
+                                            && decimal.Parse(buildings[k].months[month.Key].BP) != 0)
+                                        {
+                                            sheet1.SetCellValue($"{month.Value}{k * 10 + 8}", decimal.Parse(buildings[k].months[month.Key].BP));
+                                        }
+                                    }
+
+                                    /* 8 */
+                                    sheet1.SetCellValue($"A{k * 10 + 9}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 9}", "Баланс по объекту ДЭК (данные файлов ДЭК, столбец BS \"Расчет ОДН месяц\")");
+
+                                    foreach (var month in months)
+                                    {
+                                        if (buildings[k].months.ContainsKey(month.Key)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].BU)
+                                            && decimal.Parse(buildings[k].months[month.Key].BU) != 0)
+                                        {
+                                            sheet1.SetCellValue($"{month.Value}{k * 10 + 9}", decimal.Parse(buildings[k].months[month.Key].BU));
+                                        }
+                                    }
+
+                                    /* 9 */
+                                    sheet1.SetCellValue($"A{k * 10 + 10}", buildings[k].address);
+                                    sheet1.SetCellValue($"C{k * 10 + 10}", "ПРОВЕРКА ОДН ДЭК (разность кВт для распределения/ИПУ ДЭК)");
+
+                                    /* 10 */
+                                    /* Пустая */
+
+                                    View.Result = $"{k + 1}. Записан дом: \"{buildings[k].address}\".";
                                 }
-                                catch (Exception e)
-                                {
-                                    View.Result = $"Ошибка при переименовании файла. Возможно, не хватает прав для копирования файлов, попробуйте " +
-                                        $"переместить файлы в другую папку и запустить программу от имени администратора.";
-                                    Logger.SimpleWrite($"Processing error: {e}");
-                                    continue;
-                                }
+
+                                worker1.Save();
+                                worker1.Close();
+                                View.Result = $"\r\nДанные сохранены в файл с результатом \"{Path.Combine(targetDirectoryPath, "total.xls")}\".";
+                            }
+                            catch (Exception e)
+                            {
+                                View.Result = $"\r\nОшибка во время записи данных по дому {currentBuilding}.";
+                                Logger.SimpleWrite($"Processing error: {e}");
+                                worker1.Close();
                             }
                         }
                     }
