@@ -282,8 +282,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     foreach (var month in months)
                                     {
                                         if (buildings[k].months.ContainsKey(month.Key)
-                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].N)
-                                            && decimal.Parse(buildings[k].months[month.Key].N) != 0)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].N))
                                         {
                                             sheet1.SetCellValue($"{month.Value}{k * 10 + 3}", decimal.Parse(buildings[k].months[month.Key].N));
                                         }
@@ -296,8 +295,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     foreach (var month in months)
                                     {
                                         if (buildings[k].months.ContainsKey(month.Key)
-                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].T)
-                                            && decimal.Parse(buildings[k].months[month.Key].T) != 0)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].T))
                                         {
                                             sheet1.SetCellValue($"{month.Value}{k * 10 + 4}", decimal.Parse(buildings[k].months[month.Key].T));
                                         }
@@ -316,8 +314,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     foreach (var month in months)
                                     {
                                         if (buildings[k].months.ContainsKey(month.Key)
-                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].AN)
-                                            && decimal.Parse(buildings[k].months[month.Key].AN) != 0)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].AN))
                                         {
                                             sheet1.SetCellValue($"{month.Value}{k * 10 + 6}", decimal.Parse(buildings[k].months[month.Key].AN));
                                         }
@@ -334,8 +331,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     foreach (var month in months)
                                     {
                                         if (buildings[k].months.ContainsKey(month.Key)
-                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].BP)
-                                            && decimal.Parse(buildings[k].months[month.Key].BP) != 0)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].BP))
                                         {
                                             sheet1.SetCellValue($"{month.Value}{k * 10 + 8}", decimal.Parse(buildings[k].months[month.Key].BP));
                                         }
@@ -348,8 +344,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                     foreach (var month in months)
                                     {
                                         if (buildings[k].months.ContainsKey(month.Key)
-                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].BU)
-                                            && decimal.Parse(buildings[k].months[month.Key].BU) != 0)
+                                            && !string.IsNullOrEmpty(buildings[k].months[month.Key].BU))
                                         {
                                             sheet1.SetCellValue($"{month.Value}{k * 10 + 9}", decimal.Parse(buildings[k].months[month.Key].BU));
                                         }
