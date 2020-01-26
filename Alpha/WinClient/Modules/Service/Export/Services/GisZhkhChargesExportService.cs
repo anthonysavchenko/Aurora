@@ -28,18 +28,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int NUMBER = 3;
                 public const int PERIOD = 4;
                 public const int AREA = 5;
-                public const int BIK = 17;
-                public const int BANK_ACCOUNT = 18;
-                public const int REPAIR_RATE = 19;
-                public const int REPAIR_CHARGE = 20;
-                public const int REPAIR_TOTAL = 24;
+                public const int REQUISITE = 15;
             }
         }
 
         private class Section3_6Sheet
         {
             public const int INDEX = 2;
-            public const int FIRST_ROW_NUM = 5;
+            public const int FIRST_ROW_NUM = 4;
 
             public const string PP_CALC_TYPE = "Норматив";
 
@@ -50,24 +46,37 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int PP_VOLUME_TYPE = 6;
                 public const int PP_VOLUME = 7;
                 public const int RATE = 8;
-                public const int RECALCULATION = 14;
-                public const int BENEFIT = 15;
-                public const int INTS_PAYMENT_RUB = 27;
-                public const int INTS_PAYMENT_PERCENT = 28;
-                public const int INTS_PAYMENT_TOTAL = 29;
-                public const int TOTAL = 30;
-                public const int PP_TOTAL = 32;
+                public const int RECALCULATION = 12;
+                public const int BENEFIT = 13;
+                public const int TOTAL = 15;
             }
         }
 
         private class ServiceSheet
         {
-            public const int INDEX = 8;
+            public const int INDEX = 10;
             public const int FIRST_ROW_NUM = 2;
 
             public class Columns
             {
                 public const int SERVICE_NAME = 3;
+            }
+        }
+
+        private class Section9Sheet
+        {
+            public const int INDEX = 9;
+            public const int FIRST_ROW_NUM = 2;
+
+            public class Columns
+            {
+                public const int NUMBER = 1;
+                public const int REQUISITE = 2;
+                public const int BIK = 3;
+                public const int BANK_ACCOUNT = 4;
+                public const int SUBTOTAL = 6;
+                public const int OVERPAYMENT = 7;
+                public const int TOTAL = 8;
             }
         }
 
@@ -84,7 +93,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public decimal Area { get; set; }
             public string Bik { get; set; }
             public string BankAccount { get; set; }
+            public int BankDetailsID { get; set; }
             public int BillID { get; set; }
+            public decimal Subtotal { get; set; }
+            public decimal Overpayment { get; set; }
+            public decimal Total { get; set; }
             public List<BillInfo> Bills { get; set; }
         }
 
@@ -101,8 +114,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
         [ServiceDependency]
         public IExcelService ExcelService { get; set; }
-
-        private int[] _repairBuildingIds = new[] { 272, 280, 281, 329, 352, 353, 390, 401, 421, 448, 449, 463, 568, 612, 619, 620, 631, 634, 681, 685, 722, 733, 750, 751 };
 
         public ExportResult Export(string outputPath, string templatePath, DateTime period, Dictionary<int, string> serviceMatchingDict, Action<int> progressAction)
         {
@@ -151,19 +162,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                     string _fileName = $"{_building.Street.Replace(' ', '_')}_{_building.Number.Replace(' ', '_').Replace('\\', '_').Replace('/', '_')}_ПД_{period:yyyy-MM}.xlsx";
 
-                    bool _repair = _repairBuildingIds.Contains(_building.ID);
-
                     using (IExcelWorkbook _wb = ExcelService.OpenWorkbook(templatePath))
                     {
                         IExcelWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
                         IExcelWorksheet _section3_6 = _wb.Worksheet(Section3_6Sheet.INDEX);
+                        IExcelWorksheet _section9 = _wb.Worksheet(Section9Sheet.INDEX);
                         
-                        //Ошибка в шаблоне - удаляем проверку на 5 листе
-                        IExcelWorksheet _temp = _wb.Worksheet(5);
+                        //Ошибка в шаблоне - удаляем проверку на 7 листе
+                        IExcelWorksheet _temp = _wb.Worksheet(7);
                         _temp.ClearDataValidations();
 
                         int _section1_2Row = Section1_2Sheet.FIRST_ROW_NUM;
                         int _section3_6Row = Section3_6Sheet.FIRST_ROW_NUM;
+                        int _section9Row = Section9Sheet.FIRST_ROW_NUM;
 
                         foreach(CustomerInfo _ci in _byBuilding.Value)
                         {
@@ -172,17 +183,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.NUMBER).SetValue(_ci.BillID);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.PERIOD).SetValue(period.ToString("MM.yyyy"));
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_ci.Area);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_ci.Bik);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REQUISITE).SetValue($"{_ci.BillID}-{_ci.BankDetailsID}");
 
-                            // TODO: экспорт по кап. ремонту в ГИС ЖКХ. 
-                            // Пока что тупо проверяем по ID дома и пишем 0, в остальных случаях ничего не делаем, иначе возникнет ошибка при импорте в ГИС ЖКХ
-                            if (_repair)
-                            {
-                                _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
-                                _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
-                                _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
-                            }
+                            _section9.Cell(_section9Row, Section9Sheet.Columns.NUMBER).SetValue(_ci.BillID);
+                            _section9.Cell(_section9Row, Section9Sheet.Columns.REQUISITE).SetValue($"{_ci.BillID}-{_ci.BankDetailsID}");
+                            _section9.Cell(_section9Row, Section9Sheet.Columns.BIK).SetValue(_ci.Bik);
+                            _section9.Cell(_section9Row, Section9Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
+                            _section9.Cell(_section9Row, Section9Sheet.Columns.SUBTOTAL).SetValue(_ci.Subtotal);
+                            _section9.Cell(_section9Row, Section9Sheet.Columns.OVERPAYMENT).SetValue(_ci.Overpayment);
+                            _section9.Cell(_section9Row, Section9Sheet.Columns.TOTAL).SetValue(_ci.Total);
 
                             foreach (BillInfo _bi in _ci.Bills)
                             {
@@ -203,9 +212,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 {
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME_TYPE).SetValue(Section3_6Sheet.PP_CALC_TYPE);
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME).SetValue(_ci.Area);
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_TOTAL).SetValue(_bi.Total);
                                 }
 
+                                /*
                                 if (_bi.Recalculation != 0)
                                 {
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RECALCULATION).SetValue(_bi.Recalculation);
@@ -215,11 +224,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 {
                                     _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.BENEFIT).SetValue(Math.Abs(_bi.Benefit));
                                 }
+                                */
 
                                 _section3_6Row++;
                             }
 
                             _section1_2Row++;
+                            _section9Row++;
                         }
 
                         _wb.SaveAs($"{outputPath}\\{_fileName}");
@@ -273,12 +284,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 Area = p.RegularBillDocs.Customers.Square,
                                 p.RegularBillDocs.Customers.Buildings.BankDetails.BIK,
                                 BankAccount = p.RegularBillDocs.Customers.Buildings.BankDetails.Account,
+                                BankDetaildID = p.RegularBillDocs.Customers.Buildings.BankDetails.ID,
                                 p.ServiceTypeID,
                                 p.ServiceTypeName,
                                 Rate = p.PayRate,
                                 p.Recalculation,
                                 p.Benefit,
-                                Total = p.Payable
+                                Total = p.Payable,
+                                p.RegularBillDocs.MonthChargeValue,
+                                p.RegularBillDocs.OverpaymentValue,
+                                p.RegularBillDocs.Value,
                             })
                         .Where(bi => serviceMatchingDict.Keys.Contains((int)bi.ServiceTypeID))
                         .ToList()
@@ -287,26 +302,42 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             new
                             {
                                 BuildingID = g.Key,
-                                Data = g.GroupBy(bi => new { bi.CustomerGisZhkhID, bi.Area, bi.BIK, bi.BankAccount, bi.BillID })
-                                    .Select(gByGisZhkhID =>
-                                        new CustomerInfo
-                                        {
-                                            CustomerGisZhkhID = gByGisZhkhID.Key.CustomerGisZhkhID,
-                                            Area = gByGisZhkhID.Key.Area,
-                                            Bik = gByGisZhkhID.Key.BIK,
-                                            BankAccount = gByGisZhkhID.Key.BankAccount,
-                                            BillID = gByGisZhkhID.Key.BillID,
-                                            Bills = gByGisZhkhID.Select(bi =>
-                                                new BillInfo
-                                                {
-                                                    Rate = bi.Rate,
-                                                    Recalculation = bi.Recalculation,
-                                                    Benefit = bi.Benefit,
-                                                    Total = bi.Total,
-                                                    ServiceTypeID = bi.ServiceTypeID.Value,
-                                                    IsPublicPlaceService = _publicPlaceServiceTypes.Any(id => id == bi.ServiceTypeID)
-                                                }).ToList()
-                                        }).ToList()
+                                Data = g.GroupBy(bi => 
+                                    new
+                                    {
+                                        bi.CustomerGisZhkhID,
+                                        bi.Area,
+                                        bi.BIK,
+                                        bi.BankAccount,
+                                        bi.BankDetaildID,
+                                        bi.BillID,
+                                        bi.MonthChargeValue,
+                                        bi.OverpaymentValue,
+                                        bi.Value,
+                                    })
+                                .Select(gByGisZhkhID =>
+                                    new CustomerInfo
+                                    {
+                                        CustomerGisZhkhID = gByGisZhkhID.Key.CustomerGisZhkhID,
+                                        Area = gByGisZhkhID.Key.Area,
+                                        Bik = gByGisZhkhID.Key.BIK,
+                                        BankAccount = gByGisZhkhID.Key.BankAccount,
+                                        BankDetailsID = gByGisZhkhID.Key.BankDetaildID,
+                                        BillID = gByGisZhkhID.Key.BillID,
+                                        Subtotal = gByGisZhkhID.Key.MonthChargeValue,
+                                        Overpayment = gByGisZhkhID.Key.OverpaymentValue,
+                                        Total = gByGisZhkhID.Key.Value,
+                                        Bills = gByGisZhkhID.Select(bi =>
+                                            new BillInfo
+                                            {
+                                                Rate = bi.Rate,
+                                                Recalculation = bi.Recalculation,
+                                                Benefit = bi.Benefit,
+                                                Total = bi.Total,
+                                                ServiceTypeID = bi.ServiceTypeID.Value,
+                                                IsPublicPlaceService = _publicPlaceServiceTypes.Any(id => id == bi.ServiceTypeID)
+                                            }).ToList()
+                                    }).ToList()
                             })
                         .ToDictionary(x => x.BuildingID, x => x.Data);
                 }
