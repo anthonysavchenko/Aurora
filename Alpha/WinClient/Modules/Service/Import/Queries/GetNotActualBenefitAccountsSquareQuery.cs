@@ -20,6 +20,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Queries
             DateTime lastChargedPeriod) =>
             db.Customers
                 .Where(x => x.Buildings.ID == buildingId
+                    && x.Residents.Count > 0
                     && x.Residents.All(y => y.BenefitTypes.Code == BenefitTypeCodes.CHILDREN_OF_WAR)
                     && x.CustomerPoses.Any(y => y.Till == lastChargedPeriod))
                 .Select(x =>
