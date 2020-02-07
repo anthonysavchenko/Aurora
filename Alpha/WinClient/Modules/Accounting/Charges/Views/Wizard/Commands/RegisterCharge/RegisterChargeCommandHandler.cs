@@ -33,14 +33,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             _cache.Init(cmd.Period);
 
-            int _chargeSetId = CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
-            Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
+            int _chargeSetId = 1087;
 
-            int[] _customers;
-            using (Entities _db = new Entities())
-            {
-                _customers = _db.Customers.Select(c => c.ID).ToArray();
-            }
+            int[] _customers = { 31148, 31149, 31150, 31151, 31152, 31153, 31154, 31155, 31156, 31157 };
 
             cmd.ResetProgressBar(_customers.Length);
 
@@ -135,7 +130,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         _dispatcher.Execute(
                             new CreateBillCommand
                             {
-                                BillSetId = _billSetByBuilding[_customerInfo.BuildingId],
+                                BillSetId = 11507,
                                 ChargeOper = _createChargeOperCommand.Result,
                                 ChargePeriodBalance = _periodBalance,
                                 Contractors = _contractors,
