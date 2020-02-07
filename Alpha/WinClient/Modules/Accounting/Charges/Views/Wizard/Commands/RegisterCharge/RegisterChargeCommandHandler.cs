@@ -31,22 +31,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
         {
             cmd.Result = new RegisterCommandResult();
 
-            _cache.Init(cmd.Period);
+            DateTime _lastChargedPeriod = new DateTime(2019, 7, 1, 0, 0, 0);
+            int[] _chargeSets = { 1050, 1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060, 1061, 1062, 1063, 1064, 1065, 1066, 1067, 1068, 1069,
+                1070, 1071, 1072, 1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086 };
+            int[] _billSets   = { 7369, 7461, 7545, 7662, 7824, 7935, 8054, 8169, 8242, 8367, 8497, 8610, 8698, 8770, 8885, 8982, 9117, 9236, 9389, 9472,
+                9564, 9668, 9797, 9880, 10030, 10191, 10333, 10475, 10652, 10812, 10916, 11001, 11122, 11206, 11291, 11362, 11425 };
+            int _count = 0;
 
-            int _chargeSetId = CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
-            Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
+            cmd.ResetProgressBar(_chargeSets.Length);
 
-            int[] _customers;
-            using (Entities _db = new Entities())
+            for (DateTime _currentPeriod = new DateTime(2016, 7, 1, 0, 0, 0); _currentPeriod <= _lastChargedPeriod; _currentPeriod.AddMonths(1))
             {
-                _customers = _db.Customers.Select(c => c.ID).ToArray();
-            }
+                _cache.Init(_currentPeriod);
 
-            cmd.ResetProgressBar(_customers.Length);
-
-            for (int i = 0; i < _customers.Length; i++)
-            {
-                int _customerId = _customers[i];
+                int _chargeSetId = _chargeSets[_count];
+                int _billSetId = _billSets[_count];
+                int _customerId = 48720;
 
                 using (var _db = new Entities())
                 {
@@ -56,14 +56,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         var _chargeSet = _db.ChargeSets.First(x => x.ID == _chargeSetId);
 
                         var _periodBalance = _db
-                            .GetCustomerBalancesGroupedByPeriod(_customerId, beforeGroupFilter: x => x.Period == cmd.Period)
+                            .GetCustomerBalancesGroupedByPeriod(_customerId, beforeGroupFilter: x => x.Period == _currentPeriod)
                             .Values
                             .FirstOrDefault() ?? new Dictionary<int, Balance>();
                         var _services = _db.Services.ToDictionary(x => x.ID);
                         var _contractors = _db.Contractors.ToDictionary(x => x.ID);
                         var _dbCustomerStub = new Customers { ID = _customerId };
                         _db.Customers.Attach(_dbCustomerStub);
-                        CustomerInfo _customerInfo = _db.GetCustomerInfo(_customerId, cmd.Period);
+                        CustomerInfo _customerInfo = _db.GetCustomerInfo(_customerId, _currentPeriod);
 
                         var _calculateChargesCommand =
                             new CalculateChargeCommand
@@ -113,7 +113,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 CustomerInfo = _customerInfo,
                                 DbCustomerStub = _dbCustomerStub,
                                 Now = cmd.Now,
-                                Period = cmd.Period,
+                                Period = _currentPeriod,
                                 Services = _services,
                                 Contractors = _contractors,
                                 Db = _db
@@ -126,8 +126,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                                 ChargeOper = _createChargeOperCommand.Result,
                                 ChargePeriodBalance = _periodBalance,
                                 DbCustomerStub = _dbCustomerStub,
-                                Period = cmd.Period,
-                                LastChargedPeriod = cmd.LastChargedPeriod,
+                                Period = _currentPeriod,
+                                LastChargedPeriod = _currentPeriod.AddMonths(-1),
                                 Services = _services,
                                 Db = _db
                             });
@@ -135,7 +135,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         _dispatcher.Execute(
                             new CreateBillCommand
                             {
-                                BillSetId = _billSetByBuilding[_customerInfo.BuildingId],
+                                BillSetId = _billSetId,
                                 ChargeOper = _createChargeOperCommand.Result,
                                 ChargePeriodBalance = _periodBalance,
                                 Contractors = _contractors,
@@ -156,6 +156,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         Logger.SimpleWrite($"RegisterChargeCommand. CustomerId: {_customerId}\r\nException: {ex}");
                     }
                 }
+
+                _count++;
             }
         }
 
