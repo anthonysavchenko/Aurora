@@ -372,8 +372,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             ProgressAction = View.AddProgress,
                             ResetProgressBar = View.ResetProgressBar,
                             Now = ServerTime.GetDateTimeInfo().Now,
-                            Period = ServerTime.GetPeriodInfo().FirstUncharged,
-                            LastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged,
+                            Period = new DateTime(2019, 6, 1, 0, 0, 0),
+                            LastChargedPeriod = new DateTime(2019, 5, 1, 0, 0, 0),
                             AuthorId = int.Parse(UserHolder.User.ID)
                         });
                     break;

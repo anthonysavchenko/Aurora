@@ -33,13 +33,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             _cache.Init(cmd.Period);
 
-            int _chargeSetId = CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
-            Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
+            int _chargeSetId = 2056;
 
             int[] _customers;
+            int[] _currentCustomers = { 34439, 34440, 34441, 34442, 34443, 34444, 34445, 34446, 34447, 34448, 34449, 34450, 34451, 34452, 34453, 34454, 34455, 34456, 34457, 34458, 34459, 34460, 34461, 34462, 34463, 34464, 34465, 34466, 34467, 34468, 34469, 34470, 34471, 34472, 34473, 34474, 34475, 34476, 34477, 34478, 34479, 34480, 34481, 34482, 34483, 34484, 34485, 34486, 34487, 34488, 34489, 34490, 34491, 34492, 34493, 34494, 34495, 34496, 34497, 34498, 34499, 34500, 34501, 34502, 34503, 34504, 34505, 34506, 34507, 34508, 34509, 34510, 34511, 34512, 34513, 34514, 34515, 34516, 34517, 34518, 34519, 34520, 34521, 49618 };
             using (Entities _db = new Entities())
             {
-                _customers = _db.Customers.Select(c => c.ID).ToArray();
+                _customers = _db.Customers.Where(c => _currentCustomers.Contains(c.ID)).Select(c => c.ID).ToArray();
             }
 
             cmd.ResetProgressBar(_customers.Length);
@@ -135,7 +135,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         _dispatcher.Execute(
                             new CreateBillCommand
                             {
-                                BillSetId = _billSetByBuilding[_customerInfo.BuildingId],
+                                BillSetId = 28493,
                                 ChargeOper = _createChargeOperCommand.Result,
                                 ChargePeriodBalance = _periodBalance,
                                 Contractors = _contractors,
