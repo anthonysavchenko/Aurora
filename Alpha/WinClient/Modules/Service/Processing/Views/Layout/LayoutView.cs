@@ -38,15 +38,30 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout
         /// <summary>
         /// Путь к директории для переименования файлов.
         /// </summary>
-        public string DirectoryPath
+        public string DirectoryPathForRename
         {
             get
             {
-                return DirectoryPathTextBox.Text;
+                return DirectoryPathForRenameTextBox.Text;
             }
             set
             {
-                DirectoryPathTextBox.Text = value;
+                DirectoryPathForRenameTextBox.Text = value;
+            }
+        }
+
+        /// <summary>
+        /// Путь к директории для анализа файлов.
+        /// </summary>
+        public string DirectoryPathForAnalyze
+        {
+            get
+            {
+                return DirectoryPathForAnalyzeTextBox.Text;
+            }
+            set
+            {
+                DirectoryPathForAnalyzeTextBox.Text = value;
             }
         }
 
@@ -66,29 +81,51 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout
         /// </summary>
         public void ClearView()
         {
-            DirectoryPathTextBox.Text = string.Empty;
+            DirectoryPathForRenameTextBox.Text = string.Empty;
+            DirectoryPathForAnalyzeTextBox.Text = string.Empty;
             ResultTextBox.Text = string.Empty;
         }
 
         /// <summary>
         /// Выбирает директорию.
         /// </summary>
-        private void ChooseButton_Click(object sender, System.EventArgs e)
+        private void ChooseForRenameButton_Click(object sender, System.EventArgs e)
         {
             FolderBrowserDialog _dialog = new FolderBrowserDialog();
 
             if (_dialog.ShowDialog() == DialogResult.OK)
             {
-                DirectoryPathTextBox.Text = _dialog.SelectedPath;
+                DirectoryPathForRenameTextBox.Text = _dialog.SelectedPath;
+            }
+        }
+
+        /// <summary>
+        /// Выбирает директорию для анализа файлов.
+        /// </summary>
+        private void ChooseForAnalyzeButton_Click(object sender, System.EventArgs e)
+        {
+            FolderBrowserDialog _dialog = new FolderBrowserDialog();
+
+            if (_dialog.ShowDialog() == DialogResult.OK)
+            {
+                DirectoryPathForAnalyzeTextBox.Text = _dialog.SelectedPath;
             }
         }
 
         /// <summary>
         /// Запускает процесс переименования.
         /// </summary>
-        private void ProcessButton_Click(object sender, System.EventArgs e)
+        private void RenameButton_Click(object sender, System.EventArgs e)
         {
-            Presenter.Process();
+            Presenter.Rename();
+        }
+
+        /// <summary>
+        /// Запускает процесс анализа.
+        /// </summary>
+        private void AnalyzeButton_Click(object sender, System.EventArgs e)
+        {
+            Presenter.Analyze();
         }
     }
 }

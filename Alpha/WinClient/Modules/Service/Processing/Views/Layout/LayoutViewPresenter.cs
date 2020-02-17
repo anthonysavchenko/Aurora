@@ -1,8 +1,14 @@
 ﻿using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.FillForm;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.Models;
+using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.PrintForm;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 using Taumis.EnterpriseLibrary.Win.Constants;
@@ -52,13 +58,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
         }
 
         /// <summary>
-        /// Выполнеяет обработку.
+        /// Выполнеяет переименование.
         /// </summary>
-        public void Process()
+        public void Rename()
         {
             try
             {
-                string sourceDirectoryPath = View.DirectoryPath;
+                string sourceDirectoryPath = View.DirectoryPathForRename;
                 string targetDirectoryPath = string.Empty;
 
                 if (!Directory.Exists(sourceDirectoryPath))
@@ -77,7 +83,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                     }
                     else
                     {
-                        View.Result = $"Найдено {files.Length} файлов.";
+                        View.Result = $"Найдено файлов в формате Excel 97-2003 с расширением .xls: {files.Length}.";
 
                         try
                         {
@@ -196,12 +202,234 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                     }
                 }
 
-                View.Result = $"\r\nОбработка завершена.\r\n";
+                View.Result = $"\r\nПереименование завершено.\r\n";
             }
             catch (Exception e)
             {
-                Logger.SimpleWrite($"Processing error: {e}");
-                View.Result = $"\r\nПроизошла ошибка. Обработка не выполнена. Подробности: {e}\r\n";
+                Logger.SimpleWrite($"Rename error: {e}");
+                View.Result = $"\r\nПроизошла ошибка. Переименование не выполнено. Подробности: {e}\r\n";
+            }
+        }
+
+        /// <summary>
+        /// Выполняет анализ файлов в директории.
+        /// </summary>
+        public void Analyze()
+        {
+            try
+            {
+                string sourceDirectoryPath = View.DirectoryPathForAnalyze;
+                string targetDirectoryPath = string.Empty;
+
+                List<Building> printForms = new List<Building>();
+                List<Building> fillForms = new List<Building>();
+
+                if (!Directory.Exists(sourceDirectoryPath))
+                {
+                    View.Result = $"Некорректно указана папка с файлами. Такой папки не существует.";
+                }
+                else
+                {
+                    View.Result = $"Поиск и распознавание файлов по адресу {sourceDirectoryPath}.";
+
+                    string[] files = Directory.GetFiles(sourceDirectoryPath, "*.xls", SearchOption.TopDirectoryOnly);
+
+                    if (files.Length < 1)
+                    {
+                        View.Result = $"В указанной папке не найдено ни одного файла в формате Excel 97-2003 с расширением .xls.";
+                    }
+                    else
+                    {
+                        View.Result = $"Найдено файлов в формате Excel 97-2003 с расширением .xls: {files.Length}.";
+
+                        for (int i = 0; i < files.Length; i++)
+                        {
+                            View.Result = $"\r\n{i + 1}. Распознавание файла {files[i]}.";
+
+                            Excel2007Worker worker = new Excel2007Worker();
+                            Excel2007Worker.ExcelSheet sheet;
+
+                            try
+                            {
+                                worker.OpenFile(files[i]);
+                                sheet = worker.GetSheet(1);
+
+                                if (sheet.RowsCount >= PrintForm.FIRST_LINE
+                                    && PrintForm.ParseLine(sheet, PrintForm.FIRST_LINE, out Customer printFormFirstLine, out _))
+                                {
+                                    View.Result = $"Определен формат файла: \"Маршрутный лист\".";
+
+                                    if (PrintForm.ParseFile(sheet, out List<Customer> customers, out string message))
+                                    {
+                                        printForms.Add(
+                                            new Building()
+                                            {
+                                                Number = printFormFirstLine.Address.Building,
+                                                Customers = customers,
+                                            });
+                                    }
+
+                                    View.Result = message;
+                                }
+                                else if (sheet.RowsCount >= FillForm.FIRST_LINE
+                                    && FillForm.ParseLine(sheet, FillForm.FIRST_LINE, out Customer fillFormFirstLine, out _))
+                                {
+                                    View.Result = $"Определен формат файла: \"Форма для заполнения показаний ПУ\".";
+
+                                    if (FillForm.ParseFile(sheet, out List<Customer> customers, out string message))
+                                    {
+                                        fillForms.Add(
+                                            new Building()
+                                            {
+                                                Number = fillFormFirstLine.Address.Building,
+                                                Customers = customers,
+                                            });
+                                    }
+
+                                    View.Result = message;
+                                }
+                                else
+                                {
+                                    View.Result = $"Формат файла не определен.";
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                View.Result = $"Внутренняя ошибка при распознавании файла. Убедитесь, что на компьютере установлен Excel, и файл не открыт " +
+                                    $"в другом окне или другой программе. А также, что файл составлен в правильном формате.";
+                                Logger.SimpleWrite($"Analyze error: {e}");
+                            }
+                            finally
+                            {
+                                worker.Close();
+                            }
+                        }
+
+                        View.Result = $"\r\nАнализ файлов.";
+
+                        View.Result = $"\r\nВсего найдено файлов: {files.Length}.";
+                        View.Result = $"В формате \"Маршрутный лист\": {printForms.Count}.";
+                        View.Result = $"В формате \"Форма для заполнения показаний ПУ\": {fillForms.Count}.";
+                        View.Result = $"Не распознано: {files.Length - printForms.Count - fillForms.Count}.";
+                        //View.Result = $"Повторяющиеся дома:";
+
+                        View.Result = $"\r\nДанные в формате \"Маршрутный лист\", которые отличаются от данных в формате \"Форма для заполнения показаний ПУ\":";
+
+                        int diffNumber = 0;
+                        for (int i = 0; i < printForms.Count; i++)
+                        {
+                            Building printForm = printForms[i];
+
+                            View.Result = $"\r\n{i + 1}. {printForm.Number}.";
+
+                            Building fillForm = fillForms.FirstOrDefault(f => f.Number.ToUpper() == printForm.Number.ToUpper());
+
+                            if (fillForm != null)
+                            {
+                                bool dif1 = false;
+
+                                foreach (Customer printFormCustomer in printForm.Customers)
+                                {
+                                    Customer fillFormCustomer =
+                                        fillForm.Customers.FirstOrDefault(c => c.Address.Apartment == printFormCustomer.Address.Apartment);
+
+                                    if (fillFormCustomer != null)
+                                    {
+                                        if (printFormCustomer.PrevDate != fillFormCustomer.PrevDate)
+                                        {
+                                            View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения дат в столбце \"Дата предыдущих показаний\" " +
+                                                $"({printFormCustomer.PrevDate.ToString("dd.MM.yyyy")} и {fillFormCustomer.PrevDate.ToString("dd.MM.yyyy")})";
+                                            dif1 = true;
+                                        }
+
+                                        if (printFormCustomer.Counter is SingleCounter)
+                                        {
+                                            if (fillFormCustomer.Counter is DoubleCounter)
+                                            {
+                                                View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные форматы значений в столбце \"Предыдущие показания\" (однотарифный счетчик и двухтарифный счетчик)";
+                                                dif1 = true;
+                                            }
+                                            else if ((printFormCustomer.Counter as SingleCounter).prevValue != (fillFormCustomer.Counter as SingleCounter).prevValue)
+                                            {
+                                                View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения показаний в столбце \"Предыдущие показания\" " +
+                                                    $"({(printFormCustomer.Counter as SingleCounter).prevValue} и {(fillFormCustomer.Counter as SingleCounter).prevValue})";
+                                                dif1 = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (fillFormCustomer.Counter is SingleCounter)
+                                            {
+                                                View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные форматы значений в столбце \"Предыдущие показания\" (двухтарифный счетчик и однотарифный счетчик)";
+                                                dif1 = true;
+                                            }
+                                            else
+                                            {
+                                                if ((printFormCustomer.Counter as DoubleCounter).PrevDayValue != (fillFormCustomer.Counter as DoubleCounter).PrevDayValue)
+                                                {
+                                                    View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения дневных показаний в столбце \"Предыдущие показания\" " +
+                                                        $"({(printFormCustomer.Counter as DoubleCounter).PrevDayValue} и {(fillFormCustomer.Counter as DoubleCounter).PrevDayValue})";
+                                                    dif1 = true;
+                                                }
+
+                                                if ((printFormCustomer.Counter as DoubleCounter).PrevNightValue != (fillFormCustomer.Counter as DoubleCounter).PrevNightValue)
+                                                {
+                                                    View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения ночных показаний в столбце \"Предыдущие показания\" " +
+                                                        $"({(printFormCustomer.Counter as DoubleCounter).PrevNightValue} и {(fillFormCustomer.Counter as DoubleCounter).PrevNightValue})";
+                                                    dif1 = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Нет соответствующей квартиры в файле в формате " +
+                                            $"\"Форма для заполнения показаний ПУ\".";
+                                        dif1 = true;
+                                    }
+                                }
+
+                                if (!dif1)
+                                {
+                                    View.Result = $"Отличий не обнаружено.";
+                                }
+                            }
+                            else
+                            {
+                                View.Result = $"Нет соответствующего файла в формате \"Форма для заполнения показаний ПУ\".";
+                            }
+                        }
+
+                        View.Result = $"\r\nФайлы в формате \"Форма для заполнения показаний ПУ\", для которых отсутствуют файлы в формате \"Маршрутный лист\":";
+
+                        bool dif2 = false;
+
+                        for (int j = 0; j < fillForms.Count; j++)
+                        {
+                            Building fillForm = fillForms[j];
+
+                            Building printForm = printForms.FirstOrDefault(p => p.Number.ToUpper() == fillForm.Number.ToUpper());
+
+                            if (printForm == null)
+                            {
+                                View.Result = fillForm.Number;
+                                dif2 = true;
+                            }
+                        }
+
+                        if (!dif2)
+                        {
+                            View.Result = $"Не обнаружено.";
+                        }
+                    }
+                }
+
+                View.Result = $"\r\nАнализ файлов завершен.\r\n";
+            }
+            catch (Exception e)
+            {
+                Logger.SimpleWrite($"Analyze error: {e}");
+                View.Result = $"\r\nВнутренняя ошибка. Анализ файлов не выполнен. Подробности: {e}\r\n";
             }
         }
     }

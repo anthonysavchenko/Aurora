@@ -7,7 +7,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout
         /// <summary>
         /// Путь к директории для переименования файлов.
         /// </summary>
-        string DirectoryPath { get; set; }
+        string DirectoryPathForRename { get; set; }
+
+        /// <summary>
+        /// Путь к директории для анализа файлов.
+        /// </summary>
+        string DirectoryPathForAnalyze { get; set; }
 
         /// <summary>
         /// Результат выполнения обработки.

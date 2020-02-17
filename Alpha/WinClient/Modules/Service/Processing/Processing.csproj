@@ -57,6 +57,17 @@
   <ItemGroup>
     <Compile Include="Constants\ModuleUIExtensionSiteNames.cs" />
     <Compile Include="Services\Excel2007Worker.cs" />
+    <Compile Include="Services\Parser\FillForm\CounterType.cs" />
+    <Compile Include="Services\Parser\FillForm\FillForm.cs" />
+    <Compile Include="Services\Parser\Form.cs" />
+    <Compile Include="Services\Parser\Models\Address.cs" />
+    <Compile Include="Services\Parser\Models\Building.cs" />
+    <Compile Include="Services\Parser\Models\Counter.cs" />
+    <Compile Include="Services\Parser\Models\Customer.cs" />
+    <Compile Include="Services\Parser\Models\DoubleCounter.cs" />
+    <Compile Include="Services\Parser\Models\SingleCounter.cs" />
+    <Compile Include="Services\Parser\PrintForm\CounterType.cs" />
+    <Compile Include="Services\Parser\PrintForm\PrintForm.cs" />
     <Compile Include="Views\Layout\ILayoutView.cs" />
     <Compile Include="Views\Layout\LayoutView.cs">
       <SubType>UserControl</SubType>
