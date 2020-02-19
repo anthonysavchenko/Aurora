@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.Models
+namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models
 {
     public class Building
     {

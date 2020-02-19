@@ -361,6 +361,10 @@
       <Project>{fd895b41-2d71-4fb5-9f65-27c1970e98b8}</Project>
       <Name>DebtBill</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\PrintForms\FillFormAndPrintFormDiff\FillFormAndPrintFormDiff.csproj">
+      <Project>{f2769680-b727-4c7d-9718-7e04d3642241}</Project>
+      <Name>FillFormAndPrintFormDiff</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\PrintForms\MutualSettlement\MutualSettlement.csproj">
       <Project>{12b5427e-6d00-4fb1-adea-a950888d66de}</Project>
       <Name>MutualSettlement</Name>

@@ -2,17 +2,18 @@
 using Microsoft.Practices.CompositeUI.EventBroker;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.FillForm;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.Models;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.PrintForm;
+using Taumis.Alpha.Infrastructure.Library.Services.Excel;
+using Taumis.Alpha.Infrastructure.Library.Services.FormParser.FillForm;
+using Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models;
+using Taumis.Alpha.Infrastructure.Library.Services.FormParser.PrintForm;
+using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseLayoutView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 using Taumis.EnterpriseLibrary.Win.Services;
+using Taumis.Infrastructure.Interface.Constants;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
 {
@@ -254,12 +255,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                                 worker.OpenFile(files[i]);
                                 sheet = worker.GetSheet(1);
 
-                                if (sheet.RowsCount >= PrintForm.FIRST_LINE
-                                    && PrintForm.ParseLine(sheet, PrintForm.FIRST_LINE, out Customer printFormFirstLine, out _))
+                                if (sheet.RowsCount >= PrintFormParser.FIRST_LINE
+                                    && PrintFormParser.ParseLine(sheet, PrintFormParser.FIRST_LINE, out Customer printFormFirstLine, out _))
                                 {
                                     View.Result = $"Определен формат файла: \"Маршрутный лист\".";
 
-                                    if (PrintForm.ParseFile(sheet, out List<Customer> customers, out string message))
+                                    if (PrintFormParser.ParseFile(sheet, out List<Customer> customers, out string message))
                                     {
                                         printForms.Add(
                                             new Building()
@@ -271,12 +272,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
 
                                     View.Result = message;
                                 }
-                                else if (sheet.RowsCount >= FillForm.FIRST_LINE
-                                    && FillForm.ParseLine(sheet, FillForm.FIRST_LINE, out Customer fillFormFirstLine, out _))
+                                else if (sheet.RowsCount >= FillFormParser.FIRST_LINE
+                                    && FillFormParser.ParseLine(sheet, FillFormParser.FIRST_LINE, out Customer fillFormFirstLine, out _))
                                 {
                                     View.Result = $"Определен формат файла: \"Форма для заполнения показаний ПУ\".";
 
-                                    if (FillForm.ParseFile(sheet, out List<Customer> customers, out string message))
+                                    if (FillFormParser.ParseFile(sheet, out List<Customer> customers, out string message))
                                     {
                                         fillForms.Add(
                                             new Building()
@@ -421,6 +422,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                         {
                             View.Result = $"Не обнаружено.";
                         }
+
+                        WorkItem.Controller.RunUsecase(
+                            ApplicationUsecaseNames.FILL_FORM_AND_PRINT_FORM_DIFF,
+                            new PrintItemsStartUpParams(new[] { "0" }));
                     }
                 }
 

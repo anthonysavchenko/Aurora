@@ -1,4 +1,4 @@
-﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.FillForm
+﻿namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser.FillForm
 {
     public enum CounterType
     {

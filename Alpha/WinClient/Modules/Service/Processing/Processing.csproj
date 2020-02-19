@@ -115,6 +115,10 @@
       <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Interface\Interface.csproj">
+      <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
+      <Name>Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Layout\LayoutView.resx">

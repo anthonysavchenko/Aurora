@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.Models;
+using Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models;
 using Taumis.EnterpriseLibrary.Win.Services;
-using static Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Excel2007Worker;
+using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.FillForm
+namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser.FillForm
 {
-    static public class FillForm
+    static public class FillFormParser
     {
         public const int FIRST_LINE = 1;
         const string ADDRESS_COLUMN = "E";
@@ -86,7 +86,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Pars
 
             try
             {
-                if (!Form.ParseAddress(source.GetCellText($"{ADDRESS_COLUMN}{line}"), out Address address, out message))
+                if (!FormParser.ParseAddress(source.GetCellText($"{ADDRESS_COLUMN}{line}"), out Address address, out message))
                 {
                     message = $"Не удалось распознать значение в ячейке \"{ADDRESS_COLUMN}{line}\". " + message;
                     return false;
@@ -98,7 +98,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Pars
                     return false;
                 }
 
-                if (!Form.ParsePrevDate(source.GetCellText($"{PREV_DATE_COLUMN}{line}"), out DateTime prevDate, out message))
+                if (!FormParser.ParsePrevDate(source.GetCellText($"{PREV_DATE_COLUMN}{line}"), out DateTime prevDate, out message))
                 {
                     message = $"Не удалось распознать значение в ячейке \"{PREV_DATE_COLUMN}{line}\". " + message;
                     return false;

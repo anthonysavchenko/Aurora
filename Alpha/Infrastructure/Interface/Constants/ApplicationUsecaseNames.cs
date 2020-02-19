@@ -164,5 +164,10 @@
         /// Обработка
         /// </summary>
         public const string PROCESSING = "usecase://Services/Processing";
+
+        /// <summary>
+        /// Печатная форма различий в файлах
+        /// </summary>
+        public const string FILL_FORM_AND_PRINT_FORM_DIFF = "usecase://Report/FillFormAndPrintFormDiff";
     }
 }

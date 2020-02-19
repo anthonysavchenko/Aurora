@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser.Models;
+using Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services.Parser
+namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser
 {
-    static public class Form
+    static public class FormParser
     {
         const int ADDRESS_ITEMS_MIN_NUMBER = 4;
         const int ADDRESS_ITEMS_MAX_NUMBER = 5;

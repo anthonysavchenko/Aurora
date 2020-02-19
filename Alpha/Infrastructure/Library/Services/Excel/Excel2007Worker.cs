@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Drawing;
+//using System.Drawing;
 using System.Reflection;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services
+namespace Taumis.Alpha.Infrastructure.Library.Services.Excel
 {
     /// <summary>
     /// Класс для работы с Excel-файлами
@@ -129,7 +129,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services
             /// </summary>
             /// <param name="_cell">Адрес ячейки (напр. "B23")</param>
             /// <param name="font">Шрифт</param>
-            public void SetCellFont(string _cell, Font font)
+            /*public void SetCellFont(string _cell, Font font)
             {
                 object[] _params =
                 {
@@ -151,7 +151,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Services
                 {
                     _font.GetType().InvokeMember("Italic", BindingFlags.SetProperty, null, _font, new object[] { font.Italic });
                 }
-            }
+            }*/
 
             /// <summary>
             /// Устанавливает горизонтальное и вертикальное выравнивание для ячейки
