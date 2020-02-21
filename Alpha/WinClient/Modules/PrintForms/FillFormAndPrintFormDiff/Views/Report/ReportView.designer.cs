@@ -94,6 +94,7 @@
             this.ExportXLSButton = new System.Windows.Forms.Button();
             this.PrinterLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.label2 = new System.Windows.Forms.Label();
+            this.ExportRTFButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.printBarManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.printPreviewRepositoryItemComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PrinterLookUpEdit.Properties)).BeginInit();
@@ -739,7 +740,7 @@
             this.PrintButton.Image = global::Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.Properties.Resources.Print_32x32;
             this.PrintButton.Location = new System.Drawing.Point(111, 60);
             this.PrintButton.Name = "PrintButton";
-            this.PrintButton.Size = new System.Drawing.Size(102, 54);
+            this.PrintButton.Size = new System.Drawing.Size(102, 84);
             this.PrintButton.TabIndex = 1;
             this.PrintButton.Text = "Печатать";
             this.PrintButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -793,12 +794,24 @@
             this.label2.TabIndex = 40;
             this.label2.Text = "Принтер";
             // 
+            // ExportRTFButton
+            // 
+            this.ExportRTFButton.Location = new System.Drawing.Point(3, 120);
+            this.ExportRTFButton.Name = "ExportRTFButton";
+            this.ExportRTFButton.Size = new System.Drawing.Size(102, 24);
+            this.ExportRTFButton.TabIndex = 5;
+            this.ExportRTFButton.Text = "Сохранить в RTF";
+            this.ExportRTFButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ExportRTFButton.UseVisualStyleBackColor = true;
+            this.ExportRTFButton.Click += new System.EventHandler(this.ExportRTFButton_Click);
+            // 
             // ReportView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.PrinterLookUpEdit);
+            this.Controls.Add(this.ExportRTFButton);
             this.Controls.Add(this.ExportXLSButton);
             this.Controls.Add(this.ExportPDFButton);
             this.Controls.Add(this.PrintButton);
@@ -881,5 +894,6 @@
         private System.Windows.Forms.Button PrintButton;
         private DevExpress.XtraEditors.LookUpEdit PrinterLookUpEdit;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button ExportRTFButton;
     }
 }

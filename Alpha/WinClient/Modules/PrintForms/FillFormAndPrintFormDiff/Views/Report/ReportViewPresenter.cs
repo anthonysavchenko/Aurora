@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Drawing.Printing;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.DataSets;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.Views.Report.Queries;
@@ -22,7 +23,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
         /// <summary>
         /// Данные
         /// </summary>
-        private CollectFormDataSet _data;
+        private PrintFormAndFillFormDiffsDataSet _data;
 
         /// <summary>
         /// Выполняет действия при загрузке вида
@@ -66,21 +67,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
         {
             try
             {
-                string[] _startUpParams = ((string[])WorkItem.State[ModuleStateNames.START_UP_PARAMS]);
+                PrintDiffsStartUpParams _startUpParams = ((PrintDiffsStartUpParams)WorkItem.State[ModuleStateNames.START_UP_PARAMS]);
 
-                if (_startUpParams.Length > 0)
+                if (_startUpParams != null)
                 {
-                    int[] _ids = Array.ConvertAll(_startUpParams, int.Parse);
-
                     using (var _db = new Entities())
                     {
                         _db.CommandTimeout = 3600;
-                        _data = _db.GetReportData(_ids[0]);
+                        _data = _db.GetReportData(_startUpParams.Diffs);
                     }
                 }
                 else
                 {
-                    _data = new CollectFormDataSet();
+                    _data = new PrintFormAndFillFormDiffsDataSet();
                 }
             }
             catch (Exception _ex)

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models;
+using Taumis.Alpha.Infrastructure.Interface.Models;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser
 {
@@ -19,7 +19,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser
 
             if (source.Length > ADDRESS_MAX_LENGTH)
             {
-                message = $"Предусмотрена максимально допустимая длина строки: {ADDRESS_MAX_LENGTH} символов. В данном случае она превышена.";
+                message = $"Предусмотрена максимально допустимая длина строки: {ADDRESS_MAX_LENGTH} символов. В " +
+                    $"данном случае она превышена.";
                 return false;
             }
 
@@ -28,9 +29,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser
                 source = source.Replace("  ", " ");
             }
 
-            string[] addressItems = source.Split(new string[] { "," }, StringSplitOptions.None);
+            string[] addressItems = source.Split(new char[] { ',' });
 
-            bool wrong_items_number = addressItems.Length < ADDRESS_ITEMS_MIN_NUMBER || addressItems.Length > ADDRESS_ITEMS_MAX_NUMBER;
+            bool wrong_items_number = addressItems.Length < ADDRESS_ITEMS_MIN_NUMBER 
+                || addressItems.Length > ADDRESS_ITEMS_MAX_NUMBER;
 
             bool wrong_format_for_items_min_number =
                 addressItems.Length == ADDRESS_ITEMS_MIN_NUMBER
@@ -47,9 +49,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser
 
             if (wrong_items_number || wrong_format_for_items_min_number || wrong_format_for_items_max_number)
             {
-                message = "Предусмотрено распознавание адресов в формате: " +
-                    "\"г. Владивосток, <Название улицы>, д. <Номер дома>, [корп. <Номер корпуса>,] кв. <Номер квартиры> [(одпу)]\"." +
-                    "В данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
+                message = "Предусмотрено распознавание адресов в формате: \"г. Владивосток, <Название улицы>, д. " +
+                    "<Номер дома>, [корп. <Номер корпуса>,] кв. <Номер квартиры> [(одпу)]\". В данном случае данные " +
+                    "не соответствуют этому формату, поэтому не могут быть распознаны.";
                 return false;
             }
 

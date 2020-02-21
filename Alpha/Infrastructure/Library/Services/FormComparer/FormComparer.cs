@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Taumis.Alpha.Infrastructure.Library.Services.FormComparer.Models;
-using Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models;
+using Taumis.Alpha.Infrastructure.Interface.Models;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.FormComparer
 {
@@ -10,7 +9,19 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormComparer
         {
             var diffs = new List<Diff>();
 
-            if (printForms == null && fillForms == null)
+            if ((printForms == null || printForms.Count < 1) && (fillForms == null || fillForms.Count < 1))
+            {
+                diffs.Add(NewBuildingDiff(null, null, BuildingDiffType.NoForms));
+            }
+            else if (printForms == null || printForms.Count < 1)
+            {
+                diffs.Add(NewBuildingDiff(null, null, BuildingDiffType.NoPrintForms));
+            }
+            else if (fillForms == null || fillForms.Count < 1)
+            {
+                diffs.Add(NewBuildingDiff(null, null, BuildingDiffType.NoFillForms));
+            }
+            else
             {
                 printForms
                     .ForEach(printForm =>
@@ -50,8 +61,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormComparer
                             pfCustomer,
                             fillForm.Customers
                                 .Find(ffCustomer =>
-                                    pfCustomer.Address.Building.ToUpper() == ffCustomer.Address.Building.ToUpper()
-                                    && pfCustomer.Address.Apartment.ToUpper() == ffCustomer.Address.Apartment.ToUpper()),
+                                    pfCustomer.Address.Building.ToUpper() ==
+                                        ffCustomer.Address.Building.ToUpper()
+                                    && pfCustomer.Address.Apartment.ToUpper() ==
+                                        ffCustomer.Address.Apartment.ToUpper()),
                             diffs));
 
                 fillForm.Customers
@@ -72,10 +85,14 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormComparer
                 {
                     diffs.Add(NewCustomerDiff(null, ffCustomer, CustomerDiffType.NoPrintFormCustomer));
                 }
-                else if (ffCustomer == null)
+                else if (!pfCustomer.IsNorm)
                 {
                     diffs.Add(NewCustomerDiff(pfCustomer, null, CustomerDiffType.NoFillFormCustomer));
                 }
+            }
+            else if (pfCustomer.IsNorm)
+            {
+                diffs.Add(NewCustomerDiff(pfCustomer, ffCustomer, CustomerDiffType.NormAndCounter));
             }
             else
             {
@@ -94,18 +111,21 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormComparer
                 }
                 else if (pfCustomer.Counter is SingleCounter
                     && ffCustomer.Counter is SingleCounter
-                    && (pfCustomer.Counter as SingleCounter).prevValue != (ffCustomer.Counter as SingleCounter).prevValue)
+                    && (pfCustomer.Counter as SingleCounter).prevValue !=
+                        (ffCustomer.Counter as SingleCounter).prevValue)
                 {
                     diffs.Add(NewCustomerDiff(pfCustomer, ffCustomer, CustomerDiffType.SingleCounterValue));
                 }
                 else if (pfCustomer.Counter is DoubleCounter && ffCustomer.Counter is DoubleCounter)
                 {
-                    if ((pfCustomer.Counter as DoubleCounter).PrevDayValue != (ffCustomer.Counter as DoubleCounter).PrevDayValue)
+                    if ((pfCustomer.Counter as DoubleCounter).PrevDayValue !=
+                        (ffCustomer.Counter as DoubleCounter).PrevDayValue)
                     {
                         diffs.Add(NewCustomerDiff(pfCustomer, ffCustomer, CustomerDiffType.DoubleCounterDayValue));
                     }
 
-                    if ((pfCustomer.Counter as DoubleCounter).PrevNightValue != (ffCustomer.Counter as DoubleCounter).PrevNightValue)
+                    if ((pfCustomer.Counter as DoubleCounter).PrevNightValue !=
+                        (ffCustomer.Counter as DoubleCounter).PrevNightValue)
                     {
                         diffs.Add(NewCustomerDiff(pfCustomer, ffCustomer, CustomerDiffType.DoubleCounterNightValue));
                     }
@@ -113,23 +133,23 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.FormComparer
             }
         }
 
-        static private CustomerDiff NewCustomerDiff(Customer pfCustomer, Customer ffCustomer, CustomerDiffType diffType)
+        static private CustomerDiff NewCustomerDiff(Customer pfCustomer, Customer ffCustomer, CustomerDiffType dType)
         {
             return new CustomerDiff()
             {
                 PrintFormCustomer = pfCustomer,
                 FillFormCustomer = ffCustomer,
-                CustomerDiffType = diffType,
+                diffType = dType,
             };
         }
 
-        static private BuildingDiff NewBuildingDiff(Building pfBuilding, Building ffBuilding, BuildingDiffType diffType)
+        static private BuildingDiff NewBuildingDiff(Building pfBuilding, Building ffBuilding, BuildingDiffType dType)
         {
             return new BuildingDiff()
             {
                 PrintFormBuilding = pfBuilding,
                 FillFormBuilding = ffBuilding,
-                BuildingDiffType = diffType,
+                diffType = dType,
             };
         }
     }

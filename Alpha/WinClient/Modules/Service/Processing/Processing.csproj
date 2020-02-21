@@ -56,18 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ModuleUIExtensionSiteNames.cs" />
-    <Compile Include="Services\Excel2007Worker.cs" />
-    <Compile Include="Services\Parser\FillForm\CounterType.cs" />
-    <Compile Include="Services\Parser\FillForm\FillForm.cs" />
-    <Compile Include="Services\Parser\Form.cs" />
-    <Compile Include="Services\Parser\Models\Address.cs" />
-    <Compile Include="Services\Parser\Models\Building.cs" />
-    <Compile Include="Services\Parser\Models\Counter.cs" />
-    <Compile Include="Services\Parser\Models\Customer.cs" />
-    <Compile Include="Services\Parser\Models\DoubleCounter.cs" />
-    <Compile Include="Services\Parser\Models\SingleCounter.cs" />
-    <Compile Include="Services\Parser\PrintForm\CounterType.cs" />
-    <Compile Include="Services\Parser\PrintForm\PrintForm.cs" />
     <Compile Include="Views\Layout\ILayoutView.cs" />
     <Compile Include="Views\Layout\LayoutView.cs">
       <SubType>UserControl</SubType>
@@ -114,6 +102,10 @@
       <Project>{576d1311-ba67-4077-8489-7cfad06965f5}</Project>
       <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Infrastructure\Library\Library.csproj">
+      <Project>{E2642606-8DA6-4411-8655-CC734359B165}</Project>
+      <Name>Library</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Interface\Interface.csproj">
       <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>

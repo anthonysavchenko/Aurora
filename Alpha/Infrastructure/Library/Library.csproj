@@ -102,6 +102,13 @@
     <Compile Include="Services\Excel\Epplus\ExcelService.cs" />
     <Compile Include="Services\Excel\Epplus\ExcelWorkbook.cs" />
     <Compile Include="Services\Excel\Epplus\ExcelWorksheet.cs" />
+    <Compile Include="Services\Excel\Excel2007Worker.cs" />
+    <Compile Include="Services\FormComparer\FormComparer.cs" />
+    <Compile Include="Services\FormParser\FillForm\CounterType.cs" />
+    <Compile Include="Services\FormParser\FillForm\FillFormParser.cs" />
+    <Compile Include="Services\FormParser\FormParser.cs" />
+    <Compile Include="Services\FormParser\PrintForm\CounterType.cs" />
+    <Compile Include="Services\FormParser\PrintForm\PrintFormParser.cs" />
     <Compile Include="Services\PaymentDistributionService.cs" />
     <Compile Include="Services\ServerTimeService.cs" />
     <Compile Include="Services\SettingsService.cs" />

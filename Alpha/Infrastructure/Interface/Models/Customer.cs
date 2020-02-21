@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models
+namespace Taumis.Alpha.Infrastructure.Interface.Models
 {
     public class Customer
     {
         public Address Address;
-        public DateTime PrevDate;
+        public bool IsNorm;
+        public DateTime? PrevDate;
         public Counter Counter;
     }
 }

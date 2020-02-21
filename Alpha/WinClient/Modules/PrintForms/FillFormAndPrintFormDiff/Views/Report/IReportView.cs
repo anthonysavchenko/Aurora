@@ -13,7 +13,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
         /// <summary>
         /// Источник данных
         /// </summary>
-        CollectFormDataSet DataSource { set; }
+        PrintFormAndFillFormDiffsDataSet DataSource { set; }
 
         /// <summary>
         /// Печатает отчет
@@ -30,7 +30,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
         /// </summary>
         string SelectedPrinter { set; get; }
 
-        MemoryStream GeneratePdf(CollectFormDataSet dataSet);
+        MemoryStream GeneratePdf(PrintFormAndFillFormDiffsDataSet dataSet);
         MemoryStream GeneratePdf();
     }
 }

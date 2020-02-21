@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Taumis.Alpha.Infrastructure.Interface.Models;
 using Taumis.Alpha.Infrastructure.Library.Services.Excel;
+using Taumis.Alpha.Infrastructure.Library.Services.FormComparer;
 using Taumis.Alpha.Infrastructure.Library.Services.FormParser.FillForm;
-using Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models;
 using Taumis.Alpha.Infrastructure.Library.Services.FormParser.PrintForm;
 using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Views.Layout;
@@ -314,118 +315,45 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.Layout
                         View.Result = $"Не распознано: {files.Length - printForms.Count - fillForms.Count}.";
                         //View.Result = $"Повторяющиеся дома:";
 
-                        View.Result = $"\r\nДанные в формате \"Маршрутный лист\", которые отличаются от данных в формате \"Форма для заполнения показаний ПУ\":";
+                        List<Diff> diffs = FormComparer.Compare(printForms, fillForms);
 
-                        int diffNumber = 0;
-                        for (int i = 0; i < printForms.Count; i++)
+                        if (diffs.Count < 1)
                         {
-                            Building printForm = printForms[i];
-
-                            View.Result = $"\r\n{i + 1}. {printForm.Number}.";
-
-                            Building fillForm = fillForms.FirstOrDefault(f => f.Number.ToUpper() == printForm.Number.ToUpper());
-
-                            if (fillForm != null)
-                            {
-                                bool dif1 = false;
-
-                                foreach (Customer printFormCustomer in printForm.Customers)
-                                {
-                                    Customer fillFormCustomer =
-                                        fillForm.Customers.FirstOrDefault(c => c.Address.Apartment == printFormCustomer.Address.Apartment);
-
-                                    if (fillFormCustomer != null)
-                                    {
-                                        if (printFormCustomer.PrevDate != fillFormCustomer.PrevDate)
-                                        {
-                                            View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения дат в столбце \"Дата предыдущих показаний\" " +
-                                                $"({printFormCustomer.PrevDate.ToString("dd.MM.yyyy")} и {fillFormCustomer.PrevDate.ToString("dd.MM.yyyy")})";
-                                            dif1 = true;
-                                        }
-
-                                        if (printFormCustomer.Counter is SingleCounter)
-                                        {
-                                            if (fillFormCustomer.Counter is DoubleCounter)
-                                            {
-                                                View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные форматы значений в столбце \"Предыдущие показания\" (однотарифный счетчик и двухтарифный счетчик)";
-                                                dif1 = true;
-                                            }
-                                            else if ((printFormCustomer.Counter as SingleCounter).prevValue != (fillFormCustomer.Counter as SingleCounter).prevValue)
-                                            {
-                                                View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения показаний в столбце \"Предыдущие показания\" " +
-                                                    $"({(printFormCustomer.Counter as SingleCounter).prevValue} и {(fillFormCustomer.Counter as SingleCounter).prevValue})";
-                                                dif1 = true;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (fillFormCustomer.Counter is SingleCounter)
-                                            {
-                                                View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные форматы значений в столбце \"Предыдущие показания\" (двухтарифный счетчик и однотарифный счетчик)";
-                                                dif1 = true;
-                                            }
-                                            else
-                                            {
-                                                if ((printFormCustomer.Counter as DoubleCounter).PrevDayValue != (fillFormCustomer.Counter as DoubleCounter).PrevDayValue)
-                                                {
-                                                    View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения дневных показаний в столбце \"Предыдущие показания\" " +
-                                                        $"({(printFormCustomer.Counter as DoubleCounter).PrevDayValue} и {(fillFormCustomer.Counter as DoubleCounter).PrevDayValue})";
-                                                    dif1 = true;
-                                                }
-
-                                                if ((printFormCustomer.Counter as DoubleCounter).PrevNightValue != (fillFormCustomer.Counter as DoubleCounter).PrevNightValue)
-                                                {
-                                                    View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Различные значения ночных показаний в столбце \"Предыдущие показания\" " +
-                                                        $"({(printFormCustomer.Counter as DoubleCounter).PrevNightValue} и {(fillFormCustomer.Counter as DoubleCounter).PrevNightValue})";
-                                                    dif1 = true;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        View.Result = $"{++diffNumber}. Кв. {printFormCustomer.Address.Apartment}. Нет соответствующей квартиры в файле в формате " +
-                                            $"\"Форма для заполнения показаний ПУ\".";
-                                        dif1 = true;
-                                    }
-                                }
-
-                                if (!dif1)
-                                {
-                                    View.Result = $"Отличий не обнаружено.";
-                                }
-                            }
-                            else
-                            {
-                                View.Result = $"Нет соответствующего файла в формате \"Форма для заполнения показаний ПУ\".";
-                            }
+                            View.ShowMessage("Ни одного различия в файлах не найдено.", "Анализ файлов ДЭК");
                         }
-
-                        View.Result = $"\r\nФайлы в формате \"Форма для заполнения показаний ПУ\", для которых отсутствуют файлы в формате \"Маршрутный лист\":";
-
-                        bool dif2 = false;
-
-                        for (int j = 0; j < fillForms.Count; j++)
+                        else if (diffs.Count == 1 
+                            && diffs[0] is BuildingDiff noFormsDiff
+                            && noFormsDiff.diffType == BuildingDiffType.NoForms)
                         {
-                            Building fillForm = fillForms[j];
-
-                            Building printForm = printForms.FirstOrDefault(p => p.Number.ToUpper() == fillForm.Number.ToUpper());
-
-                            if (printForm == null)
-                            {
-                                View.Result = fillForm.Number;
-                                dif2 = true;
-                            }
+                            View.ShowMessage(
+                                "Не удалось проанализировать файлы, так как в выбраной папке не найдено ни одного файла в формате " +
+                                    "\"Маршрутный лист\" и ни одного файла в формате \"Лист для заполнения\".",
+                                "Анализ файлов ДЭК");
                         }
-
-                        if (!dif2)
+                        else if (diffs.Count == 1
+                            && diffs[0] is BuildingDiff noPrintFormsDiff
+                            && noPrintFormsDiff.diffType == BuildingDiffType.NoPrintForms)
                         {
-                            View.Result = $"Не обнаружено.";
+                            View.ShowMessage(
+                                "Не удалось проанализировать файлы, так как в выбраной папке не найдено ни одного файла в формате " +
+                                    "\"Маршрутный лист\".",
+                                "Анализ файлов ДЭК");
                         }
-
-                        WorkItem.Controller.RunUsecase(
-                            ApplicationUsecaseNames.FILL_FORM_AND_PRINT_FORM_DIFF,
-                            new PrintItemsStartUpParams(new[] { "0" }));
+                        else if (diffs.Count == 1
+                            && diffs[0] is BuildingDiff noFillFormsDiff
+                            && noFillFormsDiff.diffType == BuildingDiffType.NoFillForms)
+                        {
+                            View.ShowMessage(
+                                "Не удалось проанализировать файлы, так как в выбраной папке не найдено ни одного файла в формате " +
+                                    "\"Лист для заполнения\".",
+                                "Анализ файлов ДЭК");
+                        }
+                        else
+                        {
+                            WorkItem.Controller.RunUsecase(
+                                ApplicationUsecaseNames.FILL_FORM_AND_PRINT_FORM_DIFF,
+                                new PrintDiffsStartUpParams(diffs));
+                        }
                     }
                 }
 

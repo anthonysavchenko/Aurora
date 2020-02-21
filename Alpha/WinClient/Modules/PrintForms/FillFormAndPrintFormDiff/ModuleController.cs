@@ -14,7 +14,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
     /// Контроллер прецедента
     /// </summary>
     [UsecaseName(ApplicationUsecaseNames.FILL_FORM_AND_PRINT_FORM_DIFF)]
-    public sealed class ModuleController : CommonModuleController<PrintItemsStartUpParams>
+    public sealed class ModuleController : CommonModuleController<PrintDiffsStartUpParams>
     {
         /// <summary>
         /// Проинициализировать юзкейз
@@ -22,9 +22,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
         /// <param name="startUpParams">
         /// Параметры запуска юзкейза. null, если модуль запущен без параметров
         /// </param>
-        protected override void Initialize(PrintItemsStartUpParams startUpParams)
+        protected override void Initialize(PrintDiffsStartUpParams startUpParams)
         {
-            AddState(ModuleStateNames.START_UP_PARAMS, startUpParams.Data);
+            AddState(ModuleStateNames.START_UP_PARAMS, startUpParams);
             MainViewSize = new System.Drawing.Size(1300, 600);
         }
 

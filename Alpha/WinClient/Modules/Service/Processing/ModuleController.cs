@@ -9,6 +9,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing
     [UsecaseName(ApplicationUsecaseNames.PROCESSING)]
     public class ModuleController : CommonModuleController<EmptyStartUpParams>
     {
+        protected override void Initialize(EmptyStartUpParams startUpParams)
+        {
+            base.Initialize(startUpParams);
+            MainViewSize = new System.Drawing.Size(1000, 600);
+        }
         /// <summary>
         /// Добавляет виды
         /// </summary>

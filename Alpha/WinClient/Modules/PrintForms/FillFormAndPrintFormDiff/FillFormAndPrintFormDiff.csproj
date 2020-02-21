@@ -92,10 +92,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ModuleStateNames.cs" />
-    <Compile Include="DataSets\CollectFormDataSet.Designer.cs">
+    <Compile Include="DataSets\PrintFormAndFillFormDiffsDataSet.cs">
+      <DependentUpon>PrintFormAndFillFormDiffsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\PrintFormAndFillFormDiffsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CollectFormDataSet.xsd</DependentUpon>
+      <DependentUpon>PrintFormAndFillFormDiffsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,16 +195,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataSets\CollectFormDataSet.xsc">
-      <DependentUpon>CollectFormDataSet.xsd</DependentUpon>
+    <None Include="DataSets\PrintFormAndFillFormDiffsDataSet.xsc">
+      <DependentUpon>PrintFormAndFillFormDiffsDataSet.xsd</DependentUpon>
     </None>
-    <None Include="DataSets\CollectFormDataSet.xsd">
+    <None Include="DataSets\PrintFormAndFillFormDiffsDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CollectFormDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>PrintFormAndFillFormDiffsDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="DataSets\CollectFormDataSet.xss">
-      <DependentUpon>CollectFormDataSet.xsd</DependentUpon>
+    <None Include="DataSets\PrintFormAndFillFormDiffsDataSet.xss">
+      <DependentUpon>PrintFormAndFillFormDiffsDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

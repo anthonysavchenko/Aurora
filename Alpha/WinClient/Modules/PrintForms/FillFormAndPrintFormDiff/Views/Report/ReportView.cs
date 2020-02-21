@@ -58,7 +58,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
         /// <summary>
         /// Источник данных
         /// </summary>
-        public CollectFormDataSet DataSource
+        public PrintFormAndFillFormDiffsDataSet DataSource
         {
             set
             {
@@ -175,7 +175,27 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormD
             }
         }
 
-        public MemoryStream GeneratePdf(CollectFormDataSet dataSet)
+        private void ExportRTFButton_Click(object sender, System.EventArgs e)
+        {
+            SaveFileDialog _saveFileDialog = new SaveFileDialog();
+
+            _saveFileDialog.Title = "Сохранить в файл";
+            _saveFileDialog.Filter = "RTF документ (*.rtf)|*.rtf";
+            _saveFileDialog.FilterIndex = 1;
+            _saveFileDialog.RestoreDirectory = true;
+            _saveFileDialog.DefaultExt = "rtf";
+
+            if (_saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                new ReportPrintTool(Report).PrintingSystem.ExportToRtf(_saveFileDialog.FileName);
+
+                Process process = new Process();
+                process.StartInfo.FileName = _saveFileDialog.FileName;
+                process.Start();
+            }
+        }
+
+        public MemoryStream GeneratePdf(PrintFormAndFillFormDiffsDataSet dataSet)
         {
             LayoutReportObject _report = new LayoutReportObject();
             _report.ReportDataSource = dataSet;

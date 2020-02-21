@@ -204,6 +204,17 @@
     <Compile Include="Enums\OwnerType.cs" />
     <Compile Include="ExtensionMethods\BalanceDictionaryExtension.cs" />
     <Compile Include="ExtensionMethods\DictionaryExtension.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\BuildingDiff.cs" />
+    <Compile Include="Models\BuildingDiffType.cs" />
+    <Compile Include="Models\Counter.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerDiff.cs" />
+    <Compile Include="Models\CustomerDiffType.cs" />
+    <Compile Include="Models\Diff.cs" />
+    <Compile Include="Models\DoubleCounter.cs" />
+    <Compile Include="Models\SingleCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

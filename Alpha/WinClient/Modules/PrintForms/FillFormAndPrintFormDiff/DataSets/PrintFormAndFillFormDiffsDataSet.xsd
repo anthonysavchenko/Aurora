@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PrintFormAndFillFormDiffsDataSet" targetNamespace="http://tempuri.org/PrintFormAndFillFormDiffsDataSet.xsd" xmlns:mstns="http://tempuri.org/PrintFormAndFillFormDiffsDataSet.xsd" xmlns="http://tempuri.org/PrintFormAndFillFormDiffsDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PrintFormAndFillFormDiffsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="PrintFormAndFillFormDiffsDataSet" msprop:Generator_UserDSName="PrintFormAndFillFormDiffsDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DetailTable" msprop:Generator_TableClassName="DetailTableDataTable" msprop:Generator_TableVarName="tableDetailTable" msprop:Generator_TablePropName="DetailTable" msprop:Generator_RowDeletingName="DetailTableRowDeleting" msprop:Generator_RowChangingName="DetailTableRowChanging" msprop:Generator_RowEvHandlerName="DetailTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DetailTableRowDeleted" msprop:Generator_UserTableName="DetailTable" msprop:Generator_RowChangedName="DetailTableRowChanged" msprop:Generator_RowEvArgName="DetailTableRowChangeEvent" msprop:Generator_RowClassName="DetailTableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Building" msprop:Generator_ColumnVarNameInTable="columnBuilding" msprop:Generator_ColumnPropNameInRow="Building" msprop:Generator_ColumnPropNameInTable="BuildingColumn" msprop:Generator_UserColumnName="Building" type="xs:string" minOccurs="0" />
+              <xs:element name="Apartment" msprop:Generator_ColumnVarNameInTable="columnApartment" msprop:Generator_ColumnPropNameInRow="Apartment" msprop:Generator_ColumnPropNameInTable="ApartmentColumn" msprop:Generator_UserColumnName="Apartment" type="xs:string" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="PrintFormValue" msprop:Generator_ColumnVarNameInTable="columnPrintFormValue" msprop:Generator_ColumnPropNameInRow="PrintFormValue" msprop:Generator_ColumnPropNameInTable="PrintFormValueColumn" msprop:Generator_UserColumnName="PrintFormValue" type="xs:string" minOccurs="0" />
+              <xs:element name="FillFormValue" msprop:Generator_ColumnVarNameInTable="columnFillFormValue" msprop:Generator_ColumnPropNameInRow="FillFormValue" msprop:Generator_ColumnPropNameInTable="FillFormValueColumn" msprop:Generator_UserColumnName="FillFormValue" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="HeaderTable" msprop:Generator_TableClassName="HeaderTableDataTable" msprop:Generator_TableVarName="tableHeaderTable" msprop:Generator_TablePropName="HeaderTable" msprop:Generator_RowDeletingName="HeaderTableRowDeleting" msprop:Generator_RowChangingName="HeaderTableRowChanging" msprop:Generator_RowEvHandlerName="HeaderTableRowChangeEventHandler" msprop:Generator_RowDeletedName="HeaderTableRowDeleted" msprop:Generator_UserTableName="HeaderTable" msprop:Generator_RowChangedName="HeaderTableRowChanged" msprop:Generator_RowEvArgName="HeaderTableRowChangeEvent" msprop:Generator_RowClassName="HeaderTableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Time" msprop:Generator_ColumnVarNameInTable="columnTime" msprop:Generator_ColumnPropNameInRow="Time" msprop:Generator_ColumnPropNameInTable="TimeColumn" msprop:Generator_UserColumnName="Time" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

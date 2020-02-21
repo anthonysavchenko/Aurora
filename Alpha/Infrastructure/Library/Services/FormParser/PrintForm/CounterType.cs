@@ -3,6 +3,7 @@
     public enum CounterType
     {
         Unknown,
+        Norm,
         DayAndNight,
         Common,
     }

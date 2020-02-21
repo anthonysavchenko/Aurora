@@ -58,6 +58,7 @@
     <Compile Include="Services\IBillService.cs" />
     <Compile Include="StartUpParams\CreateNewItemStartUpParams.cs" />
     <Compile Include="StartUpParams\MutualSettlementStartUpParams.cs" />
+    <Compile Include="StartUpParams\PrintDiffsStartUpParams.cs" />
     <Compile Include="StartUpParams\PrintItemsStartUpParams.cs" />
     <Compile Include="UserHolder.cs" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.FormParser.Models
+namespace Taumis.Alpha.Infrastructure.Interface.Models
 {
     public class Building
     {
