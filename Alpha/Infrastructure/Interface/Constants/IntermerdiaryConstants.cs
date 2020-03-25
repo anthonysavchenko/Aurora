@@ -33,6 +33,11 @@
         /// <summary>
         /// ID банка Кедр
         /// </summary>
-        public const string KEDR_ID = "10"; 
+        public const string KEDR_ID = "10";
+
+        /// <summary>
+        /// ID Почта Банка
+        /// </summary>
+        public const string POCHTABANK_ID = "11";
     }
 }

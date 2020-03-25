@@ -153,8 +153,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Item
         public override void UpdateGlobalButtonsForCurrentItem()
         {
             string _curId = (string)WorkItem.State[ModuleStateNames.CURRENT_PAYMENT_OPER_ID];
+            DataRow _curItem = !string.IsNullOrEmpty(_curId) ? View.ElemList.Rows.Find(_curId) : null;
 
-            bool _disable = string.IsNullOrEmpty(_curId) || (bool)View.ElemList.Rows.Find(_curId)["IsCorrected"];
+            bool _disable = _curItem == null || (bool)_curItem["IsCorrected"];
 
             WorkItem.RootWorkItem.Commands[CommonCommandNames.DeleteItem].Status =
                 _disable ? CommandStatus.Disabled : CommandStatus.Enabled;
