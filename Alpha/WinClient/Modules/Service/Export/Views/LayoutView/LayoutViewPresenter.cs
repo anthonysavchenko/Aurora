@@ -113,7 +113,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                 _msg.AppendLine("- Выберите период");
             }
 
-            if (_action == WizardAction.ExportChargesForBanks && !View.SbrfChecked && !View.PrimSocBankChecked)
+            if (_action == WizardAction.ExportChargesForBanks
+                && !View.SbrfChecked
+                && !View.PrimSocBankChecked
+                && !View.PochtaBankChecked)
             {
                 _msg.AppendLine("- Укажите формат");
             }
@@ -149,6 +152,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                         View.StartPeriod = new DateTime(2015, 7, 1);
                         View.SbrfChecked = true;
                         View.PrimSocBankChecked = false;
+                        View.PochtaBankChecked = false;
                         View.GisZhkhOnlyNew = false;
                         break;
                     case WizardPages.ServiceMatchingWizardPage:
@@ -210,7 +214,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                             args.Result = BenefitExportService.Export(View.OutputPath, View.TemplatePath, View.StartPeriod, ((BackgroundWorker)sender).ReportProgress);
                             break;
                         case WizardAction.ExportChargesForBanks:
-                            args.Result = ChargeExportService.Export(View.OutputPath, View.Period, GetChargeExportFormatList(), ((BackgroundWorker)sender).ReportProgress);
+                            args.Result = ChargeExportService.Export(
+                                View.OutputPath,
+                                View.Period,
+                                ServerTime.GetDateTimeInfo().Now,
+                                GetChargeExportFormatList(),
+                                ((BackgroundWorker)sender).ReportProgress);
                             break;
                         case WizardAction.ExportCustomersForGisZhkh:
                             args.Result = GisZhkhCustomerExportService.Export(View.OutputPath, View.GisZhkhOnlyNew, ((BackgroundWorker)sender).ReportProgress);
@@ -240,13 +249,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         private IEnumerable<ChargeExportFormatType> GetChargeExportFormatList()
         {
             List<ChargeExportFormatType> _types = new List<ChargeExportFormatType>();
+            
             if (View.SbrfChecked)
             {
                 _types.Add(ChargeExportFormatType.Sberbank);
             }
+
             if (View.PrimSocBankChecked)
             {
                 _types.Add(ChargeExportFormatType.Primsocbank);
+            }
+
+            if (View.PochtaBankChecked)
+            {
+                _types.Add(ChargeExportFormatType.Pochtabank);
             }
 
             return _types;

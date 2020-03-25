@@ -3,6 +3,7 @@
     public enum ChargeExportFormatType
     {
         Sberbank,
-        Primsocbank
+        Primsocbank,
+        Pochtabank,
     }
 }

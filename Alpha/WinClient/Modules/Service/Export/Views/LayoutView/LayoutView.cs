@@ -122,7 +122,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         }
 
         /// <summary>
-        /// Выбран формат сбербанка
+        /// Выбран формат Сбербанка
         /// </summary>
         public bool SbrfChecked
         {
@@ -131,12 +131,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         }
 
         /// <summary>
-        /// Выбран формат примсоцбанка
+        /// Выбран формат Примсоцбанка
         /// </summary>
         public bool PrimSocBankChecked
         {
             get => chkPrimSocBankFormat.Checked;
             set => chkPrimSocBankFormat.Checked = value;
+        }
+
+        /// <summary>
+        /// Выбран формат Почтабанка
+        /// </summary>
+        public bool PochtaBankChecked
+        {
+            get => chkPochtabankFormat.Checked;
+            set => chkPochtabankFormat.Checked = value;
         }
 
         /// <summary>

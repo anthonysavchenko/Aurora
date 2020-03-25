@@ -74,6 +74,7 @@
             this.serviceMatchingTableProgressBarPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.tblServiceMatching = new System.Windows.Forms.TableLayoutPanel();
+            this.chkPochtabankFormat = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ExportWizardControl)).BeginInit();
             this.ExportWizardControl.SuspendLayout();
             this.ProcessingWizardPage.SuspendLayout();
@@ -119,7 +120,7 @@
             this.ProcessingWizardPage,
             this.FinishWizardPage});
             this.ExportWizardControl.PreviousText = "< &Назад";
-            this.ExportWizardControl.Size = new System.Drawing.Size(1552, 879);
+            this.ExportWizardControl.Size = new System.Drawing.Size(1363, 918);
             this.ExportWizardControl.Text = "Мастер экспорта данных";
             this.ExportWizardControl.UseAcceptButton = false;
             this.ExportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ExportWizardControl_SelectedPageChanged);
@@ -136,15 +137,15 @@
             this.ProcessingWizardPage.Controls.Add(this.progressProcentLabel);
             this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания экспорта данных...";
             this.ProcessingWizardPage.Name = "ProcessingWizardPage";
-            this.ProcessingWizardPage.Size = new System.Drawing.Size(1520, 734);
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1331, 773);
             this.ProcessingWizardPage.Text = "Экспорт данных";
             // 
             // ProgressBarControl
             // 
             this.ProgressBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProgressBarControl.Location = new System.Drawing.Point(3, 356);
+            this.ProgressBarControl.Location = new System.Drawing.Point(3, 375);
             this.ProgressBarControl.Name = "ProgressBarControl";
-            this.ProgressBarControl.Size = new System.Drawing.Size(1514, 23);
+            this.ProgressBarControl.Size = new System.Drawing.Size(1325, 23);
             this.ProgressBarControl.Step = 0;
             this.ProgressBarControl.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.ProgressBarControl.TabIndex = 2;
@@ -152,9 +153,9 @@
             // progressProcentLabel
             // 
             this.progressProcentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressProcentLabel.Location = new System.Drawing.Point(3, 382);
+            this.progressProcentLabel.Location = new System.Drawing.Point(3, 401);
             this.progressProcentLabel.Name = "progressProcentLabel";
-            this.progressProcentLabel.Size = new System.Drawing.Size(1514, 18);
+            this.progressProcentLabel.Size = new System.Drawing.Size(1325, 18);
             this.progressProcentLabel.TabIndex = 1;
             this.progressProcentLabel.Text = "Выполнено 0%";
             this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -168,7 +169,7 @@
             this.ChooseMethodWizardPage.Controls.Add(this.exportChargesForBanksRadioBtn);
             this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
             this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
-            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1520, 734);
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1331, 773);
             this.ChooseMethodWizardPage.Text = "Мастер экспорта данных";
             // 
             // exportCounterValuesRadioBtn
@@ -239,7 +240,7 @@
             this.FileWizardPage.Controls.Add(this.tblTemplate);
             this.FileWizardPage.DescriptionText = "Выберите шаблон и путь для экспорта данных";
             this.FileWizardPage.Name = "FileWizardPage";
-            this.FileWizardPage.Size = new System.Drawing.Size(1520, 734);
+            this.FileWizardPage.Size = new System.Drawing.Size(1331, 773);
             this.FileWizardPage.Text = "Выбор файла";
             // 
             // tblBenefitExportInfo
@@ -250,11 +251,11 @@
             this.tblBenefitExportInfo.Controls.Add(this.label5, 0, 0);
             this.tblBenefitExportInfo.Controls.Add(this.startPeriodDateEdit, 1, 0);
             this.tblBenefitExportInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tblBenefitExportInfo.Location = new System.Drawing.Point(0, 236);
+            this.tblBenefitExportInfo.Location = new System.Drawing.Point(0, 260);
             this.tblBenefitExportInfo.Name = "tblBenefitExportInfo";
             this.tblBenefitExportInfo.RowCount = 1;
             this.tblBenefitExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblBenefitExportInfo.Size = new System.Drawing.Size(1520, 27);
+            this.tblBenefitExportInfo.Size = new System.Drawing.Size(1331, 27);
             this.tblBenefitExportInfo.TabIndex = 48;
             // 
             // label5
@@ -296,12 +297,12 @@
             this.tblGizZhkhInfo.Controls.Add(this.label4, 0, 0);
             this.tblGizZhkhInfo.Controls.Add(this.allRadioBtn, 1, 0);
             this.tblGizZhkhInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tblGizZhkhInfo.Location = new System.Drawing.Point(0, 189);
+            this.tblGizZhkhInfo.Location = new System.Drawing.Point(0, 213);
             this.tblGizZhkhInfo.Name = "tblGizZhkhInfo";
             this.tblGizZhkhInfo.RowCount = 2;
             this.tblGizZhkhInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblGizZhkhInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblGizZhkhInfo.Size = new System.Drawing.Size(1520, 47);
+            this.tblGizZhkhInfo.Size = new System.Drawing.Size(1331, 47);
             this.tblGizZhkhInfo.TabIndex = 47;
             // 
             // onlyNewRadioBtn
@@ -344,14 +345,16 @@
             this.tblBankExportInfo.Controls.Add(this.chkPrimSocBankFormat, 1, 1);
             this.tblBankExportInfo.Controls.Add(this.chkSbrfFormat, 1, 0);
             this.tblBankExportInfo.Controls.Add(this.label3, 0, 0);
+            this.tblBankExportInfo.Controls.Add(this.chkPochtabankFormat, 1, 2);
             this.tblBankExportInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.tblBankExportInfo.Location = new System.Drawing.Point(0, 143);
             this.tblBankExportInfo.Name = "tblBankExportInfo";
-            this.tblBankExportInfo.RowCount = 2;
+            this.tblBankExportInfo.RowCount = 3;
+            this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblBankExportInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblBankExportInfo.Size = new System.Drawing.Size(1520, 46);
+            this.tblBankExportInfo.Size = new System.Drawing.Size(1331, 70);
             this.tblBankExportInfo.TabIndex = 46;
             // 
             // chkPrimSocBankFormat
@@ -399,7 +402,7 @@
             this.tblPeriod.RowCount = 1;
             this.tblPeriod.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblPeriod.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tblPeriod.Size = new System.Drawing.Size(1520, 27);
+            this.tblPeriod.Size = new System.Drawing.Size(1331, 27);
             this.tblPeriod.TabIndex = 51;
             // 
             // label1
@@ -450,7 +453,7 @@
             this.tblExportCounterValues.RowCount = 2;
             this.tblExportCounterValues.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblExportCounterValues.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblExportCounterValues.Size = new System.Drawing.Size(1520, 56);
+            this.tblExportCounterValues.Size = new System.Drawing.Size(1331, 56);
             this.tblExportCounterValues.TabIndex = 50;
             // 
             // form2FilePathTextEdit
@@ -461,7 +464,7 @@
             this.form2FilePathTextEdit.Name = "form2FilePathTextEdit";
             this.form2FilePathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.form2FilePathTextEdit.Properties.ReadOnly = true;
-            this.form2FilePathTextEdit.Size = new System.Drawing.Size(1264, 20);
+            this.form2FilePathTextEdit.Size = new System.Drawing.Size(1075, 20);
             this.form2FilePathTextEdit.TabIndex = 52;
             // 
             // collectFormFilePathTextEdit
@@ -472,12 +475,12 @@
             this.collectFormFilePathTextEdit.Name = "collectFormFilePathTextEdit";
             this.collectFormFilePathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.collectFormFilePathTextEdit.Properties.ReadOnly = true;
-            this.collectFormFilePathTextEdit.Size = new System.Drawing.Size(1264, 20);
+            this.collectFormFilePathTextEdit.Size = new System.Drawing.Size(1075, 20);
             this.collectFormFilePathTextEdit.TabIndex = 52;
             // 
             // btnSelectForm2File
             // 
-            this.btnSelectForm2File.Location = new System.Drawing.Point(1423, 31);
+            this.btnSelectForm2File.Location = new System.Drawing.Point(1234, 31);
             this.btnSelectForm2File.Name = "btnSelectForm2File";
             this.btnSelectForm2File.Size = new System.Drawing.Size(94, 22);
             this.btnSelectForm2File.TabIndex = 52;
@@ -487,7 +490,7 @@
             // 
             // btnSelectCollectFormFile
             // 
-            this.btnSelectCollectFormFile.Location = new System.Drawing.Point(1423, 3);
+            this.btnSelectCollectFormFile.Location = new System.Drawing.Point(1234, 3);
             this.btnSelectCollectFormFile.Name = "btnSelectCollectFormFile";
             this.btnSelectCollectFormFile.Size = new System.Drawing.Size(94, 22);
             this.btnSelectCollectFormFile.TabIndex = 52;
@@ -532,12 +535,12 @@
             this.tblOutputPath.RowCount = 1;
             this.tblOutputPath.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblOutputPath.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tblOutputPath.Size = new System.Drawing.Size(1520, 30);
+            this.tblOutputPath.Size = new System.Drawing.Size(1331, 30);
             this.tblOutputPath.TabIndex = 49;
             // 
             // btnSelectExportPath
             // 
-            this.btnSelectExportPath.Location = new System.Drawing.Point(1423, 3);
+            this.btnSelectExportPath.Location = new System.Drawing.Point(1234, 3);
             this.btnSelectExportPath.Name = "btnSelectExportPath";
             this.btnSelectExportPath.Size = new System.Drawing.Size(94, 23);
             this.btnSelectExportPath.TabIndex = 4;
@@ -553,7 +556,7 @@
             this.outputPathTextEdit.Name = "outputPathTextEdit";
             this.outputPathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.outputPathTextEdit.Properties.ReadOnly = true;
-            this.outputPathTextEdit.Size = new System.Drawing.Size(1264, 20);
+            this.outputPathTextEdit.Size = new System.Drawing.Size(1075, 20);
             this.outputPathTextEdit.TabIndex = 3;
             // 
             // label8
@@ -582,7 +585,7 @@
             this.tblTemplate.RowCount = 1;
             this.tblTemplate.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblTemplate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tblTemplate.Size = new System.Drawing.Size(1520, 30);
+            this.tblTemplate.Size = new System.Drawing.Size(1331, 30);
             this.tblTemplate.TabIndex = 45;
             // 
             // templatePathTextEdit
@@ -593,7 +596,7 @@
             this.templatePathTextEdit.Name = "templatePathTextEdit";
             this.templatePathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.templatePathTextEdit.Properties.ReadOnly = true;
-            this.templatePathTextEdit.Size = new System.Drawing.Size(1264, 20);
+            this.templatePathTextEdit.Size = new System.Drawing.Size(1075, 20);
             this.templatePathTextEdit.TabIndex = 1;
             // 
             // label7
@@ -609,7 +612,7 @@
             // 
             // btnSelectTemplate
             // 
-            this.btnSelectTemplate.Location = new System.Drawing.Point(1423, 3);
+            this.btnSelectTemplate.Location = new System.Drawing.Point(1234, 3);
             this.btnSelectTemplate.Name = "btnSelectTemplate";
             this.btnSelectTemplate.Size = new System.Drawing.Size(94, 23);
             this.btnSelectTemplate.TabIndex = 2;
@@ -622,7 +625,7 @@
             this.FinishWizardPage.Controls.Add(this.resultTextBox);
             this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
-            this.FinishWizardPage.Size = new System.Drawing.Size(1520, 734);
+            this.FinishWizardPage.Size = new System.Drawing.Size(1331, 773);
             this.FinishWizardPage.Text = "Экспорт данных завершен";
             // 
             // resultTextBox
@@ -633,7 +636,7 @@
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.ReadOnly = true;
             this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.resultTextBox.Size = new System.Drawing.Size(1520, 734);
+            this.resultTextBox.Size = new System.Drawing.Size(1331, 773);
             this.resultTextBox.TabIndex = 16;
             // 
             // ServiceMatchingWizardPage
@@ -642,7 +645,7 @@
             this.ServiceMatchingWizardPage.Controls.Add(this.tblServiceMatching);
             this.ServiceMatchingWizardPage.DescriptionText = "Сопоставьте оказанные за период виды услуг с услугами ГИС ЖКХ из шаблона";
             this.ServiceMatchingWizardPage.Name = "ServiceMatchingWizardPage";
-            this.ServiceMatchingWizardPage.Size = new System.Drawing.Size(1520, 734);
+            this.ServiceMatchingWizardPage.Size = new System.Drawing.Size(1331, 773);
             this.ServiceMatchingWizardPage.Text = "Экспорт начислений для ГИС ЖКХ";
             // 
             // serviceMatchingTableProgressBarPanel
@@ -651,16 +654,16 @@
             this.serviceMatchingTableProgressBarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serviceMatchingTableProgressBarPanel.Location = new System.Drawing.Point(0, 0);
             this.serviceMatchingTableProgressBarPanel.Name = "serviceMatchingTableProgressBarPanel";
-            this.serviceMatchingTableProgressBarPanel.Size = new System.Drawing.Size(1520, 734);
+            this.serviceMatchingTableProgressBarPanel.Size = new System.Drawing.Size(1331, 773);
             this.serviceMatchingTableProgressBarPanel.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(3, 356);
+            this.label2.Location = new System.Drawing.Point(3, 375);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1514, 25);
+            this.label2.Size = new System.Drawing.Size(1325, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Загрузка данных...";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -677,8 +680,18 @@
             this.tblServiceMatching.RowCount = 2;
             this.tblServiceMatching.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblServiceMatching.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblServiceMatching.Size = new System.Drawing.Size(1520, 734);
+            this.tblServiceMatching.Size = new System.Drawing.Size(1331, 773);
             this.tblServiceMatching.TabIndex = 2;
+            // 
+            // chkPochtabankFormat
+            // 
+            this.chkPochtabankFormat.AutoSize = true;
+            this.chkPochtabankFormat.Location = new System.Drawing.Point(153, 49);
+            this.chkPochtabankFormat.Name = "chkPochtabankFormat";
+            this.chkPochtabankFormat.Size = new System.Drawing.Size(80, 17);
+            this.chkPochtabankFormat.TabIndex = 7;
+            this.chkPochtabankFormat.Text = "Почтабанк";
+            this.chkPochtabankFormat.UseVisualStyleBackColor = true;
             // 
             // LayoutView
             // 
@@ -686,7 +699,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.ExportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(1552, 879);
+            this.Size = new System.Drawing.Size(1363, 918);
             ((System.ComponentModel.ISupportInitialize)(this.ExportWizardControl)).EndInit();
             this.ExportWizardControl.ResumeLayout(false);
             this.ProcessingWizardPage.ResumeLayout(false);
@@ -770,5 +783,6 @@
         private System.Windows.Forms.Button btnSelectCollectFormFile;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chkPochtabankFormat;
     }
 }

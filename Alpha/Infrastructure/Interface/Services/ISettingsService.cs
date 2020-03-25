@@ -22,5 +22,11 @@ namespace Taumis.Alpha.Infrastructure.Interface.Services
         /// </summary>
         /// <returns></returns>
         string GetBackupPath();
+
+        /// <summary>
+        /// Возвращает номер файла экспорта для Почта-Банка и увеличивает его в БД на единицу.
+        /// </summary>
+        /// <returns></returns>
+        int GetAndIncreasePochtabankExportFileNumber();
     }
 }

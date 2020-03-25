@@ -63,5 +63,24 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
 
             return _backupPath;
         }
+
+        /// <summary>
+        /// Возвращает номер файла экспорта для Почта-Банка и увеличивает его в БД на единицу.
+        /// </summary>
+        /// <returns></returns>
+        public int GetAndIncreasePochtabankExportFileNumber()
+        {
+            int value;
+
+            using (Entities _db = new Entities())
+            {
+                Settings setting = _db.Settings.First(s => s.Name == SettingNames.POCHTABANK_EXPORT_FILE_NUMBER);
+                value = int.Parse(setting.Value);
+                setting.Value = $"{value + 1}";
+                _db.SaveChanges();
+            }
+
+            return value;
+        }
     }
 }

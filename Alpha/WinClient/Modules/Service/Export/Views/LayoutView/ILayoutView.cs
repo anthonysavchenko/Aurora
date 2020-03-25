@@ -47,14 +47,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         DateTime Period { get; set; }
 
         /// <summary>
-        /// Выбран формат сбербанка
+        /// Выбран формат Сбербанка
         /// </summary>
         bool SbrfChecked { get; set; }
 
         /// <summary>
-        /// Выбран формат примсоцбанка
+        /// Выбран формат Примсоцбанка
         /// </summary>
         bool PrimSocBankChecked { get; set; }
+
+        /// <summary>
+        /// Выбран формат Почтабанка
+        /// </summary>
+        bool PochtaBankChecked { get; set; }
 
         /// <summary>
         /// Флаг экспорта данных ГИС ЖКХ: "только новые" / "все" абоненты

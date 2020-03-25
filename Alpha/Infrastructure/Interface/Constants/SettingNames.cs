@@ -13,5 +13,6 @@
         public const string MAINTENANCE_SERVICE_LIST = "MaintenanceServiceList";
         public const string REPAIR_SERVICE_LIST = "RepairServiceList";
         public const string RECYCLING_SERVICE_LIST = "RecyclingServiceList";
+        public const string POCHTABANK_EXPORT_FILE_NUMBER = "PochtabankExportFileNumber";
     }
 }
