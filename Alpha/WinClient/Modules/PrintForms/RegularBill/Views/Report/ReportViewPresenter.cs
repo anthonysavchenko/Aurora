@@ -119,7 +119,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                         var _bills =
                             _entities.RegularBillDocs
-                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue != 0)  && (!View.RemoveMunicipalBills || b.Customers.IsPrivate))
+                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue != 0) && (!View.RemoveMunicipalBills || b.Customers.IsPrivate))
                                 .Select(b =>
                                     new
                                     {
@@ -224,8 +224,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.BankDetails.CorrAccount,
                                 _bill.BankDetails.INN,
                                 "Квартплата",
-                                _bill.Account, 
-                                _bill.OwnerType == (int)OwnerType.PhysicalPerson 
+                                _bill.Account,
+                                _bill.OwnerType == (int)OwnerType.PhysicalPerson
                                     ? _bill.FullName
                                     : string.Empty,
                                 _bill.Address,
@@ -255,7 +255,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                             if (_bill.BillSendingSubscription)
                             {
                                 _subscriptedCustomers.Add(
-                                    _bill.CustomerID, 
+                                    _bill.CustomerID,
                                     new CustomerInfo
                                     {
                                         Email = _bill.Email,
@@ -280,20 +280,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             street = street.ToLower();
             building = building.ToLower();
 
-            if(street == "борисенко"
-                || street == "космонавтов"           
-                || street == "гульбиновича"           
-                || street == "окатовая"               
-                || street == "терешковой"             
-                || street == "адмирала кузнецова"     
-                || street == "адмирала спиридонова"   
-                || street == "луговая"                
-                || street == "баляева")                  
+            if (street == "борисенко" && building == "100б"
+                || street == "космонавтов"
+                || street == "луговая"
+                || street == "адмирала кузнецова"
+                || street == "адмирала спиридонова"
+                || street == "терешковой"
+                || street == "окатовая")
+            {
+                return "206-03-20";
+            }
+
+            if (street == "борисенко"
+                || street == "гульбиновича"
+                || street == "баляева")
             {
                 return "2-614-714";
             }
 
-            if(street == "прапорщика комарова"
+            if (street == "прапорщика комарова"
                 || street == "уткинская"
                 || street == "западная"
                 || street == "острякова проспект"
@@ -308,14 +313,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "2-980-981";
             }
 
-            if(street == "магнитогорская"
+            if (street == "магнитогорская"
                 || street == "енисейская"
                 || street == "полетаева")
             {
                 return "2-667-206, 2-666-964";
             }
 
-            if(street == "ульяновская")
+            if (street == "ульяновская")
             {
                 return "2-340-141";
             }
@@ -333,13 +338,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 {
                     var _rows =
                         _data.Tables["Customers"].AsEnumerable()
-                            .Where(r => _subscriptedCustomers.Keys.Contains((int) r["CustomerID"]));
+                            .Where(r => _subscriptedCustomers.Keys.Contains((int)r["CustomerID"]));
 
                     foreach (DataRow _row in _rows)
                     {
                         RegularBillDataSet _dataSet = CreateDataSet(_row);
 
-                        int _customerID = (int) _row["CustomerID"];
+                        int _customerID = (int)_row["CustomerID"];
 
                         CustomerInfo _customerInfo = _subscriptedCustomers[_customerID];
 
@@ -366,7 +371,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 }
                 else if (_data.Tables["Customers"].Rows.Count != 0)
                 {
-                    int _customerID = (int) _data.Tables["Customers"].Rows[0]["CustomerID"];
+                    int _customerID = (int)_data.Tables["Customers"].Rows[0]["CustomerID"];
                     CustomerInfo _customerInfo = _subscriptedCustomers[_customerID];
 
                     MemoryStream _pdf = View.GeneratePdf();
@@ -391,7 +396,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 }
 
                 View.ShowMessage(
-                    $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}", 
+                    $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}",
                     "Результаты отправки");
             }
         }
