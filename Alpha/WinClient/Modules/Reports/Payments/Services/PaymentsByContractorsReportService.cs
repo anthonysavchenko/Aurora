@@ -220,8 +220,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Services
                     _entities.PaymentOperPoses
                         .Where(
                             p =>
-                            p.PaymentOpers.CreationDateTime >= since &&
-                            p.PaymentOpers.CreationDateTime <= till)
+                            p.PaymentOpers.PaymentSets.PaymentDate >= since &&
+                            p.PaymentOpers.PaymentSets.PaymentDate <= till)
                         .Select(p => p.Period)
                         .Union(
                             _entities.PaymentCorrectionOpers
@@ -347,7 +347,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Payments.Services
                         _entities.PaymentOperPoses
                             .Where(p =>
                                 p.PaymentOpers.PaymentSets.Intermediaries != null &&
-                                p.PaymentOpers.CreationDateTime >= since && p.PaymentOpers.CreationDateTime <= till)
+                                p.PaymentOpers.PaymentSets.PaymentDate >= since &&
+                                p.PaymentOpers.PaymentSets.PaymentDate <= till)
                             .Select(p =>
                                 new
                                 {

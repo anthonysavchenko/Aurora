@@ -119,9 +119,9 @@
             this.byBuildingsRadioButton.AutoSize = true;
             this.byBuildingsRadioButton.Location = new System.Drawing.Point(9, 68);
             this.byBuildingsRadioButton.Name = "byBuildingsRadioButton";
-            this.byBuildingsRadioButton.Size = new System.Drawing.Size(76, 17);
+            this.byBuildingsRadioButton.Size = new System.Drawing.Size(433, 17);
             this.byBuildingsRadioButton.TabIndex = 5;
-            this.byBuildingsRadioButton.Text = "По домам";
+            this.byBuildingsRadioButton.Text = "По домам - суммы поступлений по каждому дому с разбивкой по посредникам.";
             this.byBuildingsRadioButton.UseVisualStyleBackColor = true;
             // 
             // byContractorsRadioButton
@@ -130,16 +130,17 @@
             this.byContractorsRadioButton.Checked = true;
             this.byContractorsRadioButton.Location = new System.Drawing.Point(9, 45);
             this.byContractorsRadioButton.Name = "byContractorsRadioButton";
-            this.byContractorsRadioButton.Size = new System.Drawing.Size(109, 17);
+            this.byContractorsRadioButton.Size = new System.Drawing.Size(496, 17);
             this.byContractorsRadioButton.TabIndex = 4;
             this.byContractorsRadioButton.TabStop = true;
-            this.byContractorsRadioButton.Text = "По подрядчикам";
+            this.byContractorsRadioButton.Text = "По подрядчикам - распределение оплат по подрядчикам с указанием процента посредни" +
+    "ка.";
             this.byContractorsRadioButton.UseVisualStyleBackColor = true;
             // 
             // tillDateEdit
             // 
             this.tillDateEdit.EditValue = null;
-            this.tillDateEdit.Location = new System.Drawing.Point(255, 19);
+            this.tillDateEdit.Location = new System.Drawing.Point(472, 19);
             this.tillDateEdit.Name = "tillDateEdit";
             this.tillDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -156,7 +157,7 @@
             // sinceDateEdit
             // 
             this.sinceDateEdit.EditValue = null;
-            this.sinceDateEdit.Location = new System.Drawing.Point(60, 19);
+            this.sinceDateEdit.Location = new System.Drawing.Point(277, 19);
             this.sinceDateEdit.Name = "sinceDateEdit";
             this.sinceDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -173,7 +174,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(239, 22);
+            this.label2.Location = new System.Drawing.Point(456, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 1;
@@ -184,9 +185,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.Size = new System.Drawing.Size(265, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Период:";
+            this.label1.Text = "Дата фактического внесения платежа абонентом:";
             // 
             // ListView
             // 
