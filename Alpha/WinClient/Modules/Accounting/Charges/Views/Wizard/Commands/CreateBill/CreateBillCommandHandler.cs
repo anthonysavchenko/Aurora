@@ -39,7 +39,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     BillSets = _billSet,
                     Period = _chargePeriod,
                     EmergencyPhoneNumber = cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == MADIX_CONTRACTOR_ID)
-                        ? "261-47-14" : "298-09-81",
+                        ? "248-25-12" : "298-09-81",
                     PayBeforeDateTime = _payBefore,
                     MonthChargeValue = _currentPeriodTotal,
                     OverpaymentValue = _rest,
