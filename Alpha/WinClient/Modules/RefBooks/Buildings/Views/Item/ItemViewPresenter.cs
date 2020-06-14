@@ -189,17 +189,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
 
             if (!_domItem.IsNew)
             {
-                int _buildingID = int.Parse(_domItem.ID);
-                int _maxFloor;
-
                 using (Entities _entities = new Entities())
                 {
-                    _maxFloor = _entities.Customers.Where(c => c.Buildings.ID == _buildingID).Max(c => c.Floor);
-                }
+                    int _buildingID = int.Parse(_domItem.ID);
 
-                if (_domItem.FloorCount < _maxFloor)
-                {
-                    _error.AppendLine("- Количество этажей в доме меньше, чем этажи, указанные у некоторых абонентов этого дома");
+                    if (_entities.Customers.Any(c => c.Buildings.ID == _buildingID))
+                    {
+                        int _maxFloor =
+                            _entities
+                                .Customers
+                                .Where(c => c.Buildings.ID == _buildingID)
+                                .Max(c => c.Floor);
+
+                        if (_domItem.FloorCount < _maxFloor)
+                        {
+                            _error.AppendLine("- Количество этажей в доме меньше, чем этажи, указанные у некоторых абонентов этого дома");
+                        }
+                    }
                 }
             }
 
