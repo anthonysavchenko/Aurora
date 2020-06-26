@@ -372,8 +372,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                             ProgressAction = View.AddProgress,
                             ResetProgressBar = View.ResetProgressBar,
                             Now = ServerTime.GetDateTimeInfo().Now,
-                            Period = ServerTime.GetPeriodInfo().FirstUncharged,
-                            LastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged,
+                            Period = new DateTime(2020, 6, 1, 0, 0, 0),
+                            LastChargedPeriod = new DateTime(2020, 5, 1, 0, 0, 0),
                             AuthorId = int.Parse(UserHolder.User.ID)
                         });
                     break;
@@ -383,7 +383,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                         {
                             File = View.DebtFileName,
                             Now = ServerTime.GetDateTimeInfo().Now,
-                            Period = ServerTime.GetPeriodInfo().FirstUncharged,
+                            Period = new DateTime(2020, 3, 1), //ServerTime.GetPeriodInfo().FirstUncharged,
                             ProgressAction = View.AddProgress,
                             ResetProgressBar = View.ResetProgressBar,
                             AuthorId = int.Parse(UserHolder.User.ID)
