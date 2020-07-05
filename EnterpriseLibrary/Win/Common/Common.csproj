@@ -377,8 +377,8 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Common\Common.csproj">
-      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Project>{8C62E512-6540-4BA6-860B-1AE6AE64821C}</Project>
+      <Name>Common</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -169,5 +169,20 @@
         /// Печатная форма различий в файлах
         /// </summary>
         public const string FILL_FORM_AND_PRINT_FORM_DIFF = "usecase://Report/FillFormAndPrintFormDiff";
+
+        /// <summary>
+        /// Загрузки форм ДЭК.
+        /// </summary>
+        public const string DEC_FORMS_UPLOADS = "usecase://Uploads/DecFormsUploads";
+
+        /// <summary>
+        /// Маршрутные листы.
+        /// </summary>
+        public const string ROUTE_FORMS= "usecase://Uploads/RouteForms";
+
+        /// <summary>
+        /// Формы для заполнения.
+        /// </summary>
+        public const string FILL_FORMS = "usecase://Uploads/FillForms";
     }
 }

@@ -137,12 +137,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
       <Project>{8c62e512-6540-4ba6-860b-1ae6ae64821c}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Name>Common</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\EnterpriseLibrary\Win\Common\Common.csproj">
       <Project>{E35914B3-8BB6-4BCB-A85A-516BF2252422}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Win\Common%29</Name>
+      <Name>Common</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
@@ -167,7 +167,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Infrastructure\Interface\Interface.csproj">
       <Project>{576d1311-ba67-4077-8489-7cfad06965f5}</Project>
-      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+      <Name>Interface</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Server\PrintForms\PrintForms.csproj">
@@ -176,7 +176,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\Interface\Interface.csproj">
       <Project>{6afb9f99-fb46-49d6-b9bc-3a7937a136c9}</Project>
-      <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
+      <Name>Interface</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

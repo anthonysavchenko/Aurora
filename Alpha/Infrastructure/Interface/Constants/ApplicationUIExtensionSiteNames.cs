@@ -29,5 +29,10 @@
         /// Общее подменю для отчетов.
         /// </summary>
         public const string Reports = "Отчеты";
+
+        /// <summary>
+        /// Общее подменю для загрузок.
+        /// </summary>
+        public const string Uploads = "Загрузки";
     }
 }

@@ -106,6 +106,14 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RechargePercentCorrections_CustomerPoses", "CustomerPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CustomerPoses), "RechargePercentCorrections", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RechargePercentCorrections), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Buildings_CounterValueCollectDistricts", "CounterValueCollectDistricts", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CounterValueCollectDistricts), "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Buildings), true)]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_ElectricitySharedCounterVolumes_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "ElectricitySharedCounterVolumes", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.ElectricitySharedCounterVolumes), true)]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.DecFormsUploads), "DecFormsUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DecFormsUploadPoses))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_FillForms_DecFormsUploadPoses", "DecFormsUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.DecFormsUploadPoses), "FillForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.FillForms))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_FillFormPoses_FillForms", "FillForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.FillForms), "FillFormPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.FillFormPoses))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_FillForms", "FillForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.FillForms), "DecFormsUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DecFormsUploadPoses))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RouteFormPoses_RouteForms", "RouteForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.RouteForms), "RouteFormPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RouteFormPoses))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RouteForms_DecFormsUploadPoses", "DecFormsUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.DecFormsUploadPoses), "RouteForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RouteForms))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_RouteForms", "RouteForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.RouteForms), "DecFormsUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DecFormsUploadPoses))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DecFormsUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "DecFormsUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DecFormsUploads))]
 
 #endregion
 
@@ -1017,6 +1025,102 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<ElectricitySharedCounterVolumes> _ElectricitySharedCounterVolumes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DecFormsUploads> DecFormsUploads
+        {
+            get
+            {
+                if ((_DecFormsUploads == null))
+                {
+                    _DecFormsUploads = base.CreateObjectSet<DecFormsUploads>("DecFormsUploads");
+                }
+                return _DecFormsUploads;
+            }
+        }
+        private ObjectSet<DecFormsUploads> _DecFormsUploads;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DecFormsUploadPoses> DecFormsUploadPoses
+        {
+            get
+            {
+                if ((_DecFormsUploadPoses == null))
+                {
+                    _DecFormsUploadPoses = base.CreateObjectSet<DecFormsUploadPoses>("DecFormsUploadPoses");
+                }
+                return _DecFormsUploadPoses;
+            }
+        }
+        private ObjectSet<DecFormsUploadPoses> _DecFormsUploadPoses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FillFormPoses> FillFormPoses
+        {
+            get
+            {
+                if ((_FillFormPoses == null))
+                {
+                    _FillFormPoses = base.CreateObjectSet<FillFormPoses>("FillFormPoses");
+                }
+                return _FillFormPoses;
+            }
+        }
+        private ObjectSet<FillFormPoses> _FillFormPoses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FillForms> FillForms
+        {
+            get
+            {
+                if ((_FillForms == null))
+                {
+                    _FillForms = base.CreateObjectSet<FillForms>("FillForms");
+                }
+                return _FillForms;
+            }
+        }
+        private ObjectSet<FillForms> _FillForms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RouteFormPoses> RouteFormPoses
+        {
+            get
+            {
+                if ((_RouteFormPoses == null))
+                {
+                    _RouteFormPoses = base.CreateObjectSet<RouteFormPoses>("RouteFormPoses");
+                }
+                return _RouteFormPoses;
+            }
+        }
+        private ObjectSet<RouteFormPoses> _RouteFormPoses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RouteForms> RouteForms
+        {
+            get
+            {
+                if ((_RouteForms == null))
+                {
+                    _RouteForms = base.CreateObjectSet<RouteForms>("RouteForms");
+                }
+                return _RouteForms;
+            }
+        }
+        private ObjectSet<RouteForms> _RouteForms;
 
         #endregion
 
@@ -1452,6 +1556,54 @@ namespace Taumis.Alpha.DataBase
         public void AddToElectricitySharedCounterVolumes(ElectricitySharedCounterVolumes electricitySharedCounterVolumes)
         {
             base.AddObject("ElectricitySharedCounterVolumes", electricitySharedCounterVolumes);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DecFormsUploads EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDecFormsUploads(DecFormsUploads decFormsUploads)
+        {
+            base.AddObject("DecFormsUploads", decFormsUploads);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DecFormsUploadPoses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDecFormsUploadPoses(DecFormsUploadPoses decFormsUploadPoses)
+        {
+            base.AddObject("DecFormsUploadPoses", decFormsUploadPoses);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FillFormPoses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFillFormPoses(FillFormPoses fillFormPoses)
+        {
+            base.AddObject("FillFormPoses", fillFormPoses);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FillForms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFillForms(FillForms fillForms)
+        {
+            base.AddObject("FillForms", fillForms);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RouteFormPoses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRouteFormPoses(RouteFormPoses routeFormPoses)
+        {
+            base.AddObject("RouteFormPoses", routeFormPoses);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RouteForms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRouteForms(RouteForms routeForms)
+        {
+            base.AddObject("RouteForms", routeForms);
         }
 
         #endregion
@@ -7160,6 +7312,496 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="DecFormsUploadPoses")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DecFormsUploadPoses : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DecFormsUploadPoses object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="fileName">Initial value of the FileName property.</param>
+        /// <param name="formType">Initial value of the FormType property.</param>
+        public static DecFormsUploadPoses CreateDecFormsUploadPoses(global::System.Int32 id, global::System.String fileName, global::System.Byte formType)
+        {
+            DecFormsUploadPoses decFormsUploadPoses = new DecFormsUploadPoses();
+            decFormsUploadPoses.ID = id;
+            decFormsUploadPoses.FileName = fileName;
+            decFormsUploadPoses.FormType = formType;
+            return decFormsUploadPoses;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte FormType
+        {
+            get
+            {
+                return _FormType;
+            }
+            set
+            {
+                OnFormTypeChanging(value);
+                ReportPropertyChanging("FormType");
+                _FormType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FormType");
+                OnFormTypeChanged();
+            }
+        }
+        private global::System.Byte _FormType;
+        partial void OnFormTypeChanging(global::System.Byte value);
+        partial void OnFormTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Error
+        {
+            get
+            {
+                return _Error;
+            }
+            set
+            {
+                OnErrorChanging(value);
+                ReportPropertyChanging("Error");
+                _Error = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Error");
+                OnErrorChanged();
+            }
+        }
+        private global::System.String _Error;
+        partial void OnErrorChanging(global::System.String value);
+        partial void OnErrorChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploads")]
+        public DecFormsUploads DecFormsUploads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploads>("AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploads").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploads>("AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploads").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DecFormsUploads> DecFormsUploadsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploads>("AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DecFormsUploads>("AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploads", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_FillForms_DecFormsUploadPoses", "FillForms")]
+        public EntityCollection<FillForms> FillForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FillForms>("AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses", "FillForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FillForms>("AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses", "FillForms", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_FillForms", "FillForms")]
+        public FillForms FillForm
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FillForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms", "FillForms").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FillForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms", "FillForms").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FillForms> FillFormReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FillForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms", "FillForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FillForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms", "FillForms", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RouteForms_DecFormsUploadPoses", "RouteForms")]
+        public EntityCollection<RouteForms> RouteForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RouteForms>("AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses", "RouteForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RouteForms>("AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses", "RouteForms", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_RouteForms", "RouteForms")]
+        public RouteForms RouteForm
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RouteForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms", "RouteForms").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RouteForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms", "RouteForms").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<RouteForms> RouteFormReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RouteForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms", "RouteForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RouteForms>("AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms", "RouteForms", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="DecFormsUploads")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DecFormsUploads : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DecFormsUploads object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        public static DecFormsUploads CreateDecFormsUploads(global::System.Int32 id, global::System.DateTime created, global::System.DateTime month)
+        {
+            DecFormsUploads decFormsUploads = new DecFormsUploads();
+            decFormsUploads.ID = id;
+            decFormsUploads.Created = created;
+            decFormsUploads.Month = month;
+            return decFormsUploads;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploadPoses")]
+        public EntityCollection<DecFormsUploadPoses> DecFormsUploadPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DecFormsUploadPoses>("AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploadPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DecFormsUploadPoses>("AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads", "DecFormsUploadPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploads_Users", "Users")]
+        public Users Author
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> AuthorReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "Users", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="ElectricitySharedCounterVolumes")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -7325,6 +7967,542 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Buildings>("AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings", "Buildings", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="FillFormPoses")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FillFormPoses : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FillFormPoses object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="apartment">Initial value of the Apartment property.</param>
+        /// <param name="counterType">Initial value of the CounterType property.</param>
+        public static FillFormPoses CreateFillFormPoses(global::System.Int32 id, global::System.String apartment, global::System.Byte counterType)
+        {
+            FillFormPoses fillFormPoses = new FillFormPoses();
+            fillFormPoses.ID = id;
+            fillFormPoses.Apartment = apartment;
+            fillFormPoses.CounterType = counterType;
+            return fillFormPoses;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Apartment
+        {
+            get
+            {
+                return _Apartment;
+            }
+            set
+            {
+                OnApartmentChanging(value);
+                ReportPropertyChanging("Apartment");
+                _Apartment = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Apartment");
+                OnApartmentChanged();
+            }
+        }
+        private global::System.String _Apartment;
+        partial void OnApartmentChanging(global::System.String value);
+        partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte CounterType
+        {
+            get
+            {
+                return _CounterType;
+            }
+            set
+            {
+                OnCounterTypeChanging(value);
+                ReportPropertyChanging("CounterType");
+                _CounterType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CounterType");
+                OnCounterTypeChanged();
+            }
+        }
+        private global::System.Byte _CounterType;
+        partial void OnCounterTypeChanging(global::System.Byte value);
+        partial void OnCounterTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CounterModel
+        {
+            get
+            {
+                return _CounterModel;
+            }
+            set
+            {
+                OnCounterModelChanging(value);
+                ReportPropertyChanging("CounterModel");
+                _CounterModel = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CounterModel");
+                OnCounterModelChanged();
+            }
+        }
+        private global::System.String _CounterModel;
+        partial void OnCounterModelChanging(global::System.String value);
+        partial void OnCounterModelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CounterNumber
+        {
+            get
+            {
+                return _CounterNumber;
+            }
+            set
+            {
+                OnCounterNumberChanging(value);
+                ReportPropertyChanging("CounterNumber");
+                _CounterNumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CounterNumber");
+                OnCounterNumberChanged();
+            }
+        }
+        private global::System.String _CounterNumber;
+        partial void OnCounterNumberChanging(global::System.String value);
+        partial void OnCounterNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> PrevDate
+        {
+            get
+            {
+                return _PrevDate;
+            }
+            set
+            {
+                OnPrevDateChanging(value);
+                ReportPropertyChanging("PrevDate");
+                _PrevDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevDate");
+                OnPrevDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _PrevDate;
+        partial void OnPrevDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnPrevDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PrevValue
+        {
+            get
+            {
+                return _PrevValue;
+            }
+            set
+            {
+                OnPrevValueChanging(value);
+                ReportPropertyChanging("PrevValue");
+                _PrevValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevValue");
+                OnPrevValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PrevValue;
+        partial void OnPrevValueChanging(Nullable<global::System.Int32> value);
+        partial void OnPrevValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PrevDayValue
+        {
+            get
+            {
+                return _PrevDayValue;
+            }
+            set
+            {
+                OnPrevDayValueChanging(value);
+                ReportPropertyChanging("PrevDayValue");
+                _PrevDayValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevDayValue");
+                OnPrevDayValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PrevDayValue;
+        partial void OnPrevDayValueChanging(Nullable<global::System.Int32> value);
+        partial void OnPrevDayValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PrevNightValue
+        {
+            get
+            {
+                return _PrevNightValue;
+            }
+            set
+            {
+                OnPrevNightValueChanging(value);
+                ReportPropertyChanging("PrevNightValue");
+                _PrevNightValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevNightValue");
+                OnPrevNightValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PrevNightValue;
+        partial void OnPrevNightValueChanging(Nullable<global::System.Int32> value);
+        partial void OnPrevNightValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Account
+        {
+            get
+            {
+                return _Account;
+            }
+            set
+            {
+                OnAccountChanging(value);
+                ReportPropertyChanging("Account");
+                _Account = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Account");
+                OnAccountChanged();
+            }
+        }
+        private global::System.String _Account;
+        partial void OnAccountChanging(global::System.String value);
+        partial void OnAccountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CounterCapacity
+        {
+            get
+            {
+                return _CounterCapacity;
+            }
+            set
+            {
+                OnCounterCapacityChanging(value);
+                ReportPropertyChanging("CounterCapacity");
+                _CounterCapacity = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CounterCapacity");
+                OnCounterCapacityChanged();
+            }
+        }
+        private global::System.String _CounterCapacity;
+        partial void OnCounterCapacityChanging(global::System.String value);
+        partial void OnCounterCapacityChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_FillFormPoses_FillForms", "FillForms")]
+        public FillForms FillForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FillForms>("AlphaDataBaseModel.FK_FillFormPoses_FillForms", "FillForms").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FillForms>("AlphaDataBaseModel.FK_FillFormPoses_FillForms", "FillForms").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FillForms> FillFormsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FillForms>("AlphaDataBaseModel.FK_FillFormPoses_FillForms", "FillForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FillForms>("AlphaDataBaseModel.FK_FillFormPoses_FillForms", "FillForms", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="FillForms")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FillForms : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FillForms object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="street">Initial value of the Street property.</param>
+        /// <param name="building">Initial value of the Building property.</param>
+        public static FillForms CreateFillForms(global::System.Int32 id, global::System.String street, global::System.String building)
+        {
+            FillForms fillForms = new FillForms();
+            fillForms.ID = id;
+            fillForms.Street = street;
+            fillForms.Building = building;
+            return fillForms;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Street
+        {
+            get
+            {
+                return _Street;
+            }
+            set
+            {
+                OnStreetChanging(value);
+                ReportPropertyChanging("Street");
+                _Street = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Street");
+                OnStreetChanged();
+            }
+        }
+        private global::System.String _Street;
+        partial void OnStreetChanging(global::System.String value);
+        partial void OnStreetChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Building
+        {
+            get
+            {
+                return _Building;
+            }
+            set
+            {
+                OnBuildingChanging(value);
+                ReportPropertyChanging("Building");
+                _Building = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Building");
+                OnBuildingChanged();
+            }
+        }
+        private global::System.String _Building;
+        partial void OnBuildingChanging(global::System.String value);
+        partial void OnBuildingChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_FillForms_DecFormsUploadPoses", "DecFormsUploadPoses")]
+        public DecFormsUploadPoses DecFormsUploadPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses", "DecFormsUploadPoses").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses", "DecFormsUploadPoses").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DecFormsUploadPoses> DecFormsUploadPosesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses", "DecFormsUploadPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses", "DecFormsUploadPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_FillFormPoses_FillForms", "FillFormPoses")]
+        public EntityCollection<FillFormPoses> FillFormPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FillFormPoses>("AlphaDataBaseModel.FK_FillFormPoses_FillForms", "FillFormPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FillFormPoses>("AlphaDataBaseModel.FK_FillFormPoses_FillForms", "FillFormPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_FillForms", "DecFormsUploadPoses")]
+        public EntityCollection<DecFormsUploadPoses> DecFormsUploadPos
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DecFormsUploadPoses>("AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms", "DecFormsUploadPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DecFormsUploadPoses>("AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms", "DecFormsUploadPoses", value);
                 }
             }
         }
@@ -13400,6 +14578,638 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="RouteFormPoses")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RouteFormPoses : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RouteFormPoses object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="apartment">Initial value of the Apartment property.</param>
+        /// <param name="counterType">Initial value of the CounterType property.</param>
+        public static RouteFormPoses CreateRouteFormPoses(global::System.Int32 id, global::System.String apartment, global::System.Byte counterType)
+        {
+            RouteFormPoses routeFormPoses = new RouteFormPoses();
+            routeFormPoses.ID = id;
+            routeFormPoses.Apartment = apartment;
+            routeFormPoses.CounterType = counterType;
+            return routeFormPoses;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Apartment
+        {
+            get
+            {
+                return _Apartment;
+            }
+            set
+            {
+                OnApartmentChanging(value);
+                ReportPropertyChanging("Apartment");
+                _Apartment = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Apartment");
+                OnApartmentChanged();
+            }
+        }
+        private global::System.String _Apartment;
+        partial void OnApartmentChanging(global::System.String value);
+        partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte CounterType
+        {
+            get
+            {
+                return _CounterType;
+            }
+            set
+            {
+                OnCounterTypeChanging(value);
+                ReportPropertyChanging("CounterType");
+                _CounterType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CounterType");
+                OnCounterTypeChanged();
+            }
+        }
+        private global::System.Byte _CounterType;
+        partial void OnCounterTypeChanging(global::System.Byte value);
+        partial void OnCounterTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CounterNumber
+        {
+            get
+            {
+                return _CounterNumber;
+            }
+            set
+            {
+                OnCounterNumberChanging(value);
+                ReportPropertyChanging("CounterNumber");
+                _CounterNumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CounterNumber");
+                OnCounterNumberChanged();
+            }
+        }
+        private global::System.String _CounterNumber;
+        partial void OnCounterNumberChanging(global::System.String value);
+        partial void OnCounterNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> PrevDate
+        {
+            get
+            {
+                return _PrevDate;
+            }
+            set
+            {
+                OnPrevDateChanging(value);
+                ReportPropertyChanging("PrevDate");
+                _PrevDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevDate");
+                OnPrevDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _PrevDate;
+        partial void OnPrevDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnPrevDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PrevValue
+        {
+            get
+            {
+                return _PrevValue;
+            }
+            set
+            {
+                OnPrevValueChanging(value);
+                ReportPropertyChanging("PrevValue");
+                _PrevValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevValue");
+                OnPrevValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PrevValue;
+        partial void OnPrevValueChanging(Nullable<global::System.Int32> value);
+        partial void OnPrevValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PrevDayValue
+        {
+            get
+            {
+                return _PrevDayValue;
+            }
+            set
+            {
+                OnPrevDayValueChanging(value);
+                ReportPropertyChanging("PrevDayValue");
+                _PrevDayValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevDayValue");
+                OnPrevDayValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PrevDayValue;
+        partial void OnPrevDayValueChanging(Nullable<global::System.Int32> value);
+        partial void OnPrevDayValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PrevNightValue
+        {
+            get
+            {
+                return _PrevNightValue;
+            }
+            set
+            {
+                OnPrevNightValueChanging(value);
+                ReportPropertyChanging("PrevNightValue");
+                _PrevNightValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevNightValue");
+                OnPrevNightValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PrevNightValue;
+        partial void OnPrevNightValueChanging(Nullable<global::System.Int32> value);
+        partial void OnPrevNightValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Account
+        {
+            get
+            {
+                return _Account;
+            }
+            set
+            {
+                OnAccountChanging(value);
+                ReportPropertyChanging("Account");
+                _Account = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Account");
+                OnAccountChanged();
+            }
+        }
+        private global::System.String _Account;
+        partial void OnAccountChanging(global::System.String value);
+        partial void OnAccountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Owner
+        {
+            get
+            {
+                return _Owner;
+            }
+            set
+            {
+                OnOwnerChanging(value);
+                ReportPropertyChanging("Owner");
+                _Owner = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Owner");
+                OnOwnerChanged();
+            }
+        }
+        private global::System.String _Owner;
+        partial void OnOwnerChanging(global::System.String value);
+        partial void OnOwnerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CounterCapacity
+        {
+            get
+            {
+                return _CounterCapacity;
+            }
+            set
+            {
+                OnCounterCapacityChanging(value);
+                ReportPropertyChanging("CounterCapacity");
+                _CounterCapacity = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CounterCapacity");
+                OnCounterCapacityChanged();
+            }
+        }
+        private global::System.String _CounterCapacity;
+        partial void OnCounterCapacityChanging(global::System.String value);
+        partial void OnCounterCapacityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Debt
+        {
+            get
+            {
+                return _Debt;
+            }
+            set
+            {
+                OnDebtChanging(value);
+                ReportPropertyChanging("Debt");
+                _Debt = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Debt");
+                OnDebtChanged();
+            }
+        }
+        private global::System.String _Debt;
+        partial void OnDebtChanging(global::System.String value);
+        partial void OnDebtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Payed
+        {
+            get
+            {
+                return _Payed;
+            }
+            set
+            {
+                OnPayedChanging(value);
+                ReportPropertyChanging("Payed");
+                _Payed = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Payed");
+                OnPayedChanged();
+            }
+        }
+        private global::System.String _Payed;
+        partial void OnPayedChanging(global::System.String value);
+        partial void OnPayedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Phone
+        {
+            get
+            {
+                return _Phone;
+            }
+            set
+            {
+                OnPhoneChanging(value);
+                ReportPropertyChanging("Phone");
+                _Phone = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Phone");
+                OnPhoneChanged();
+            }
+        }
+        private global::System.String _Phone;
+        partial void OnPhoneChanging(global::System.String value);
+        partial void OnPhoneChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RouteFormPoses_RouteForms", "RouteForms")]
+        public RouteForms RouteForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RouteForms>("AlphaDataBaseModel.FK_RouteFormPoses_RouteForms", "RouteForms").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RouteForms>("AlphaDataBaseModel.FK_RouteFormPoses_RouteForms", "RouteForms").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<RouteForms> RouteFormsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RouteForms>("AlphaDataBaseModel.FK_RouteFormPoses_RouteForms", "RouteForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RouteForms>("AlphaDataBaseModel.FK_RouteFormPoses_RouteForms", "RouteForms", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="RouteForms")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RouteForms : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RouteForms object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="street">Initial value of the Street property.</param>
+        /// <param name="building">Initial value of the Building property.</param>
+        public static RouteForms CreateRouteForms(global::System.Int32 id, global::System.String street, global::System.String building)
+        {
+            RouteForms routeForms = new RouteForms();
+            routeForms.ID = id;
+            routeForms.Street = street;
+            routeForms.Building = building;
+            return routeForms;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Street
+        {
+            get
+            {
+                return _Street;
+            }
+            set
+            {
+                OnStreetChanging(value);
+                ReportPropertyChanging("Street");
+                _Street = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Street");
+                OnStreetChanged();
+            }
+        }
+        private global::System.String _Street;
+        partial void OnStreetChanging(global::System.String value);
+        partial void OnStreetChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Building
+        {
+            get
+            {
+                return _Building;
+            }
+            set
+            {
+                OnBuildingChanging(value);
+                ReportPropertyChanging("Building");
+                _Building = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Building");
+                OnBuildingChanged();
+            }
+        }
+        private global::System.String _Building;
+        partial void OnBuildingChanging(global::System.String value);
+        partial void OnBuildingChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RouteFormPoses_RouteForms", "RouteFormPoses")]
+        public EntityCollection<RouteFormPoses> RouteFormPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RouteFormPoses>("AlphaDataBaseModel.FK_RouteFormPoses_RouteForms", "RouteFormPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RouteFormPoses>("AlphaDataBaseModel.FK_RouteFormPoses_RouteForms", "RouteFormPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_RouteForms_DecFormsUploadPoses", "DecFormsUploadPoses")]
+        public DecFormsUploadPoses DecFormsUploadPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses", "DecFormsUploadPoses").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses", "DecFormsUploadPoses").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DecFormsUploadPoses> DecFormsUploadPosesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses", "DecFormsUploadPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DecFormsUploadPoses>("AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses", "DecFormsUploadPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_RouteForms", "DecFormsUploadPoses")]
+        public EntityCollection<DecFormsUploadPoses> DecFormsUploadPos
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DecFormsUploadPoses>("AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms", "DecFormsUploadPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DecFormsUploadPoses>("AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms", "DecFormsUploadPoses", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="Services")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -15233,6 +17043,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Customers>("AlphaDataBaseModel.FK_Customers_Users", "Customers", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsUploads_Users", "DecFormsUploads")]
+        public EntityCollection<DecFormsUploads> DecFormsUploads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DecFormsUploads>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "DecFormsUploads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DecFormsUploads>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "DecFormsUploads", value);
                 }
             }
         }

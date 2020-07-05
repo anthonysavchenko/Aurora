@@ -275,17 +275,17 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
-      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Project>{8C62E512-6540-4BA6-860B-1AE6AE64821C}</Project>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
       <Project>{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}</Project>
-      <Name>SQLServerAccessProvider %28Taumis.EnterpriseLibrary.Infrastructure\SQLServerAccessProvider%29</Name>
+      <Name>SQLServerAccessProvider</Name>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Win\Common\Common.csproj">
       <Project>{E35914B3-8BB6-4BCB-A85A-516BF2252422}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Win\Common%29</Name>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ThirdParty\Microsoft.Practices\Microsoft.Practices.Win\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
       <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
@@ -306,15 +306,15 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Interface\Interface.csproj">
       <Project>{576D1311-BA67-4077-8489-7CFAD06965F5}</Project>
-      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+      <Name>Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Library\Library.csproj">
       <Project>{E2642606-8DA6-4411-8655-CC734359B165}</Project>
-      <Name>Library %28Taumis.Alpha.Infrastructure\Library%29</Name>
+      <Name>Library</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
       <Project>{01633058-914E-4C6C-BBE5-0793D90F3AC5}</Project>
-      <Name>SQLServerAccessProvider %28Taumis.Alpha.Infrastructure\SQLServerAccessProvider%29</Name>
+      <Name>SQLServerAccessProvider</Name>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Server\PrintForms\PrintForms.csproj">
@@ -323,7 +323,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{6AFB9F99-FB46-49D6-B9BC-3A7937A136C9}</Project>
-      <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
+      <Name>Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Layout\Layout.csproj">
       <Project>{FACF9718-A705-4D54-A38D-314F1BEFA205}</Project>
@@ -331,7 +331,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{E0D31CE8-A3AD-4BA5-AA23-0152750E42A0}</Project>
-      <Name>Library %28Taumis.Alpha.WinClient.Aurora\Library%29</Name>
+      <Name>Library</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Accounting\Bills\Bills.csproj">
       <Project>{c6775b8a-9ac7-484a-9a19-94030f29a46e}</Project>
@@ -339,7 +339,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Modules\Accounting\Charges\Charges.csproj">
       <Project>{09b1c60c-4cd5-4ae9-a9c1-109a304c56b0}</Project>
-      <Name>Charges %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Charges%29</Name>
+      <Name>Charges</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Accounting\Counters\Counters.csproj">
       <Project>{2c535c51-bde5-49ea-9b49-0e5b1bf99cac}</Project>
@@ -351,7 +351,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Modules\Accounting\Payments\Payments.csproj">
       <Project>{a5cd4f63-a6bb-4589-8acf-00b232539603}</Project>
-      <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Accounting\Payments%29</Name>
+      <Name>Payments</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\PrintForms\CounterValueCollectForm\CounterValueCollectForm.csproj">
       <Project>{0143d5d1-62be-46ce-82ce-8327e8339cc5}</Project>
@@ -423,7 +423,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Modules\Reports\Charges\Charges.csproj">
       <Project>{03b4e356-b424-46f8-98b4-ebfccc713f31}</Project>
-      <Name>Charges %28Taumis.Alpha.WinClient.Aurora\Modules\Reports\Charges%29</Name>
+      <Name>Charges</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Reports\DebtAgency\DebtAgency.csproj">
       <Project>{67dade6d-c523-452f-98f4-7a05d79777c2}</Project>
@@ -443,7 +443,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Modules\Reports\Payments\Payments.csproj">
       <Project>{34de1895-e259-4d9a-bda3-ea1fa575839c}</Project>
-      <Name>Payments %28Taumis.Alpha.WinClient.Aurora\Modules\Reports\Payments%29</Name>
+      <Name>Payments</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Reports\PreChargeReport\PreChargeReport.csproj">
       <Project>{0ab17c7d-1bf8-4437-b7b2-5e1695e2e7d0}</Project>
@@ -464,6 +464,18 @@
     <ProjectReference Include="..\Modules\Service\Settings\Settings.csproj">
       <Project>{7a533ba4-4d51-49f5-a5d5-5a615dac0688}</Project>
       <Name>Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Uploads\DecFormsUploads\DecFormsUploads.csproj">
+      <Project>{c42d410a-18e5-4bff-ad53-8a0ec033436f}</Project>
+      <Name>DecFormsUploads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Uploads\FillForms\FillForms.csproj">
+      <Project>{7ba3c271-0a46-47f3-a716-9be9780fde1c}</Project>
+      <Name>FillForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Uploads\RouteForms\RouteForms.csproj">
+      <Project>{eaadd934-ae65-440b-8682-91fa43df50b2}</Project>
+      <Name>RouteForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module\Module.csproj">
       <Project>{09CDE46C-0464-486D-B183-DAD497C7F19C}</Project>

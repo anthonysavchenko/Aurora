@@ -88,3 +88,6 @@
 /Alpha/WinClient/Modules/Reports/PreChargeReport/obj/Release
 Alpha/WinClient/Modules/Service/Processing/obj/
 /Alpha/WinClient/Modules/PrintForms/FillFormAndPrintFormDiff/obj
+Alpha/WinClient/Modules/Uploads/DecFormsUploads/obj
+Alpha/WinClient/Modules/Uploads/FillForms/obj
+Alpha/WinClient/Modules/Uploads/RouteForms/obj

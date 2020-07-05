@@ -117,5 +117,11 @@
     <Build Include="dbo\Tables\RechargePercentCorrections.sql" />
     <Build Include="dbo\Tables\CounterValueCollectDistricts.sql" />
     <Build Include="dbo\Tables\ElectricitySharedCounterVolumes.sql" />
+    <Build Include="dbo\Tables\DecFormsUploads.sql" />
+    <Build Include="dbo\Tables\DecFormsUploadPoses.sql" />
+    <Build Include="dbo\Tables\RouteForms.sql" />
+    <Build Include="dbo\Tables\RouteFormPoses.sql" />
+    <Build Include="dbo\Tables\FillForms.sql" />
+    <Build Include="dbo\Tables\FillFormPoses.sql" />
   </ItemGroup>
 </Project>

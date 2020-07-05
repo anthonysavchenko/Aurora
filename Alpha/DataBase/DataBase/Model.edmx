@@ -10,7 +10,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="BIK" Type="char" MaxLength="9" Nullable="false" />
           <Property Name="KPP" Type="varchar" MaxLength="9" />
           <Property Name="CorrAccount" Type="varchar" MaxLength="20" />
@@ -242,6 +242,28 @@
           <Property Name="Period" Type="date" Nullable="false" />
           <Property Name="CustomerID" Type="int" />
         </EntityType>
+        <EntityType Name="DecFormsUploadPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DecFormsUpload" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FormType" Type="tinyint" Nullable="false" />
+          <Property Name="RouteForm" Type="int" />
+          <Property Name="FillForm" Type="int" />
+          <Property Name="Error" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DecFormsUploads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Created" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Author" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="ElectricitySharedCounterVolumes">
           <Key>
             <PropertyRef Name="ID" />
@@ -250,6 +272,32 @@
           <Property Name="BuildingID" Type="int" Nullable="false" />
           <Property Name="Volume" Type="decimal" Precision="10" Scale="3" Nullable="false" />
           <Property Name="Period" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FillFormPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FillForm" Type="int" Nullable="false" />
+          <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CounterType" Type="tinyint" Nullable="false" />
+          <Property Name="CounterModel" Type="nvarchar" MaxLength="50" />
+          <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
+          <Property Name="PrevDate" Type="datetime2" Precision="0" />
+          <Property Name="PrevValue" Type="int" />
+          <Property Name="PrevDayValue" Type="int" />
+          <Property Name="PrevNightValue" Type="int" />
+          <Property Name="Account" Type="nvarchar" MaxLength="25" />
+          <Property Name="CounterCapacity" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="FillForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Building" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DecFormsUploadPos" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Intermediaries">
           <Key>
@@ -530,6 +578,36 @@
           <Property Name="OwnerRelationship" Type="tinyint" Nullable="false" />
           <Property Name="BenefitType" Type="int" />
           <Property Name="Customer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RouteFormPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RouteForm" Type="int" Nullable="false" />
+          <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CounterType" Type="tinyint" Nullable="false" />
+          <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
+          <Property Name="PrevDate" Type="datetime2" Precision="0" />
+          <Property Name="PrevValue" Type="int" />
+          <Property Name="PrevDayValue" Type="int" />
+          <Property Name="PrevNightValue" Type="int" />
+          <Property Name="Account" Type="nvarchar" MaxLength="25" />
+          <Property Name="Owner" Type="nvarchar" MaxLength="50" />
+          <Property Name="CounterCapacity" Type="nvarchar" MaxLength="2" />
+          <Property Name="Debt" Type="nvarchar" MaxLength="25" />
+          <Property Name="Payed" Type="nvarchar" MaxLength="25" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="25" />
+          <Property Name="Note" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="RouteForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Building" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DecFormsUploadPos" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Services">
           <Key>
@@ -1041,6 +1119,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DecFormsUploadPoses_DecFormsUploads">
+          <End Role="DecFormsUploads" Type="Self.DecFormsUploads" Multiplicity="1" />
+          <End Role="DecFormsUploadPoses" Type="Self.DecFormsUploadPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecFormsUploads">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DecFormsUploadPoses">
+              <PropertyRef Name="DecFormsUpload" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DecFormsUploadPoses_FillForms">
+          <End Role="FillForms" Type="Self.FillForms" Multiplicity="0..1" />
+          <End Role="DecFormsUploadPoses" Type="Self.DecFormsUploadPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FillForms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DecFormsUploadPoses">
+              <PropertyRef Name="FillForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DecFormsUploadPoses_RouteForms">
+          <End Role="RouteForms" Type="Self.RouteForms" Multiplicity="0..1" />
+          <End Role="DecFormsUploadPoses" Type="Self.DecFormsUploadPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteForms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DecFormsUploadPoses">
+              <PropertyRef Name="RouteForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DecFormsUploads_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="DecFormsUploads" Type="Self.DecFormsUploads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DecFormsUploads">
+              <PropertyRef Name="Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ElectricitySharedCounterVolumes_Buildings">
           <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
           <End Role="ElectricitySharedCounterVolumes" Type="Self.ElectricitySharedCounterVolumes" Multiplicity="*" />
@@ -1050,6 +1176,30 @@
             </Principal>
             <Dependent Role="ElectricitySharedCounterVolumes">
               <PropertyRef Name="BuildingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FillFormPoses_FillForms">
+          <End Role="FillForms" Type="Self.FillForms" Multiplicity="1" />
+          <End Role="FillFormPoses" Type="Self.FillFormPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FillForms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FillFormPoses">
+              <PropertyRef Name="FillForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FillForms_DecFormsUploadPoses">
+          <End Role="DecFormsUploadPoses" Type="Self.DecFormsUploadPoses" Multiplicity="1" />
+          <End Role="FillForms" Type="Self.FillForms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecFormsUploadPoses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FillForms">
+              <PropertyRef Name="DecFormsUploadPos" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1551,6 +1701,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RouteFormPoses_RouteForms">
+          <End Role="RouteForms" Type="Self.RouteForms" Multiplicity="1" />
+          <End Role="RouteFormPoses" Type="Self.RouteFormPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteForms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RouteFormPoses">
+              <PropertyRef Name="RouteForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteForms_DecFormsUploadPoses">
+          <End Role="DecFormsUploadPoses" Type="Self.DecFormsUploadPoses" Multiplicity="1" />
+          <End Role="RouteForms" Type="Self.RouteForms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecFormsUploadPoses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RouteForms">
+              <PropertyRef Name="DecFormsUploadPos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Services_ServiceTypes">
           <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="1" />
           <End Role="Services" Type="Self.Services" Multiplicity="*" />
@@ -1686,7 +1860,11 @@
           <EntitySet Name="CustomerPoses" EntityType="Self.CustomerPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DebtBillDocs" EntityType="Self.DebtBillDocs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DecFormsUploadPoses" EntityType="Self.DecFormsUploadPoses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DecFormsUploads" EntityType="Self.DecFormsUploads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ElectricitySharedCounterVolumes" EntityType="Self.ElectricitySharedCounterVolumes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FillFormPoses" EntityType="Self.FillFormPoses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FillForms" EntityType="Self.FillForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Intermediaries" EntityType="Self.Intermediaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OverpaymentCorrectionOperPoses" EntityType="Self.OverpaymentCorrectionOperPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OverpaymentCorrectionOpers" EntityType="Self.OverpaymentCorrectionOpers" Schema="dbo" store:Type="Tables" />
@@ -1712,6 +1890,8 @@
           <EntitySet Name="RegularBillDocSeviceTypePoses" EntityType="Self.RegularBillDocSeviceTypePoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegularBillDocSharedCounterPoses" EntityType="Self.RegularBillDocSharedCounterPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Residents" EntityType="Self.Residents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RouteFormPoses" EntityType="Self.RouteFormPoses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RouteForms" EntityType="Self.RouteForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
@@ -1863,9 +2043,33 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="DebtBillDocs" EntitySet="DebtBillDocs" />
           </AssociationSet>
+          <AssociationSet Name="FK_DecFormsUploadPoses_DecFormsUploads" Association="Self.FK_DecFormsUploadPoses_DecFormsUploads">
+            <End Role="DecFormsUploads" EntitySet="DecFormsUploads" />
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DecFormsUploadPoses_FillForms" Association="Self.FK_DecFormsUploadPoses_FillForms">
+            <End Role="FillForms" EntitySet="FillForms" />
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DecFormsUploadPoses_RouteForms" Association="Self.FK_DecFormsUploadPoses_RouteForms">
+            <End Role="RouteForms" EntitySet="RouteForms" />
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DecFormsUploads_Users" Association="Self.FK_DecFormsUploads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DecFormsUploads" EntitySet="DecFormsUploads" />
+          </AssociationSet>
           <AssociationSet Name="FK_ElectricitySharedCounterVolumes_Buildings" Association="Self.FK_ElectricitySharedCounterVolumes_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
             <End Role="ElectricitySharedCounterVolumes" EntitySet="ElectricitySharedCounterVolumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FillFormPoses_FillForms" Association="Self.FK_FillFormPoses_FillForms">
+            <End Role="FillForms" EntitySet="FillForms" />
+            <End Role="FillFormPoses" EntitySet="FillFormPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FillForms_DecFormsUploadPoses" Association="Self.FK_FillForms_DecFormsUploadPoses">
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+            <End Role="FillForms" EntitySet="FillForms" />
           </AssociationSet>
           <AssociationSet Name="FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers" Association="Self.FK_OverpaymentCorrectionOperPoses_OverpaymentCorrectionOpers">
             <End Role="OverpaymentCorrectionOpers" EntitySet="OverpaymentCorrectionOpers" />
@@ -2030,6 +2234,14 @@
           <AssociationSet Name="FK_Residents_Customers" Association="Self.FK_Residents_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Residents" EntitySet="Residents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteFormPoses_RouteForms" Association="Self.FK_RouteFormPoses_RouteForms">
+            <End Role="RouteForms" EntitySet="RouteForms" />
+            <End Role="RouteFormPoses" EntitySet="RouteFormPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteForms_DecFormsUploadPoses" Association="Self.FK_RouteForms_DecFormsUploadPoses">
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+            <End Role="RouteForms" EntitySet="RouteForms" />
           </AssociationSet>
           <AssociationSet Name="FK_Services_ServiceTypes" Association="Self.FK_Services_ServiceTypes">
             <End Role="ServiceTypes" EntitySet="ServiceTypes" />
@@ -2474,7 +2686,46 @@
           <AssociationSet Name="FK_ElectricitySharedCounterVolumes_Buildings" Association="AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
             <End Role="ElectricitySharedCounterVolumes" EntitySet="ElectricitySharedCounterVolumes" />
-          </AssociationSet></EntityContainer>
+          </AssociationSet>
+          <EntitySet Name="DecFormsUploads" EntityType="AlphaDataBaseModel.DecFormsUploads" />
+          <EntitySet Name="DecFormsUploadPoses" EntityType="AlphaDataBaseModel.DecFormsUploadPoses" />
+          <AssociationSet Name="FK_DecFormsUploadPoses_DecFormsUploads" Association="AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads">
+            <End Role="DecFormsUploads" EntitySet="DecFormsUploads" />
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+          </AssociationSet>
+          <EntitySet Name="FillFormPoses" EntityType="AlphaDataBaseModel.FillFormPoses" />
+          <EntitySet Name="FillForms" EntityType="AlphaDataBaseModel.FillForms" />
+          <AssociationSet Name="FK_FillForms_DecFormsUploadPoses" Association="AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses">
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+            <End Role="FillForms" EntitySet="FillForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FillFormPoses_FillForms" Association="AlphaDataBaseModel.FK_FillFormPoses_FillForms">
+            <End Role="FillForms" EntitySet="FillForms" />
+            <End Role="FillFormPoses" EntitySet="FillFormPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DecFormsUploadPoses_FillForms" Association="AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms">
+            <End Role="FillForms" EntitySet="FillForms" />
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+          </AssociationSet>
+          <EntitySet Name="RouteFormPoses" EntityType="AlphaDataBaseModel.RouteFormPoses" />
+          <EntitySet Name="RouteForms" EntityType="AlphaDataBaseModel.RouteForms" />
+          <AssociationSet Name="FK_RouteFormPoses_RouteForms" Association="AlphaDataBaseModel.FK_RouteFormPoses_RouteForms">
+            <End Role="RouteForms" EntitySet="RouteForms" />
+            <End Role="RouteFormPoses" EntitySet="RouteFormPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteForms_DecFormsUploadPoses" Association="AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses">
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+            <End Role="RouteForms" EntitySet="RouteForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DecFormsUploadPoses_RouteForms" Association="AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms">
+            <End Role="RouteForms" EntitySet="RouteForms" />
+            <End Role="DecFormsUploadPoses" EntitySet="DecFormsUploadPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DecFormsUploads_Users" Association="AlphaDataBaseModel.FK_DecFormsUploads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DecFormsUploads" EntitySet="DecFormsUploads" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="BenefitCorrectionOperPoses">
           <Key>
             <PropertyRef Name="ID" />
@@ -3076,6 +3327,7 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_Customers_Users" FromRole="Users" ToRole="Customers" />
+          <NavigationProperty Name="DecFormsUploads" Relationship="AlphaDataBaseModel.FK_DecFormsUploads_Users" FromRole="Users" ToRole="DecFormsUploads" />
         </EntityType>
         <Association Name="FK_BenefitCorrectionOperPoses_BenefitOpers">
           <End Role="BenefitCorrectionOpers" Type="AlphaDataBaseModel.BenefitCorrectionOpers" Multiplicity="1" />
@@ -3446,7 +3698,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="BIK" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
           <Property Name="KPP" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="CorrAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -3626,7 +3878,125 @@
               <PropertyRef Name="BuildingID" />
             </Dependent>
           </ReferentialConstraint>
-        </Association></Schema>
+        </Association>
+        <EntityType Name="DecFormsUploads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="DecFormsUploadPoses" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads" FromRole="DecFormsUploads" ToRole="DecFormsUploadPoses" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Author" Relationship="AlphaDataBaseModel.FK_DecFormsUploads_Users" FromRole="DecFormsUploads" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="DecFormsUploadPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FormType" Type="Byte" Nullable="false" />
+          <Property Name="Error" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DecFormsUploads" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads" FromRole="DecFormsUploadPoses" ToRole="DecFormsUploads" />
+          <NavigationProperty Name="FillForms" Relationship="AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses" FromRole="DecFormsUploadPoses" ToRole="FillForms" />
+          <NavigationProperty Name="FillForm" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms" FromRole="DecFormsUploadPoses" ToRole="FillForms" />
+          <NavigationProperty Name="RouteForms" Relationship="AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses" FromRole="DecFormsUploadPoses" ToRole="RouteForms" />
+          <NavigationProperty Name="RouteForm" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms" FromRole="DecFormsUploadPoses" ToRole="RouteForms" />
+        </EntityType>
+        <Association Name="FK_DecFormsUploadPoses_DecFormsUploads">
+          <End Type="AlphaDataBaseModel.DecFormsUploads" Role="DecFormsUploads" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.DecFormsUploadPoses" Role="DecFormsUploadPoses" Multiplicity="*" />
+        </Association>
+        <EntityType Name="FillFormPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Apartment" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CounterType" Type="Byte" Nullable="false" />
+          <Property Name="CounterModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PrevDate" Type="DateTime" Precision="0" />
+          <Property Name="PrevValue" Type="Int32" />
+          <Property Name="PrevDayValue" Type="Int32" />
+          <Property Name="PrevNightValue" Type="Int32" />
+          <Property Name="Account" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CounterCapacity" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FillForms" Relationship="AlphaDataBaseModel.FK_FillFormPoses_FillForms" FromRole="FillFormPoses" ToRole="FillForms" />
+        </EntityType>
+        <EntityType Name="FillForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DecFormsUploadPoses" Relationship="AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses" FromRole="FillForms" ToRole="DecFormsUploadPoses" />
+          <NavigationProperty Name="FillFormPoses" Relationship="AlphaDataBaseModel.FK_FillFormPoses_FillForms" FromRole="FillForms" ToRole="FillFormPoses" />
+          <NavigationProperty Name="DecFormsUploadPos" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms" FromRole="FillForms" ToRole="DecFormsUploadPoses" />
+        </EntityType>
+        <Association Name="FK_FillForms_DecFormsUploadPoses">
+          <End Type="AlphaDataBaseModel.DecFormsUploadPoses" Role="DecFormsUploadPoses" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.FillForms" Role="FillForms" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_FillFormPoses_FillForms">
+          <End Type="AlphaDataBaseModel.FillForms" Role="FillForms" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.FillFormPoses" Role="FillFormPoses" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_DecFormsUploadPoses_FillForms">
+          <End Type="AlphaDataBaseModel.FillForms" Role="FillForms" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.DecFormsUploadPoses" Role="DecFormsUploadPoses" Multiplicity="*" />
+        </Association>
+        <EntityType Name="RouteFormPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Apartment" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CounterType" Type="Byte" Nullable="false" />
+          <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PrevDate" Type="DateTime" Precision="0" />
+          <Property Name="PrevValue" Type="Int32" />
+          <Property Name="PrevDayValue" Type="Int32" />
+          <Property Name="PrevNightValue" Type="Int32" />
+          <Property Name="Account" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CounterCapacity" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Debt" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Payed" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RouteForms" Relationship="AlphaDataBaseModel.FK_RouteFormPoses_RouteForms" FromRole="RouteFormPoses" ToRole="RouteForms" />
+        </EntityType>
+        <EntityType Name="RouteForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RouteFormPoses" Relationship="AlphaDataBaseModel.FK_RouteFormPoses_RouteForms" FromRole="RouteForms" ToRole="RouteFormPoses" />
+          <NavigationProperty Name="DecFormsUploadPoses" Relationship="AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses" FromRole="RouteForms" ToRole="DecFormsUploadPoses" />
+          <NavigationProperty Name="DecFormsUploadPos" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms" FromRole="RouteForms" ToRole="DecFormsUploadPoses" />
+        </EntityType>
+        <Association Name="FK_RouteFormPoses_RouteForms">
+          <End Type="AlphaDataBaseModel.RouteForms" Role="RouteForms" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.RouteFormPoses" Role="RouteFormPoses" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_RouteForms_DecFormsUploadPoses">
+          <End Type="AlphaDataBaseModel.DecFormsUploadPoses" Role="DecFormsUploadPoses" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.RouteForms" Role="RouteForms" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_DecFormsUploadPoses_RouteForms">
+          <End Type="AlphaDataBaseModel.RouteForms" Role="RouteForms" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.DecFormsUploadPoses" Role="DecFormsUploadPoses" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_DecFormsUploads_Users">
+          <End Type="AlphaDataBaseModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.DecFormsUploads" Role="DecFormsUploads" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -4792,7 +5162,150 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
-          </EntitySetMapping></EntityContainerMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DecFormsUploads">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.DecFormsUploads">
+              <MappingFragment StoreEntitySet="DecFormsUploads">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DecFormsUploadPoses">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.DecFormsUploadPoses">
+              <MappingFragment StoreEntitySet="DecFormsUploadPoses">
+                <ScalarProperty Name="Error" ColumnName="Error" />
+                <ScalarProperty Name="FormType" ColumnName="FormType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FillFormPoses">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.FillFormPoses">
+              <MappingFragment StoreEntitySet="FillFormPoses">
+                <ScalarProperty Name="CounterCapacity" ColumnName="CounterCapacity" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="PrevNightValue" ColumnName="PrevNightValue" />
+                <ScalarProperty Name="PrevDayValue" ColumnName="PrevDayValue" />
+                <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
+                <ScalarProperty Name="PrevDate" ColumnName="PrevDate" />
+                <ScalarProperty Name="CounterNumber" ColumnName="CounterNumber" />
+                <ScalarProperty Name="CounterModel" ColumnName="CounterModel" />
+                <ScalarProperty Name="CounterType" ColumnName="CounterType" />
+                <ScalarProperty Name="Apartment" ColumnName="Apartment" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FillForms">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.FillForms">
+              <MappingFragment StoreEntitySet="FillForms">
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_FillForms_DecFormsUploadPoses" TypeName="AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses" StoreEntitySet="FillForms">
+            <EndProperty Name="FillForms">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="DecFormsUploadPoses">
+              <ScalarProperty Name="ID" ColumnName="DecFormsUploadPos" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_DecFormsUploadPoses_FillForms" TypeName="AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms" StoreEntitySet="DecFormsUploadPoses">
+            <EndProperty Name="DecFormsUploadPoses">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="FillForms">
+              <ScalarProperty Name="ID" ColumnName="FillForm" />
+            </EndProperty>
+            <Condition ColumnName="FillForm" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="RouteFormPoses">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.RouteFormPoses">
+              <MappingFragment StoreEntitySet="RouteFormPoses">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Payed" ColumnName="Payed" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="CounterCapacity" ColumnName="CounterCapacity" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="PrevNightValue" ColumnName="PrevNightValue" />
+                <ScalarProperty Name="PrevDayValue" ColumnName="PrevDayValue" />
+                <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
+                <ScalarProperty Name="PrevDate" ColumnName="PrevDate" />
+                <ScalarProperty Name="CounterNumber" ColumnName="CounterNumber" />
+                <ScalarProperty Name="CounterType" ColumnName="CounterType" />
+                <ScalarProperty Name="Apartment" ColumnName="Apartment" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouteForms">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.RouteForms">
+              <MappingFragment StoreEntitySet="RouteForms">
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_RouteForms_DecFormsUploadPoses" TypeName="AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses" StoreEntitySet="RouteForms">
+            <EndProperty Name="RouteForms">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="DecFormsUploadPoses">
+              <ScalarProperty Name="ID" ColumnName="DecFormsUploadPos" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_DecFormsUploadPoses_RouteForms" TypeName="AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms" StoreEntitySet="DecFormsUploadPoses">
+            <EndProperty Name="DecFormsUploadPoses">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="RouteForms">
+              <ScalarProperty Name="ID" ColumnName="RouteForm" />
+            </EndProperty>
+            <Condition ColumnName="RouteForm" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_DecFormsUploadPoses_DecFormsUploads" TypeName="AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads" StoreEntitySet="DecFormsUploadPoses">
+            <EndProperty Name="DecFormsUploadPoses">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="DecFormsUploads">
+              <ScalarProperty Name="ID" ColumnName="DecFormsUpload" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_RouteFormPoses_RouteForms" TypeName="AlphaDataBaseModel.FK_RouteFormPoses_RouteForms" StoreEntitySet="RouteFormPoses">
+            <EndProperty Name="RouteFormPoses">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="RouteForms">
+              <ScalarProperty Name="ID" ColumnName="RouteForm" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_FillFormPoses_FillForms" TypeName="AlphaDataBaseModel.FK_FillFormPoses_FillForms" StoreEntitySet="FillFormPoses">
+            <EndProperty Name="FillFormPoses">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="FillForms">
+              <ScalarProperty Name="ID" ColumnName="FillForm" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_DecFormsUploads_Users" TypeName="AlphaDataBaseModel.FK_DecFormsUploads_Users" StoreEntitySet="DecFormsUploads">
+            <EndProperty Name="DecFormsUploads">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="ID" ColumnName="Author" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -4839,7 +5352,7 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.OverpaymentOperPoses" Width="1.5" PointX="5.25" PointY="34.25" Height="1.9802864583333388" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.OverpaymentOpers" Width="2.875" PointX="3" PointY="45" Height="2.3648893229166674" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentCorrectionOperPoses" Width="1.5" PointX="5.25" PointY="25.375" Height="1.7879850260416674" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentCorrectionOpers" Width="3.125" PointX="3" PointY="5" Height="2.3648893229166674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentCorrectionOpers" Width="3.125" PointX="3.75" PointY="5" Height="2.3648893229166674" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentOperPoses" Width="2.625" PointX="11.25" PointY="28.25" Height="1.9802864583333317" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentOpers" Width="2.25" PointX="0.5" PointY="4.875" Height="2.7494921874999996" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PaymentSets" Width="1.5" PointX="1.5" PointY="0.75" Height="2.9417936197916665" IsExpanded="true" />
@@ -5428,6 +5941,40 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CounterValueCollectDistricts" Width="1.5" PointX="6.5" PointY="0.875" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Buildings_CounterValueCollectDistricts" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.ElectricitySharedCounterVolumes" Width="1.5" PointX="3" PointY="73" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings" /></edmx:Diagram></edmx:Diagrams>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_ElectricitySharedCounterVolumes_Buildings" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.DecFormsUploads" Width="2" PointX="14.5" PointY="0.625" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.DecFormsUploadPoses" Width="2" PointX="14.5" PointY="3.5" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DecFormsUploadPoses_DecFormsUploads" ManuallyRouted="false" >
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.FillFormPoses" Width="2" PointX="17.125" PointY="6.5" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.FillForms" Width="2" PointX="17.125" PointY="3.5" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormPoses_FillForms" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RouteFormPoses" Width="2" PointX="11.875" PointY="6.5" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RouteForms" Width="2" PointX="11.875" PointY="3.5" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteFormPoses_RouteForms" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DecFormsUploads_Users" ManuallyRouted="true" >
+          <edmx:ConnectorPoint PointX="2.8593779999999995" PointY="55.5" />
+          <edmx:ConnectorPoint PointX="2.8593779999999995" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="3.0416666666666665" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="3.3958333333333335" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="3.5416666666666665" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="3.8333333333333335" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="6.260416666666667" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="6.427083333333333" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="13.25" PointY="55.125" />
+          <edmx:ConnectorPoint PointX="13.25" PointY="30.480286458333339" />
+          <edmx:ConnectorPoint PointX="13.020833333333334" PointY="30.480286458333339" />
+          <edmx:ConnectorPoint PointX="12.854166666666666" PointY="30.480286458333339" />
+          <edmx:ConnectorPoint PointX="11.208333333333334" PointY="30.480286458333339" />
+          <edmx:ConnectorPoint PointX="10.979166666666666" PointY="30.480286458333339" />
+          <edmx:ConnectorPoint PointX="10.432291666666668" PointY="30.480286458333339" />
+          <edmx:ConnectorPoint PointX="10.432291666666668" PointY="1.7435549391719427" />
+          <edmx:ConnectorPoint PointX="14.5" PointY="1.7435549391719427" />
+        </edmx:AssociationConnector>
+        </edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

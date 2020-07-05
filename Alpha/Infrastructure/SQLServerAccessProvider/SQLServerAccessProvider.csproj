@@ -64,8 +64,14 @@
     </Compile>
     <Compile Include="DataMappers\Doc\CustomerPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DebtBillDocDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\DecFormsUploadPosDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\FillFormDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\FillFormPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\PaymentSetDataMapper.cs" />
     <Compile Include="DataMappers\Doc\BillSetDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\RouteFormPosDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\RouteFormDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\DecFormsUploadDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RechargeSetDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RegularBillDocCounterPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RegularBillDocDataMapper.cs" />
@@ -121,13 +127,13 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
-      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Project>{8C62E512-6540-4BA6-860B-1AE6AE64821C}</Project>
+      <Name>Common</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\SQLServerAccessProvider\SQLServerAccessProvider.csproj">
       <Project>{D1CE4803-EF0A-40B7-BB2C-7153C63F5FE0}</Project>
-      <Name>SQLServerAccessProvider %28Taumis.EnterpriseLibrary.Infrastructure\SQLServerAccessProvider%29</Name>
+      <Name>SQLServerAccessProvider</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\DataBase\DataBase\DataBase.csproj">
@@ -137,7 +143,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{576D1311-BA67-4077-8489-7CFAD06965F5}</Project>
-      <Name>Interface %28Taumis.Alpha.Infrastructure\Interface%29</Name>
+      <Name>Interface</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

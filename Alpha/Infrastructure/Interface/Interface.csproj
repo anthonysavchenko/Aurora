@@ -106,9 +106,14 @@
     <Compile Include="BusinessEntities\Doc\Common\ITransDoc.cs" />
     <Compile Include="BusinessEntities\Doc\Common\TransDoc.cs" />
     <Compile Include="BusinessEntities\Doc\DebtBillDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\DecFormsUploadPos.cs" />
+    <Compile Include="BusinessEntities\Doc\FillForm.cs" />
+    <Compile Include="BusinessEntities\Doc\FillFormPos.cs" />
     <Compile Include="BusinessEntities\Doc\PaymentSet.cs" />
     <Compile Include="BusinessEntities\Doc\Bill.cs" />
     <Compile Include="BusinessEntities\Doc\BillSet.cs" />
+    <Compile Include="BusinessEntities\Doc\RouteForm.cs" />
+    <Compile Include="BusinessEntities\Doc\RouteFormPos.cs" />
     <Compile Include="BusinessEntities\Doc\RechargeSet.cs" />
     <Compile Include="BusinessEntities\Doc\RegularBillDoc.cs" />
     <Compile Include="BusinessEntities\Doc\RegularBillDocCounterPos.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="BusinessEntities\Oper\PaymentOperPos.cs" />
     <Compile Include="BusinessEntities\Oper\RechargeOper.cs" />
     <Compile Include="BusinessEntities\Oper\RechargeOperPos.cs" />
+    <Compile Include="BusinessEntities\Doc\DecFormsUpload.cs" />
     <Compile Include="BusinessEntities\RefBooks\BankDetail.cs" />
     <Compile Include="BusinessEntities\RefBooks\BenefitType.cs" />
     <Compile Include="BusinessEntities\RefBooks\Building.cs" />
@@ -200,8 +206,11 @@
     <Compile Include="Enums\BenefitRuleType.cs" />
     <Compile Include="Enums\BillType.cs" />
     <Compile Include="Enums\ChargeRuleType.cs" />
+    <Compile Include="Enums\FillFormCounterType.cs" />
+    <Compile Include="Enums\DecFormsType.cs" />
     <Compile Include="Enums\OperationType.cs" />
     <Compile Include="Enums\OwnerType.cs" />
+    <Compile Include="Enums\RouteFormCounterType.cs" />
     <Compile Include="ExtensionMethods\BalanceDictionaryExtension.cs" />
     <Compile Include="ExtensionMethods\DictionaryExtension.cs" />
     <Compile Include="Models\Address.cs" />
@@ -263,8 +272,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
-      <Project>{0D70C472-39BF-4ECA-AAA1-722DBBD2EBBD}</Project>
-      <Name>Common %28Taumis.EnterpriseLibrary.Infrastructure\Common%29</Name>
+      <Project>{8C62E512-6540-4BA6-860B-1AE6AE64821C}</Project>
+      <Name>Common</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
