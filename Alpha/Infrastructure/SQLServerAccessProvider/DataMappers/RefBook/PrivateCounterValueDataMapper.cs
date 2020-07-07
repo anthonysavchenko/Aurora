@@ -13,24 +13,6 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
         #region Overrides of BaseDataMapper
 
         /// <summary>
-        /// Проверяет существование представления объекта в БД
-        /// </summary>
-        /// <param name="obj">Объект домена</param>
-        /// <returns>true если объект найден в БД, иначе - false</returns>
-        public override bool checkExistance(IDomainObject obj)
-        {
-            bool _result;
-            int _domainId = int.Parse(obj.ID);
-
-            using (Entities _entities = new Entities())
-            {
-                _result = null != _entities.PrivateCounterValues.FirstOrDefault(p => p.ID == _domainId);
-            }
-
-            return _result;
-        }
-
-        /// <summary>
         /// Преобразовавает объект домена в объект прокси БД
         /// </summary>
         /// <param name="domObj">Объект домена</param>
@@ -52,8 +34,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                     _dbItem = _entities.PrivateCounterValues.First(p => p.ID == _id);
                 }
 
-                _dbItem.CollectDate = domObj.CollectDate;
-                _dbItem.Period = domObj.Period;
+                _dbItem.Month = domObj.Month;
                 _dbItem.Value = domObj.Value;
 
                 int _tempId = int.Parse(domObj.PrivateCounter.ID);
@@ -83,14 +64,31 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                         .Include("PrivateCounters")
                         .First(x => x.ID == _id);
 
-                _domItem.CollectDate = _dbItem.CollectDate;
-                _domItem.Period = _dbItem.Period;
+                _domItem.Month = _dbItem.Month;
                 _domItem.Value = _dbItem.Value;
                 _domItem.PrivateCounter =
                     (DomPrivateCounter)DataMapperService.get(typeof(DomPrivateCounter)).find(_dbItem.PrivateCounters.ID.ToString());
             }
 
             return _domItem;
+        }
+
+        /// <summary>
+        /// Проверяет существование представления объекта в БД
+        /// </summary>
+        /// <param name="obj">Объект домена</param>
+        /// <returns>true если объект найден в БД, иначе - false</returns>
+        public override bool checkExistance(IDomainObject obj)
+        {
+            bool _result;
+            int _domainId = int.Parse(obj.ID);
+
+            using (Entities _entities = new Entities())
+            {
+                _result = null != _entities.PrivateCounterValues.FirstOrDefault(p => p.ID == _domainId);
+            }
+
+            return _result;
         }
 
         #endregion

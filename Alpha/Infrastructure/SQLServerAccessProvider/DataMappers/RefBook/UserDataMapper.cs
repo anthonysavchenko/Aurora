@@ -83,7 +83,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
             using (Entities _entities = new Entities())
             {
-                foreach (var _user in _entities.Users.Where(u => !u.Customers.Any()))
+                foreach (var _user in _entities.Users)
                 {
                     _table.Rows.Add(
                         _user.ID.ToString(),
@@ -120,10 +120,6 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _dbItem.Login = domObj.Login;
                 _dbItem.Password = domObj.Password;
                 _dbItem.Aka = domObj.Aka;
-                _dbItem.SecurityStamp = domObj.SecurityStamp;
-                _dbItem.LockoutEndDateUtc = domObj.LockoutEndDateUtc;
-                _dbItem.LockoutEnabled = domObj.LockoutEnabled;
-                _dbItem.AccessFailedCount = domObj.AccessFailedCount;
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -151,10 +147,6 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _domItem.Login = _dbItem.Login;
                 _domItem.Password = _dbItem.Password;
                 _domItem.Aka = _dbItem.Aka;
-                _domItem.SecurityStamp = _dbItem.SecurityStamp;
-                _domItem.LockoutEndDateUtc = _dbItem.LockoutEndDateUtc;
-                _domItem.LockoutEnabled = _dbItem.LockoutEnabled;
-                _domItem.AccessFailedCount = _dbItem.AccessFailedCount;
             }
 
             return _domItem;

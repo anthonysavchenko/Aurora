@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+﻿using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
@@ -60,47 +59,6 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             {
                 Load();
                 _customer = value;
-            }
-        }
-
-        private Service _service;
-        /// <summary>
-        /// Услуга
-        /// </summary>
-        public Service Service
-        {
-            get
-            {
-                Load();
-                return _service;
-            }
-            set
-            {
-                Load();
-                _service = value;
-            }
-        }
-
-        /// <summary>
-        /// Значения/показания
-        /// </summary>
-        public Dictionary<string, PrivateCounterValue> Values { get; } = new Dictionary<string, PrivateCounterValue>();
-
-        private bool _archived;
-        /// <summary>
-        /// Признак архивности
-        /// </summary>
-        public bool Archived
-        {
-            get
-            {
-                Load();
-                return _archived;
-            }
-            set
-            {
-                Load();
-                _archived = value;
             }
         }
     }

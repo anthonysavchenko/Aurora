@@ -1,6 +1,4 @@
-﻿using Taumis.Alpha.WinClient.Aurora.Interface.Services;
-using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
-using Taumis.Alpha.WinClient.Aurora.Library.Services;
+﻿using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.Views.Layout;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.Views.Report;

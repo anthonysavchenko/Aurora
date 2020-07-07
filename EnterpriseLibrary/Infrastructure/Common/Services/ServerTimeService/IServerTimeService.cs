@@ -9,11 +9,6 @@
         /// Возвращает информацию о текущем периоде, дате-времени
         /// </summary>
         DateTimeInfo GetDateTimeInfo();
-
-        /// <summary>
-        /// Возвращает информацию о последних начисленном и неначисленном периоде
-        /// </summary>
-        PeriodInfo GetPeriodInfo();
     }
 
     /// <summary>

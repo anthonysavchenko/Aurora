@@ -70,7 +70,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\BillService.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Views\AuthenticationView\AuthenticationView.cs">
       <SubType>Form</SubType>

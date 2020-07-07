@@ -58,72 +58,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataMappers\Doc\ChargeSetDataMapper.cs" />
     <Compile Include="DataMappers\Doc\CustomerDataMapper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataMappers\Doc\CustomerPosDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\DebtBillDocDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DecFormsUploadPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\FillFormDataMapper.cs" />
     <Compile Include="DataMappers\Doc\FillFormPosDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\PaymentSetDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\BillSetDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RouteFormPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RouteFormDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DecFormsUploadDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\RechargeSetDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\RegularBillDocCounterPosDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\RegularBillDocDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\RegularBillDocSeviceTypePosDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\RegularBillDocSharedCounterPosDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\TotalBillDocDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\TotalBillDocPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\BenefitOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\BenefitOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\ChargeOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\ChargeOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\ChargeCorrectionOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\ChargeCorrectionOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\BenefitCorrectionOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\BenefitCorrectionOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\RebenefitOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\RebenefitOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\OverpaymentCorrectionOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\OverpaymentCorrectionOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\OverpaymentOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\OverpaymentOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\PaymentCorrectionOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\PaymentCorrectionOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\PaymentOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\PaymentOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\RechargeOperDataMapper.cs" />
-    <Compile Include="DataMappers\Oper\RechargeOperPosDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\BankDetailDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\BenefitTypeDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\BuildingDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\CommonCounterCoefficientDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\CommonCounterDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\CommonCounterValueDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\ContractorDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\CounterValueCollectDistrictDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\ElectricitySharedCounterVolumeDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\IntermediaryDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterValueDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\PublicPlaceDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\PublicPlaceServiceVolumeDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\RechargePercentCorrectionDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\ResidentDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\ServiceDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\ServiceTypeDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\StreetDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\UserDataMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\GetCustomerBalancesGroupedByPeriodQuery.cs" />
-    <Compile Include="Queries\GetLastChargedPeriodBalanceQuery.cs" />
     <Compile Include="Queries\GetNowDateTimeQuery.cs" />
-    <Compile Include="Queries\GetServicesForComboBoxQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
@@ -147,6 +96,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -30,107 +30,62 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Views.Layout
         }
 
         /// <summary>
-        /// Коэффициент расчета пени
-        /// </summary>
-        public decimal FineCoefficient
-        {
-            get
-            {
-                return fineCoefficientNumericUpDown.Value;
-            }
-            set
-            {
-                fineCoefficientNumericUpDown.Value = value;
-            }
-        }
-
-        /// <summary>
         /// Адрес SMTP сервера
         /// </summary>
-        public string SmtpServer
+        public string Server
         {
             get
             {
-                return smtpServerTextBox.Text;
+                return ServerTextBox.Text;
             }
             set
             {
-                smtpServerTextBox.Text = value;
+                ServerTextBox.Text = value;
             }
         }
 
         /// <summary>
         /// Порт SMTP сервера
         /// </summary>
-        public int SmtpServerPort
+        public int ServerPort
         {
             get
             {
-                return (int)portNumericUpDown.Value;
+                return (int)PortNumericUpDown.Value;
             }
             set
             {
-                portNumericUpDown.Value = value;
+                PortNumericUpDown.Value = value;
             }
         }
 
         /// <summary>
         /// Логин для входа на SMTP Сервер
         /// </summary>
-        public string SmtpServerLogin
+        public string ServerLogin
         {
             get
             {
-                return loginTextBox.Text;
+                return LoginTextBox.Text;
             }
             set
             {
-                loginTextBox.Text = value;
+                LoginTextBox.Text = value;
             }
         }
 
         /// <summary>
         /// Пароль для входа на SMTP Сервер
         /// </summary>
-        public string SmtpServerPassword
+        public string ServerPassword
         {
             get
             {
-                return passwordTextBox.Text;
+                return PasswordTextBox.Text;
             }
             set
             {
-                passwordTextBox.Text = value;
-            }
-        }
-
-        /// <summary>
-        /// Имя отправителя
-        /// </summary>
-        public string SenderName
-        {
-            get
-            {
-                return senderTextBox.Text;
-            }
-            set
-            {
-                senderTextBox.Text = value;
-            }
-        }
-
-        /// <summary>
-        /// Email отправителя
-        /// </summary>
-        public string SenderEmail
-        {
-            get
-            {
-                return emailTextBox.Text;
-            }
-            set
-            {
-                emailTextBox.Text = value;
+                PasswordTextBox.Text = value;
             }
         }
 

@@ -4,43 +4,25 @@ using Taumis.EnterpriseLibrary.Win;
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
 {
     /// <summary>
-    /// Показания частных счетчиков
+    /// Показания индивидуальных приборов учета
     /// </summary>
     public class PrivateCounterValue : DomainObject
     {
-        private DateTime _collectDate;
-        /// <summary>
-        /// Дата сбора показаний
-        /// </summary>
-        public DateTime CollectDate
-        {
-            get
-            {
-                Load();
-                return _collectDate;
-            }
-            set
-            {
-                Load();
-                _collectDate = value;
-            }
-        }
-
-        private DateTime _period;
+        private DateTime _month;
         /// <summary>
         /// Период
         /// </summary>
-        public DateTime Period
+        public DateTime Month
         {
             get
             {
                 Load();
-                return _period;
+                return _month;
             }
             set
             {
                 Load();
-                _period = value;
+                _month = value;
             }
         }
 

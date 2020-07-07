@@ -67,32 +67,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Layout
                 {
                     switch (_setting.Name)
                     {
-                        case SettingNames.FINE_COEFFICIENT_NAME:
-                            _setting.Value = View.FineCoefficient.ToString();
-                            break;
-
                         case SettingNames.SMTP_SERVER:
-                            _setting.Value = View.SmtpServer;
+                            _setting.Value = View.Server;
                             break;
 
                         case SettingNames.SMTP_PORT:
-                            _setting.Value = View.SmtpServerPort.ToString();
+                            _setting.Value = View.ServerPort.ToString();
                             break;
 
                         case SettingNames.SMTP_LOGIN:
-                            _setting.Value = View.SmtpServerLogin;
+                            _setting.Value = View.ServerLogin;
                             break;
 
                         case SettingNames.SMTP_PASSWORD:
-                            _setting.Value = View.SmtpServerPassword;
-                            break;
-
-                        case SettingNames.SMTP_SENDER_NAME:
-                            _setting.Value = View.SenderName;
-                            break;
-
-                        case SettingNames.SMTP_SENDER_EMAIL:
-                            _setting.Value = View.SenderEmail;
+                            _setting.Value = View.ServerPassword;
                             break;
 
                         case SettingNames.BACKUP_PATH:
@@ -121,32 +109,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Layout
             {
                 switch (_setting.Name)
                 {
-                    case SettingNames.FINE_COEFFICIENT_NAME:
-                        View.FineCoefficient = decimal.Parse(_setting.Value);
-                        break;
-
                     case SettingNames.SMTP_SERVER:
-                        View.SmtpServer = _setting.Value;
+                        View.Server = _setting.Value;
                         break;
 
                     case SettingNames.SMTP_PORT:
-                        View.SmtpServerPort = int.Parse(_setting.Value);
+                        View.ServerPort = int.Parse(_setting.Value);
                         break;
 
                     case SettingNames.SMTP_LOGIN:
-                        View.SmtpServerLogin = _setting.Value;
+                        View.ServerLogin = _setting.Value;
                         break;
 
                     case SettingNames.SMTP_PASSWORD:
-                        View.SmtpServerPassword = _setting.Value;
-                        break;
-
-                    case SettingNames.SMTP_SENDER_NAME:
-                        View.SenderName = _setting.Value;
-                        break;
-
-                    case SettingNames.SMTP_SENDER_EMAIL:
-                        View.SenderEmail = _setting.Value;
+                        View.ServerPassword = _setting.Value;
                         break;
 
                     case SettingNames.BACKUP_PATH:
