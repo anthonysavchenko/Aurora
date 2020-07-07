@@ -25,6 +25,8 @@
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Users.dll" />
       
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.dll" />
+
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersVolumes.dll" />
       
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.FillForms.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.RouteForms.dll" />

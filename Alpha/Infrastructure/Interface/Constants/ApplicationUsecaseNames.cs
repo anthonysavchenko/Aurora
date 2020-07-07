@@ -39,5 +39,10 @@
         /// Формы для заполнения.
         /// </summary>
         public const string FILL_FORMS = "usecase://Uploads/FillForms";
+
+        /// <summary>
+        /// Объемы потребления по ИПУ.
+        /// </summary>
+        public const string PRIVATE_COUNTERS_VOLUMES = "usecase://Reports/RrivateCountersVolumes";
     }
 }

@@ -341,13 +341,9 @@
       <Project>{8cbfc566-7ef2-4434-80be-ca9472aa0068}</Project>
       <Name>Users</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modules\Reports\Charges\Charges.csproj">
-      <Project>{03b4e356-b424-46f8-98b4-ebfccc713f31}</Project>
-      <Name>Charges</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Modules\Reports\Payments\Payments.csproj">
-      <Project>{34de1895-e259-4d9a-bda3-ea1fa575839c}</Project>
-      <Name>Payments</Name>
+    <ProjectReference Include="..\Modules\Reports\PrivateCountersVolumes\PrivateCountersVolumes.csproj">
+      <Project>{cafe202e-924c-427e-a2ba-9cc205c9b430}</Project>
+      <Name>PrivateCountersVolumes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Service\Processing\Processing.csproj">
       <Project>{e0312fdc-7d3e-4d23-a37a-9e470ec006bb}</Project>
