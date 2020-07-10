@@ -34,6 +34,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WizardView));
             this.WizardControl = new DevExpress.XtraWizard.WizardControl();
             this.ProcessingWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.ProgressLabel = new System.Windows.Forms.Label();
             this.ProgressBarControl = new DevExpress.XtraEditors.ProgressBarControl();
             this.ChooseDirectoryWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.MonthLabel = new DevExpress.XtraEditors.LabelControl();
@@ -78,7 +79,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.ProcessingWizardPage,
             this.FinishWizardPage});
             this.WizardControl.PreviousText = "< &Назад";
-            this.WizardControl.Size = new System.Drawing.Size(890, 642);
+            this.WizardControl.Size = new System.Drawing.Size(854, 574);
             this.WizardControl.Text = "Мастер загрузки файлов";
             this.WizardControl.UseAcceptButton = false;
             this.WizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.PaymentWizardControl_SelectedPageChanged);
@@ -91,19 +92,33 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.ProcessingWizardPage.AllowBack = false;
             this.ProcessingWizardPage.AllowCancel = false;
             this.ProcessingWizardPage.AllowNext = false;
+            this.ProcessingWizardPage.Controls.Add(this.ProgressLabel);
             this.ProcessingWizardPage.Controls.Add(this.ProgressBarControl);
             this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания обработки данных...";
             this.ProcessingWizardPage.Name = "ProcessingWizardPage";
-            this.ProcessingWizardPage.Size = new System.Drawing.Size(858, 497);
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(822, 429);
             this.ProcessingWizardPage.Text = "Обработка данных";
+            // 
+            // ProgressLabel
+            // 
+            this.ProgressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProgressLabel.Location = new System.Drawing.Point(43, 35);
+            this.ProgressLabel.Name = "ProgressLabel";
+            this.ProgressLabel.Size = new System.Drawing.Size(725, 21);
+            this.ProgressLabel.TabIndex = 2;
+            this.ProgressLabel.Text = "Обработка данных...";
+            this.ProgressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ProgressBarControl
             // 
             this.ProgressBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProgressBarControl.Location = new System.Drawing.Point(43, 32);
+            this.ProgressBarControl.Location = new System.Drawing.Point(43, 59);
             this.ProgressBarControl.Name = "ProgressBarControl";
-            this.ProgressBarControl.Size = new System.Drawing.Size(761, 26);
+            this.ProgressBarControl.Properties.ShowTitle = true;
+            this.ProgressBarControl.ShowProgressInTaskBar = true;
+            this.ProgressBarControl.Size = new System.Drawing.Size(725, 26);
             this.ProgressBarControl.TabIndex = 0;
             // 
             // ChooseDirectoryWizardPage
@@ -116,7 +131,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.ChooseDirectoryWizardPage.Controls.Add(this.DirectoryButtonEdit);
             this.ChooseDirectoryWizardPage.DescriptionText = resources.GetString("ChooseDirectoryWizardPage.DescriptionText");
             this.ChooseDirectoryWizardPage.Name = "ChooseDirectoryWizardPage";
-            this.ChooseDirectoryWizardPage.Size = new System.Drawing.Size(858, 497);
+            this.ChooseDirectoryWizardPage.Size = new System.Drawing.Size(822, 429);
             this.ChooseDirectoryWizardPage.Text = "Загрузка файлов в формате \"Маршрутный лист\" и \"Форма для заполнения\".";
             // 
             // MonthLabel
@@ -135,7 +150,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.NoteTextBox.MaxLength = 250;
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
-            this.NoteTextBox.Size = new System.Drawing.Size(775, 47);
+            this.NoteTextBox.Size = new System.Drawing.Size(739, 47);
             this.NoteTextBox.TabIndex = 10;
             // 
             // MonthDateEdit
@@ -186,7 +201,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.DirectoryButtonEdit.Name = "DirectoryButtonEdit";
             this.DirectoryButtonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.DirectoryButtonEdit.Size = new System.Drawing.Size(562, 20);
+            this.DirectoryButtonEdit.Size = new System.Drawing.Size(526, 20);
             this.DirectoryButtonEdit.TabIndex = 38;
             this.DirectoryButtonEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.FileOpenButtonEdit_ButtonClick);
             // 
@@ -204,7 +219,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.FinishWizardPage.Controls.Add(this.RouteFormsCountLabel);
             this.FinishWizardPage.DescriptionText = "Для окончания нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
-            this.FinishWizardPage.Size = new System.Drawing.Size(858, 497);
+            this.FinishWizardPage.Size = new System.Drawing.Size(822, 429);
             this.FinishWizardPage.Text = "Обработка данных завершена";
             // 
             // FillFormsCountValueLabel
@@ -285,7 +300,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.WizardControl);
             this.Name = "WizardView";
-            this.Size = new System.Drawing.Size(890, 642);
+            this.Size = new System.Drawing.Size(854, 574);
             ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).EndInit();
             this.WizardControl.ResumeLayout(false);
             this.ProcessingWizardPage.ResumeLayout(false);
@@ -322,6 +337,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
         private DevExpress.XtraEditors.LabelControl MonthLabel;
         private DevExpress.XtraEditors.LabelControl FillFormsCountValueLabel;
         private DevExpress.XtraEditors.LabelControl PrintFormsCountLabel;
+        private System.Windows.Forms.Label ProgressLabel;
     }
 }
 

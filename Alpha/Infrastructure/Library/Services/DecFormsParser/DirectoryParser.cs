@@ -12,7 +12,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
         static public void ParseDirectoryAsync(
             string directory,
             DecFormsUploads upload,
-            Action OnProgress,
+            Action<int> OnProgress,
             Action<DirectoryParsingResult> OnCompleted)
         {
             BackgroundWorker worker = new BackgroundWorker()
@@ -22,7 +22,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
 
             worker.ProgressChanged += (sender, args) =>
             {
-                OnProgress();
+                OnProgress(args.ProgressPercentage);
             };
 
             worker.RunWorkerCompleted += (sender, args) =>
@@ -41,7 +41,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
         static public DirectoryParsingResult ParseDirectory(
             string directory,
             DecFormsUploads upload,
-            Action<int> setProgressPercents)
+            Action<int> SetProgressPercents)
         {
             DirectoryParsingResult result = new DirectoryParsingResult();
             Excel2007Worker worker = new Excel2007Worker();
@@ -96,7 +96,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
                     worker.Close();
                 }
 
-                setProgressPercents((i + 1) / files.Length * 100);
+                SetProgressPercents((i + 1) * 100 / files.Length);
             }
 
             return result;

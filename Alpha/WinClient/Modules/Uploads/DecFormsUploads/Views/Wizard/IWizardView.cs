@@ -21,21 +21,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
         /// Комментарий
         /// </summary>
         string Note { get; set; }
-        
+
         #endregion
 
         #region ProcessingPage
 
-        /// <summary>
-        /// Сбрасывает текущее состояние процесса обработки
-        /// </summary>
-        /// <param name="maxValue">Количество шагов процесса</param>
-        void ResetProgressBar(int maxValue);
+        void SetInitialProgress(string label);
 
-        /// <summary>
-        /// Обновляет состояние процесса обработки
-        /// </summary>
-        void AddProgress();
+        void SetProgress(string label, int value);
 
         #endregion
 

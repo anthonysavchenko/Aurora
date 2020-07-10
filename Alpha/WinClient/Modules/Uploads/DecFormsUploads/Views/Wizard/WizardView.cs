@@ -84,24 +84,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
 
         #region ProcessingPage
 
-        /// <summary>
-        /// Сбрасывает текущее состояние процесса обработки
-        /// </summary>
-        /// <param name="maxValue">Количество шагов процесса</param>
-        public void ResetProgressBar(int maxValue)
+        public void SetInitialProgress(string label)
         {
-            ProgressBarControl.Invoke(new MethodInvoker(() => ProgressBarControl.Properties.Maximum = maxValue));
-            ProgressBarControl.Invoke(new MethodInvoker(() => ProgressBarControl.Properties.Minimum = 0));
-            ProgressBarControl.Invoke(new MethodInvoker(() => ProgressBarControl.Properties.Step = 1));
-            ProgressBarControl.Invoke(new MethodInvoker(() => ProgressBarControl.EditValue = 0));
+            ProgressBarControl.Invoke(new MethodInvoker(() =>
+            {
+                ProgressBarControl.EditValue = 0;
+                ProgressLabel.Text = label;
+            }));
         }
 
-        /// <summary>
-        /// Обновляет состояние процесса обработки
-        /// </summary>
-        public void AddProgress()
+        public void SetProgress(string label, int value)
         {
-            ProgressBarControl.Invoke(new MethodInvoker(() => ProgressBarControl.PerformStep()));
+            ProgressBarControl.Invoke(new MethodInvoker(() =>
+            {
+                ProgressBarControl.EditValue = value;
+                ProgressLabel.Text = label;
+            }));
         }
 
         #endregion

@@ -7,6 +7,7 @@ using System.Threading;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
+using Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader;
 using Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Tabbed;
@@ -50,7 +51,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             View.UnknownFiles = 0;
             View.Exceptions = 0;
 
-            View.ResetProgressBar(1);
+            View.SetInitialProgress("Поготовка к началу оработки данных...");
 
             View.SelectPage(WizardSteps.ChooseDirectoryPage);
         }
@@ -143,7 +144,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
                             {
                                 case "ChooseDirectoryWizardPage":
                                     {
-                                        SaveProcessingData();
+                                        DownloadFiles();
                                     }
                                     break;
                             }
@@ -153,20 +154,34 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             }
         }
 
+        private void DownloadFiles()
+        {
+            View.IsMasterInProgress = true;
+            View.SetInitialProgress("Поготовка к началу скачивания файлов...");
+
+            Downloader.DownloadAsync(
+                "D:\\",
+                OnProgress: (int percents) => View.SetProgress("Скачивание файлов из почтового ящика", percents),
+                OnCompleted: (int result) =>
+                {
+                    View.IsMasterInProgress = false;
+
+                    SaveProcessingData();
+                });
+        }
+
         /// <summary>
         /// Сохраняет введенные данные
         /// </summary>
         private void SaveProcessingData()
         {
             View.IsMasterInProgress = true;
-
-            View.ResetProgressBar(
-                Directory.GetFiles(View.DirectoryName, "*.xls", SearchOption.TopDirectoryOnly).Length);
+            View.SetInitialProgress("Поготовка к началу распознавания файлов...");
 
             DirectoryParser.ParseDirectoryAsync(
                 View.DirectoryName,
                 CreateUpload(),
-                OnProgress: View.AddProgress,
+                OnProgress: (int percents) => View.SetProgress("Распознавание файлов", percents),
                 OnCompleted: (DirectoryParsingResult result) =>
                 {
                     View.RouteForms = result.RouteForms;
