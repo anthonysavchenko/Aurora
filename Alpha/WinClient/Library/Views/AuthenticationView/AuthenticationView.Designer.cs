@@ -106,12 +106,12 @@
             // DeveloperLinkLabel
             // 
             this.DeveloperLinkLabel.AutoSize = true;
-            this.DeveloperLinkLabel.Location = new System.Drawing.Point(53, 132);
+            this.DeveloperLinkLabel.Location = new System.Drawing.Point(9, 132);
             this.DeveloperLinkLabel.Name = "DeveloperLinkLabel";
-            this.DeveloperLinkLabel.Size = new System.Drawing.Size(49, 13);
+            this.DeveloperLinkLabel.Size = new System.Drawing.Size(143, 13);
             this.DeveloperLinkLabel.TabIndex = 28;
             this.DeveloperLinkLabel.TabStop = true;
-            this.DeveloperLinkLabel.Text = "taumis.ru";
+            this.DeveloperLinkLabel.Text = "anton.savchenko@taumis.ru";
             this.DeveloperLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.DeveloperLinkLabel_LinkClicked);
             // 
             // TitleLabel
@@ -121,9 +121,9 @@
             this.TitleLabel.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
             this.TitleLabel.MaximumSize = new System.Drawing.Size(0, 17);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(92, 13);
+            this.TitleLabel.Size = new System.Drawing.Size(91, 13);
             this.TitleLabel.TabIndex = 29;
-            this.TitleLabel.Text = "Aurora 000.00.0.0";
+            this.TitleLabel.Text = "Mjolnir 000.00.0.0";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AuthenticationView

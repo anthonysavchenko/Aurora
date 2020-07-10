@@ -11,14 +11,17 @@ namespace Taumis.Infrastructure.Layout
         {
             InitializeComponent();
 
-            TitleLabel.Text = String.Format("Aurora {0}",
+            TitleLabel.Text = String.Format("Mjolnir {0}",
                 ApplicationDeployment.IsNetworkDeployed ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : String.Empty);
-            DescriptionTextBox.Text = "Система учета расчетов с абонентами\r\n\r\nCopyright © Taumis LLC 2011-2016";
+            DescriptionTextBox.Text = "Система учета и анализа расходов на коммунальные услуги, " +
+                "предоставляемые ресурсоснабжающими организациями.\r\n\r\n" +
+                "Разработано для ООО «Управляющая компания Фрунзенского района».\r\n\r\n" +
+                "Разработка: Антон Савченко. 2020 год.";
         }
 
         private void DeveloperLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://taumis.ru");
+            Process.Start("mailto://anton.savchenko@taumis.ru");
         }
     }
 }

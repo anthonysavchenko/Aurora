@@ -14,7 +14,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Views.AuthenticationView
         {
             InitializeComponent();
             _authenticationService = authenticationService;
-            TitleLabel.Text = String.Format("Aurora {0}",
+            TitleLabel.Text = String.Format("Mjolnir {0}",
                 ApplicationDeployment.IsNetworkDeployed ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : String.Empty);
         }
 
@@ -37,7 +37,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Views.AuthenticationView
 
         private void DeveloperLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://taumis.ru");
+            Process.Start("mailto://anton.savchenko@taumis.ru");
         }
     }
 }

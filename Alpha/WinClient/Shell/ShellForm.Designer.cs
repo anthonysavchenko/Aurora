@@ -73,7 +73,7 @@ namespace Taumis.Infrastructure.Shell
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "ShellForm";
-            this.Text = "Aurora";
+            this.Text = "Mjolnir";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 

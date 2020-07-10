@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web.Helpers;
 
 namespace Taumis.Infrastructure.Interface.Services
 {
@@ -33,35 +32,6 @@ namespace Taumis.Infrastructure.Interface.Services
             }
 
             return _sBuilder.ToString();
-        }
-
-        /// <summary>
-        /// PBKDF2 with HMAC-SHA1, 128-bit salt, 256-bit subkey, 1000 iterations
-        /// </summary>
-        /// <param name="password">Строка с паролем</param>
-        /// <returns>Hashed password</returns>
-        public string HashPassword(string password)
-        {
-            return Crypto.HashPassword(password);
-        }
-
-        public string GenerateWebPassword()
-        {
-            const string CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            
-            RNGCryptoServiceProvider _random = new RNGCryptoServiceProvider();
-            byte[] _randomBytes = new byte[WEB_PASSWORD_LENGHT * sizeof(int)];
-            _random.GetBytes(_randomBytes);
-
-            StringBuilder _result = new StringBuilder(WEB_PASSWORD_LENGHT);
-
-            for (int i = 0; i < WEB_PASSWORD_LENGHT; ++i)
-            {
-                int _val = Math.Abs(BitConverter.ToInt32(_randomBytes, i * 4) % CHARS.Length);
-                _result.Append(CHARS[_val]);
-            }
-
-            return _result.ToString();
         }
 
         #endregion
