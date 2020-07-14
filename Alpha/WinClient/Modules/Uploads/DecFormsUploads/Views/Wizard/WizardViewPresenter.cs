@@ -1,19 +1,13 @@
 using DevExpress.XtraWizard;
-using Microsoft.Practices.CompositeUI;
-using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Services;
-using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
-using Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader;
 using Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Tabbed;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.Common;
-using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wizard
 {
@@ -144,7 +138,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
                             {
                                 case "ChooseDirectoryWizardPage":
                                     {
-                                        DownloadFiles();
+                                        SaveProcessingData();
                                     }
                                     break;
                             }
@@ -152,22 +146,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
                         break;
                 }
             }
-        }
-
-        private void DownloadFiles()
-        {
-            View.IsMasterInProgress = true;
-            View.SetInitialProgress("Поготовка к началу скачивания файлов...");
-
-            Downloader.DownloadAsync(
-                "D:\\",
-                OnProgress: (int percents) => View.SetProgress("Скачивание файлов из почтового ящика", percents),
-                OnCompleted: (int result) =>
-                {
-                    View.IsMasterInProgress = false;
-
-                    SaveProcessingData();
-                });
         }
 
         /// <summary>

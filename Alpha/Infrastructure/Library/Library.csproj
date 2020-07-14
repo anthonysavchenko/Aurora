@@ -99,12 +99,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\BaseUnitOfWork.cs" />
+    <Compile Include="Services\DecFormsDownloader\AttachmentDownloader.cs" />
     <Compile Include="Services\DecFormsDownloader\Downloader.cs" />
+    <Compile Include="Services\DecFormsDownloader\EmailDownloader.cs" />
     <Compile Include="Services\DecFormsParser\DirectoryParsingResult.cs" />
     <Compile Include="Services\DecFormsParser\FileParser.cs" />
     <Compile Include="Services\DomainWithDataMapperHelperService.cs" />
     <Compile Include="Services\DataMapperService.cs" />
-    <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\Excel\Epplus\ExcelCell.cs" />
     <Compile Include="Services\Excel\Epplus\ExcelService.cs" />
@@ -125,7 +126,6 @@
     <Compile Include="Services\OldFormParser\OldFormParser.cs" />
     <Compile Include="Services\OldFormParser\PrintForm\CounterType.cs" />
     <Compile Include="Services\OldFormParser\PrintForm\OldPrintFormParser.cs" />
-    <Compile Include="Services\PaymentDistributionService.cs" />
     <Compile Include="Services\ServerTimeService.cs" />
     <Compile Include="Services\SettingsService.cs" />
   </ItemGroup>

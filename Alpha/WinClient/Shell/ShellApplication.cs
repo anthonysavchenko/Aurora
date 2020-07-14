@@ -93,7 +93,6 @@ namespace Taumis.Infrastructure.Shell
             RootWorkItem.Services.AddNew<AuthenticationService, IAuthenticationService>();
 
             RootWorkItem.Services.AddNew<SettingsService, ISettingsService>();
-            RootWorkItem.Services.AddNew<EmailService, IEmailService>();
 
             RootWorkItem.Services.AddNew<ExcelService, IExcelService>();
 

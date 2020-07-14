@@ -1,23 +1,25 @@
 ﻿namespace Taumis.Alpha.Infrastructure.Interface.Services.Settings
 {
-    public class SmtpSettings
+    public class DecFormsDownloadSettings
     {
-        public SmtpSettings(
-            string server, int port, string login, string password, string senderName, string senderEmail)
+        public DecFormsDownloadSettings(
+            string server, int port, string login, string password, string sender)
         {
             Server = server;
             Port = port;
             Login = login;
             Password = password;
-            SenderName = senderName;
-            SenderEmail = senderEmail;
+            Sender = sender;
         }
 
         public string Server { get; private set; }
+
         public int Port { get; private set; }
+
         public string Login { get; private set; }
+
         public string Password { get; private set; }
-        public string SenderName { get; private set; }
-        public string SenderEmail { get; private set; }
+
+        public string Sender { get; private set; }
     }
 }

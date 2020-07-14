@@ -67,20 +67,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Layout
                 {
                     switch (_setting.Name)
                     {
-                        case SettingNames.SMTP_SERVER:
+                        case SettingNames.DEC_FORMS_DOWNLOAD_SERVER:
                             _setting.Value = View.Server;
                             break;
 
-                        case SettingNames.SMTP_PORT:
-                            _setting.Value = View.ServerPort.ToString();
+                        case SettingNames.DEC_FORMS_DOWNLOAD_PORT:
+                            _setting.Value = View.Port.ToString();
                             break;
 
-                        case SettingNames.SMTP_LOGIN:
-                            _setting.Value = View.ServerLogin;
+                        case SettingNames.DEC_FORMS_DOWNLOAD_LOGIN:
+                            _setting.Value = View.Login;
                             break;
 
-                        case SettingNames.SMTP_PASSWORD:
-                            _setting.Value = View.ServerPassword;
+                        case SettingNames.DEC_FORMS_DOWNLOAD_PASSWORD:
+                            _setting.Value = View.Password;
+                            break;
+
+                        case SettingNames.DEC_FORMS_DOWNLOAD_SENDER:
+                            _setting.Value = View.Sender;
                             break;
 
                         case SettingNames.BACKUP_PATH:
@@ -109,20 +113,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Layout
             {
                 switch (_setting.Name)
                 {
-                    case SettingNames.SMTP_SERVER:
+                    case SettingNames.DEC_FORMS_DOWNLOAD_SERVER:
                         View.Server = _setting.Value;
                         break;
 
-                    case SettingNames.SMTP_PORT:
-                        View.ServerPort = int.Parse(_setting.Value);
+                    case SettingNames.DEC_FORMS_DOWNLOAD_PORT:
+                        View.Port = int.Parse(_setting.Value);
                         break;
 
-                    case SettingNames.SMTP_LOGIN:
-                        View.ServerLogin = _setting.Value;
+                    case SettingNames.DEC_FORMS_DOWNLOAD_LOGIN:
+                        View.Login = _setting.Value;
                         break;
 
-                    case SettingNames.SMTP_PASSWORD:
-                        View.ServerPassword = _setting.Value;
+                    case SettingNames.DEC_FORMS_DOWNLOAD_PASSWORD:
+                        View.Password = _setting.Value;
+                        break;
+
+                    case SettingNames.DEC_FORMS_DOWNLOAD_SENDER:
+                        View.Sender = _setting.Value;
                         break;
 
                     case SettingNames.BACKUP_PATH:

@@ -58,10 +58,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataMappers\Doc\Attachment.cs" />
     <Compile Include="DataMappers\Doc\CustomerDataMapper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataMappers\Doc\DecFormsDownloadDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DecFormsUploadPosDataMapper.cs" />
+    <Compile Include="DataMappers\Doc\EmailDataMapper.cs" />
     <Compile Include="DataMappers\Doc\FillFormDataMapper.cs" />
     <Compile Include="DataMappers\Doc\FillFormPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RouteFormPosDataMapper.cs" />

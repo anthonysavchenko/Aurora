@@ -12,17 +12,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Views.Layout
         /// <summary>
         /// Порт SMTP сервера
         /// </summary>
-        int ServerPort { get; set; }
+        int Port { get; set; }
 
         /// <summary>
         /// Логин для входа на SMTP Сервер
         /// </summary>
-        string ServerLogin { get; set; }
+        string Login { get; set; }
 
         /// <summary>
         /// Пароль для входа на SMTP Сервер
         /// </summary>
-        string ServerPassword { get; set; }
+        string Password { get; set; }
+
+        string Sender { get; set; }
 
         /// <summary>
         /// Путь резервного копирования

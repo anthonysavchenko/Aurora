@@ -26,6 +26,11 @@
         public const string FILL_FORM_AND_PRINT_FORM_DIFF = "usecase://Report/FillFormAndPrintFormDiff";
 
         /// <summary>
+        /// Скачивания форм ДЭК.
+        /// </summary>
+        public const string DEC_FORMS_DOWNLOADS = "usecase://Uploads/DecFormsDownloads";
+
+        /// <summary>
         /// Загрузки форм ДЭК.
         /// </summary>
         public const string DEC_FORMS_UPLOADS = "usecase://Uploads/DecFormsUploads";

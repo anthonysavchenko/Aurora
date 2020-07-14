@@ -100,10 +100,13 @@
   <ItemGroup>
     <Compile Include="BusinessEntities\Common\ITransactionOwner.cs" />
     <Compile Include="BusinessEntities\DocLine\BaseDocPos.cs" />
+    <Compile Include="BusinessEntities\Doc\Attachment.cs" />
     <Compile Include="BusinessEntities\Doc\Customer.cs" />
     <Compile Include="BusinessEntities\Doc\Common\ITransDoc.cs" />
     <Compile Include="BusinessEntities\Doc\Common\TransDoc.cs" />
+    <Compile Include="BusinessEntities\Doc\DecFormsDownload.cs" />
     <Compile Include="BusinessEntities\Doc\DecFormsUploadPos.cs" />
+    <Compile Include="BusinessEntities\Doc\Email.cs" />
     <Compile Include="BusinessEntities\Doc\FillForm.cs" />
     <Compile Include="BusinessEntities\Doc\FillFormPos.cs" />
     <Compile Include="BusinessEntities\Doc\RouteForm.cs" />
@@ -173,7 +176,7 @@
     <Compile Include="Services\RussianEditorsLocalizer.cs" />
     <Compile Include="Services\RussianGridLocalizer.cs" />
     <Compile Include="Services\RussianPreviewLocalizer.cs" />
-    <Compile Include="Services\Settings\SmtpSetting.cs" />
+    <Compile Include="Services\Settings\DecFormsDownloadSettings.cs" />
     <Compile Include="Services\StringWithNumbersComparer.cs" />
   </ItemGroup>
   <ItemGroup>

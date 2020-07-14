@@ -31,6 +31,7 @@
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.FillForms.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.RouteForms.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.dll" />
 
     </Modules>
   </Section>

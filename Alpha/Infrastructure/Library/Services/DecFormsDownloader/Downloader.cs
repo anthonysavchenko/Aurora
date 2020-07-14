@@ -2,26 +2,23 @@
 using MailKit.Net.Imap;
 using MailKit.Search;
 using MailKit.Security;
-using MimeKit;
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
+using Taumis.Alpha.DataBase;
+using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
+using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 {
     static public class Downloader
     {
-        const string EMAIL_SERVER_URL = "imap.mail.ru";
-        const int EMAIL_SERVER_PORT = 993;
-        const string EMAIL_LOGIN = "ukfr_dek_forms@mail.ru";
-        const string EMAIL_PASSWORD = "$fkafdbn_789";
-        const string EMAIL_FROM_FILTER = "anton.savchenko@mail.ru";
-
         static public void DownloadAsync(
-             string directory,
-             Action<int> OnProgress,
-             Action<int> OnCompleted)
+            string directory,
+            int userID,
+            string note,
+            Action<int> OnProgress,
+            Action<DecFormsDownloads> OnCompleted)
         {
             BackgroundWorker worker = new BackgroundWorker()
             {
@@ -35,88 +32,108 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
             worker.RunWorkerCompleted += (sender, args) =>
             {
-                OnCompleted((int)args.Result);
+                OnCompleted((DecFormsDownloads)args.Result);
             };
 
             worker.DoWork += (sender, args) =>
             {
-                args.Result = Download(directory, ((BackgroundWorker)sender).ReportProgress);
+                args.Result = Download(directory, userID, note, ((BackgroundWorker)sender).ReportProgress);
             };
 
             worker.RunWorkerAsync();
         }
 
-        static public int Download(
+        static private DecFormsDownloads Download(
             string directory,
+            int userID,
+            string note,
             Action<int> SetProgressPercents)
         {
-            int messagesCount = 0;
+            var download = CreateDownload(directory, note, userID);
 
-            using (var client = new ImapClient())
+            try
             {
-                client.Connect(EMAIL_SERVER_URL, EMAIL_SERVER_PORT, SecureSocketOptions.SslOnConnect);
-                client.Authenticate(EMAIL_LOGIN, EMAIL_PASSWORD);
+                var settings = SettingsService.GetDecFormsDownloadSettings();
 
-                var inbox = client.Inbox;
-                inbox.Open(FolderAccess.ReadWrite);
-
-                var query = SearchQuery.NotSeen;
-
-                var uids = inbox.Search(query);
-                messagesCount = uids.Count;
-
-                for (int i = 0; i < uids.Count; i++)
+                using (var client = new ImapClient())
                 {
-                    try
+                    client.Connect(settings.Server, settings.Port, SecureSocketOptions.SslOnConnect);
+                    client.Authenticate(settings.Login, settings.Password);
+
+                    var inbox = client.Inbox;
+                    inbox.Open(FolderAccess.ReadWrite);
+                    var query = SearchQuery.NotSeen;
+                    var uids = inbox.Search(query); 
+
+                    for (int i = 0; i < uids.Count; i++)
                     {
-                        var message = inbox.GetMessage(uids[i]);
+                        EmailDownloader.DownloadEmail(
+                            download,
+                            inbox,
+                            uids[i],
+                            settings.Sender,
+                            i,
+                            uids.Count,
+                            SetProgressPercents);
 
-                        if ((message.From?.Count ?? 0) > 0
-                            && message.From.Any(m => m.ToString().ToLower() == EMAIL_FROM_FILTER.ToLower()))
-                        {
-                            var attachments = message.Attachments;
-                            var attachmentsCount = attachments?.Count() ?? 0;
-
-                            for (int j = 0; j < attachmentsCount; j++)
-                            {
-                                var attachment = attachments.ElementAt(j);
-                                var fileName = attachment.ContentDisposition?.FileName ?? attachment.ContentType.Name;
-                                var filePath = Path.Combine(directory, fileName);
-
-                                using (var stream = File.Create(filePath))
-                                {
-                                    if (attachment is MessagePart)
-                                    {
-                                        var rfc822 = (MessagePart)attachment;
-
-                                        rfc822.Message.WriteTo(stream);
-                                    }
-                                    else
-                                    {
-                                        var part = (MimePart)attachment;
-
-                                        part.Content.DecodeTo(stream);
-                                    }
-                                }
-
-                                SetProgressPercents((i * 100 + (j + 1) * 100 / attachmentsCount) / uids.Count);
-                            }
-                        }
-
-                        inbox.AddFlags(uids[i], MessageFlags.Seen, true);
-                    }
-                    catch (Exception e)
-                    {
-
+                        SetProgressPercents((i + 1) * 100 / uids.Count);
                     }
 
-                    SetProgressPercents((i + 1) * 100 / uids.Count);
+                    client.Disconnect(true);
                 }
-
-                client.Disconnect(true);
+            }
+            catch(Exception e)
+            {
+                Logger.SimpleWrite($"Downloader Download error: {e}");
+                UpdateErrorDownload(
+                    download,
+                    "Ошибка при подключении к почтовому ящику или отключении от него. " +
+                        "Проверьте соединение с Интернет и правильность настроек подключения.",
+                    e.ToString());
             }
 
-            return messagesCount;
+            return download;
+        }
+
+        static private DecFormsDownloads CreateDownload(string directory, string note, int userID)
+        {
+            DecFormsDownloads download = new DecFormsDownloads()
+            {
+                Created = ServerTimeServiceHolder.ServerTimeService.GetDateTimeInfo().Now,
+                Directory = directory.Length > 200 ? directory.Substring(0, 200) : directory,
+                Note = note.Length > 250 ? note.Substring(0, 250) : note,
+            };
+
+            using (Entities db = new Entities())
+            {
+                download.Author = db.Users.First(u => u.ID == userID);
+
+                db.AddToDecFormsDownloads(download);
+
+                db.SaveChanges();
+            }
+
+            return download;
+        }
+
+        static private void UpdateErrorDownload(
+            DecFormsDownloads download,
+            string errorDescription,
+            string exceptionMessage = null)
+        {
+            using (Entities db = new Entities())
+            {
+                db.DecFormsDownloads.Attach(download);
+
+                download.ErrorDescription = errorDescription;
+
+                if (!string.IsNullOrEmpty(exceptionMessage))
+                {
+                    download.ExceptionMessage = exceptionMessage;
+                }
+
+                db.SaveChanges();
+            }
         }
     }
 }

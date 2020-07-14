@@ -30,6 +30,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RouteForms_DecFormsUploadPoses", "DecFormsUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.DecFormsUploadPoses), "RouteForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RouteForms))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DecFormsUploadPoses_RouteForms", "RouteForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.RouteForms), "DecFormsUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DecFormsUploadPoses))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DecFormsUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "DecFormsUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DecFormsUploads))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_DecFormsDownloads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "DecFormsDownloads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.DecFormsDownloads))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Attachments_Emails", "Emails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Emails), "Attachments", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Attachments))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_Emails_DecFormsDownloads", "DecFormsDownloads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.DecFormsDownloads), "Emails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.Emails))]
 
 #endregion
 
@@ -161,22 +164,6 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<CommonCounterCoefficients> CommonCounterCoefficients
-        {
-            get
-            {
-                if ((_CommonCounterCoefficients == null))
-                {
-                    _CommonCounterCoefficients = base.CreateObjectSet<CommonCounterCoefficients>("CommonCounterCoefficients");
-                }
-                return _CommonCounterCoefficients;
-            }
-        }
-        private ObjectSet<CommonCounterCoefficients> _CommonCounterCoefficients;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Settings> Settings
         {
             get
@@ -285,6 +272,54 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<RouteForms> _RouteForms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DecFormsDownloads> DecFormsDownloads
+        {
+            get
+            {
+                if ((_DecFormsDownloads == null))
+                {
+                    _DecFormsDownloads = base.CreateObjectSet<DecFormsDownloads>("DecFormsDownloads");
+                }
+                return _DecFormsDownloads;
+            }
+        }
+        private ObjectSet<DecFormsDownloads> _DecFormsDownloads;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Attachments> Attachments
+        {
+            get
+            {
+                if ((_Attachments == null))
+                {
+                    _Attachments = base.CreateObjectSet<Attachments>("Attachments");
+                }
+                return _Attachments;
+            }
+        }
+        private ObjectSet<Attachments> _Attachments;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Emails> Emails
+        {
+            get
+            {
+                if ((_Emails == null))
+                {
+                    _Emails = base.CreateObjectSet<Emails>("Emails");
+                }
+                return _Emails;
+            }
+        }
+        private ObjectSet<Emails> _Emails;
 
         #endregion
 
@@ -328,14 +363,6 @@ namespace Taumis.Alpha.DataBase
         public void AddToUsers(Users users)
         {
             base.AddObject("Users", users);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the CommonCounterCoefficients EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCommonCounterCoefficients(CommonCounterCoefficients commonCounterCoefficients)
-        {
-            base.AddObject("CommonCounterCoefficients", commonCounterCoefficients);
         }
     
         /// <summary>
@@ -393,6 +420,30 @@ namespace Taumis.Alpha.DataBase
         {
             base.AddObject("RouteForms", routeForms);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DecFormsDownloads EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDecFormsDownloads(DecFormsDownloads decFormsDownloads)
+        {
+            base.AddObject("DecFormsDownloads", decFormsDownloads);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Attachments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAttachments(Attachments attachments)
+        {
+            base.AddObject("Attachments", attachments);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Emails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEmails(Emails emails)
+        {
+            base.AddObject("Emails", emails);
+        }
 
         #endregion
 
@@ -446,6 +497,176 @@ namespace Taumis.Alpha.DataBase
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="Attachments")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Attachments : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Attachments object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Attachments CreateAttachments(global::System.Int32 id)
+        {
+            Attachments attachments = new Attachments();
+            attachments.ID = id;
+            return attachments;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Attachments_Emails", "Emails")]
+        public Emails Emails
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Emails>("AlphaDataBaseModel.FK_Attachments_Emails", "Emails").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Emails>("AlphaDataBaseModel.FK_Attachments_Emails", "Emails").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Emails> EmailsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Emails>("AlphaDataBaseModel.FK_Attachments_Emails", "Emails");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Emails>("AlphaDataBaseModel.FK_Attachments_Emails", "Emails", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -576,114 +797,6 @@ namespace Taumis.Alpha.DataBase
                 }
             }
         }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CommonCounterCoefficients")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class CommonCounterCoefficients : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new CommonCounterCoefficients object.
-        /// </summary>
-        /// <param name="id">Initial value of the ID property.</param>
-        /// <param name="period">Initial value of the Period property.</param>
-        /// <param name="coefficient">Initial value of the Coefficient property.</param>
-        public static CommonCounterCoefficients CreateCommonCounterCoefficients(global::System.Int32 id, global::System.DateTime period, global::System.Decimal coefficient)
-        {
-            CommonCounterCoefficients commonCounterCoefficients = new CommonCounterCoefficients();
-            commonCounterCoefficients.ID = id;
-            commonCounterCoefficients.Period = period;
-            commonCounterCoefficients.Coefficient = coefficient;
-            return commonCounterCoefficients;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ID
-        {
-            get
-            {
-                return _ID;
-            }
-            set
-            {
-                if (_ID != value)
-                {
-                    OnIDChanging(value);
-                    ReportPropertyChanging("ID");
-                    _ID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ID");
-                    OnIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ID;
-        partial void OnIDChanging(global::System.Int32 value);
-        partial void OnIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Period
-        {
-            get
-            {
-                return _Period;
-            }
-            set
-            {
-                OnPeriodChanging(value);
-                ReportPropertyChanging("Period");
-                _Period = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Period");
-                OnPeriodChanged();
-            }
-        }
-        private global::System.DateTime _Period;
-        partial void OnPeriodChanging(global::System.DateTime value);
-        partial void OnPeriodChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal Coefficient
-        {
-            get
-            {
-                return _Coefficient;
-            }
-            set
-            {
-                OnCoefficientChanging(value);
-                ReportPropertyChanging("Coefficient");
-                _Coefficient = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Coefficient");
-                OnCoefficientChanged();
-            }
-        }
-        private global::System.Decimal _Coefficient;
-        partial void OnCoefficientChanging(global::System.Decimal value);
-        partial void OnCoefficientChanged();
 
         #endregion
 
@@ -827,6 +940,250 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "PrivateCounters", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="DecFormsDownloads")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DecFormsDownloads : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DecFormsDownloads object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="directory">Initial value of the Directory property.</param>
+        public static DecFormsDownloads CreateDecFormsDownloads(global::System.Int32 id, global::System.DateTime created, global::System.String directory)
+        {
+            DecFormsDownloads decFormsDownloads = new DecFormsDownloads();
+            decFormsDownloads.ID = id;
+            decFormsDownloads.Created = created;
+            decFormsDownloads.Directory = directory;
+            return decFormsDownloads;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Directory
+        {
+            get
+            {
+                return _Directory;
+            }
+            set
+            {
+                OnDirectoryChanging(value);
+                ReportPropertyChanging("Directory");
+                _Directory = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Directory");
+                OnDirectoryChanged();
+            }
+        }
+        private global::System.String _Directory;
+        partial void OnDirectoryChanging(global::System.String value);
+        partial void OnDirectoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsDownloads_Users", "Users")]
+        public Users Author
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsDownloads_Users", "Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsDownloads_Users", "Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> AuthorReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsDownloads_Users", "Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsDownloads_Users", "Users", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Emails_DecFormsDownloads", "Emails")]
+        public EntityCollection<Emails> Emails
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Emails>("AlphaDataBaseModel.FK_Emails_DecFormsDownloads", "Emails");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Emails>("AlphaDataBaseModel.FK_Emails_DecFormsDownloads", "Emails", value);
                 }
             }
         }
@@ -1317,6 +1674,246 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "Users", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="Emails")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Emails : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Emails object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Emails CreateEmails(global::System.Int32 id)
+        {
+            Emails emails = new Emails();
+            emails.ID = id;
+            return emails;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Subject
+        {
+            get
+            {
+                return _Subject;
+            }
+            set
+            {
+                OnSubjectChanging(value);
+                ReportPropertyChanging("Subject");
+                _Subject = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Subject");
+                OnSubjectChanged();
+            }
+        }
+        private global::System.String _Subject;
+        partial void OnSubjectChanging(global::System.String value);
+        partial void OnSubjectChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FromAddress
+        {
+            get
+            {
+                return _FromAddress;
+            }
+            set
+            {
+                OnFromAddressChanging(value);
+                ReportPropertyChanging("FromAddress");
+                _FromAddress = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FromAddress");
+                OnFromAddressChanged();
+            }
+        }
+        private global::System.String _FromAddress;
+        partial void OnFromAddressChanging(global::System.String value);
+        partial void OnFromAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Received
+        {
+            get
+            {
+                return _Received;
+            }
+            set
+            {
+                OnReceivedChanging(value);
+                ReportPropertyChanging("Received");
+                _Received = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Received");
+                OnReceivedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Received;
+        partial void OnReceivedChanging(Nullable<global::System.DateTime> value);
+        partial void OnReceivedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Attachments_Emails", "Attachments")]
+        public EntityCollection<Attachments> Attachments
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Attachments>("AlphaDataBaseModel.FK_Attachments_Emails", "Attachments");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Attachments>("AlphaDataBaseModel.FK_Attachments_Emails", "Attachments", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_Emails_DecFormsDownloads", "DecFormsDownloads")]
+        public DecFormsDownloads DecFormsDownloads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsDownloads>("AlphaDataBaseModel.FK_Emails_DecFormsDownloads", "DecFormsDownloads").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsDownloads>("AlphaDataBaseModel.FK_Emails_DecFormsDownloads", "DecFormsDownloads").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DecFormsDownloads> DecFormsDownloadsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DecFormsDownloads>("AlphaDataBaseModel.FK_Emails_DecFormsDownloads", "DecFormsDownloads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DecFormsDownloads>("AlphaDataBaseModel.FK_Emails_DecFormsDownloads", "DecFormsDownloads", value);
                 }
             }
         }
@@ -3075,6 +3672,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DecFormsUploads>("AlphaDataBaseModel.FK_DecFormsUploads_Users", "DecFormsUploads", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_DecFormsDownloads_Users", "DecFormsDownloads")]
+        public EntityCollection<DecFormsDownloads> DecFormsDownloads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DecFormsDownloads>("AlphaDataBaseModel.FK_DecFormsDownloads_Users", "DecFormsDownloads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DecFormsDownloads>("AlphaDataBaseModel.FK_DecFormsDownloads_Users", "DecFormsDownloads", value);
                 }
             }
         }

@@ -18,5 +18,7 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.Common
         /// <param name="_text">Текст сообщения</param>
         /// <param name="_caption">Заголовок окна</param>
         void ShowMessage(string _text, string _caption);
+
+        bool IsOk(string text, string caption);
     }
 }

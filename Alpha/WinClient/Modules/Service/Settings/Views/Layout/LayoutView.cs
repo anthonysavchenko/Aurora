@@ -47,7 +47,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Views.Layout
         /// <summary>
         /// Порт SMTP сервера
         /// </summary>
-        public int ServerPort
+        public int Port
         {
             get
             {
@@ -62,7 +62,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Views.Layout
         /// <summary>
         /// Логин для входа на SMTP Сервер
         /// </summary>
-        public string ServerLogin
+        public string Login
         {
             get
             {
@@ -77,7 +77,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Views.Layout
         /// <summary>
         /// Пароль для входа на SMTP Сервер
         /// </summary>
-        public string ServerPassword
+        public string Password
         {
             get
             {
@@ -86,6 +86,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Settings.Views.Layout
             set
             {
                 PasswordTextBox.Text = value;
+            }
+        }
+
+        public string Sender
+        {
+            get
+            {
+                return SenderTextBox.Text;
+            }
+            set
+            {
+                SenderTextBox.Text = value;
             }
         }
 

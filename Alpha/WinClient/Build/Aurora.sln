@@ -82,6 +82,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FillForms", "..\Modules\Upl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrivateCountersVolumes", "..\Modules\Reports\PrivateCountersVolumes\PrivateCountersVolumes.csproj", "{CAFE202E-924C-427E-A2BA-9CC205C9B430}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecFormsDownloads", "..\Modules\Uploads\DecFormsDownloads\DecFormsDownloads.csproj", "{74B8CBF6-8306-42B2-AB7D-FAD3FEE6412B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +182,10 @@ Global
 		{CAFE202E-924C-427E-A2BA-9CC205C9B430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAFE202E-924C-427E-A2BA-9CC205C9B430}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAFE202E-924C-427E-A2BA-9CC205C9B430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B8CBF6-8306-42B2-AB7D-FAD3FEE6412B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B8CBF6-8306-42B2-AB7D-FAD3FEE6412B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B8CBF6-8306-42B2-AB7D-FAD3FEE6412B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B8CBF6-8306-42B2-AB7D-FAD3FEE6412B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -215,6 +221,7 @@ Global
 		{C42D410A-18E5-4BFF-AD53-8A0EC033436F} = {D960851B-B8CE-4071-A1DE-3486D1FD94E9}
 		{7BA3C271-0A46-47F3-A716-9BE9780FDE1C} = {D960851B-B8CE-4071-A1DE-3486D1FD94E9}
 		{CAFE202E-924C-427E-A2BA-9CC205C9B430} = {2AD49FD1-4664-403A-A09B-427DBBD862FD}
+		{74B8CBF6-8306-42B2-AB7D-FAD3FEE6412B} = {D960851B-B8CE-4071-A1DE-3486D1FD94E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2EDC818-CE5F-4276-A7A6-2AEE0C27C3B9}

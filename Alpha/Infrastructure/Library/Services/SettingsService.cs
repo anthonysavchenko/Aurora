@@ -12,40 +12,26 @@ namespace Taumis.Alpha.Infrastructure.Library.Services
     public class SettingsService : ISettingsService
     {
         /// <summary>
-        /// Возвращает коэффициент расчета пени
+        /// Настройки скачивания форм ДЭК.
         /// </summary>
-        public decimal GetFineCoefficient()
+        static public DecFormsDownloadSettings GetDecFormsDownloadSettings()
         {
-            decimal _fineCoefficient;
+            DecFormsDownloadSettings result = null;
 
-            using (Entities _entities = new Entities())
+            using (Entities db = new Entities())
             {
-                _fineCoefficient = decimal.Parse(_entities.Settings.First(s => s.Name == SettingNames.FINE_COEFFICIENT_NAME).Value);
+                var settings = db.Settings.ToList();
+
+                result =
+                    new DecFormsDownloadSettings(
+                        settings.First(s => s.Name == SettingNames.DEC_FORMS_DOWNLOAD_SERVER).Value,
+                        int.Parse(db.Settings.First(s => s.Name == SettingNames.DEC_FORMS_DOWNLOAD_PORT).Value),
+                        settings.First(s => s.Name == SettingNames.DEC_FORMS_DOWNLOAD_LOGIN).Value,
+                        settings.First(s => s.Name == SettingNames.DEC_FORMS_DOWNLOAD_PASSWORD).Value,
+                        settings.First(s => s.Name == SettingNames.DEC_FORMS_DOWNLOAD_SENDER).Value);
             }
 
-            return _fineCoefficient;
-        }
-
-        /// <summary>
-        /// Адрес SMTP сервера
-        /// </summary>
-        public SmtpSettings GetSmtpSettings()
-        {
-            SmtpSettings _set = null;
-
-            using (Entities _entities = new Entities())
-            {
-                var _settings = _entities.Settings.ToList();
-                _set = new SmtpSettings(
-                    _settings.First(s => s.Name == SettingNames.SMTP_SERVER).Value,
-                    int.Parse(_entities.Settings.First(s => s.Name == SettingNames.SMTP_PORT).Value),
-                    _settings.First(s => s.Name == SettingNames.SMTP_LOGIN).Value,
-                    _settings.First(s => s.Name == SettingNames.SMTP_PASSWORD).Value,
-                    _settings.First(s => s.Name == SettingNames.SMTP_SENDER_NAME).Value,
-                    _settings.First(s => s.Name == SettingNames.SMTP_SENDER_EMAIL).Value);
-            }
-
-            return _set;
+            return result;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -22,7 +23,7 @@
     <ModelCollation>1049,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
@@ -62,66 +63,21 @@
     <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Streets.sql" />
-    <Build Include="dbo\Tables\ServiceTypes.sql" />
-    <Build Include="dbo\Tables\Services.sql" />
-    <Build Include="dbo\Tables\PaymentSets.sql" />
-    <Build Include="dbo\Tables\PaymentOpers.sql" />
-    <Build Include="dbo\Tables\PaymentOperPoses.sql" />
-    <Build Include="dbo\Tables\Intermediaries.sql" />
     <Build Include="dbo\Tables\Customers.sql" />
-    <Build Include="dbo\Tables\CustomerPoses.sql" />
-    <Build Include="dbo\Tables\Contractors.sql" />
     <Build Include="dbo\Tables\Buildings.sql" />
-    <Build Include="dbo\Tables\BenefitTypes.sql" />
-    <Build Include="dbo\Tables\PaymentCorrectionOpers.sql" />
-    <Build Include="dbo\Tables\PaymentCorrectionOperPoses.sql" />
-    <Build Include="dbo\Tables\OverpaymentOpers.sql" />
-    <Build Include="dbo\Tables\OverpaymentOperPoses.sql" />
-    <Build Include="dbo\Tables\BillSets.sql" />
-    <Build Include="dbo\Tables\OverpaymentCorrectionOpers.sql" />
-    <Build Include="dbo\Tables\OverpaymentCorrectionOperPoses.sql" />
-    <Build Include="dbo\Tables\ChargeSets.sql" />
-    <Build Include="dbo\Tables\ChargeOpers.sql" />
-    <Build Include="dbo\Tables\ChargeOperPoses.sql" />
-    <Build Include="dbo\Tables\BenefitOpers.sql" />
-    <Build Include="dbo\Tables\BenefitOperPoses.sql" />
-    <Build Include="dbo\Tables\RechargeSets.sql" />
-    <Build Include="dbo\Tables\RechargeOpers.sql" />
-    <Build Include="dbo\Tables\RechargeOperPoses.sql" />
-    <Build Include="dbo\Tables\TotalBillDocs.sql" />
-    <Build Include="dbo\Tables\TotalBillDocPoses.sql" />
-    <Build Include="dbo\Tables\RegularBillDocSharedCounterPoses.sql" />
-    <Build Include="dbo\Tables\RegularBillDocSeviceTypePoses.sql" />
-    <Build Include="dbo\Tables\RegularBillDocs.sql" />
-    <Build Include="dbo\Tables\RegularBillDocCounterPoses.sql" />
-    <Build Include="dbo\Tables\DebtBillDocs.sql" />
-    <Build Include="dbo\Tables\ChargeCorrectionOpers.sql" />
-    <Build Include="dbo\Tables\ChargeCorrectionOperPoses.sql" />
-    <Build Include="dbo\Tables\BenefitCorrectionOpers.sql" />
-    <Build Include="dbo\Tables\BenefitCorrectionOperPoses.sql" />
-    <Build Include="dbo\Tables\RebenefitOpers.sql" />
-    <Build Include="dbo\Tables\RebenefitOperPoses.sql" />
     <Build Include="dbo\Tables\Users.sql" />
     <Build Include="dbo\Tables\PrivateCounterValues.sql" />
     <Build Include="dbo\Tables\PrivateCounters.sql" />
-    <Build Include="dbo\Tables\CommonCounterValues.sql" />
-    <Build Include="dbo\Tables\CommonCounters.sql" />
-    <Build Include="dbo\Tables\CommonCounterCoefficients.sql" />
     <Build Include="dbo\Tables\Settings.sql" />
-    <Build Include="dbo\Tables\Residents.sql" />
     <Build Include="dbo\Stored Procedures\BackupDatabase.sql" />
-    <Build Include="dbo\Tables\PublicPlaces.sql" />
-    <Build Include="dbo\Tables\BankDetails.sql" />
-    <Build Include="dbo\Tables\PublicPlaceServiceVolumes.sql" />
-    <Build Include="dbo\Tables\RechargePercentCorrections.sql" />
-    <Build Include="dbo\Tables\CounterValueCollectDistricts.sql" />
-    <Build Include="dbo\Tables\ElectricitySharedCounterVolumes.sql" />
     <Build Include="dbo\Tables\DecFormsUploads.sql" />
     <Build Include="dbo\Tables\DecFormsUploadPoses.sql" />
     <Build Include="dbo\Tables\RouteForms.sql" />
     <Build Include="dbo\Tables\RouteFormPoses.sql" />
     <Build Include="dbo\Tables\FillForms.sql" />
     <Build Include="dbo\Tables\FillFormPoses.sql" />
+    <Build Include="dbo\Tables\Emails.sql" />
+    <Build Include="dbo\Tables\DecFormsDownloads.sql" />
+    <Build Include="dbo\Tables\Attachments.sql" />
   </ItemGroup>
 </Project>

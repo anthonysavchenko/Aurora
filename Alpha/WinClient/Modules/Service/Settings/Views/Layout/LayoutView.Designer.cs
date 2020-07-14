@@ -40,6 +40,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.backupPathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SenderTextBox = new System.Windows.Forms.TextBox();
+            this.SenderLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PortNumericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -56,6 +58,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.SenderTextBox);
+            this.groupBox1.Controls.Add(this.SenderLabel);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.PasswordTextBox);
             this.groupBox1.Controls.Add(this.LoginTextBox);
@@ -68,7 +72,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(584, 160);
+            this.groupBox1.Size = new System.Drawing.Size(584, 178);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Почтовый ящик для получения форм ДЭК";
@@ -159,7 +163,7 @@
             // 
             this.groupBox2.Controls.Add(this.backupPathTextBox);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(17, 219);
+            this.groupBox2.Location = new System.Drawing.Point(17, 237);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -167,6 +171,23 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Резервное копирование базы данных";
+            // 
+            // SenderTextBox
+            // 
+            this.SenderTextBox.Location = new System.Drawing.Point(158, 131);
+            this.SenderTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.SenderTextBox.Name = "SenderTextBox";
+            this.SenderTextBox.Size = new System.Drawing.Size(232, 20);
+            this.SenderTextBox.TabIndex = 7;
+            // 
+            // SenderLabel
+            // 
+            this.SenderLabel.AutoSize = true;
+            this.SenderLabel.Location = new System.Drawing.Point(29, 134);
+            this.SenderLabel.Name = "SenderLabel";
+            this.SenderLabel.Size = new System.Drawing.Size(73, 13);
+            this.SenderLabel.TabIndex = 6;
+            this.SenderLabel.Text = "Отправитель";
             // 
             // LayoutView
             // 
@@ -198,5 +219,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox backupPathTextBox;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox SenderTextBox;
+        private System.Windows.Forms.Label SenderLabel;
     }
 }

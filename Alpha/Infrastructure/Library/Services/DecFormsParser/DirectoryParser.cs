@@ -83,7 +83,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
                 }
                 catch (Exception e)
                 {
-                    Logger.SimpleWrite($"DirectoryParser TryParse error (file: {files[i]}): {e}");
+                    Logger.SimpleWrite($"DirectoryParser ParseDirectory error (file: {files[i]}): {e}");
                     FileParser.SaveError(
                         uploadPos,
                         "Внутренняя ошибка при распознавании файла. Убедитесь, что на компьютере " +

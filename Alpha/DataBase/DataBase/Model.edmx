@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AlphaDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attachments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Buildings">
           <Key>
             <PropertyRef Name="ID" />
@@ -20,6 +30,18 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Building" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DecFormsDownloads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Created" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Author" Type="int" Nullable="false" />
+          <Property Name="Directory" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DecFormsUploadPoses">
           <Key>
@@ -42,6 +64,18 @@
           <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="Author" Type="int" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Emails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DecFormDownload" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="100" />
+          <Property Name="FromAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="Received" Type="datetime2" Precision="0" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="FillFormPoses">
           <Key>
@@ -134,6 +168,18 @@
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Aka" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Attachments_Emails">
+          <End Role="Emails" Type="Self.Emails" Multiplicity="1" />
+          <End Role="Attachments" Type="Self.Attachments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emails">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attachments">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Customers_Buildings">
           <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -143,6 +189,18 @@
             </Principal>
             <Dependent Role="Customers">
               <PropertyRef Name="Building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DecFormsDownloads_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="DecFormsDownloads" Type="Self.DecFormsDownloads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DecFormsDownloads">
+              <PropertyRef Name="Author" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -191,6 +249,18 @@
             </Principal>
             <Dependent Role="DecFormsUploads">
               <PropertyRef Name="Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emails_DecFormsDownloads">
+          <End Role="DecFormsDownloads" Type="Self.DecFormsDownloads" Multiplicity="1" />
+          <End Role="Emails" Type="Self.Emails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecFormsDownloads">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Emails">
+              <PropertyRef Name="DecFormDownload" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -274,10 +344,13 @@
           <Parameter Name="step" Type="tinyint" Mode="In" />
         </Function>
         <EntityContainer Name="AlphaDataBaseModelStoreContainer">
+          <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Buildings" EntityType="Self.Buildings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DecFormsDownloads" EntityType="Self.DecFormsDownloads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DecFormsUploadPoses" EntityType="Self.DecFormsUploadPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DecFormsUploads" EntityType="Self.DecFormsUploads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emails" EntityType="Self.Emails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FillFormPoses" EntityType="Self.FillFormPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FillForms" EntityType="Self.FillForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateCounters" EntityType="Self.PrivateCounters" Schema="dbo" store:Type="Tables" />
@@ -286,9 +359,17 @@
           <EntitySet Name="RouteForms" EntityType="Self.RouteForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Attachments_Emails" Association="Self.FK_Attachments_Emails">
+            <End Role="Emails" EntitySet="Emails" />
+            <End Role="Attachments" EntitySet="Attachments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customers_Buildings" Association="Self.FK_Customers_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
             <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DecFormsDownloads_Users" Association="Self.FK_DecFormsDownloads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DecFormsDownloads" EntitySet="DecFormsDownloads" />
           </AssociationSet>
           <AssociationSet Name="FK_DecFormsUploadPoses_DecFormsUploads" Association="Self.FK_DecFormsUploadPoses_DecFormsUploads">
             <End Role="DecFormsUploads" EntitySet="DecFormsUploads" />
@@ -305,6 +386,10 @@
           <AssociationSet Name="FK_DecFormsUploads_Users" Association="Self.FK_DecFormsUploads_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="DecFormsUploads" EntitySet="DecFormsUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emails_DecFormsDownloads" Association="Self.FK_Emails_DecFormsDownloads">
+            <End Role="DecFormsDownloads" EntitySet="DecFormsDownloads" />
+            <End Role="Emails" EntitySet="Emails" />
           </AssociationSet>
           <AssociationSet Name="FK_FillFormPoses_FillForms" Association="Self.FK_FillFormPoses_FillForms">
             <End Role="FillForms" EntitySet="FillForms" />
@@ -397,6 +482,21 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="DecFormsUploads" EntitySet="DecFormsUploads" />
           </AssociationSet>
+          <EntitySet Name="DecFormsDownloads" EntityType="AlphaDataBaseModel.DecFormsDownloads" />
+          <AssociationSet Name="FK_DecFormsDownloads_Users" Association="AlphaDataBaseModel.FK_DecFormsDownloads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DecFormsDownloads" EntitySet="DecFormsDownloads" />
+          </AssociationSet>
+          <EntitySet Name="Attachments" EntityType="AlphaDataBaseModel.Attachments" />
+          <EntitySet Name="Emails" EntityType="AlphaDataBaseModel.Emails" />
+          <AssociationSet Name="FK_Attachments_Emails" Association="AlphaDataBaseModel.FK_Attachments_Emails">
+            <End Role="Emails" EntitySet="Emails" />
+            <End Role="Attachments" EntitySet="Attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emails_DecFormsDownloads" Association="AlphaDataBaseModel.FK_Emails_DecFormsDownloads">
+            <End Role="DecFormsDownloads" EntitySet="DecFormsDownloads" />
+            <End Role="Emails" EntitySet="Emails" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Buildings">
           <Key>
@@ -444,6 +544,7 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Aka" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="DecFormsUploads" Relationship="AlphaDataBaseModel.FK_DecFormsUploads_Users" FromRole="Users" ToRole="DecFormsUploads" />
+          <NavigationProperty Name="DecFormsDownloads" Relationship="AlphaDataBaseModel.FK_DecFormsDownloads_Users" FromRole="Users" ToRole="DecFormsDownloads" />
         </EntityType>
         <Association Name="FK_Customers_Buildings">
           <End Role="Buildings" Type="AlphaDataBaseModel.Buildings" Multiplicity="1" />
@@ -581,6 +682,54 @@
         <Association Name="FK_DecFormsUploads_Users">
           <End Type="AlphaDataBaseModel.Users" Role="Users" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.DecFormsUploads" Role="DecFormsUploads" Multiplicity="*" />
+        </Association>
+        <EntityType Name="DecFormsDownloads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Directory" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Author" Relationship="AlphaDataBaseModel.FK_DecFormsDownloads_Users" FromRole="DecFormsDownloads" ToRole="Users" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Emails" Relationship="AlphaDataBaseModel.FK_Emails_DecFormsDownloads" FromRole="DecFormsDownloads" ToRole="Emails" />
+        </EntityType>
+        <Association Name="FK_DecFormsDownloads_Users">
+          <End Type="AlphaDataBaseModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.DecFormsDownloads" Role="DecFormsDownloads" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Attachments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Emails" Relationship="AlphaDataBaseModel.FK_Attachments_Emails" FromRole="Attachments" ToRole="Emails" />
+        </EntityType>
+        <EntityType Name="Emails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FromAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Received" Type="DateTime" Precision="0" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Attachments" Relationship="AlphaDataBaseModel.FK_Attachments_Emails" FromRole="Emails" ToRole="Attachments" />
+          <NavigationProperty Name="DecFormsDownloads" Relationship="AlphaDataBaseModel.FK_Emails_DecFormsDownloads" FromRole="Emails" ToRole="DecFormsDownloads" />
+        </EntityType>
+        <Association Name="FK_Attachments_Emails">
+          <End Type="AlphaDataBaseModel.Emails" Role="Emails" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.Attachments" Role="Attachments" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Emails_DecFormsDownloads">
+          <End Type="AlphaDataBaseModel.DecFormsDownloads" Role="DecFormsDownloads" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.Emails" Role="Emails" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -793,6 +942,26 @@
               <ScalarProperty Name="ID" ColumnName="FillForm" />
             </EndProperty>
           </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PrivateCounters_Customers" TypeName="AlphaDataBaseModel.FK_PrivateCounters_Customers" StoreEntitySet="PrivateCounters">
+            <EndProperty Name="Customers">
+              <ScalarProperty Name="ID" ColumnName="Customer" />
+            </EndProperty>
+            <EndProperty Name="PrivateCounters">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="DecFormsDownloads">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.DecFormsDownloads">
+              <MappingFragment StoreEntitySet="DecFormsDownloads">
+                <ScalarProperty Name="Directory" ColumnName="Directory" />
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="FK_DecFormsUploads_Users" TypeName="AlphaDataBaseModel.FK_DecFormsUploads_Users" StoreEntitySet="DecFormsUploads">
             <EndProperty Name="DecFormsUploads">
               <ScalarProperty Name="ID" ColumnName="ID" />
@@ -801,12 +970,50 @@
               <ScalarProperty Name="ID" ColumnName="Author" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_PrivateCounters_Customers" TypeName="AlphaDataBaseModel.FK_PrivateCounters_Customers" StoreEntitySet="PrivateCounters">
-            <EndProperty Name="Customers">
-              <ScalarProperty Name="ID" ColumnName="Customer" />
-            </EndProperty>
-            <EndProperty Name="PrivateCounters">
+          <AssociationSetMapping Name="FK_DecFormsDownloads_Users" TypeName="AlphaDataBaseModel.FK_DecFormsDownloads_Users" StoreEntitySet="DecFormsDownloads">
+            <EndProperty Name="DecFormsDownloads">
               <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="ID" ColumnName="Author" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Attachments">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.Attachments">
+              <MappingFragment StoreEntitySet="Attachments">
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.Emails">
+              <MappingFragment StoreEntitySet="Emails">
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Emails_DecFormsDownloads" TypeName="AlphaDataBaseModel.FK_Emails_DecFormsDownloads" StoreEntitySet="Emails">
+            <EndProperty Name="Emails">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="DecFormsDownloads">
+              <ScalarProperty Name="ID" ColumnName="DecFormDownload" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Attachments_Emails" TypeName="AlphaDataBaseModel.FK_Attachments_Emails" StoreEntitySet="Attachments">
+            <EndProperty Name="Attachments">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Emails">
+              <ScalarProperty Name="ID" ColumnName="Email" />
             </EndProperty>
           </AssociationSetMapping>
           </EntityContainerMapping>
@@ -872,6 +1079,12 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DecFormsUploads_Users" ManuallyRouted="false" >
         </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.DecFormsDownloads" Width="2" PointX="11.125" PointY="0.625" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_DecFormsDownloads_Users" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Attachments" Width="2" PointX="11.125" PointY="7.125" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Emails" Width="2" PointX="11.125" PointY="3.875" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Attachments_Emails" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Emails_DecFormsDownloads" />
         </edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

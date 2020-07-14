@@ -65,5 +65,10 @@ namespace Taumis.EnterpriseLibrary.Win.BaseViews.Common
         {
             MessageBox.Show(_text, _caption);
         }
+
+        public bool IsOk(string text, string caption)
+        {
+            return MessageBox.Show(text, caption, MessageBoxButtons.YesNo) == DialogResult.Yes;
+        }
     }
 }
