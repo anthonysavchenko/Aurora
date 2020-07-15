@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI.Commands;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.Item;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.Wizard;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseTabbedView;
@@ -112,8 +113,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
                     if (!_cancelAction)
                     {
                         base.ManageCommandsForNotListTab();
-                        IBaseListView _view = (IBaseListView)WorkItem.SmartParts.Get(ModuleViewNames.ITEM_VIEW);
+                        IItemView _view = (IItemView)WorkItem.SmartParts.Get(ModuleViewNames.ITEM_VIEW);
                         _view.RefreshList();
+                        _view.ShowDomainOnView();
                     }
                     break;
             }

@@ -56,14 +56,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Querie
                     item.Errors,
                     item.Note,
                     item.OuterError && item.InnerErrors
-                        ? $"{item.ErrorDescription} А также обнаружены ошибки при чтении некоторых писем и/или скачивании некоторых файлов."
+                        ? $"{item.ErrorDescription} А также обнаружены ошибки при чтении некоторых писем и/или " +
+                            "скачивании некоторых файлов."
                         : item.OuterError && !item.InnerErrors
                             ? item.ErrorDescription
                             : !item.OuterError && item.InnerErrors
                                 ? "Обнаружены ошибки при чтении некоторых писем и/или скачивании некоторых файлов."
-                                : item.Emails > 0 && item.Files > 0
-                                    ? "Скачивание выполнено успешно."
-                                    : "Нескачанных файлов не обнаружено.");
+                                : item.Files > 0
+                                    ? "Скачивание файлов выполнено успешно."
+                                    : "Новых файлов для скачивания не обнаружено.");
             }
 
             return table;

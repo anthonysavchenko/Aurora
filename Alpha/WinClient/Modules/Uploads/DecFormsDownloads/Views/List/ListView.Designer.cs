@@ -40,13 +40,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
             this.FilesColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ErrorsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.NoteColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.DescriptionColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tillDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.sinceDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.DescriptionColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             _gridControlOfListView = new DevExpress.XtraGrid.GridControl();
             ((System.ComponentModel.ISupportInitialize)(this._gridViewOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(_gridControlOfListView)).BeginInit();
@@ -75,6 +75,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
             this._gridViewOfListView.Name = "_gridViewOfListView";
             this._gridViewOfListView.OptionsBehavior.AllowIncrementalSearch = true;
             this._gridViewOfListView.OptionsBehavior.Editable = false;
+            this._gridViewOfListView.OptionsSelection.EnableAppearanceFocusedCell = false;
             this._gridViewOfListView.OptionsSelection.MultiSelect = true;
             this._gridViewOfListView.OptionsView.ShowGroupPanel = false;
             // 
@@ -141,8 +142,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
             this.NoteColumn.Caption = "Комментарий";
             this.NoteColumn.FieldName = "Note";
             this.NoteColumn.Name = "NoteColumn";
-            this.NoteColumn.Visible = true;
-            this.NoteColumn.VisibleIndex = 6;
+            // 
+            // DescriptionColumn
+            // 
+            this.DescriptionColumn.Caption = "Результат обработки";
+            this.DescriptionColumn.FieldName = "Description";
+            this.DescriptionColumn.Name = "DescriptionColumn";
             // 
             // _gridControlOfListView
             // 
@@ -233,14 +238,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(765, 65);
             this.panel1.TabIndex = 5;
-            // 
-            // DescriptionColumn
-            // 
-            this.DescriptionColumn.Caption = "Результат обработки";
-            this.DescriptionColumn.FieldName = "Description";
-            this.DescriptionColumn.Name = "DescriptionColumn";
-            this.DescriptionColumn.Visible = true;
-            this.DescriptionColumn.VisibleIndex = 7;
             // 
             // ListView
             // 

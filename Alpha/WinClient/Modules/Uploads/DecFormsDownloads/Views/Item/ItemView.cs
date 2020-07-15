@@ -8,7 +8,7 @@ using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.Item
 {
     [SmartPart]
-    public partial class ItemView : BaseMultipleListView
+    public partial class ItemView : BaseMultipleListView, IItemView
     {
         public ItemView()
         {
@@ -43,6 +43,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
                 SubGridViewOfListView.BestFitColumns();
                 GridControlOfListView.LevelTree.Nodes.Add("ID_Email", SubGridViewOfListView);
             }
+        }
+
+        public string Directory
+        {
+            set
+            {
+                DirectoryTextBox.Text = value;
+            }
+        }
+
+        public string Note
+        {
+            set
+            {
+                NoteTextBox.Text = value;
+            }
+        }
+
+        public string Description
+        {
+            set
+            {
+                DescriptionTextBox.Text = value;
+            }
+        }
+
+        public void ShowDomainOnView()
+        {
+            Presenter.ShowDomainOnView();
         }
     }
 }

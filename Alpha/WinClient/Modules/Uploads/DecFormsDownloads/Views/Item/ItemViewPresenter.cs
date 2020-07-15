@@ -2,6 +2,7 @@
 using Microsoft.Practices.ObjectBuilder;
 using System;
 using System.Data;
+using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Constants;
@@ -74,6 +75,60 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
                 return;
 
             RefreshList();
+        }
+
+        public void ShowDomainOnView()
+        {
+            string itemID = (string)WorkItem.State[CommonStateNames.CurrentItemId];
+
+            if (int.TryParse(itemID, out int id))
+            {
+                using (var db = new Entities())
+                {
+                    var item =
+                        db.DecFormsDownloads
+                            .Where(x => x.ID.ToString() == itemID)
+                            .Select(x =>
+                                new
+                                {
+                                    x.Directory,
+                                    x.Note,
+                                    x.ErrorDescription,
+
+                                    Files = x.Emails.Count > 0
+                                        ? x.Emails.Sum(e => e.Attachments.Count(a => a.ErrorDescription == null))
+                                        : 0,
+                                    OuterError = !string.IsNullOrEmpty(x.ErrorDescription),
+                                    InnerErrors =
+                                        x.Emails.Count > 0
+                                            && (x.Emails.Any(e => e.ErrorDescription != null)
+                                            || x.Emails.Any(e =>
+                                                e.Attachments.Count > 0
+                                                && e.Attachments.Any(a => a.ErrorDescription != null))),
+                                })
+                            .First();
+
+                    View.Directory = item.Directory;
+                    View.Note = item.Note;
+                    View.Description =
+                        item.OuterError && item.InnerErrors
+                            ? $"{item.ErrorDescription} А также обнаружены ошибки при чтении некоторых писем и/или " +
+                                "скачивании некоторых файлов."
+                            : item.OuterError && !item.InnerErrors
+                                ? item.ErrorDescription
+                                : !item.OuterError && item.InnerErrors
+                                    ? "Обнаружены ошибки при чтении некоторых писем и/или скачивании некоторых файлов."
+                                    : item.Files > 0
+                                        ? "Скачивание файлов выполнено успешно."
+                                        : "Новых файлов для скачивания не обнаружено.";
+                }
+            }
+            else
+            {
+                View.Directory = string.Empty;
+                View.Note = string.Empty;
+                View.Description = string.Empty;
+            }
         }
     }
 }
