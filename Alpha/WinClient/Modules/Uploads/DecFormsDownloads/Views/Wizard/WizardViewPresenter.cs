@@ -163,12 +163,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
                 OnProgress: (int percents) => View.SetProgress("Скачивание файлов из почтового ящика", percents),
                 OnCompleted: (DataBase.DecFormsDownloads download) =>
                 {
-                    View.Emails = download.Emails.Count(e => e.ErrorDescription == null);
-                    View.Files = download.Emails.Sum(e => e.Attachments.Count(a => a.ErrorDescription == null));
-                    View.Errors = 
-                        (download.ErrorDescription != null ? 1 : 0) +
-                            download.Emails.Count(e => e.ErrorDescription != null) +
-                            download.Emails.Sum(e => e.Attachments.Count(a => a.ErrorDescription != null));
+                    if (download == null)
+                    {
+                        View.Emails = 0;
+                        View.Files = 0;
+                        View.Errors = 1;
+                        View.ShowMessage(
+                            "Проверьте подключение к локальной сети УК ФР и серверу БД.",
+                            "Ошибка при подготовке к обработке данных");
+                    }
+                    else
+                    {
+                        View.Emails = download.Emails.Count(e => e.ErrorDescription == null);
+                        View.Files = download.Emails.Sum(e => e.Attachments.Count(a => a.ErrorDescription == null));
+                        View.Errors =
+                            (download.ErrorDescription != null ? 1 : 0) +
+                                download.Emails.Count(e => e.ErrorDescription != null) +
+                                download.Emails.Sum(e => e.Attachments.Count(a => a.ErrorDescription != null));
+                    }
 
                     View.IsMasterInProgress = false;
                     View.IsMasterCompleted = true;

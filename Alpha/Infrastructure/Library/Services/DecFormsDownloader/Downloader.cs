@@ -3,6 +3,7 @@ using MailKit.Net.Imap;
 using MailKit.Search;
 using MailKit.Security;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Taumis.Alpha.DataBase;
@@ -49,37 +50,40 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             string note,
             Action<int> SetProgressPercents)
         {
-            var download = CreateDownload(directory, note, userID);
+            DecFormsDownloads download;
 
             try
             {
-                var settings = SettingsService.GetDecFormsDownloadSettings();
+                download = CreateDownload(directory, note, userID);
+            }
+            catch(Exception e)
+            {
+                Logger.SimpleWrite($"Downloader Download error: {e}");
+                return null;
+            }
 
+            try
+            {
                 using (var client = new ImapClient())
                 {
-                    client.Connect(settings.Server, settings.Port, SecureSocketOptions.SslOnConnect);
-                    client.Authenticate(settings.Login, settings.Password);
-
-                    var inbox = client.Inbox;
-                    inbox.Open(FolderAccess.ReadWrite);
-                    var query = SearchQuery.NotSeen;
-                    var uids = inbox.Search(query); 
-
-                    for (int i = 0; i < uids.Count; i++)
+                    if (Connect(download, client, out IMailFolder inbox, out IList<UniqueId> uids, out string sender))
                     {
-                        EmailDownloader.DownloadEmail(
-                            download,
-                            inbox,
-                            uids[i],
-                            settings.Sender,
-                            i,
-                            uids.Count,
-                            SetProgressPercents);
+                        for (int i = 0; i < uids.Count; i++)
+                        {
+                            EmailDownloader.DownloadEmail(
+                                download,
+                                inbox,
+                                uids[i],
+                                sender,
+                                i,
+                                uids.Count,
+                                SetProgressPercents);
 
-                        SetProgressPercents((i + 1) * 100 / uids.Count);
+                            SetProgressPercents((i + 1) * 100 / uids.Count);
+                        }
+
+                        client.Disconnect(true);
                     }
-
-                    client.Disconnect(true);
                 }
             }
             catch(Exception e)
@@ -87,8 +91,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
                 Logger.SimpleWrite($"Downloader Download error: {e}");
                 UpdateErrorDownload(
                     download,
-                    "Ошибка при подключении к почтовому ящику или отключении от него. " +
-                        "Проверьте соединение с Интернет и правильность настроек подключения.",
+                    "Ошибка во время обработки данных.",
                     e.ToString());
             }
 
@@ -134,6 +137,47 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 db.SaveChanges();
             }
+        }
+
+        static private bool Connect(
+            DecFormsDownloads download,
+            ImapClient client,
+            out IMailFolder inbox,
+            out IList<UniqueId> uids,
+            out string sender)
+        {
+            bool result = false;
+            inbox = null;
+            uids = null;
+            sender = null;
+
+            try
+            {
+                var settings = SettingsService.GetDecFormsDownloadSettings();
+
+                sender = settings.Sender;
+
+                client.Connect(settings.Server, settings.Port, SecureSocketOptions.SslOnConnect);
+                client.Authenticate(settings.Login, settings.Password);
+
+                inbox = client.Inbox;
+                inbox.Open(FolderAccess.ReadWrite);
+                var query = SearchQuery.NotSeen;
+                uids = inbox.Search(query);
+
+                result = true;
+            }
+            catch (Exception e)
+            {
+                Logger.SimpleWrite($"Downloader Download error: {e}");
+                UpdateErrorDownload(
+                    download,
+                    "Ошибка при подключении к почтовому ящику. " +
+                        "Проверьте соединение с Интернет и правильность настроек подключения.",
+                    e.ToString());
+            }
+
+            return result;
         }
     }
 }
