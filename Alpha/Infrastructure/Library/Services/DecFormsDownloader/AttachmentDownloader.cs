@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.EnterpriseLibrary.Win.Services;
 
@@ -23,9 +24,20 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             try
             {
                 var mimeEntity = mimeEntities.ElementAt(attachmentIndex);
-                var fileName = mimeEntity.ContentDisposition?.FileName ?? mimeEntity.ContentType.Name;
+                var fileName = GetFileName(mimeEntity);
+
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    UpdateErrorAttachment(attachment, "Не удалось определить имя файла.");
+                    return;
+                }
 
                 UpdateAttachment(attachment, fileName);
+
+                if (!fileName.EndsWith(".xls"))
+                {
+                    UpdateErrorAttachment(attachment, "Сохраняются файлы только в формате MS Excel 97-2003 (*.xls)");
+                }
 
                 var filePath = Path.Combine(directory, fileName);
 
@@ -57,6 +69,50 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
                     $"(message uid: {messageUid}, attachment: {attachmentIndex}): {e}");
                 UpdateErrorAttachment(attachment, "Ошибка при скачивании файла.", e.ToString());
             }
+        }
+
+        static private string GetFileName(MimeEntity mimeEntity)
+        {
+            string fileName;
+
+            fileName = GetFileNameEncodedToWin1251(mimeEntity, HeaderId.ContentDisposition, "filename")
+                ?? GetFileNameEncodedToWin1251(mimeEntity, HeaderId.ContentType, "name");
+
+            if (string.IsNullOrEmpty(fileName) || fileName.StartsWith("=?UTF-8?"))
+            {
+                fileName = mimeEntity.ContentDisposition?.FileName ?? mimeEntity.ContentType?.Name;
+            }
+
+            return fileName;
+        }
+
+        static private string GetFileNameEncodedToWin1251(
+            MimeEntity mimeEntity,
+            HeaderId headerId,
+            string propertyName)
+        {
+            string fileName = null;
+
+            int headerIndex = mimeEntity.Headers.IndexOf(headerId);
+
+            if (headerIndex >= 0)
+            {
+                var header = mimeEntity.Headers[headerIndex];
+                string headerContent = Encoding.GetEncoding(1251).GetString(header.RawValue);
+
+                int fileNameIndex = headerContent.LastIndexOf(propertyName);
+
+                if (fileNameIndex >= 0)
+                {
+                    fileName = headerContent
+                        .Substring(fileNameIndex)
+                        .Replace($"{propertyName}=", string.Empty)
+                        .Replace("\"", string.Empty)
+                        .Replace("\r\n", string.Empty);
+                }
+            }
+
+            return fileName;
         }
 
         static private Attachments CreateAttachment(Emails email)

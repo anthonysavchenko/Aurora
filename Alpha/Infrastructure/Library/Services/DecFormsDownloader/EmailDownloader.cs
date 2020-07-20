@@ -1,4 +1,5 @@
 ﻿using MailKit;
+using MimeKit;
 using System;
 using System.Linq;
 using Taumis.Alpha.DataBase;
@@ -25,29 +26,39 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 string fromAddress =
                     (message.From?.Count ?? 0) > 0
-                        ? message.From.Any(m => m.ToString().ToLower() == sender.ToLower())
-                            ? sender
-                            : message.From[0].ToString()
+                        ? message.From.Any(m =>
+                            m is MailboxAddress
+                            && ((MailboxAddress)message.From.First()).Address.ToLower() == sender.ToLower())
+                                ? sender
+                                : ((MailboxAddress)message.From.First()).Address
                         : string.Empty;
 
                 UpdateEmail(email, message.Subject, fromAddress, message.Date.DateTime);
 
-                if (fromAddress == sender)
+                if (fromAddress != sender)
                 {
-                    var attachments = message.Attachments;
-                    var attachmentsCount = attachments?.Count() ?? 0;
+                    UpdateErrorEmail(email, $"Читаются письма полученные, только от {sender}.");
+                    return;
+                }
 
-                    for (int j = 0; j < attachmentsCount; j++)
-                    {
-                        AttachmentDownloader.DownloadAttachment(
-                            email,
-                            messageUid,
-                            message.Attachments,
-                            j,
-                            download.Directory);
+                var attachments = message.Attachments;
+                var attachmentsCount = attachments?.Count() ?? 0;
 
-                        SetProgressPercents((messageIndex * 100 + (j + 1) * 100 / attachmentsCount) / messagesCount);
-                    }
+                if (attachmentsCount <= 0)
+                {
+                    UpdateErrorEmail(email, "Читаются письма только с приложенными файлами.");
+                }
+
+                for (int j = 0; j < attachmentsCount; j++)
+                {
+                    AttachmentDownloader.DownloadAttachment(
+                        email,
+                        messageUid,
+                        message.Attachments,
+                        j,
+                        download.Directory);
+
+                    SetProgressPercents((messageIndex * 100 + (j + 1) * 100 / attachmentsCount) / messagesCount);
                 }
 
                 inbox.AddFlags(messageUid, MessageFlags.Seen, true);

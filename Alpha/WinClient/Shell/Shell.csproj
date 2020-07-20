@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Mjolnir</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>001.0.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>001.3.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>001.0.0.0</ApplicationVersion>
+    <ApplicationVersion>001.3.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -333,6 +333,10 @@
     <ProjectReference Include="..\Modules\Service\Settings\Settings.csproj">
       <Project>{7a533ba4-4d51-49f5-a5d5-5a615dac0688}</Project>
       <Name>Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Uploads\DecFormsDownloads\DecFormsDownloads.csproj">
+      <Project>{74b8cbf6-8306-42b2-ab7d-fad3fee6412b}</Project>
+      <Name>DecFormsDownloads</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Uploads\DecFormsUploads\DecFormsUploads.csproj">
       <Project>{c42d410a-18e5-4bff-ad53-8a0ec033436f}</Project>
