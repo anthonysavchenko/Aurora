@@ -18,7 +18,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersVolumes.V
         /// </summary>
         /// <param name="fieldName">Наименование колонки в источнике данных</param>
         /// <param name="caption">Заголовок колонки</param>
-        void AddMoneyColumn(string fieldName, string caption);
+        void AddNumericColumn(string fieldName, string caption);
 
         /// <summary>
         /// Удаляет все колонки

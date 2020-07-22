@@ -51,11 +51,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersVolumes.V
         /// </summary>
         /// <param name="fieldName">Наименование колонки в источнике данных</param>
         /// <param name="caption">Заголовок колонки</param>
-        public void AddMoneyColumn(string fieldName, string caption)
+        public void AddNumericColumn(string fieldName, string caption)
         {
-            GridColumn _column = AddColumn(fieldName, caption, FormatType.Numeric, "0.00");
-            _column.SummaryItem.FieldName = fieldName;
-            _column.SummaryItem.SummaryType = SummaryItemType.Sum;
+            AddColumn(fieldName, caption, FormatType.Numeric, "0");
         }
 
         /// <summary>
