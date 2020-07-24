@@ -9,41 +9,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
 {
     static public class DirectoryParser
     {
-        static public void ParseDirectoryAsync(
-            string directory,
-            DecFormsUploads upload,
-            Action<int> OnProgress,
-            Action<DirectoryParsingResult> OnCompleted)
-        {
-            BackgroundWorker worker = new BackgroundWorker()
-            {
-                WorkerReportsProgress = true
-            };
-
-            worker.ProgressChanged += (sender, args) =>
-            {
-                OnProgress(args.ProgressPercentage);
-            };
-
-            worker.RunWorkerCompleted += (sender, args) =>
-            {
-                OnCompleted((DirectoryParsingResult)args.Result);
-            };
-
-            worker.DoWork += (sender, args) =>
-            {
-                args.Result = ParseDirectory(directory, upload, ((BackgroundWorker)sender).ReportProgress);
-            };
-
-            worker.RunWorkerAsync();
-        }
-
-        static public DirectoryParsingResult ParseDirectory(
+        static public void ParseDirectory(
             string directory,
             DecFormsUploads upload,
             Action<int> SetProgressPercents)
         {
-            DirectoryParsingResult result = new DirectoryParsingResult();
             Excel2007Worker worker = new Excel2007Worker();
 
             string[] files = Directory.GetFiles(directory, "*.xls", SearchOption.TopDirectoryOnly);
@@ -63,7 +33,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
                             sheet,
                             uploadPos,
                             out string message);
-                        result.RouteForms++;
                     }
                     else if (FillFormParser.FileParser.IsFillForm(sheet, out string isFillFormMessage))
                     {
@@ -71,14 +40,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
                             sheet,
                             uploadPos,
                             out string message);
-                        result.FillForms++;
                     }
                     else
                     {
                         FileParser.SaveError(
                             uploadPos,
                             $"Формат файла не определен. 1. {isRouteFormMessage} 2. {isFillFormMessage}");
-                        result.UnknownFiles++;
                     }
                 }
                 catch (Exception e)
@@ -89,7 +56,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
                         "Внутренняя ошибка при распознавании файла. Убедитесь, что на компьютере " +
                             "установлен Excel, и файл не открыт в другом окне или в другой программе. " +
                             "А также убедитесь, что файл составлен в правильном формате.");
-                    result.Exceptions++;
                 }
                 finally
                 {
@@ -98,8 +64,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
 
                 SetProgressPercents((i + 1) * 100 / files.Length);
             }
-
-            return result;
         }
     }
 }

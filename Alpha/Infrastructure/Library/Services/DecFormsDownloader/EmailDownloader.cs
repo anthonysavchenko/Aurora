@@ -37,7 +37,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 if (fromAddress != sender)
                 {
-                    UpdateErrorEmail(email, $"Читаются письма полученные, только от {sender}.");
+                    UpdateEmailWithError(email, $"Читаются письма полученные, только от {sender}.");
                     return;
                 }
 
@@ -46,7 +46,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 if (attachmentsCount <= 0)
                 {
-                    UpdateErrorEmail(email, "Читаются письма только с приложенными файлами.");
+                    UpdateEmailWithError(email, "Читаются письма только с приложенными файлами.");
+                    return;
                 }
 
                 for (int j = 0; j < attachmentsCount; j++)
@@ -66,7 +67,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             catch (Exception e)
             {
                 Logger.SimpleWrite($"Downloader DownloadMessage error (message uid: {messageUid}): {e}");
-                UpdateErrorEmail(
+                UpdateEmailWithError(
                     email,
                     "Ошибка при чтении письма.",
                     e.ToString());
@@ -107,7 +108,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             }
         }
 
-        static private void UpdateErrorEmail(
+        static private void UpdateEmailWithError(
             Emails email,
             string errorDescription,
             string exceptionMessage = null)

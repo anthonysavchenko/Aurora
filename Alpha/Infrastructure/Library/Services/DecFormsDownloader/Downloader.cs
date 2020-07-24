@@ -1,9 +1,4 @@
-﻿using MailKit;
-using MailKit.Net.Imap;
-using MailKit.Search;
-using MailKit.Security;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using Taumis.Alpha.DataBase;
@@ -38,7 +33,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
             worker.DoWork += (sender, args) =>
             {
-                args.Result = Download(directory, userID, note, ((BackgroundWorker)sender).ReportProgress);
+                args.Result =
+                    Download(
+                        directory,
+                        userID,
+                        note,
+                        ((BackgroundWorker)sender).ReportProgress);
             };
 
             worker.RunWorkerAsync();
@@ -50,76 +50,69 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             string note,
             Action<int> SetProgressPercents)
         {
-            DecFormsDownloads download;
-
-            try
+            if (CreateDownload(
+                directory,
+                note,
+                userID,
+                out DecFormsDownloads download))
             {
-                download = CreateDownload(directory, note, userID);
-            }
-            catch(Exception e)
-            {
-                Logger.SimpleWrite($"Downloader Download error: {e}");
-                return null;
-            }
-
-            try
-            {
-                using (var client = new ImapClient())
+                try
                 {
-                    if (Connect(download, client, out IMailFolder inbox, out IList<UniqueId> uids, out string sender))
-                    {
-                        for (int i = 0; i < uids.Count; i++)
-                        {
-                            EmailDownloader.DownloadEmail(
-                                download,
-                                inbox,
-                                uids[i],
-                                sender,
-                                i,
-                                uids.Count,
-                                SetProgressPercents);
-
-                            SetProgressPercents((i + 1) * 100 / uids.Count);
-                        }
-
-                        client.Disconnect(true);
-                    }
+                    ImapDownloader.Download(
+                        download,
+                        SetProgressPercents);
+                }
+                catch (Exception e)
+                {
+                    Logger.SimpleWrite($"Downloader Download error: {e}");
+                    UpdateDownloadWithError(
+                        download,
+                        "Ошибка во время обработки данных.",
+                        e.ToString());
                 }
             }
-            catch(Exception e)
-            {
-                Logger.SimpleWrite($"Downloader Download error: {e}");
-                UpdateErrorDownload(
-                    download,
-                    "Ошибка во время обработки данных.",
-                    e.ToString());
-            }
 
             return download;
         }
 
-        static private DecFormsDownloads CreateDownload(string directory, string note, int userID)
+        static private bool CreateDownload(
+            string directory,
+            string note,
+            int userID,
+            out DecFormsDownloads download)
         {
-            DecFormsDownloads download = new DecFormsDownloads()
+            download = null;
+
+            try
             {
-                Created = ServerTimeServiceHolder.ServerTimeService.GetDateTimeInfo().Now,
-                Directory = directory.Length > 200 ? directory.Substring(0, 200) : directory,
-                Note = note.Length > 250 ? note.Substring(0, 250) : note,
-            };
+                var newDownload = new DecFormsDownloads()
+                {
+                    Created = ServerTimeServiceHolder.ServerTimeService.GetDateTimeInfo().Now,
+                    Directory = directory.Length > 200 ? directory.Substring(0, 200) : directory,
+                    Note = note.Length > 250 ? note.Substring(0, 250) : note,
+                };
 
-            using (Entities db = new Entities())
+                using (Entities db = new Entities())
+                {
+                    newDownload.Author = db.Users.First(u => u.ID == userID);
+
+                    db.AddToDecFormsDownloads(newDownload);
+
+                    db.SaveChanges();
+                }
+
+                download = newDownload;
+            }
+            catch (Exception e)
             {
-                download.Author = db.Users.First(u => u.ID == userID);
-
-                db.AddToDecFormsDownloads(download);
-
-                db.SaveChanges();
+                Logger.SimpleWrite($"Downloader CreateDownload error: {e}");
+                return false;
             }
 
-            return download;
+            return true;
         }
 
-        static private void UpdateErrorDownload(
+        static public void UpdateDownloadWithError(
             DecFormsDownloads download,
             string errorDescription,
             string exceptionMessage = null)
@@ -137,47 +130,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 db.SaveChanges();
             }
-        }
-
-        static private bool Connect(
-            DecFormsDownloads download,
-            ImapClient client,
-            out IMailFolder inbox,
-            out IList<UniqueId> uids,
-            out string sender)
-        {
-            bool result = false;
-            inbox = null;
-            uids = null;
-            sender = null;
-
-            try
-            {
-                var settings = SettingsService.GetDecFormsDownloadSettings();
-
-                sender = settings.Sender;
-
-                client.Connect(settings.Server, settings.Port, SecureSocketOptions.SslOnConnect);
-                client.Authenticate(settings.Login, settings.Password);
-
-                inbox = client.Inbox;
-                inbox.Open(FolderAccess.ReadWrite);
-                var query = SearchQuery.NotSeen;
-                uids = inbox.Search(query);
-
-                result = true;
-            }
-            catch (Exception e)
-            {
-                Logger.SimpleWrite($"Downloader Download error: {e}");
-                UpdateErrorDownload(
-                    download,
-                    "Ошибка при подключении к почтовому ящику. " +
-                        "Проверьте соединение с Интернет и правильность настроек подключения.",
-                    e.ToString());
-            }
-
-            return result;
         }
     }
 }

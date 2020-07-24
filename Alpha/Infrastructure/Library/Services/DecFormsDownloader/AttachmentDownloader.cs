@@ -28,7 +28,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 if (string.IsNullOrEmpty(fileName))
                 {
-                    UpdateErrorAttachment(attachment, "Не удалось определить имя файла.");
+                    UpdateAttachmentWithError(
+                        attachment,
+                        "Не удалось определить имя файла.");
                     return;
                 }
 
@@ -36,14 +38,19 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 if (!fileName.EndsWith(".xls"))
                 {
-                    UpdateErrorAttachment(attachment, "Сохраняются файлы только в формате MS Excel 97-2003 (*.xls)");
+                    UpdateAttachmentWithError(
+                        attachment,
+                        "Сохраняются файлы только в формате MS Excel 97-2003 (*.xls)");
+                    return;
                 }
 
                 var filePath = Path.Combine(directory, fileName);
 
                 if (File.Exists(filePath))
                 {
-                    UpdateErrorAttachment(attachment, "Файл с таким именем уже существует в выбранной папке.");
+                    UpdateAttachmentWithError(
+                        attachment,
+                        "Файл с таким именем уже существует в выбранной папке.");
                     return;
                 }
 
@@ -67,7 +74,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             {
                 Logger.SimpleWrite("Downloader DownloadFile error " +
                     $"(message uid: {messageUid}, attachment: {attachmentIndex}): {e}");
-                UpdateErrorAttachment(attachment, "Ошибка при скачивании файла.", e.ToString());
+                UpdateAttachmentWithError(attachment, "Ошибка при скачивании файла.", e.ToString());
             }
         }
 
@@ -145,7 +152,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             }
         }
 
-        static private void UpdateErrorAttachment(
+        static private void UpdateAttachmentWithError(
             Attachments attachment,
             string errorDescription,
             string exceptionMessage = null)
@@ -164,6 +171,5 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
                 db.SaveChanges();
             }
         }
-
     }
 }
