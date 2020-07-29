@@ -21,6 +21,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Queries
                             x.FileName,
                             x.FormType,
                             x.ErrorDescription,
+                            OuterError = !string.IsNullOrEmpty(x.ErrorDescription),
                         })
                     .ToList()
                     .Select(x =>
@@ -33,6 +34,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Queries
                                     ? "Форма для заполнения"
                                     : "Не определен",
                             x.ErrorDescription,
+                            x.OuterError,
                         }
                     )
                     .OrderBy(x => x.ErrorDescription);
@@ -43,7 +45,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Queries
                     item.ID.ToString(),
                     item.FileName,
                     item.FormType,
-                    item.ErrorDescription);
+                    item.OuterError
+                        ? item.ErrorDescription
+                        : "ОК");
             }
 
             return table;

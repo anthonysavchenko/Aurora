@@ -135,6 +135,8 @@
             this.GridViewOfListView.OptionsBehavior.AllowIncrementalSearch = true;
             this.GridViewOfListView.OptionsBehavior.Editable = false;
             this.GridViewOfListView.OptionsDetail.ShowDetailTabs = false;
+            this.GridViewOfListView.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.GridViewOfListView.OptionsSelection.MultiSelect = true;
             this.GridViewOfListView.OptionsView.ShowGroupPanel = false;
             // 
             // ID

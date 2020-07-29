@@ -7,7 +7,7 @@ using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Item
 {
     [SmartPart]
-    public partial class ItemView : BaseMultipleListView
+    public partial class ItemView : BaseMultipleListView, IItemView
     {
         public ItemView()
         {
@@ -27,6 +27,43 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.It
             {
                 return (ItemViewPresenter)base.Presenter;
             }
+        }
+
+        public string Month
+        {
+            set
+            {
+                MonthTextBox.Text = value;
+            }
+        }
+
+        public string Directory
+        {
+            set
+            {
+                DirectoryTextBox.Text = value;
+            }
+        }
+
+        public string Note
+        {
+            set
+            {
+                NoteTextBox.Text = value;
+            }
+        }
+
+        public string Description
+        {
+            set
+            {
+                DescriptionTextBox.Text = value;
+            }
+        }
+
+        public void ShowDomainOnView()
+        {
+            Presenter.ShowDomainOnView();
         }
     }
 }

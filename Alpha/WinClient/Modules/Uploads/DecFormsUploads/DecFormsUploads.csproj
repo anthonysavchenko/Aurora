@@ -81,6 +81,7 @@
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetListQuery.cs" />
+    <Compile Include="Views\Item\IItemView.cs" />
     <Compile Include="Views\Item\ItemView.cs">
       <SubType>UserControl</SubType>
     </Compile>
