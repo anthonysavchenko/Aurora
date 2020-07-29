@@ -1,4 +1,5 @@
 ﻿using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
@@ -8,6 +9,22 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
     /// </summary>
     public class PrivateCounter : DomainObject
     {
+        private PrivateCounterType _counterType;
+
+        public PrivateCounterType CounterType
+        {
+            get
+            {
+                Load();
+                return _counterType;
+            }
+            set
+            {
+                Load();
+                _counterType = value;
+            }
+        }
+
         private string _model;
         /// <summary>
         /// Модель прибора учета

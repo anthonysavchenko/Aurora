@@ -6,9 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using Taumis.EnterpriseLibrary.Win.Services;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
+namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader.DecFormsImapDownloader
 {
     static public class AttachmentDownloader
     {
@@ -19,7 +20,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             int attachmentIndex,
             string directory)
         {
-            var attachment = CreateAttachment(email);
+            var attachment = AttachmentHandler.CreateAttachment(email);
 
             try
             {
@@ -28,17 +29,17 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 if (string.IsNullOrEmpty(fileName))
                 {
-                    UpdateAttachmentWithError(
+                    AttachmentHandler.UpdateAttachmentWithError(
                         attachment,
                         "Не удалось определить имя файла.");
                     return;
                 }
 
-                UpdateAttachment(attachment, fileName);
+                AttachmentHandler.UpdateAttachment(attachment, fileName);
 
                 if (!fileName.EndsWith(".xls"))
                 {
-                    UpdateAttachmentWithError(
+                    AttachmentHandler.UpdateAttachmentWithError(
                         attachment,
                         "Сохраняются файлы только в формате MS Excel 97-2003 (*.xls)");
                     return;
@@ -48,7 +49,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
                 if (File.Exists(filePath))
                 {
-                    UpdateAttachmentWithError(
+                    AttachmentHandler.UpdateAttachmentWithError(
                         attachment,
                         "Файл с таким именем уже существует в выбранной папке.");
                     return;
@@ -72,9 +73,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             }
             catch (Exception e)
             {
-                Logger.SimpleWrite("Downloader DownloadFile error " +
+                Logger.SimpleWrite("AttachmentDownloader DownloadAttachment error " +
                     $"(message uid: {messageUid}, attachment: {attachmentIndex}): {e}");
-                UpdateAttachmentWithError(attachment, "Ошибка при скачивании файла.", e.ToString());
+                AttachmentHandler.UpdateAttachmentWithError(attachment, "Ошибка при скачивании файла.", e.ToString());
             }
         }
 
@@ -120,56 +121,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             }
 
             return fileName;
-        }
-
-        static private Attachments CreateAttachment(Emails email)
-        {
-            Attachments attachment = new Attachments();
-
-            using (Entities db = new Entities())
-            {
-                db.Emails.Attach(email);
-                attachment.Emails = email;
-                db.AddToAttachments(attachment);
-
-                db.SaveChanges();
-            }
-
-            return attachment;
-        }
-
-        static private void UpdateAttachment(
-            Attachments attachment,
-            string fileName)
-        {
-            using (Entities db = new Entities())
-            {
-                db.Attachments.Attach(attachment);
-
-                attachment.FileName = fileName.Length > 200 ? fileName.Substring(0, 200) : fileName;
-
-                db.SaveChanges();
-            }
-        }
-
-        static private void UpdateAttachmentWithError(
-            Attachments attachment,
-            string errorDescription,
-            string exceptionMessage = null)
-        {
-            using (Entities db = new Entities())
-            {
-                db.Attachments.Attach(attachment);
-
-                attachment.ErrorDescription = errorDescription;
-
-                if (!string.IsNullOrEmpty(exceptionMessage))
-                {
-                    attachment.ExceptionMessage = exceptionMessage;
-                }
-
-                db.SaveChanges();
-            }
         }
     }
 }

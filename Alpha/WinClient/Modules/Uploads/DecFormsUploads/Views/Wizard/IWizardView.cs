@@ -52,7 +52,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
         /// <summary>
         /// Итоговое количество ошибок в процессе обработки
         /// </summary>
-        int Exceptions { set; } 
+        int Errors { set; } 
 
         #endregion
 

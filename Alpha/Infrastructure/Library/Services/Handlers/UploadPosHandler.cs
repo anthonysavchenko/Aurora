@@ -1,18 +1,18 @@
 ﻿using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
-    static public class FileParser
+    static public class UploadPosHandler
     {
         static public DecFormsUploadPoses CreateUploadPos(
             string fileName,
             DecFormsUploads upload)
         {
-            DecFormsUploadPoses uploadPos =
+            var uploadPos =
                 new DecFormsUploadPoses()
                 {
-                    FileName = fileName,
+                    FileName = fileName.Length > 200 ? fileName.Substring(fileName.Length - 200, 200) : fileName,
                     FormType = (byte)DecFormsType.Unknown,
                 };
 
@@ -20,21 +20,30 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
             {
                 db.DecFormsUploads.Attach(upload);
                 uploadPos.DecFormsUploads = upload;
-                db.DecFormsUploadPoses.AddObject(uploadPos);
+                db.AddToDecFormsUploadPoses(uploadPos);
+
                 db.SaveChanges();
             }
 
             return uploadPos;
         }
 
-        static public void SaveError(
+        static public void UpdateUploadPosWithError(
             DecFormsUploadPoses uploadPos,
-            string message)
+            string errorDescription,
+            string exceptionMessage = null)
         {
             using (Entities db = new Entities())
             {
                 db.DecFormsUploadPoses.Attach(uploadPos);
-                uploadPos.Error = message;
+
+                uploadPos.ErrorDescription = errorDescription;
+
+                if (!string.IsNullOrEmpty(exceptionMessage))
+                {
+                    uploadPos.ExceptionMessage = exceptionMessage;
+                }
+
                 db.SaveChanges();
             }
         }

@@ -29,7 +29,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
 
                 _dbItem.Created = domObj.Created;
                 _dbItem.Month = domObj.Month;
+                _dbItem.Directory = domObj.Directory;
                 _dbItem.Note = domObj.Note;
+                _dbItem.ErrorDescription = domObj.ErrorDescription;
+                _dbItem.ExceptionMessage = domObj.ExceptionMessage;
 
                 int _propId = int.Parse(domObj.Author.ID);
                 _dbItem.Author = _entities.Users.First(u => u.ID == _propId);
@@ -54,7 +57,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
 
                 _domItem.Created = _dbItem.Created;
                 _domItem.Month = _dbItem.Month;
+                _domItem.Directory = _dbItem.Directory;
                 _domItem.Note = _dbItem.Note;
+                _domItem.ErrorDescription = _dbItem.ErrorDescription;
+                _domItem.ExceptionMessage = _dbItem.ExceptionMessage;
 
                 _domItem.Author =
                     (DomUser)DataMapperService.get(typeof(DomUser)).find(_dbItem.Author.ID.ToString());

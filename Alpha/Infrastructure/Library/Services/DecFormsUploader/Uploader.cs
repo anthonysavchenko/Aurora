@@ -1,20 +1,22 @@
 ﻿using System;
 using System.ComponentModel;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader.DecFormsImapDownloader;
+using Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser;
+using Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsSaver;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using Taumis.EnterpriseLibrary.Win.Services;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
+namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader
 {
-    static public class Downloader
+    static public class Uploader
     {
-        static public void DownloadAsync(
+        static public void UploadAsync(
             string directory,
             int userID,
+            DateTime month,
             string note,
             Action<int, string> OnProgress,
-            Action<DecFormsDownloads> OnCompleted)
+            Action<DecFormsUploads> OnCompleted)
         {
             BackgroundWorker worker = new BackgroundWorker()
             {
@@ -28,15 +30,16 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
 
             worker.RunWorkerCompleted += (sender, args) =>
             {
-                OnCompleted((DecFormsDownloads)args.Result);
+                OnCompleted((DecFormsUploads)args.Result);
             };
 
             worker.DoWork += (sender, args) =>
             {
                 args.Result =
-                    Download(
+                    Upload(
                         directory,
                         userID,
+                        month,
                         note,
                         ((BackgroundWorker)sender).ReportProgress);
             };
@@ -44,42 +47,53 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader
             worker.RunWorkerAsync();
         }
 
-        static private DecFormsDownloads Download(
+        static private DecFormsUploads Upload(
             string directory,
             int userID,
+            DateTime month,
             string note,
             Action<int, string> SetProgress)
         {
             SetProgress(0, "Подготовка к началу обработки данных...");
 
-            if (DownloadHandler.CreateDownload(
+            if (UploadHandler.CreateUpload(
                 directory,
+                month,
                 note,
                 userID,
-                out DecFormsDownloads download))
+                out DecFormsUploads upload))
             {
                 try
                 {
-                    if (!ImapDownloader.Download(
-                        download,
+                    if (!Parser.Parse(
+                        upload,
                         0,
+                        50,
+                        SetProgress))
+                    {
+                        return upload;
+                    }
+
+                    if (!Saver.Save(
+                        upload,
+                        50,
                         100,
                         SetProgress))
                     {
-                        return download;
+                        return upload;
                     }
                 }
                 catch (Exception e)
                 {
-                    Logger.SimpleWrite($"Downloader Download error: {e}");
-                    DownloadHandler.UpdateDownloadWithError(
-                        download,
+                    Logger.SimpleWrite($"Uploader Upload error: {e}");
+                    UploadHandler.UpdateUploadWithError(
+                        upload,
                         "Ошибка во время обработки данных.",
                         e.ToString());
                 }
             }
 
-            return download;
+            return upload;
         }
     }
 }

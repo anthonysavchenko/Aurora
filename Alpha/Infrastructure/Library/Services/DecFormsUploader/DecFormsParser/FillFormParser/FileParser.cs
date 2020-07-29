@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.RouteFormParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser.FillFormParser
 {
     static public class FileParser
     {
-        static public bool IsRouteForm(
+        static public bool IsFillForm(
             ExcelSheet source,
             out string message)
         {
@@ -15,7 +16,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.RouteFormP
 
             if (source.RowsCount < RowParser.FIRST_ROW)
             {
-                message = "Файл не соответствует формату \"Маршрутный лист\", так как обнаружена следующая ошибка. " +
+                message = "Файл не соответствует формату \"Форма для заполнения\", обнаружена следующая ошибка. " +
                     "В файле заполнено слишком мало строк. Форматом предусмотрено наличие данных о первой " +
                     $"квартире в строке {RowParser.FIRST_ROW}, в данном случае строк в файле заполнено меньше.";
                 return false;
@@ -29,7 +30,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.RouteFormP
                 out _,
                 out string rowMessage))
             {
-                message = "Файл не соответствует формату \"Маршрутный лист\", так как обнаружена следующая ошибка. "
+                message = "Файл не соответствует формату \"Форма для заполнения\", обнаружена следующая ошибка. "
                     + rowMessage;
                 return false;
             }
@@ -43,39 +44,17 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.RouteFormP
             out string message)
         {
             if (!RowParser.ParseRows(source,
-                out List<RouteFormPoses> poses,
+                out List<FillFormPoses> poses,
                 out string street,
                 out string building,
                 out message))
             {
-                DecFormsParser.FileParser.SaveError(uploadPos, $"Ошибка при распознавании файла. {message}");
+                UploadPosHandler.UpdateUploadPosWithError(
+                    uploadPos,
+                    $"Ошибка при распознавании файла. {message}");
             }
 
-            RouteForms form =
-                new RouteForms()
-                {
-                    Street = street,
-                    Building = building,
-                };
-
-            using (Entities db = new Entities())
-            {
-                db.DecFormsUploadPoses.Attach(uploadPos);
-                db.RouteForms.AddObject(form);
-
-                uploadPos.FormType = (byte)DecFormsType.RouteForm;
-                uploadPos.RouteForm = form;
-
-                form.DecFormsUploadPoses = uploadPos;
-
-                foreach (RouteFormPoses pos in poses)
-                {
-                    pos.RouteForms = form;
-                    db.RouteFormPoses.AddObject(pos);
-                }
-
-                db.SaveChanges();
-            }
+            FillFormHandler.CreateForm(uploadPos, street, building, poses);
         }
     }
 }

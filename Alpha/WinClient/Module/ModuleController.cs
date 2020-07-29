@@ -12,7 +12,8 @@ namespace Taumis.Infrastructure.Module
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.BuildingDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.UserDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.PrivateCounterDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.PrivateCounterValueDataMapper());
+            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.RouteFormValueDataMapper());
+            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.FillFormValueDataMapper());
 
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.CustomerDataMapper());
             trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.RouteFormDataMapper());

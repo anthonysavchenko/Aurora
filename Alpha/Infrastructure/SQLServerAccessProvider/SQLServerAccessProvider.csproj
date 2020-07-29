@@ -71,8 +71,9 @@
     <Compile Include="DataMappers\Doc\RouteFormDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DecFormsUploadDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\BuildingDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\FillFormValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\PrivateCounterValueDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\RouteFormValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\UserDataMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetNowDateTimeQuery.cs" />

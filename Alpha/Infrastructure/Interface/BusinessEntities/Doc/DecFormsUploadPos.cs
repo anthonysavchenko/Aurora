@@ -84,19 +84,35 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private string _error;
+        private string _errorDescription;
 
-        public string Error
+        public string ErrorDescription
         {
             get
             {
                 Load();
-                return _error;
+                return _errorDescription;
             }
             set
             {
                 Load();
-                _error = value;
+                _errorDescription = value;
+            }
+        }
+
+        private string _exceptionMessage;
+
+        public string ExceptionMessage
+        {
+            get
+            {
+                Load();
+                return _exceptionMessage;
+            }
+            set
+            {
+                Load();
+                _exceptionMessage = value;
             }
         }
     }

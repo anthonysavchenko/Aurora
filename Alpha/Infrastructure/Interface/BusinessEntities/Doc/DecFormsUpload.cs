@@ -38,6 +38,38 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
+        private User _author;
+
+        public User Author
+        {
+            get
+            {
+                Load();
+                return _author;
+            }
+            set
+            {
+                Load();
+                _author = value;
+            }
+        }
+
+        private string _directory;
+
+        public string Directory
+        {
+            get
+            {
+                Load();
+                return _directory;
+            }
+            set
+            {
+                Load();
+                _directory = value;
+            }
+        }
+
         private string _note;
 
         public string Note
@@ -54,19 +86,35 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private User _author;
+        private string _errorDescription;
 
-        public User Author
+        public string ErrorDescription
         {
             get
             {
                 Load();
-                return _author;
+                return _errorDescription;
             }
             set
             {
                 Load();
-                _author = value;
+                _errorDescription = value;
+            }
+        }
+
+        private string _exceptionMessage;
+
+        public string ExceptionMessage
+        {
+            get
+            {
+                Load();
+                return _exceptionMessage;
+            }
+            set
+            {
+                Load();
+                _exceptionMessage = value;
             }
         }
     }

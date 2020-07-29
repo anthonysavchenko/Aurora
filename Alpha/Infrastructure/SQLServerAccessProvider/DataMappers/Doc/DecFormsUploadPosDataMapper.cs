@@ -56,7 +56,8 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                     _dbItem.FillForm = null;
                 }
 
-                _dbItem.Error = domObj.Error;
+                _dbItem.ErrorDescription = domObj.ErrorDescription;
+                _dbItem.ExceptionMessage = domObj.ExceptionMessage;
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -96,7 +97,8 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                             .find(_dbItem.FillForm.ID.ToString())
                         : null;
 
-                _domItem.Error = _dbItem.Error;
+                _domItem.ErrorDescription = _dbItem.ErrorDescription;
+                _domItem.ExceptionMessage = _dbItem.ExceptionMessage;
             }
 
             return _domItem;

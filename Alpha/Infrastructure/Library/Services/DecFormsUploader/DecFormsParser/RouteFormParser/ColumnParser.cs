@@ -1,6 +1,6 @@
 ﻿using Taumis.Alpha.Infrastructure.Interface.Enums;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.RouteFormParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser.RouteFormParser
 {
     static public class ColumnParser
     {

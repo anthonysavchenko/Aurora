@@ -46,8 +46,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.FinishWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.FillFormsCountValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.PrintFormsCountLabel = new DevExpress.XtraEditors.LabelControl();
-            this.ExceptionsCountLabel = new DevExpress.XtraEditors.LabelControl();
-            this.ExceptionsCountValueLabel = new DevExpress.XtraEditors.LabelControl();
+            this.ErrorsCountLabel = new DevExpress.XtraEditors.LabelControl();
+            this.ErrorsCountValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.UnknownFilesCountValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.UnknownFilesCountLabel = new DevExpress.XtraEditors.LabelControl();
             this.RouteFormsCountValueLabel = new DevExpress.XtraEditors.LabelControl();
@@ -211,8 +211,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.FinishWizardPage.AllowCancel = false;
             this.FinishWizardPage.Controls.Add(this.FillFormsCountValueLabel);
             this.FinishWizardPage.Controls.Add(this.PrintFormsCountLabel);
-            this.FinishWizardPage.Controls.Add(this.ExceptionsCountLabel);
-            this.FinishWizardPage.Controls.Add(this.ExceptionsCountValueLabel);
+            this.FinishWizardPage.Controls.Add(this.ErrorsCountLabel);
+            this.FinishWizardPage.Controls.Add(this.ErrorsCountValueLabel);
             this.FinishWizardPage.Controls.Add(this.UnknownFilesCountValueLabel);
             this.FinishWizardPage.Controls.Add(this.UnknownFilesCountLabel);
             this.FinishWizardPage.Controls.Add(this.RouteFormsCountValueLabel);
@@ -225,7 +225,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             // FillFormsCountValueLabel
             // 
             this.FillFormsCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FillFormsCountValueLabel.Location = new System.Drawing.Point(167, 32);
+            this.FillFormsCountValueLabel.Location = new System.Drawing.Point(277, 32);
             this.FillFormsCountValueLabel.Name = "FillFormsCountValueLabel";
             this.FillFormsCountValueLabel.Size = new System.Drawing.Size(6, 13);
             this.FillFormsCountValueLabel.TabIndex = 13;
@@ -236,32 +236,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.PrintFormsCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.PrintFormsCountLabel.Location = new System.Drawing.Point(12, 32);
             this.PrintFormsCountLabel.Name = "PrintFormsCountLabel";
-            this.PrintFormsCountLabel.Size = new System.Drawing.Size(115, 13);
+            this.PrintFormsCountLabel.Size = new System.Drawing.Size(243, 13);
             this.PrintFormsCountLabel.TabIndex = 14;
-            this.PrintFormsCountLabel.Text = "Форм для заполнения";
+            this.PrintFormsCountLabel.Text = "Форм для заполнения распознано и сохранено";
             // 
-            // ExceptionsCountLabel
+            // ErrorsCountLabel
             // 
-            this.ExceptionsCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ExceptionsCountLabel.Location = new System.Drawing.Point(12, 70);
-            this.ExceptionsCountLabel.Name = "ExceptionsCountLabel";
-            this.ExceptionsCountLabel.Size = new System.Drawing.Size(113, 13);
-            this.ExceptionsCountLabel.TabIndex = 10;
-            this.ExceptionsCountLabel.Text = "Программных ошибок";
+            this.ErrorsCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ErrorsCountLabel.Location = new System.Drawing.Point(12, 70);
+            this.ErrorsCountLabel.Name = "ErrorsCountLabel";
+            this.ErrorsCountLabel.Size = new System.Drawing.Size(99, 13);
+            this.ErrorsCountLabel.TabIndex = 10;
+            this.ErrorsCountLabel.Text = "Ошибок произошло";
             // 
-            // ExceptionsCountValueLabel
+            // ErrorsCountValueLabel
             // 
-            this.ExceptionsCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ExceptionsCountValueLabel.Location = new System.Drawing.Point(167, 70);
-            this.ExceptionsCountValueLabel.Name = "ExceptionsCountValueLabel";
-            this.ExceptionsCountValueLabel.Size = new System.Drawing.Size(6, 13);
-            this.ExceptionsCountValueLabel.TabIndex = 11;
-            this.ExceptionsCountValueLabel.Text = "0";
+            this.ErrorsCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ErrorsCountValueLabel.Location = new System.Drawing.Point(277, 70);
+            this.ErrorsCountValueLabel.Name = "ErrorsCountValueLabel";
+            this.ErrorsCountValueLabel.Size = new System.Drawing.Size(6, 13);
+            this.ErrorsCountValueLabel.TabIndex = 11;
+            this.ErrorsCountValueLabel.Text = "0";
             // 
             // UnknownFilesCountValueLabel
             // 
             this.UnknownFilesCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UnknownFilesCountValueLabel.Location = new System.Drawing.Point(167, 51);
+            this.UnknownFilesCountValueLabel.Location = new System.Drawing.Point(277, 51);
             this.UnknownFilesCountValueLabel.Name = "UnknownFilesCountValueLabel";
             this.UnknownFilesCountValueLabel.Size = new System.Drawing.Size(6, 13);
             this.UnknownFilesCountValueLabel.TabIndex = 12;
@@ -272,14 +272,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.UnknownFilesCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UnknownFilesCountLabel.Location = new System.Drawing.Point(12, 51);
             this.UnknownFilesCountLabel.Name = "UnknownFilesCountLabel";
-            this.UnknownFilesCountLabel.Size = new System.Drawing.Size(149, 13);
+            this.UnknownFilesCountLabel.Size = new System.Drawing.Size(232, 13);
             this.UnknownFilesCountLabel.TabIndex = 7;
-            this.UnknownFilesCountLabel.Text = "Формат файла не определен";
+            this.UnknownFilesCountLabel.Text = "Файлов в неизвестном формате обнаружено";
             // 
             // RouteFormsCountValueLabel
             // 
             this.RouteFormsCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RouteFormsCountValueLabel.Location = new System.Drawing.Point(167, 13);
+            this.RouteFormsCountValueLabel.Location = new System.Drawing.Point(277, 13);
             this.RouteFormsCountValueLabel.Name = "RouteFormsCountValueLabel";
             this.RouteFormsCountValueLabel.Size = new System.Drawing.Size(6, 13);
             this.RouteFormsCountValueLabel.TabIndex = 8;
@@ -290,9 +290,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
             this.RouteFormsCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RouteFormsCountLabel.Location = new System.Drawing.Point(12, 13);
             this.RouteFormsCountLabel.Name = "RouteFormsCountLabel";
-            this.RouteFormsCountLabel.Size = new System.Drawing.Size(102, 13);
+            this.RouteFormsCountLabel.Size = new System.Drawing.Size(230, 13);
             this.RouteFormsCountLabel.TabIndex = 9;
-            this.RouteFormsCountLabel.Text = "Маршрутных листов";
+            this.RouteFormsCountLabel.Text = "Маршрутных листов распознано и сохранено";
             // 
             // WizardView
             // 
@@ -327,8 +327,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
         private DevExpress.XtraEditors.ButtonEdit DirectoryButtonEdit;
         private System.Windows.Forms.Label DirectoryLabel;
         private DevExpress.XtraWizard.WizardPage FinishWizardPage;
-        private DevExpress.XtraEditors.LabelControl ExceptionsCountLabel;
-        private DevExpress.XtraEditors.LabelControl ExceptionsCountValueLabel;
+        private DevExpress.XtraEditors.LabelControl ErrorsCountLabel;
+        private DevExpress.XtraEditors.LabelControl ErrorsCountValueLabel;
         private DevExpress.XtraEditors.LabelControl UnknownFilesCountValueLabel;
         private DevExpress.XtraEditors.LabelControl UnknownFilesCountLabel;
         private DevExpress.XtraEditors.LabelControl RouteFormsCountValueLabel;

@@ -1,4 +1,6 @@
 ﻿using System;
+using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
@@ -6,7 +8,7 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
     /// <summary>
     /// Показания индивидуальных приборов учета
     /// </summary>
-    public class PrivateCounterValue : DomainObject
+    public class RouteFormValue : DomainObject
     {
         private DateTime _month;
         /// <summary>
@@ -26,11 +28,28 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             }
         }
 
-        private decimal _value;
+        private PrivateCounterValueType _valueType;
+
+        public PrivateCounterValueType ValueType
+        {
+            get
+            {
+                Load();
+                return _valueType;
+            }
+            set
+            {
+                Load();
+                _valueType = value;
+            }
+        }
+
+
+        private int? _value;
         /// <summary>
         /// Значение, показание
         /// </summary>
-        public decimal Value
+        public int? Value
         {
             get
             {
@@ -59,6 +78,22 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             {
                 Load();
                 _privateCounter = value;
+            }
+        }
+
+        private RouteFormPos _routeFormPos;
+
+        public RouteFormPos RouteFormPos
+        {
+            get
+            {
+                Load();
+                return _routeFormPos;
+            }
+            set
+            {
+                Load();
+                _routeFormPos = value;
             }
         }
     }

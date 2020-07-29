@@ -1,14 +1,16 @@
 ﻿using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
-using DBItem = Taumis.Alpha.DataBase.PrivateCounterValues;
-using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounterValue;
+using DBItem = Taumis.Alpha.DataBase.FillFormValues;
+using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.FillFormValue;
 using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
+using DomFillFormPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.FillFormPos;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
-    public class PrivateCounterValueDataMapper : BaseDataMapper<DomItem, DBItem>
+    public class FillFormValueDataMapper : BaseDataMapper<DomItem, DBItem>
     {
         #region Overrides of BaseDataMapper
 
@@ -26,19 +28,23 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 if (domObj.IsNew)
                 {
                     _dbItem = new DBItem();
-                    _entities.AddToPrivateCounterValues(_dbItem);
+                    _entities.AddToFillFormValues(_dbItem);
                 }
                 else
                 {
                     int _id = int.Parse(domObj.ID);
-                    _dbItem = _entities.PrivateCounterValues.First(p => p.ID == _id);
+                    _dbItem = _entities.FillFormValues.First(p => p.ID == _id);
                 }
 
                 _dbItem.Month = domObj.Month;
+                _dbItem.ValueType = (byte)domObj.ValueType;
                 _dbItem.Value = domObj.Value;
 
-                int _tempId = int.Parse(domObj.PrivateCounter.ID);
-                _dbItem.PrivateCounters = _entities.PrivateCounters.First(c => c.ID == _tempId);
+                int _propId = int.Parse(domObj.PrivateCounter.ID);
+                _dbItem.PrivateCounters = _entities.PrivateCounters.First(c => c.ID == _propId);
+
+                _propId = int.Parse(domObj.FillFormPos.ID);
+                _dbItem.FillFormPoses = _entities.FillFormPoses.First(c => c.ID == _propId);
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -59,15 +65,23 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
             using (Entities _entities = new Entities())
             {
-                DBItem _dbItem = 
-                    _entities.PrivateCounterValues
+                DBItem _dbItem =
+                    _entities.FillFormValues
                         .Include("PrivateCounters")
+                        .Include("FillFormPoses")
                         .First(x => x.ID == _id);
 
                 _domItem.Month = _dbItem.Month;
+                _domItem.ValueType = (PrivateCounterValueType)_dbItem.ValueType;
                 _domItem.Value = _dbItem.Value;
+
                 _domItem.PrivateCounter =
-                    (DomPrivateCounter)DataMapperService.get(typeof(DomPrivateCounter)).find(_dbItem.PrivateCounters.ID.ToString());
+                    (DomPrivateCounter)DataMapperService.get(typeof(DomPrivateCounter))
+                        .find(_dbItem.PrivateCounters.ID.ToString());
+
+                _domItem.FillFormPos =
+                    (DomFillFormPos)DataMapperService.get(typeof(DomFillFormPos))
+                        .find(_dbItem.FillFormPoses.ID.ToString());
             }
 
             return _domItem;
@@ -85,7 +99,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
             using (Entities _entities = new Entities())
             {
-                _result = null != _entities.PrivateCounterValues.FirstOrDefault(p => p.ID == _domainId);
+                _result = null != _entities.FillFormValues.FirstOrDefault(p => p.ID == _domainId);
             }
 
             return _result;

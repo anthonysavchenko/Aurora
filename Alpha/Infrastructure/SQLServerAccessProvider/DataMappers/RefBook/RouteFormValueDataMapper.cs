@@ -3,13 +3,14 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
-using DBItem = Taumis.Alpha.DataBase.PrivateCounters;
-using DomCustomer = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.Customer;
-using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
+using DBItem = Taumis.Alpha.DataBase.RouteFormValues;
+using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.RouteFormValue;
+using DomPrivateCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.PrivateCounter;
+using DomRouteFormPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc.RouteFormPos;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
-    public class PrivateCounterDataMapper : BaseDataMapper<DomItem, DBItem>
+    public class RouteFormValueDataMapper : BaseDataMapper<DomItem, DBItem>
     {
         #region Overrides of BaseDataMapper
 
@@ -27,20 +28,23 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 if (domObj.IsNew)
                 {
                     _dbItem = new DBItem();
-                    _entities.AddToPrivateCounters(_dbItem);
+                    _entities.AddToRouteFormValues(_dbItem);
                 }
                 else
                 {
                     int _id = int.Parse(domObj.ID);
-                    _dbItem = _entities.PrivateCounters.First(p => p.ID == _id);
+                    _dbItem = _entities.RouteFormValues.First(p => p.ID == _id);
                 }
 
-                _dbItem.CounterType = (byte)domObj.CounterType;
-                _dbItem.Model = domObj.Model;
-                _dbItem.Number = domObj.Number;
+                _dbItem.Month = domObj.Month;
+                _dbItem.ValueType = (byte)domObj.ValueType;
+                _dbItem.Value = domObj.Value;
 
-                int _propId = int.Parse(domObj.Customer.ID);
-                _dbItem.Customers = _entities.Customers.First(p => p.ID == _propId);
+                int _propId = int.Parse(domObj.PrivateCounter.ID);
+                _dbItem.PrivateCounters = _entities.PrivateCounters.First(c => c.ID == _propId);
+
+                _propId = int.Parse(domObj.RouteFormPos.ID);
+                _dbItem.RouteFormPoses = _entities.RouteFormPoses.First(c => c.ID == _propId);
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -61,15 +65,23 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
             using (Entities _entities = new Entities())
             {
-                DBItem _dbItem =
-                    _entities.PrivateCounters
-                        .Include("Customers")
+                DBItem _dbItem = 
+                    _entities.RouteFormValues
+                        .Include("PrivateCounters")
+                        .Include("RouteFormPoses")
                         .First(x => x.ID == _id);
 
-                _domItem.CounterType = (PrivateCounterType)_dbItem.CounterType;
-                _domItem.Model = _dbItem.Model;
-                _domItem.Number = _dbItem.Number;
-                _domItem.Customer = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(_dbItem.Customers.ID.ToString());
+                _domItem.Month = _dbItem.Month;
+                _domItem.ValueType = (PrivateCounterValueType)_dbItem.ValueType;
+                _domItem.Value = _dbItem.Value;
+
+                _domItem.PrivateCounter =
+                    (DomPrivateCounter)DataMapperService.get(typeof(DomPrivateCounter))
+                        .find(_dbItem.PrivateCounters.ID.ToString());
+
+                _domItem.RouteFormPos =
+                    (DomRouteFormPos)DataMapperService.get(typeof(DomRouteFormPos))
+                        .find(_dbItem.RouteFormPoses.ID.ToString());
             }
 
             return _domItem;
@@ -87,7 +99,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
             using (Entities _entities = new Entities())
             {
-                _result = null != _entities.PrivateCounters.FirstOrDefault(p => p.ID == _domainId);
+                _result = null != _entities.RouteFormValues.FirstOrDefault(p => p.ID == _domainId);
             }
 
             return _result;

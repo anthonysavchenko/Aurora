@@ -145,12 +145,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Wi
         /// <summary>
         /// Итоговое количество ошибок в процессе обработки
         /// </summary>
-        public int Exceptions
+        public int Errors
         {
             set
             {
-                ExceptionsCountValueLabel.Invoke(
-                    new MethodInvoker(() => ExceptionsCountValueLabel.Text = value.ToString()));
+                ErrorsCountValueLabel.Invoke(
+                    new MethodInvoker(() => ErrorsCountValueLabel.Text = value.ToString()));
             }
         }
 

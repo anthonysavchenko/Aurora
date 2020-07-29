@@ -154,13 +154,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
         private void DownloadFiles()
         {
             View.IsMasterInProgress = true;
-            View.SetInitialProgress("Поготовка к началу скачивания файлов...");
 
             Downloader.DownloadAsync(
                 View.DirectoryPath,
                 int.Parse(UserHolder.User.ID),
                 View.Note,
-                OnProgress: (int percents) => View.SetProgress("Скачивание файлов из почтового ящика", percents),
+                OnProgress: (int percents, string jobName) => View.SetProgress(jobName, percents),
                 OnCompleted: (DataBase.DecFormsDownloads download) =>
                 {
                     if (download == null)
@@ -170,16 +169,33 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
                         View.Errors = 1;
                         View.ShowMessage(
                             "Проверьте подключение к локальной сети УК ФР и серверу БД.",
-                            "Ошибка при подготовке к обработке данных");
+                            "Ошибка при подготовке к началу обработки данных");
                     }
                     else
                     {
-                        View.Emails = download.Emails.Count(e => e.ErrorDescription == null);
-                        View.Files = download.Emails.Sum(e => e.Attachments.Count(a => a.ErrorDescription == null));
+                        View.Emails =
+                            download
+                                .Emails.Count(e =>
+                                    string.IsNullOrEmpty(e.ErrorDescription));
+
+                        View.Files =
+                            download
+                                .Emails.Sum(e =>
+                                    e.Attachments
+                                        .Count(a =>
+                                            string.IsNullOrEmpty(a.ErrorDescription)));
+
                         View.Errors =
-                            (download.ErrorDescription != null ? 1 : 0) +
-                                download.Emails.Count(e => e.ErrorDescription != null) +
-                                download.Emails.Sum(e => e.Attachments.Count(a => a.ErrorDescription != null));
+                            (!string.IsNullOrEmpty(download.ErrorDescription) ? 1 : 0) +
+                                download
+                                    .Emails.Count(e =>
+                                        !string.IsNullOrEmpty(e.ErrorDescription)) +
+                                download
+                                    .Emails
+                                        .Sum(e =>
+                                            e.Attachments
+                                                .Count(a =>
+                                                    !string.IsNullOrEmpty(a.ErrorDescription)));
                     }
 
                     View.IsMasterInProgress = false;

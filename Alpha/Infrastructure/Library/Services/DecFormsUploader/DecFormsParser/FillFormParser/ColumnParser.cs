@@ -1,7 +1,7 @@
 ﻿using System;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser.FillFormParser
 {
     static public class ColumnParser
     {

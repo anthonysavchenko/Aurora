@@ -210,7 +210,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsDownloads.Views.
             this.ErrorsCountLabel.Name = "ErrorsCountLabel";
             this.ErrorsCountLabel.Size = new System.Drawing.Size(99, 13);
             this.ErrorsCountLabel.TabIndex = 10;
-            this.ErrorsCountLabel.Text = "Произошло ошибок";
+            this.ErrorsCountLabel.Text = "Ошибок произошло";
             // 
             // ErrorsCountValueLabel
             // 

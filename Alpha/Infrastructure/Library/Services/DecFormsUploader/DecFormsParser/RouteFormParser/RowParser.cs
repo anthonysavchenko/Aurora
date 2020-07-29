@@ -6,27 +6,37 @@ using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.Services;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser.RouteFormParser
 {
     static public class RowParser
     {
-        public const int FIRST_ROW = 1;
+        public const int FIRST_ROW = 14;
+        const int UNNECESSARY_LAST_ROWS = 7;
 
-        const string ACCOUNT_COLUMN = "D";
-        const string APARTMENT_COLUMN = "E";
-        const string COUNTER_MODEL_COLUMN = "F";
-        const string COUNTER_NUMBER_COLUMN = "G";
-        const string COUNTER_CAPACITY_COLUMN = "H";
+        const string APARTMENT_COLUMN = "C";
+        const string COUNTER_NUMBER_COLUMN = "D";
+        const string PREV_DATE_COLUMN = "H";
         const string COUNTER_TYPE_COLUMN = "I";
-        const string PREV_DATE_COLUMN = "J";
-        const string PREV_VALUE_COLUMN = "K";
+        const string PREV_VALUE_COLUMN = "J";
+        const string ACCOUNT_COLUMN = "A";
+        const string OWNER_COLUMN = "B";
+        const string COUNTER_CAPACITY_COLUMN = "E";
+        const string DEBT_COLUMN = "F";
+        const string PAYED_COLUMN = "G";
+        const string PHONE_COLUMN = "M";
+        const string NOTE_COLUMN = "N";
 
         const int ACCOUNT_DB_LENGTH = 25;
+        const int OWNER_DB_LENGTH = 50;
         const int COUNTER_CAPACITY_DB_LENGTH = 2;
+        const int DEBT_DB_LENGTH = 25;
+        const int PAYED_DB_LENGTH = 25;
+        const int PHONE_DB_LENGTH = 25;
+        const int NOTE_DB_LENGTH = 5;
 
         static public bool ParseRows(
             ExcelSheet source,
-            out List<FillFormPoses> poses,
+            out List<RouteFormPoses> poses,
             out string street,
             out string building,
             out string message)
@@ -36,13 +46,13 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
             building = null;
             message = null;
 
-            for (int i = FIRST_ROW; i <= source.RowsCount; i++)
+            for (int i = FIRST_ROW; i <= source.RowsCount - UNNECESSARY_LAST_ROWS; i++)
             {
                 try
                 {
                     if (!ParseRow(source,
                         i,
-                        out FillFormPoses pos,
+                        out RouteFormPoses pos,
                         out string rowStreet,
                         out string rowBuilding,
                         out string rowMessage))
@@ -51,58 +61,29 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
                         return false;
                     }
 
-                    if (pos.CounterType == (byte)FillFormCounterType.Norm)
-                    {
-                        continue;
-                    }
-
                     if (street != null && building != null && street != rowStreet && building != rowBuilding)
                     {
                         message = $"Строка {i}. Распознанное название улицы и номер дома не соответствует " +
-                            $"распознанному названию улицы и номеру дома в первой квартире файла. Несколько разных " +
-                            $"домов в одном файле не предусмотрены форматом.";
+                            "распознанному названию улицы и номеру дома в первой квартире файла. Несколько разных " +
+                            "домов в одном файле не предусмотрены форматом.";
                         return false;
                     }
 
-                    if (poses != null)
+                    if (poses != null
+                        && poses.Count != 0
+                        && poses.Any(p =>
+                            p.Apartment == pos.Apartment
+                            && p.CounterNumber == pos.CounterNumber))
                     {
-                        FillFormPoses existed = poses.FirstOrDefault(p => p.Apartment == pos.Apartment);
-
-                        if (existed != null)
-                        {
-                            if (existed.CounterType != (byte)FillFormCounterType.Day
-                                || existed.PrevDayValue == null
-                                || existed.PrevNightValue != null
-
-                                || pos.CounterType != (byte)FillFormCounterType.Night
-                                || pos.PrevDayValue != null
-                                || pos.PrevNightValue == null
-
-                                || existed.Account != pos.Account
-                                || existed.CounterModel != pos.CounterModel
-                                || existed.CounterNumber != pos.CounterNumber
-                                || existed.CounterCapacity != pos.CounterCapacity
-                                || existed.PrevDate != pos.PrevDate)
-                            {
-                                message = $"Строка {i}. Распознанный номер квартиры уже был указан в файле ранее. " +
-                                    $"Дублирование номера квартиры в разных строках одного файла предусмотрено " +
-                                    $"только для указания данных для двухтарифного счетчика: на первой строке - " +
-                                    $"дневные данные, на второй строке - ночные. При этом значения в соответсвтующих" +
-                                    $"ячейках двух строк должны быть одинаковыми, за исключением колонки с типом " +
-                                    $"счетчика и колонки с предыдущими показаниями. В данном случае это не так.";
-                                return false;
-                            }
-                            else
-                            {
-                                existed.PrevNightValue = pos.PrevNightValue;
-                                continue;
-                            }
-                        }
+                        message = $"Строка {i}. Распознанный номер счетчика и номер квартиры уже были указаны в " +
+                            "файле ранее. Дублирование номера счетчика и номера квартиры в разных строках одного " +
+                            "файла не предусмотрено форматом.";
+                        return false;
                     }
 
                     if (poses == null)
                     {
-                        poses = new List<FillFormPoses>();
+                        poses = new List<RouteFormPoses>();
                         street = rowStreet;
                         building = rowBuilding;
                     }
@@ -111,8 +92,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
                 }
                 catch (Exception e)
                 {
-                    Logger.SimpleWrite($"FillForm ParseRows error (row: {i}): {e}");
-                    message = $"Строка {i}. Внутренняя ошибка при распознавании строки.\r\n";
+                    Logger.SimpleWrite($"RouteForm ParseRows error (row: {i}): {e}");
+                    message = $"Строка {i}. Ошибка при распознавании строки.";
                     return false;
                 }
             }
@@ -123,7 +104,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
         static public bool ParseRow(
             ExcelSheet source,
             int row,
-            out FillFormPoses pos,
+            out RouteFormPoses pos,
             out string street,
             out string building,
             out string message)
@@ -141,20 +122,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
                 return false;
             }
 
-            if (!ColumnParser.ParseCounterModelColumn(
-                source.GetCellText($"{COUNTER_MODEL_COLUMN}{row}"),
-                out string counterModel,
-                out FillFormCounterType counterTypeInCounterNumber,
-                out message))
-            {
-                message = $"Ячейка \"{COUNTER_MODEL_COLUMN}{row}\". {message}";
-                return false;
-            }
-
             if (!ColumnParser.ParseCounterNumberColumn(
                 source.GetCellText($"{COUNTER_NUMBER_COLUMN}{row}"),
-                counterTypeInCounterNumber == FillFormCounterType.Norm,
                 out string counterNumber,
+                out RouteFormCounterType counterTypeInCounterNumber,
                 out message))
             {
                 message = $"Ячейка \"{COUNTER_NUMBER_COLUMN}{row}\". {message}";
@@ -163,8 +134,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
 
             if (!ColumnParser.ParseCounterTypeColumn(
                 source.GetCellText($"{COUNTER_TYPE_COLUMN}{row}"),
-                counterTypeInCounterNumber == FillFormCounterType.Norm,
-                out FillFormCounterType counterType,
+                counterTypeInCounterNumber,
+                out RouteFormCounterType counterType,
                 out message))
             {
                 message = $"Ячейка \"{COUNTER_TYPE_COLUMN}{row}\". {message}";
@@ -173,7 +144,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
 
             if (!DecFormsParser.ColumnParser.ParsePrevDateColumn(
                 source.GetCellText($"{PREV_DATE_COLUMN}{row}"),
-                counterType == FillFormCounterType.Norm,
+                counterType == RouteFormCounterType.Norm,
                 out DateTime? prevDate,
                 out message))
             {
@@ -205,8 +176,19 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
             }
 
             if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
+                source.GetCellText($"{OWNER_COLUMN}{row}"),
+                OWNER_DB_LENGTH,
+                "имени абонента",
+                out string owner,
+                out message))
+            {
+                message = $"Ячейка \"{OWNER_COLUMN}{row}\". {message}";
+                return false;
+            }
+
+            if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
                 source.GetCellText($"{COUNTER_CAPACITY_COLUMN}{row}"),
-                counterType == FillFormCounterType.Norm,
+                counterType == RouteFormCounterType.Norm,
                 COUNTER_CAPACITY_DB_LENGTH,
                 "разрядности счетчика",
                 out string counterCapacity,
@@ -216,11 +198,54 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
                 return false;
             }
 
+            if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
+                source.GetCellText($"{DEBT_COLUMN}{row}"),
+                DEBT_DB_LENGTH,
+                "задолженности",
+                out string debt,
+                out message))
+            {
+                message = $"Ячейка \"{DEBT_COLUMN}{row}\". {message}";
+                return false;
+            }
+
+            if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
+                source.GetCellText($"{PAYED_COLUMN}{row}"),
+                PAYED_DB_LENGTH,
+                "даты платежа",
+                out string payed,
+                out message))
+            {
+                message = $"Ячейка \"{PAYED_COLUMN}{row}\". {message}";
+                return false;
+            }
+
+            if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
+                source.GetCellText($"{PHONE_COLUMN}{row}"),
+                PHONE_DB_LENGTH,
+                "телефона",
+                out string phone,
+                out message))
+            {
+                message = $"Ячейка \"{PHONE_COLUMN}{row}\". {message}";
+                return false;
+            }
+
+            if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
+                source.GetCellText($"{NOTE_COLUMN}{row}"),
+                NOTE_DB_LENGTH,
+                "примечания",
+                out string note,
+                out message))
+            {
+                message = $"Ячейка \"{NOTE_COLUMN}{row}\". {message}";
+                return false;
+            }
+
             pos =
-                new FillFormPoses()
+                new RouteFormPoses()
                 {
                     Apartment = apartment,
-                    CounterModel = counterModel,
                     CounterType = (byte)counterType,
                     CounterNumber = counterNumber,
                     PrevDate = prevDate,
@@ -228,7 +253,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser.FillFormPa
                     PrevDayValue = prevDayValue,
                     PrevNightValue = prevNightValue,
                     Account = account,
+                    Owner = owner,
                     CounterCapacity = counterCapacity,
+                    Debt = debt,
+                    Payed = payed,
+                    Phone = phone,
+                    Note = note,
                 };
 
             return true;

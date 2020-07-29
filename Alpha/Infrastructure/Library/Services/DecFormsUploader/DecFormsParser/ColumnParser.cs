@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser
 {
     static public class ColumnParser
     {

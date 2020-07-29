@@ -66,7 +66,6 @@
     <Build Include="dbo\Tables\Customers.sql" />
     <Build Include="dbo\Tables\Buildings.sql" />
     <Build Include="dbo\Tables\Users.sql" />
-    <Build Include="dbo\Tables\PrivateCounterValues.sql" />
     <Build Include="dbo\Tables\PrivateCounters.sql" />
     <Build Include="dbo\Tables\Settings.sql" />
     <Build Include="dbo\Stored Procedures\BackupDatabase.sql" />
@@ -79,5 +78,7 @@
     <Build Include="dbo\Tables\Emails.sql" />
     <Build Include="dbo\Tables\DecFormsDownloads.sql" />
     <Build Include="dbo\Tables\Attachments.sql" />
+    <Build Include="dbo\Tables\RouteFormValues.sql" />
+    <Build Include="dbo\Tables\FillFormValues.sql" />
   </ItemGroup>
 </Project>

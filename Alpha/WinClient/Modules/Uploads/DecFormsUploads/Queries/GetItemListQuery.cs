@@ -20,7 +20,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Queries
                             x.ID,
                             x.FileName,
                             x.FormType,
-                            x.Error,
+                            x.ErrorDescription,
                         })
                     .ToList()
                     .Select(x =>
@@ -32,10 +32,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Queries
                                 ? "Маршрутный лист" : x.FormType == (byte)DecFormsType.FillForm
                                     ? "Форма для заполнения"
                                     : "Не определен",
-                            x.Error,
+                            x.ErrorDescription,
                         }
                     )
-                    .OrderBy(x => x.Error);
+                    .OrderBy(x => x.ErrorDescription);
 
             foreach (var item in uploadPoses)
             {
@@ -43,7 +43,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Queries
                     item.ID.ToString(),
                     item.FileName,
                     item.FormType,
-                    item.Error);
+                    item.ErrorDescription);
             }
 
             return table;
