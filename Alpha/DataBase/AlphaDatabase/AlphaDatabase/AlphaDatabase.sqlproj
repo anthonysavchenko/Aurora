@@ -80,5 +80,9 @@
     <Build Include="dbo\Tables\Attachments.sql" />
     <Build Include="dbo\Tables\RouteFormValues.sql" />
     <Build Include="dbo\Tables\FillFormValues.sql" />
+    <Build Include="dbo\Tables\PrivateValuesUploads.sql" />
+    <Build Include="dbo\Tables\PrivateValuesForms.sql" />
+    <Build Include="dbo\Tables\PrivateValuesFormPoses.sql" />
+    <Build Include="dbo\Tables\PrivateCounterValues.sql" />
   </ItemGroup>
 </Project>

@@ -128,6 +128,56 @@
           <Property Name="Model" Type="nvarchar" MaxLength="50" />
           <Property Name="Number" Type="nvarchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="PrivateCounterValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrivateValuesFormPos" Type="int" Nullable="false" />
+          <Property Name="PrivateCounter" Type="int" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="ValueType" Type="tinyint" Nullable="false" />
+          <Property Name="Value" Type="int" />
+        </EntityType>
+        <EntityType Name="PrivateValuesFormPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrivateValuesForm" Type="int" Nullable="false" />
+          <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CounterType" Type="tinyint" Nullable="false" />
+          <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
+          <Property Name="CurrentDate" Type="datetime2" Precision="0" />
+          <Property Name="CurrentValue" Type="int" />
+          <Property Name="CurrentDayValue" Type="int" />
+          <Property Name="CurrentNightValue" Type="int" />
+        </EntityType>
+        <EntityType Name="PrivateValuesForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrivateValuesUpload" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="Building" Type="nvarchar" MaxLength="10" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PrivateValuesUploads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Created" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Author" Type="int" Nullable="false" />
+          <Property Name="Directory" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="RouteFormPoses">
           <Key>
             <PropertyRef Name="ID" />
@@ -342,6 +392,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PrivateCounterValues_PrivateCounters">
+          <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="1" />
+          <End Role="PrivateCounterValues" Type="Self.PrivateCounterValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivateCounters">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateCounterValues">
+              <PropertyRef Name="PrivateCounter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateCounterValues_PrivateValuesFormPoses">
+          <End Role="PrivateValuesFormPoses" Type="Self.PrivateValuesFormPoses" Multiplicity="1" />
+          <End Role="PrivateCounterValues" Type="Self.PrivateCounterValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivateValuesFormPoses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateCounterValues">
+              <PropertyRef Name="PrivateValuesFormPos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateValuesFormPoses_PrivateValuesForms">
+          <End Role="PrivateValuesForms" Type="Self.PrivateValuesForms" Multiplicity="1" />
+          <End Role="PrivateValuesFormPoses" Type="Self.PrivateValuesFormPoses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivateValuesForms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateValuesFormPoses">
+              <PropertyRef Name="PrivateValuesForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateValuesForms_PrivateValuesUploads">
+          <End Role="PrivateValuesUploads" Type="Self.PrivateValuesUploads" Multiplicity="1" />
+          <End Role="PrivateValuesForms" Type="Self.PrivateValuesForms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivateValuesUploads">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateValuesForms">
+              <PropertyRef Name="PrivateValuesUpload" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateValuesUploads_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="PrivateValuesUploads" Type="Self.PrivateValuesUploads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateValuesUploads">
+              <PropertyRef Name="Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RouteFormPoses_RouteForms">
           <End Role="RouteForms" Type="Self.RouteForms" Multiplicity="1" />
           <End Role="RouteFormPoses" Type="Self.RouteFormPoses" Multiplicity="*" />
@@ -407,6 +517,10 @@
           <EntitySet Name="FillForms" EntityType="Self.FillForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FillFormValues" EntityType="Self.FillFormValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateCounters" EntityType="Self.PrivateCounters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateCounterValues" EntityType="Self.PrivateCounterValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateValuesFormPoses" EntityType="Self.PrivateValuesFormPoses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateValuesForms" EntityType="Self.PrivateValuesForms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateValuesUploads" EntityType="Self.PrivateValuesUploads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RouteFormPoses" EntityType="Self.RouteFormPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RouteForms" EntityType="Self.RouteForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RouteFormValues" EntityType="Self.RouteFormValues" Schema="dbo" store:Type="Tables" />
@@ -463,6 +577,26 @@
           <AssociationSet Name="FK_PrivateCounters_Customers" Association="Self.FK_PrivateCounters_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateCounterValues_PrivateCounters" Association="Self.FK_PrivateCounterValues_PrivateCounters">
+            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+            <End Role="PrivateCounterValues" EntitySet="PrivateCounterValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateCounterValues_PrivateValuesFormPoses" Association="Self.FK_PrivateCounterValues_PrivateValuesFormPoses">
+            <End Role="PrivateValuesFormPoses" EntitySet="PrivateValuesFormPoses" />
+            <End Role="PrivateCounterValues" EntitySet="PrivateCounterValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateValuesFormPoses_PrivateValuesForms" Association="Self.FK_PrivateValuesFormPoses_PrivateValuesForms">
+            <End Role="PrivateValuesForms" EntitySet="PrivateValuesForms" />
+            <End Role="PrivateValuesFormPoses" EntitySet="PrivateValuesFormPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateValuesForms_PrivateValuesUploads" Association="Self.FK_PrivateValuesForms_PrivateValuesUploads">
+            <End Role="PrivateValuesUploads" EntitySet="PrivateValuesUploads" />
+            <End Role="PrivateValuesForms" EntitySet="PrivateValuesForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateValuesUploads_Users" Association="Self.FK_PrivateValuesUploads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PrivateValuesUploads" EntitySet="PrivateValuesUploads" />
           </AssociationSet>
           <AssociationSet Name="FK_RouteFormPoses_RouteForms" Association="Self.FK_RouteFormPoses_RouteForms">
             <End Role="RouteForms" EntitySet="RouteForms" />
@@ -575,6 +709,30 @@
             <End Role="PrivateCounters" EntitySet="PrivateCounters" />
             <End Role="FillFormValues" EntitySet="FillFormValues" />
           </AssociationSet>
+          <EntitySet Name="PrivateCounterValues" EntityType="AlphaDataBaseModel.PrivateCounterValues" />
+          <EntitySet Name="PrivateValuesFormPoses" EntityType="AlphaDataBaseModel.PrivateValuesFormPoses" />
+          <EntitySet Name="PrivateValuesForms" EntityType="AlphaDataBaseModel.PrivateValuesForms" />
+          <EntitySet Name="PrivateValuesUploads" EntityType="AlphaDataBaseModel.PrivateValuesUploads" />
+          <AssociationSet Name="FK_PrivateCounterValues_PrivateCounters" Association="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters">
+            <End Role="PrivateCounters" EntitySet="PrivateCounters" />
+            <End Role="PrivateCounterValues" EntitySet="PrivateCounterValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateCounterValues_PrivateValuesFormPoses" Association="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses">
+            <End Role="PrivateValuesFormPoses" EntitySet="PrivateValuesFormPoses" />
+            <End Role="PrivateCounterValues" EntitySet="PrivateCounterValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateValuesFormPoses_PrivateValuesForms" Association="AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms">
+            <End Role="PrivateValuesForms" EntitySet="PrivateValuesForms" />
+            <End Role="PrivateValuesFormPoses" EntitySet="PrivateValuesFormPoses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateValuesForms_PrivateValuesUploads" Association="AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads">
+            <End Role="PrivateValuesUploads" EntitySet="PrivateValuesUploads" />
+            <End Role="PrivateValuesForms" EntitySet="PrivateValuesForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateValuesUploads_Users" Association="AlphaDataBaseModel.FK_PrivateValuesUploads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PrivateValuesUploads" EntitySet="PrivateValuesUploads" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Buildings">
           <Key>
@@ -605,6 +763,7 @@
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="PrivateCounters" ToRole="Customers" />
           <NavigationProperty Name="RouteFormValues" Relationship="AlphaDataBaseModel.FK_RouteFormValues_PrivateCounters" FromRole="PrivateCounters" ToRole="RouteFormValues" />
           <NavigationProperty Name="FillFormValues" Relationship="AlphaDataBaseModel.FK_FillFormValues_PrivateCounters" FromRole="PrivateCounters" ToRole="FillFormValues" />
+          <NavigationProperty Name="PrivateCounterValues" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" FromRole="PrivateCounters" ToRole="PrivateCounterValues" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -616,6 +775,7 @@
           <Property Name="Aka" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="DecFormsUploads" Relationship="AlphaDataBaseModel.FK_DecFormsUploads_Users" FromRole="Users" ToRole="DecFormsUploads" />
           <NavigationProperty Name="DecFormsDownloads" Relationship="AlphaDataBaseModel.FK_DecFormsDownloads_Users" FromRole="Users" ToRole="DecFormsDownloads" />
+          <NavigationProperty Name="PrivateValuesUploads" Relationship="AlphaDataBaseModel.FK_PrivateValuesUploads_Users" FromRole="Users" ToRole="PrivateValuesUploads" />
         </EntityType>
         <Association Name="FK_Customers_Buildings">
           <End Role="Buildings" Type="AlphaDataBaseModel.Buildings" Multiplicity="1" />
@@ -841,6 +1001,79 @@
         <Association Name="FK_FillFormValues_PrivateCounters">
           <End Type="AlphaDataBaseModel.PrivateCounters" Role="PrivateCounters" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.FillFormValues" Role="FillFormValues" Multiplicity="*" />
+        </Association>
+        <EntityType Name="PrivateCounterValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ValueType" Type="Byte" Nullable="false" />
+          <Property Name="Value" Type="Int32" />
+          <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" FromRole="PrivateCounterValues" ToRole="PrivateCounters" />
+          <NavigationProperty Name="PrivateValuesFormPoses" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses" FromRole="PrivateCounterValues" ToRole="PrivateValuesFormPoses" />
+        </EntityType>
+        <EntityType Name="PrivateValuesFormPoses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Apartment" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CounterType" Type="Byte" Nullable="false" />
+          <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentDate" Type="DateTime" Precision="0" />
+          <Property Name="CurrentValue" Type="Int32" />
+          <Property Name="CurrentDayValue" Type="Int32" />
+          <Property Name="CurrentNightValue" Type="Int32" />
+          <NavigationProperty Name="PrivateCounterValues" Relationship="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses" FromRole="PrivateValuesFormPoses" ToRole="PrivateCounterValues" />
+          <NavigationProperty Name="PrivateValuesForms" Relationship="AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms" FromRole="PrivateValuesFormPoses" ToRole="PrivateValuesForms" />
+        </EntityType>
+        <EntityType Name="PrivateValuesForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PrivateValuesFormPoses" Relationship="AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms" FromRole="PrivateValuesForms" ToRole="PrivateValuesFormPoses" />
+          <NavigationProperty Name="PrivateValuesUploads" Relationship="AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads" FromRole="PrivateValuesForms" ToRole="PrivateValuesUploads" />
+        </EntityType>
+        <EntityType Name="PrivateValuesUploads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Directory" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PrivateValuesForms" Relationship="AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads" FromRole="PrivateValuesUploads" ToRole="PrivateValuesForms" />
+          <NavigationProperty Name="Author" Relationship="AlphaDataBaseModel.FK_PrivateValuesUploads_Users" FromRole="PrivateValuesUploads" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_PrivateCounterValues_PrivateCounters">
+          <End Type="AlphaDataBaseModel.PrivateCounters" Role="PrivateCounters" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.PrivateCounterValues" Role="PrivateCounterValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PrivateCounterValues_PrivateValuesFormPoses">
+          <End Type="AlphaDataBaseModel.PrivateValuesFormPoses" Role="PrivateValuesFormPoses" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.PrivateCounterValues" Role="PrivateCounterValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PrivateValuesFormPoses_PrivateValuesForms">
+          <End Type="AlphaDataBaseModel.PrivateValuesForms" Role="PrivateValuesForms" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.PrivateValuesFormPoses" Role="PrivateValuesFormPoses" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PrivateValuesForms_PrivateValuesUploads">
+          <End Type="AlphaDataBaseModel.PrivateValuesUploads" Role="PrivateValuesUploads" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.PrivateValuesForms" Role="PrivateValuesForms" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PrivateValuesUploads_Users">
+          <End Type="AlphaDataBaseModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.PrivateValuesUploads" Role="PrivateValuesUploads" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1167,6 +1400,95 @@
               <ScalarProperty Name="ID" ColumnName="FillFormPos" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PrivateCounterValues">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.PrivateCounterValues">
+              <MappingFragment StoreEntitySet="PrivateCounterValues">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivateValuesFormPoses">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.PrivateValuesFormPoses">
+              <MappingFragment StoreEntitySet="PrivateValuesFormPoses">
+                <ScalarProperty Name="CurrentNightValue" ColumnName="CurrentNightValue" />
+                <ScalarProperty Name="CurrentDayValue" ColumnName="CurrentDayValue" />
+                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
+                <ScalarProperty Name="CounterNumber" ColumnName="CounterNumber" />
+                <ScalarProperty Name="CounterType" ColumnName="CounterType" />
+                <ScalarProperty Name="Apartment" ColumnName="Apartment" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivateValuesForms">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.PrivateValuesForms">
+              <MappingFragment StoreEntitySet="PrivateValuesForms">
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivateValuesUploads">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.PrivateValuesUploads">
+              <MappingFragment StoreEntitySet="PrivateValuesUploads">
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Directory" ColumnName="Directory" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_PrivateValuesUploads_Users" TypeName="AlphaDataBaseModel.FK_PrivateValuesUploads_Users" StoreEntitySet="PrivateValuesUploads">
+            <EndProperty Name="PrivateValuesUploads">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="ID" ColumnName="Author" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PrivateValuesForms_PrivateValuesUploads" TypeName="AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads" StoreEntitySet="PrivateValuesForms">
+            <EndProperty Name="PrivateValuesForms">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="PrivateValuesUploads">
+              <ScalarProperty Name="ID" ColumnName="PrivateValuesUpload" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PrivateValuesFormPoses_PrivateValuesForms" TypeName="AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms" StoreEntitySet="PrivateValuesFormPoses">
+            <EndProperty Name="PrivateValuesFormPoses">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="PrivateValuesForms">
+              <ScalarProperty Name="ID" ColumnName="PrivateValuesForm" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PrivateCounterValues_PrivateValuesFormPoses" TypeName="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses" StoreEntitySet="PrivateCounterValues">
+            <EndProperty Name="PrivateCounterValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="PrivateValuesFormPoses">
+              <ScalarProperty Name="ID" ColumnName="PrivateValuesFormPos" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PrivateCounterValues_PrivateCounters" TypeName="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" StoreEntitySet="PrivateCounterValues">
+            <EndProperty Name="PrivateCounterValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="PrivateCounters">
+              <ScalarProperty Name="ID" ColumnName="PrivateCounter" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1233,11 +1555,39 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Attachments_Emails" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Emails_DecFormsDownloads" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RouteFormValues" Width="2" PointX="3.25" PointY="11.875" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteFormValues_PrivateCounters" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteFormValues_PrivateCounters" ManuallyRouted="true" >
+          <edmx:ConnectorPoint PointX="2.2580912002411258" PointY="8.1821907552083335" />
+          <edmx:ConnectorPoint PointX="2.2580912002411258" PointY="12.9612939453125" />
+          <edmx:ConnectorPoint PointX="3.25" PointY="12.9612939453125" />
+        </edmx:AssociationConnector>
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteFormValues_RouteFormPoses" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.FillFormValues" Width="2" PointX="8.5" PointY="11.125" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_FillFormPoses" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_PrivateCounters" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_PrivateCounters" ManuallyRouted="true" >
+          <edmx:ConnectorPoint PointX="1.6556238546787736" PointY="8.1821907552083335" />
+          <edmx:ConnectorPoint PointX="1.6556238546787736" PointY="14.380921223958334" />
+          <edmx:ConnectorPoint PointX="9.5263416825485834" PointY="14.380921223958334" />
+          <edmx:ConnectorPoint PointX="9.5263416825485834" PointY="13.297587890625" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounterValues" Width="2" PointX="13.75" PointY="10.875" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesFormPoses" Width="2" PointX="13.75" PointY="7.25" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesForms" Width="2" PointX="13.75" PointY="4" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesUploads" Width="2" PointX="13.75" PointY="0.625" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" ManuallyRouted="true" >
+          <edmx:ConnectorPoint PointX="1.0855732512202654" PointY="8.1821907552083335" />
+          <edmx:ConnectorPoint PointX="1.0855732512202654" PointY="14.745504557291667" />
+          <edmx:ConnectorPoint PointX="14.762242258803335" PointY="14.745504557291667" />
+          <edmx:ConnectorPoint PointX="14.762242258803335" PointY="13.047587890625" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateValuesUploads_Users" ManuallyRouted="true" >
+          <edmx:ConnectorPoint PointX="4.25" PointY="0.625" />
+          <edmx:ConnectorPoint PointX="4.25" PointY="0.10605957031250018" />
+          <edmx:ConnectorPoint PointX="14.761125786778612" PointY="0.10605957031250018" />
+          <edmx:ConnectorPoint PointX="14.761125786778612" PointY="0.625" />
+        </edmx:AssociationConnector>
         </edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

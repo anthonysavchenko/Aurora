@@ -11,21 +11,25 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
     {
         static public void ParseFile(DecFormsUploads upload, Excel2007Worker worker, string file)
         {
-            var uploadPos = UploadPosHandler.CreateUploadPos(Path.GetFileName(file), upload);
+            var uploadPos = DecFormsUploadPosHandler.CreateUploadPos(Path.GetFileName(file), upload);
 
             try
             {
                 worker.OpenFile(file);
                 Excel2007Worker.ExcelSheet sheet = worker.GetSheet(1);
 
-                if (RouteFormParser.FileParser.IsRouteForm(sheet, out string isRouteFormMessage))
+                if (RouteFormParser.FileParser.IsRouteForm(
+                    sheet,
+                    out string isRouteFormMessage))
                 {
                     RouteFormParser.FileParser.ParseFile(
                         sheet,
                         uploadPos,
                         out string message);
                 }
-                else if (FillFormParser.FileParser.IsFillForm(sheet, out string isFillFormMessage))
+                else if (FillFormParser.FileParser.IsFillForm(
+                    sheet,
+                    out string isFillFormMessage))
                 {
                     FillFormParser.FileParser.ParseFile(
                         sheet,
@@ -34,7 +38,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 }
                 else
                 {
-                    UploadPosHandler.UpdateUploadPosWithError(
+                    DecFormsUploadPosHandler.UpdateUploadPosWithError(
                         uploadPos,
                         $"Формат файла не определен. 1. {isRouteFormMessage} 2. {isFillFormMessage}");
                 }
@@ -42,7 +46,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             catch (Exception e)
             {
                 Logger.SimpleWrite($"FileParser ParseFile error (file: {file}): {e}");
-                UploadPosHandler.UpdateUploadPosWithError(
+                DecFormsUploadPosHandler.UpdateUploadPosWithError(
                     uploadPos,
                     "Ошибка при распознавании файла. " +
                         "Убедитесь, что  файл не открыт в другом окне или в другой программе. " +

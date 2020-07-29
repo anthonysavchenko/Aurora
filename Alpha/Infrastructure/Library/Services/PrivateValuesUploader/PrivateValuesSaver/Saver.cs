@@ -2,37 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using Taumis.EnterpriseLibrary.Win.Services;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsSaver
+namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.PrivateValuesSaver
 {
     static public class Saver
     {
         public static bool Save(
-            DecFormsUploads upload,
+            PrivateValuesUploads upload,
             int progressFrom,
             int progressTill,
             Action<int, string> SetProgress)
         {
             SetProgress(progressFrom, "Подготовка к началу сохранения распознанных файлов...");
 
-            if (!GetPoses(upload, out DateTime month, out List<DecFormsUploadPoses> poses))
+            if (!GetPoses(upload, out DateTime month, out List<PrivateValuesForms> forms))
             {
                 return false;
             }
 
             SetProgress(progressFrom, "Сохранение распознанных файлов...");
 
-            for (int i = 0; i < poses.Count; i++)
+            for (int i = 0; i < forms.Count; i++)
             {
                 FileSaver.SaveFile(
-                    poses[i],
+                    forms[i],
                     month);
 
                 SetProgress(
-                    progressFrom + (i + 1) * (progressTill - progressFrom) / upload.DecFormsUploadPoses.Count,
+                    progressFrom + (i + 1) * (progressTill - progressFrom) / upload.PrivateValuesForms.Count,
                     "Сохранение распознанных файлов...");
             }
 
@@ -42,39 +41,37 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
         }
 
         public static bool GetPoses(
-            DecFormsUploads upload,
+            PrivateValuesUploads upload,
             out DateTime month,
-            out List<DecFormsUploadPoses> poses)
+            out List<PrivateValuesForms> forms)
         {
-            poses = null;
+            forms = null;
             month = DateTime.MinValue;
 
             try
             {
                 using (var db = new Entities())
                 {
-                    db.DecFormsUploads.Attach(upload);
+                    db.PrivateValuesUploads.Attach(upload);
 
                     month = upload.Month;
-                    poses =
-                        upload.DecFormsUploadPoses
-                            .Where(p =>
-                                string.IsNullOrEmpty(p.ErrorDescription)
-                                && (DecFormsType)p.FormType != DecFormsType.Unknown)
+                    forms =
+                        upload.PrivateValuesForms
+                            .Where(p => string.IsNullOrEmpty(p.ErrorDescription))
                             .ToList();
                 }
             }
             catch (Exception e)
             {
                 Logger.SimpleWrite($"Saver GetPoses error: {e}");
-                DecFormsUploadHandler.UpdateUploadWithError(
+                PrivateValuesUploadHandler.UpdateUploadWithError(
                     upload,
                     "Ошибка при подготовке к сохранению распознанных данных. " +
                         "Проверьте подключение к локальной сети УК ФР и серверу БД.",
                     e.ToString());
                 return false;
             }
-            
+
             return true;
         }
     }

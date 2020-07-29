@@ -145,6 +145,7 @@
     <Compile Include="Enums\OperationType.cs" />
     <Compile Include="Enums\OwnerType.cs" />
     <Compile Include="Enums\PrivateCounterType.cs" />
+    <Compile Include="Enums\PrivateValuesFormCounterType.cs" />
     <Compile Include="Enums\RouteFormCounterType.cs" />
     <Compile Include="Enums\PrivateCounterValueType.cs" />
     <Compile Include="ExtensionMethods\BalanceDictionaryExtension.cs" />

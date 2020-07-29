@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
@@ -49,7 +48,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 out string building,
                 out message))
             {
-                UploadPosHandler.UpdateUploadPosWithError(
+                DecFormsUploadPosHandler.UpdateUploadPosWithError(
                     uploadPos,
                     $"Ошибка при распознавании файла. {message}");
             }

@@ -18,7 +18,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 
                     if (buildingID == null)
                     {
-                        UploadPosHandler.UpdateUploadPosWithError(
+                        DecFormsUploadPosHandler.UpdateUploadPosWithError(
                             pos,
                             "Распознанного номера дома нет в списке обслуживаемых УК домов.");
                         return;
@@ -32,7 +32,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 
                     if (buildingID == null)
                     {
-                        UploadPosHandler.UpdateUploadPosWithError(
+                        DecFormsUploadPosHandler.UpdateUploadPosWithError(
                             pos,
                             "Распознанного номера дома нет в списке обслуживаемых УК домов.");
                         return;
@@ -44,7 +44,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             catch (Exception e)
             {
                 Logger.SimpleWrite($"FileSaver SaveFile error (pos.ID: {pos.ID}): {e}");
-                UploadPosHandler.UpdateUploadPosWithError(
+                DecFormsUploadPosHandler.UpdateUploadPosWithError(
                     pos,
                     "Ошибка при сохранении распознанных данных.",
                     e.ToString());

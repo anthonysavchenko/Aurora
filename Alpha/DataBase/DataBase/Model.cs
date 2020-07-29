@@ -36,6 +36,11 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_RouteFormValues_RouteFormPoses", "RouteFormPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.RouteFormPoses), "RouteFormValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.RouteFormValues))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_FillFormValues_FillFormPoses", "FillFormPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.FillFormPoses), "FillFormValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.FillFormValues))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_FillFormValues_PrivateCounters", "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateCounters), "FillFormValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.FillFormValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounterValues_PrivateCounters", "PrivateCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateCounters), "PrivateCounterValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounterValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateValuesFormPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateValuesFormPoses), "PrivateCounterValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateCounterValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateValuesForms), "PrivateValuesFormPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesFormPoses))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateValuesUploads), "PrivateValuesForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesForms))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "PrivateValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesUploads))]
 
 #endregion
 
@@ -339,6 +344,70 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<FillFormValues> _FillFormValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PrivateCounterValues> PrivateCounterValues
+        {
+            get
+            {
+                if ((_PrivateCounterValues == null))
+                {
+                    _PrivateCounterValues = base.CreateObjectSet<PrivateCounterValues>("PrivateCounterValues");
+                }
+                return _PrivateCounterValues;
+            }
+        }
+        private ObjectSet<PrivateCounterValues> _PrivateCounterValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PrivateValuesFormPoses> PrivateValuesFormPoses
+        {
+            get
+            {
+                if ((_PrivateValuesFormPoses == null))
+                {
+                    _PrivateValuesFormPoses = base.CreateObjectSet<PrivateValuesFormPoses>("PrivateValuesFormPoses");
+                }
+                return _PrivateValuesFormPoses;
+            }
+        }
+        private ObjectSet<PrivateValuesFormPoses> _PrivateValuesFormPoses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PrivateValuesForms> PrivateValuesForms
+        {
+            get
+            {
+                if ((_PrivateValuesForms == null))
+                {
+                    _PrivateValuesForms = base.CreateObjectSet<PrivateValuesForms>("PrivateValuesForms");
+                }
+                return _PrivateValuesForms;
+            }
+        }
+        private ObjectSet<PrivateValuesForms> _PrivateValuesForms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PrivateValuesUploads> PrivateValuesUploads
+        {
+            get
+            {
+                if ((_PrivateValuesUploads == null))
+                {
+                    _PrivateValuesUploads = base.CreateObjectSet<PrivateValuesUploads>("PrivateValuesUploads");
+                }
+                return _PrivateValuesUploads;
+            }
+        }
+        private ObjectSet<PrivateValuesUploads> _PrivateValuesUploads;
 
         #endregion
 
@@ -470,6 +539,38 @@ namespace Taumis.Alpha.DataBase
         public void AddToFillFormValues(FillFormValues fillFormValues)
         {
             base.AddObject("FillFormValues", fillFormValues);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PrivateCounterValues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPrivateCounterValues(PrivateCounterValues privateCounterValues)
+        {
+            base.AddObject("PrivateCounterValues", privateCounterValues);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PrivateValuesFormPoses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPrivateValuesFormPoses(PrivateValuesFormPoses privateValuesFormPoses)
+        {
+            base.AddObject("PrivateValuesFormPoses", privateValuesFormPoses);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PrivateValuesForms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPrivateValuesForms(PrivateValuesForms privateValuesForms)
+        {
+            base.AddObject("PrivateValuesForms", privateValuesForms);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PrivateValuesUploads EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPrivateValuesUploads(PrivateValuesUploads privateValuesUploads)
+        {
+            base.AddObject("PrivateValuesUploads", privateValuesUploads);
         }
 
         #endregion
@@ -3028,6 +3129,1044 @@ namespace Taumis.Alpha.DataBase
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounterValues_PrivateCounters", "PrivateCounterValues")]
+        public EntityCollection<PrivateCounterValues> PrivateCounterValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateCounterValues>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters", "PrivateCounterValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounterValues>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters", "PrivateCounterValues", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="PrivateCounterValues")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PrivateCounterValues : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PrivateCounterValues object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="valueType">Initial value of the ValueType property.</param>
+        public static PrivateCounterValues CreatePrivateCounterValues(global::System.Int32 id, global::System.DateTime month, global::System.Byte valueType)
+        {
+            PrivateCounterValues privateCounterValues = new PrivateCounterValues();
+            privateCounterValues.ID = id;
+            privateCounterValues.Month = month;
+            privateCounterValues.ValueType = valueType;
+            return privateCounterValues;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ValueType
+        {
+            get
+            {
+                return _ValueType;
+            }
+            set
+            {
+                OnValueTypeChanging(value);
+                ReportPropertyChanging("ValueType");
+                _ValueType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ValueType");
+                OnValueTypeChanged();
+            }
+        }
+        private global::System.Byte _ValueType;
+        partial void OnValueTypeChanging(global::System.Byte value);
+        partial void OnValueTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Value
+        {
+            get
+            {
+                return _Value;
+            }
+            set
+            {
+                OnValueChanging(value);
+                ReportPropertyChanging("Value");
+                _Value = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Value");
+                OnValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Value;
+        partial void OnValueChanging(Nullable<global::System.Int32> value);
+        partial void OnValueChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounterValues_PrivateCounters", "PrivateCounters")]
+        public PrivateCounters PrivateCounters
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters", "PrivateCounters").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters", "PrivateCounters").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivateCounters> PrivateCountersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters", "PrivateCounters");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters", "PrivateCounters", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateValuesFormPoses")]
+        public PrivateValuesFormPoses PrivateValuesFormPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesFormPoses>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateValuesFormPoses").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesFormPoses>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateValuesFormPoses").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivateValuesFormPoses> PrivateValuesFormPosesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesFormPoses>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateValuesFormPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivateValuesFormPoses>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateValuesFormPoses", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="PrivateValuesFormPoses")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PrivateValuesFormPoses : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PrivateValuesFormPoses object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="apartment">Initial value of the Apartment property.</param>
+        /// <param name="counterType">Initial value of the CounterType property.</param>
+        public static PrivateValuesFormPoses CreatePrivateValuesFormPoses(global::System.Int32 id, global::System.String apartment, global::System.Byte counterType)
+        {
+            PrivateValuesFormPoses privateValuesFormPoses = new PrivateValuesFormPoses();
+            privateValuesFormPoses.ID = id;
+            privateValuesFormPoses.Apartment = apartment;
+            privateValuesFormPoses.CounterType = counterType;
+            return privateValuesFormPoses;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Apartment
+        {
+            get
+            {
+                return _Apartment;
+            }
+            set
+            {
+                OnApartmentChanging(value);
+                ReportPropertyChanging("Apartment");
+                _Apartment = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Apartment");
+                OnApartmentChanged();
+            }
+        }
+        private global::System.String _Apartment;
+        partial void OnApartmentChanging(global::System.String value);
+        partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte CounterType
+        {
+            get
+            {
+                return _CounterType;
+            }
+            set
+            {
+                OnCounterTypeChanging(value);
+                ReportPropertyChanging("CounterType");
+                _CounterType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CounterType");
+                OnCounterTypeChanged();
+            }
+        }
+        private global::System.Byte _CounterType;
+        partial void OnCounterTypeChanging(global::System.Byte value);
+        partial void OnCounterTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CounterNumber
+        {
+            get
+            {
+                return _CounterNumber;
+            }
+            set
+            {
+                OnCounterNumberChanging(value);
+                ReportPropertyChanging("CounterNumber");
+                _CounterNumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CounterNumber");
+                OnCounterNumberChanged();
+            }
+        }
+        private global::System.String _CounterNumber;
+        partial void OnCounterNumberChanging(global::System.String value);
+        partial void OnCounterNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CurrentDate
+        {
+            get
+            {
+                return _CurrentDate;
+            }
+            set
+            {
+                OnCurrentDateChanging(value);
+                ReportPropertyChanging("CurrentDate");
+                _CurrentDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentDate");
+                OnCurrentDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CurrentDate;
+        partial void OnCurrentDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnCurrentDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CurrentValue
+        {
+            get
+            {
+                return _CurrentValue;
+            }
+            set
+            {
+                OnCurrentValueChanging(value);
+                ReportPropertyChanging("CurrentValue");
+                _CurrentValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentValue");
+                OnCurrentValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CurrentValue;
+        partial void OnCurrentValueChanging(Nullable<global::System.Int32> value);
+        partial void OnCurrentValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CurrentDayValue
+        {
+            get
+            {
+                return _CurrentDayValue;
+            }
+            set
+            {
+                OnCurrentDayValueChanging(value);
+                ReportPropertyChanging("CurrentDayValue");
+                _CurrentDayValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentDayValue");
+                OnCurrentDayValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CurrentDayValue;
+        partial void OnCurrentDayValueChanging(Nullable<global::System.Int32> value);
+        partial void OnCurrentDayValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CurrentNightValue
+        {
+            get
+            {
+                return _CurrentNightValue;
+            }
+            set
+            {
+                OnCurrentNightValueChanging(value);
+                ReportPropertyChanging("CurrentNightValue");
+                _CurrentNightValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentNightValue");
+                OnCurrentNightValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CurrentNightValue;
+        partial void OnCurrentNightValueChanging(Nullable<global::System.Int32> value);
+        partial void OnCurrentNightValueChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateCounterValues")]
+        public EntityCollection<PrivateCounterValues> PrivateCounterValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateCounterValues>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateCounterValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounterValues>("AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses", "PrivateCounterValues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesForms")]
+        public PrivateValuesForms PrivateValuesForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesForms>("AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesForms").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesForms>("AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesForms").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivateValuesForms> PrivateValuesFormsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesForms>("AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivateValuesForms>("AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesForms", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="PrivateValuesForms")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PrivateValuesForms : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PrivateValuesForms object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="fileName">Initial value of the FileName property.</param>
+        public static PrivateValuesForms CreatePrivateValuesForms(global::System.Int32 id, global::System.String fileName)
+        {
+            PrivateValuesForms privateValuesForms = new PrivateValuesForms();
+            privateValuesForms.ID = id;
+            privateValuesForms.FileName = fileName;
+            return privateValuesForms;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Street
+        {
+            get
+            {
+                return _Street;
+            }
+            set
+            {
+                OnStreetChanging(value);
+                ReportPropertyChanging("Street");
+                _Street = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Street");
+                OnStreetChanged();
+            }
+        }
+        private global::System.String _Street;
+        partial void OnStreetChanging(global::System.String value);
+        partial void OnStreetChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Building
+        {
+            get
+            {
+                return _Building;
+            }
+            set
+            {
+                OnBuildingChanging(value);
+                ReportPropertyChanging("Building");
+                _Building = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Building");
+                OnBuildingChanged();
+            }
+        }
+        private global::System.String _Building;
+        partial void OnBuildingChanging(global::System.String value);
+        partial void OnBuildingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesFormPoses")]
+        public EntityCollection<PrivateValuesFormPoses> PrivateValuesFormPoses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateValuesFormPoses>("AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesFormPoses");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateValuesFormPoses>("AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesFormPoses", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads")]
+        public PrivateValuesUploads PrivateValuesUploads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesUploads>("AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesUploads>("AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivateValuesUploads> PrivateValuesUploadsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivateValuesUploads>("AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivateValuesUploads>("AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="PrivateValuesUploads")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PrivateValuesUploads : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PrivateValuesUploads object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="directory">Initial value of the Directory property.</param>
+        public static PrivateValuesUploads CreatePrivateValuesUploads(global::System.Int32 id, global::System.DateTime created, global::System.DateTime month, global::System.String directory)
+        {
+            PrivateValuesUploads privateValuesUploads = new PrivateValuesUploads();
+            privateValuesUploads.ID = id;
+            privateValuesUploads.Created = created;
+            privateValuesUploads.Month = month;
+            privateValuesUploads.Directory = directory;
+            return privateValuesUploads;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Directory
+        {
+            get
+            {
+                return _Directory;
+            }
+            set
+            {
+                OnDirectoryChanging(value);
+                ReportPropertyChanging("Directory");
+                _Directory = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Directory");
+                OnDirectoryChanged();
+            }
+        }
+        private global::System.String _Directory;
+        partial void OnDirectoryChanging(global::System.String value);
+        partial void OnDirectoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesForms")]
+        public EntityCollection<PrivateValuesForms> PrivateValuesForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateValuesForms>("AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateValuesForms>("AlphaDataBaseModel.FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesForms", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateValuesUploads_Users", "Users")]
+        public Users Author
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_PrivateValuesUploads_Users", "Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_PrivateValuesUploads_Users", "Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> AuthorReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_PrivateValuesUploads_Users", "Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("AlphaDataBaseModel.FK_PrivateValuesUploads_Users", "Users", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -4181,6 +5320,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DecFormsDownloads>("AlphaDataBaseModel.FK_DecFormsDownloads_Users", "DecFormsDownloads", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_PrivateValuesUploads_Users", "PrivateValuesUploads")]
+        public EntityCollection<PrivateValuesUploads> PrivateValuesUploads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivateValuesUploads>("AlphaDataBaseModel.FK_PrivateValuesUploads_Users", "PrivateValuesUploads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateValuesUploads>("AlphaDataBaseModel.FK_PrivateValuesUploads_Users", "PrivateValuesUploads", value);
                 }
             }
         }

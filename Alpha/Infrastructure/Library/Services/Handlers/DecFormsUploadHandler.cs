@@ -6,7 +6,7 @@ using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
-    static public class UploadHandler
+    static public class DecFormsUploadHandler
     {
         static public bool CreateUpload(
             string directory,
@@ -41,7 +41,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
             }
             catch (Exception e)
             {
-                Logger.SimpleWrite($"UploadHandler CreateUpload error: {e}");
+                Logger.SimpleWrite($"DecFormsUploadHandler CreateUpload error: {e}");
                 return false;
             }
 

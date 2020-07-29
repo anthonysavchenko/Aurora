@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using Taumis.Alpha.DataBase;
-using Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser;
-using Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsSaver;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
+using Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.PrivateValuesParser;
+using Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.PrivateValuesSaver;
 using Taumis.EnterpriseLibrary.Win.Services;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader
+namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader
 {
     static public class Uploader
     {
@@ -16,7 +16,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader
             DateTime month,
             string note,
             Action<int, string> OnProgress,
-            Action<DecFormsUploads> OnCompleted)
+            Action<PrivateValuesUploads> OnCompleted)
         {
             BackgroundWorker worker = new BackgroundWorker()
             {
@@ -30,7 +30,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader
 
             worker.RunWorkerCompleted += (sender, args) =>
             {
-                OnCompleted((DecFormsUploads)args.Result);
+                OnCompleted((PrivateValuesUploads)args.Result);
             };
 
             worker.DoWork += (sender, args) =>
@@ -47,7 +47,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader
             worker.RunWorkerAsync();
         }
 
-        static private DecFormsUploads Upload(
+        static private PrivateValuesUploads Upload(
             string directory,
             int userID,
             DateTime month,
@@ -56,12 +56,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader
         {
             SetProgress(0, "Подготовка к началу обработки данных...");
 
-            if (DecFormsUploadHandler.CreateUpload(
+            if (PrivateValuesUploadHandler.CreateUpload(
                 directory,
                 month,
                 note,
                 userID,
-                out DecFormsUploads upload))
+                out PrivateValuesUploads upload))
             {
                 try
                 {
@@ -85,8 +85,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader
                 }
                 catch (Exception e)
                 {
-                    Logger.SimpleWrite($"Uploader Upload error: {e}");
-                    DecFormsUploadHandler.UpdateUploadWithError(
+                    Logger.SimpleWrite($"PrivateValuesUploader.Uploader Upload error: {e}");
+                    PrivateValuesUploadHandler.UpdateUploadWithError(
                         upload,
                         "Ошибка во время обработки данных.",
                         e.ToString());

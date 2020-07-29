@@ -5,12 +5,12 @@ using Taumis.Alpha.Infrastructure.Library.Services.Excel;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using Taumis.EnterpriseLibrary.Win.Services;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.PrivateValuesParser
 {
     static public class Parser
     {
         static public bool Parse(
-            DecFormsUploads upload,
+            PrivateValuesUploads upload,
             int progressFrom,
             int progressTill,
             Action<int, string> SetProgress)
@@ -46,7 +46,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             return true;
         }
 
-        static private bool GetFiles(DecFormsUploads upload, out string[] files)
+        static private bool GetFiles(PrivateValuesUploads upload, out string[] files)
         {
             files = null;
 
@@ -54,10 +54,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             {
                 files = Directory.GetFiles(upload.Directory, "*.xls", SearchOption.TopDirectoryOnly);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Logger.SimpleWrite($"Parser GetFiles error: {e}");
-                DecFormsUploadHandler.UpdateUploadWithError(
+                Logger.SimpleWrite($"PrivateValuesParser.Parser GetFiles error: {e}");
+                PrivateValuesUploadHandler.UpdateUploadWithError(
                     upload,
                     "Ошибка при поиске файлов в папке. " +
                         "Попробуйте выбрать другую папку.",
@@ -68,25 +68,25 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             return true;
         }
 
-        static private bool GetExcelWorker(DecFormsUploads upload, out Excel2007Worker worker)
+        static private bool GetExcelWorker(PrivateValuesUploads upload, out Excel2007Worker worker)
         {
             worker = null;
-            
+
             try
             {
                 worker = new Excel2007Worker();
             }
             catch (Exception e)
             {
-                Logger.SimpleWrite($"Parser GetExcelWorker error: {e}");
-                DecFormsUploadHandler.UpdateUploadWithError(
+                Logger.SimpleWrite($"PrivateValuesParser.Parser GetExcelWorker error: {e}");
+                PrivateValuesUploadHandler.UpdateUploadWithError(
                     upload,
                     "Ошибка при подготовке к работе с Excel. " +
                         "Убедитесь, что на компьютере установлен MS Excel.",
                     e.ToString());
                 return false;
             }
-            
+
             return true;
         }
     }

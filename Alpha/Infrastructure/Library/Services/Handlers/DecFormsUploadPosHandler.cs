@@ -3,7 +3,7 @@ using Taumis.Alpha.Infrastructure.Interface.Enums;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
-    static public class UploadPosHandler
+    static public class DecFormsUploadPosHandler
     {
         static public DecFormsUploadPoses CreateUploadPos(
             string fileName,
