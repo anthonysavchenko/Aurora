@@ -8,35 +8,45 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
     static public class FillFormValueHandler
     {
         static public void CreateValue(
-            Entities db,
             DateTime month,
             PrivateCounterValueType valueType,
             int? value,
-            PrivateCounters counter,
+            int counterID,
             FillFormPoses pos)
         {
-            var counterValue = new FillFormValues()
+            using (var db = new Entities())
             {
-                Month = month,
-                ValueType = (byte)valueType,
-                Value = value,
-                PrivateCounters = counter,
-                FillFormPoses = pos,
-            };
+                db.FillFormPoses.Attach(pos);
 
-            db.AddToFillFormValues(counterValue);
+                var counterValue = new FillFormValues()
+                {
+                    Month = month,
+                    ValueType = (byte)valueType,
+                    Value = value,
+                    PrivateCounters = db.PrivateCounters.First(c => c.ID == counterID),
+                    FillFormPoses = pos,
+                };
+
+                db.AddToFillFormValues(counterValue);
+                db.SaveChanges();
+            }
         }
 
-        static public void ClearExistedValues(Entities db, Buildings building, DateTime month)
+        static public void ClearExistedValues(int buildingID, DateTime month)
         {
-            var existedValues =
-                db.FillFormValues
-                    .Where(v =>
-                        v.PrivateCounters.Customers.Buildings.ID == building.ID
-                        && v.Month == month)
-                    .ToList();
+            using (var db = new Entities())
+            {
+                var existedValues =
+                    db.FillFormValues
+                        .Where(v =>
+                            v.PrivateCounters.Customers.Buildings.ID == buildingID
+                            && v.Month == month)
+                        .ToList();
 
-            existedValues.ForEach(v => db.FillFormValues.DeleteObject(v));
+                existedValues.ForEach(v => db.FillFormValues.DeleteObject(v));
+
+                db.SaveChanges();
+            }
         }
     }
 }

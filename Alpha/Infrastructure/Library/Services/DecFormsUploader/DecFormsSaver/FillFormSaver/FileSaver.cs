@@ -8,61 +8,49 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 {
     static public class FileSaver
     {
-        static public void SaveFile(FillForms form, Buildings b, DateTime month)
+        static public void SaveFile(FillForms form, int buildingID, DateTime month)
         {
-            using (var db = new Entities())
+            FillFormValueHandler.ClearExistedValues(buildingID, month);
+            PrivateCounterHandler.ClearExistedCounters(buildingID);
+            CustomerHandler.ClearExistedCustomers(buildingID);
+
+            foreach (var row in form.FillFormPoses)
             {
-                db.FillForms.Attach(form);
-                var building = db.Buildings.First(x => x.ID == b.ID);
+                var customerID =
+                    CustomerHandler.GetCustomer(
+                        buildingID,
+                        row.Apartment)
+                    ?? CustomerHandler.CreateCustomer(
+                        buildingID,
+                        row.Apartment);
 
-                FillFormValueHandler.ClearExistedValues(db, building, month);
-                PrivateCounterHandler.ClearExistedCounters(db, building);
-                CustomerHandler.ClearExistedCustomers(db, building);
+                var counterType = GetPrivateCounterType((FillFormCounterType)row.CounterType);
 
-                foreach (var row in form.FillFormPoses)
-                {
-                    var customer =
-                        db.Customers
-                            .FirstOrDefault(c =>
-                                c.Buildings.ID == building.ID
-                                && c.Apartment.ToLower() == row.Apartment.ToLower())
-                        ?? CustomerHandler.CreateCustomer(
-                            db,
-                            building,
-                            row.Apartment);
+                var counterID =
+                    PrivateCounterHandler.GetCounter(
+                        customerID,
+                        counterType,
+                        row.CounterNumber)
+                    ?? PrivateCounterHandler.CreateCounter(
+                        customerID,
+                        counterType,
+                        row.CounterNumber);
 
-                    var counterType = GetPrivateCounterType((FillFormCounterType)row.CounterType);
-
-                    var counter =
-                        db.PrivateCounters
-                            .FirstOrDefault(x =>
-                                x.Customers.ID == customer.ID
-                                && x.CounterType == (byte)counterType
-                                && x.Number.ToLower() == row.CounterNumber.ToLower())
-                        ?? PrivateCounterHandler.CreateCounter(
-                            db,
-                            customer,
-                            counterType,
-                            counterType != PrivateCounterType.Norm
-                                ? row.CounterNumber
-                                : null);
-
-                    CreateValues(db, month, counter, row);
-                }
-
-                db.SaveChanges();
+                CreateValues(month, counterID, row);
             }
         }
 
-        static public Buildings GetBuilding(FillForms form)
+        static public int? GetBuilding(FillForms form)
         {
             using (var db = new Entities())
             {
-                return
+                var building =
                     db.Buildings
                         .FirstOrDefault(b =>
                             b.Street.ToLower() == form.Street.ToLower()
                             && b.Number.ToLower() == form.Building.ToLower());
+
+                return building?.ID;
             }
         }
 
@@ -85,49 +73,44 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
         }
 
         static private void CreateValues(
-            Entities db,
             DateTime month,
-            PrivateCounters counter,
+            int counterID,
             FillFormPoses pos)
         {
             if ((FillFormCounterType)pos.CounterType == FillFormCounterType.Common)
             {
                 FillFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Common,
                     pos.PrevValue,
-                    counter,
+                    counterID,
                     pos);
             }
             else if ((FillFormCounterType)pos.CounterType == FillFormCounterType.Day)
             {
                 FillFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Day,
                     pos.PrevDayValue,
-                    counter,
+                    counterID,
                     pos);
             }
             else if ((FillFormCounterType)pos.CounterType == FillFormCounterType.Night)
             {
                 FillFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Night,
                     pos.PrevNightValue,
-                    counter,
+                    counterID,
                     pos);
             }
             else if ((FillFormCounterType)pos.CounterType == FillFormCounterType.Norm)
             {
                 FillFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Norm,
                     null,
-                    counter,
+                    counterID,
                     pos);
             }
         }

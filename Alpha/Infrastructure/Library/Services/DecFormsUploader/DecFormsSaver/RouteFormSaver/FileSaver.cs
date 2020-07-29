@@ -8,61 +8,49 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 {
     static public class FileSaver
     {
-        static public void SaveFile(RouteForms form, Buildings b, DateTime month)
+        static public void SaveFile(RouteForms form, int buildingID, DateTime month)
         {
-            using (var db = new Entities())
+            RouteFormValueHandler.ClearExistedValues(buildingID, month);
+            PrivateCounterHandler.ClearExistedCounters(buildingID);
+            CustomerHandler.ClearExistedCustomers(buildingID);
+
+            foreach (var row in form.RouteFormPoses)
             {
-                db.RouteForms.Attach(form);
-                var building = db.Buildings.First(x => x.ID == b.ID);
+                var customerID =
+                    CustomerHandler.GetCustomer(
+                        buildingID,
+                        row.Apartment)
+                    ?? CustomerHandler.CreateCustomer(
+                        buildingID,
+                        row.Apartment);
 
-                RouteFormValueHandler.ClearExistedValues(db, building, month);
-                PrivateCounterHandler.ClearExistedCounters(db, building);
-                CustomerHandler.ClearExistedCustomers(db, building);
+                var counterType = GetPrivateCounterType((RouteFormCounterType)row.CounterType);
 
-                foreach (var row in form.RouteFormPoses)
-                {
-                    var customer =
-                        db.Customers
-                            .FirstOrDefault(c =>
-                                c.Buildings.ID == building.ID
-                                && c.Apartment.ToLower() == row.Apartment.ToLower())
-                        ?? CustomerHandler.CreateCustomer(
-                            db,
-                            building,
-                            row.Apartment);
+                var counterID =
+                    PrivateCounterHandler.GetCounter(
+                        customerID,
+                        counterType,
+                        row.CounterNumber)
+                    ?? PrivateCounterHandler.CreateCounter(
+                        customerID,
+                        counterType,
+                        row.CounterNumber);
 
-                    var counterType = GetPrivateCounterType((RouteFormCounterType)row.CounterType);
-
-                    var counter =
-                        db.PrivateCounters
-                            .FirstOrDefault(x =>
-                                x.Customers.ID == customer.ID
-                                && x.CounterType == (byte)counterType
-                                && x.Number.ToLower() == row.CounterNumber.ToLower())
-                        ?? PrivateCounterHandler.CreateCounter(
-                            db,
-                            customer,
-                            counterType,
-                            counterType != PrivateCounterType.Norm
-                                ? row.CounterNumber
-                                : null);
-
-                    CreateValues(db, month, counter, row);
-                }
-
-                db.SaveChanges();
+                CreateValues(month, counterID, row);
             }
         }
 
-        static public Buildings GetBuilding(RouteForms form)
+        static public int? GetBuilding(RouteForms form)
         {
             using (var db = new Entities())
             {
-                return
+                var building = 
                     db.Buildings
                         .FirstOrDefault(b =>
                             b.Street.ToLower() == form.Street.ToLower()
                             && b.Number.ToLower() == form.Building.ToLower());
+
+                return building?.ID;
             }
         }
 
@@ -84,46 +72,41 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
         }
 
         static private void CreateValues(
-            Entities db,
             DateTime month,
-            PrivateCounters counter,
+            int counterID,
             RouteFormPoses pos)
         {
             if (pos.CounterType == (byte)RouteFormCounterType.Common)
             {
                 RouteFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Common,
                     pos.PrevValue,
-                    counter,
+                    counterID,
                     pos);
             }
             else if (pos.CounterType == (byte)RouteFormCounterType.DayAndNight)
             {
                 RouteFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Day,
                     pos.PrevDayValue,
-                    counter,
+                    counterID,
                     pos);
                 RouteFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Night,
                     pos.PrevNightValue,
-                    counter,
+                    counterID,
                     pos);
             }
             else if (pos.CounterType == (byte)RouteFormCounterType.Norm)
             {
                 RouteFormValueHandler.CreateValue(
-                    db,
                     month,
                     PrivateCounterValueType.Norm,
                     null,
-                    counter,
+                    counterID,
                     pos);
             }
         }

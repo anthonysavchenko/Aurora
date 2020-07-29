@@ -6,35 +6,63 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
     static public class PrivateCounterHandler
     {
-        static public PrivateCounters CreateCounter(
-            Entities db,
-            Customers customer,
+        static public int? GetCounter(
+            int customerID,
             PrivateCounterType counterType,
-            string number)
+            string counterNumber)
         {
-            var counter = new PrivateCounters()
+            using (var db = new Entities())
             {
-                CounterType = (byte)counterType,
-                Number = number,
-                Customers = customer,
-            };
+                var counter =
+                        db.PrivateCounters
+                            .FirstOrDefault(x =>
+                                x.Customers.ID == customerID
+                                && ((counterType != PrivateCounterType.Norm
+                                    && (PrivateCounterType)x.CounterType == counterType
+                                    && x.Number.ToLower() == counterNumber.ToLower())
+                                    || (counterType == PrivateCounterType.Norm)));
 
-            db.AddToPrivateCounters(counter);
-
-            return counter;
+                return counter?.ID;
+            }
         }
 
-        static public void ClearExistedCounters(Entities db, Buildings building)
+        static public int CreateCounter(
+            int customerID,
+            PrivateCounterType counterType,
+            string counterNumber)
         {
-            var existedCounters =
-                db.PrivateCounters
-                    .Where(c =>
-                        c.Customers.Buildings.ID == building.ID
-                        && c.RouteFormValues.Count == 0
-                        && c.FillFormValues.Count == 0)
-                    .ToList();
+            using (var db = new Entities())
+            {
+                var counter = new PrivateCounters()
+                {
+                    CounterType = (byte)counterType,
+                    Number = counterType != PrivateCounterType.Norm ? counterNumber : null,
+                    Customers = db.Customers.First(c => c.ID == customerID),
+                };
 
-            existedCounters.ForEach(c => db.PrivateCounters.DeleteObject(c));
+                db.AddToPrivateCounters(counter);
+                db.SaveChanges();
+
+                return counter.ID;
+            }
+        }
+
+        static public void ClearExistedCounters(int buildingID)
+        {
+            using (var db = new Entities())
+            {
+                var existedCounters =
+                    db.PrivateCounters
+                        .Where(c =>
+                            c.Customers.Buildings.ID == buildingID
+                            && c.RouteFormValues.Count == 0
+                            && c.FillFormValues.Count == 0)
+                        .ToList();
+
+                existedCounters.ForEach(c => db.PrivateCounters.DeleteObject(c));
+
+                db.SaveChanges();
+            }
         }
     }
 }

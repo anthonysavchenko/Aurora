@@ -1,36 +1,58 @@
 ﻿using System.Linq;
+using System.Xml;
 using Taumis.Alpha.DataBase;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
     static public class CustomerHandler
     {
-        static public Customers CreateCustomer(
-            Entities db,
-            Buildings building,
-            string apartment)
+        static public int? GetCustomer(int buildingID, string apartment)
         {
-            var customer = new Customers()
+            using (var db = new Entities())
             {
-                Buildings = building,
-                Apartment = apartment,
-            };
+                var customer =
+                    db.Customers
+                        .FirstOrDefault(c =>
+                            c.Buildings.ID == buildingID
+                            && c.Apartment.ToLower() == apartment.ToLower());
 
-            db.AddToCustomers(customer);
-
-            return customer;
+                return customer?.ID;
+            }
         }
 
-        static public void ClearExistedCustomers(Entities db, Buildings building)
+        static public int CreateCustomer(
+            int buildingID,
+            string apartment)
         {
-            var existedCustomers =
-                db.Customers
-                    .Where(c =>
-                        c.Buildings.ID == building.ID
-                        && c.PrivateCounters.Count == 0)
-                    .ToList();
+            using (var db = new Entities())
+            {
+                var customer = new Customers()
+                {
+                    Buildings = db.Buildings.First(b => b.ID == buildingID),
+                    Apartment = apartment,
+                };
 
-            existedCustomers.ForEach(c => db.Customers.DeleteObject(c));
+                db.AddToCustomers(customer);
+                db.SaveChanges();
+
+                return customer.ID;
+            }
+        }
+
+        static public void ClearExistedCustomers(int buildingID)
+        {
+            using (var db = new Entities())
+            {
+                var existedCustomers =
+                    db.Customers
+                        .Where(c =>
+                            c.Buildings.ID == buildingID
+                            && c.PrivateCounters.Count == 0)
+                        .ToList();
+
+                existedCustomers.ForEach(c => db.Customers.DeleteObject(c));
+                db.SaveChanges();
+            }
         }
     }
 }
