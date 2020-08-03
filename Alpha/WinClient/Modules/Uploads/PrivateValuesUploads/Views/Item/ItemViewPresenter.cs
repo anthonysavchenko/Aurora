@@ -5,15 +5,14 @@ using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
-using Taumis.Alpha.Infrastructure.Interface.Enums;
-using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Queries;
-using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Tabbed;
+using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.PrivateValuesUploads.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.PrivateValuesUploads.Queries;
+using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.PrivateValuesUploads.Views.Tabbed;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.Item
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.PrivateValuesUploads.Views.Item
 {
     /// <summary>
     /// Презентер
@@ -87,7 +86,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.It
                 using (var db = new Entities())
                 {
                     var item =
-                        db.DecFormsUploads
+                        db.PrivateValuesUploads
                             .Where(x => x.ID.ToString() == itemID)
                             .Select(x =>
                                 new
@@ -96,18 +95,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.It
                                     x.Directory,
                                     x.Note,
                                     x.ErrorDescription,
-                                    RouteForms = x
-                                        .DecFormsUploadPoses.Count(p =>
-                                            (DecFormsType)p.FormType == DecFormsType.RouteForm
-                                            && string.IsNullOrEmpty(p.ErrorDescription)),
-                                    FillForms = x
-                                        .DecFormsUploadPoses.Count(p =>
-                                            (DecFormsType)p.FormType == DecFormsType.FillForm
-                                            && string.IsNullOrEmpty(p.ErrorDescription)),
+                                    PrivateValuesForms = x
+                                        .PrivateValuesForms.Count(p => string.IsNullOrEmpty(p.ErrorDescription)),
                                     OuterError = !string.IsNullOrEmpty(x.ErrorDescription),
                                     InnerErrors =
-                                        x.DecFormsUploadPoses.Count > 0
-                                            && x.DecFormsUploadPoses.Any(e =>
+                                        x.PrivateValuesForms.Count > 0
+                                            && x.PrivateValuesForms.Any(e =>
                                                 !string.IsNullOrEmpty(e.ErrorDescription)),
                                 })
                             .First();
@@ -123,7 +116,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.DecFormsUploads.Views.It
                                 ? item.ErrorDescription
                                 : !item.OuterError && item.InnerErrors
                                     ? "Обнаружены ошибки при распознавании и/или сохранении некоторых файлов."
-                                    : item.RouteForms > 0 || item.FillForms > 0
+                                    : item.PrivateValuesForms > 0
                                         ? "Распознавание и сохранение файлов выполнено успешно."
                                         : "Файлов для распознавания и сохранения не обнаружено.";
                 }

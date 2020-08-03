@@ -136,32 +136,28 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
             {
                 string sourceNoCR = source != null ? source.Replace("\n", " ").Trim() : source;
 
-                if (string.IsNullOrWhiteSpace(sourceNoCR))
+                if (!string.IsNullOrWhiteSpace(sourceNoCR))
                 {
-                    message = "Ячейка обязательно должна быть заполнена, если не указано начисление по нормативу. " +
-                        "В данном случае начисление не по нормативу, а ячейка пустая.";
-                    return false;
-                }
+                    if (!int.TryParse(sourceNoCR, out int value) || value < 0)
+                    {
+                        message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
+                            $"Предусмотрено распознавание показаний в формате целого числа от 0 до {int.MaxValue}. " +
+                            "В данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
+                        return false;
+                    }
 
-                if (!int.TryParse(sourceNoCR, out int value) || value < 0)
-                {
-                    message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
-                        $"Предусмотрено распознавание показаний в формате целого числа от 0 до {int.MaxValue}. " +
-                        "В данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
-                    return false;
-                }
-
-                if (counterType == PrivateValuesFormCounterType.Common)
-                {
-                    currentValue = value;
-                }
-                else if (counterType == PrivateValuesFormCounterType.Day)
-                {
-                    currentDayValue = value;
-                }
-                else if (counterType == PrivateValuesFormCounterType.Night)
-                {
-                    currentNightValue = value;
+                    if (counterType == PrivateValuesFormCounterType.Common)
+                    {
+                        currentValue = value;
+                    }
+                    else if (counterType == PrivateValuesFormCounterType.Day)
+                    {
+                        currentDayValue = value;
+                    }
+                    else if (counterType == PrivateValuesFormCounterType.Night)
+                    {
+                        currentNightValue = value;
+                    }
                 }
             }
 

@@ -46,7 +46,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                         return false;
                     }
 
-                    if (pos.CounterType == (byte)PrivateValuesFormCounterType.Norm)
+                    if (pos.CounterType == (byte)PrivateValuesFormCounterType.Norm
+                        || (pos.CurrentValue == null 
+                            && pos.CurrentDayValue == null
+                            && pos.CurrentNightValue == null))
                     {
                         continue;
                     }

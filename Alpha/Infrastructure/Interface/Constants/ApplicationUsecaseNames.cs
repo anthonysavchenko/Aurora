@@ -46,8 +46,18 @@
         public const string FILL_FORMS = "usecase://Uploads/FillForms";
 
         /// <summary>
+        /// Показания ИПУ.
+        /// </summary>
+        public const string PRIVATE_COUNTERS_VALUES = "usecase://Reports/RrivateCountersValues";
+
+        /// <summary>
         /// Объемы потребления по ИПУ.
         /// </summary>
         public const string PRIVATE_COUNTERS_VOLUMES = "usecase://Reports/RrivateCountersVolumes";
+
+        /// <summary>
+        /// Загрузки показаний ИПУ.
+        /// </summary>
+        public const string PRIVATE_VALUES_UPLOADS = "usecase://Uploads/PrivateValuesUploads";
     }
 }

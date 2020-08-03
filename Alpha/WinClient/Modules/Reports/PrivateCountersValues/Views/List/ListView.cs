@@ -9,7 +9,7 @@ using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportForGridView = System.Windows.Forms.UserControl;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersVolumes.Views.List
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Views.List
 {
     [SmartPart]
     public partial class ListView : BaseReportForGridView, IListView

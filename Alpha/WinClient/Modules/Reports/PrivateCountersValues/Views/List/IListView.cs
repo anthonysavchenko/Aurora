@@ -2,7 +2,7 @@
 using System.Data;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
-namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersVolumes.Views.List
+namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Views.List
 {
     public interface IListView : IBaseReportForGridView
     {
