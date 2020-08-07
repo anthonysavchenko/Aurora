@@ -8,7 +8,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
         const int ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT = 4;
 
         const int APARTMENT_DB_LENGTH = 10;
-        const int BUILDING_DB_LENGTH = 10;
+        const int BUILDING_DB_LENGTH = 25;
         const int STREET_DB_LENGTH = 50;
 
         static public bool ParseApartmentColumn(

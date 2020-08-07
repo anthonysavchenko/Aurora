@@ -6,6 +6,7 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
+using Taumis.Infrastructure.Interface.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Views.List
 {
@@ -58,7 +59,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                             {
                                 x.ID,
                                 Building = $"{x.Street}, д. {x.Number}",
-                            });
+                            })
+                        .OrderBy(x => x.Building, new StringWithNumbersComparer());
 
                 foreach (var _building in _buildingList)
                 {
@@ -660,7 +662,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
             View.AddColumn(ColumnNames.COUNTER_MODEL_COLUMN, "Модель счетика");
             View.AddColumn(ColumnNames.COUNTER_NUMBER_COLUMN, "Номер счетчика");
             View.AddColumn(ColumnNames.COUNTER_TYPE_COLUMN, "Тип счетчика");
-            View.AddColumn(ColumnNames.COUNTER_CAPACITY_COLUMN, "Разраядность счетчика");
+            View.AddColumn(ColumnNames.COUNTER_CAPACITY_COLUMN, "Разрядность счетчика");
 
             foreach (Band band in extraBands)
             {

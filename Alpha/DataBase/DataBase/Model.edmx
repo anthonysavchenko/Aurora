@@ -21,7 +21,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Number" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -104,7 +104,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Building" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Building" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="DecFormsUploadPos" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FillFormValues">
@@ -161,7 +161,7 @@
           <Property Name="PrivateValuesUpload" Type="int" Nullable="false" />
           <Property Name="FileName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="50" />
-          <Property Name="Building" Type="nvarchar" MaxLength="10" />
+          <Property Name="Building" Type="nvarchar" MaxLength="25" />
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
         </EntityType>
@@ -205,7 +205,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Building" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Building" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="DecFormsUploadPos" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RouteFormValues">
@@ -740,7 +740,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Street" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Number" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_Customers_Buildings" FromRole="Buildings" ToRole="Customers" />
         </EntityType>
         <EntityType Name="Customers">
@@ -850,7 +850,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Building" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DecFormsUploadPoses" Relationship="AlphaDataBaseModel.FK_FillForms_DecFormsUploadPoses" FromRole="FillForms" ToRole="DecFormsUploadPoses" />
           <NavigationProperty Name="FillFormPoses" Relationship="AlphaDataBaseModel.FK_FillFormPoses_FillForms" FromRole="FillForms" ToRole="FillFormPoses" />
           <NavigationProperty Name="DecFormsUploadPos" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_FillForms" FromRole="FillForms" ToRole="DecFormsUploadPoses" />
@@ -895,7 +895,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Building" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RouteFormPoses" Relationship="AlphaDataBaseModel.FK_RouteFormPoses_RouteForms" FromRole="RouteForms" ToRole="RouteFormPoses" />
           <NavigationProperty Name="DecFormsUploadPoses" Relationship="AlphaDataBaseModel.FK_RouteForms_DecFormsUploadPoses" FromRole="RouteForms" ToRole="DecFormsUploadPoses" />
           <NavigationProperty Name="DecFormsUploadPos" Relationship="AlphaDataBaseModel.FK_DecFormsUploadPoses_RouteForms" FromRole="RouteForms" ToRole="DecFormsUploadPoses" />
@@ -1035,7 +1035,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FileName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Building" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PrivateValuesFormPoses" Relationship="AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms" FromRole="PrivateValuesForms" ToRole="PrivateValuesFormPoses" />
