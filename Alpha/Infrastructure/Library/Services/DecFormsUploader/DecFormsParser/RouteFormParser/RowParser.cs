@@ -155,9 +155,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             if (!ColumnParser.ParsePrevValueColumn(
                 source.GetCellText($"{PREV_VALUE_COLUMN}{row}"),
                 counterType,
-                out int? prevValue,
-                out int? prevDayValue,
-                out int? prevNightValue,
+                out decimal? prevValue,
+                out decimal? prevDayValue,
+                out decimal? prevNightValue,
                 out message))
             {
                 message = $"Ячейка \"{PREV_VALUE_COLUMN}{row}\". {message}";

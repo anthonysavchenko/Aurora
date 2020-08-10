@@ -1,4 +1,5 @@
-﻿using Taumis.Alpha.Infrastructure.Interface.Enums;
+﻿using System.Text.RegularExpressions;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecFormsParser.RouteFormParser
 {
@@ -120,9 +121,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
         static public bool ParsePrevValueColumn(
             string source,
             RouteFormCounterType counterType,
-            out int? prevValue,
-            out int? prevDayValue,
-            out int? prevNightValue,
+            out decimal? prevValue,
+            out decimal? prevDayValue,
+            out decimal? prevNightValue,
             out string message)
         {
             prevValue = null;
@@ -143,12 +144,14 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 
                 if (counterType == RouteFormCounterType.Common)
                 {
-                    if (!int.TryParse(sourceNoCR, out int commonValue) || commonValue < 0)
+                    if (!Regex.IsMatch(sourceNoCR, @"^\d{1,6}(,\d{1,2})?$")
+                        || !decimal.TryParse(sourceNoCR, out decimal commonValue))
                     {
                         message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
                             "Распознанный тип счетчика: однотарифный. Для однотарифного счетчика предусмотрено " +
-                            $"распознавание показаний в формате одного целого числа от 0 до {int.MaxValue}. В " +
-                            $"данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
+                            "распознавание показаний в формате одного положительного десятичного числа, " +
+                            "которое содержит не более 6 цифр до зяпятой и не более 2 цифр после запятой. В " +
+                            "данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
                         return false;
                     }
                     else
@@ -161,16 +164,17 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                     string[] valueItems = sourceNoCR.Split(new char[] { ' ' });
 
                     if (valueItems.Length != 2
-                        || !int.TryParse(valueItems[0], out int dayValue)
-                        || dayValue < 0
-                        || !int.TryParse(valueItems[1], out int nightValue)
-                        || nightValue < 0)
+                        || !Regex.IsMatch(valueItems[0], @"^\d{1,6}(,\d{1,2})?$")
+                        || !decimal.TryParse(valueItems[0], out decimal dayValue)
+                        || !Regex.IsMatch(valueItems[1], @"^\d{1,6}(,\d{1,2})?$")
+                        || !decimal.TryParse(valueItems[1], out decimal nightValue))
                     {
                         message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
                             "Распознанный тип счетчика: двухтарифный. Для двухтарифного счетчика предусмотрено " +
-                            "распознавание показаний в формате: \"<Целое число><Перенос строки><Целое число>\". " +
-                            $"Целые числа должны находится в диапазоне от 0 до {int.MaxValue}. В данном случае " +
-                            "данные не соответствуют этому формату, поэтому не могут быть распознаны.";
+                            "распознавание показаний в формате двух положительных десятичных чисел, разделенных " +
+                            "переносом строки, каждое из которых содержит не более 6 цифр до запятой и не более " +
+                            "2 цифр после запятой. В данном случае данные не соответствуют этому формату, " +
+                            "поэтому не могут быть распознаны.";
                         return false;
                     }
                     else

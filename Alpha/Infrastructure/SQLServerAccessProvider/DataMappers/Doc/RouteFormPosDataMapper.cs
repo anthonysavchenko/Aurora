@@ -68,10 +68,10 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 _domItem.Apartment = _dbItem.Apartment;
                 _domItem.CounterType = (RouteFormCounterType)_dbItem.CounterType;
                 _domItem.CounterNumber = _dbItem.CounterNumber;
-                _domItem.PrevDate = _dbItem.PrevDate.GetValueOrDefault();
-                _domItem.PrevValue = _dbItem.PrevValue.GetValueOrDefault();
-                _domItem.PrevDayValue = _dbItem.PrevDayValue.GetValueOrDefault();
-                _domItem.PrevNightValue = _dbItem.PrevNightValue.GetValueOrDefault();
+                _domItem.PrevDate = _dbItem.PrevDate;
+                _domItem.PrevValue = _dbItem.PrevValue;
+                _domItem.PrevDayValue = _dbItem.PrevDayValue;
+                _domItem.PrevNightValue = _dbItem.PrevNightValue;
                 _domItem.Account = _dbItem.Account;
                 _domItem.Owner = _dbItem.Owner;
                 _domItem.CounterCapacity = _dbItem.CounterCapacity;

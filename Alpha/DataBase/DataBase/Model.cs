@@ -4329,7 +4329,7 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> PrevValue
+        public Nullable<global::System.Decimal> PrevValue
         {
             get
             {
@@ -4344,8 +4344,8 @@ namespace Taumis.Alpha.DataBase
                 OnPrevValueChanged();
             }
         }
-        private Nullable<global::System.Int32> _PrevValue;
-        partial void OnPrevValueChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _PrevValue;
+        partial void OnPrevValueChanging(Nullable<global::System.Decimal> value);
         partial void OnPrevValueChanged();
     
         /// <summary>
@@ -4353,7 +4353,7 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> PrevDayValue
+        public Nullable<global::System.Decimal> PrevDayValue
         {
             get
             {
@@ -4368,8 +4368,8 @@ namespace Taumis.Alpha.DataBase
                 OnPrevDayValueChanged();
             }
         }
-        private Nullable<global::System.Int32> _PrevDayValue;
-        partial void OnPrevDayValueChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _PrevDayValue;
+        partial void OnPrevDayValueChanging(Nullable<global::System.Decimal> value);
         partial void OnPrevDayValueChanged();
     
         /// <summary>
@@ -4377,7 +4377,7 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> PrevNightValue
+        public Nullable<global::System.Decimal> PrevNightValue
         {
             get
             {
@@ -4392,8 +4392,8 @@ namespace Taumis.Alpha.DataBase
                 OnPrevNightValueChanged();
             }
         }
-        private Nullable<global::System.Int32> _PrevNightValue;
-        partial void OnPrevNightValueChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _PrevNightValue;
+        partial void OnPrevNightValueChanging(Nullable<global::System.Decimal> value);
         partial void OnPrevNightValueChanged();
     
         /// <summary>

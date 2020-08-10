@@ -86,9 +86,9 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private int? _prevValue;
+        private decimal? _prevValue;
 
-        public int? PrevValue
+        public decimal? PrevValue
         {
             get
             {
@@ -102,9 +102,9 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private int? _prevDayValue;
+        private decimal? _prevDayValue;
 
-        public int? PrevDayValue
+        public decimal? PrevDayValue
         {
             get
             {
@@ -118,9 +118,9 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
-        private int? _prevNightValue;
+        private decimal? _prevNightValue;
 
-        public int? PrevNightValue
+        public decimal? PrevNightValue
         {
             get
             {

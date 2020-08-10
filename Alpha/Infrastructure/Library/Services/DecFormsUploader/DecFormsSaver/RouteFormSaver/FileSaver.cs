@@ -81,7 +81,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 RouteFormValueHandler.CreateValue(
                     month,
                     PrivateCounterValueType.Common,
-                    pos.PrevValue,
+                    pos.PrevValue.HasValue ? (int?)decimal.Truncate(pos.PrevValue.Value) : null,
                     counterID,
                     pos);
             }
@@ -90,13 +90,13 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 RouteFormValueHandler.CreateValue(
                     month,
                     PrivateCounterValueType.Day,
-                    pos.PrevDayValue,
+                    pos.PrevDayValue.HasValue ? (int?)decimal.Truncate(pos.PrevDayValue.Value) : null,
                     counterID,
                     pos);
                 RouteFormValueHandler.CreateValue(
                     month,
                     PrivateCounterValueType.Night,
-                    pos.PrevNightValue,
+                    pos.PrevNightValue.HasValue ? (int?)decimal.Truncate(pos.PrevNightValue.Value) : null,
                     counterID,
                     pos);
             }
