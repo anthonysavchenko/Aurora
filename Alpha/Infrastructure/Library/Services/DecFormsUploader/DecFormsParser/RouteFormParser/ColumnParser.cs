@@ -36,10 +36,20 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             {
                 string[] counterNumberItems = sourceNoCR.Split(new char[] { ' ' });
 
-                if (counterNumberItems.Length != COUNTER_NUMBER_ITEMS_COUNT
-                    || string.IsNullOrEmpty(counterNumberItems[0])
-                    || (counterNumberItems[1] != "(Д/Н)"
-                        && counterNumberItems[1] != "(С)"))
+                string numberSubstring =
+                    counterNumberItems.Length >= COUNTER_NUMBER_ITEMS_COUNT
+                        ? string.Join(" ", counterNumberItems, 0, counterNumberItems.Length - 1).Trim()
+                        : null;
+
+                string typeSubstring =
+                    counterNumberItems.Length >= COUNTER_NUMBER_ITEMS_COUNT
+                        ? counterNumberItems[counterNumberItems.Length - 1]
+                        : null;
+
+                if (counterNumberItems.Length < COUNTER_NUMBER_ITEMS_COUNT
+                    || string.IsNullOrEmpty(numberSubstring)
+                    || (typeSubstring != "(Д/Н)"
+                        && typeSubstring != "(С)"))
                 {
                     message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
                         "Предусмотрно распознавание номера счетчика в формате: \"по нормативу\" или \"<Номер " +
@@ -48,7 +58,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                     return false;
                 }
 
-                counterNumber = counterNumberItems[0];
+                counterNumber = numberSubstring;
 
                 if (counterNumber.Length > COUNTER_NUMBER_DB_LENGTH)
                 {
@@ -58,7 +68,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                     return false;
                 }
 
-                counterType = counterNumberItems[1] == "(Д/Н)"
+                counterType = typeSubstring == "(Д/Н)"
                     ? RouteFormCounterType.DayAndNight
                     : RouteFormCounterType.Common;
             }

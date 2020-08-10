@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Library.Services.Excel;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
@@ -52,7 +53,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 
             try
             {
-                files = Directory.GetFiles(upload.Directory, "*.xls", SearchOption.TopDirectoryOnly);
+                files = Directory
+                    .GetFiles(upload.Directory, "*.xls", SearchOption.TopDirectoryOnly)
+                    .Where(f => f.EndsWith(".xls", StringComparison.OrdinalIgnoreCase))
+                    .ToArray();
             }
             catch(Exception e)
             {

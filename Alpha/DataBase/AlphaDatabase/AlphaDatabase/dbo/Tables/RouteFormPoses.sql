@@ -5,9 +5,9 @@
     [CounterType]     TINYINT        NOT NULL,
     [CounterNumber]   NVARCHAR (25)  NULL,
     [PrevDate]        DATETIME2 (0)  NULL,
-    [PrevValue]       DECIMAL (6, 2) NULL,
-    [PrevDayValue]    DECIMAL (6, 2) NULL,
-    [PrevNightValue]  DECIMAL (6, 2) NULL,
+    [PrevValue]       DECIMAL (8, 2) NULL,
+    [PrevDayValue]    DECIMAL (8, 2) NULL,
+    [PrevNightValue]  DECIMAL (8, 2) NULL,
     [Account]         NVARCHAR (25)  NULL,
     [Owner]           NVARCHAR (50)  NULL,
     [CounterCapacity] NVARCHAR (2)   NULL,
@@ -18,6 +18,8 @@
     CONSTRAINT [PK_RouteFormPoses] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_RouteFormPoses_RouteForms] FOREIGN KEY ([RouteForm]) REFERENCES [dbo].[RouteForms] ([ID])
 );
+
+
 
 
 

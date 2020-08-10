@@ -188,9 +188,9 @@
           <Property Name="CounterType" Type="tinyint" Nullable="false" />
           <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
           <Property Name="PrevDate" Type="datetime2" Precision="0" />
-          <Property Name="PrevValue" Type="decimal" Precision="6" Scale="2" />
-          <Property Name="PrevDayValue" Type="decimal" Precision="6" Scale="2" />
-          <Property Name="PrevNightValue" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="PrevValue" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PrevDayValue" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PrevNightValue" Type="decimal" Precision="8" Scale="2" />
           <Property Name="Account" Type="nvarchar" MaxLength="25" />
           <Property Name="Owner" Type="nvarchar" MaxLength="50" />
           <Property Name="CounterCapacity" Type="nvarchar" MaxLength="2" />
@@ -876,9 +876,9 @@
           <Property Name="CounterType" Type="Byte" Nullable="false" />
           <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="PrevDate" Type="DateTime" Precision="0" />
-          <Property Name="PrevValue" Type="Decimal" />
-          <Property Name="PrevDayValue" Type="Decimal" />
-          <Property Name="PrevNightValue" Type="Decimal" />
+          <Property Name="PrevValue" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PrevDayValue" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PrevNightValue" Type="Decimal" Precision="8" Scale="2" />
           <Property Name="Account" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CounterCapacity" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
