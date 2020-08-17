@@ -9,6 +9,7 @@ using Taumis.Alpha.WinClient.Aurora.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 using Taumis.EnterpriseLibrary.Win.Services;
+using Taumis.Infrastructure.Interface.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
 {
@@ -113,7 +114,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.DebtBill.Views.Report
                                         b.Owner,
                                         b.Customers.Buildings.BankDetails
                                     })
-                                .ToList();
+                                .ToList()
+                                .OrderBy(bill => bill.Address, new StringWithNumbersComparer())
+;
 
                         foreach (var _bill in _bills)
                         {
