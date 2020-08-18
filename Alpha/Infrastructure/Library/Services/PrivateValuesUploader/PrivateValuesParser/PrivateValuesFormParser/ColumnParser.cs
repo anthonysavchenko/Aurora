@@ -12,11 +12,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
         static public bool ParseCounterModelColumn(
             string source,
             out string counterModel,
-            out PrivateValuesFormCounterType counterType,
+            out PrivateFormCounterType counterType,
             out string message)
         {
             counterModel = null;
-            counterType = PrivateValuesFormCounterType.Unknown;
+            counterType = PrivateFormCounterType.Unknown;
             message = null;
 
             string sourceNoCR = source != null ? source.Replace("\n", " ").Trim() : source;
@@ -29,7 +29,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
             if (sourceNoCR == COUNTER_TYPE_NORM_VALUE)
             {
-                counterType = PrivateValuesFormCounterType.Norm;
+                counterType = PrivateFormCounterType.Norm;
             }
             else
             {
@@ -84,15 +84,15 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
         static public bool ParseCounterTypeColumn(
             string source,
             bool isNorm,
-            out PrivateValuesFormCounterType counterType,
+            out PrivateFormCounterType counterType,
             out string message)
         {
-            counterType = PrivateValuesFormCounterType.Unknown;
+            counterType = PrivateFormCounterType.Unknown;
             message = null;
 
             if (isNorm)
             {
-                counterType = PrivateValuesFormCounterType.Norm;
+                counterType = PrivateFormCounterType.Norm;
             }
             else
             {
@@ -106,8 +106,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                 }
 
                 if (!Enum.TryParse(sourceNoCR, out counterType)
-                    || counterType == PrivateValuesFormCounterType.Unknown
-                    || counterType == PrivateValuesFormCounterType.Norm)
+                    || counterType == PrivateFormCounterType.Unknown
+                    || counterType == PrivateFormCounterType.Norm)
                 {
                     message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
                         "Предусмотрено распознавание типа счетчика в формате целого числа от 1 до 3." +
@@ -121,7 +121,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
         static public bool ParseCurrentValueColumn(
             string source,
-            PrivateValuesFormCounterType counterType,
+            PrivateFormCounterType counterType,
             out int? currentValue,
             out int? currentDayValue,
             out int? currentNightValue,
@@ -132,7 +132,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
             currentNightValue = null;
             message = null;
 
-            if (counterType != PrivateValuesFormCounterType.Norm)
+            if (counterType != PrivateFormCounterType.Norm)
             {
                 string sourceNoCR = source != null ? source.Replace("\n", " ").Trim() : source;
 
@@ -146,15 +146,15 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                         return false;
                     }
 
-                    if (counterType == PrivateValuesFormCounterType.Common)
+                    if (counterType == PrivateFormCounterType.Common)
                     {
                         currentValue = value;
                     }
-                    else if (counterType == PrivateValuesFormCounterType.Day)
+                    else if (counterType == PrivateFormCounterType.Day)
                     {
                         currentDayValue = value;
                     }
-                    else if (counterType == PrivateValuesFormCounterType.Night)
+                    else if (counterType == PrivateFormCounterType.Night)
                     {
                         currentNightValue = value;
                     }

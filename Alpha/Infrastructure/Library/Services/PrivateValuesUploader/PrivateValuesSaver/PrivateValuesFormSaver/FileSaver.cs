@@ -8,38 +8,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 {
     static public class FileSaver
     {
-        static public void SaveFile(PrivateValuesForms form, int buildingID, DateTime month)
-        {
-            PrivateCounterValueHandler.ClearExistedValues(buildingID, month);
-            PrivateCounterHandler.ClearExistedCounters(buildingID);
-            CustomerHandler.ClearExistedCustomers(buildingID);
-
-            foreach (var row in form.PrivateValuesFormPoses)
-            {
-                var customerID =
-                    CustomerHandler.GetCustomer(
-                        buildingID,
-                        row.Apartment)
-                    ?? CustomerHandler.CreateCustomer(
-                        buildingID,
-                        row.Apartment);
-
-                var counterType = GetPrivateCounterType((PrivateValuesFormCounterType)row.CounterType);
-
-                var counterID =
-                    PrivateCounterHandler.GetCounter(
-                        customerID,
-                        counterType,
-                        row.CounterNumber)
-                    ?? PrivateCounterHandler.CreateCounter(
-                        customerID,
-                        counterType,
-                        row.CounterNumber);
-
-                CreateValues(month, counterID, row);
-            }
-        }
-
         static public int? GetBuilding(PrivateValuesForms form)
         {
             using (var db = new Entities())
@@ -54,64 +22,194 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
             }
         }
 
-        static private PrivateCounterType GetPrivateCounterType(
-            PrivateValuesFormCounterType privateValuesFormCounterType)
+        static public void SaveFile(int formID, int buildingID, DateTime month)
         {
-            if (privateValuesFormCounterType == PrivateValuesFormCounterType.Common)
+            PrivateCounterValueHandler.ClearExistedValues(buildingID, month);
+            PrivateCounterHandler.ClearExistedCounters(buildingID);
+            CustomerHandler.ClearExistedCustomers(buildingID);
+
+            CreateNewCustomers(buildingID, formID);
+            CreateNewCounters(buildingID, formID);
+            CreateNewValues(buildingID, formID, month);
+        }
+
+        static private void CreateNewCustomers(int buildingID, int formID)
+        {
+            using (var db = new Entities())
             {
-                return PrivateCounterType.Common;
-            }
-            else if (privateValuesFormCounterType == PrivateValuesFormCounterType.Day
-                || privateValuesFormCounterType == PrivateValuesFormCounterType.Night)
-            {
-                return PrivateCounterType.DayAndNight;
-            }
-            else
-            {
-                return PrivateCounterType.Norm;
+                var building = db.Buildings.First(b => b.ID == buildingID);
+                var newCustomers =
+                    db.PrivateValuesFormPoses
+                        .Where(p => p.PrivateValuesForms.ID == formID)
+                        .Select(p => new
+                        {
+                            Apartment = p.Apartment.ToLower(),
+                        })
+                        .GroupBy(p => new
+                        {
+                            p.Apartment,
+                        })
+                        .Select(g => g.Key)
+                        .Where(g =>
+                            db.Customers
+                                .Count(c =>
+                                    c.Buildings.ID == buildingID
+                                    && c.Apartment.Equals(g.Apartment, StringComparison.OrdinalIgnoreCase)) == 0)
+                        .ToList();
+
+                newCustomers.ForEach(
+                    c => db.Customers.AddObject(
+                        new Customers()
+                        {
+                            Buildings = building,
+                            Apartment = c.Apartment,
+                        }));
+                db.SaveChanges();
             }
         }
 
-        static private void CreateValues(
-            DateTime month,
-            int counterID,
-            PrivateValuesFormPoses pos)
+        static private void CreateNewCounters(int buildingID, int formID)
         {
-            if ((PrivateValuesFormCounterType)pos.CounterType == PrivateValuesFormCounterType.Common)
+            using (var db = new Entities())
             {
-                PrivateCounterValueHandler.CreateValue(
-                    month,
-                    PrivateCounterValueType.Common,
-                    pos.CurrentValue,
-                    counterID,
-                    pos);
+                var newCounters =
+                    db.PrivateValuesFormPoses
+                        .Where(p => p.PrivateValuesForms.ID == formID)
+                        .Select(p => new
+                        {
+                            Customer = db.Customers
+                                .FirstOrDefault(c =>
+                                    c.Buildings.ID == buildingID
+                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)),
+                            CounterType = (FillFormCounterType)p.CounterType == FillFormCounterType.Common
+                                ? PrivateCounterType.Common
+                                : (FillFormCounterType)p.CounterType == FillFormCounterType.Day
+                                    || (FillFormCounterType)p.CounterType == FillFormCounterType.Night
+                                    ? PrivateCounterType.DayAndNight
+                                    : PrivateCounterType.Norm,
+                            CounterNumber = p.CounterNumber.ToUpper(),
+                        })
+                        .GroupBy(p => new
+                        {
+                            p.Customer,
+                            p.CounterType,
+                            p.CounterNumber,
+                        })
+                        .Select(g => g.Key)
+                        .Where(g =>
+                            db.PrivateCounters
+                                .Count(c =>
+                                    c.Customers.ID == g.Customer.ID
+                                    && (g.CounterType != PrivateCounterType.Norm
+                                        && (PrivateCounterType)c.CounterType == g.CounterType
+                                        && c.Number.Equals(g.CounterNumber, StringComparison.OrdinalIgnoreCase)
+                                        || (g.CounterType == PrivateCounterType.Norm
+                                            && (PrivateCounterType)c.CounterType == PrivateCounterType.Norm))) == 0)
+                        .ToList();
+
+                newCounters.ForEach(
+                    c => db.PrivateCounters.AddObject(
+                        new PrivateCounters()
+                        {
+                            Customers = c.Customer,
+                            CounterType = (byte)c.CounterType,
+                            Number = c.CounterType != PrivateCounterType.Norm ? c.CounterNumber : null,
+                        }));
+                db.SaveChanges();
             }
-            else if ((PrivateValuesFormCounterType)pos.CounterType == PrivateValuesFormCounterType.Day)
+        }
+
+        static private void CreateNewValues(int buildingID, int formID, DateTime month)
+        {
+            using (var db = new Entities())
             {
-                PrivateCounterValueHandler.CreateValue(
-                    month,
-                    PrivateCounterValueType.Day,
-                    pos.CurrentDayValue,
-                    counterID,
-                    pos);
-            }
-            else if ((PrivateValuesFormCounterType)pos.CounterType == PrivateValuesFormCounterType.Night)
-            {
-                PrivateCounterValueHandler.CreateValue(
-                    month,
-                    PrivateCounterValueType.Night,
-                    pos.CurrentNightValue,
-                    counterID,
-                    pos);
-            }
-            else if ((PrivateValuesFormCounterType)pos.CounterType == PrivateValuesFormCounterType.Norm)
-            {
-                PrivateCounterValueHandler.CreateValue(
-                    month,
-                    PrivateCounterValueType.Norm,
-                    null,
-                    counterID,
-                    pos);
+                var newValues =
+                    db.PrivateValuesFormPoses
+                        .Where(p => p.PrivateValuesForms.ID == formID)
+                        .Select(p => new
+                        {
+                            Customer = db.Customers
+                                .FirstOrDefault(c =>
+                                    c.Buildings.ID == buildingID
+                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)),
+                            CounterType = (PrivateFormCounterType)p.CounterType == PrivateFormCounterType.Common
+                                ? PrivateCounterType.Common
+                                : (PrivateFormCounterType)p.CounterType == PrivateFormCounterType.Day
+                                    || (PrivateFormCounterType)p.CounterType == PrivateFormCounterType.Night
+                                    ? PrivateCounterType.DayAndNight
+                                    : PrivateCounterType.Norm,
+                            p.CounterNumber,
+                            PrivateValuesFormCounterType = (PrivateFormCounterType)p.CounterType,
+                            Pos = p,
+                        })
+                        .Select(p => new
+                        {
+                            Counter = db.PrivateCounters
+                                .FirstOrDefault(c =>
+                                    c.Customers.ID == p.Customer.ID
+                                    && ((p.CounterType != PrivateCounterType.Norm
+                                        && (PrivateCounterType)c.CounterType == p.CounterType
+                                        && c.Number.Equals(p.CounterNumber, StringComparison.OrdinalIgnoreCase))
+                                        || (p.CounterType == PrivateCounterType.Norm
+                                            && (PrivateCounterType)c.CounterType == PrivateCounterType.Norm))),
+                            p.PrivateValuesFormCounterType,
+                            p.Pos,
+                        })
+                        .ToList();
+
+                foreach (var value in newValues)
+                {
+                    if (value.PrivateValuesFormCounterType == PrivateFormCounterType.Common)
+                    {
+                        db.PrivateCounterValues.AddObject(
+                            new PrivateCounterValues()
+                            {
+                                Month = month,
+                                ValueType = (byte)PrivateCounterValueType.Common,
+                                Value = (int?)decimal.Truncate(value.Pos.CurrentValue.Value),
+                                PrivateCounters = value.Counter,
+                                PrivateValuesFormPoses = value.Pos,
+                            });
+                    }
+                    else if (value.PrivateValuesFormCounterType == PrivateFormCounterType.Day)
+                    {
+                        db.PrivateCounterValues.AddObject(
+                            new PrivateCounterValues()
+                            {
+                                Month = month,
+                                ValueType = (byte)PrivateCounterValueType.Day,
+                                Value = (int?)decimal.Truncate(value.Pos.CurrentDayValue.Value),
+                                PrivateCounters = value.Counter,
+                                PrivateValuesFormPoses = value.Pos,
+                            });
+                    }
+                    else if (value.PrivateValuesFormCounterType == PrivateFormCounterType.Night)
+                    {
+                        db.PrivateCounterValues.AddObject(
+                            new PrivateCounterValues()
+                            {
+                                Month = month,
+                                ValueType = (byte)PrivateCounterValueType.Night,
+                                Value = (int?)decimal.Truncate(value.Pos.CurrentNightValue.Value),
+                                PrivateCounters = value.Counter,
+                                PrivateValuesFormPoses = value.Pos,
+                            });
+                    }
+                    else if (value.PrivateValuesFormCounterType == PrivateFormCounterType.Norm)
+                    {
+                        db.PrivateCounterValues.AddObject(
+                            new PrivateCounterValues()
+                            {
+                                Month = month,
+                                ValueType = (byte)PrivateCounterValueType.Norm,
+                                Value = null,
+                                PrivateCounters = value.Counter,
+                                PrivateValuesFormPoses = value.Pos,
+                            });
+                    }
+                }
+
+                db.SaveChanges();
             }
         }
     }

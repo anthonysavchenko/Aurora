@@ -24,7 +24,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                         return;
                     }
 
-                    RouteFormSaver.FileSaver.SaveFile(pos.RouteForm, buildingID.Value, month);
+                    RouteFormSaver.FileSaver.SaveFile(pos.RouteForm.ID, buildingID.Value, month);
                 }
                 else if (pos.FormType == (byte)DecFormsType.FillForm)
                 {
@@ -38,7 +38,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                         return;
                     }
 
-                    FillFormSaver.FileSaver.SaveFile(pos.FillForm, buildingID.Value, month);
+                    FillFormSaver.FileSaver.SaveFile(pos.FillForm.ID, buildingID.Value, month);
                 }
             }
             catch (Exception e)

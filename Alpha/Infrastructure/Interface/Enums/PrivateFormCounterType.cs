@@ -1,6 +1,6 @@
 ﻿namespace Taumis.Alpha.Infrastructure.Interface.Enums
 {
-    public enum PrivateValuesFormCounterType : byte
+    public enum PrivateFormCounterType : byte
     {
         Unknown,
         Day,

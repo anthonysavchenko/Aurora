@@ -21,7 +21,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                     return;
                 }
 
-                PrivateValuesFormSaver.FileSaver.SaveFile(form, buildingID.Value, month);
+                PrivateValuesFormSaver.FileSaver.SaveFile(form.ID, buildingID.Value, month);
             }
             catch (Exception e)
             {

@@ -46,7 +46,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                         return false;
                     }
 
-                    if (pos.CounterType == (byte)PrivateValuesFormCounterType.Norm
+                    if (pos.CounterType == (byte)PrivateFormCounterType.Norm
                         || (pos.CurrentValue == null 
                             && pos.CurrentDayValue == null
                             && pos.CurrentNightValue == null))
@@ -72,12 +72,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
                         if (existed != null)
                         {
-                            if (existed.CounterType != (byte)PrivateValuesFormCounterType.Day
+                            if (existed.CounterType != (byte)PrivateFormCounterType.Day
                                 || existed.CurrentValue != null
                                 || existed.CurrentDayValue == null
                                 || existed.CurrentNightValue != null
 
-                                || pos.CounterType != (byte)PrivateValuesFormCounterType.Night
+                                || pos.CounterType != (byte)PrivateFormCounterType.Night
                                 || pos.CurrentValue != null
                                 || pos.CurrentDayValue != null
                                 || pos.CurrentNightValue == null)
@@ -135,7 +135,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
             if (!ColumnParser.ParseCounterModelColumn(
                 source.GetCellText($"{COUNTER_MODEL_COLUMN}{row}"),
                 out string _,
-                out PrivateValuesFormCounterType counterTypeInCounterNumber,
+                out PrivateFormCounterType counterTypeInCounterNumber,
                 out message))
             {
                 message = $"Ячейка \"{COUNTER_MODEL_COLUMN}{row}\". {message}";
@@ -144,7 +144,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
             if (!ColumnParser.ParseCounterNumberColumn(
                 source.GetCellText($"{COUNTER_NUMBER_COLUMN}{row}"),
-                counterTypeInCounterNumber == PrivateValuesFormCounterType.Norm,
+                counterTypeInCounterNumber == PrivateFormCounterType.Norm,
                 out string counterNumber,
                 out message))
             {
@@ -154,8 +154,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
             if (!ColumnParser.ParseCounterTypeColumn(
                 source.GetCellText($"{COUNTER_TYPE_COLUMN}{row}"),
-                counterTypeInCounterNumber == PrivateValuesFormCounterType.Norm,
-                out PrivateValuesFormCounterType counterType,
+                counterTypeInCounterNumber == PrivateFormCounterType.Norm,
+                out PrivateFormCounterType counterType,
                 out message))
             {
                 message = $"Ячейка \"{COUNTER_TYPE_COLUMN}{row}\". {message}";
@@ -164,7 +164,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
             if (!PrivateValuesParser.ColumnParser.ParseCurrentDateColumn(
                 source.GetCellText($"{CURRENT_DATE_COLUMN}{row}"),
-                counterType == PrivateValuesFormCounterType.Norm,
+                counterType == PrivateFormCounterType.Norm,
                 out DateTime? currentDate,
                 out message))
             {
