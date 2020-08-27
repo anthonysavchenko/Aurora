@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="BusinessEntities\Doc\DecFormsUpload.cs" />
     <Compile Include="BusinessEntities\RefBooks\Building.cs" />
+    <Compile Include="BusinessEntities\RefBooks\BuildingCounter.cs" />
     <Compile Include="BusinessEntities\RefBooks\FillFormValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\PrivateCounter.cs" />
     <Compile Include="BusinessEntities\RefBooks\RouteFormValue.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Common\Balance.cs" />
     <Compile Include="Enums\BenefitRuleType.cs" />
     <Compile Include="Enums\BillType.cs" />
+    <Compile Include="Enums\BuildingContract.cs" />
     <Compile Include="Enums\ChargeRuleType.cs" />
     <Compile Include="Enums\FillFormCounterType.cs" />
     <Compile Include="Enums\DecFormsType.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Enums\PrivateFormCounterType.cs" />
     <Compile Include="Enums\RouteFormCounterType.cs" />
     <Compile Include="Enums\PrivateCounterValueType.cs" />
+    <Compile Include="Enums\UtilityService.cs" />
     <Compile Include="ExtensionMethods\BalanceDictionaryExtension.cs" />
     <Compile Include="ExtensionMethods\DictionaryExtension.cs" />
     <Compile Include="Models\Address.cs" />

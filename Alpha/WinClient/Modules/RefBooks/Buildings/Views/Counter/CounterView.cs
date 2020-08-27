@@ -2,8 +2,11 @@
 using Microsoft.Practices.ObjectBuilder;
 using System;
 using System.Data;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using System.Drawing;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
+
+//using BaseSimpleListView = System.Windows.Forms.UserControl;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
 {
@@ -40,44 +43,65 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         /// <summary>
         /// Таблица с данными услуг
         /// </summary>
-        public DataTable Services
+        public DataTable UtilityServices
         {
             set
             {
-                GetBaseSimpleListViewMapper.DomainToView(value, counterGridView, "Service");
+                GetBaseSimpleListViewMapper.DomainToView(value, counterGridView, "UtilityService");
             }
         }
 
         /// <summary>
         /// Услуга
         /// </summary>
-        public Service Service
+        public UtilityService UtilityService
         {
             get
             {
-                return GetBaseSimpleListViewMapper.ViewToDomain<Service>(counterGridView, "Service");
-            } 
-        }
-        
-        /// <summary>
-        /// Номер счетчика
-        /// </summary>
-        public string Number
-        {
-            get
-            {
-                return GetBaseSimpleListViewMapper.ViewToDomain(counterGridView, "Number");
+                return GetBaseSimpleListViewMapper
+                    .ViewToDomainSimpleType<UtilityService>(counterGridView, "UtilityService");
             }
         }
 
         /// <summary>
-        /// Определяет доступность пользователю кнопок редактирования
+        /// Номер счетчика
         /// </summary>
-        public bool NavigationButtonsEnabled
+        public string CounterNumber
         {
-            set
+            get
             {
-                counterGridControl.EmbeddedNavigator.Enabled = value;
+                return GetBaseSimpleListViewMapper.ViewToDomain(counterGridView, "CounterNumber")
+                    .Trim();
+            }
+        }
+
+        /// <summary>
+        /// Коэффициент
+        /// </summary>
+        public byte Coefficient
+        {
+            get
+            {
+                return GetBaseSimpleListViewMapper
+                    .ViewToDomainSimpleType<byte>(counterGridView, "Coefficient");
+            } 
+        }
+
+        public DateTime? CheckedSince
+        {
+            get
+            {
+                return GetBaseSimpleListViewMapper
+                    .ViewToDomainSimpleType<DateTime?>(counterGridView, "CheckedSince");
+            }
+        }
+
+        public DateTime? CheckedTill
+        {
+            get
+            {
+                return GetBaseSimpleListViewMapper
+                    .ViewToDomainSimpleType<DateTime?>(counterGridView, "CheckedTill");
             }
         }
 
@@ -99,9 +123,30 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
 
         #endregion
 
-        private void counterGridView_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void counterGridView_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
         {
-            Presenter.OnRowChanged(counterGridView.GetFocusedRowCellDisplayText("ID"));
+            if (e.RowHandle >= 0)
+            {
+                object checkedTillRaw = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
+                    e.RowHandle,
+                    "CheckedTill");
+
+                DateTime? checkedTill =
+                    checkedTillRaw != DBNull.Value
+                        ? (DateTime?)checkedTillRaw
+                        : null;
+
+                if (checkedTill != null)
+                {
+                    DateTime now = Presenter.ServerTime.GetDateTimeInfo().Now;
+
+                    if (checkedTill.Value.AddMonths(-3) < now)
+                    {
+                        e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
+                        e.Appearance.BackColor2 = Color.FromArgb(250, 200, 200);
+                    }
+                }
+            }
         }
     }
 }

@@ -2,12 +2,10 @@
 using System;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
-using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
-using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.CounterValue;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 using Taumis.EnterpriseLibrary.Win.Constants;
@@ -15,7 +13,7 @@ using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
 {
-    public class CounterViewPresenter : BaseSimpleListViewPresenter<ICounterView, CommonCounter>
+    public class CounterViewPresenter : BaseSimpleListViewPresenter<ICounterView, BuildingCounter>
     {
         /// <summary>
         /// Единица работы
@@ -36,7 +34,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         /// </summary>
         protected override void RefreshRefBooks()
         {
-            View.Services = GetServices();
+            View.UtilityServices = GetServices();
         }
 
         /// <summary>
@@ -45,43 +43,50 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         /// <returns>Таблица данных (DataTable)</returns>
         public override DataTable GetElemList()
         {
-            DataTable _table = new DataTable();
-            _table.Columns.Add("ID");
-            _table.Columns.Add("Number");
-            _table.Columns.Add("Service");
+            DataTable table = new DataTable();
 
-            Building _building = (Building)WorkItem.State[CommonStateNames.CurrentItem];
+            table.Columns.Add("ID", typeof(string));
+            table.Columns.Add("CounterNumber", typeof(string));
+            table.Columns.Add("UtilityService", typeof(byte));
+            table.Columns.Add("Coefficient", typeof(byte));
+            table.Columns.Add("CheckedSince", typeof(DateTime));
+            table.Columns.Add("CheckedTill", typeof(DateTime));
 
-            foreach (CommonCounter _counter in _building.CommonCounters.Values)
+            Building building = (Building)WorkItem.State[CommonStateNames.CurrentItem];
+
+            foreach (var counter in building.Counters.Values)
             {
-                _table.Rows.Add(
-                       _counter.ID,
-                       _counter.Number,
-                       _counter.Service.ID);
+                table.Rows.Add(
+                    counter.ID,
+                    counter.CounterNumber,
+                    (byte)counter.UtilityService,
+                    counter.Coefficient,
+                    counter.CheckedSince,
+                    counter.CheckedTill);
             }
 
-            return _table;
+            return table;
         }
 
         /// <summary>
         /// Возвращает текущий объект
         /// </summary>
         /// <returns></returns>
-        protected override CommonCounter GetCurrentItem()
+        protected override BuildingCounter GetCurrentItem()
         {
-            Building _building = (Building)WorkItem.State[CommonStateNames.CurrentItem];
-            string _id = View.GetCurrentItemId();
+            Building building = (Building)WorkItem.State[CommonStateNames.CurrentItem];
+            string id = View.GetCurrentItemId();
 
-            return _building.CommonCounters.ContainsKey(_id) ? _building.CommonCounters[_id] : null;
+            return building.Counters.ContainsKey(id) ? building.Counters[id] : null;
         }
 
         /// <summary>
         /// Создает новый объект домена
         /// </summary>
         /// <returns>Новый объект домена</returns>
-        protected override CommonCounter CreateNewItem()
+        protected override BuildingCounter CreateNewItem()
         {
-            CommonCounter _curItem = new CommonCounter
+            BuildingCounter _curItem = new BuildingCounter
             {
                 Building = (Building)WorkItem.State[CommonStateNames.CurrentItem]
             };
@@ -93,10 +98,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         /// Собрать данные с вида в домен.
         /// </summary>
         /// <param name="curItem">Домен</param>
-        protected override void GetItemFromView(CommonCounter curItem)
+        protected override void GetItemFromView(BuildingCounter curItem)
         {
-            curItem.Number = View.Number.Trim();
-            curItem.Service = View.Service;
+            curItem.CounterNumber = View.CounterNumber;
+            curItem.UtilityService = View.UtilityService;
+            curItem.Coefficient = View.Coefficient;
+            curItem.CheckedSince = View.CheckedSince;
+            curItem.CheckedTill = View.CheckedTill;
         }
 
         /// <summary>
@@ -105,28 +113,40 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         /// <param name="curItem">Домен</param>
         /// <param name="message">сообщение</param>
         /// <returns>true, false</returns>
-        protected override bool CheckItem(CommonCounter curItem, out string message)
+        protected override bool CheckItem(BuildingCounter curItem, out string message)
         {
-            message = string.Empty;
+            var error = new StringBuilder();
 
-            if (string.IsNullOrEmpty(curItem.Number))
+            if (string.IsNullOrEmpty(curItem.CounterNumber))
             {
-                message = "Не заполнен номер счетчика\r\n";
+                error.AppendLine("- Не заполнен номер счетчика");
             }
 
-            if (curItem.Service == null)
+            if (curItem.UtilityService == UtilityService.Unknown)
             {
-                message = string.Format("{0}Не выбрана услуга", message);
+                error.AppendLine("- Не выбрана услуга");
             }
 
-            if (string.IsNullOrEmpty(message) &&
-                ((Building)WorkItem.State[CommonStateNames.CurrentItem]).CommonCounters.Values
-                    .Any(c => c.ID != curItem.ID && c.Service.ID == curItem.Service.ID))
+            if (curItem.Coefficient == 0)
             {
-                message = string.Format("С данной услугой уже связан счетчик", curItem.Number);
+                error.AppendLine("- Не указан коэффициент");
             }
 
-            return string.IsNullOrEmpty(message);
+            if (curItem.CheckedSince >= curItem.CheckedTill)
+            {
+                error.AppendLine("- Дата пройденной поверки должна быть раньше даты истечения срока поверки");
+            }
+
+            if (!string.IsNullOrEmpty(curItem.CounterNumber) &&
+                ((Building)WorkItem.State[CommonStateNames.CurrentItem]).Counters.Values
+                    .Count(c => c.ID != curItem.ID && c.CounterNumber == curItem.CounterNumber) > 0)
+            {
+                error.AppendLine("- Счетчик с таким номером уже был сохранен ранее");
+            }
+
+            message = error.ToString();
+
+            return error.Length == 0;
         }
 
         /// <summary>
@@ -134,15 +154,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         /// </summary>
         /// <param name="curItem">Объект домена</param>
         /// <returns>Признак успешности изменения</returns>
-        protected override bool SaveItem(CommonCounter curItem)
+        protected override bool SaveItem(BuildingCounter curItem)
         {
             if (curItem.IsNew)
             {
                 Building _building = (Building)WorkItem.State[CommonStateNames.CurrentItem];
 
-                if (!_building.CommonCounters.ContainsKey(curItem.ID))
+                if (!_building.Counters.ContainsKey(curItem.ID))
                 {
-                    _building.CommonCounters.Add(curItem.ID, curItem);
+                    _building.Counters.Add(curItem.ID, curItem);
                     UnitOfWork.registerNew(curItem);
                 }
             }
@@ -151,41 +171,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
                 UnitOfWork.registerDirty(curItem);
             }
 
-            OnRowChanged(curItem.ID);
-
             return true;
-        }
-
-        private DataTable GetServices()
-        {
-            DataTable _table = new DataTable();
-            _table.Columns.Add("ID", typeof(int));
-            _table.Columns.Add("Name", typeof(string));
-
-            const int COUNTER_RATE_RULE = (int)ChargeRuleType.CounterRate;
-
-            using (Entities _entities = new Entities())
-            {
-                var _services =
-                    _entities.Services
-                        .Where(s => s.ChargeRule == COUNTER_RATE_RULE)
-                        .Select(
-                            s =>
-                            new
-                            {
-                                s.ID,
-                                s.Name
-                            });
-
-                foreach (var _service in _services)
-                {
-                    _table.Rows.Add(
-                        _service.ID,
-                        _service.Name);
-                }
-            }
-
-            return _table;
         }
 
         /// <summary>
@@ -204,23 +190,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
             WorkItem.RootWorkItem.Services.Get<IChangeEventHandlerService>().UnBind(coll, handler);
         }
 
-        /// <summary>
-        /// Выполняет действия при изменении выбранного элемента
-        /// </summary>
-        /// <param name="id">Id выбранного элемента списка</param>
-        public virtual void OnRowChanged(string id)
+        private DataTable GetServices()
         {
-            if (!string.IsNullOrEmpty(id))
-            {
-                WorkItem.State[ModuleStateNames.COMMON_COUNTER] =
-                    ((Building)WorkItem.State[CommonStateNames.CurrentItem]).CommonCounters[id];
+            DataTable table = new DataTable();
 
-                ICounterValueView _view =
-                    (ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW];
+            table.Columns.Add("ID", typeof(byte));
+            table.Columns.Add("Name", typeof(string));
 
-                _view.NavigationButtonsEnabled = true;
-                _view.RefreshList();
-            }
+            table.Rows.Add((byte)UtilityService.Electricity, "Электроэнергия");
+            table.Rows.Add((byte)UtilityService.ColdWater, "ХВС");
+            table.Rows.Add((byte)UtilityService.HotWater, "ГВС");
+
+            return table;
         }
     }
 }

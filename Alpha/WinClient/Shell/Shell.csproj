@@ -318,6 +318,10 @@
       <Project>{f2769680-b727-4c7d-9718-7e04d3642241}</Project>
       <Name>FillFormAndPrintFormDiff</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\RefBooks\Buildings\Buildings.csproj">
+      <Project>{9bf25d97-62f6-45c4-b7c7-7df360cc5743}</Project>
+      <Name>Buildings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\RefBooks\Users\Users.csproj">
       <Project>{8cbfc566-7ef2-4434-80be-ca9472aa0068}</Project>
       <Name>Users</Name>

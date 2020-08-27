@@ -1,11 +1,9 @@
-﻿using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Constants;
-using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Services;
+﻿using Taumis.Alpha.WinClient.Aurora.Library;
+using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter;
-using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.CounterValue;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Layout;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.List;
-using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.PublicPlaceViews;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Tabbed;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.Common.Modules.StartUpParams;
@@ -25,8 +23,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings
             AddView<ListView>("ListView");
             AddView<ItemView>("ItemView");
             AddView<CounterView>(ModuleViewNames.COUNTER_VIEW);
-            AddView<CounterValueView>(ModuleViewNames.COUNTER_VALUE_VIEW);
-            AddView<PublicPlaceView>(ModuleViewNames.PUBLIC_PLACE_VIEW);
             AddView<TabbedView>("TabbedView");
             AddView<LayoutView>("LayoutView");
         }
@@ -47,7 +43,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings
         /// </summary>
         protected override void AddServices()
         {
-            AddLocalService<BuildingUnitOfWork, IUnitOfWork>();
+            AddLocalService<UnitOfWork, IUnitOfWork>();
         }
     }
 }

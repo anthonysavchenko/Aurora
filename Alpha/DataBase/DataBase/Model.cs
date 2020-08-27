@@ -41,6 +41,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesFormPoses_PrivateValuesForms", "PrivateValuesForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateValuesForms), "PrivateValuesFormPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesFormPoses))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateValuesUploads), "PrivateValuesForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesForms))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "PrivateValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesUploads))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounters_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "BuildingCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounters))]
 
 #endregion
 
@@ -408,6 +409,22 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<PrivateValuesUploads> _PrivateValuesUploads;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BuildingCounters> BuildingCounters
+        {
+            get
+            {
+                if ((_BuildingCounters == null))
+                {
+                    _BuildingCounters = base.CreateObjectSet<BuildingCounters>("BuildingCounters");
+                }
+                return _BuildingCounters;
+            }
+        }
+        private ObjectSet<BuildingCounters> _BuildingCounters;
 
         #endregion
 
@@ -571,6 +588,14 @@ namespace Taumis.Alpha.DataBase
         public void AddToPrivateValuesUploads(PrivateValuesUploads privateValuesUploads)
         {
             base.AddObject("PrivateValuesUploads", privateValuesUploads);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BuildingCounters EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBuildingCounters(BuildingCounters buildingCounters)
+        {
+            base.AddObject("BuildingCounters", buildingCounters);
         }
 
         #endregion
@@ -799,6 +824,230 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingCounters")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BuildingCounters : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BuildingCounters object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="counterNumber">Initial value of the CounterNumber property.</param>
+        /// <param name="utilityService">Initial value of the UtilityService property.</param>
+        /// <param name="coefficient">Initial value of the Coefficient property.</param>
+        public static BuildingCounters CreateBuildingCounters(global::System.Int32 id, global::System.String counterNumber, global::System.Byte utilityService, global::System.Byte coefficient)
+        {
+            BuildingCounters buildingCounters = new BuildingCounters();
+            buildingCounters.ID = id;
+            buildingCounters.CounterNumber = counterNumber;
+            buildingCounters.UtilityService = utilityService;
+            buildingCounters.Coefficient = coefficient;
+            return buildingCounters;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CounterNumber
+        {
+            get
+            {
+                return _CounterNumber;
+            }
+            set
+            {
+                OnCounterNumberChanging(value);
+                ReportPropertyChanging("CounterNumber");
+                _CounterNumber = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CounterNumber");
+                OnCounterNumberChanged();
+            }
+        }
+        private global::System.String _CounterNumber;
+        partial void OnCounterNumberChanging(global::System.String value);
+        partial void OnCounterNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte UtilityService
+        {
+            get
+            {
+                return _UtilityService;
+            }
+            set
+            {
+                OnUtilityServiceChanging(value);
+                ReportPropertyChanging("UtilityService");
+                _UtilityService = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UtilityService");
+                OnUtilityServiceChanged();
+            }
+        }
+        private global::System.Byte _UtilityService;
+        partial void OnUtilityServiceChanging(global::System.Byte value);
+        partial void OnUtilityServiceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte Coefficient
+        {
+            get
+            {
+                return _Coefficient;
+            }
+            set
+            {
+                OnCoefficientChanging(value);
+                ReportPropertyChanging("Coefficient");
+                _Coefficient = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Coefficient");
+                OnCoefficientChanged();
+            }
+        }
+        private global::System.Byte _Coefficient;
+        partial void OnCoefficientChanging(global::System.Byte value);
+        partial void OnCoefficientChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CheckedSince
+        {
+            get
+            {
+                return _CheckedSince;
+            }
+            set
+            {
+                OnCheckedSinceChanging(value);
+                ReportPropertyChanging("CheckedSince");
+                _CheckedSince = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CheckedSince");
+                OnCheckedSinceChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CheckedSince;
+        partial void OnCheckedSinceChanging(Nullable<global::System.DateTime> value);
+        partial void OnCheckedSinceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CheckedTill
+        {
+            get
+            {
+                return _CheckedTill;
+            }
+            set
+            {
+                OnCheckedTillChanging(value);
+                ReportPropertyChanging("CheckedTill");
+                _CheckedTill = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CheckedTill");
+                OnCheckedTillChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CheckedTill;
+        partial void OnCheckedTillChanging(Nullable<global::System.DateTime> value);
+        partial void OnCheckedTillChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounters_Buildings", "Buildings")]
+        public Buildings Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCounters_Buildings", "Buildings").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCounters_Buildings", "Buildings").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Buildings> BuildingsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCounters_Buildings", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCounters_Buildings", "Buildings", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="Buildings")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -812,12 +1061,14 @@ namespace Taumis.Alpha.DataBase
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="street">Initial value of the Street property.</param>
         /// <param name="number">Initial value of the Number property.</param>
-        public static Buildings CreateBuildings(global::System.Int32 id, global::System.String street, global::System.String number)
+        /// <param name="buildingContract">Initial value of the BuildingContract property.</param>
+        public static Buildings CreateBuildings(global::System.Int32 id, global::System.String street, global::System.String number, global::System.Byte buildingContract)
         {
             Buildings buildings = new Buildings();
             buildings.ID = id;
             buildings.Street = street;
             buildings.Number = number;
+            buildings.BuildingContract = buildingContract;
             return buildings;
         }
 
@@ -899,6 +1150,54 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Number;
         partial void OnNumberChanging(global::System.String value);
         partial void OnNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte BuildingContract
+        {
+            get
+            {
+                return _BuildingContract;
+            }
+            set
+            {
+                OnBuildingContractChanging(value);
+                ReportPropertyChanging("BuildingContract");
+                _BuildingContract = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BuildingContract");
+                OnBuildingContractChanged();
+            }
+        }
+        private global::System.Byte _BuildingContract;
+        partial void OnBuildingContractChanging(global::System.Byte value);
+        partial void OnBuildingContractChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
 
         #endregion
 
@@ -922,6 +1221,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Customers>("AlphaDataBaseModel.FK_Customers_Buildings", "Customers", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounters_Buildings", "BuildingCounters")]
+        public EntityCollection<BuildingCounters> BuildingCounters
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingCounters>("AlphaDataBaseModel.FK_BuildingCounters_Buildings", "BuildingCounters");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCounters>("AlphaDataBaseModel.FK_BuildingCounters_Buildings", "BuildingCounters", value);
                 }
             }
         }

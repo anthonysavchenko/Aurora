@@ -84,5 +84,6 @@
     <Build Include="dbo\Tables\PrivateValuesForms.sql" />
     <Build Include="dbo\Tables\PrivateValuesFormPoses.sql" />
     <Build Include="dbo\Tables\PrivateCounterValues.sql" />
+    <Build Include="dbo\Tables\BuildingCounters.sql" />
   </ItemGroup>
 </Project>

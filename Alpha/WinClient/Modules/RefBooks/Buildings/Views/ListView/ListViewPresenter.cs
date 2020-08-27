@@ -1,6 +1,7 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
+using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Queries;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.List
@@ -14,20 +15,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.List
         /// <returns>Таблица данных (DataTable)</returns>
         public override DataTable GetElemList()
         {
-            DataTable _table;
+            DataTable table;
 
-            try
+            using (var _db = new Entities())
             {
-                _table = GetList<Building>();
-            }
-            catch (Exception)
-            {
-                //TODO: Log
-                View.ShowMessage("Не удалось загрузить данные", "Ошибка");
-                _table = new DataTable();
+                table = _db.GetList();
             }
 
-            return _table;
+            return table;
         }
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="DataMappers\Doc\RouteFormPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\RouteFormDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DecFormsUploadDataMapper.cs" />
+    <Compile Include="DataMappers\RefBook\BuildingCounterDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\BuildingDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\FillFormValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterDataMapper.cs" />

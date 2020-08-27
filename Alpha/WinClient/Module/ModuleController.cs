@@ -1,5 +1,6 @@
 ﻿using Taumis.Infrastructure.Interface;
 using Taumis.EnterpriseLibrary.Win.Services;
+using Mappers = Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers;
 
 namespace Taumis.Infrastructure.Module
 {
@@ -9,22 +10,23 @@ namespace Taumis.Infrastructure.Module
         {
             IDataMapperService trans = WorkItem.RootWorkItem.Services.Get<IDataMapperService>();
 
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.BuildingDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.UserDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.PrivateCounterDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.RouteFormValueDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook.FillFormValueDataMapper());
+            trans.RegisterDataMapper(new Mappers.RefBook.BuildingDataMapper());
+            trans.RegisterDataMapper(new Mappers.RefBook.BuildingCounterDataMapper());
+            trans.RegisterDataMapper(new Mappers.RefBook.UserDataMapper());
+            trans.RegisterDataMapper(new Mappers.RefBook.PrivateCounterDataMapper());
+            trans.RegisterDataMapper(new Mappers.RefBook.RouteFormValueDataMapper());
+            trans.RegisterDataMapper(new Mappers.RefBook.FillFormValueDataMapper());
 
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.CustomerDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.RouteFormDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.RouteFormPosDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.FillFormDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.FillFormPosDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.DecFormsUploadDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.DecFormsUploadPosDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.AttachmentDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.DecFormsDownloadDataMapper());
-            trans.RegisterDataMapper(new Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc.EmailDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.CustomerDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.RouteFormDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.RouteFormPosDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.FillFormDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.FillFormPosDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.DecFormsUploadDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.DecFormsUploadPosDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.AttachmentDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.DecFormsDownloadDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.EmailDataMapper());
         }
     }
 }

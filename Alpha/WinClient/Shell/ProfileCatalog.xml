@@ -23,6 +23,7 @@
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Service.Processing.dll" />
 
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Users.dll" />
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.dll" />
       
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.FillFormAndPrintFormDiff.dll" />
 

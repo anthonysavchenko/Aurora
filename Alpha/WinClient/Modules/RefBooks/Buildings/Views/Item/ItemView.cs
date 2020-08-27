@@ -1,10 +1,7 @@
-﻿using System;
-using Microsoft.Practices.CompositeUI.SmartParts;
+﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using System.Data;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBooks;
 
 //using BaseItemView = System.Windows.Forms.UserControl;
 
@@ -33,73 +30,61 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         #region Implementation of IItemView
 
         /// <summary>
-        /// Список улиц
-        /// </summary>
-        public DataTable Streets { set => streetLookUpEdit.Properties.DataSource = value; }
-
-        /// <summary>
         /// Улица
         /// </summary>
-        public Street Street
+        public string Street
         {
-            get => GetSimpleItemViewMapper.ViewToDomain<Street>(streetLookUpEdit);
-            set => GetSimpleItemViewMapper.DomainToView(value, streetLookUpEdit);
+            get => GetSimpleItemViewMapper.ViewToDomain(StreetTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, StreetTextBox);
         }
 
         /// <summary>
         /// Номер дома
         /// </summary>
-        public string Number
+        public string BuildingNumber
         {
-            get => GetSimpleItemViewMapper.ViewToDomain(numberTextBox);
-            set => GetSimpleItemViewMapper.DomainToView(value, numberTextBox);
+            get => GetSimpleItemViewMapper.ViewToDomain(BuildingNumberTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, BuildingNumberTextBox);
         }
 
         /// <summary>
-        /// Почтовый индекс
+        /// Номер корпуса
         /// </summary>
-        public string ZipCode
+        public string BuildingPartNumber
         {
-            get => GetSimpleItemViewMapper.ViewToDomain(zipCodeTextBox);
-            set => GetSimpleItemViewMapper.DomainToView(value, zipCodeTextBox);
+            get => GetSimpleItemViewMapper.ViewToDomain(BuildingPartTextBox);
+            set => GetSimpleItemViewMapper.DomainToView(value, BuildingPartTextBox);
         }
 
         /// <summary>
-        /// Количество этажей
+        /// Месяц последнего МЛ
         /// </summary>
-        public short FloorCount
+        public string LastMonth { set => LastMonthTextBox.Text = value; }
+
+        /// <summary>
+        /// Количество абонентов
+        /// </summary>
+        public int CustomersCount { set => CustomersCountTextBox.Text = value.ToString(); }
+
+        /// <summary>
+        /// Количество ИПУ
+        /// </summary>
+        public int CountersCount { set => CountersCountTextBox.Text = value.ToString(); }
+
+        /// <summary>
+        /// Договор
+        /// </summary>
+        public BuildingContract BuildingContract
         {
-            get => Convert.ToInt16(floorCountSpinEdit.Value);
-            set => floorCountSpinEdit.Value = value;
+            get => Contract15297RadioButton.Checked ? BuildingContract.Contract15297 : BuildingContract.Contract6784;
+            set
+            {
+                Contract6784RadioButton.Checked =
+                    value == BuildingContract.Contract6784
+                    || value == BuildingContract.Unknown;
+                Contract15297RadioButton.Checked = value == BuildingContract.Contract15297;
+            }
         }
-
-        /// <summary>
-        /// Количество подъездов
-        /// </summary>
-        public byte EntranceCount
-        {
-            get => Convert.ToByte(entranceSpinEdit.Value);
-            set => entranceSpinEdit.Value = value;
-        }
-
-        /// <summary>
-        /// Площадь
-        /// </summary>
-        public decimal Area { set => squareTextBox.Text = value.ToString("0.00"); }
-
-        /// <summary>
-        /// Площадь нежлых помещений
-        /// </summary>
-        public decimal NonResidentialPlaceArea
-        {
-            get => nonResidentialPlaceAreaSpinEdit.Value;
-            set => nonResidentialPlaceAreaSpinEdit.Value = value;
-        }
-
-        /// <summary>
-        /// Количество жильцов
-        /// </summary>
-        public int ResindentsCount { set => residentsCountTextBox.Text = value.ToString(); }
 
         /// <summary>
         /// Примечание
@@ -108,43 +93,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         {
             get => noteTextBox.Text;
             set => noteTextBox.Text = value;
-        }
-
-        /// <summary>
-        /// Код ФИАС
-        /// </summary>
-        public string FiasID
-        {
-            get => fiasIdTextBox.Text;
-            set => fiasIdTextBox.Text = value;
-        }
-
-        /// <summary>
-        /// Список банковских реквизитов
-        /// </summary>
-        public DataTable BankDetailsSource { set => bankDetailsLookUpEdit.Properties.DataSource = value; }
-
-        /// <summary>
-        /// Банковские реквизиты
-        /// </summary>
-        public BankDetail BankDetail
-        {
-            get => GetSimpleItemViewMapper.ViewToDomain<BankDetail>(bankDetailsLookUpEdit);
-            set => GetSimpleItemViewMapper.DomainToView(value, bankDetailsLookUpEdit);
-        }
-
-        /// <summary>
-        /// Список участков сбора показаний приборов учета
-        /// </summary>
-        public DataTable CounterValueCollectDistrictSource { set => counterValueCollectDistrictLookUpEdit.Properties.DataSource = value; }
-
-        /// <summary>
-        /// Участок сбора показаний приборов учета
-        /// </summary>
-        public CounterValueCollectDistrict CounterValueCollectDistrict
-        {
-            get => GetSimpleItemViewMapper.ViewToDomain<CounterValueCollectDistrict>(counterValueCollectDistrictLookUpEdit);
-            set => GetSimpleItemViewMapper.DomainToView(value, counterValueCollectDistrictLookUpEdit);
         }
 
         #endregion

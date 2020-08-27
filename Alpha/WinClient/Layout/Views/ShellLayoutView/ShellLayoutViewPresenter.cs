@@ -9,7 +9,6 @@ namespace Taumis.Infrastructure.Layout {
 
     public class ShellLayoutViewPresenter : Presenter<ShellLayoutView>
     {
-	
         protected override void OnViewSet()
         {
             WorkItem.UIExtensionSites.RegisterSite(CommonUIExtensionSiteNames.MainMenu, View.MainMenuStrip);

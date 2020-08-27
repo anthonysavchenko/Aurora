@@ -15,6 +15,18 @@
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="BuildingCounters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="UtilityService" Type="tinyint" Nullable="false" />
+          <Property Name="Coefficient" Type="tinyint" Nullable="false" />
+          <Property Name="Building" Type="int" Nullable="false" />
+          <Property Name="CheckedSince" Type="datetime2" Precision="0" />
+          <Property Name="CheckedTill" Type="datetime2" Precision="0" />
+        </EntityType>
         <EntityType Name="Buildings">
           <Key>
             <PropertyRef Name="ID" />
@@ -22,6 +34,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="BuildingContract" Type="tinyint" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -245,6 +259,18 @@
             </Principal>
             <Dependent Role="Attachments">
               <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildingCounters_Buildings">
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
+          <End Role="BuildingCounters" Type="Self.BuildingCounters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BuildingCounters">
+              <PropertyRef Name="Building" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -507,6 +533,7 @@
         </Function>
         <EntityContainer Name="AlphaDataBaseModelStoreContainer">
           <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildingCounters" EntityType="Self.BuildingCounters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Buildings" EntityType="Self.Buildings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DecFormsDownloads" EntityType="Self.DecFormsDownloads" Schema="dbo" store:Type="Tables" />
@@ -529,6 +556,10 @@
           <AssociationSet Name="FK_Attachments_Emails" Association="Self.FK_Attachments_Emails">
             <End Role="Emails" EntitySet="Emails" />
             <End Role="Attachments" EntitySet="Attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingCounters_Buildings" Association="Self.FK_BuildingCounters_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="BuildingCounters" EntitySet="BuildingCounters" />
           </AssociationSet>
           <AssociationSet Name="FK_Customers_Buildings" Association="Self.FK_Customers_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
@@ -733,6 +764,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PrivateValuesUploads" EntitySet="PrivateValuesUploads" />
           </AssociationSet>
+          <EntitySet Name="BuildingCounters" EntityType="AlphaDataBaseModel.BuildingCounters" />
+          <AssociationSet Name="FK_BuildingCounters_Buildings" Association="AlphaDataBaseModel.FK_BuildingCounters_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="BuildingCounters" EntitySet="BuildingCounters" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Buildings">
           <Key>
@@ -742,6 +778,9 @@
           <Property Name="Street" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Number" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_Customers_Buildings" FromRole="Buildings" ToRole="Customers" />
+          <Property Name="BuildingContract" Type="Byte" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildingCounters" Relationship="AlphaDataBaseModel.FK_BuildingCounters_Buildings" FromRole="Buildings" ToRole="BuildingCounters" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -1075,6 +1114,22 @@
           <End Type="AlphaDataBaseModel.Users" Role="Users" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.PrivateValuesUploads" Role="PrivateValuesUploads" Multiplicity="*" />
         </Association>
+        <EntityType Name="BuildingCounters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CounterNumber" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="UtilityService" Type="Byte" Nullable="false" />
+          <Property Name="Coefficient" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_BuildingCounters_Buildings" FromRole="BuildingCounters" ToRole="Buildings" />
+          <Property Name="CheckedSince" Type="DateTime" Precision="0" />
+          <Property Name="CheckedTill" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_BuildingCounters_Buildings">
+          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingCounters" Role="BuildingCounters" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1084,6 +1139,8 @@
           <EntitySetMapping Name="Buildings">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Buildings)">
               <MappingFragment StoreEntitySet="Buildings">
+                <ScalarProperty Name="BuildingContract" ColumnName="BuildingContract" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
@@ -1489,6 +1546,26 @@
               <ScalarProperty Name="ID" ColumnName="PrivateCounter" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="BuildingCounters">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingCounters">
+              <MappingFragment StoreEntitySet="BuildingCounters">
+                <ScalarProperty Name="CheckedTill" ColumnName="CheckedTill" />
+                <ScalarProperty Name="CheckedSince" ColumnName="CheckedSince" />
+                <ScalarProperty Name="UtilityService" ColumnName="UtilityService" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="CounterNumber" ColumnName="CounterNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_BuildingCounters_Buildings" TypeName="AlphaDataBaseModel.FK_BuildingCounters_Buildings" StoreEntitySet="BuildingCounters">
+            <EndProperty Name="BuildingCounters">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Buildings">
+              <ScalarProperty Name="ID" ColumnName="Building" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1512,9 +1589,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <edmx:Diagram Name="Model">
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Buildings" Width="2" PointX="0.625" PointY="0.625" Height="2.1725878906250031" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Customers" Width="2" PointX="0.625" PointY="3.125" Height="6.210917968749996" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="0.625" PointY="5.625" Height="1.9802864583333388" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Buildings" Width="2" PointX="0.625" PointY="3.625" Height="2.1725878906250031" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Customers" Width="2" PointX="0.625" PointY="6.625" Height="6.210917968749996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="0.625" PointY="9.125" Height="1.9802864583333388" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Users" Width="2" PointX="3.25" PointY="0.625" Height="2.3648893229166674" IsExpanded="true" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Customers_Buildings" ManuallyRouted="false">
           <edmx:ConnectorPoint PointX="2.25" PointY="21.230646972656253" />
@@ -1555,29 +1632,18 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Attachments_Emails" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Emails_DecFormsDownloads" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.RouteFormValues" Width="2" PointX="3.25" PointY="11.875" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteFormValues_PrivateCounters" ManuallyRouted="true" >
-          <edmx:ConnectorPoint PointX="2.2580912002411258" PointY="8.1821907552083335" />
-          <edmx:ConnectorPoint PointX="2.2580912002411258" PointY="12.9612939453125" />
-          <edmx:ConnectorPoint PointX="3.25" PointY="12.9612939453125" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteFormValues_PrivateCounters" ManuallyRouted="false" >
         </edmx:AssociationConnector>
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_RouteFormValues_RouteFormPoses" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.FillFormValues" Width="2" PointX="8.5" PointY="11.125" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_FillFormPoses" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_PrivateCounters" ManuallyRouted="true" >
-          <edmx:ConnectorPoint PointX="1.6556238546787736" PointY="8.1821907552083335" />
-          <edmx:ConnectorPoint PointX="1.6556238546787736" PointY="14.380921223958334" />
-          <edmx:ConnectorPoint PointX="9.5263416825485834" PointY="14.380921223958334" />
-          <edmx:ConnectorPoint PointX="9.5263416825485834" PointY="13.297587890625" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_PrivateCounters" ManuallyRouted="false" >
         </edmx:AssociationConnector>
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounterValues" Width="2" PointX="13.75" PointY="10.875" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesFormPoses" Width="2" PointX="13.75" PointY="7.25" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesForms" Width="2" PointX="13.75" PointY="4" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesUploads" Width="2" PointX="13.75" PointY="0.625" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" ManuallyRouted="true" >
-          <edmx:ConnectorPoint PointX="1.0855732512202654" PointY="8.1821907552083335" />
-          <edmx:ConnectorPoint PointX="1.0855732512202654" PointY="14.745504557291667" />
-          <edmx:ConnectorPoint PointX="14.762242258803335" PointY="14.745504557291667" />
-          <edmx:ConnectorPoint PointX="14.762242258803335" PointY="13.047587890625" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateCounters" ManuallyRouted="false" >
         </edmx:AssociationConnector>
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateCounterValues_PrivateValuesFormPoses" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_PrivateValuesFormPoses_PrivateValuesForms" />
@@ -1588,6 +1654,8 @@
           <edmx:ConnectorPoint PointX="14.761125786778612" PointY="0.10605957031250018" />
           <edmx:ConnectorPoint PointX="14.761125786778612" PointY="0.625" />
         </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingCounters" Width="2" PointX="0.625" PointY="0.625" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounters_Buildings" />
         </edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
@@ -10,22 +10,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter
         /// <summary>
         /// Таблица с данными услуг
         /// </summary>
-        DataTable Services { set; }
+        DataTable UtilityServices { set; }
 
         /// <summary>
         /// Услуга
         /// </summary>
-        Service Service { get; }
+        UtilityService UtilityService { get; }
 
         /// <summary>
         /// Номер счетчика
         /// </summary>
-        string Number { get; }
-        
+        string CounterNumber { get; }
+
         /// <summary>
-        /// Определяет доступность пользователю кнопок редактирования
+        /// Коэффициент
         /// </summary>
-        bool NavigationButtonsEnabled { set; }
+        byte Coefficient { get; }
+
+        DateTime? CheckedSince { get; }
+
+        DateTime? CheckedTill { get; }
 
         /// <summary>
         /// Подключить общий обработчик изменений

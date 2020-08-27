@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings</RootNamespace>
     <AssemblyName>Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
@@ -77,20 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\ModuleStateNames.cs" />
     <Compile Include="Constants\ModuleUIExtensionSiteNames.cs" />
     <Compile Include="Constants\ModuleViewNames.cs" />
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BuildingUnitOfWork.cs" />
-    <Compile Include="Views\CounterValue\CounterValueView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\CounterValue\CounterValueView.Designer.cs">
-      <DependentUpon>CounterValueView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CounterValue\CounterValueViewPresenter.cs" />
-    <Compile Include="Views\CounterValue\ICounterValueView.cs" />
+    <Compile Include="Queries\GetListQuery.cs" />
     <Compile Include="Views\Counter\CounterView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,14 +111,6 @@
       <DependentUpon>ListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ListView\ListViewPresenter.cs" />
-    <Compile Include="Views\PublicPlaceViews\PublicPlaceView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\PublicPlaceViews\PublicPlaceView.Designer.cs">
-      <DependentUpon>PublicPlaceView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PublicPlaceViews\PublicPlaceViewPresenter.cs" />
-    <Compile Include="Views\PublicPlaceViews\IPublicPlaceView.cs" />
     <Compile Include="Views\Tabbed\TabbedView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,9 +120,6 @@
     <Compile Include="Views\Tabbed\TabbedViewPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\CounterValue\CounterValueView.resx">
-      <DependentUpon>CounterValueView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Counter\CounterView.resx">
       <DependentUpon>CounterView.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,9 +133,6 @@
     <EmbeddedResource Include="Views\ListView\ListView.resx">
       <DependentUpon>ListView.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\PublicPlaceViews\PublicPlaceView.resx">
-      <DependentUpon>PublicPlaceView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Tabbed\TabbedView.resx">
       <DependentUpon>TabbedView.cs</DependentUpon>
@@ -209,6 +186,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

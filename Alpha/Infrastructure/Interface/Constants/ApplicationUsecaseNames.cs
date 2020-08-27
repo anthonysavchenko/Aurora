@@ -59,5 +59,10 @@
         /// Загрузки показаний ИПУ.
         /// </summary>
         public const string PRIVATE_VALUES_UPLOADS = "usecase://Uploads/PrivateValuesUploads";
+
+        /// <summary>
+        /// Дома.
+        /// </summary>
+        public const string BUILDINGS = "usecase://RefBook/Buildings";
     }
 }

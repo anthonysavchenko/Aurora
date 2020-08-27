@@ -3,11 +3,9 @@ using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBooks;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter;
-using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.CounterValue;
-using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.PublicPlaceViews;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 using Taumis.EnterpriseLibrary.Win.Constants;
@@ -16,16 +14,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
 {
     public class ItemViewPresenter : BaseMainItemViewPresenter<IItemView, Building>
     {
-        /// <summary>
-        /// Обновляет все справочники
-        /// </summary>
-        protected override void RefreshRefBooks()
-        {
-            View.Streets = GetList<Street>();
-            View.BankDetailsSource = GetList<BankDetail>();
-            View.CounterValueCollectDistrictSource = GetList<CounterValueCollectDistrict>();
-        }
-
         #region Overrides of BaseItemViewPresenter<IItemView,Service>
 
         /// <summary>
@@ -35,54 +23,98 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         protected override void ShowDomainOnAllViews(Building _domItem)
         {
             View.Street = _domItem.Street;
-            View.Number = _domItem.Number;
-            View.ZipCode = _domItem.ZipCode;
-            View.FloorCount = _domItem.FloorCount;
-            View.EntranceCount = _domItem.EntranceCount;
-            View.Note = _domItem.Note;
-            View.FiasID = _domItem.FiasID;
-            View.NonResidentialPlaceArea = _domItem.NonResidentialPlaceArea;
-            View.BankDetail = _domItem.BankDetail;
-            View.CounterValueCollectDistrict = _domItem.CounterValueCollectDistrict;
 
-            if (_domItem.IsNew)
+            if (!string.IsNullOrEmpty(_domItem.Number)
+                && _domItem.Number.Contains(", корп. "))
             {
-                View.Area = 0;
+                var substrings = _domItem.Number.Split(new string[] { ", корп. " }, StringSplitOptions.None);
+
+                View.BuildingNumber = substrings[0];
+                View.BuildingPartNumber = substrings[1];
             }
             else
             {
-                DateTime _period = ServerTime.GetPeriodInfo().FirstUncharged;
-                int _id = int.Parse(_domItem.ID);
-                using (Entities _entities = new Entities())
-                {
-                    View.Area = 
-                        _entities.Customers
-                            .Where(c => 
-                                c.Buildings.ID == _id &&
-                                _entities.CustomerPoses.Any(p => p.Customers.ID == c.ID && p.Till >= _period))
-                                .Sum(c => (decimal?)c.Square) ?? 0;
+                View.BuildingNumber = _domItem.Number;
+                View.BuildingPartNumber = string.Empty;
+            }
 
-                    View.ResindentsCount =
-                        _entities.Residents
-                            .Count(r =>
-                                r.Customers.Buildings.ID == _id &&
-                                r.Customers.CustomerPoses.Any(p => p.Till >= _period));
+            if (_domItem.IsNew)
+            {
+                View.LastMonth = "Нет данных";
+                View.CustomersCount = 0;
+                View.CountersCount = 0;
+            }
+            else
+            {
+                var buildingID = int.Parse(_domItem.ID);
+                var lastMonth = GetLastMonth(buildingID);
+
+                if (lastMonth <= DateTime.MinValue)
+                {
+                    View.LastMonth = "Нет данных";
+                    View.CustomersCount = 0;
+                    View.CountersCount = 0;
+                }
+                else
+                {
+                    View.LastMonth = lastMonth.ToString("MM.yyyy");
+                    View.CustomersCount = CountCustomers(buildingID, lastMonth);
+                    View.CountersCount = CountCounters(buildingID, lastMonth);
                 }
             }
 
-            WorkItem.State[ModuleStateNames.COMMON_COUNTER] = null;
-
-            ICounterValueView _counterValueView = (ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW];
-            _counterValueView.NavigationButtonsEnabled = false;
+            View.BuildingContract = _domItem.BuildingContract;
+            View.Note = _domItem.Note;
 
             ((ICounterView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VIEW]).RefreshList();
-            if (_domItem.CommonCounters.Count == 0)
+        }
+
+        private DateTime GetLastMonth(int buildingID)
+        {
+            using (var db = new Entities())
             {
-                _counterValueView.RefreshList();
+                var lastMonth =
+                    db.RouteFormValues
+                        .Where(v => v.PrivateCounters.Customers.Buildings.ID == buildingID)
+                        .Select(v => v.Month)
+                        .DefaultIfEmpty(DateTime.MinValue)
+                        .Max();
+
+                return lastMonth;
             }
+        }
 
-            ((IPublicPlaceView)WorkItem.SmartParts[ModuleViewNames.PUBLIC_PLACE_VIEW]).RefreshList();
+        private int CountCustomers(int buildingID, DateTime lastMonth)
+        {
+            using (var db = new Entities())
+            {
+                var customersCount =
+                    db.RouteFormValues
+                        .Where(v =>
+                            v.PrivateCounters.Customers.Buildings.ID == buildingID
+                            && v.Month == lastMonth)
+                        .GroupBy(v => v.PrivateCounters.Customers.ID)
+                        .Count();
 
+                return customersCount;
+            }
+        }
+
+        private int CountCounters(int buildingID, DateTime lastMonth)
+        {
+            using (var db = new Entities())
+            {
+                var countersCount =
+                    db.RouteFormValues
+                        .Where(v =>
+                            v.PrivateCounters.Customers.Buildings.ID == buildingID
+                            && v.Month == lastMonth
+                            && (PrivateCounterType)v.PrivateCounters.CounterType != PrivateCounterType.Norm)
+                        .GroupBy(v => v.PrivateCounters.ID)
+                        .Count();
+
+                return countersCount;
+            }
         }
 
         /// <summary>
@@ -92,9 +124,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         protected override void BindAdditionalViewsControls()
         {
             base.BindAdditionalViewsControls();
-            ((ICounterView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VIEW]).BindActivate(OnAnyAttributeChangedEventHandler);
-            ((ICounterValueView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VALUE_VIEW]).BindActivate(OnAnyAttributeChangedEventHandler);
-            ((IPublicPlaceView)WorkItem.SmartParts[ModuleViewNames.PUBLIC_PLACE_VIEW]).BindActivate(OnAnyAttributeChangedEventHandler);
+            ((ICounterView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VIEW])
+                .BindActivate(OnAnyAttributeChangedEventHandler);
         }
 
         /// <summary>
@@ -103,9 +134,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         protected override void UnbindAdditionalViewsControls()
         {
             base.UnbindAdditionalViewsControls();
-            ((ICounterView)WorkItem.SmartParts.Get(ModuleViewNames.COUNTER_VIEW)).BindDeactivate(OnAnyAttributeChangedEventHandler);
-            ((ICounterValueView)WorkItem.SmartParts.Get(ModuleViewNames.COUNTER_VALUE_VIEW)).BindDeactivate(OnAnyAttributeChangedEventHandler);
-            ((IPublicPlaceView)WorkItem.SmartParts[ModuleViewNames.PUBLIC_PLACE_VIEW]).BindDeactivate(OnAnyAttributeChangedEventHandler);
+            ((ICounterView)WorkItem.SmartParts.Get(ModuleViewNames.COUNTER_VIEW))
+                .BindDeactivate(OnAnyAttributeChangedEventHandler);
         }
 
         #endregion
@@ -131,15 +161,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         protected override void FillDomainFromAllViews(Building _domItem)
         {
             _domItem.Street = View.Street;
-            _domItem.Number = View.Number.Trim();
-            _domItem.ZipCode = View.ZipCode.Trim();
-            _domItem.FloorCount = View.FloorCount;
-            _domItem.EntranceCount = View.EntranceCount;
+
+            string building = View.BuildingNumber.Trim();
+            string buildingPart = View.BuildingPartNumber.Trim();
+
+            _domItem.Number =
+                !string.IsNullOrEmpty(building) && !string.IsNullOrEmpty(buildingPart)
+                    ? building + ", корп. " + buildingPart
+                    : !string.IsNullOrEmpty(building)
+                        ? building
+                        : null;
+
+            _domItem.BuildingContract = View.BuildingContract;
             _domItem.Note = View.Note;
-            _domItem.FiasID = View.FiasID;
-            _domItem.NonResidentialPlaceArea = View.NonResidentialPlaceArea;
-            _domItem.BankDetail = View.BankDetail;
-            _domItem.CounterValueCollectDistrict = View.CounterValueCollectDistrict;
         }
 
         /// <summary>
@@ -152,54 +186,51 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         {
             StringBuilder _error = new StringBuilder();
 
+            if (string.IsNullOrEmpty(_domItem.Street))
+            {
+                _error.AppendLine("- Не указана улица");
+            }
+
             if (string.IsNullOrEmpty(_domItem.Number))
             {
                 _error.AppendLine("- Не указан номер дома");
             }
 
-            if (string.IsNullOrEmpty(_domItem.ZipCode))
+            if (!string.IsNullOrEmpty(_domItem.Number)
+                && _domItem.Number.Count(c => c == ',') > 1)
             {
-                _error.AppendLine("- Не указан почтовый индекс");
+                _error.AppendLine("- При указании номера дома и корпуса нельзя использовать запятые");
             }
 
-            if (_domItem.BankDetail == null)
+            if (!string.IsNullOrEmpty(_domItem.Number)
+                && !string.IsNullOrEmpty(_domItem.Street)
+                && (string)WorkItem.State[Params.EditItemStateName] == CommonEditItemStates.New)
             {
-                _error.AppendLine("- Не указаны банковские реквизиты");
-            }
-
-            if (_domItem.Street == null)
-            {
-                _error.AppendLine("- Не указана улица");
-            }
-            else
-            {
-                using (Entities _entities = new Entities())
+                using (Entities db = new Entities())
                 {
-                    if (_entities.Buildings
-                            .Any(
-                                b =>
-                                b.Streets.Name == _domItem.Street.Name &&
-                                b.Number == _domItem.Number) &&
-                        (string)WorkItem.State[Params.EditItemStateName] == CommonEditItemStates.New)
+                    if (db.Buildings
+                            .Count(b =>
+                                b.Street.Equals(_domItem.Street, StringComparison.OrdinalIgnoreCase)
+                                && b.Number.Equals(_domItem.Number, StringComparison.OrdinalIgnoreCase)) > 0)
                     {
-                        _error.AppendLine(" - Дом с указанным номером на указанной улице уже существует");
+                        _error.AppendLine("- Дом с указанным адресом уже был создан ранее");
                     }
                 }
             }
-
-            if (!_domItem.IsNew)
+            else if (!string.IsNullOrEmpty(_domItem.Number)
+                && !string.IsNullOrEmpty(_domItem.Street)
+                && (string)WorkItem.State[Params.EditItemStateName] == CommonEditItemStates.Edit)
             {
-                int _buildingID = int.Parse(_domItem.ID);
-                int _maxFloor;
-
-                using (Entities _entities = new Entities())
+                using (Entities db = new Entities())
                 {
-                    _maxFloor = _entities.Customers.Where(c => c.Buildings.ID == _buildingID).Max(c => c.Floor);
-                }
-
-                if (_domItem.FloorCount < _maxFloor)
-                {
-                    _error.AppendLine("- Количество этажей в доме меньше, чем этажи, указанные у некоторых абонентов этого дома");
+                    if (db.Buildings
+                            .Count(b =>
+                                b.Street.Equals(_domItem.Street, StringComparison.OrdinalIgnoreCase)
+                                && b.Number.Equals(_domItem.Number, StringComparison.OrdinalIgnoreCase)
+                                && b.ID.ToString() != _domItem.ID) > 0)
+                    {
+                        _error.AppendLine("- Дом с указанным адресом уже был создан ранее");
+                    }
                 }
             }
 

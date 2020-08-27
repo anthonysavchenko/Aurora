@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Infrastructure.SQLServerAccessProvider;
 using Taumis.EnterpriseLibrary.Win;
 using DBItem = Taumis.Alpha.DataBase.Buildings;
 using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.Building;
+using DomCounter = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.BuildingCounter;
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
@@ -33,6 +35,8 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 
                 _dbItem.Street = domObj.Street;
                 _dbItem.Number = domObj.Number;
+                _dbItem.BuildingContract = (byte)domObj.BuildingContract;
+                _dbItem.Note = domObj.Note;
 
                 _entities.SaveChanges();
                 domObj.ID = _dbItem.ID.ToString();
@@ -55,10 +59,23 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
             {
                 DBItem _dbItem =
                     _entities.Buildings
+                        .Include("BuildingCounters")
                         .First(x => x.ID == _id);
 
                 _domItem.Number = _dbItem.Number;
                 _domItem.Street = _dbItem.Street;
+                _domItem.BuildingContract = (BuildingContract)_dbItem.BuildingContract;
+                _domItem.Note = _dbItem.Note;
+
+                IDataMapper counterDataMapper = DataMapperService.get(typeof(DomCounter));
+                _domItem.Counters.Clear();
+
+                foreach (var counter in _dbItem.BuildingCounters)
+                {
+                    DomCounter domCounter = (DomCounter)counterDataMapper.find(counter.ID.ToString());
+                    domCounter.Building = _domItem;
+                    _domItem.Counters.Add(domCounter.ID, domCounter);
+                }
             }
 
             return _domItem;

@@ -1,4 +1,6 @@
-﻿using Taumis.EnterpriseLibrary.Win;
+﻿using System.Collections.Generic;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.EnterpriseLibrary.Win;
 
 namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
 {
@@ -42,5 +44,42 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
                 _number = value;
             }
         }
+
+        private BuildingContract _buildingContract;
+
+        public BuildingContract BuildingContract
+        {
+            get
+            {
+                Load();
+                return _buildingContract;
+            }
+            set
+            {
+                Load();
+                _buildingContract = value;
+            }
+        }
+
+        private string _note;
+
+        public string Note
+        {
+            get
+            {
+                Load();
+                return _note;
+            }
+            set
+            {
+                Load();
+                _note = value;
+            }
+        }
+
+        /// <summary>
+        /// ОДПУ
+        /// </summary>
+        public Dictionary<string, BuildingCounter> Counters { get; } = new Dictionary<string, BuildingCounter>();
     }
 }

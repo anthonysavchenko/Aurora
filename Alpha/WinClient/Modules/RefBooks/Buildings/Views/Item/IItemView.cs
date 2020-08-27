@@ -1,6 +1,4 @@
-﻿using System.Data;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
-using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBooks;
+﻿using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
@@ -8,78 +6,63 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
     public interface IItemView : IBaseItemView
     {
         /// <summary>
-        /// Список улиц
-        /// </summary>
-        DataTable Streets { set; }
-
-        /// <summary>
         /// Улица
         /// </summary>
-        Street Street { get; set; }
+        string Street
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Номер дома
         /// </summary>
-        string Number { get; set; }
+        string BuildingNumber
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        /// Почтовый индекс
+        /// Номер корпуса
         /// </summary>
-        string ZipCode { get; set; }
+        string BuildingPartNumber
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        /// Количество этажей
+        /// Месяц последнего МЛ
         /// </summary>
-        short FloorCount { get; set; }
+        string LastMonth { set; }
 
         /// <summary>
-        /// Количество подъездов
+        /// Количество абонентов
         /// </summary>
-        byte EntranceCount { get; set; }
+        int CustomersCount { set; }
 
         /// <summary>
-        /// Площадь
+        /// Количество ИПУ
         /// </summary>
-        decimal Area { set; }
+        int CountersCount { set; }
 
         /// <summary>
-        /// Площадь нежлых помещений
+        /// Договор
         /// </summary>
-        decimal NonResidentialPlaceArea { get; set; }
-
-        /// <summary>
-        /// Количество жильцов
-        /// </summary>
-        int ResindentsCount { set; }
+        BuildingContract BuildingContract
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Примечание
         /// </summary>
-        string Note { get; set; }
-
-        /// <summary>
-        /// Код ФИАС
-        /// </summary>
-        string FiasID { get; set; }
-
-        /// <summary>
-        /// Список банковских реквизитов
-        /// </summary>
-        DataTable BankDetailsSource { set; }
-
-        /// <summary>
-        /// Банковские реквизиты
-        /// </summary>
-        BankDetail BankDetail { get; set; }
-
-        /// <summary>
-        /// Список участков сбора показаний приборов учета
-        /// </summary>
-        DataTable CounterValueCollectDistrictSource { set; }
-
-        /// <summary>
-        /// Участок сбора показаний приборов учета
-        /// </summary>
-        CounterValueCollectDistrict CounterValueCollectDistrict { get; set; }
+        string Note
+        {
+            get;
+            set;
+        }
     }
 }
