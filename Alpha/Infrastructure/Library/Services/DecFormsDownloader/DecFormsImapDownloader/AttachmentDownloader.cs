@@ -41,7 +41,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsDownloader.DecFor
                 {
                     AttachmentHandler.UpdateAttachmentWithError(
                         attachment,
-                        "Сохраняются файлы только в формате MS Excel 97-2003 (*.xls)");
+                        "Сохраняются файлы только в формате Excel 97-2003 (*.xls)");
                     return;
                 }
 

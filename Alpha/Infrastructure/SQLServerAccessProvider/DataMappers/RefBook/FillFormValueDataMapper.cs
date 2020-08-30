@@ -10,7 +10,7 @@ using DomFillFormPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Do
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
-    public class FillFormValueDataMapper : BaseDataMapper<DomItem, DBItem>
+    public class FillFormValueDataMapper : BaseDataMapper<DomItem, DBItem>, IDataMapper
     {
         #region Overrides of BaseDataMapper
 

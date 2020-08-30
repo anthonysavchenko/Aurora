@@ -64,5 +64,10 @@
         /// Дома.
         /// </summary>
         public const string BUILDINGS = "usecase://RefBook/Buildings";
+        
+        /// <summary>
+        /// Загрузки показаний ОДПУ.
+        /// </summary>
+        public const string BUILDING_VALUES_UPLOADS = "usecase://Uploads/BuildingValuesUploads";
     }
 }

@@ -101,6 +101,8 @@
     <Compile Include="BusinessEntities\Common\ITransactionOwner.cs" />
     <Compile Include="BusinessEntities\DocLine\BaseDocPos.cs" />
     <Compile Include="BusinessEntities\Doc\Attachment.cs" />
+    <Compile Include="BusinessEntities\Doc\BuildingValuesUpload.cs" />
+    <Compile Include="BusinessEntities\Doc\BuildingValuesUploadPos.cs" />
     <Compile Include="BusinessEntities\Doc\Customer.cs" />
     <Compile Include="BusinessEntities\Doc\Common\ITransDoc.cs" />
     <Compile Include="BusinessEntities\Doc\Common\TransDoc.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="BusinessEntities\Doc\DecFormsUpload.cs" />
     <Compile Include="BusinessEntities\RefBooks\Building.cs" />
     <Compile Include="BusinessEntities\RefBooks\BuildingCounter.cs" />
+    <Compile Include="BusinessEntities\RefBooks\BuildingCounterValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\FillFormValue.cs" />
     <Compile Include="BusinessEntities\RefBooks\PrivateCounter.cs" />
     <Compile Include="BusinessEntities\RefBooks\RouteFormValue.cs" />

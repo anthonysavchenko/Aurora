@@ -10,7 +10,7 @@ using DomRouteFormPos = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.D
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
-    public class RouteFormValueDataMapper : BaseDataMapper<DomItem, DBItem>
+    public class RouteFormValueDataMapper : BaseDataMapper<DomItem, DBItem>, IDataMapper
     {
         #region Overrides of BaseDataMapper
 

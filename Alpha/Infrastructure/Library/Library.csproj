@@ -99,6 +99,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\BaseUnitOfWork.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\BuildingValuesFormParser\ColumnParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\BuildingValuesFormParser\FileParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\BuildingValuesFormParser\RowParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\ColumnParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\FileParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\Parser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesSaver\BuildingValuesFormSaver\FileSaver.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesSaver\FileSaver.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesSaver\Saver.cs" />
+    <Compile Include="Services\BuildingValuesUploader\Uploader.cs" />
     <Compile Include="Services\DecFormsDownloader\DecFormsImapDownloader\AttachmentDownloader.cs" />
     <Compile Include="Services\DecFormsDownloader\Downloader.cs" />
     <Compile Include="Services\DecFormsDownloader\DecFormsImapDownloader\EmailDownloader.cs" />
@@ -110,6 +120,9 @@
     <Compile Include="Services\DecFormsUploader\DecFormsSaver\Saver.cs" />
     <Compile Include="Services\DecFormsUploader\Uploader.cs" />
     <Compile Include="Services\Handlers\AttachmentHandler.cs" />
+    <Compile Include="Services\Handlers\BuildingCounterHandler.cs" />
+    <Compile Include="Services\Handlers\BuildingCounterValueHandler.cs" />
+    <Compile Include="Services\Handlers\BuildingValuesUploadHandler.cs" />
     <Compile Include="Services\Handlers\DownloadHandler.cs" />
     <Compile Include="Services\Handlers\EmailHandler.cs" />
     <Compile Include="Services\Handlers\FillFormValueHandler.cs" />

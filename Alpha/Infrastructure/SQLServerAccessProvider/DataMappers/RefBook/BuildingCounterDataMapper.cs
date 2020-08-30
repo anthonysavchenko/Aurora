@@ -9,7 +9,7 @@ using DomItem = Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook.B
 
 namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
 {
-    public class BuildingCounterDataMapper : BaseDataMapper<DomItem, DBItem>
+    public class BuildingCounterDataMapper : BaseDataMapper<DomItem, DBItem>, IDataMapper
     {
         #region Overrides of BaseDataMapper
 

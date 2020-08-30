@@ -16,6 +16,7 @@ namespace Taumis.Infrastructure.Module
             trans.RegisterDataMapper(new Mappers.RefBook.PrivateCounterDataMapper());
             trans.RegisterDataMapper(new Mappers.RefBook.RouteFormValueDataMapper());
             trans.RegisterDataMapper(new Mappers.RefBook.FillFormValueDataMapper());
+            trans.RegisterDataMapper(new Mappers.RefBook.BuildingCounterValueDataMapper());
 
             trans.RegisterDataMapper(new Mappers.Doc.CustomerDataMapper());
             trans.RegisterDataMapper(new Mappers.Doc.RouteFormDataMapper());
@@ -27,6 +28,8 @@ namespace Taumis.Infrastructure.Module
             trans.RegisterDataMapper(new Mappers.Doc.AttachmentDataMapper());
             trans.RegisterDataMapper(new Mappers.Doc.DecFormsDownloadDataMapper());
             trans.RegisterDataMapper(new Mappers.Doc.EmailDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.BuildingValuesUploadDataMapper());
+            trans.RegisterDataMapper(new Mappers.Doc.BuildingValuesUploadPosDataMapper());
         }
     }
 }

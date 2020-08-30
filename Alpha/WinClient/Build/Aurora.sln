@@ -90,6 +90,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrivateCountersValues", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buildings", "..\Modules\RefBooks\Buildings\Buildings.csproj", "{9BF25D97-62F6-45C4-B7C7-7DF360CC5743}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingValuesUploads", "..\Modules\Uploads\BuildingValuesUploads\BuildingValuesUploads.csproj", "{286005FD-88AD-42A9-82E5-C11A6F26E4E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -204,6 +206,10 @@ Global
 		{9BF25D97-62F6-45C4-B7C7-7DF360CC5743}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BF25D97-62F6-45C4-B7C7-7DF360CC5743}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BF25D97-62F6-45C4-B7C7-7DF360CC5743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{286005FD-88AD-42A9-82E5-C11A6F26E4E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286005FD-88AD-42A9-82E5-C11A6F26E4E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286005FD-88AD-42A9-82E5-C11A6F26E4E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286005FD-88AD-42A9-82E5-C11A6F26E4E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +249,7 @@ Global
 		{ED562E73-6A09-43EC-816A-AC25ACD73AC7} = {D960851B-B8CE-4071-A1DE-3486D1FD94E9}
 		{9D7F9C7E-D53A-40F8-91DC-EE0253EBE1FF} = {2AD49FD1-4664-403A-A09B-427DBBD862FD}
 		{9BF25D97-62F6-45C4-B7C7-7DF360CC5743} = {1EEDBDEB-10F8-4D79-82B6-35280BD782FC}
+		{286005FD-88AD-42A9-82E5-C11A6F26E4E5} = {D960851B-B8CE-4071-A1DE-3486D1FD94E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2EDC818-CE5F-4276-A7A6-2AEE0C27C3B9}
