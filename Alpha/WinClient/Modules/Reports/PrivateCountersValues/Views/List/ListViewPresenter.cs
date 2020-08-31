@@ -102,6 +102,40 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
 
             using (var db = new Entities())
             {
+                var buildingCountersRaw =
+                    db.BuildingCounterValues
+                        .Where(c => c.BuildingCounters.Buildings.ID.ToString() == View.BuildingId)
+                        .GroupBy(c => c.BuildingCounters)
+                        .Select(c =>
+                            new
+                            {
+                                Counter = c.Key,
+                                Values =
+                                    c
+                                        .GroupBy(cc => cc.Month)
+                                        .Select(cc =>
+                                            new
+                                            {
+                                                cc.Key,
+                                                Value = cc.FirstOrDefault(),
+                                            })
+                            })
+                        .ToList();
+
+                var buildingCounters =
+                    buildingCountersRaw
+                        .Select(c =>
+                            new
+                            {
+                                c.Counter,
+                                Values =
+                                    c.Values
+                                        .ToDictionary(
+                                            cc => cc.Key,
+                                            ccc => ccc.Value),
+                            })
+                        .ToList();
+
                 var raw =
                     db.PrivateCounters
                         .Where(c =>
@@ -295,6 +329,28 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                             })
                         .OrderBy(v => v.Apartment, new StringAsNumbersComparer())
                         .ToList();
+
+                foreach (var item in buildingCounters)
+                {
+                    var row = table.NewRow();
+
+                    row[ColumnNames.COUNTER_NUMBER_COLUMN] = item.Counter.CounterNumber;
+                    row[ColumnNames.COUNTER_CAPACITY_COLUMN] = item.Counter.Coefficient;
+
+                    foreach (var band in bands)
+                    {
+                        if (item.Values.ContainsKey(band.Month))
+                        {
+                            var value = item.Values[band.Month];
+
+                            row[band.RouteFormPrevValue.FieldName] = value.PrevValue;
+                            row[band.PrivateValuesFormCurrentDate.FieldName] = value.CurrentDate;
+                            row[band.PrivateValuesFormCurrentValue.FieldName] = value.CurrentValue;
+                        }
+                    }
+
+                    table.Rows.Add(row);
+                }
 
                 foreach (var item in items)
                 {
@@ -570,6 +626,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
             public Column PrivateValuesFormCurrentValue { get; set; }
 
             public Column PrivateValuesFormCurrentDate { get; set; }
+
+            public DateTime Month { get; set; }
         }
 
         private class Column
@@ -624,6 +682,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                 FieldName = $"{month:MM.yyyy}_PrivateValuesForm_CurrentValue",
                                 Title = $"{month:MM.yyyy}. Показания",
                             },
+                            Month = month,
                         });
         }
 
