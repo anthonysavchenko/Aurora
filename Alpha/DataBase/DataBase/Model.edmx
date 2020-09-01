@@ -59,8 +59,8 @@
           <Property Name="Building" Type="nvarchar" MaxLength="25" />
           <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
           <Property Name="Coefficient" Type="tinyint" />
-          <Property Name="CurrentValue" Type="decimal" Precision="8" Scale="3" />
-          <Property Name="PrevValue" Type="decimal" Precision="8" Scale="3" />
+          <Property Name="CurrentValue" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="PrevValue" Type="decimal" Precision="11" Scale="3" />
           <Property Name="CurrentDate" Type="datetime2" Precision="0" />
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
@@ -1270,8 +1270,8 @@
           <Property Name="Building" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Coefficient" Type="Byte" />
-          <Property Name="CurrentValue" Type="Decimal" Precision="8" Scale="3" />
-          <Property Name="PrevValue" Type="Decimal" Precision="8" Scale="3" />
+          <Property Name="CurrentValue" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="PrevValue" Type="Decimal" Precision="11" Scale="3" />
           <Property Name="CurrentDate" Type="DateTime" Precision="0" />
           <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
