@@ -100,24 +100,34 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
             var bands = GetColumnBands();
             AddColumnsToTable(table, bands);
 
+            var since = bands.Min(c => c.Month);
+            var till = bands.Max(c => c.Month);
+
             using (var db = new Entities())
             {
                 var buildingCountersRaw =
-                    db.BuildingCounterValues
-                        .Where(c => c.BuildingCounters.Buildings.ID.ToString() == View.BuildingId)
-                        .GroupBy(c => c.BuildingCounters)
+                    db.BuildingCounters
+                        .Where(c =>
+                            c.Buildings.ID.ToString() == View.BuildingId
+                            && c.UtilityService == (byte)UtilityService.Electricity
+                            && (c.CheckedSince <= till
+                                || c.CheckedSince == null)
+                            && (c.CheckedTill >= since
+                                || c.CheckedTill == null))
                         .Select(c =>
                             new
                             {
-                                Counter = c.Key,
+                                Counter = c,
                                 Values =
-                                    c
-                                        .GroupBy(cc => cc.Month)
+                                    c.BuildingCounterValues
+                                        .Where(cc =>
+                                            cc.Month >= since
+                                            && cc.Month <= till)
                                         .Select(cc =>
                                             new
                                             {
-                                                cc.Key,
-                                                Value = cc.FirstOrDefault(),
+                                                Key = cc.Month,
+                                                Value = cc,
                                             })
                             })
                         .ToList();
