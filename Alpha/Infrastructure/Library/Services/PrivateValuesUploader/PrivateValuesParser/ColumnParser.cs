@@ -97,7 +97,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
             bool format_with_building_part_with_apartment =
                 apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1
-                    && apartmentItems[0].Trim() != "г. Владивосток"
+                    && apartmentItems[0].Trim() == "г. Владивосток"
                     && (apartmentItems[1].Trim().StartsWith("пер")
                         || apartmentItems[1].Trim().StartsWith("пр-кт")
                         || apartmentItems[1].Trim().StartsWith("ул."))

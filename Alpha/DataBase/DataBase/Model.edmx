@@ -35,8 +35,8 @@
           <Property Name="BuildingValuesUploadPos" Type="int" Nullable="false" />
           <Property Name="BuildingCounter" Type="int" Nullable="false" />
           <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
-          <Property Name="PrevValue" Type="decimal" Precision="8" Scale="3" />
-          <Property Name="CurrentValue" Type="decimal" Precision="8" Scale="3" />
+          <Property Name="PrevValue" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="CurrentValue" Type="decimal" Precision="11" Scale="3" />
           <Property Name="CurrentDate" Type="datetime2" Precision="0" />
         </EntityType>
         <EntityType Name="Buildings">
@@ -245,9 +245,9 @@
           <Property Name="CounterType" Type="tinyint" Nullable="false" />
           <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
           <Property Name="PrevDate" Type="datetime2" Precision="0" />
-          <Property Name="PrevValue" Type="decimal" Precision="8" Scale="3" />
-          <Property Name="PrevDayValue" Type="decimal" Precision="8" Scale="3" />
-          <Property Name="PrevNightValue" Type="decimal" Precision="8" Scale="3" />
+          <Property Name="PrevValue" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="PrevDayValue" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="PrevNightValue" Type="decimal" Precision="11" Scale="3" />
           <Property Name="Owner" Type="nvarchar" MaxLength="50" />
           <Property Name="CounterCapacity" Type="nvarchar" MaxLength="2" />
           <Property Name="Debt" Type="nvarchar" MaxLength="25" />
@@ -1045,9 +1045,9 @@
           <Property Name="CounterType" Type="Byte" Nullable="false" />
           <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="PrevDate" Type="DateTime" Precision="0" />
-          <Property Name="PrevValue" Type="Decimal" Precision="8" Scale="3" />
-          <Property Name="PrevDayValue" Type="Decimal" Precision="8" Scale="3" />
-          <Property Name="PrevNightValue" Type="Decimal" Precision="8" Scale="3" />
+          <Property Name="PrevValue" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="PrevDayValue" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="PrevNightValue" Type="Decimal" Precision="11" Scale="3" />
           <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CounterCapacity" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="Debt" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
@@ -1306,8 +1306,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PrevValue" Type="Decimal" Precision="8" Scale="3" />
-          <Property Name="CurrentValue" Type="Decimal" Precision="8" Scale="3" />
+          <Property Name="PrevValue" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="CurrentValue" Type="Decimal" Precision="11" Scale="3" />
           <Property Name="CurrentDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="BuildingCounters" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters" FromRole="BuildingCounterValues" ToRole="BuildingCounters" />
           <NavigationProperty Name="BuildingValuesUploadPoses" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses" FromRole="BuildingCounterValues" ToRole="BuildingValuesUploadPoses" />
