@@ -78,12 +78,14 @@
             this.gridViewOfListView.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gridViewOfListView.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.gridViewOfListView.GridControl = this.gridControlOfListView;
+            this.gridViewOfListView.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always;
             this.gridViewOfListView.Name = "gridViewOfListView";
             this.gridViewOfListView.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewOfListView.OptionsBehavior.Editable = false;
             this.gridViewOfListView.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewOfListView.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gridViewOfListView.OptionsSelection.MultiSelect = true;
+            this.gridViewOfListView.OptionsView.ColumnAutoWidth = false;
             this.gridViewOfListView.OptionsView.ShowGroupPanel = false;
             this.gridViewOfListView.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridViewOfListView_RowCellStyle);
             // 

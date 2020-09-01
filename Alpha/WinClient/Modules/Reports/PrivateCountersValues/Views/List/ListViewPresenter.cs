@@ -14,6 +14,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
     {
         private static class ColumnNames
         {
+            public const string COUNTER_GROUP = "CounterGroup";
+            public const string BUILDING_COUNTER_NUMBER = "BuildingCounterNumber";
+            public const string BUILDING_COUNTER_COEFFICIENT = "BuildingCounterCoefficient";
             public const string ACCOUNT_COLUMN = "Account";
             public const string OWNER_COLUMN = "Owner";
             public const string APARTMENT_COLUMN = "Apartment";
@@ -344,8 +347,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                 {
                     var row = table.NewRow();
 
-                    row[ColumnNames.COUNTER_NUMBER_COLUMN] = item.Counter.CounterNumber;
-                    row[ColumnNames.COUNTER_CAPACITY_COLUMN] = item.Counter.Coefficient;
+                    row[ColumnNames.COUNTER_GROUP] = "1. ОДПУ";
+                    row[ColumnNames.BUILDING_COUNTER_NUMBER] = item.Counter.CounterNumber;
+                    row[ColumnNames.BUILDING_COUNTER_COEFFICIENT] = item.Counter.Coefficient;
 
                     foreach (var band in bands)
                     {
@@ -354,7 +358,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                             var value = item.Values[band.Month];
 
                             row[band.RouteFormPrevValue.FieldName] = value.PrevValue;
-                            row[band.PrivateValuesFormCurrentDate.FieldName] = value.CurrentDate;
+                            row[band.PrivateValuesFormCurrentDate.FieldName] = value.CurrentDate
+                                ?.ToString("dd.MM.yyyy");
                             row[band.PrivateValuesFormCurrentValue.FieldName] = value.CurrentValue;
                         }
                     }
@@ -368,6 +373,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                     {
                         var row = table.NewRow();
 
+                        row[ColumnNames.COUNTER_GROUP] = "2. ИПУ";
                         row[ColumnNames.ACCOUNT_COLUMN] = item.Account;
                         row[ColumnNames.OWNER_COLUMN] = item.Owner;
                         row[ColumnNames.APARTMENT_COLUMN] = item.Apartment;
@@ -440,6 +446,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                     {
                         var rowDay = table.NewRow();
 
+                        rowDay[ColumnNames.COUNTER_GROUP] = "2. ИПУ";
                         rowDay[ColumnNames.ACCOUNT_COLUMN] = item.Account;
                         rowDay[ColumnNames.OWNER_COLUMN] = item.Owner;
                         rowDay[ColumnNames.APARTMENT_COLUMN] = item.Apartment;
@@ -510,6 +517,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
 
                         var rowNight = table.NewRow();
 
+                        rowNight[ColumnNames.COUNTER_GROUP] = "2. ИПУ";
                         rowNight[ColumnNames.ACCOUNT_COLUMN] = item.Account;
                         rowNight[ColumnNames.OWNER_COLUMN] = item.Owner;
                         rowNight[ColumnNames.APARTMENT_COLUMN] = item.Apartment;
@@ -582,6 +590,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                     {
                         var row = table.NewRow();
 
+                        row[ColumnNames.COUNTER_GROUP] = "2. ИПУ";
                         row[ColumnNames.ACCOUNT_COLUMN] = item.Account;
                         row[ColumnNames.OWNER_COLUMN] = item.Owner;
                         row[ColumnNames.APARTMENT_COLUMN] = item.Apartment;
@@ -698,6 +707,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
 
         private void AddColumnsToTable(DataTable table, IEnumerable<Band> extraBands)
         {
+            table.Columns.Add(ColumnNames.COUNTER_GROUP);
+            table.Columns.Add(ColumnNames.BUILDING_COUNTER_NUMBER);
+            table.Columns.Add(ColumnNames.BUILDING_COUNTER_COEFFICIENT);
             table.Columns.Add(ColumnNames.ACCOUNT_COLUMN, typeof(string));
             table.Columns.Add(ColumnNames.OWNER_COLUMN, typeof(string));
             table.Columns.Add(ColumnNames.APARTMENT_COLUMN, typeof(string));
@@ -722,6 +734,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
 
         private void AddColumnsToView(IEnumerable<Band> extraBands)
         {
+            View.AddColumn(ColumnNames.COUNTER_GROUP, "Группа");
+            View.AddColumn(ColumnNames.BUILDING_COUNTER_NUMBER, "Номер счетчика");
+            View.AddColumn(ColumnNames.BUILDING_COUNTER_COEFFICIENT, "Коэффициент");
             View.AddColumn(ColumnNames.ACCOUNT_COLUMN, "Лицевой счет");
             View.AddColumn(ColumnNames.OWNER_COLUMN, "Собственник");
             View.AddColumn(ColumnNames.APARTMENT_COLUMN, "Квартира");
@@ -742,6 +757,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                 View.AddDateColumn(band.PrivateValuesFormCurrentDate.FieldName, band.PrivateValuesFormCurrentDate.Title);
                 View.AddNumericColumn(band.PrivateValuesFormCurrentValue.FieldName, band.PrivateValuesFormCurrentValue.Title);
             }
+        }
+
+        protected override void OnReportGenerationCompleted()
+        {
+            base.OnReportGenerationCompleted();
+
+            View.GroupColumns(ColumnNames.COUNTER_GROUP);
         }
     }
 }

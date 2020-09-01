@@ -71,13 +71,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                         {
                             if (existed.CounterType != (byte)PrivateFormCounterType.Day
                                 || existed.CurrentValue != null
-                                || existed.CurrentDayValue == null
                                 || existed.CurrentNightValue != null
 
                                 || pos.CounterType != (byte)PrivateFormCounterType.Night
                                 || pos.CurrentValue != null
-                                || pos.CurrentDayValue != null
-                                || pos.CurrentNightValue == null)
+                                || pos.CurrentDayValue != null)
                             {
                                 message = $"Строка {i}. Распознанный номер счетчика, лицевой счет и номер квартиры " +
                                     "уже были указаны в файле ранее. Дублирование номера счетчика, лицевого счета " +

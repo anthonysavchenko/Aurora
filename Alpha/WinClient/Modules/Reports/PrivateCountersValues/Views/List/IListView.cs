@@ -46,5 +46,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
         /// Дом
         /// </summary>
         string BuildingId { get; }
+
+        void GroupColumns(string fieldName);
     }
 }

@@ -137,36 +137,58 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
         {
             if (e.RowHandle >= 0 && e.Column != null && e.Column.FieldName.EndsWith("_RouteForm_PrevValue"))
             {
-                var routeFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
+                var groupValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
                     e.RowHandle,
-                    e.Column.FieldName)?.ToString();
+                    "CounterGroup")?.ToString();
 
-                var fillFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
-                    e.RowHandle,
-                    e.Column.FieldName.Substring(0, 7) + "_FillForm_PrevValue")?.ToString();
-
-                if (routeFormValue != fillFormValue)
+                if (groupValue != "1. ОДПУ")
                 {
-                    e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
-                    e.Appearance.BackColor2 = Color.FromArgb(250, 200, 200);
+                    var routeFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
+                        e.RowHandle,
+                        e.Column.FieldName)?.ToString();
+
+                    var fillFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
+                        e.RowHandle,
+                        e.Column.FieldName.Substring(0, 7) + "_FillForm_PrevValue")?.ToString();
+
+                    if (routeFormValue != fillFormValue)
+                    {
+                        e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
+                        e.Appearance.BackColor2 = Color.FromArgb(250, 200, 200);
+                    }
                 }
             }
             if (e.RowHandle >= 0 && e.Column != null && e.Column.FieldName.EndsWith("_FillForm_PrevValue"))
             {
-                var routeFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
+                var groupValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
+                    e.RowHandle,
+                    "CounterGroup")?.ToString();
+
+                if (groupValue != "1. ОДПУ")
+                {
+                    var routeFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
                     e.RowHandle,
                     e.Column.FieldName.Substring(0, 7) + "_RouteForm_PrevValue")?.ToString();
 
-                var fillFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
-                    e.RowHandle,
-                    e.Column.FieldName)?.ToString();
+                    var fillFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
+                        e.RowHandle,
+                        e.Column.FieldName)?.ToString();
 
-                if (routeFormValue != fillFormValue)
-                {
-                    e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
-                    e.Appearance.BackColor2 = Color.FromArgb(250, 200, 200);
+                    if (routeFormValue != fillFormValue)
+                    {
+                        e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
+                        e.Appearance.BackColor2 = Color.FromArgb(250, 200, 200);
+                    }
                 }
             }
+        }
+
+        public void GroupColumns(string fieldName)
+        {
+            var c = gridViewOfListView.Columns[fieldName];
+            c.GroupIndex = 0;
+
+            gridViewOfListView.ExpandAllGroups();
         }
     }
 }
