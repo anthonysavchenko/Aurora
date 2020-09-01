@@ -50,11 +50,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                         return false;
                     }
 
-                    if (pos.CounterType == (byte)FillFormCounterType.Norm)
-                    {
-                        continue;
-                    }
-
                     if (!string.IsNullOrEmpty(street)
                         && !string.IsNullOrEmpty(building)
                         && !street.Equals(rowStreet, StringComparison.OrdinalIgnoreCase)

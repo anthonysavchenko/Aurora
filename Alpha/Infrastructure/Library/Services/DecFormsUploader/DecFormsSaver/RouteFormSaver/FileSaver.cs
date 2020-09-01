@@ -170,7 +170,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Common,
-                                Value = (int?)decimal.Truncate(value.Pos.PrevValue.Value),
+                                Value =
+                                    value.Pos.PrevValue.HasValue
+                                        ? (int?)decimal.Truncate(value.Pos.PrevValue.Value)
+                                        : null,
                                 PrivateCounters = value.Counter,
                                 RouteFormPoses = value.Pos,
                             });
@@ -182,7 +185,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Day,
-                                Value = (int?)decimal.Truncate(value.Pos.PrevDayValue.Value),
+                                Value =
+                                    value.Pos.PrevDayValue.HasValue    
+                                        ? (int?)decimal.Truncate(value.Pos.PrevDayValue.Value)
+                                        : null,
                                 PrivateCounters = value.Counter,
                                 RouteFormPoses = value.Pos,
                             });
@@ -191,7 +197,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Night,
-                                Value = (int?)decimal.Truncate(value.Pos.PrevNightValue.Value),
+                                Value =
+                                    value.Pos.PrevNightValue.HasValue
+                                        ? (int?)decimal.Truncate(value.Pos.PrevNightValue.Value)
+                                        : null,
                                 PrivateCounters = value.Counter,
                                 RouteFormPoses = value.Pos,
                             });

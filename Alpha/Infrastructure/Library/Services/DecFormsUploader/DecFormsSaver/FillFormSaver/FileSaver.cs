@@ -172,7 +172,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Common,
-                                Value = value.Pos.PrevValue.Value,
+                                Value = value.Pos.PrevValue,
                                 PrivateCounters = value.Counter,
                                 FillFormPoses = value.Pos,
                             });
@@ -184,7 +184,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Day,
-                                Value = value.Pos.PrevDayValue.Value,
+                                Value = value.Pos.PrevDayValue,
                                 PrivateCounters = value.Counter,
                                 FillFormPoses = value.Pos,
                             });
@@ -196,7 +196,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Night,
-                                Value = value.Pos.PrevNightValue.Value,
+                                Value = value.Pos.PrevNightValue,
                                 PrivateCounters = value.Counter,
                                 FillFormPoses = value.Pos,
                             });

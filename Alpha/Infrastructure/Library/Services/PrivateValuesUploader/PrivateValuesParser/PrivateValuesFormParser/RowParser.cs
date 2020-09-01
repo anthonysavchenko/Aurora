@@ -47,14 +47,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                         return false;
                     }
 
-                    if (pos.CounterType == (byte)PrivateFormCounterType.Norm
-                        || (pos.CurrentValue == null 
-                            && pos.CurrentDayValue == null
-                            && pos.CurrentNightValue == null))
-                    {
-                        continue;
-                    }
-
                     if (!string.IsNullOrEmpty(street)
                         && !string.IsNullOrEmpty(building)
                         && !street.Equals(rowStreet, StringComparison.OrdinalIgnoreCase)

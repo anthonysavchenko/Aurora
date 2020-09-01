@@ -172,7 +172,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Common,
-                                Value = value.Pos.CurrentValue.Value,
+                                Value = value.Pos.CurrentValue,
                                 PrivateCounters = value.Counter,
                                 PrivateValuesFormPoses = value.Pos,
                             });
@@ -184,7 +184,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Day,
-                                Value = value.Pos.CurrentDayValue.Value,
+                                Value = value.Pos.CurrentDayValue,
                                 PrivateCounters = value.Counter,
                                 PrivateValuesFormPoses = value.Pos,
                             });
@@ -196,7 +196,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Night,
-                                Value = value.Pos.CurrentNightValue.Value,
+                                Value = value.Pos.CurrentNightValue,
                                 PrivateCounters = value.Counter,
                                 PrivateValuesFormPoses = value.Pos,
                             });
