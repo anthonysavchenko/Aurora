@@ -30,28 +30,29 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.BuildingValuesUploader.Bu
 
             string[] buildingItems = sourceNoCR.Split(new char[] { ',' });
 
-            bool wrong_items_number =
-                buildingItems.Length != ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT
-                && buildingItems.Length != ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1;
-
-            bool wrong_format_for_items_min_number =
+            bool format_no_building_part =
                 buildingItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT
-                    && (buildingItems[0].Trim() != "г. Владивосток"
-                        || string.IsNullOrWhiteSpace(buildingItems[1])
-                        || !buildingItems[2].Trim().StartsWith("д."));
+                    && buildingItems[0].Trim() == "г. Владивосток"
+                    && (buildingItems[1].Trim().StartsWith("пер")
+                        || buildingItems[1].Trim().StartsWith("пр-кт")
+                        || buildingItems[1].Trim().StartsWith("ул."))
+                    && buildingItems[2].Trim().StartsWith("д.");
 
-            bool wrong_format_for_items_max_number =
+            bool format_with_building_part =
                 buildingItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1
-                    && (buildingItems[0].Trim() != "г. Владивосток"
-                        || string.IsNullOrWhiteSpace(buildingItems[1])
-                        || !buildingItems[2].Trim().StartsWith("д.")
-                        || !buildingItems[3].Trim().StartsWith("корп."));
+                    && buildingItems[0].Trim() == "г. Владивосток"
+                    && (buildingItems[1].Trim().StartsWith("пер")
+                        || buildingItems[1].Trim().StartsWith("пр-кт")
+                        || buildingItems[1].Trim().StartsWith("ул."))
+                    && buildingItems[2].Trim().StartsWith("д.")
+                    && buildingItems[3].Trim().StartsWith("корп.");
 
-            if (wrong_items_number || wrong_format_for_items_min_number || wrong_format_for_items_max_number)
+            if (!format_no_building_part
+                && !format_with_building_part)
             {
                 message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
-                    "Предусмотрено распознавание адресов в формате: \"г. Владивосток, <Название улицы>, д. " +
-                    "<Номер дома>[, корп. <Номер корпуса>]\". В данном случае данные " +
+                    "Предусмотрено распознавание адресов в формате: \"г. Владивосток, пер.|пр-кт|ул. " +
+                    "<Название улицы>, д. <Номер дома>[, корп. <Номер корпуса>]\". В данном случае данные " +
                     "не соответствуют этому формату, поэтому не могут быть распознаны.";
                 return false;
             }

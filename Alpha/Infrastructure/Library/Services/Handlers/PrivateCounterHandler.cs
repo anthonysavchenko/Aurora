@@ -19,7 +19,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
                         .ToList();
 
                 existedCounters.ForEach(c => db.PrivateCounters.DeleteObject(c));
-
                 db.SaveChanges();
             }
         }

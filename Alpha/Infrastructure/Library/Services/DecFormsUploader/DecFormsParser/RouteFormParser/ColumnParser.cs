@@ -154,13 +154,13 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 
                 if (counterType == RouteFormCounterType.Common)
                 {
-                    if (!Regex.IsMatch(sourceNoCR, @"^\d{1,6}(,\d{1,2})?$")
+                    if (!Regex.IsMatch(sourceNoCR, @"^\d{1,8}(,\d{1,3})?$")
                         || !decimal.TryParse(sourceNoCR, out decimal commonValue))
                     {
                         message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
                             "Распознанный тип счетчика: однотарифный. Для однотарифного счетчика предусмотрено " +
                             "распознавание показаний в формате одного положительного десятичного числа, " +
-                            "которое содержит не более 6 цифр до запятой и не более 2 цифр после запятой. В " +
+                            "которое содержит не более 8 цифр до запятой и не более 3 цифр после запятой. В " +
                             "данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
                         return false;
                     }
@@ -174,16 +174,16 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                     string[] valueItems = sourceNoCR.Split(new char[] { ' ' });
 
                     if (valueItems.Length != 2
-                        || !Regex.IsMatch(valueItems[0], @"^\d{1,6}(,\d{1,2})?$")
+                        || !Regex.IsMatch(valueItems[0], @"^\d{1,8}(,\d{1,3})?$")
                         || !decimal.TryParse(valueItems[0], out decimal dayValue)
-                        || !Regex.IsMatch(valueItems[1], @"^\d{1,6}(,\d{1,2})?$")
+                        || !Regex.IsMatch(valueItems[1], @"^\d{1,8}(,\d{1,3})?$")
                         || !decimal.TryParse(valueItems[1], out decimal nightValue))
                     {
                         message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
                             "Распознанный тип счетчика: двухтарифный. Для двухтарифного счетчика предусмотрено " +
                             "распознавание показаний в формате двух положительных десятичных чисел, разделенных " +
-                            "переносом строки, каждое из которых содержит не более 6 цифр до запятой и не более " +
-                            "2 цифр после запятой. В данном случае данные не соответствуют этому формату, " +
+                            "переносом строки, каждое из которых содержит не более 8 цифр до запятой и не более " +
+                            "3 цифр после запятой. В данном случае данные не соответствуют этому формату, " +
                             "поэтому не могут быть распознаны.";
                         return false;
                     }

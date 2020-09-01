@@ -36,7 +36,6 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 }
 
                 _dbItem.CounterType = (byte)domObj.CounterType;
-                _dbItem.Model = domObj.Model;
                 _dbItem.Number = domObj.Number;
 
                 int _propId = int.Parse(domObj.Customer.ID);
@@ -67,7 +66,6 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                         .First(x => x.ID == _id);
 
                 _domItem.CounterType = (PrivateCounterType)_dbItem.CounterType;
-                _domItem.Model = _dbItem.Model;
                 _domItem.Number = _dbItem.Number;
                 _domItem.Customer = (DomCustomer)DataMapperService.get(typeof(DomCustomer)).find(_dbItem.Customers.ID.ToString());
             }

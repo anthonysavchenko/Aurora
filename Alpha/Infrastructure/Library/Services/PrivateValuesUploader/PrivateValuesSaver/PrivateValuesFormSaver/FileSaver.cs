@@ -15,8 +15,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                 var building =
                     db.Buildings
                         .FirstOrDefault(b =>
-                            b.Street.ToLower() == form.Street.ToLower()
-                            && b.Number.ToLower() == form.Building.ToLower());
+                            b.Street.Equals(form.Street, StringComparison.OrdinalIgnoreCase)
+                            && b.Number.Equals(form.Building, StringComparison.OrdinalIgnoreCase));
 
                 return building?.ID;
             }
@@ -44,17 +44,20 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                         .Select(p => new
                         {
                             Apartment = p.Apartment.ToLower(),
+                            Account = p.Account.ToLower(),
                         })
                         .GroupBy(p => new
                         {
                             p.Apartment,
+                            p.Account,
                         })
                         .Select(g => g.Key)
                         .Where(g =>
                             db.Customers
                                 .Count(c =>
                                     c.Buildings.ID == buildingID
-                                    && c.Apartment.Equals(g.Apartment, StringComparison.OrdinalIgnoreCase)) == 0)
+                                    && c.Apartment.Equals(g.Apartment, StringComparison.OrdinalIgnoreCase)
+                                    && c.Account.Equals(g.Account, StringComparison.OrdinalIgnoreCase)) == 0)
                         .ToList();
 
                 newCustomers.ForEach(
@@ -63,6 +66,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                         {
                             Buildings = building,
                             Apartment = c.Apartment,
+                            Account = c.Account,
                         }));
                 db.SaveChanges();
             }
@@ -80,7 +84,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             Customer = db.Customers
                                 .FirstOrDefault(c =>
                                     c.Buildings.ID == buildingID
-                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)),
+                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)
+                                    && c.Account.Equals(p.Account, StringComparison.OrdinalIgnoreCase)),
                             CounterType = (FillFormCounterType)p.CounterType == FillFormCounterType.Common
                                 ? PrivateCounterType.Common
                                 : (FillFormCounterType)p.CounterType == FillFormCounterType.Day
@@ -131,7 +136,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             Customer = db.Customers
                                 .FirstOrDefault(c =>
                                     c.Buildings.ID == buildingID
-                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)),
+                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)
+                                    && c.Account.Equals(p.Account, StringComparison.OrdinalIgnoreCase)),
                             CounterType = (PrivateFormCounterType)p.CounterType == PrivateFormCounterType.Common
                                 ? PrivateCounterType.Common
                                 : (PrivateFormCounterType)p.CounterType == PrivateFormCounterType.Day
@@ -166,7 +172,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Common,
-                                Value = (int?)decimal.Truncate(value.Pos.CurrentValue.Value),
+                                Value = value.Pos.CurrentValue.Value,
                                 PrivateCounters = value.Counter,
                                 PrivateValuesFormPoses = value.Pos,
                             });
@@ -178,7 +184,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Day,
-                                Value = (int?)decimal.Truncate(value.Pos.CurrentDayValue.Value),
+                                Value = value.Pos.CurrentDayValue.Value,
                                 PrivateCounters = value.Counter,
                                 PrivateValuesFormPoses = value.Pos,
                             });
@@ -190,7 +196,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
                             {
                                 Month = month,
                                 ValueType = (byte)PrivateCounterValueType.Night,
-                                Value = (int?)decimal.Truncate(value.Pos.CurrentNightValue.Value),
+                                Value = value.Pos.CurrentNightValue.Value,
                                 PrivateCounters = value.Counter,
                                 PrivateValuesFormPoses = value.Pos,
                             });

@@ -26,6 +26,22 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc
             }
         }
 
+        private string _account;
+
+        public string Account
+        {
+            get
+            {
+                Load();
+                return _account;
+            }
+            set
+            {
+                Load();
+                _account = value;
+            }
+        }
+
         private Building _building;
         /// <summary>
         /// Дом

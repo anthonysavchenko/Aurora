@@ -38,6 +38,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                 }
 
                 _dbItem.Apartment = domObj.Apartment;
+                _dbItem.Account = domObj.Account;
 
                 int _propId = int.Parse(domObj.Building.ID);
                 _dbItem.Buildings = _entities.Buildings.First(b => b.ID == _propId);
@@ -67,6 +68,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                         .First(x => x.ID == _id);
 
                 _domItem.Apartment = _customer.Apartment;
+                _domItem.Account = _customer.Account;
 
                 _domItem.Building = (DomBuilding)DataMapperService.get(typeof(DomBuilding)).find(_customer.Buildings.ID.ToString());
             }

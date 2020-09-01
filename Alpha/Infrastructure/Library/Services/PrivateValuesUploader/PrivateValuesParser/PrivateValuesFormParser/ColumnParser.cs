@@ -138,11 +138,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.PrivateValuesUploader.Pri
 
                 if (!string.IsNullOrWhiteSpace(sourceNoCR))
                 {
-                    if (!int.TryParse(sourceNoCR, out int value) || value < 0)
+                    if (!int.TryParse(sourceNoCR, out int value) || value < 0 || value > 99999999)
                     {
                         message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
-                            $"Предусмотрено распознавание показаний в формате целого числа от 0 до {int.MaxValue}. " +
-                            "В данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
+                            $"Предусмотрено распознавание показаний в формате одного положительного целого числа, " +
+                            $"которое содержит не более 8 цифр. В данном случае данные не соответствуют этому " +
+                            $"формату, поэтому не могут быть распознаны.";
                         return false;
                     }
 

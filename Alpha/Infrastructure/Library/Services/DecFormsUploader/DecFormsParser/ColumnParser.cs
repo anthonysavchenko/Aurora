@@ -6,10 +6,43 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
     static public class ColumnParser
     {
         const int ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT = 4;
+        const int ACCOUNT_DB_LENGTH = 25;
 
         const int APARTMENT_DB_LENGTH = 10;
         const int BUILDING_DB_LENGTH = 25;
         const int STREET_DB_LENGTH = 50;
+
+        static public bool ParseAccountColumn(
+            string source,
+            out string account,
+            out string message)
+        {
+            account = null;
+            message = null;
+
+            string sourceNoCR = source != null ? source.Replace("\n", " ").Trim() : source;
+
+            if (string.IsNullOrWhiteSpace(sourceNoCR))
+            {
+                message = $"Ячейка обязательно должна быть заполнена. В данном случае она пустая.";
+                return false;
+            }
+
+            account = 
+                sourceNoCR
+                    .Replace("(о)", string.Empty)
+                    .Trim();
+
+            if (account.Length > ACCOUNT_DB_LENGTH)
+            {
+                message = $"Распознано значение: \"{account}\". " +
+                    $"Предусмотрено сохранение лицевого счета длиной не более {ACCOUNT_DB_LENGTH} " +
+                    "символов. В данном случае это ограничение превышено, поэтому данные не могут быть сохранены.";
+                return false;
+            }
+
+            return true;
+        }
 
         static public bool ParseApartmentColumn(
             string source,
@@ -33,32 +66,94 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
 
             string[] apartmentItems = sourceNoCR.Split(new char[] { ',' });
 
-            bool wrong_items_number =
-                apartmentItems.Length != ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT
-                && apartmentItems.Length != ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1;
+            bool format_no_building_part_no_apartment =
+                apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT - 1
+                    && apartmentItems[0].Trim() == "г. Владивосток"
+                    && (apartmentItems[1].Trim().StartsWith("пер")
+                        || apartmentItems[1].Trim().StartsWith("пр-кт")
+                        || apartmentItems[1].Trim().StartsWith("ул."))
+                    && apartmentItems[2].Trim().StartsWith("д.")
+                    && !apartmentItems[2].Contains("/");
 
-            bool wrong_format_for_items_min_number =
+            bool format_no_building_part_with_apartment =
                 apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT
-                    && (apartmentItems[0].Trim() != "г. Владивосток"
-                        || string.IsNullOrWhiteSpace(apartmentItems[1])
-                        || !apartmentItems[2].Trim().StartsWith("д.")
-                        || !apartmentItems[3].Trim().StartsWith("кв."));
+                    && apartmentItems[0].Trim() == "г. Владивосток"
+                    && (apartmentItems[1].Trim().StartsWith("пер")
+                        || apartmentItems[1].Trim().StartsWith("пр-кт")
+                        || apartmentItems[1].Trim().StartsWith("ул."))
+                    && apartmentItems[2].Trim().StartsWith("д.")
+                    && !apartmentItems[2].Contains("/")
+                    && apartmentItems[3].Trim().StartsWith("кв.");
 
-            bool wrong_format_for_items_max_number =
+            bool format_with_building_part_no_apartment =
+                apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1 - 1
+                    && apartmentItems[0].Trim() == "г. Владивосток"
+                    && (apartmentItems[1].Trim().StartsWith("пер")
+                        || apartmentItems[1].Trim().StartsWith("пр-кт")
+                        || apartmentItems[1].Trim().StartsWith("ул."))
+                    && apartmentItems[2].Trim().StartsWith("д.")
+                    && !apartmentItems[2].Contains("/")
+                    && apartmentItems[3].Trim().StartsWith("корп.");
+
+            bool format_with_building_part_with_apartment =
                 apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1
-                    && (apartmentItems[0].Trim() != "г. Владивосток"
-                        || string.IsNullOrWhiteSpace(apartmentItems[1])
-                        || !apartmentItems[2].Trim().StartsWith("д.")
-                        || !apartmentItems[3].Trim().StartsWith("корп.")
-                        || !apartmentItems[4].Trim().StartsWith("кв."));
+                    && apartmentItems[0].Trim() != "г. Владивосток"
+                    && (apartmentItems[1].Trim().StartsWith("пер")
+                        || apartmentItems[1].Trim().StartsWith("пр-кт")
+                        || apartmentItems[1].Trim().StartsWith("ул."))
+                    && apartmentItems[2].Trim().StartsWith("д.")
+                    && !apartmentItems[2].Contains("/")
+                    && apartmentItems[3].Trim().StartsWith("корп.")
+                    && apartmentItems[4].Trim().StartsWith("кв.");
 
-            if (wrong_items_number || wrong_format_for_items_min_number || wrong_format_for_items_max_number)
+            bool format_no_building_part_slash_apartment =
+                apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT - 1
+                    && apartmentItems[0].Trim() == "г. Владивосток"
+                    && (apartmentItems[1].Trim().StartsWith("пер")
+                        || apartmentItems[1].Trim().StartsWith("пр-кт")
+                        || apartmentItems[1].Trim().StartsWith("ул."))
+                    && apartmentItems[2].Trim().StartsWith("д.")
+                    && apartmentItems[2].Contains("/");
+
+
+            if (!format_no_building_part_no_apartment
+                && !format_no_building_part_with_apartment
+                && !format_with_building_part_no_apartment
+                && !format_with_building_part_with_apartment
+                && !format_no_building_part_slash_apartment)
             {
                 message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
-                    "Предусмотрено распознавание адресов в формате: \"г. Владивосток, <Название улицы>, д. " +
-                    "<Номер дома>[, корп. <Номер корпуса>,] кв. <Номер квартиры> [(одпу)]\". В данном случае данные " +
-                    "не соответствуют этому формату, поэтому не могут быть распознаны.";
+                    "Предусмотрено распознавание адресов в формате: \"г. Владивосток, пер.|пр-кт|ул. " +
+                    "<Название улицы>, д. <Номер дома>[, корп. <Номер корпуса>][, кв. <Номер квартиры>][ (одпу)]\" " +
+                    "(в номере дома может быть указана дробь только если, через дробь указывается номер " +
+                    "квартиры). В данном случае данные не соответствуют этому формату, поэтому не могут быть " +
+                    "распознаны.";
                 return false;
+            }
+
+            if (format_no_building_part_slash_apartment)
+            {
+                string[] buildingItems =
+                    apartmentItems[2]
+                        .Replace("д.", string.Empty)
+                        .Replace("(одпу)", string.Empty)
+                        .Trim()
+                        .Split(new char[] { '/' });
+
+                if (buildingItems.Length != 2
+                    || string.IsNullOrEmpty(buildingItems[0])
+                    || string.IsNullOrEmpty(buildingItems[1]))
+                {
+                    message = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
+                        "При наличие дроби в номере дома предусмотрено распознавание адресов в формате: " +
+                        "\"г. Владивосток, пер.|пр-кт|ул. <Название улицы>, д. <Номер дома>/<Номер квартиры>" +
+                        "[ (одпу)]\". В данном случае данные не соответствуют этому формату, поэтому не могут быть " +
+                        "распознаны.";
+                    return false;
+                }
+
+                building = buildingItems[0].Trim();
+                apartment = "/" + buildingItems[1].Trim();
             }
 
             street = apartmentItems[1].Trim();
@@ -71,16 +166,22 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 return false;
             }
 
-            string buildingFirstPart =
-                apartmentItems[2]
-                    .Replace("д.", string.Empty)
-                    .Trim();
-            building = apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1
-                ? buildingFirstPart + ", корп. " +
-                    apartmentItems[3]
-                        .Replace("корп.", string.Empty)
-                        .Trim()
-                : buildingFirstPart;
+            if (!format_no_building_part_slash_apartment)
+            {
+                string buildingFirstPart =
+                    apartmentItems[2]
+                        .Replace("д.", string.Empty)
+                        .Replace("(одпу)", string.Empty)
+                        .Trim();
+                building =
+                    format_with_building_part_no_apartment || format_with_building_part_with_apartment
+                        ? buildingFirstPart + ", корп. " +
+                            apartmentItems[3]
+                                .Replace("корп.", string.Empty)
+                                .Replace("(одпу)", string.Empty)
+                                .Trim()
+                        : buildingFirstPart;
+            }
 
             if (building.Length > BUILDING_DB_LENGTH)
             {
@@ -90,13 +191,19 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 return false;
             }
 
-            string apartmentDirty = apartmentItems.Length == ADDRESS_WITHOUT_BUILDING_PART_ITEMS_COUNT + 1
-                ? apartmentItems[4]
-                : apartmentItems[3];
-            apartment = apartmentDirty
-                .Replace("кв.", string.Empty)
-                .Replace("(одпу)", string.Empty)
-                .Trim();
+            if (!format_no_building_part_slash_apartment)
+            {
+                string apartmentDirty =
+                    format_no_building_part_with_apartment
+                        ? apartmentItems[3]
+                        : format_with_building_part_with_apartment
+                            ? apartmentItems[4]
+                            : string.Empty;
+                apartment = apartmentDirty
+                    .Replace("кв.", string.Empty)
+                    .Replace("(одпу)", string.Empty)
+                    .Trim();
+            }
 
             if (apartment.Length > APARTMENT_DB_LENGTH)
             {

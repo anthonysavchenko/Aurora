@@ -21,7 +21,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
         const string PREV_DATE_COLUMN = "J";
         const string PREV_VALUE_COLUMN = "K";
 
-        const int ACCOUNT_DB_LENGTH = 25;
         const int COUNTER_CAPACITY_DB_LENGTH = 2;
 
         static public bool ParseRows(
@@ -56,7 +55,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                         continue;
                     }
 
-                    if (street != null && building != null && street != rowStreet && building != rowBuilding)
+                    if (!string.IsNullOrEmpty(street)
+                        && !string.IsNullOrEmpty(building)
+                        && !street.Equals(rowStreet, StringComparison.OrdinalIgnoreCase)
+                        && !building.Equals(rowBuilding, StringComparison.OrdinalIgnoreCase))
                     {
                         message = $"Строка {i}. Распознанное название улицы и номер дома не соответствует " +
                             $"распознанному названию улицы и номеру дома в первой квартире файла. Несколько разных " +
@@ -69,8 +71,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                         FillFormPoses existed =
                             poses
                                 .FirstOrDefault(p =>
-                                    p.Apartment == pos.Apartment
-                                    && p.CounterNumber == pos.CounterNumber);
+                                    p.Apartment.Equals(pos.Apartment, StringComparison.OrdinalIgnoreCase)
+                                    && p.Account.Equals(pos.Account, StringComparison.OrdinalIgnoreCase)
+                                    && p.CounterNumber.Equals(pos.CounterNumber, StringComparison.OrdinalIgnoreCase));
 
                         if (existed != null)
                         {
@@ -84,10 +87,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                                 || pos.PrevDayValue != null
                                 || pos.PrevNightValue == null)
                             {
-                                message = $"Строка {i}. Распознанный номер счетчика и номер квартиры уже были " +
-                                    "указаны в файле ранее. Дублирование номера счетчика и номера квартиры в разных " +
-                                    "строках одного файла предусмотрено только для указания данных двухтарифного " +
-                                    "счетчика: на первой строке - дневные данные, на второй строке - ночные.";
+                                message = $"Строка {i}. Распознанный номер счетчика, лицевой счет и номер квартиры " +
+                                    "уже были указаны в файле ранее. Дублирование номера счетчика, лицевого счета " +
+                                    "и номера квартиры в разных строках одного файла предусмотрено только для " +
+                                    "указания данных двухтарифного счетчика: на первой строке - дневные данные, " +
+                                    "на второй строке - ночные.";
                                 return false;
                             }
                         }
@@ -131,6 +135,15 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 out message))
             {
                 message = $"Ячейка \"{APARTMENT_COLUMN}{row}\". {message}";
+                return false;
+            }
+
+            if (!DecFormsParser.ColumnParser.ParseAccountColumn(
+                source.GetCellText($"{ACCOUNT_COLUMN}{row}"),
+                out string account,
+                out message))
+            {
+                message = $"Ячейка \"{ACCOUNT_COLUMN}{row}\". {message}";
                 return false;
             }
 
@@ -187,17 +200,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             }
 
             if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
-                source.GetCellText($"{ACCOUNT_COLUMN}{row}"),
-                ACCOUNT_DB_LENGTH,
-                "лицевого счета",
-                out string account,
-                out message))
-            {
-                message = $"Ячейка \"{ACCOUNT_COLUMN}{row}\". {message}";
-                return false;
-            }
-
-            if (!DecFormsParser.ColumnParser.ParseOptionalColumn(
                 source.GetCellText($"{COUNTER_CAPACITY_COLUMN}{row}"),
                 counterType == FillFormCounterType.Norm,
                 COUNTER_CAPACITY_DB_LENGTH,
@@ -212,6 +214,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
             pos =
                 new FillFormPoses()
                 {
+                    Account = account,
                     Apartment = apartment,
                     CounterModel = counterModel,
                     CounterType = (byte)counterType,
@@ -220,7 +223,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                     PrevValue = prevValue,
                     PrevDayValue = prevDayValue,
                     PrevNightValue = prevNightValue,
-                    Account = account,
                     CounterCapacity = counterCapacity,
                 };
 

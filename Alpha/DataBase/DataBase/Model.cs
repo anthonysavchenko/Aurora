@@ -2204,11 +2204,13 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="apartment">Initial value of the Apartment property.</param>
-        public static Customers CreateCustomers(global::System.Int32 id, global::System.String apartment)
+        /// <param name="account">Initial value of the Account property.</param>
+        public static Customers CreateCustomers(global::System.Int32 id, global::System.String apartment, global::System.String account)
         {
             Customers customers = new Customers();
             customers.ID = id;
             customers.Apartment = apartment;
+            customers.Account = account;
             return customers;
         }
 
@@ -2266,6 +2268,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Apartment;
         partial void OnApartmentChanging(global::System.String value);
         partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Account
+        {
+            get
+            {
+                return _Account;
+            }
+            set
+            {
+                OnAccountChanging(value);
+                ReportPropertyChanging("Account");
+                _Account = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Account");
+                OnAccountChanged();
+            }
+        }
+        private global::System.String _Account;
+        partial void OnAccountChanging(global::System.String value);
+        partial void OnAccountChanged();
 
         #endregion
 
@@ -3422,12 +3448,14 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="apartment">Initial value of the Apartment property.</param>
+        /// <param name="account">Initial value of the Account property.</param>
         /// <param name="counterType">Initial value of the CounterType property.</param>
-        public static FillFormPoses CreateFillFormPoses(global::System.Int32 id, global::System.String apartment, global::System.Byte counterType)
+        public static FillFormPoses CreateFillFormPoses(global::System.Int32 id, global::System.String apartment, global::System.String account, global::System.Byte counterType)
         {
             FillFormPoses fillFormPoses = new FillFormPoses();
             fillFormPoses.ID = id;
             fillFormPoses.Apartment = apartment;
+            fillFormPoses.Account = account;
             fillFormPoses.CounterType = counterType;
             return fillFormPoses;
         }
@@ -3486,6 +3514,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Apartment;
         partial void OnApartmentChanging(global::System.String value);
         partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Account
+        {
+            get
+            {
+                return _Account;
+            }
+            set
+            {
+                OnAccountChanging(value);
+                ReportPropertyChanging("Account");
+                _Account = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Account");
+                OnAccountChanged();
+            }
+        }
+        private global::System.String _Account;
+        partial void OnAccountChanging(global::System.String value);
+        partial void OnAccountChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3654,30 +3706,6 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Int32> _PrevNightValue;
         partial void OnPrevNightValueChanging(Nullable<global::System.Int32> value);
         partial void OnPrevNightValueChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Account
-        {
-            get
-            {
-                return _Account;
-            }
-            set
-            {
-                OnAccountChanging(value);
-                ReportPropertyChanging("Account");
-                _Account = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Account");
-                OnAccountChanged();
-            }
-        }
-        private global::System.String _Account;
-        partial void OnAccountChanging(global::System.String value);
-        partial void OnAccountChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4260,30 +4288,6 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Model
-        {
-            get
-            {
-                return _Model;
-            }
-            set
-            {
-                OnModelChanging(value);
-                ReportPropertyChanging("Model");
-                _Model = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Model");
-                OnModelChanged();
-            }
-        }
-        private global::System.String _Model;
-        partial void OnModelChanging(global::System.String value);
-        partial void OnModelChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.String Number
         {
             get
@@ -4642,12 +4646,14 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="apartment">Initial value of the Apartment property.</param>
+        /// <param name="account">Initial value of the Account property.</param>
         /// <param name="counterType">Initial value of the CounterType property.</param>
-        public static PrivateValuesFormPoses CreatePrivateValuesFormPoses(global::System.Int32 id, global::System.String apartment, global::System.Byte counterType)
+        public static PrivateValuesFormPoses CreatePrivateValuesFormPoses(global::System.Int32 id, global::System.String apartment, global::System.String account, global::System.Byte counterType)
         {
             PrivateValuesFormPoses privateValuesFormPoses = new PrivateValuesFormPoses();
             privateValuesFormPoses.ID = id;
             privateValuesFormPoses.Apartment = apartment;
+            privateValuesFormPoses.Account = account;
             privateValuesFormPoses.CounterType = counterType;
             return privateValuesFormPoses;
         }
@@ -4706,6 +4712,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Apartment;
         partial void OnApartmentChanging(global::System.String value);
         partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Account
+        {
+            get
+            {
+                return _Account;
+            }
+            set
+            {
+                OnAccountChanging(value);
+                ReportPropertyChanging("Account");
+                _Account = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Account");
+                OnAccountChanged();
+            }
+        }
+        private global::System.String _Account;
+        partial void OnAccountChanging(global::System.String value);
+        partial void OnAccountChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5446,12 +5476,14 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="apartment">Initial value of the Apartment property.</param>
+        /// <param name="account">Initial value of the Account property.</param>
         /// <param name="counterType">Initial value of the CounterType property.</param>
-        public static RouteFormPoses CreateRouteFormPoses(global::System.Int32 id, global::System.String apartment, global::System.Byte counterType)
+        public static RouteFormPoses CreateRouteFormPoses(global::System.Int32 id, global::System.String apartment, global::System.String account, global::System.Byte counterType)
         {
             RouteFormPoses routeFormPoses = new RouteFormPoses();
             routeFormPoses.ID = id;
             routeFormPoses.Apartment = apartment;
+            routeFormPoses.Account = account;
             routeFormPoses.CounterType = counterType;
             return routeFormPoses;
         }
@@ -5510,6 +5542,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _Apartment;
         partial void OnApartmentChanging(global::System.String value);
         partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Account
+        {
+            get
+            {
+                return _Account;
+            }
+            set
+            {
+                OnAccountChanging(value);
+                ReportPropertyChanging("Account");
+                _Account = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Account");
+                OnAccountChanged();
+            }
+        }
+        private global::System.String _Account;
+        partial void OnAccountChanging(global::System.String value);
+        partial void OnAccountChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5654,30 +5710,6 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Decimal> _PrevNightValue;
         partial void OnPrevNightValueChanging(Nullable<global::System.Decimal> value);
         partial void OnPrevNightValueChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Account
-        {
-            get
-            {
-                return _Account;
-            }
-            set
-            {
-                OnAccountChanging(value);
-                ReportPropertyChanging("Account");
-                _Account = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Account");
-                OnAccountChanged();
-            }
-        }
-        private global::System.String _Account;
-        partial void OnAccountChanging(global::System.String value);
-        partial void OnAccountChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

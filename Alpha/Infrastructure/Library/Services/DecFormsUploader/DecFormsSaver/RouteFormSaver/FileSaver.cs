@@ -15,8 +15,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                 var building = 
                     db.Buildings
                         .FirstOrDefault(b =>
-                            b.Street.ToLower() == form.Street.ToLower()
-                            && b.Number.ToLower() == form.Building.ToLower());
+                            b.Street.Equals(form.Street, StringComparison.OrdinalIgnoreCase)
+                            && b.Number.Equals(form.Building, StringComparison.OrdinalIgnoreCase));
 
                 return building?.ID;
             }
@@ -44,17 +44,20 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                         .Select(p => new
                         {
                             Apartment = p.Apartment.ToLower(),
+                            Account = p.Account.ToLower(),
                         })
                         .GroupBy(p => new
                         {
                             p.Apartment,
+                            p.Account,
                         })
                         .Select(g => g.Key)
                         .Where(g =>
                             db.Customers
                                 .Count(c =>
                                     c.Buildings.ID == buildingID
-                                    && c.Apartment.Equals(g.Apartment, StringComparison.OrdinalIgnoreCase)) == 0)
+                                    && c.Apartment.Equals(g.Apartment, StringComparison.OrdinalIgnoreCase)
+                                    && c.Account.Equals(g.Account, StringComparison.OrdinalIgnoreCase)) == 0)
                         .ToList();
 
                 newCustomers.ForEach(
@@ -63,6 +66,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                         {
                             Buildings = building,
                             Apartment = c.Apartment,
+                            Account = c.Account,
                         }));
                 db.SaveChanges();
             }
@@ -80,7 +84,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             Customer = db.Customers
                                 .FirstOrDefault(c =>
                                     c.Buildings.ID == buildingID
-                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)),
+                                    && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)
+                                    && c.Account.Equals(p.Account, StringComparison.OrdinalIgnoreCase)),
                             CounterType = (RouteFormCounterType)p.CounterType == RouteFormCounterType.Common
                                 ? PrivateCounterType.Common
                                 : (RouteFormCounterType)p.CounterType == RouteFormCounterType.DayAndNight
@@ -130,6 +135,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.DecFormsUploader.DecForms
                             Customer = db.Customers
                                 .FirstOrDefault(c =>
                                     c.Buildings.ID == buildingID
+                                    && c.Account.Equals(p.Account, StringComparison.OrdinalIgnoreCase)
                                     && c.Apartment.Equals(p.Apartment, StringComparison.OrdinalIgnoreCase)),
                             CounterType = (RouteFormCounterType)p.CounterType == RouteFormCounterType.Common
                                 ? PrivateCounterType.Common

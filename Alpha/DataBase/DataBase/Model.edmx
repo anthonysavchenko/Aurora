@@ -84,6 +84,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Building" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DecFormsDownloads">
@@ -143,6 +144,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FillForm" Type="int" Nullable="false" />
           <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="CounterType" Type="tinyint" Nullable="false" />
           <Property Name="CounterModel" Type="nvarchar" MaxLength="50" />
           <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
@@ -150,7 +152,6 @@
           <Property Name="PrevValue" Type="int" />
           <Property Name="PrevDayValue" Type="int" />
           <Property Name="PrevNightValue" Type="int" />
-          <Property Name="Account" Type="nvarchar" MaxLength="25" />
           <Property Name="CounterCapacity" Type="nvarchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="FillForms">
@@ -180,7 +181,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CounterType" Type="tinyint" Nullable="false" />
           <Property Name="Customer" Type="int" Nullable="false" />
-          <Property Name="Model" Type="nvarchar" MaxLength="50" />
           <Property Name="Number" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="PrivateCounterValues">
@@ -201,6 +201,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PrivateValuesForm" Type="int" Nullable="false" />
           <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="CounterType" Type="tinyint" Nullable="false" />
           <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
           <Property Name="CurrentDate" Type="datetime2" Precision="0" />
@@ -240,13 +241,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RouteForm" Type="int" Nullable="false" />
           <Property Name="Apartment" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="CounterType" Type="tinyint" Nullable="false" />
           <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
           <Property Name="PrevDate" Type="datetime2" Precision="0" />
-          <Property Name="PrevValue" Type="decimal" Precision="8" Scale="2" />
-          <Property Name="PrevDayValue" Type="decimal" Precision="8" Scale="2" />
-          <Property Name="PrevNightValue" Type="decimal" Precision="8" Scale="2" />
-          <Property Name="Account" Type="nvarchar" MaxLength="25" />
+          <Property Name="PrevValue" Type="decimal" Precision="8" Scale="3" />
+          <Property Name="PrevDayValue" Type="decimal" Precision="8" Scale="3" />
+          <Property Name="PrevNightValue" Type="decimal" Precision="8" Scale="3" />
           <Property Name="Owner" Type="nvarchar" MaxLength="50" />
           <Property Name="CounterCapacity" Type="nvarchar" MaxLength="2" />
           <Property Name="Debt" Type="nvarchar" MaxLength="25" />
@@ -917,6 +918,7 @@
           <Property Name="Apartment" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_Customers_Buildings" FromRole="Customers" ToRole="Buildings" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="Customers" ToRole="PrivateCounters" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PrivateCounters">
           <Key>
@@ -924,7 +926,6 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="CounterType" Type="Byte" Nullable="false" />
-          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Number" Type="String" MaxLength="25" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="PrivateCounters" ToRole="Customers" />
           <NavigationProperty Name="RouteFormValues" Relationship="AlphaDataBaseModel.FK_RouteFormValues_PrivateCounters" FromRole="PrivateCounters" ToRole="RouteFormValues" />
@@ -999,6 +1000,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Apartment" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Account" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CounterType" Type="Byte" Nullable="false" />
           <Property Name="CounterModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
@@ -1006,7 +1008,6 @@
           <Property Name="PrevValue" Type="Int32" />
           <Property Name="PrevDayValue" Type="Int32" />
           <Property Name="PrevNightValue" Type="Int32" />
-          <Property Name="Account" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="CounterCapacity" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FillForms" Relationship="AlphaDataBaseModel.FK_FillFormPoses_FillForms" FromRole="FillFormPoses" ToRole="FillForms" />
           <NavigationProperty Name="FillFormValues" Relationship="AlphaDataBaseModel.FK_FillFormValues_FillFormPoses" FromRole="FillFormPoses" ToRole="FillFormValues" />
@@ -1040,13 +1041,13 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Apartment" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Account" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CounterType" Type="Byte" Nullable="false" />
           <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="PrevDate" Type="DateTime" Precision="0" />
-          <Property Name="PrevValue" Type="Decimal" Precision="8" Scale="2" />
-          <Property Name="PrevDayValue" Type="Decimal" Precision="8" Scale="2" />
-          <Property Name="PrevNightValue" Type="Decimal" Precision="8" Scale="2" />
-          <Property Name="Account" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PrevValue" Type="Decimal" Precision="8" Scale="3" />
+          <Property Name="PrevDayValue" Type="Decimal" Precision="8" Scale="3" />
+          <Property Name="PrevNightValue" Type="Decimal" Precision="8" Scale="3" />
           <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CounterCapacity" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="Debt" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
@@ -1186,6 +1187,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Apartment" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="CounterType" Type="Byte" Nullable="false" />
           <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="CurrentDate" Type="DateTime" Precision="0" />
@@ -1338,6 +1340,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Customers)">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Apartment" ColumnName="Apartment" />
                 </MappingFragment>
@@ -1347,7 +1350,6 @@
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.PrivateCounters)">
               <MappingFragment StoreEntitySet="PrivateCounters">
                 <ScalarProperty Name="CounterType" ColumnName="CounterType" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
               </MappingFragment>
@@ -1658,6 +1660,7 @@
           <EntitySetMapping Name="PrivateValuesFormPoses">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.PrivateValuesFormPoses">
               <MappingFragment StoreEntitySet="PrivateValuesFormPoses">
+                <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="CurrentNightValue" ColumnName="CurrentNightValue" />
                 <ScalarProperty Name="CurrentDayValue" ColumnName="CurrentDayValue" />
                 <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
@@ -1851,7 +1854,7 @@
       <edmx:Diagram Name="Model">
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Buildings" Width="2" PointX="16.375" PointY="3.625" Height="2.1725878906250031" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Customers" Width="2" PointX="16.375" PointY="6.625" Height="6.210917968749996" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="16.375" PointY="9.125" Height="1.9802864583333388" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="16.375" PointY="9.25" Height="1.9802864583333388" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Users" Width="2" PointX="0.625" PointY="0.625" Height="2.3648893229166674" IsExpanded="true" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Customers_Buildings" ManuallyRouted="false">
           <edmx:ConnectorPoint PointX="2.25" PointY="21.230646972656253" />
@@ -1899,7 +1902,7 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_FillFormPoses" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_FillFormValues_PrivateCounters" ManuallyRouted="false" >
         </edmx:AssociationConnector>
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounterValues" Width="2" PointX="11.125" PointY="10.875" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounterValues" Width="2" PointX="11.125" PointY="11.125" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesFormPoses" Width="2" PointX="11.125" PointY="7.25" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesForms" Width="2" PointX="11.125" PointY="4" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateValuesUploads" Width="2" PointX="11.125" PointY="0.625" />
