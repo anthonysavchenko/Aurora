@@ -385,14 +385,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                         row[ColumnNames.COUNTER_TYPE_COLUMN] = "Однотарифный";
                         row[ColumnNames.COUNTER_CAPACITY_COLUMN] = item.CounterCapacity;
 
-                        foreach (var band in bands)
+                        for (int i = 0; i < bands.Count(); i++)
                         {
+                            var band = bands.ElementAt(i);
+                            var nextBand = i + 1 < bands.Count() ? bands.ElementAt(i + 1) : null;
+
                             var RFDateColumn = band.RouteFormPrevDate.FieldName;
                             var RFValueColumn = band.RouteFormPrevValue.FieldName;
                             var FFDateColumn = band.FillFormPrevDate.FieldName;
                             var FFValueColumn = band.FillFormPrevValue.FieldName;
                             var PVFDateColumn = band.PrivateValuesFormCurrentDate.FieldName;
                             var PVFValueColumn = band.PrivateValuesFormCurrentValue.FieldName;
+                            var RFVolumeColumn = band.RouteFormVolume.FieldName;
 
                             row[RFDateColumn] =
                                 item.RFValues.ContainsKey(PrivateCounterValueType.Common)
@@ -402,12 +406,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                         : null
                                     : null;
 
-                            row[RFValueColumn] =
+                            var rfValue =
                                 item.RFValues.ContainsKey(PrivateCounterValueType.Common)
                                     ? item.RFValues[PrivateCounterValueType.Common].ContainsKey(RFValueColumn)
                                         ? item.RFValues[PrivateCounterValueType.Common][RFValueColumn]?.Value
                                         : null
                                     : null;
+                            row[RFValueColumn] = rfValue;
 
                             row[FFDateColumn] =
                                 item.FFValues.ContainsKey(PrivateCounterValueType.Common)
@@ -438,6 +443,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                         ? item.PCValues[PrivateCounterValueType.Common][PVFValueColumn]?.Value
                                         : null
                                     : null;
+
+                            if (nextBand != null && rfValue != null)
+                            {
+                                var RFVolumeColumnNextBand = nextBand.RouteFormPrevValue.FieldName;
+
+                                var rfValueNextBand =
+                                    item.RFValues.ContainsKey(PrivateCounterValueType.Common)
+                                        ? item.RFValues[PrivateCounterValueType.Common].ContainsKey(RFVolumeColumnNextBand)
+                                            ? item.RFValues[PrivateCounterValueType.Common][RFVolumeColumnNextBand]?.Value
+                                            : null
+                                        : null;
+
+                                if (rfValueNextBand != null)
+                                {
+                                    row[RFVolumeColumn] = rfValueNextBand - rfValue;
+                                }
+                            }
                         }
 
                         table.Rows.Add(row);
@@ -458,14 +480,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                         rowDay[ColumnNames.COUNTER_TYPE_COLUMN] = "Двухтарифный (день)";
                         rowDay[ColumnNames.COUNTER_CAPACITY_COLUMN] = item.CounterCapacity;
 
-                        foreach (var band in bands)
+                        for (int i = 0; i < bands.Count(); i++)
                         {
+                            var band = bands.ElementAt(i);
+                            var nextBand = i + 1 < bands.Count() ? bands.ElementAt(i + 1) : null;
+
                             var RFDateColumn = band.RouteFormPrevDate.FieldName;
                             var RFValueColumn = band.RouteFormPrevValue.FieldName;
                             var FFDateColumn = band.FillFormPrevDate.FieldName;
                             var FFValueColumn = band.FillFormPrevValue.FieldName;
                             var PVFDateColumn = band.PrivateValuesFormCurrentDate.FieldName;
                             var PVFValueColumn = band.PrivateValuesFormCurrentValue.FieldName;
+                            var RFVolumeColumn = band.RouteFormVolume.FieldName;
 
                             rowDay[RFDateColumn] =
                                 item.RFValues.ContainsKey(PrivateCounterValueType.Day)
@@ -475,12 +501,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                         : null
                                     : null;
 
-                            rowDay[RFValueColumn] =
+                            var rfValue =
                                 item.RFValues.ContainsKey(PrivateCounterValueType.Day)
                                     ? item.RFValues[PrivateCounterValueType.Day].ContainsKey(RFValueColumn)
                                         ? item.RFValues[PrivateCounterValueType.Day][RFValueColumn]?.Value
                                         : null
                                     : null;
+                            rowDay[RFValueColumn] = rfValue;
 
                             rowDay[FFDateColumn] =
                                 item.FFValues.ContainsKey(PrivateCounterValueType.Day)
@@ -511,6 +538,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                         ? item.PCValues[PrivateCounterValueType.Day][PVFValueColumn]?.Value
                                         : null
                                     : null;
+
+                            if (nextBand != null && rfValue != null)
+                            {
+                                var RFVolumeColumnNextBand = nextBand.RouteFormPrevValue.FieldName;
+
+                                var rfValueNextBand =
+                                    item.RFValues.ContainsKey(PrivateCounterValueType.Day)
+                                        ? item.RFValues[PrivateCounterValueType.Day].ContainsKey(RFVolumeColumnNextBand)
+                                            ? item.RFValues[PrivateCounterValueType.Day][RFVolumeColumnNextBand]?.Value
+                                            : null
+                                        : null;
+
+                                if (rfValueNextBand != null)
+                                {
+                                    rowDay[RFVolumeColumn] = rfValueNextBand - rfValue;
+                                }
+                            }
                         }
 
                         table.Rows.Add(rowDay);
@@ -529,14 +573,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                         rowNight[ColumnNames.COUNTER_TYPE_COLUMN] = "Двухтарифный (ночь)";
                         rowNight[ColumnNames.COUNTER_CAPACITY_COLUMN] = item.CounterCapacity;
 
-                        foreach (var band in bands)
+                        for (int i = 0; i < bands.Count(); i++)
                         {
+                            var band = bands.ElementAt(i);
+                            var nextBand = i + 1 < bands.Count() ? bands.ElementAt(i + 1) : null;
+
                             var RFDateColumn = band.RouteFormPrevDate.FieldName;
                             var RFValueColumn = band.RouteFormPrevValue.FieldName;
                             var FFDateColumn = band.FillFormPrevDate.FieldName;
                             var FFValueColumn = band.FillFormPrevValue.FieldName;
                             var PVFValueColumn = band.PrivateValuesFormCurrentValue.FieldName;
                             var PVFDateColumn = band.PrivateValuesFormCurrentDate.FieldName;
+                            var RFVolumeColumn = band.RouteFormVolume.FieldName;
 
                             rowNight[RFDateColumn] =
                                 item.RFValues.ContainsKey(PrivateCounterValueType.Night)
@@ -546,12 +594,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                         : null
                                     : null;
 
-                            rowNight[RFValueColumn] =
+                            var rfValue =
                                 item.RFValues.ContainsKey(PrivateCounterValueType.Night)
                                     ? item.RFValues[PrivateCounterValueType.Night].ContainsKey(RFValueColumn)
                                         ? item.RFValues[PrivateCounterValueType.Night][RFValueColumn]?.Value
                                         : null
                                     : null;
+                            rowNight[RFValueColumn] = rfValue;
 
                             rowNight[FFDateColumn] =
                                 item.FFValues.ContainsKey(PrivateCounterValueType.Night)
@@ -582,6 +631,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                         ? item.PCValues[PrivateCounterValueType.Night][PVFValueColumn]?.Value
                                         : null
                                     : null;
+
+                            if (nextBand != null && rfValue != null)
+                            {
+                                var RFVolumeColumnNextBand = nextBand.RouteFormPrevValue.FieldName;
+
+                                var rfValueNextBand =
+                                    item.RFValues.ContainsKey(PrivateCounterValueType.Night)
+                                        ? item.RFValues[PrivateCounterValueType.Night].ContainsKey(RFVolumeColumnNextBand)
+                                            ? item.RFValues[PrivateCounterValueType.Night][RFVolumeColumnNextBand]?.Value
+                                            : null
+                                        : null;
+
+                                if (rfValueNextBand != null)
+                                {
+                                    rowNight[RFVolumeColumn] = rfValueNextBand - rfValue;
+                                }
+                            }
                         }
 
                         table.Rows.Add(rowNight);
@@ -602,14 +668,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                         row[ColumnNames.COUNTER_TYPE_COLUMN] = "Норматив";
                         row[ColumnNames.COUNTER_CAPACITY_COLUMN] = item.CounterCapacity;
 
-                        foreach (var band in bands)
+                        for (int i = 0; i < bands.Count(); i++)
                         {
+                            var band = bands.ElementAt(i);
+                            var nextBand = i + 1 < bands.Count() ? bands.ElementAt(i + 1) : null;
+
                             var RFDateColumn = band.RouteFormPrevDate.FieldName;
                             var RFValueColumn = band.RouteFormPrevValue.FieldName;
                             var FFDateColumn = band.FillFormPrevDate.FieldName;
                             var FFValueColumn = band.FillFormPrevValue.FieldName;
                             var PVFValueColumn = band.PrivateValuesFormCurrentValue.FieldName;
                             var PVFDateColumn = band.PrivateValuesFormCurrentDate.FieldName;
+                            var RFVolumeColumn = band.RouteFormVolume.FieldName;
 
                             row[RFDateColumn] = null;
 
@@ -622,6 +692,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                             row[PVFDateColumn] = null;
 
                             row[PVFValueColumn] = null;
+
+                            row[RFVolumeColumn] = null;
                         }
 
                         table.Rows.Add(row);
@@ -645,6 +717,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
             public Column PrivateValuesFormCurrentValue { get; set; }
 
             public Column PrivateValuesFormCurrentDate { get; set; }
+
+            public Column RouteFormVolume { get; set; }
 
             public DateTime Month { get; set; }
         }
@@ -701,6 +775,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                                 FieldName = $"{month:MM.yyyy}_PrivateValuesForm_CurrentValue",
                                 Title = $"{month:MM.yyyy}. Показания",
                             },
+                            RouteFormVolume = new Column()
+                            {
+                                FieldName = $"{month:MM.yyyy}_RouteForm_Volume",
+                                Title = $"{month:MM.yyyy}. Объем",
+                            },
                             Month = month,
                         });
         }
@@ -729,6 +808,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                 table.Columns.Add(band.FillFormPrevValue.FieldName, typeof(string));
                 table.Columns.Add(band.PrivateValuesFormCurrentDate.FieldName, typeof(string));
                 table.Columns.Add(band.PrivateValuesFormCurrentValue.FieldName, typeof(string));
+                table.Columns.Add(band.RouteFormVolume.FieldName, typeof(string));
             }    
         }
 
@@ -756,6 +836,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                 View.AddNumericColumn(band.FillFormPrevValue.FieldName, band.FillFormPrevValue.Title);
                 View.AddDateColumn(band.PrivateValuesFormCurrentDate.FieldName, band.PrivateValuesFormCurrentDate.Title);
                 View.AddNumericColumn(band.PrivateValuesFormCurrentValue.FieldName, band.PrivateValuesFormCurrentValue.Title);
+                View.AddNumericColumn(band.RouteFormVolume.FieldName, band.RouteFormVolume.Title);
             }
         }
 
