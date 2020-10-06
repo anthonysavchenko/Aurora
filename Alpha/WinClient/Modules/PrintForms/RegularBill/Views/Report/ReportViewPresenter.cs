@@ -279,6 +279,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         {
             street = street.ToLower();
 
+            if (street == "остров русский, ул. зеленая"
+                || street == "остров русский, п. поспелово"
+                || street == "остров русский, п. подножье")
+            {
+                return "Управляющий по дому - Елена Сергеевна, тел. +7-924-428-48-84";
+            }
+
             if (street == "уткинская" || street == "прапорщика комарова")
             {
                 return "Управляющий по дому - Адрианова Варвара Георгиевна, тел 273-14-10";
