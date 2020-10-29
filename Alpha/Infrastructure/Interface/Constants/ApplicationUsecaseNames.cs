@@ -56,6 +56,11 @@
         public const string PRIVATE_COUNTERS_VOLUMES = "usecase://Reports/RrivateCountersVolumes";
 
         /// <summary>
+        /// Сводные данные.
+        /// </summary>
+        public const string CONSOLIDATION = "usecase://Reports/Consolidation";
+
+        /// <summary>
         /// Загрузки показаний ИПУ.
         /// </summary>
         public const string PRIVATE_VALUES_UPLOADS = "usecase://Uploads/PrivateValuesUploads";
