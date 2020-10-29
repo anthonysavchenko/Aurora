@@ -30,6 +30,7 @@
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersVolumes.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.dll" />
 
+      <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.dll" />
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.PrivateValuesUploads.dll" />      
       <ModuleInfo AssemblyFile="Taumis.Alpha.WinClient.Aurora.Modules.Uploads.FillForms.dll" />

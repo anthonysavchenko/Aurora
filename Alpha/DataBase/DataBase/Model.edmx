@@ -15,6 +15,32 @@
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="BuildingCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationRow" Type="int" Nullable="false" />
+          <Property Name="Building" Type="int" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="CalculationMethod" Type="tinyint" Nullable="false" />
+          <Property Name="Debt" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="Volume" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="Norm" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="CollectiveVolume" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="CollectiveSquare" Type="decimal" Precision="11" Scale="3" />
+        </EntityType>
+        <EntityType Name="BuildingCounterCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationRow" Type="int" Nullable="false" />
+          <Property Name="BuildingCounter" Type="int" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="PrevValue" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="CurrentValue" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+        </EntityType>
         <EntityType Name="BuildingCounters">
           <Key>
             <PropertyRef Name="ID" />
@@ -77,6 +103,117 @@
           <Property Name="Note" Type="nvarchar" MaxLength="250" />
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CalculationBuildingCounters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="Coefficient" Type="tinyint" Nullable="false" />
+          <Property Name="CurrentValue" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="PrevValue" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalculationBuildingInfos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowType" Type="tinyint" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="Building" Type="nvarchar" MaxLength="25" />
+          <Property Name="CalculationMethod" Type="tinyint" />
+          <Property Name="Debt" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="Volume" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="Norm" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="CollectiveVolume" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="NotDistributedVolume" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="CollectiveSquare" Type="decimal" Precision="11" Scale="3" />
+        </EntityType>
+        <EntityType Name="CalculationCustomers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Apartment" Type="nvarchar" MaxLength="10" />
+          <Property Name="Owner" Type="nvarchar" MaxLength="50" />
+          <Property Name="CounterType" Type="tinyint" Nullable="false" />
+          <Property Name="Volume" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="Recalculation" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="Square" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="Residents" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalculationFiles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationUpload" Type="int" Nullable="false" />
+          <Property Name="ProcessingResult" Type="tinyint" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CalculationForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationFile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalculationLegalEntities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Contract" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="EntityName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ChargedVolume" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="Square" Type="decimal" Precision="11" Scale="3" />
+        </EntityType>
+        <EntityType Name="CalculationRows">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationForm" Type="int" Nullable="false" />
+          <Property Name="ProcessingResult" Type="tinyint" Nullable="false" />
+          <Property Name="RowType" Type="tinyint" Nullable="false" />
+          <Property Name="BuildingAddressRow" Type="int" />
+          <Property Name="BuildingInfo" Type="int" />
+          <Property Name="BuildingCounter" Type="int" />
+          <Property Name="Customer" Type="int" />
+          <Property Name="LegalEntity" Type="int" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CalculationUploads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessingResult" Type="tinyint" Nullable="false" />
+          <Property Name="Created" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Author" Type="int" Nullable="false" />
+          <Property Name="DirectoryPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CustomerCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationRow" Type="int" Nullable="false" />
+          <Property Name="Customer" Type="int" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="ValueType" Type="tinyint" Nullable="false" />
+          <Property Name="Volume" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="Recalculation" Type="decimal" Precision="11" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -173,6 +310,24 @@
           <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="ValueType" Type="tinyint" Nullable="false" />
           <Property Name="Value" Type="int" />
+        </EntityType>
+        <EntityType Name="LegalEntities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Building" Type="int" Nullable="false" />
+          <Property Name="Contract" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LegalEntityCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationRow" Type="int" Nullable="false" />
+          <Property Name="LegalEntity" Type="int" Nullable="false" />
+          <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="ChargedVolume" Type="decimal" Precision="11" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="PrivateCounters">
           <Key>
@@ -304,6 +459,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BuildingCalculationValues_Buildings">
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
+          <End Role="BuildingCalculationValues" Type="Self.BuildingCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BuildingCalculationValues">
+              <PropertyRef Name="Building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildingCalculationValues_CalculationRows">
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="1" />
+          <End Role="BuildingCalculationValues" Type="Self.BuildingCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationRows">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BuildingCalculationValues">
+              <PropertyRef Name="CalculationRow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildingCounterCalculationValues_BuildingCounters">
+          <End Role="BuildingCounters" Type="Self.BuildingCounters" Multiplicity="1" />
+          <End Role="BuildingCounterCalculationValues" Type="Self.BuildingCounterCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuildingCounters">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BuildingCounterCalculationValues">
+              <PropertyRef Name="BuildingCounter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildingCounterCalculationValues_CalculationRows">
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="1" />
+          <End Role="BuildingCounterCalculationValues" Type="Self.BuildingCounterCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationRows">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BuildingCounterCalculationValues">
+              <PropertyRef Name="CalculationRow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BuildingCounters_Buildings">
           <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
           <End Role="BuildingCounters" Type="Self.BuildingCounters" Multiplicity="*" />
@@ -361,6 +564,138 @@
             </Principal>
             <Dependent Role="BuildingValuesUploads">
               <PropertyRef Name="Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationFiles_CalculationUploads">
+          <End Role="CalculationUploads" Type="Self.CalculationUploads" Multiplicity="1" />
+          <End Role="CalculationFiles" Type="Self.CalculationFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationUploads">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationFiles">
+              <PropertyRef Name="CalculationUpload" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationForms_CalculationFiles">
+          <End Role="CalculationFiles" Type="Self.CalculationFiles" Multiplicity="1" />
+          <End Role="CalculationForms" Type="Self.CalculationForms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationFiles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationForms">
+              <PropertyRef Name="CalculationFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationBuildingCounters">
+          <End Role="CalculationBuildingCounters" Type="Self.CalculationBuildingCounters" Multiplicity="0..1" />
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationBuildingCounters">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationRows">
+              <PropertyRef Name="BuildingCounter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationBuildingInfos">
+          <End Role="CalculationBuildingInfos" Type="Self.CalculationBuildingInfos" Multiplicity="0..1" />
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationBuildingInfos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationRows">
+              <PropertyRef Name="BuildingInfo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationCustomers">
+          <End Role="CalculationCustomers" Type="Self.CalculationCustomers" Multiplicity="0..1" />
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationCustomers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationRows">
+              <PropertyRef Name="Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationForms">
+          <End Role="CalculationForms" Type="Self.CalculationForms" Multiplicity="1" />
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationForms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationRows">
+              <PropertyRef Name="CalculationForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationLegalEntities">
+          <End Role="CalculationLegalEntities" Type="Self.CalculationLegalEntities" Multiplicity="0..1" />
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationLegalEntities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationRows">
+              <PropertyRef Name="LegalEntity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationRows">
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="0..1" />
+          <End Role="CalculationRows1" Type="Self.CalculationRows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationRows">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationRows1">
+              <PropertyRef Name="BuildingAddressRow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalculationUploads_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="CalculationUploads" Type="Self.CalculationUploads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalculationUploads">
+              <PropertyRef Name="Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerCalculationValues_CalculationRows">
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="1" />
+          <End Role="CustomerCalculationValues" Type="Self.CustomerCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationRows">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerCalculationValues">
+              <PropertyRef Name="CalculationRow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerCalculationValues_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="CustomerCalculationValues" Type="Self.CustomerCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerCalculationValues">
+              <PropertyRef Name="Customer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -496,6 +831,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LegalEntities_Buildings">
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
+          <End Role="LegalEntities" Type="Self.LegalEntities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LegalEntities">
+              <PropertyRef Name="Building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegalEntityCalculationValue_CalculationRows">
+          <End Role="CalculationRows" Type="Self.CalculationRows" Multiplicity="1" />
+          <End Role="LegalEntityCalculationValues" Type="Self.LegalEntityCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationRows">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LegalEntityCalculationValues">
+              <PropertyRef Name="CalculationRow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegalEntityCalculationValues_LegalEntities">
+          <End Role="LegalEntities" Type="Self.LegalEntities" Multiplicity="1" />
+          <End Role="LegalEntityCalculationValues" Type="Self.LegalEntityCalculationValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LegalEntities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LegalEntityCalculationValues">
+              <PropertyRef Name="LegalEntity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PrivateCounters_Customers">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="PrivateCounters" Type="Self.PrivateCounters" Multiplicity="*" />
@@ -623,11 +994,22 @@
         </Function>
         <EntityContainer Name="AlphaDataBaseModelStoreContainer">
           <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildingCalculationValues" EntityType="Self.BuildingCalculationValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildingCounterCalculationValues" EntityType="Self.BuildingCounterCalculationValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildingCounters" EntityType="Self.BuildingCounters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildingCounterValues" EntityType="Self.BuildingCounterValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Buildings" EntityType="Self.Buildings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildingValuesUploadPoses" EntityType="Self.BuildingValuesUploadPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildingValuesUploads" EntityType="Self.BuildingValuesUploads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationBuildingCounters" EntityType="Self.CalculationBuildingCounters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationBuildingInfos" EntityType="Self.CalculationBuildingInfos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationCustomers" EntityType="Self.CalculationCustomers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationFiles" EntityType="Self.CalculationFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationForms" EntityType="Self.CalculationForms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationLegalEntities" EntityType="Self.CalculationLegalEntities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationRows" EntityType="Self.CalculationRows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalculationUploads" EntityType="Self.CalculationUploads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerCalculationValues" EntityType="Self.CustomerCalculationValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DecFormsDownloads" EntityType="Self.DecFormsDownloads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DecFormsUploadPoses" EntityType="Self.DecFormsUploadPoses" Schema="dbo" store:Type="Tables" />
@@ -636,6 +1018,8 @@
           <EntitySet Name="FillFormPoses" EntityType="Self.FillFormPoses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FillForms" EntityType="Self.FillForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FillFormValues" EntityType="Self.FillFormValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LegalEntities" EntityType="Self.LegalEntities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LegalEntityCalculationValues" EntityType="Self.LegalEntityCalculationValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateCounters" EntityType="Self.PrivateCounters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateCounterValues" EntityType="Self.PrivateCounterValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrivateValuesFormPoses" EntityType="Self.PrivateValuesFormPoses" Schema="dbo" store:Type="Tables" />
@@ -649,6 +1033,22 @@
           <AssociationSet Name="FK_Attachments_Emails" Association="Self.FK_Attachments_Emails">
             <End Role="Emails" EntitySet="Emails" />
             <End Role="Attachments" EntitySet="Attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingCalculationValues_Buildings" Association="Self.FK_BuildingCalculationValues_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="BuildingCalculationValues" EntitySet="BuildingCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingCalculationValues_CalculationRows" Association="Self.FK_BuildingCalculationValues_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="BuildingCalculationValues" EntitySet="BuildingCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingCounterCalculationValues_BuildingCounters" Association="Self.FK_BuildingCounterCalculationValues_BuildingCounters">
+            <End Role="BuildingCounters" EntitySet="BuildingCounters" />
+            <End Role="BuildingCounterCalculationValues" EntitySet="BuildingCounterCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingCounterCalculationValues_CalculationRows" Association="Self.FK_BuildingCounterCalculationValues_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="BuildingCounterCalculationValues" EntitySet="BuildingCounterCalculationValues" />
           </AssociationSet>
           <AssociationSet Name="FK_BuildingCounters_Buildings" Association="Self.FK_BuildingCounters_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
@@ -669,6 +1069,50 @@
           <AssociationSet Name="FK_BuildingValuesUploads_Users" Association="Self.FK_BuildingValuesUploads_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="BuildingValuesUploads" EntitySet="BuildingValuesUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationFiles_CalculationUploads" Association="Self.FK_CalculationFiles_CalculationUploads">
+            <End Role="CalculationUploads" EntitySet="CalculationUploads" />
+            <End Role="CalculationFiles" EntitySet="CalculationFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationForms_CalculationFiles" Association="Self.FK_CalculationForms_CalculationFiles">
+            <End Role="CalculationFiles" EntitySet="CalculationFiles" />
+            <End Role="CalculationForms" EntitySet="CalculationForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationBuildingCounters" Association="Self.FK_CalculationRows_CalculationBuildingCounters">
+            <End Role="CalculationBuildingCounters" EntitySet="CalculationBuildingCounters" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationBuildingInfos" Association="Self.FK_CalculationRows_CalculationBuildingInfos">
+            <End Role="CalculationBuildingInfos" EntitySet="CalculationBuildingInfos" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationCustomers" Association="Self.FK_CalculationRows_CalculationCustomers">
+            <End Role="CalculationCustomers" EntitySet="CalculationCustomers" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationForms" Association="Self.FK_CalculationRows_CalculationForms">
+            <End Role="CalculationForms" EntitySet="CalculationForms" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationLegalEntities" Association="Self.FK_CalculationRows_CalculationLegalEntities">
+            <End Role="CalculationLegalEntities" EntitySet="CalculationLegalEntities" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationRows" Association="Self.FK_CalculationRows_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="CalculationRows1" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationUploads_Users" Association="Self.FK_CalculationUploads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CalculationUploads" EntitySet="CalculationUploads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerCalculationValues_CalculationRows" Association="Self.FK_CustomerCalculationValues_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="CustomerCalculationValues" EntitySet="CustomerCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerCalculationValues_Customers" Association="Self.FK_CustomerCalculationValues_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CustomerCalculationValues" EntitySet="CustomerCalculationValues" />
           </AssociationSet>
           <AssociationSet Name="FK_Customers_Buildings" Association="Self.FK_Customers_Buildings">
             <End Role="Buildings" EntitySet="Buildings" />
@@ -713,6 +1157,18 @@
           <AssociationSet Name="FK_FillFormValues_PrivateCounters" Association="Self.FK_FillFormValues_PrivateCounters">
             <End Role="PrivateCounters" EntitySet="PrivateCounters" />
             <End Role="FillFormValues" EntitySet="FillFormValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalEntities_Buildings" Association="Self.FK_LegalEntities_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="LegalEntities" EntitySet="LegalEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalEntityCalculationValue_CalculationRows" Association="Self.FK_LegalEntityCalculationValue_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="LegalEntityCalculationValues" EntitySet="LegalEntityCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalEntityCalculationValues_LegalEntities" Association="Self.FK_LegalEntityCalculationValues_LegalEntities">
+            <End Role="LegalEntities" EntitySet="LegalEntities" />
+            <End Role="LegalEntityCalculationValues" EntitySet="LegalEntityCalculationValues" />
           </AssociationSet>
           <AssociationSet Name="FK_PrivateCounters_Customers" Association="Self.FK_PrivateCounters_Customers">
             <End Role="Customers" EntitySet="Customers" />
@@ -897,6 +1353,91 @@
             <End Role="BuildingValuesUploadPoses" EntitySet="BuildingValuesUploadPoses" />
             <End Role="BuildingCounterValues" EntitySet="BuildingCounterValues" />
           </AssociationSet>
+          <EntitySet Name="CalculationUploads" EntityType="AlphaDataBaseModel.CalculationUploads" />
+          <AssociationSet Name="FK_CalculationUploads_Users" Association="AlphaDataBaseModel.FK_CalculationUploads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CalculationUploads" EntitySet="CalculationUploads" />
+          </AssociationSet>
+          <EntitySet Name="CalculationFiles" EntityType="AlphaDataBaseModel.CalculationFiles" />
+          <AssociationSet Name="FK_CalculationFiles_CalculationUploads" Association="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads">
+            <End Role="CalculationUploads" EntitySet="CalculationUploads" />
+            <End Role="CalculationFiles" EntitySet="CalculationFiles" />
+          </AssociationSet>
+          <EntitySet Name="CalculationForms" EntityType="AlphaDataBaseModel.CalculationForms" />
+          <AssociationSet Name="FK_CalculationForms_CalculationFiles" Association="AlphaDataBaseModel.FK_CalculationForms_CalculationFiles">
+            <End Role="CalculationFiles" EntitySet="CalculationFiles" />
+            <End Role="CalculationForms" EntitySet="CalculationForms" />
+          </AssociationSet>
+          <EntitySet Name="CalculationRows" EntityType="AlphaDataBaseModel.CalculationRows" />
+          <AssociationSet Name="FK_CalculationRows_CalculationForms" Association="AlphaDataBaseModel.FK_CalculationRows_CalculationForms">
+            <End Role="CalculationForms" EntitySet="CalculationForms" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <EntitySet Name="CalculationBuildingCounters" EntityType="AlphaDataBaseModel.CalculationBuildingCounters" />
+          <EntitySet Name="CalculationBuildingInfos" EntityType="AlphaDataBaseModel.CalculationBuildingInfos" />
+          <EntitySet Name="CalculationCustomers" EntityType="AlphaDataBaseModel.CalculationCustomers" />
+          <EntitySet Name="CalculationLegalEntities" EntityType="AlphaDataBaseModel.CalculationLegalEntities" />
+          <AssociationSet Name="FK_CalculationRows_CalculationBuildingCounters" Association="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters">
+            <End Role="CalculationBuildingCounters" EntitySet="CalculationBuildingCounters" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationBuildingInfos" Association="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos">
+            <End Role="CalculationBuildingInfos" EntitySet="CalculationBuildingInfos" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationCustomers" Association="AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers">
+            <End Role="CalculationCustomers" EntitySet="CalculationCustomers" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationLegalEntities" Association="AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities">
+            <End Role="CalculationLegalEntities" EntitySet="CalculationLegalEntities" />
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <EntitySet Name="BuildingCalculationValues" EntityType="AlphaDataBaseModel.BuildingCalculationValues" />
+          <AssociationSet Name="FK_BuildingCalculationValues_Buildings" Association="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="BuildingCalculationValues" EntitySet="BuildingCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingCalculationValues_CalculationRows" Association="AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="BuildingCalculationValues" EntitySet="BuildingCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalculationRows_CalculationRows" Association="AlphaDataBaseModel.FK_CalculationRows_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="CalculationRows1" EntitySet="CalculationRows" />
+          </AssociationSet>
+          <EntitySet Name="BuildingCounterCalculationValues" EntityType="AlphaDataBaseModel.BuildingCounterCalculationValues" />
+          <EntitySet Name="LegalEntities" EntityType="AlphaDataBaseModel.LegalEntities" />
+          <EntitySet Name="LegalEntityCalculationValues" EntityType="AlphaDataBaseModel.LegalEntityCalculationValues" />
+          <AssociationSet Name="FK_BuildingCounterCalculationValues_BuildingCounters" Association="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters">
+            <End Role="BuildingCounters" EntitySet="BuildingCounters" />
+            <End Role="BuildingCounterCalculationValues" EntitySet="BuildingCounterCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingCounterCalculationValues_CalculationRows" Association="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="BuildingCounterCalculationValues" EntitySet="BuildingCounterCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalEntities_Buildings" Association="AlphaDataBaseModel.FK_LegalEntities_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="LegalEntities" EntitySet="LegalEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalEntityCalculationValue_CalculationRows" Association="AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="LegalEntityCalculationValues" EntitySet="LegalEntityCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegalEntityCalculationValues_LegalEntities" Association="AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities">
+            <End Role="LegalEntities" EntitySet="LegalEntities" />
+            <End Role="LegalEntityCalculationValues" EntitySet="LegalEntityCalculationValues" />
+          </AssociationSet>
+          <EntitySet Name="CustomerCalculationValues" EntityType="AlphaDataBaseModel.CustomerCalculationValues" />
+          <AssociationSet Name="FK_CustomerCalculationValues_CalculationRows" Association="AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows">
+            <End Role="CalculationRows" EntitySet="CalculationRows" />
+            <End Role="CustomerCalculationValues" EntitySet="CustomerCalculationValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerCalculationValues_Customers" Association="AlphaDataBaseModel.FK_CustomerCalculationValues_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CustomerCalculationValues" EntitySet="CustomerCalculationValues" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Buildings">
           <Key>
@@ -909,6 +1450,8 @@
           <Property Name="BuildingContract" Type="Byte" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BuildingCounters" Relationship="AlphaDataBaseModel.FK_BuildingCounters_Buildings" FromRole="Buildings" ToRole="BuildingCounters" />
+          <NavigationProperty Name="BuildingCalculationValues" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings" FromRole="Buildings" ToRole="BuildingCalculationValues" />
+          <NavigationProperty Name="LegalEntities" Relationship="AlphaDataBaseModel.FK_LegalEntities_Buildings" FromRole="Buildings" ToRole="LegalEntities" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -919,6 +1462,7 @@
           <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_Customers_Buildings" FromRole="Customers" ToRole="Buildings" />
           <NavigationProperty Name="PrivateCounters" Relationship="AlphaDataBaseModel.FK_PrivateCounters_Customers" FromRole="Customers" ToRole="PrivateCounters" />
           <Property Name="Account" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomerCalculationValues" Relationship="AlphaDataBaseModel.FK_CustomerCalculationValues_Customers" FromRole="Customers" ToRole="CustomerCalculationValues" />
         </EntityType>
         <EntityType Name="PrivateCounters">
           <Key>
@@ -944,6 +1488,7 @@
           <NavigationProperty Name="DecFormsDownloads" Relationship="AlphaDataBaseModel.FK_DecFormsDownloads_Users" FromRole="Users" ToRole="DecFormsDownloads" />
           <NavigationProperty Name="PrivateValuesUploads" Relationship="AlphaDataBaseModel.FK_PrivateValuesUploads_Users" FromRole="Users" ToRole="PrivateValuesUploads" />
           <NavigationProperty Name="BuildingValuesUploads" Relationship="AlphaDataBaseModel.FK_BuildingValuesUploads_Users" FromRole="Users" ToRole="BuildingValuesUploads" />
+          <NavigationProperty Name="CalculationUploads" Relationship="AlphaDataBaseModel.FK_CalculationUploads_Users" FromRole="Users" ToRole="CalculationUploads" />
         </EntityType>
         <Association Name="FK_Customers_Buildings">
           <End Role="Buildings" Type="AlphaDataBaseModel.Buildings" Multiplicity="1" />
@@ -1256,6 +1801,7 @@
           <Property Name="CheckedSince" Type="DateTime" Precision="0" />
           <Property Name="CheckedTill" Type="DateTime" Precision="0" />
           <NavigationProperty Name="BuildingCounterValues" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters" FromRole="BuildingCounters" ToRole="BuildingCounterValues" />
+          <NavigationProperty Name="BuildingCounterCalculationValues" Relationship="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters" FromRole="BuildingCounters" ToRole="BuildingCounterCalculationValues" />
         </EntityType>
         <Association Name="FK_BuildingCounters_Buildings">
           <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
@@ -1319,6 +1865,246 @@
         <Association Name="FK_BuildingCounterValues_BuildingValuesUploadPoses">
           <End Type="AlphaDataBaseModel.BuildingValuesUploadPoses" Role="BuildingValuesUploadPoses" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.BuildingCounterValues" Role="BuildingCounterValues" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CalculationUploads">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessingResult" Type="Byte" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DirectoryPath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Author" Relationship="AlphaDataBaseModel.FK_CalculationUploads_Users" FromRole="CalculationUploads" ToRole="Users" />
+          <NavigationProperty Name="CalculationFiles" Relationship="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads" FromRole="CalculationUploads" ToRole="CalculationFiles" />
+        </EntityType>
+        <Association Name="FK_CalculationUploads_Users">
+          <End Type="AlphaDataBaseModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.CalculationUploads" Role="CalculationUploads" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CalculationFiles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessingResult" Type="Byte" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CalculationUploads" Relationship="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads" FromRole="CalculationFiles" ToRole="CalculationUploads" />
+          <NavigationProperty Name="CalculationForms" Relationship="AlphaDataBaseModel.FK_CalculationForms_CalculationFiles" FromRole="CalculationFiles" ToRole="CalculationForms" />
+        </EntityType>
+        <Association Name="FK_CalculationFiles_CalculationUploads">
+          <End Type="AlphaDataBaseModel.CalculationUploads" Role="CalculationUploads" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.CalculationFiles" Role="CalculationFiles" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CalculationForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CalculationFiles" Relationship="AlphaDataBaseModel.FK_CalculationForms_CalculationFiles" FromRole="CalculationForms" ToRole="CalculationFiles" />
+          <NavigationProperty Name="CalculationRows" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationForms" FromRole="CalculationForms" ToRole="CalculationRows" />
+        </EntityType>
+        <Association Name="FK_CalculationForms_CalculationFiles">
+          <End Type="AlphaDataBaseModel.CalculationFiles" Role="CalculationFiles" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.CalculationForms" Role="CalculationForms" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CalculationRows">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessingResult" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="CalculationForms" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationForms" FromRole="CalculationRows" ToRole="CalculationForms" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RowType" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="BuildingCounter" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters" FromRole="CalculationRows" ToRole="CalculationBuildingCounters" />
+          <NavigationProperty Name="BuildingInfo" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos" FromRole="CalculationRows" ToRole="CalculationBuildingInfos" />
+          <NavigationProperty Name="Customer" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers" FromRole="CalculationRows" ToRole="CalculationCustomers" />
+          <NavigationProperty Name="LegalEntity" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities" FromRole="CalculationRows" ToRole="CalculationLegalEntities" />
+          <NavigationProperty Name="BuildingCalculationValues" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows" FromRole="CalculationRows" ToRole="BuildingCalculationValues" />
+          <NavigationProperty Name="BuildingRows" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationRows" FromRole="CalculationRows" ToRole="CalculationRows1" />
+          <NavigationProperty Name="BuildingAddressRow" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationRows" FromRole="CalculationRows1" ToRole="CalculationRows" />
+          <NavigationProperty Name="BuildingCounterCalculationValues" Relationship="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows" FromRole="CalculationRows" ToRole="BuildingCounterCalculationValues" />
+          <NavigationProperty Name="LegalEntityCalculationValues" Relationship="AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows" FromRole="CalculationRows" ToRole="LegalEntityCalculationValues" />
+          <NavigationProperty Name="CustomerCalculationValues" Relationship="AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows" FromRole="CalculationRows" ToRole="CustomerCalculationValues" />
+        </EntityType>
+        <Association Name="FK_CalculationRows_CalculationForms">
+          <End Type="AlphaDataBaseModel.CalculationForms" Role="CalculationForms" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CalculationBuildingCounters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CounterNumber" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Coefficient" Type="Byte" Nullable="false" />
+          <Property Name="CurrentValue" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="PrevValue" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <NavigationProperty Name="CalculationRow" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters" FromRole="CalculationBuildingCounters" ToRole="CalculationRows" />
+        </EntityType>
+        <EntityType Name="CalculationBuildingInfos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowType" Type="Byte" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CalculationMethod" Type="Byte" />
+          <Property Name="Debt" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="Volume" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="Norm" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="CollectiveVolume" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="NotDistributedVolume" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="CollectiveSquare" Type="Decimal" Precision="11" Scale="3" />
+          <NavigationProperty Name="CalculationRow" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos" FromRole="CalculationBuildingInfos" ToRole="CalculationRows" />
+        </EntityType>
+        <EntityType Name="CalculationCustomers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Apartment" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CounterType" Type="Byte" Nullable="false" />
+          <Property Name="Volume" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="Recalculation" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="Square" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="Residents" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="CalculationRow" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers" FromRole="CalculationCustomers" ToRole="CalculationRows" />
+        </EntityType>
+        <EntityType Name="CalculationLegalEntities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Contract" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="EntityName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ChargedVolume" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="Square" Type="Decimal" Precision="11" Scale="3" />
+          <NavigationProperty Name="CalculationRow" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities" FromRole="CalculationLegalEntities" ToRole="CalculationRows" />
+        </EntityType>
+        <Association Name="FK_CalculationRows_CalculationBuildingCounters">
+          <End Type="AlphaDataBaseModel.CalculationBuildingCounters" Role="CalculationBuildingCounters" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationBuildingInfos">
+          <End Type="AlphaDataBaseModel.CalculationBuildingInfos" Role="CalculationBuildingInfos" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationCustomers">
+          <End Type="AlphaDataBaseModel.CalculationCustomers" Role="CalculationCustomers" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationLegalEntities">
+          <End Type="AlphaDataBaseModel.CalculationLegalEntities" Role="CalculationLegalEntities" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="*" />
+        </Association>
+        <EntityType Name="BuildingCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CalculationMethod" Type="Byte" Nullable="false" />
+          <Property Name="Debt" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="Volume" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="Norm" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="CollectiveVolume" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="CollectiveSquare" Type="Decimal" Precision="11" Scale="3" />
+          <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings" FromRole="BuildingCalculationValues" ToRole="Buildings" />
+          <NavigationProperty Name="CalculationRows" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows" FromRole="BuildingCalculationValues" ToRole="CalculationRows" />
+        </EntityType>
+        <Association Name="FK_BuildingCalculationValues_Buildings">
+          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingCalculationValues" Role="BuildingCalculationValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BuildingCalculationValues_CalculationRows">
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingCalculationValues" Role="BuildingCalculationValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_CalculationRows_CalculationRows">
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="0..1" />
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows1" Multiplicity="*" />
+        </Association>
+        <EntityType Name="BuildingCounterCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PrevValue" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="CurrentValue" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <NavigationProperty Name="BuildingCounters" Relationship="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters" FromRole="BuildingCounterCalculationValues" ToRole="BuildingCounters" />
+          <NavigationProperty Name="CalculationRows" Relationship="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows" FromRole="BuildingCounterCalculationValues" ToRole="CalculationRows" />
+        </EntityType>
+        <EntityType Name="LegalEntities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Contract" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_LegalEntities_Buildings" FromRole="LegalEntities" ToRole="Buildings" />
+          <NavigationProperty Name="LegalEntityCalculationValues" Relationship="AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities" FromRole="LegalEntities" ToRole="LegalEntityCalculationValues" />
+        </EntityType>
+        <EntityType Name="LegalEntityCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ChargedVolume" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <NavigationProperty Name="CalculationRows" Relationship="AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows" FromRole="LegalEntityCalculationValues" ToRole="CalculationRows" />
+          <NavigationProperty Name="LegalEntities" Relationship="AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities" FromRole="LegalEntityCalculationValues" ToRole="LegalEntities" />
+        </EntityType>
+        <Association Name="FK_BuildingCounterCalculationValues_BuildingCounters">
+          <End Type="AlphaDataBaseModel.BuildingCounters" Role="BuildingCounters" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingCounterCalculationValues" Role="BuildingCounterCalculationValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BuildingCounterCalculationValues_CalculationRows">
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingCounterCalculationValues" Role="BuildingCounterCalculationValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_LegalEntities_Buildings">
+          <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.LegalEntities" Role="LegalEntities" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_LegalEntityCalculationValue_CalculationRows">
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.LegalEntityCalculationValues" Role="LegalEntityCalculationValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_LegalEntityCalculationValues_LegalEntities">
+          <End Type="AlphaDataBaseModel.LegalEntities" Role="LegalEntities" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.LegalEntityCalculationValues" Role="LegalEntityCalculationValues" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CustomerCalculationValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ValueType" Type="Byte" Nullable="false" />
+          <Property Name="Volume" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="Recalculation" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <NavigationProperty Name="CalculationRows" Relationship="AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows" FromRole="CustomerCalculationValues" ToRole="CalculationRows" />
+          <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_CustomerCalculationValues_Customers" FromRole="CustomerCalculationValues" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK_CustomerCalculationValues_CalculationRows">
+          <End Type="AlphaDataBaseModel.CalculationRows" Role="CalculationRows" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.CustomerCalculationValues" Role="CustomerCalculationValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_CustomerCalculationValues_Customers">
+          <End Type="AlphaDataBaseModel.Customers" Role="Customers" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.CustomerCalculationValues" Role="CustomerCalculationValues" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1829,6 +2615,305 @@
               <ScalarProperty Name="ID" ColumnName="BuildingCounter" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CalculationUploads">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationUploads">
+              <MappingFragment StoreEntitySet="CalculationUploads">
+                <ScalarProperty Name="ProcessingResult" ColumnName="ProcessingResult" />
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DirectoryPath" ColumnName="DirectoryPath" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_CalculationUploads_Users" TypeName="AlphaDataBaseModel.FK_CalculationUploads_Users" StoreEntitySet="CalculationUploads">
+            <EndProperty Name="CalculationUploads">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="ID" ColumnName="Author" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="CalculationFiles">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationFiles">
+              <MappingFragment StoreEntitySet="CalculationFiles">
+                <ScalarProperty Name="ProcessingResult" ColumnName="ProcessingResult" />
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_CalculationFiles_CalculationUploads" TypeName="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads" StoreEntitySet="CalculationFiles">
+            <EndProperty Name="CalculationFiles">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationUploads">
+              <ScalarProperty Name="ID" ColumnName="CalculationUpload" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="CalculationForms">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationForms">
+              <MappingFragment StoreEntitySet="CalculationForms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_CalculationForms_CalculationFiles" TypeName="AlphaDataBaseModel.FK_CalculationForms_CalculationFiles" StoreEntitySet="CalculationForms">
+            <EndProperty Name="CalculationForms">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationFiles">
+              <ScalarProperty Name="ID" ColumnName="CalculationFile" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="CalculationRows">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationRows">
+              <MappingFragment StoreEntitySet="CalculationRows">
+                <ScalarProperty Name="ProcessingResult" ColumnName="ProcessingResult" />
+                <ScalarProperty Name="RowType" ColumnName="RowType" />
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_CalculationRows_CalculationForms" TypeName="AlphaDataBaseModel.FK_CalculationRows_CalculationForms" StoreEntitySet="CalculationRows">
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationForms">
+              <ScalarProperty Name="ID" ColumnName="CalculationForm" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="CalculationBuildingCounters">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationBuildingCounters">
+              <MappingFragment StoreEntitySet="CalculationBuildingCounters">
+                <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
+                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="CounterNumber" ColumnName="CounterNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalculationBuildingInfos">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationBuildingInfos">
+              <MappingFragment StoreEntitySet="CalculationBuildingInfos">
+                <ScalarProperty Name="CollectiveSquare" ColumnName="CollectiveSquare" />
+                <ScalarProperty Name="NotDistributedVolume" ColumnName="NotDistributedVolume" />
+                <ScalarProperty Name="CollectiveVolume" ColumnName="CollectiveVolume" />
+                <ScalarProperty Name="Norm" ColumnName="Norm" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="CalculationMethod" ColumnName="CalculationMethod" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="RowType" ColumnName="RowType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalculationCustomers">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationCustomers">
+              <MappingFragment StoreEntitySet="CalculationCustomers">
+                <ScalarProperty Name="Residents" ColumnName="Residents" />
+                <ScalarProperty Name="Square" ColumnName="Square" />
+                <ScalarProperty Name="Recalculation" ColumnName="Recalculation" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="CounterType" ColumnName="CounterType" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Apartment" ColumnName="Apartment" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalculationLegalEntities">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationLegalEntities">
+              <MappingFragment StoreEntitySet="CalculationLegalEntities">
+                <ScalarProperty Name="Square" ColumnName="Square" />
+                <ScalarProperty Name="ChargedVolume" ColumnName="ChargedVolume" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_CalculationRows_CalculationBuildingInfos" TypeName="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos" StoreEntitySet="CalculationRows">
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationBuildingInfos">
+              <ScalarProperty Name="ID" ColumnName="BuildingInfo" />
+            </EndProperty>
+            <Condition ColumnName="BuildingInfo" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_CalculationRows_CalculationBuildingCounters" TypeName="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters" StoreEntitySet="CalculationRows">
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationBuildingCounters">
+              <ScalarProperty Name="ID" ColumnName="BuildingCounter" />
+            </EndProperty>
+            <Condition ColumnName="BuildingCounter" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_CalculationRows_CalculationLegalEntities" TypeName="AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities" StoreEntitySet="CalculationRows">
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationLegalEntities">
+              <ScalarProperty Name="ID" ColumnName="LegalEntity" />
+            </EndProperty>
+            <Condition ColumnName="LegalEntity" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_CalculationRows_CalculationCustomers" TypeName="AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers" StoreEntitySet="CalculationRows">
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationCustomers">
+              <ScalarProperty Name="ID" ColumnName="Customer" />
+            </EndProperty>
+            <Condition ColumnName="Customer" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="BuildingCalculationValues">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingCalculationValues">
+              <MappingFragment StoreEntitySet="BuildingCalculationValues">
+                <ScalarProperty Name="CollectiveSquare" ColumnName="CollectiveSquare" />
+                <ScalarProperty Name="CollectiveVolume" ColumnName="CollectiveVolume" />
+                <ScalarProperty Name="Norm" ColumnName="Norm" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="CalculationMethod" ColumnName="CalculationMethod" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_BuildingCalculationValues_Buildings" TypeName="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings" StoreEntitySet="BuildingCalculationValues">
+            <EndProperty Name="BuildingCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Buildings">
+              <ScalarProperty Name="ID" ColumnName="Building" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BuildingCalculationValues_CalculationRows" TypeName="AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows" StoreEntitySet="BuildingCalculationValues">
+            <EndProperty Name="BuildingCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="CalculationRow" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_CalculationRows_CalculationRows" TypeName="AlphaDataBaseModel.FK_CalculationRows_CalculationRows" StoreEntitySet="CalculationRows">
+            <EndProperty Name="CalculationRows1">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="BuildingAddressRow" />
+            </EndProperty>
+            <Condition ColumnName="BuildingAddressRow" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="BuildingCounterCalculationValues">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingCounterCalculationValues">
+              <MappingFragment StoreEntitySet="BuildingCounterCalculationValues">
+                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+                <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LegalEntities">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.LegalEntities">
+              <MappingFragment StoreEntitySet="LegalEntities">
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LegalEntityCalculationValues">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.LegalEntityCalculationValues">
+              <MappingFragment StoreEntitySet="LegalEntityCalculationValues">
+                <ScalarProperty Name="ChargedVolume" ColumnName="ChargedVolume" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerCalculationValues">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.CustomerCalculationValues">
+              <MappingFragment StoreEntitySet="CustomerCalculationValues">
+                <ScalarProperty Name="Recalculation" ColumnName="Recalculation" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_LegalEntities_Buildings" TypeName="AlphaDataBaseModel.FK_LegalEntities_Buildings" StoreEntitySet="LegalEntities">
+            <EndProperty Name="LegalEntities">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Buildings">
+              <ScalarProperty Name="ID" ColumnName="Building" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_LegalEntityCalculationValues_LegalEntities" TypeName="AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities" StoreEntitySet="LegalEntityCalculationValues">
+            <EndProperty Name="LegalEntityCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="LegalEntities">
+              <ScalarProperty Name="ID" ColumnName="LegalEntity" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_LegalEntityCalculationValue_CalculationRows" TypeName="AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows" StoreEntitySet="LegalEntityCalculationValues">
+            <EndProperty Name="LegalEntityCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="CalculationRow" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BuildingCounterCalculationValues_BuildingCounters" TypeName="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters" StoreEntitySet="BuildingCounterCalculationValues">
+            <EndProperty Name="BuildingCounterCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="BuildingCounters">
+              <ScalarProperty Name="ID" ColumnName="BuildingCounter" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BuildingCounterCalculationValues_CalculationRows" TypeName="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows" StoreEntitySet="BuildingCounterCalculationValues">
+            <EndProperty Name="BuildingCounterCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="CalculationRow" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_CustomerCalculationValues_Customers" TypeName="AlphaDataBaseModel.FK_CustomerCalculationValues_Customers" StoreEntitySet="CustomerCalculationValues">
+            <EndProperty Name="CustomerCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="Customers">
+              <ScalarProperty Name="ID" ColumnName="Customer" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_CustomerCalculationValues_CalculationRows" TypeName="AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows" StoreEntitySet="CustomerCalculationValues">
+            <EndProperty Name="CustomerCalculationValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="CalculationRows">
+              <ScalarProperty Name="ID" ColumnName="CalculationRow" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1852,9 +2937,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <edmx:Diagram Name="Model">
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Buildings" Width="2" PointX="16.375" PointY="3.625" Height="2.1725878906250031" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Customers" Width="2" PointX="16.375" PointY="6.625" Height="6.210917968749996" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="16.375" PointY="9.25" Height="1.9802864583333388" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Buildings" Width="2" PointX="16.375" PointY="4" Height="2.1725878906250031" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Customers" Width="2" PointX="16.375" PointY="7.375" Height="6.210917968749996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="16.375" PointY="10.25" Height="1.9802864583333388" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Users" Width="2" PointX="0.625" PointY="0.625" Height="2.3648893229166674" IsExpanded="true" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Customers_Buildings" ManuallyRouted="false">
           <edmx:ConnectorPoint PointX="2.25" PointY="21.230646972656253" />
@@ -1923,6 +3008,37 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingCounterValues" Width="2" PointX="13.75" PointY="8" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationUploads" Width="2" PointX="21.625" PointY="0.625" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationUploads_Users" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationFiles" Width="2" PointX="21.625" PointY="4" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationForms" Width="2" PointX="21.625" PointY="6.875" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationForms_CalculationFiles" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationRows" Width="2" PointX="21.625" PointY="9.125" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationForms" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationBuildingCounters" Width="2" PointX="21.625" PointY="13.875" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationBuildingInfos" Width="2" PointX="19" PointY="13.875" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationCustomers" Width="2" PointX="26.875" PointY="13.875" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationLegalEntities" Width="2" PointX="24.25" PointY="13.875" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingCalculationValues" Width="2" PointX="24.25" PointY="6.875" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationRows" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingCounterCalculationValues" Width="2" PointX="19" PointY="0.625" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.LegalEntities" Width="2" PointX="19" PointY="3.375" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.LegalEntityCalculationValues" Width="2" PointX="19" PointY="5.875" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_LegalEntities_Buildings" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CustomerCalculationValues" Width="2" PointX="19" PointY="8.5" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CustomerCalculationValues_Customers" />
         </edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -69,5 +69,10 @@
         /// Загрузки показаний ОДПУ.
         /// </summary>
         public const string BUILDING_VALUES_UPLOADS = "usecase://Uploads/BuildingValuesUploads";
+
+        /// <summary>
+        /// Загрузки расшифровок.
+        /// </summary>
+        public const string CALCULATION_UPLOADS = "usecase://Uploads/CalculationUploads";
     }
 }

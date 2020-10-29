@@ -11,7 +11,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.BuildingValuesUploader.Bu
         static public void SaveFile(int formID, DateTime month)
         {
             BuildingCounterValueHandler.ClearExistedValues(month);
-            BuildingCounterHandler.ClearExistedCounters();
+            BuildingCounterHandler.DeleteWithNoValues();
 
             FindRedundantBuildings(formID);
 

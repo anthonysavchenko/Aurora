@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Mjolnir</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>003.7.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>004.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>003.7.0.0</ApplicationVersion>
+    <ApplicationVersion>004.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -346,6 +346,10 @@
       <Project>{286005fd-88ad-42a9-82e5-c11a6f26e4e5}</Project>
       <Name>BuildingValuesUploads</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Modules\Uploads\CalculationUploads\CalculationUploads.csproj">
+      <Project>{686d606f-9bdf-4b48-b7db-81b80effdb1e}</Project>
+      <Name>CalculationUploads</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\Uploads\DecFormsDownloads\DecFormsDownloads.csproj">
       <Project>{74b8cbf6-8306-42b2-ab7d-fad3fee6412b}</Project>
       <Name>DecFormsDownloads</Name>
@@ -411,12 +415,12 @@
   <ItemGroup>
     <PublishFile Include="ProfileCatalog.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

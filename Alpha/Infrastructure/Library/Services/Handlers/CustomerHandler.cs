@@ -13,10 +13,30 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
                     db.Customers
                         .Where(c =>
                             c.Buildings.ID == buildingID
-                            && c.PrivateCounters.Count == 0)
+                            && c.PrivateCounters.Count == 0
+                            && c.CustomerCalculationValues.Count == 0)
                         .ToList();
 
-                existedCustomers.ForEach(c => db.Customers.DeleteObject(c));
+                existedCustomers.ForEach(c =>
+                    db.Customers.DeleteObject(c));
+                db.SaveChanges();
+            }
+        }
+
+        static public void DeleteWithNoValues()
+        {
+            using (var db = new Entities())
+            {
+                var customers =
+                    db.Customers
+                        .Where(c =>
+                            c.PrivateCounters.Count == 0
+                            && c.CustomerCalculationValues.Count == 0)
+                        .ToList();
+
+                customers.ForEach(c =>
+                    db.Customers.DeleteObject(c));
+
                 db.SaveChanges();
             }
         }

@@ -46,6 +46,24 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingValuesUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "BuildingValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingValuesUploads))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingCounters", "BuildingCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingCounters), "BuildingCounterValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounterValues))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingValuesUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingValuesUploadPoses), "BuildingCounterValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounterValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "CalculationUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationUploads))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationFiles_CalculationUploads", "CalculationUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationUploads), "CalculationFiles", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationFiles))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationForms_CalculationFiles", "CalculationFiles", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationFiles), "CalculationForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationForms))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationForms", "CalculationForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationForms), "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationRows))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationBuildingCounters", "CalculationBuildingCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CalculationBuildingCounters), "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationRows))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationBuildingInfos", "CalculationBuildingInfos", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CalculationBuildingInfos), "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationRows))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationCustomers", "CalculationCustomers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CalculationCustomers), "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationRows))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationLegalEntities", "CalculationLegalEntities", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CalculationLegalEntities), "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationRows))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCalculationValues_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "BuildingCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCalculationValues_CalculationRows", "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationRows), "BuildingCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationRows", "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Taumis.Alpha.DataBase.CalculationRows), "CalculationRows1", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationRows))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingCounters), "BuildingCounterCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounterCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounterCalculationValues_CalculationRows", "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationRows), "BuildingCounterCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounterCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_LegalEntities_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "LegalEntities", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.LegalEntities))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_LegalEntityCalculationValue_CalculationRows", "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationRows), "LegalEntityCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.LegalEntityCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_LegalEntityCalculationValues_LegalEntities", "LegalEntities", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.LegalEntities), "LegalEntityCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.LegalEntityCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_CalculationRows", "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationRows), "CustomerCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "CustomerCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerCalculationValues))]
 
 #endregion
 
@@ -477,6 +495,214 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<BuildingCounterValues> _BuildingCounterValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationUploads> CalculationUploads
+        {
+            get
+            {
+                if ((_CalculationUploads == null))
+                {
+                    _CalculationUploads = base.CreateObjectSet<CalculationUploads>("CalculationUploads");
+                }
+                return _CalculationUploads;
+            }
+        }
+        private ObjectSet<CalculationUploads> _CalculationUploads;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationFiles> CalculationFiles
+        {
+            get
+            {
+                if ((_CalculationFiles == null))
+                {
+                    _CalculationFiles = base.CreateObjectSet<CalculationFiles>("CalculationFiles");
+                }
+                return _CalculationFiles;
+            }
+        }
+        private ObjectSet<CalculationFiles> _CalculationFiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationForms> CalculationForms
+        {
+            get
+            {
+                if ((_CalculationForms == null))
+                {
+                    _CalculationForms = base.CreateObjectSet<CalculationForms>("CalculationForms");
+                }
+                return _CalculationForms;
+            }
+        }
+        private ObjectSet<CalculationForms> _CalculationForms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationRows> CalculationRows
+        {
+            get
+            {
+                if ((_CalculationRows == null))
+                {
+                    _CalculationRows = base.CreateObjectSet<CalculationRows>("CalculationRows");
+                }
+                return _CalculationRows;
+            }
+        }
+        private ObjectSet<CalculationRows> _CalculationRows;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationBuildingCounters> CalculationBuildingCounters
+        {
+            get
+            {
+                if ((_CalculationBuildingCounters == null))
+                {
+                    _CalculationBuildingCounters = base.CreateObjectSet<CalculationBuildingCounters>("CalculationBuildingCounters");
+                }
+                return _CalculationBuildingCounters;
+            }
+        }
+        private ObjectSet<CalculationBuildingCounters> _CalculationBuildingCounters;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationBuildingInfos> CalculationBuildingInfos
+        {
+            get
+            {
+                if ((_CalculationBuildingInfos == null))
+                {
+                    _CalculationBuildingInfos = base.CreateObjectSet<CalculationBuildingInfos>("CalculationBuildingInfos");
+                }
+                return _CalculationBuildingInfos;
+            }
+        }
+        private ObjectSet<CalculationBuildingInfos> _CalculationBuildingInfos;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationCustomers> CalculationCustomers
+        {
+            get
+            {
+                if ((_CalculationCustomers == null))
+                {
+                    _CalculationCustomers = base.CreateObjectSet<CalculationCustomers>("CalculationCustomers");
+                }
+                return _CalculationCustomers;
+            }
+        }
+        private ObjectSet<CalculationCustomers> _CalculationCustomers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CalculationLegalEntities> CalculationLegalEntities
+        {
+            get
+            {
+                if ((_CalculationLegalEntities == null))
+                {
+                    _CalculationLegalEntities = base.CreateObjectSet<CalculationLegalEntities>("CalculationLegalEntities");
+                }
+                return _CalculationLegalEntities;
+            }
+        }
+        private ObjectSet<CalculationLegalEntities> _CalculationLegalEntities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BuildingCalculationValues> BuildingCalculationValues
+        {
+            get
+            {
+                if ((_BuildingCalculationValues == null))
+                {
+                    _BuildingCalculationValues = base.CreateObjectSet<BuildingCalculationValues>("BuildingCalculationValues");
+                }
+                return _BuildingCalculationValues;
+            }
+        }
+        private ObjectSet<BuildingCalculationValues> _BuildingCalculationValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BuildingCounterCalculationValues> BuildingCounterCalculationValues
+        {
+            get
+            {
+                if ((_BuildingCounterCalculationValues == null))
+                {
+                    _BuildingCounterCalculationValues = base.CreateObjectSet<BuildingCounterCalculationValues>("BuildingCounterCalculationValues");
+                }
+                return _BuildingCounterCalculationValues;
+            }
+        }
+        private ObjectSet<BuildingCounterCalculationValues> _BuildingCounterCalculationValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LegalEntities> LegalEntities
+        {
+            get
+            {
+                if ((_LegalEntities == null))
+                {
+                    _LegalEntities = base.CreateObjectSet<LegalEntities>("LegalEntities");
+                }
+                return _LegalEntities;
+            }
+        }
+        private ObjectSet<LegalEntities> _LegalEntities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LegalEntityCalculationValues> LegalEntityCalculationValues
+        {
+            get
+            {
+                if ((_LegalEntityCalculationValues == null))
+                {
+                    _LegalEntityCalculationValues = base.CreateObjectSet<LegalEntityCalculationValues>("LegalEntityCalculationValues");
+                }
+                return _LegalEntityCalculationValues;
+            }
+        }
+        private ObjectSet<LegalEntityCalculationValues> _LegalEntityCalculationValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CustomerCalculationValues> CustomerCalculationValues
+        {
+            get
+            {
+                if ((_CustomerCalculationValues == null))
+                {
+                    _CustomerCalculationValues = base.CreateObjectSet<CustomerCalculationValues>("CustomerCalculationValues");
+                }
+                return _CustomerCalculationValues;
+            }
+        }
+        private ObjectSet<CustomerCalculationValues> _CustomerCalculationValues;
 
         #endregion
 
@@ -672,6 +898,110 @@ namespace Taumis.Alpha.DataBase
         public void AddToBuildingCounterValues(BuildingCounterValues buildingCounterValues)
         {
             base.AddObject("BuildingCounterValues", buildingCounterValues);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationUploads EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationUploads(CalculationUploads calculationUploads)
+        {
+            base.AddObject("CalculationUploads", calculationUploads);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationFiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationFiles(CalculationFiles calculationFiles)
+        {
+            base.AddObject("CalculationFiles", calculationFiles);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationForms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationForms(CalculationForms calculationForms)
+        {
+            base.AddObject("CalculationForms", calculationForms);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationRows EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationRows(CalculationRows calculationRows)
+        {
+            base.AddObject("CalculationRows", calculationRows);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationBuildingCounters EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationBuildingCounters(CalculationBuildingCounters calculationBuildingCounters)
+        {
+            base.AddObject("CalculationBuildingCounters", calculationBuildingCounters);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationBuildingInfos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationBuildingInfos(CalculationBuildingInfos calculationBuildingInfos)
+        {
+            base.AddObject("CalculationBuildingInfos", calculationBuildingInfos);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationCustomers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationCustomers(CalculationCustomers calculationCustomers)
+        {
+            base.AddObject("CalculationCustomers", calculationCustomers);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CalculationLegalEntities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCalculationLegalEntities(CalculationLegalEntities calculationLegalEntities)
+        {
+            base.AddObject("CalculationLegalEntities", calculationLegalEntities);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BuildingCalculationValues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBuildingCalculationValues(BuildingCalculationValues buildingCalculationValues)
+        {
+            base.AddObject("BuildingCalculationValues", buildingCalculationValues);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BuildingCounterCalculationValues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBuildingCounterCalculationValues(BuildingCounterCalculationValues buildingCounterCalculationValues)
+        {
+            base.AddObject("BuildingCounterCalculationValues", buildingCounterCalculationValues);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LegalEntities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLegalEntities(LegalEntities legalEntities)
+        {
+            base.AddObject("LegalEntities", legalEntities);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LegalEntityCalculationValues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLegalEntityCalculationValues(LegalEntityCalculationValues legalEntityCalculationValues)
+        {
+            base.AddObject("LegalEntityCalculationValues", legalEntityCalculationValues);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CustomerCalculationValues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCustomerCalculationValues(CustomerCalculationValues customerCalculationValues)
+        {
+            base.AddObject("CustomerCalculationValues", customerCalculationValues);
         }
 
         #endregion
@@ -889,6 +1219,530 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Emails>("AlphaDataBaseModel.FK_Attachments_Emails", "Emails", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingCalculationValues")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BuildingCalculationValues : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BuildingCalculationValues object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="calculationMethod">Initial value of the CalculationMethod property.</param>
+        /// <param name="collectiveVolume">Initial value of the CollectiveVolume property.</param>
+        public static BuildingCalculationValues CreateBuildingCalculationValues(global::System.Int32 id, global::System.DateTime month, global::System.Byte calculationMethod, global::System.Decimal collectiveVolume)
+        {
+            BuildingCalculationValues buildingCalculationValues = new BuildingCalculationValues();
+            buildingCalculationValues.ID = id;
+            buildingCalculationValues.Month = month;
+            buildingCalculationValues.CalculationMethod = calculationMethod;
+            buildingCalculationValues.CollectiveVolume = collectiveVolume;
+            return buildingCalculationValues;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte CalculationMethod
+        {
+            get
+            {
+                return _CalculationMethod;
+            }
+            set
+            {
+                OnCalculationMethodChanging(value);
+                ReportPropertyChanging("CalculationMethod");
+                _CalculationMethod = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CalculationMethod");
+                OnCalculationMethodChanged();
+            }
+        }
+        private global::System.Byte _CalculationMethod;
+        partial void OnCalculationMethodChanging(global::System.Byte value);
+        partial void OnCalculationMethodChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Debt
+        {
+            get
+            {
+                return _Debt;
+            }
+            set
+            {
+                OnDebtChanging(value);
+                ReportPropertyChanging("Debt");
+                _Debt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Debt");
+                OnDebtChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Debt;
+        partial void OnDebtChanging(Nullable<global::System.Decimal> value);
+        partial void OnDebtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Volume
+        {
+            get
+            {
+                return _Volume;
+            }
+            set
+            {
+                OnVolumeChanging(value);
+                ReportPropertyChanging("Volume");
+                _Volume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Volume");
+                OnVolumeChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Volume;
+        partial void OnVolumeChanging(Nullable<global::System.Decimal> value);
+        partial void OnVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Norm
+        {
+            get
+            {
+                return _Norm;
+            }
+            set
+            {
+                OnNormChanging(value);
+                ReportPropertyChanging("Norm");
+                _Norm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Norm");
+                OnNormChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Norm;
+        partial void OnNormChanging(Nullable<global::System.Decimal> value);
+        partial void OnNormChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal CollectiveVolume
+        {
+            get
+            {
+                return _CollectiveVolume;
+            }
+            set
+            {
+                OnCollectiveVolumeChanging(value);
+                ReportPropertyChanging("CollectiveVolume");
+                _CollectiveVolume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectiveVolume");
+                OnCollectiveVolumeChanged();
+            }
+        }
+        private global::System.Decimal _CollectiveVolume;
+        partial void OnCollectiveVolumeChanging(global::System.Decimal value);
+        partial void OnCollectiveVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> CollectiveSquare
+        {
+            get
+            {
+                return _CollectiveSquare;
+            }
+            set
+            {
+                OnCollectiveSquareChanging(value);
+                ReportPropertyChanging("CollectiveSquare");
+                _CollectiveSquare = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectiveSquare");
+                OnCollectiveSquareChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _CollectiveSquare;
+        partial void OnCollectiveSquareChanging(Nullable<global::System.Decimal> value);
+        partial void OnCollectiveSquareChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCalculationValues_Buildings", "Buildings")]
+        public Buildings Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings", "Buildings").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings", "Buildings").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Buildings> BuildingsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Buildings>("AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings", "Buildings", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCalculationValues_CalculationRows", "CalculationRows")]
+        public CalculationRows CalculationRows
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows", "CalculationRows").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows", "CalculationRows").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationRows> CalculationRowsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows", "CalculationRows", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingCounterCalculationValues")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BuildingCounterCalculationValues : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BuildingCounterCalculationValues object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="prevValue">Initial value of the PrevValue property.</param>
+        /// <param name="currentValue">Initial value of the CurrentValue property.</param>
+        public static BuildingCounterCalculationValues CreateBuildingCounterCalculationValues(global::System.Int32 id, global::System.DateTime month, global::System.Decimal prevValue, global::System.Decimal currentValue)
+        {
+            BuildingCounterCalculationValues buildingCounterCalculationValues = new BuildingCounterCalculationValues();
+            buildingCounterCalculationValues.ID = id;
+            buildingCounterCalculationValues.Month = month;
+            buildingCounterCalculationValues.PrevValue = prevValue;
+            buildingCounterCalculationValues.CurrentValue = currentValue;
+            return buildingCounterCalculationValues;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal PrevValue
+        {
+            get
+            {
+                return _PrevValue;
+            }
+            set
+            {
+                OnPrevValueChanging(value);
+                ReportPropertyChanging("PrevValue");
+                _PrevValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevValue");
+                OnPrevValueChanged();
+            }
+        }
+        private global::System.Decimal _PrevValue;
+        partial void OnPrevValueChanging(global::System.Decimal value);
+        partial void OnPrevValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal CurrentValue
+        {
+            get
+            {
+                return _CurrentValue;
+            }
+            set
+            {
+                OnCurrentValueChanging(value);
+                ReportPropertyChanging("CurrentValue");
+                _CurrentValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentValue");
+                OnCurrentValueChanged();
+            }
+        }
+        private global::System.Decimal _CurrentValue;
+        partial void OnCurrentValueChanging(global::System.Decimal value);
+        partial void OnCurrentValueChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounters")]
+        public BuildingCounters BuildingCounters
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingCounters>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounters").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingCounters>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounters").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BuildingCounters> BuildingCountersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingCounters>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounters");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BuildingCounters>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounters", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterCalculationValues_CalculationRows", "CalculationRows")]
+        public CalculationRows CalculationRows
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows", "CalculationRows").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows", "CalculationRows").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationRows> CalculationRowsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows", "CalculationRows", value);
                 }
             }
         }
@@ -1135,6 +1989,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCounterValues>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters", "BuildingCounterValues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounterCalculationValues")]
+        public EntityCollection<BuildingCounterCalculationValues> BuildingCounterCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingCounterCalculationValues>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounterCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCounterCalculationValues>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_BuildingCounters", "BuildingCounterCalculationValues", value);
                 }
             }
         }
@@ -1575,6 +2451,50 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCounters>("AlphaDataBaseModel.FK_BuildingCounters_Buildings", "BuildingCounters", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCalculationValues_Buildings", "BuildingCalculationValues")]
+        public EntityCollection<BuildingCalculationValues> BuildingCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingCalculationValues>("AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings", "BuildingCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCalculationValues>("AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings", "BuildingCalculationValues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_LegalEntities_Buildings", "LegalEntities")]
+        public EntityCollection<LegalEntities> LegalEntities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LegalEntities>("AlphaDataBaseModel.FK_LegalEntities_Buildings", "LegalEntities");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LegalEntities>("AlphaDataBaseModel.FK_LegalEntities_Buildings", "LegalEntities", value);
                 }
             }
         }
@@ -2192,6 +3112,2378 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationBuildingCounters")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationBuildingCounters : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationBuildingCounters object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="counterNumber">Initial value of the CounterNumber property.</param>
+        /// <param name="coefficient">Initial value of the Coefficient property.</param>
+        /// <param name="currentValue">Initial value of the CurrentValue property.</param>
+        /// <param name="prevValue">Initial value of the PrevValue property.</param>
+        public static CalculationBuildingCounters CreateCalculationBuildingCounters(global::System.Int32 id, global::System.String counterNumber, global::System.Byte coefficient, global::System.Decimal currentValue, global::System.Decimal prevValue)
+        {
+            CalculationBuildingCounters calculationBuildingCounters = new CalculationBuildingCounters();
+            calculationBuildingCounters.ID = id;
+            calculationBuildingCounters.CounterNumber = counterNumber;
+            calculationBuildingCounters.Coefficient = coefficient;
+            calculationBuildingCounters.CurrentValue = currentValue;
+            calculationBuildingCounters.PrevValue = prevValue;
+            return calculationBuildingCounters;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CounterNumber
+        {
+            get
+            {
+                return _CounterNumber;
+            }
+            set
+            {
+                OnCounterNumberChanging(value);
+                ReportPropertyChanging("CounterNumber");
+                _CounterNumber = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CounterNumber");
+                OnCounterNumberChanged();
+            }
+        }
+        private global::System.String _CounterNumber;
+        partial void OnCounterNumberChanging(global::System.String value);
+        partial void OnCounterNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Model
+        {
+            get
+            {
+                return _Model;
+            }
+            set
+            {
+                OnModelChanging(value);
+                ReportPropertyChanging("Model");
+                _Model = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Model");
+                OnModelChanged();
+            }
+        }
+        private global::System.String _Model;
+        partial void OnModelChanging(global::System.String value);
+        partial void OnModelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte Coefficient
+        {
+            get
+            {
+                return _Coefficient;
+            }
+            set
+            {
+                OnCoefficientChanging(value);
+                ReportPropertyChanging("Coefficient");
+                _Coefficient = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Coefficient");
+                OnCoefficientChanged();
+            }
+        }
+        private global::System.Byte _Coefficient;
+        partial void OnCoefficientChanging(global::System.Byte value);
+        partial void OnCoefficientChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal CurrentValue
+        {
+            get
+            {
+                return _CurrentValue;
+            }
+            set
+            {
+                OnCurrentValueChanging(value);
+                ReportPropertyChanging("CurrentValue");
+                _CurrentValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentValue");
+                OnCurrentValueChanged();
+            }
+        }
+        private global::System.Decimal _CurrentValue;
+        partial void OnCurrentValueChanging(global::System.Decimal value);
+        partial void OnCurrentValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal PrevValue
+        {
+            get
+            {
+                return _PrevValue;
+            }
+            set
+            {
+                OnPrevValueChanging(value);
+                ReportPropertyChanging("PrevValue");
+                _PrevValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrevValue");
+                OnPrevValueChanged();
+            }
+        }
+        private global::System.Decimal _PrevValue;
+        partial void OnPrevValueChanging(global::System.Decimal value);
+        partial void OnPrevValueChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationBuildingCounters", "CalculationRows")]
+        public EntityCollection<CalculationRows> CalculationRow
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters", "CalculationRows", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationBuildingInfos")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationBuildingInfos : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationBuildingInfos object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="rowType">Initial value of the RowType property.</param>
+        public static CalculationBuildingInfos CreateCalculationBuildingInfos(global::System.Int32 id, global::System.Byte rowType)
+        {
+            CalculationBuildingInfos calculationBuildingInfos = new CalculationBuildingInfos();
+            calculationBuildingInfos.ID = id;
+            calculationBuildingInfos.RowType = rowType;
+            return calculationBuildingInfos;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte RowType
+        {
+            get
+            {
+                return _RowType;
+            }
+            set
+            {
+                OnRowTypeChanging(value);
+                ReportPropertyChanging("RowType");
+                _RowType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RowType");
+                OnRowTypeChanged();
+            }
+        }
+        private global::System.Byte _RowType;
+        partial void OnRowTypeChanging(global::System.Byte value);
+        partial void OnRowTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Street
+        {
+            get
+            {
+                return _Street;
+            }
+            set
+            {
+                OnStreetChanging(value);
+                ReportPropertyChanging("Street");
+                _Street = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Street");
+                OnStreetChanged();
+            }
+        }
+        private global::System.String _Street;
+        partial void OnStreetChanging(global::System.String value);
+        partial void OnStreetChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Building
+        {
+            get
+            {
+                return _Building;
+            }
+            set
+            {
+                OnBuildingChanging(value);
+                ReportPropertyChanging("Building");
+                _Building = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Building");
+                OnBuildingChanged();
+            }
+        }
+        private global::System.String _Building;
+        partial void OnBuildingChanging(global::System.String value);
+        partial void OnBuildingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Byte> CalculationMethod
+        {
+            get
+            {
+                return _CalculationMethod;
+            }
+            set
+            {
+                OnCalculationMethodChanging(value);
+                ReportPropertyChanging("CalculationMethod");
+                _CalculationMethod = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CalculationMethod");
+                OnCalculationMethodChanged();
+            }
+        }
+        private Nullable<global::System.Byte> _CalculationMethod;
+        partial void OnCalculationMethodChanging(Nullable<global::System.Byte> value);
+        partial void OnCalculationMethodChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Debt
+        {
+            get
+            {
+                return _Debt;
+            }
+            set
+            {
+                OnDebtChanging(value);
+                ReportPropertyChanging("Debt");
+                _Debt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Debt");
+                OnDebtChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Debt;
+        partial void OnDebtChanging(Nullable<global::System.Decimal> value);
+        partial void OnDebtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Volume
+        {
+            get
+            {
+                return _Volume;
+            }
+            set
+            {
+                OnVolumeChanging(value);
+                ReportPropertyChanging("Volume");
+                _Volume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Volume");
+                OnVolumeChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Volume;
+        partial void OnVolumeChanging(Nullable<global::System.Decimal> value);
+        partial void OnVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Norm
+        {
+            get
+            {
+                return _Norm;
+            }
+            set
+            {
+                OnNormChanging(value);
+                ReportPropertyChanging("Norm");
+                _Norm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Norm");
+                OnNormChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Norm;
+        partial void OnNormChanging(Nullable<global::System.Decimal> value);
+        partial void OnNormChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> CollectiveVolume
+        {
+            get
+            {
+                return _CollectiveVolume;
+            }
+            set
+            {
+                OnCollectiveVolumeChanging(value);
+                ReportPropertyChanging("CollectiveVolume");
+                _CollectiveVolume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectiveVolume");
+                OnCollectiveVolumeChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _CollectiveVolume;
+        partial void OnCollectiveVolumeChanging(Nullable<global::System.Decimal> value);
+        partial void OnCollectiveVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> NotDistributedVolume
+        {
+            get
+            {
+                return _NotDistributedVolume;
+            }
+            set
+            {
+                OnNotDistributedVolumeChanging(value);
+                ReportPropertyChanging("NotDistributedVolume");
+                _NotDistributedVolume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NotDistributedVolume");
+                OnNotDistributedVolumeChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _NotDistributedVolume;
+        partial void OnNotDistributedVolumeChanging(Nullable<global::System.Decimal> value);
+        partial void OnNotDistributedVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> CollectiveSquare
+        {
+            get
+            {
+                return _CollectiveSquare;
+            }
+            set
+            {
+                OnCollectiveSquareChanging(value);
+                ReportPropertyChanging("CollectiveSquare");
+                _CollectiveSquare = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectiveSquare");
+                OnCollectiveSquareChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _CollectiveSquare;
+        partial void OnCollectiveSquareChanging(Nullable<global::System.Decimal> value);
+        partial void OnCollectiveSquareChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationBuildingInfos", "CalculationRows")]
+        public EntityCollection<CalculationRows> CalculationRow
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos", "CalculationRows", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationCustomers")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationCustomers : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationCustomers object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="account">Initial value of the Account property.</param>
+        /// <param name="counterType">Initial value of the CounterType property.</param>
+        /// <param name="volume">Initial value of the Volume property.</param>
+        /// <param name="recalculation">Initial value of the Recalculation property.</param>
+        /// <param name="residents">Initial value of the Residents property.</param>
+        public static CalculationCustomers CreateCalculationCustomers(global::System.Int32 id, global::System.String account, global::System.Byte counterType, global::System.Decimal volume, global::System.Decimal recalculation, global::System.Byte residents)
+        {
+            CalculationCustomers calculationCustomers = new CalculationCustomers();
+            calculationCustomers.ID = id;
+            calculationCustomers.Account = account;
+            calculationCustomers.CounterType = counterType;
+            calculationCustomers.Volume = volume;
+            calculationCustomers.Recalculation = recalculation;
+            calculationCustomers.Residents = residents;
+            return calculationCustomers;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Account
+        {
+            get
+            {
+                return _Account;
+            }
+            set
+            {
+                OnAccountChanging(value);
+                ReportPropertyChanging("Account");
+                _Account = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Account");
+                OnAccountChanged();
+            }
+        }
+        private global::System.String _Account;
+        partial void OnAccountChanging(global::System.String value);
+        partial void OnAccountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Apartment
+        {
+            get
+            {
+                return _Apartment;
+            }
+            set
+            {
+                OnApartmentChanging(value);
+                ReportPropertyChanging("Apartment");
+                _Apartment = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Apartment");
+                OnApartmentChanged();
+            }
+        }
+        private global::System.String _Apartment;
+        partial void OnApartmentChanging(global::System.String value);
+        partial void OnApartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Owner
+        {
+            get
+            {
+                return _Owner;
+            }
+            set
+            {
+                OnOwnerChanging(value);
+                ReportPropertyChanging("Owner");
+                _Owner = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Owner");
+                OnOwnerChanged();
+            }
+        }
+        private global::System.String _Owner;
+        partial void OnOwnerChanging(global::System.String value);
+        partial void OnOwnerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte CounterType
+        {
+            get
+            {
+                return _CounterType;
+            }
+            set
+            {
+                OnCounterTypeChanging(value);
+                ReportPropertyChanging("CounterType");
+                _CounterType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CounterType");
+                OnCounterTypeChanged();
+            }
+        }
+        private global::System.Byte _CounterType;
+        partial void OnCounterTypeChanging(global::System.Byte value);
+        partial void OnCounterTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Volume
+        {
+            get
+            {
+                return _Volume;
+            }
+            set
+            {
+                OnVolumeChanging(value);
+                ReportPropertyChanging("Volume");
+                _Volume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Volume");
+                OnVolumeChanged();
+            }
+        }
+        private global::System.Decimal _Volume;
+        partial void OnVolumeChanging(global::System.Decimal value);
+        partial void OnVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Recalculation
+        {
+            get
+            {
+                return _Recalculation;
+            }
+            set
+            {
+                OnRecalculationChanging(value);
+                ReportPropertyChanging("Recalculation");
+                _Recalculation = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Recalculation");
+                OnRecalculationChanged();
+            }
+        }
+        private global::System.Decimal _Recalculation;
+        partial void OnRecalculationChanging(global::System.Decimal value);
+        partial void OnRecalculationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Square
+        {
+            get
+            {
+                return _Square;
+            }
+            set
+            {
+                OnSquareChanging(value);
+                ReportPropertyChanging("Square");
+                _Square = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Square");
+                OnSquareChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Square;
+        partial void OnSquareChanging(Nullable<global::System.Decimal> value);
+        partial void OnSquareChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte Residents
+        {
+            get
+            {
+                return _Residents;
+            }
+            set
+            {
+                OnResidentsChanging(value);
+                ReportPropertyChanging("Residents");
+                _Residents = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Residents");
+                OnResidentsChanged();
+            }
+        }
+        private global::System.Byte _Residents;
+        partial void OnResidentsChanging(global::System.Byte value);
+        partial void OnResidentsChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationCustomers", "CalculationRows")]
+        public EntityCollection<CalculationRows> CalculationRow
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers", "CalculationRows", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationFiles")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationFiles : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationFiles object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="processingResult">Initial value of the ProcessingResult property.</param>
+        public static CalculationFiles CreateCalculationFiles(global::System.Int32 id, global::System.Byte processingResult)
+        {
+            CalculationFiles calculationFiles = new CalculationFiles();
+            calculationFiles.ID = id;
+            calculationFiles.ProcessingResult = processingResult;
+            return calculationFiles;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ProcessingResult
+        {
+            get
+            {
+                return _ProcessingResult;
+            }
+            set
+            {
+                OnProcessingResultChanging(value);
+                ReportPropertyChanging("ProcessingResult");
+                _ProcessingResult = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcessingResult");
+                OnProcessingResultChanged();
+            }
+        }
+        private global::System.Byte _ProcessingResult;
+        partial void OnProcessingResultChanging(global::System.Byte value);
+        partial void OnProcessingResultChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationFiles_CalculationUploads", "CalculationUploads")]
+        public CalculationUploads CalculationUploads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationUploads>("AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads", "CalculationUploads").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationUploads>("AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads", "CalculationUploads").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationUploads> CalculationUploadsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationUploads>("AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads", "CalculationUploads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationUploads>("AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads", "CalculationUploads", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationForms_CalculationFiles", "CalculationForms")]
+        public EntityCollection<CalculationForms> CalculationForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationForms>("AlphaDataBaseModel.FK_CalculationForms_CalculationFiles", "CalculationForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationForms>("AlphaDataBaseModel.FK_CalculationForms_CalculationFiles", "CalculationForms", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationForms")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationForms : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationForms object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static CalculationForms CreateCalculationForms(global::System.Int32 id)
+        {
+            CalculationForms calculationForms = new CalculationForms();
+            calculationForms.ID = id;
+            return calculationForms;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationForms_CalculationFiles", "CalculationFiles")]
+        public CalculationFiles CalculationFiles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationFiles>("AlphaDataBaseModel.FK_CalculationForms_CalculationFiles", "CalculationFiles").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationFiles>("AlphaDataBaseModel.FK_CalculationForms_CalculationFiles", "CalculationFiles").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationFiles> CalculationFilesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationFiles>("AlphaDataBaseModel.FK_CalculationForms_CalculationFiles", "CalculationFiles");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationFiles>("AlphaDataBaseModel.FK_CalculationForms_CalculationFiles", "CalculationFiles", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationForms", "CalculationRows")]
+        public EntityCollection<CalculationRows> CalculationRows
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationForms", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationForms", "CalculationRows", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationLegalEntities")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationLegalEntities : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationLegalEntities object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="contract">Initial value of the Contract property.</param>
+        /// <param name="chargedVolume">Initial value of the ChargedVolume property.</param>
+        public static CalculationLegalEntities CreateCalculationLegalEntities(global::System.Int32 id, global::System.String contract, global::System.Decimal chargedVolume)
+        {
+            CalculationLegalEntities calculationLegalEntities = new CalculationLegalEntities();
+            calculationLegalEntities.ID = id;
+            calculationLegalEntities.Contract = contract;
+            calculationLegalEntities.ChargedVolume = chargedVolume;
+            return calculationLegalEntities;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Contract
+        {
+            get
+            {
+                return _Contract;
+            }
+            set
+            {
+                OnContractChanging(value);
+                ReportPropertyChanging("Contract");
+                _Contract = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Contract");
+                OnContractChanged();
+            }
+        }
+        private global::System.String _Contract;
+        partial void OnContractChanging(global::System.String value);
+        partial void OnContractChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String EntityName
+        {
+            get
+            {
+                return _EntityName;
+            }
+            set
+            {
+                OnEntityNameChanging(value);
+                ReportPropertyChanging("EntityName");
+                _EntityName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("EntityName");
+                OnEntityNameChanged();
+            }
+        }
+        private global::System.String _EntityName;
+        partial void OnEntityNameChanging(global::System.String value);
+        partial void OnEntityNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal ChargedVolume
+        {
+            get
+            {
+                return _ChargedVolume;
+            }
+            set
+            {
+                OnChargedVolumeChanging(value);
+                ReportPropertyChanging("ChargedVolume");
+                _ChargedVolume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ChargedVolume");
+                OnChargedVolumeChanged();
+            }
+        }
+        private global::System.Decimal _ChargedVolume;
+        partial void OnChargedVolumeChanging(global::System.Decimal value);
+        partial void OnChargedVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Square
+        {
+            get
+            {
+                return _Square;
+            }
+            set
+            {
+                OnSquareChanging(value);
+                ReportPropertyChanging("Square");
+                _Square = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Square");
+                OnSquareChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Square;
+        partial void OnSquareChanging(Nullable<global::System.Decimal> value);
+        partial void OnSquareChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationLegalEntities", "CalculationRows")]
+        public EntityCollection<CalculationRows> CalculationRow
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities", "CalculationRows", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationRows")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationRows : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationRows object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="processingResult">Initial value of the ProcessingResult property.</param>
+        /// <param name="rowType">Initial value of the RowType property.</param>
+        public static CalculationRows CreateCalculationRows(global::System.Int32 id, global::System.Byte processingResult, global::System.Byte rowType)
+        {
+            CalculationRows calculationRows = new CalculationRows();
+            calculationRows.ID = id;
+            calculationRows.ProcessingResult = processingResult;
+            calculationRows.RowType = rowType;
+            return calculationRows;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ProcessingResult
+        {
+            get
+            {
+                return _ProcessingResult;
+            }
+            set
+            {
+                OnProcessingResultChanging(value);
+                ReportPropertyChanging("ProcessingResult");
+                _ProcessingResult = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcessingResult");
+                OnProcessingResultChanged();
+            }
+        }
+        private global::System.Byte _ProcessingResult;
+        partial void OnProcessingResultChanging(global::System.Byte value);
+        partial void OnProcessingResultChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte RowType
+        {
+            get
+            {
+                return _RowType;
+            }
+            set
+            {
+                OnRowTypeChanging(value);
+                ReportPropertyChanging("RowType");
+                _RowType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RowType");
+                OnRowTypeChanged();
+            }
+        }
+        private global::System.Byte _RowType;
+        partial void OnRowTypeChanging(global::System.Byte value);
+        partial void OnRowTypeChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationForms", "CalculationForms")]
+        public CalculationForms CalculationForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationForms>("AlphaDataBaseModel.FK_CalculationRows_CalculationForms", "CalculationForms").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationForms>("AlphaDataBaseModel.FK_CalculationRows_CalculationForms", "CalculationForms").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationForms> CalculationFormsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationForms>("AlphaDataBaseModel.FK_CalculationRows_CalculationForms", "CalculationForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationForms>("AlphaDataBaseModel.FK_CalculationRows_CalculationForms", "CalculationForms", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationBuildingCounters", "CalculationBuildingCounters")]
+        public CalculationBuildingCounters BuildingCounter
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationBuildingCounters>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters", "CalculationBuildingCounters").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationBuildingCounters>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters", "CalculationBuildingCounters").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationBuildingCounters> BuildingCounterReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationBuildingCounters>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters", "CalculationBuildingCounters");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationBuildingCounters>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters", "CalculationBuildingCounters", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationBuildingInfos", "CalculationBuildingInfos")]
+        public CalculationBuildingInfos BuildingInfo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationBuildingInfos>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos", "CalculationBuildingInfos").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationBuildingInfos>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos", "CalculationBuildingInfos").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationBuildingInfos> BuildingInfoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationBuildingInfos>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos", "CalculationBuildingInfos");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationBuildingInfos>("AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos", "CalculationBuildingInfos", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationCustomers", "CalculationCustomers")]
+        public CalculationCustomers Customer
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationCustomers>("AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers", "CalculationCustomers").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationCustomers>("AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers", "CalculationCustomers").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationCustomers> CustomerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationCustomers>("AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers", "CalculationCustomers");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationCustomers>("AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers", "CalculationCustomers", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationLegalEntities", "CalculationLegalEntities")]
+        public CalculationLegalEntities LegalEntity
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationLegalEntities>("AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities", "CalculationLegalEntities").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationLegalEntities>("AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities", "CalculationLegalEntities").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationLegalEntities> LegalEntityReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationLegalEntities>("AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities", "CalculationLegalEntities");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationLegalEntities>("AlphaDataBaseModel.FK_CalculationRows_CalculationLegalEntities", "CalculationLegalEntities", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCalculationValues_CalculationRows", "BuildingCalculationValues")]
+        public EntityCollection<BuildingCalculationValues> BuildingCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingCalculationValues>("AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows", "BuildingCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCalculationValues>("AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows", "BuildingCalculationValues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationRows", "CalculationRows1")]
+        public EntityCollection<CalculationRows> BuildingRows
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationRows", "CalculationRows1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationRows", "CalculationRows1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationRows_CalculationRows", "CalculationRows")]
+        public CalculationRows BuildingAddressRow
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationRows", "CalculationRows").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationRows", "CalculationRows").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationRows> BuildingAddressRowReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationRows", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CalculationRows_CalculationRows", "CalculationRows", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterCalculationValues_CalculationRows", "BuildingCounterCalculationValues")]
+        public EntityCollection<BuildingCounterCalculationValues> BuildingCounterCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingCounterCalculationValues>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows", "BuildingCounterCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCounterCalculationValues>("AlphaDataBaseModel.FK_BuildingCounterCalculationValues_CalculationRows", "BuildingCounterCalculationValues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_LegalEntityCalculationValue_CalculationRows", "LegalEntityCalculationValues")]
+        public EntityCollection<LegalEntityCalculationValues> LegalEntityCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LegalEntityCalculationValues>("AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows", "LegalEntityCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LegalEntityCalculationValues>("AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows", "LegalEntityCalculationValues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_CalculationRows", "CustomerCalculationValues")]
+        public EntityCollection<CustomerCalculationValues> CustomerCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CustomerCalculationValues>("AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows", "CustomerCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CustomerCalculationValues>("AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows", "CustomerCalculationValues", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CalculationUploads")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CalculationUploads : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CalculationUploads object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="processingResult">Initial value of the ProcessingResult property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="directoryPath">Initial value of the DirectoryPath property.</param>
+        public static CalculationUploads CreateCalculationUploads(global::System.Int32 id, global::System.Byte processingResult, global::System.DateTime created, global::System.DateTime month, global::System.String directoryPath)
+        {
+            CalculationUploads calculationUploads = new CalculationUploads();
+            calculationUploads.ID = id;
+            calculationUploads.ProcessingResult = processingResult;
+            calculationUploads.Created = created;
+            calculationUploads.Month = month;
+            calculationUploads.DirectoryPath = directoryPath;
+            return calculationUploads;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ProcessingResult
+        {
+            get
+            {
+                return _ProcessingResult;
+            }
+            set
+            {
+                OnProcessingResultChanging(value);
+                ReportPropertyChanging("ProcessingResult");
+                _ProcessingResult = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcessingResult");
+                OnProcessingResultChanged();
+            }
+        }
+        private global::System.Byte _ProcessingResult;
+        partial void OnProcessingResultChanging(global::System.Byte value);
+        partial void OnProcessingResultChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DirectoryPath
+        {
+            get
+            {
+                return _DirectoryPath;
+            }
+            set
+            {
+                OnDirectoryPathChanging(value);
+                ReportPropertyChanging("DirectoryPath");
+                _DirectoryPath = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DirectoryPath");
+                OnDirectoryPathChanged();
+            }
+        }
+        private global::System.String _DirectoryPath;
+        partial void OnDirectoryPathChanging(global::System.String value);
+        partial void OnDirectoryPathChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationUploads_Users", "Users")]
+        public Users Author
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_CalculationUploads_Users", "Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_CalculationUploads_Users", "Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> AuthorReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("AlphaDataBaseModel.FK_CalculationUploads_Users", "Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("AlphaDataBaseModel.FK_CalculationUploads_Users", "Users", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationFiles_CalculationUploads", "CalculationFiles")]
+        public EntityCollection<CalculationFiles> CalculationFiles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationFiles>("AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads", "CalculationFiles");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationFiles>("AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads", "CalculationFiles", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="CustomerCalculationValues")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CustomerCalculationValues : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CustomerCalculationValues object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="valueType">Initial value of the ValueType property.</param>
+        /// <param name="volume">Initial value of the Volume property.</param>
+        /// <param name="recalculation">Initial value of the Recalculation property.</param>
+        public static CustomerCalculationValues CreateCustomerCalculationValues(global::System.Int32 id, global::System.DateTime month, global::System.Byte valueType, global::System.Decimal volume, global::System.Decimal recalculation)
+        {
+            CustomerCalculationValues customerCalculationValues = new CustomerCalculationValues();
+            customerCalculationValues.ID = id;
+            customerCalculationValues.Month = month;
+            customerCalculationValues.ValueType = valueType;
+            customerCalculationValues.Volume = volume;
+            customerCalculationValues.Recalculation = recalculation;
+            return customerCalculationValues;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ValueType
+        {
+            get
+            {
+                return _ValueType;
+            }
+            set
+            {
+                OnValueTypeChanging(value);
+                ReportPropertyChanging("ValueType");
+                _ValueType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ValueType");
+                OnValueTypeChanged();
+            }
+        }
+        private global::System.Byte _ValueType;
+        partial void OnValueTypeChanging(global::System.Byte value);
+        partial void OnValueTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Volume
+        {
+            get
+            {
+                return _Volume;
+            }
+            set
+            {
+                OnVolumeChanging(value);
+                ReportPropertyChanging("Volume");
+                _Volume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Volume");
+                OnVolumeChanged();
+            }
+        }
+        private global::System.Decimal _Volume;
+        partial void OnVolumeChanging(global::System.Decimal value);
+        partial void OnVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Recalculation
+        {
+            get
+            {
+                return _Recalculation;
+            }
+            set
+            {
+                OnRecalculationChanging(value);
+                ReportPropertyChanging("Recalculation");
+                _Recalculation = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Recalculation");
+                OnRecalculationChanged();
+            }
+        }
+        private global::System.Decimal _Recalculation;
+        partial void OnRecalculationChanging(global::System.Decimal value);
+        partial void OnRecalculationChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_CalculationRows", "CalculationRows")]
+        public CalculationRows CalculationRows
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows", "CalculationRows").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows", "CalculationRows").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationRows> CalculationRowsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows", "CalculationRows", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_Customers", "Customers")]
+        public Customers Customers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_CustomerCalculationValues_Customers", "Customers").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_CustomerCalculationValues_Customers", "Customers").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Customers> CustomersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Customers>("AlphaDataBaseModel.FK_CustomerCalculationValues_Customers", "Customers");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Customers>("AlphaDataBaseModel.FK_CustomerCalculationValues_Customers", "Customers", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="Customers")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2353,6 +5645,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivateCounters>("AlphaDataBaseModel.FK_PrivateCounters_Customers", "PrivateCounters", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_Customers", "CustomerCalculationValues")]
+        public EntityCollection<CustomerCalculationValues> CustomerCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CustomerCalculationValues>("AlphaDataBaseModel.FK_CustomerCalculationValues_Customers", "CustomerCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CustomerCalculationValues>("AlphaDataBaseModel.FK_CustomerCalculationValues_Customers", "CustomerCalculationValues", value);
                 }
             }
         }
@@ -4197,6 +7511,340 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivateCounters>("AlphaDataBaseModel.FK_FillFormValues_PrivateCounters", "PrivateCounters", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="LegalEntities")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LegalEntities : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LegalEntities object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="contract">Initial value of the Contract property.</param>
+        public static LegalEntities CreateLegalEntities(global::System.Int32 id, global::System.String contract)
+        {
+            LegalEntities legalEntities = new LegalEntities();
+            legalEntities.ID = id;
+            legalEntities.Contract = contract;
+            return legalEntities;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Contract
+        {
+            get
+            {
+                return _Contract;
+            }
+            set
+            {
+                OnContractChanging(value);
+                ReportPropertyChanging("Contract");
+                _Contract = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Contract");
+                OnContractChanged();
+            }
+        }
+        private global::System.String _Contract;
+        partial void OnContractChanging(global::System.String value);
+        partial void OnContractChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_LegalEntities_Buildings", "Buildings")]
+        public Buildings Buildings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_LegalEntities_Buildings", "Buildings").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_LegalEntities_Buildings", "Buildings").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Buildings> BuildingsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Buildings>("AlphaDataBaseModel.FK_LegalEntities_Buildings", "Buildings");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Buildings>("AlphaDataBaseModel.FK_LegalEntities_Buildings", "Buildings", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_LegalEntityCalculationValues_LegalEntities", "LegalEntityCalculationValues")]
+        public EntityCollection<LegalEntityCalculationValues> LegalEntityCalculationValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LegalEntityCalculationValues>("AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities", "LegalEntityCalculationValues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LegalEntityCalculationValues>("AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities", "LegalEntityCalculationValues", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="LegalEntityCalculationValues")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LegalEntityCalculationValues : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LegalEntityCalculationValues object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="chargedVolume">Initial value of the ChargedVolume property.</param>
+        public static LegalEntityCalculationValues CreateLegalEntityCalculationValues(global::System.Int32 id, global::System.DateTime month, global::System.Decimal chargedVolume)
+        {
+            LegalEntityCalculationValues legalEntityCalculationValues = new LegalEntityCalculationValues();
+            legalEntityCalculationValues.ID = id;
+            legalEntityCalculationValues.Month = month;
+            legalEntityCalculationValues.ChargedVolume = chargedVolume;
+            return legalEntityCalculationValues;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.DateTime _Month;
+        partial void OnMonthChanging(global::System.DateTime value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal ChargedVolume
+        {
+            get
+            {
+                return _ChargedVolume;
+            }
+            set
+            {
+                OnChargedVolumeChanging(value);
+                ReportPropertyChanging("ChargedVolume");
+                _ChargedVolume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ChargedVolume");
+                OnChargedVolumeChanged();
+            }
+        }
+        private global::System.Decimal _ChargedVolume;
+        partial void OnChargedVolumeChanging(global::System.Decimal value);
+        partial void OnChargedVolumeChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_LegalEntityCalculationValue_CalculationRows", "CalculationRows")]
+        public CalculationRows CalculationRows
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows", "CalculationRows").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows", "CalculationRows").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CalculationRows> CalculationRowsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows", "CalculationRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CalculationRows>("AlphaDataBaseModel.FK_LegalEntityCalculationValue_CalculationRows", "CalculationRows", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_LegalEntityCalculationValues_LegalEntities", "LegalEntities")]
+        public LegalEntities LegalEntities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LegalEntities>("AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities", "LegalEntities").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LegalEntities>("AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities", "LegalEntities").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<LegalEntities> LegalEntitiesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LegalEntities>("AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities", "LegalEntities");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<LegalEntities>("AlphaDataBaseModel.FK_LegalEntityCalculationValues_LegalEntities", "LegalEntities", value);
                 }
             }
         }
@@ -6655,6 +10303,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesUploads_Users", "BuildingValuesUploads", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_CalculationUploads_Users", "CalculationUploads")]
+        public EntityCollection<CalculationUploads> CalculationUploads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CalculationUploads>("AlphaDataBaseModel.FK_CalculationUploads_Users", "CalculationUploads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CalculationUploads>("AlphaDataBaseModel.FK_CalculationUploads_Users", "CalculationUploads", value);
                 }
             }
         }

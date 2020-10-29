@@ -144,7 +144,12 @@
     <Compile Include="Enums\BenefitRuleType.cs" />
     <Compile Include="Enums\BillType.cs" />
     <Compile Include="Enums\BuildingContract.cs" />
+    <Compile Include="Enums\BuildingInfoRowType.cs" />
+    <Compile Include="Enums\CalculationCounterType.cs" />
+    <Compile Include="Enums\CalculationCustomerValueCounterType.cs" />
+    <Compile Include="Enums\CalculationMethod.cs" />
     <Compile Include="Enums\ChargeRuleType.cs" />
+    <Compile Include="Enums\FileProcessingResult.cs" />
     <Compile Include="Enums\FillFormCounterType.cs" />
     <Compile Include="Enums\DecFormsType.cs" />
     <Compile Include="Enums\OperationType.cs" />
@@ -153,6 +158,9 @@
     <Compile Include="Enums\PrivateFormCounterType.cs" />
     <Compile Include="Enums\RouteFormCounterType.cs" />
     <Compile Include="Enums\PrivateCounterValueType.cs" />
+    <Compile Include="Enums\RowProcessingResult.cs" />
+    <Compile Include="Enums\CalculationRowType.cs" />
+    <Compile Include="Enums\UploadProcessingResult.cs" />
     <Compile Include="Enums\UtilityService.cs" />
     <Compile Include="ExtensionMethods\BalanceDictionaryExtension.cs" />
     <Compile Include="ExtensionMethods\DictionaryExtension.cs" />

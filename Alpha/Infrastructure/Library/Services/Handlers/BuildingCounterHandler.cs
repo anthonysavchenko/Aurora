@@ -6,20 +6,22 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
     static public class BuildingCounterHandler
     {
-        static public void ClearExistedCounters()
+        static public void DeleteWithNoValues()
         {
             using (var db = new Entities())
             {
-                var existedCounters =
+                var counters =
                     db.BuildingCounters
                         .Where(c =>
                             c.UtilityService == (byte)UtilityService.Electricity
                             && c.CheckedSince == null
                             && c.CheckedTill == null
-                            && c.BuildingCounterValues.Count == 0)
+                            && c.BuildingCounterValues.Count == 0
+                            && c.BuildingCounterCalculationValues.Count == 0)
                         .ToList();
 
-                existedCounters.ForEach(c => db.BuildingCounters.DeleteObject(c));
+                counters.ForEach(c =>
+                    db.BuildingCounters.DeleteObject(c));
 
                 db.SaveChanges();
             }

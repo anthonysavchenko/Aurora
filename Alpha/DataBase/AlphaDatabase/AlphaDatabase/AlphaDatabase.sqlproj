@@ -88,5 +88,18 @@
     <Build Include="dbo\Tables\BuildingValuesUploads.sql" />
     <Build Include="dbo\Tables\BuildingValuesUploadPoses.sql" />
     <Build Include="dbo\Tables\BuildingCounterValues.sql" />
+    <Build Include="dbo\Tables\LegalEntityCalculationValues.sql" />
+    <Build Include="dbo\Tables\LegalEntities.sql" />
+    <Build Include="dbo\Tables\CustomerCalculationValues.sql" />
+    <Build Include="dbo\Tables\CalculationUploads.sql" />
+    <Build Include="dbo\Tables\CalculationRows.sql" />
+    <Build Include="dbo\Tables\CalculationLegalEntities.sql" />
+    <Build Include="dbo\Tables\CalculationForms.sql" />
+    <Build Include="dbo\Tables\CalculationFiles.sql" />
+    <Build Include="dbo\Tables\CalculationCustomers.sql" />
+    <Build Include="dbo\Tables\CalculationBuildingInfos.sql" />
+    <Build Include="dbo\Tables\CalculationBuildingCounters.sql" />
+    <Build Include="dbo\Tables\BuildingCounterCalculationValues.sql" />
+    <Build Include="dbo\Tables\BuildingCalculationValues.sql" />
   </ItemGroup>
 </Project>
