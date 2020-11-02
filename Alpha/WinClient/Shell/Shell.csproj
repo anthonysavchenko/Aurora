@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>E10064393BB60933B5EA90E9F3DEACCA0BF26B75</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3C86AEF45300B3349C1D429ECC6D0483D2F62248</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora 1872</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.15.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.17.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>019.15.0.0</ApplicationVersion>
+    <ApplicationVersion>019.17.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
