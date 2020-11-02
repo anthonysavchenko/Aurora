@@ -250,7 +250,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
                                 BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, GetEmergencyPhoneNumber(_bill.Street, _bill.Building)),
                                 _qrCode,
-                                "Все вопросы, связанные с начислением взносов и предоставлением платежных документов необходимо направлять в ООО \"Жилищные услуги\" по адресу: г. Владивосток, Океанский проспект, 98а, тел. 2-469-240");
+                                "Все вопросы, связанные с начислением взносов и предоставлением платежных документов необходимо направлять в ООО \"Жилищные услуги\" по адресу: г. Владивосток, ул. Пушкинская, д. 83, тел. 2-469-240");
 
                             if (_bill.BillSendingSubscription)
                             {

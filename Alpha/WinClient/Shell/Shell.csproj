@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>80EEE2980F00F5ABEE8E98400EE4696683068A1F</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C5204B593107D8D142E88A9AAD2D08890FA35957</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora Капремонт</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.17.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.18.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>019.17.0.0</ApplicationVersion>
+    <ApplicationVersion>019.18.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
