@@ -15,6 +15,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         private class CustomerInfo
         {
             public string Account { get; set; }
+            public string GisZhkhID { get; set; }
             public string Owner { get; set; }
             public string Street { get; set; }
             public string Building { get; set; }
@@ -49,6 +50,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 c.PhysicalPersonFullName,
                                 c.JuridicalPersonFullName,
                                 c.Apartment,
+                                c.GisZhkhID,
                             })
                         .ToList();
 
@@ -234,6 +236,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             c.Account,
                             c.Apartment,
                             Owner = c.OwnerType == (int)OwnerType.PhysicalPerson ? c.PhysicalPersonFullName : c.JuridicalPersonFullName,
+                            c.GisZhkhID,
                             x.BuildingID,
                             x.Value,
                             x.BankDetailID
@@ -249,6 +252,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             Account = x.Account,
                             Apartment = x.Apartment,
                             Owner = x.Owner,
+                            x.GisZhkhID,
                             Value = x.Value,
                             Street = b.StreetName,
                             Building = b.Number,
@@ -264,6 +268,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     new CustomerInfo
                                     {
                                         Account = x.Account,
+                                        GisZhkhID = x.GisZhkhID,
                                         Apartment = x.Apartment,
                                         Building = x.Building,
                                         BuildingFias = x.BuildingFias,
@@ -318,7 +323,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                     string formatString =
                         _format == ChargeExportFormatType.Sberbank
-                            ? "{0};{1};{2},{3};{4};Владивосток, {5}, {6}, {7};{8:MMyy};Основной долг;{9};{10};Пеня;{11};{12}"
+                            ? "{0};{1};{2},{3};{4};Владивосток, {5}, {6}, {7};{8:MMyy};{9}"
                             : "{0};Владивосток,{1},{2},{3};{4};{5}";
 
                     foreach (KeyValuePair<int, List<CustomerInfo>> _pair in _data)
@@ -344,7 +349,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                     _file.WriteLine(
                                         formatString,
                                         _record.Account,      // Лицевой счет
-                                        _record.Account,      // ? ЕЛС
+                                        _record.GisZhkhID,    // ЕЛС
                                         _record.BuildingFias, // Код ФИАС, дом
                                         _record.Apartment,    // Код ФИАС, квартира
                                         _record.Owner,        // ФИО
@@ -352,12 +357,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                         _record.Building,     // Адрес, дом
                                         _record.Apartment,    // Адрес, квартира
                                         period,               // Период
-                                        1,                    // ? Код услуги в биллинге ПУ
                                         _record.Value < 0     // Сумма
                                             ? "0,00"
-                                            : _record.Value.ToString("0.00").Replace('.', ','),
-                                        2,                    // ? Код услуги в биллинге ПУ
-                                        "0,00");              // Сумма
+                                            : _record.Value.ToString("0.00").Replace('.', ','));
                                 }
                                 else
                                 {
