@@ -34,6 +34,8 @@
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraPrinting.BarCode.Code39Generator code39Generator1 = new DevExpress.XtraPrinting.BarCode.Code39Generator();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
+            this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
+            this.formattingRule1 = new DevExpress.XtraReports.UI.FormattingRule();
             this.xrPanel3 = new DevExpress.XtraReports.UI.XRPanel();
             this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
             this.bankQrCode = new DevExpress.XtraReports.UI.XRBarCode();
@@ -58,7 +60,6 @@
             this.xrLine2 = new DevExpress.XtraReports.UI.XRLine();
             this.xrBarCode1 = new DevExpress.XtraReports.UI.XRBarCode();
             this.xrLabel12 = new DevExpress.XtraReports.UI.XRLabel();
-            this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel15 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel14 = new DevExpress.XtraReports.UI.XRLabel();
@@ -80,11 +81,11 @@
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle3 = new DevExpress.XtraReports.UI.XRControlStyle();
-            this.formattingRule1 = new DevExpress.XtraReports.UI.FormattingRule();
             this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet();
             this.CustId = new DevExpress.XtraReports.Parameters.Parameter();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.serviceTableSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -92,6 +93,7 @@
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel4,
             this.xrPanel3,
             this.bankDetailsLabel,
             this.xrTable3,
@@ -118,6 +120,26 @@
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             this.Detail.StylePriority.UseTextAlignment = false;
+            // 
+            // xrLabel4
+            // 
+            resources.ApplyResources(this.xrLabel4, "xrLabel4");
+            this.xrLabel4.FormattingRules.Add(this.formattingRule1);
+            this.xrLabel4.Multiline = true;
+            this.xrLabel4.Name = "xrLabel4";
+            this.xrLabel4.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel4.StylePriority.UseFont = false;
+            this.xrLabel4.StylePriority.UseTextAlignment = false;
+            // 
+            // formattingRule1
+            // 
+            this.formattingRule1.Condition = resources.GetString("formattingRule1.Condition");
+            this.formattingRule1.DataMember = "Customers";
+            // 
+            // 
+            // 
+            this.formattingRule1.Formatting.Visible = DevExpress.Utils.DefaultBoolean.False;
+            this.formattingRule1.Name = "formattingRule1";
             // 
             // xrPanel3
             // 
@@ -399,14 +421,6 @@
             this.xrLabel12.StylePriority.UseFont = false;
             this.xrLabel12.StylePriority.UseTextAlignment = false;
             // 
-            // serviceTableSubreport
-            // 
-            this.serviceTableSubreport.CanShrink = true;
-            resources.ApplyResources(this.serviceTableSubreport, "serviceTableSubreport");
-            this.serviceTableSubreport.Id = 0;
-            this.serviceTableSubreport.Name = "serviceTableSubreport";
-            this.serviceTableSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.ServiceTableReportObject();
-            // 
             // xrLabel2
             // 
             resources.ApplyResources(this.xrLabel2, "xrLabel2");
@@ -610,10 +624,6 @@
             this.xrControlStyle3.Name = "xrControlStyle3";
             this.xrControlStyle3.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             // 
-            // formattingRule1
-            // 
-            this.formattingRule1.Name = "formattingRule1";
-            // 
             // dataSet1
             // 
             this.dataSet1.DataSetName = "DataSet";
@@ -635,6 +645,14 @@
             // 
             resources.ApplyResources(this.bottomMarginBand1, "bottomMarginBand1");
             this.bottomMarginBand1.Name = "bottomMarginBand1";
+            // 
+            // serviceTableSubreport
+            // 
+            this.serviceTableSubreport.CanShrink = true;
+            resources.ApplyResources(this.serviceTableSubreport, "serviceTableSubreport");
+            this.serviceTableSubreport.Id = 0;
+            this.serviceTableSubreport.Name = "serviceTableSubreport";
+            this.serviceTableSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.ServiceTableReportObject();
             // 
             // TopReceiptReportObject
             // 
@@ -670,7 +688,6 @@
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle1;
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle2;
         private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle3;
-        private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
         private DevExpress.XtraReports.UI.XRLabel billDateLabel;
         private DevExpress.XtraReports.UI.XRLabel payBeforeDateLabel;
         private DevExpress.XtraReports.UI.XRLabel xrLabel11;
@@ -717,5 +734,7 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel12;
         private DevExpress.XtraReports.UI.XRLabel xrLabel13;
         private DevExpress.XtraReports.UI.XRPanel xrPanel3;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel4;
+        private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
     }
 }
