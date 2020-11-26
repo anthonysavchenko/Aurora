@@ -10,6 +10,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
     {
         private const int CONTRACTOR_CONTACT_INFO_SERVICE_ID = 6;
         private const int MADIX_CONTRACTOR_ID = 8; /* ООО "Мадикс" */
+        private const int EGERSHELD_DV_CONTRACTOR_ID = 16; /* ООО "Эгершельд-ДВ" */
 
         public void Execute(CreateBillCommand cmd)
         {
@@ -38,19 +39,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     Customers = cmd.DbCustomerStub,
                     BillSets = _billSet,
                     Period = _chargePeriod,
-                    EmergencyPhoneNumber = cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == MADIX_CONTRACTOR_ID)
-                        ? "248-25-12" : "298-09-81",
+                    EmergencyPhoneNumber =
+                        cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID)
+                            ? "295-53-91"
+                            : cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == MADIX_CONTRACTOR_ID)
+                                ? "206-03-20"
+                                : "298-09-81",
                     PayBeforeDateTime = _payBefore,
                     MonthChargeValue = _currentPeriodTotal,
                     OverpaymentValue = _rest,
                     Value = _currentPeriodTotal + _rest,
                 };
 
-            var _contractorPos = cmd.CustomerInfo.Poses.FirstOrDefault(p => p.ServiceId == CONTRACTOR_CONTACT_INFO_SERVICE_ID);
+            var _contractorPos =
+                cmd.CustomerInfo.Poses.FirstOrDefault(p => p.ServiceId == CONTRACTOR_CONTACT_INFO_SERVICE_ID);
+
             if (_contractorPos != null)
             {
                 Contractors _cont = cmd.Contractors[_contractorPos.ContractorId];
-                _billDoc.ContractorContactInfo = $"{_cont.Name}, {_cont.ContactInfo}";
+
+                _billDoc.ContractorContactInfo =
+                    _contractorPos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID
+                        ? $"{_cont.ContactInfo}"
+                        : $"{_cont.Name}, {_cont.ContactInfo}";
             }
             else
             {
