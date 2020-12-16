@@ -1,10 +1,14 @@
 ﻿using DevExpress.Utils;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
-using System.Data;
 using System.Drawing;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportForGridView = System.Windows.Forms.UserControl;
@@ -17,7 +21,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         public ListView()
         {
             InitializeComponent();
-            InitReportComponents(gridControlOfListView, gridViewOfListView);
+            InitReportComponents(GridControlOfListView, GridViewOfListView);
         }
 
         [CreateNew]
@@ -38,41 +42,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         /// <summary>
         /// Добавляет колонку в таблицу
         /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        public void AddColumn(string fieldName, string caption)
+        public void AddColumn(Column column)
         {
-            AddColumn(fieldName, caption, FormatType.None, string.Empty);
-        }
+            GridColumn gridColumn = GridViewOfListView.Columns.AddVisible(column.FieldName, column.Caption);
 
-        /// <summary>
-        /// Добавляет колонку в таблицу
-        /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        public void AddNumericColumn(string fieldName, string caption)
-        {
-            AddColumn(fieldName, caption, FormatType.Numeric, "0");
-        }
-
-        public void AddDateColumn(string fieldName, string caption)
-        {
-            AddColumn(fieldName, caption, FormatType.DateTime, "dd.MM.yyyy");
-        }
-
-        /// <summary>
-        /// Добавляет колонку в таблицу
-        /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        /// <param name="formatType">Тип форматирования</param>
-        /// <param name="formatString">Строка форматирования</param>
-        private GridColumn AddColumn(string fieldName, string caption, FormatType formatType, string formatString)
-        {
-            GridColumn _column = gridViewOfListView.Columns.AddVisible(fieldName, caption);
-            _column.DisplayFormat.FormatType = formatType;
-            _column.DisplayFormat.FormatString = formatString;
-            return _column;
+            switch (column.ColumnFormat)
+            {
+                case ColumnFormat.Numeric:
+                    gridColumn.DisplayFormat.FormatType = FormatType.Numeric;
+                    gridColumn.DisplayFormat.FormatString = "{0:n2}";
+                    break;
+            }
         }
 
         /// <summary>
@@ -80,7 +60,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         /// </summary>
         public void ClearColumns()
         {
-            gridViewOfListView.Columns.Clear();
+            GridViewOfListView.Columns.Clear();
         }
 
         /// <summary>
@@ -115,47 +95,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
 
         #endregion
 
-        private void gridViewOfListView_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        private void GridViewOfListView_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
+            var value = e.CellValue;
 
+            if (value is decimal && (decimal)value < 0)
+            {
+                e.Appearance.ForeColor = Color.Red;
+            }
         }
 
-        private void gridViewOfListView_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        private void GridViewOfListView_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
         {
-            /*
-            if (e.RowHandle >= 0 && e.Column != null && e.Column.FieldName.EndsWith("_RouteForm_PrevValue"))
+            if (e.ListSourceRowIndex != GridControl.InvalidRowHandle
+                && e.Value is decimal)
             {
-                var routeFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
-                    e.RowHandle,
-                    e.Column.FieldName)?.ToString();
-
-                var fillFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
-                    e.RowHandle,
-                    e.Column.FieldName.Substring(0, 7) + "_FillForm_PrevValue")?.ToString();
-
-                if (routeFormValue != fillFormValue)
+                switch (((ColumnView)sender).GetListSourceRowCellValue(e.ListSourceRowIndex, "Params")?.ToString())
                 {
-                    e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
-                    e.Appearance.BackColor2 = Color.FromArgb(250, 200, 200);
+                    case "Процент ОДН ДЭК от ИПУ ДЭК":
+                        e.DisplayText = $"{e.Value:n2} %";
+                        break;
+                    case "Расчет ОДН":
+                        e.DisplayText =
+                            (decimal)e.Value == (decimal)CalculationMethod.BuildingCounters
+                                ? "ОДПУ"
+                                : (decimal)e.Value == (decimal)CalculationMethod.Norm
+                                    ? "Норматив"
+                                    : (decimal)e.Value == (decimal)CalculationMethod.Avarage
+                                        ? "Среднее"
+                                        : "Не определено";
+                        break;
                 }
             }
-            if (e.RowHandle >= 0 && e.Column != null && e.Column.FieldName.EndsWith("_FillForm_PrevValue"))
-            {
-                var routeFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
-                    e.RowHandle,
-                    e.Column.FieldName.Substring(0, 7) + "_RouteForm_PrevValue")?.ToString();
-
-                var fillFormValue = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRowCellValue(
-                    e.RowHandle,
-                    e.Column.FieldName)?.ToString();
-
-                if (routeFormValue != fillFormValue)
-                {
-                    e.Appearance.BackColor = Color.FromArgb(250, 200, 200);
-                    e.Appearance.BackColor2 = Color.FromArgb(250, 200, 200);
-                }
-            }
-            */
         }
     }
 }

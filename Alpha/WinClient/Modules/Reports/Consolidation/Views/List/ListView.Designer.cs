@@ -30,17 +30,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gridControlOfListView = new DevExpress.XtraGrid.GridControl();
-            this.gridViewOfListView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.GridControlOfListView = new DevExpress.XtraGrid.GridControl();
+            this.GridViewOfListView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.TillDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.SinceDateEdit = new DevExpress.XtraEditors.DateEdit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlOfListView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewOfListView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridControlOfListView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridViewOfListView)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TillDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TillDateEdit.Properties)).BeginInit();
@@ -48,52 +46,40 @@
             ((System.ComponentModel.ISupportInitialize)(this.SinceDateEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
-            // gridControlOfListView
+            // GridControlOfListView
             // 
-            this.gridControlOfListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlOfListView.EmbeddedNavigator.Buttons.Append.Visible = false;
-            this.gridControlOfListView.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
-            this.gridControlOfListView.EmbeddedNavigator.Buttons.Edit.Visible = false;
-            this.gridControlOfListView.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
-            this.gridControlOfListView.EmbeddedNavigator.Buttons.First.Visible = false;
-            this.gridControlOfListView.EmbeddedNavigator.Buttons.Remove.Visible = false;
-            this.gridControlOfListView.Location = new System.Drawing.Point(0, 52);
-            this.gridControlOfListView.MainView = this.gridViewOfListView;
-            this.gridControlOfListView.Name = "gridControlOfListView";
-            this.gridControlOfListView.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemCheckEdit1});
-            this.gridControlOfListView.Size = new System.Drawing.Size(750, 298);
-            this.gridControlOfListView.TabIndex = 0;
-            this.gridControlOfListView.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewOfListView});
+            this.GridControlOfListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GridControlOfListView.EmbeddedNavigator.Buttons.Append.Visible = false;
+            this.GridControlOfListView.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+            this.GridControlOfListView.EmbeddedNavigator.Buttons.Edit.Visible = false;
+            this.GridControlOfListView.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+            this.GridControlOfListView.EmbeddedNavigator.Buttons.First.Visible = false;
+            this.GridControlOfListView.EmbeddedNavigator.Buttons.Remove.Visible = false;
+            this.GridControlOfListView.Location = new System.Drawing.Point(0, 52);
+            this.GridControlOfListView.MainView = this.GridViewOfListView;
+            this.GridControlOfListView.Name = "GridControlOfListView";
+            this.GridControlOfListView.Size = new System.Drawing.Size(750, 298);
+            this.GridControlOfListView.TabIndex = 0;
+            this.GridControlOfListView.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.GridViewOfListView});
             // 
-            // gridViewOfListView
+            // GridViewOfListView
             // 
-            this.gridViewOfListView.Appearance.GroupRow.Options.UseTextOptions = true;
-            this.gridViewOfListView.Appearance.GroupRow.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.gridViewOfListView.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            this.gridViewOfListView.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridViewOfListView.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.gridViewOfListView.GridControl = this.gridControlOfListView;
-            this.gridViewOfListView.Name = "gridViewOfListView";
-            this.gridViewOfListView.OptionsBehavior.AllowIncrementalSearch = true;
-            this.gridViewOfListView.OptionsBehavior.Editable = false;
-            this.gridViewOfListView.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gridViewOfListView.OptionsSelection.EnableAppearanceFocusedRow = false;
-            this.gridViewOfListView.OptionsSelection.MultiSelect = true;
-            this.gridViewOfListView.OptionsView.ShowGroupPanel = false;
-            this.gridViewOfListView.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridViewOfListView_RowCellStyle);
-            // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Caption = "Check";
-            this.repositoryItemCheckEdit1.DisplayValueChecked = "1";
-            this.repositoryItemCheckEdit1.DisplayValueUnchecked = "0";
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            this.repositoryItemCheckEdit1.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
-            this.repositoryItemCheckEdit1.ValueChecked = "1";
-            this.repositoryItemCheckEdit1.ValueUnchecked = "0";
+            this.GridViewOfListView.Appearance.GroupRow.Options.UseTextOptions = true;
+            this.GridViewOfListView.Appearance.GroupRow.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.GridViewOfListView.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            this.GridViewOfListView.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.GridViewOfListView.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.GridViewOfListView.GridControl = this.GridControlOfListView;
+            this.GridViewOfListView.Name = "GridViewOfListView";
+            this.GridViewOfListView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.GridViewOfListView.OptionsBehavior.Editable = false;
+            this.GridViewOfListView.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.GridViewOfListView.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.GridViewOfListView.OptionsSelection.MultiSelect = true;
+            this.GridViewOfListView.OptionsView.ShowGroupPanel = false;
+            this.GridViewOfListView.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.GridViewOfListView_RowCellStyle);
+            this.GridViewOfListView.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.GridViewOfListView_CustomColumnDisplayText);
             // 
             // groupBox1
             // 
@@ -170,13 +156,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gridControlOfListView);
+            this.Controls.Add(this.GridControlOfListView);
             this.Controls.Add(this.groupBox1);
             this.Name = "ListView";
             this.Size = new System.Drawing.Size(750, 350);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlOfListView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewOfListView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridControlOfListView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridViewOfListView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TillDateEdit.Properties.CalendarTimeProperties)).EndInit();
@@ -189,9 +174,8 @@
 
         #endregion
 
-        private DevExpress.XtraGrid.GridControl gridControlOfListView;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewOfListView;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
+        private DevExpress.XtraGrid.GridControl GridControlOfListView;
+        private DevExpress.XtraGrid.Views.Grid.GridView GridViewOfListView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

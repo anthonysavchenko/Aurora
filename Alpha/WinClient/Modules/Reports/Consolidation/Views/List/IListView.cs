@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data;
+using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
@@ -9,18 +9,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         /// <summary>
         /// Добавляет колонку в таблицу
         /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        void AddColumn(string fieldName, string caption);
-
-        /// <summary>
-        /// Добавляет колонку в таблицу
-        /// </summary>
-        /// <param name="fieldName">Наименование колонки в источнике данных</param>
-        /// <param name="caption">Заголовок колонки</param>
-        void AddNumericColumn(string fieldName, string caption);
-
-        void AddDateColumn(string fieldName, string caption);
+        void AddColumn(Column column);
 
         /// <summary>
         /// Удаляет все колонки
