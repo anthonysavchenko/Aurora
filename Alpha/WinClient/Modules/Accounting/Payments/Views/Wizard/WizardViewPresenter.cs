@@ -682,12 +682,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             WizardPaymentElement _res = new WizardPaymentElement();
 
             _res.Account = _poses.Length > 5 ? _poses[5] : string.Empty;
-            _res.Period = ServerTime.GetPeriodInfo().LastCharged;
 
-            if (_poses.Length > 7)
+            _res.Period =
+                _poses.Length > 8 && Regex.IsMatch(_poses[8], @"\d{2}\d{2}")
+                    ? new DateTime(
+                        2000 + int.Parse(_poses[8].Substring(2)),
+                        int.Parse(_poses[8].Substring(0, 2)),
+                        1)
+                    : DateTime.MinValue;
+
+            if (_poses.Length > 9)
             {
-                decimal _value = 0;
-                Decimal.TryParse(_poses[7].Replace('.', ','), out _value);
+                decimal.TryParse(_poses[9].Replace('.', ','), out decimal _value);
                 _res.Value = _value;
             }
 
