@@ -211,12 +211,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                     _raw = _raw.Where(x => x.StreetID == _id);
                 }
 
+                /*
                 if(View.TillDateTime > DateTime.MinValue)
                 {
                     DateTime _till = View.TillDateTime;
                     _till = new DateTime(_till.Year, _till.Month, DateTime.DaysInMonth(_till.Year, _till.Month), 23, 59, 59);
                     _raw = _raw.Where(x => x.Period <= _till);
                 }
+                */
+
+                _raw = _raw.Where(x => x.Period >= new DateTime(2017, 11, 1));
 
                 var _raw2 = _raw
                     .GroupBy(c => c.CustomerID)
@@ -226,10 +230,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                             CustomerID = g.Key,
                             Value = g.Sum(c => (decimal?)c.Value) ?? 0
                         })
-                    .Where(c => c.Value > _debtMinSum)
+                    .Where(c => c.Value > 0)
                     .ToList();
 
-                if(View.DebtMonthCount > 0)
+                //if(View.DebtMonthCount > 0)
                 {
                     DateTime _lastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged;
 
@@ -251,7 +255,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         DebtValue = x.Value,
                                         ChargeValue = c.Value
                                     })
-                        .Where(x => Math.Round(x.DebtValue / x.ChargeValue, 0, MidpointRounding.AwayFromZero) >= View.DebtMonthCount)
+                        .Where(x => x.ChargeValue > 0)
                         .Select(x =>
                             new
                             {
@@ -271,6 +275,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                             new
                             {
                                 c.ID,
+                                c.PhysicalPersonShortName,
                                 c.PhysicalPersonFullName,
                                 c.JuridicalPersonFullName,
                                 c.OwnerType,
@@ -285,7 +290,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 new
                                 {
                                     FullName = y.OwnerType == (int)OwnerType.PhysicalPerson
-                                        ? y.PhysicalPersonFullName
+                                        ? !string.IsNullOrEmpty(y.PhysicalPersonShortName)
+                                            ? y.PhysicalPersonShortName
+                                            : y.PhysicalPersonFullName
                                         : y.JuridicalPersonFullName,
                                     y.StreetName,
                                     y.BuildingNumber,
@@ -301,7 +308,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                 foreach (var _customer in _result)
                 {
                     DataRow _row = _table.NewRow();
-                    _row[ColumnNames.STREET_COLUMN] = _customer.StreetName;
+                    _row[ColumnNames.STREET_COLUMN] = $"ул. {_customer.StreetName}, д. {_customer.BuildingNumber}, кв. {_customer.Apartment}";
                     _row[ColumnNames.HOUSE_COLUMN] = _customer.BuildingNumber;
                     _row[ColumnNames.APARTMENT_COLUMN] = _customer.Apartment;
                     _row[ColumnNames.ACCOUNT_COLUMN] = _customer.Account;
