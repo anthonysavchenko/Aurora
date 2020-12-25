@@ -118,68 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="xrLabel4.Dpi" type="System.Single, mscorlib">
-    <value>254</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="xrLabel4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 14.25pt, style=Bold</value>
-  </data>
-  <data name="formattingRule1.Condition" xml:space="preserve">
-    <value>Contains([Address], 'Алеутская, 51') == False And
-Contains([Address], 'Башидзе, 5') == False And
-Contains([Address], 'Башидзе, 8') == False And
-Contains([Address], 'Башидзе, 10') == False And
-Contains([Address], 'Башидзе, 12') == False And
-Contains([Address], 'Комсомольская, 7') == False And
-Contains([Address], 'Комсомольская, 27а') == False And
-Contains([Address], 'Комсомольская, 27в') == False And
-Contains([Address], 'Московская, 11') == False And
-Contains([Address], 'Московская, 13') == False And
-Contains([Address], 'Московская, 15') == False And
-Contains([Address], 'Океанский Проспект, 68') == False And
-Contains([Address], 'Океанский Проспект, 70') == False And
-Contains([Address], 'Океанский Проспект, 83') == False And
-Contains([Address], 'Океанский Проспект, 85') == False And
-Contains([Address], 'Океанский Проспект, 87') == False And
-Contains([Address], 'Океанский Проспект, 97') == False And
-Contains([Address], 'Океанский Проспект, 99') == False And
-Contains([Address], 'Океанский Проспект, 101') == False And
-Contains([Address], 'Океанский Проспект, 103') == False And
-Contains([Address], 'Океанский Проспект, 109') == False And
-Contains([Address], 'Океанский Проспект, 72а') == False And
-Contains([Address], 'Океанский Проспект, 99а') == False And
-Contains([Address], 'Океанский Проспект, 74а') == False And
-Contains([Address], 'Океанский Проспект, 76а') == False And
-Contains([Address], 'Пр.кр.знамени, 21') == False And
-Contains([Address], 'Пр.кр.знамени, 25') == False And
-Contains([Address], 'Пр.кр.знамени, 33') == False And
-Contains([Address], 'Пр.кр.знамени, 35') == False And
-Contains([Address], 'Пр.кр.знамени, 44') == False And
-Contains([Address], 'Проспект Острякова, 1') == False And
-Contains([Address], 'Проспект Острякова, 3') == False And
-Contains([Address], 'Северо-Суйфунская, 26а') == False And
-Contains([Address], 'Советская, 29') == False And
-Contains([Address], 'Советская, 29а') == False And
-Contains([Address], 'Партизанский Пр., 45') == False And
-Contains([Address], 'Пр.кр.знамени, 38') == False</value>
-  </data>
-  <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>300.41626, 863.8771</value>
-  </data>
-  <data name="xrLabel4.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1405.91711, 125.880249</value>
-  </data>
-  <data name="xrLabel4.Text" xml:space="preserve">
-    <value>Обращаем Ваше внимание на изменение адреса и номера телефона подрядной организации</value>
-  </data>
-  <data name="xrLabel4.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
-    <value>MiddleCenter</value>
-  </data>
   <data name="xrPictureBox1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="xrPictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgkAAADXCAYAAACQycKOAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -1105,6 +1047,7 @@ Contains([Address], 'Пр.кр.знамени, 38') == False</value>
         EolEIpE0BfD/2KXTrg/eAekAAAAASUVORK5CYII=
 </value>
   </data>
+  <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="xrPictureBox1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>0, 0</value>
   </data>
@@ -1714,7 +1657,7 @@ Contains([Address], 'Пр.кр.знамени, 38') == False</value>
     <value>254</value>
   </data>
   <data name="Detail.HeightF" type="System.Single, mscorlib">
-    <value>990.9447</value>
+    <value>846.0853</value>
   </data>
   <metadata name="dataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -1729,7 +1672,7 @@ Contains([Address], 'Пр.кр.знамени, 38') == False</value>
     <value>254</value>
   </data>
   <data name="bottomMarginBand1.HeightF" type="System.Single, mscorlib">
-    <value>7.777303</value>
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1738,7 +1681,7 @@ Contains([Address], 'Пр.кр.знамени, 38') == False</value>
     <value>254</value>
   </data>
   <data name="$this.Margins" type="System.Drawing.Printing.Margins, System.Drawing">
-    <value>0, 0, 0, 8</value>
+    <value>0, 0, 0, 0</value>
   </data>
   <data name="$this.PageHeight" type="System.Int32, mscorlib">
     <value>511</value>
