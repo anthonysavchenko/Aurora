@@ -220,7 +220,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                 }
                 */
 
-                _raw = _raw.Where(x => x.Period >= new DateTime(2017, 11, 1));
+                DateTime now = new DateTime(2020, 12, 1);
+                DateTime min = new DateTime(2017, 11, 1);
+
+                _raw = _raw.Where(x => x.Period >= min);
 
                 var _raw2 = _raw
                     .GroupBy(c => c.CustomerID)
@@ -228,16 +231,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                         new
                         {
                             CustomerID = g.Key,
-                            Value = g.Sum(c => (decimal?)c.Value) ?? 0
+                            Value = g.Sum(c => (decimal?)c.Value) ?? 0,
+                            Charges = g.Where(c => c.Value > 0).Sum(c => (decimal?)c.Value) ?? 0,
+                            MonthCharged = g.Select(c => c.Period).Distinct().Count(),
                         })
                     .Where(c => c.Value > 0)
                     .ToList();
 
                 //if(View.DebtMonthCount > 0)
-                {
+                //{
                     DateTime _lastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged;
 
-                    _raw2 = _raw2
+                    var _raw3 = _raw2
                         .Join(_db.ChargeOpers
                             .Where(c => c.ChargeSets.Period == _lastChargedPeriod)
                             .Select(c =>
@@ -253,22 +258,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                     {
                                         x.CustomerID,
                                         DebtValue = x.Value,
-                                        ChargeValue = c.Value
+                                        ChargeValue = c.Value,
+                                        MonthCount =
+                                            c.Value > 0
+                                                ? Math.Round(x.Value / c.Value, 0, MidpointRounding.AwayFromZero)
+                                                : 0,
+                                        MonthCharged =
+                                            x.MonthCharged > 0
+                                                ? Math.Round(x.Charges / x.MonthCharged, 2, MidpointRounding.AwayFromZero)
+                                                : 0,
                                     })
-                        .Where(x => x.ChargeValue > 0)
+                        .Where(x => x.MonthCount > 3)
                         .Select(x =>
                             new
                             {
                                 x.CustomerID,
-                                Value = x.DebtValue
+                                Value = x.DebtValue,
+                                x.MonthCount,
+                                x.MonthCharged,
                             })
                         .ToList();
-                }
+                //}
 
-                int[] _customerIDs = _raw2.Select(x => x.CustomerID).ToArray();
+                int[] _customerIDs = _raw3.Select(x => x.CustomerID).ToArray();
                 StringAsNumbersComparer _comparer = new StringAsNumbersComparer();
 
-                var _result = _raw2
+                var _result = _raw3
                     .Join(_db.Customers
                         .Where(c => _customerIDs.Contains(c.ID))
                         .Select(c =>
@@ -282,7 +297,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 StreetName = c.Buildings.Streets.Name,
                                 BuildingNumber = c.Buildings.Number,
                                 c.Apartment,
-                                c.Account
+                                c.Account,
+                                c.Square,
                             }),
                             x => x.CustomerID,
                             y => y.ID,
@@ -298,20 +314,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                     y.BuildingNumber,
                                     y.Apartment,
                                     y.Account,
-                                    x.Value
+                                    x.Value,
+                                    x.MonthCount,
+                                    y.Square,
+                                    Rate = Math.Round(x.MonthCharged / y.Square, 2, MidpointRounding.AwayFromZero),
                                 })
                         .OrderBy(x => x.StreetName)
                         .ThenBy(x => x.BuildingNumber, _comparer)
                         .ThenBy(x => x.Apartment, _comparer)
                         .ToList();
-                
+
                 foreach (var _customer in _result)
                 {
+                    DateTime monthCount = now.AddMonths(-1 * (int)_customer.MonthCount);
+
                     DataRow _row = _table.NewRow();
                     _row[ColumnNames.STREET_COLUMN] = $"ул. {_customer.StreetName}, д. {_customer.BuildingNumber}, кв. {_customer.Apartment}";
-                    _row[ColumnNames.HOUSE_COLUMN] = _customer.BuildingNumber;
-                    _row[ColumnNames.APARTMENT_COLUMN] = _customer.Apartment;
-                    _row[ColumnNames.ACCOUNT_COLUMN] = _customer.Account;
+                    _row[ColumnNames.HOUSE_COLUMN] = _customer.Square;
+                    _row[ColumnNames.APARTMENT_COLUMN] = monthCount < min ? min : monthCount;
+                    _row[ColumnNames.ACCOUNT_COLUMN] = _customer.Rate;
                     _row[ColumnNames.OWNER_AKA_COLUMN] = _customer.FullName;
                     _row[ColumnNames.TOTAL] = _customer.Value;
 
