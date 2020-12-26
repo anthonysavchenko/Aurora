@@ -7,6 +7,7 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Oper;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Interface.StartUpParams;
 using Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Constants;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseSimpleListView;
@@ -393,6 +394,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Payme
         [EventSubscription(ModuleEventNames.PRINT_PAYMENTS_AND_CHARGES, ThreadOption.UserInterface)]
         public void PrintItemFired(object sender, EventArgs eventArgs)
         {
+            if (int.Parse(UserHolder.User.ID) != 2)
+            {
+                return;
+            }
+
             string _customerId = ((Customer)WorkItem.State[CommonStateNames.CurrentItem]).ID;
 
             WorkItem.Controller.RunUsecase(
