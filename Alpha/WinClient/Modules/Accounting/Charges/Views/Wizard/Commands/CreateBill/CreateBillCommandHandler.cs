@@ -27,6 +27,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             DateTime _payBefore = new DateTime(_chargePeriod.Year, _chargePeriod.Month, 10).AddMonths(1);
 
+            var _contractorPos =
+                cmd.CustomerInfo.Poses.FirstOrDefault(p => p.ServiceId == CONTRACTOR_CONTACT_INFO_SERVICE_ID);
+
+            var _contractor =
+                _contractorPos != null
+                    ? cmd.Contractors[_contractorPos.ContractorId]
+                    : null;
+
             RegularBillDocs _billDoc =
                 new RegularBillDocs
                 {
@@ -40,33 +48,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     BillSets = _billSet,
                     Period = _chargePeriod,
                     EmergencyPhoneNumber =
-                        cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID)
-                            ? "295-53-91"
-                            : cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == MADIX_CONTRACTOR_ID)
-                                ? "206-03-20"
-                                : "298-09-81",
+                        _contractorPos != null
+                            && _contractor != null
+                            && _contractorPos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID
+                                ? "295-53-91"
+                                : cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == MADIX_CONTRACTOR_ID)
+                                    ? "206-03-20"
+                                    : "298-09-81",
                     PayBeforeDateTime = _payBefore,
                     MonthChargeValue = _currentPeriodTotal,
                     OverpaymentValue = _rest,
                     Value = _currentPeriodTotal + _rest,
+                    ContractorContactInfo =
+                        _contractorPos != null && _contractor != null
+                            ? _contractorPos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID
+                                ? $"{_contractor.ContactInfo}"
+                                : $"{_contractor.Name}, {_contractor.ContactInfo}"
+                            : string.Empty,
                 };
-
-            var _contractorPos =
-                cmd.CustomerInfo.Poses.FirstOrDefault(p => p.ServiceId == CONTRACTOR_CONTACT_INFO_SERVICE_ID);
-
-            if (_contractorPos != null)
-            {
-                Contractors _cont = cmd.Contractors[_contractorPos.ContractorId];
-
-                _billDoc.ContractorContactInfo =
-                    _contractorPos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID
-                        ? $"{_cont.ContactInfo}"
-                        : $"{_cont.Name}, {_cont.ContactInfo}";
-            }
-            else
-            {
-                _billDoc.ContractorContactInfo = string.Empty;
-            }
 
             cmd.Db.RegularBillDocs.AddObject(_billDoc);
 
