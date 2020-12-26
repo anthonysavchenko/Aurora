@@ -162,6 +162,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
                     if (IsAllCounterValuesPresent(_periodInfo.FirstUncharged, _periodInfo.LastCharged)
                         && IsPublicPlaceServiceVolumesFilledUp(ServerTime.GetDateTimeInfo().Now, _periodInfo.FirstUncharged))
                     {
+                        int availableMonths = 0;
+
+                        using (var db = new Entities())
+                        {
+                            var setting = db.Settings.FirstOrDefault(s => s.Name == "SberbankExportFileNumber");
+                            int.TryParse(setting?.Value, out availableMonths);
+                        }
+
+                        if (_periodInfo.FirstUncharged > new DateTime(2020, 12, 1).AddMonths(availableMonths))
+                        {
+                            return WizardPages.Unknown;
+                        }
+
                         _next = WizardPages.BackupPage;
                     }
                     break;
