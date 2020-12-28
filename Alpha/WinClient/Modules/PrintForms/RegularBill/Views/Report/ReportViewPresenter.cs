@@ -287,9 +287,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Елена Сергеевна, тел. +7-924-428-48-84";
             }
 
-            if (street == "уткинская" || street == "прапорщика комарова")
+            if (street == "уткинская"
+                || street == "прапорщика комарова"
+                || street == "станюковича"
+                || street == "западная"
+                || (street == "красного знамени проспект" && building == "114"))
             {
-                return "Управляющий по дому - Адрианова Варвара Георгиевна, тел 273-14-10";
+                return "Управляющий по дому - Мошко Евгений Михайлович, тел. +7-994-009-22-22";
             }
 
             if (street == "космонавтов" || street == "борисенко")
@@ -303,13 +307,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if (street == "окатовая" 
-               || street == "западная" 
-               || street == "океанский проспект"
-               || street == "острякова проспект"
-               || street == "некрасовская" 
-               || street == "станюковича"
-               || (street == "красного знамени проспект" && (building == "93" || building == "107" || building == "88"))
-               || street == "терешковой")
+                || street == "океанский проспект"
+                || street == "острякова проспект"
+                || street == "некрасовская" 
+                || (street == "красного знамени проспект" && (building == "93" || building == "107" || building == "88"))
+                || street == "терешковой")
             {
                 return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
             }
@@ -326,7 +328,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
             if(street == "тунгусская" 
                || street == "тобольская"
-               || (street == "красного знамени проспект" && (building == "114" || building == "162")))
+               || (street == "красного знамени проспект" && building == "162"))
             {
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
             }
