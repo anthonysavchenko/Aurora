@@ -108,6 +108,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public bool DebtsRepayment { get; set; }
             public Dictionary<int, int> DebtMonthCount { get; set; }
             public List<ServiceTypeData> DataByServiceType { get; set; }
+            public Dictionary<int, decimal> Payments { get; set; }
         }
 
         [ServiceDependency]
@@ -548,6 +549,45 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         }
                     });
 
+                var prevPeriod = period.AddMonths(-1);
+                var paidSince = new DateTime(prevPeriod.Year, prevPeriod.Month, 17);
+                var paidTill = new DateTime(period.Year, period.Month, 16, 23, 59, 59);
+                var payments =
+                    _db.PaymentOperPoses
+                        .Where(o =>
+                            customerIds.Contains(o.PaymentOpers.Customers.ID)
+                                && o.PaymentOpers.PaymentSets.PaymentDate >= paidSince
+                                && o.PaymentOpers.PaymentSets.PaymentDate <= paidTill)
+                        .GroupBy(o => o.PaymentOpers.Customers.ID)
+                        .Select(o => new
+                        {
+                            Customer = o.Key,
+                            Services =
+                                o
+                                    .GroupBy(oo => oo.Services.ServiceTypes.ID)
+                                    .Select(oo => new
+                                    {
+                                        ServiceType = oo.Key,
+                                        Value = -1 * oo.Sum(ooo => ooo.Value),
+                                    })
+                                    .ToList(),
+                        })
+                        .ToList()
+                        .ToDictionary(
+                            oo => oo.Customer,
+                            ooo => ooo.Services.ToDictionary(
+                                y => y.ServiceType,
+                                yy => yy.Value));
+
+                _result
+                    .ForEach(x =>
+                    {
+                        if (payments.ContainsKey(x.ID))
+                        {
+                            x.Payments = payments[x.ID];
+                        }
+                    });
+
                 #endregion
             }
 
@@ -604,7 +644,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         {
                             if (!_accRowDict.ContainsKey(_customerId))
                             {
-                                _accRowDict.Add(_customerId, new Dictionary<int, int>(4));
+                                _accRowDict.Add(
+                                    _customerId,
+                                    new Dictionary<int, int>(ServiceTypes.SerivceTypeIDs.Length));
                             }
 
                             if (_accRowDict[_customerId].ContainsKey(_serviceTypeId.Value))
