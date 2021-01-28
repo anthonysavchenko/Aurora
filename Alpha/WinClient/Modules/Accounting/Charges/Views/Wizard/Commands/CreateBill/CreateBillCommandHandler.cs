@@ -47,14 +47,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     Customers = cmd.DbCustomerStub,
                     BillSets = _billSet,
                     Period = _chargePeriod,
-                    EmergencyPhoneNumber =
-                        _contractorPos != null
-                            && _contractor != null
-                            && _contractorPos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID
-                                ? "295-53-91"
-                                : cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == MADIX_CONTRACTOR_ID)
-                                    ? "206-03-20"
-                                    : "298-09-81",
+                    EmergencyPhoneNumber = "206-03-20",
                     PayBeforeDateTime = _payBefore,
                     MonthChargeValue = _currentPeriodTotal,
                     OverpaymentValue = _rest,
