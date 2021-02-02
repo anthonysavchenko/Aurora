@@ -304,6 +304,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             if (street == "гульбиновича"
                || street == "тунгусская"
                || street == "тобольская"
+               || street == "терешковой"
                || (street == "красного знамени проспект" && (building == "88" || building == "162")))
             {
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
@@ -313,8 +314,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "океанский проспект"
                 || street == "острякова проспект"
                 || street == "некрасовская" 
-                || (street == "красного знамени проспект" && (building == "93" || building == "107"))
-                || street == "терешковой")
+                || (street == "красного знамени проспект" && (building == "93" || building == "107")))
             {
                 return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
             }
