@@ -9,7 +9,6 @@ using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
 using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.DataMappers.RefBook;
-using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 using Taumis.EnterpriseLibrary.Win.Constants;
@@ -273,11 +272,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.DebtAndFine.Views.List
         /// <returns>Данные табличной части отчета</returns>
         protected override DataTable GetGridData(EmptyReportParams _params)
         {
-            if (int.Parse(UserHolder.User.ID) != 2)
-            {
-                return new DataTable();
-            }
-
             DataSet _dataSet = GetDataSet();
             DataTable _dtMain = _dataSet.Tables[0];
             DataTable _dtLevel1 = _dataSet.Tables[1];

@@ -121,11 +121,6 @@
       <Name>Interface</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Interface\Interface.csproj">
-      <Project>{6afb9f99-fb46-49d6-b9bc-3a7937a136c9}</Project>
-      <Name>Interface %28Taumis.Alpha.WinClient.Aurora\Interface%29</Name>
-      <Private>False</Private>
-    </ProjectReference>	
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Layout\LayoutView.resx">
