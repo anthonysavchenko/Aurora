@@ -45,6 +45,8 @@
               <xs:element name="OverpaymentLabel" msprop:Generator_ColumnVarNameInTable="columnOverpaymentLabel" msprop:Generator_ColumnPropNameInRow="OverpaymentLabel" msprop:Generator_ColumnPropNameInTable="OverpaymentLabelColumn" msprop:Generator_UserColumnName="OverpaymentLabel" type="xs:string" minOccurs="0" />
               <xs:element name="RightHeaderString" msprop:Generator_ColumnVarNameInTable="columnRightHeaderString" msprop:Generator_ColumnPropNameInRow="RightHeaderString" msprop:Generator_ColumnPropNameInTable="RightHeaderStringColumn" msprop:Generator_UserColumnName="RightHeaderString" type="xs:string" minOccurs="0" />
               <xs:element name="BankQrCodeString" msprop:Generator_ColumnVarNameInTable="columnBankQrCodeString" msprop:Generator_ColumnPropNameInRow="BankQrCodeString" msprop:Generator_ColumnPropNameInTable="BankQrCodeStringColumn" msprop:Generator_UserColumnName="BankQrCodeString" type="xs:string" minOccurs="0" />
+              <xs:element name="ContractorName" msprop:Generator_ColumnVarNameInTable="columnContractorName" msprop:Generator_ColumnPropNameInRow="ContractorName" msprop:Generator_ColumnPropNameInTable="ContractorNameColumn" msprop:Generator_UserColumnName="ContractorName" type="xs:string" minOccurs="0" />
+              <xs:element name="ContractorContactInfo" msprop:Generator_ColumnVarNameInTable="columnContractorContactInfo" msprop:Generator_ColumnPropNameInRow="ContractorContactInfo" msprop:Generator_ColumnPropNameInTable="ContractorContactInfoColumn" msprop:Generator_UserColumnName="ContractorContactInfo" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

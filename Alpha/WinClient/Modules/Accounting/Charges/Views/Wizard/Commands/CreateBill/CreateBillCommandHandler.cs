@@ -53,10 +53,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     OverpaymentValue = _rest,
                     Value = _currentPeriodTotal + _rest,
                     ContractorContactInfo =
-                        _contractorPos != null && _contractor != null
-                            ? _contractorPos.ContractorId == EGERSHELD_DV_CONTRACTOR_ID
-                                ? $"{_contractor.ContactInfo}"
-                                : $"{_contractor.Name}, {_contractor.ContactInfo}"
+                        _contractor != null
+                            ? $"{_contractor.Code}|{_contractor.ContactInfo}"
                             : string.Empty,
                 };
 

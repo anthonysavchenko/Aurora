@@ -13,3 +13,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.DataSets
         }
     }
 }
+namespace Taumis.Alpha.Server.PrintForms.DataSets
+{
+
+
+    public partial class RegularBillDataSet
+    {
+    }
+}

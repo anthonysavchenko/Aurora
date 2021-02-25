@@ -208,6 +208,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.Period,
                                 _bill.Value);
 
+                            var contractorInfo = _bill.ContractorContactInfo.Split('|');
+
                             _customersTable.Rows.Add(
                                 _bill.CustomerID,
                                 _now.ToString("dd.MM.yyyy"),
@@ -224,8 +226,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _barcode,
                                 BillService.FormatBarcodeString(_barcode),
                                 $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
-                                BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, _bill.EmergencyPhoneNumber),
-                                _qrCode);
+                                BillService.OrganizationDetails(_bill.BankDetails, _bill.EmergencyPhoneNumber),
+                                _qrCode,
+                                contractorInfo.Length > 0 ? contractorInfo[0] : string.Empty,
+                                contractorInfo.Length > 1 ? contractorInfo[1] : string.Empty);
 
                             if (_bill.BillSendingSubscription)
                             {

@@ -9,9 +9,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Interface.Services
         /// Создает строку с данными об обслуживающей организации
         /// </summary>
         /// <param name="bankDetail">Банковские реквизиты</param>
-        /// <param name="contractorInfo">Данные подрядчика</param>
         /// <param name="emergencyPhoneNumber">Телефон аварийных служб</param>
-        string OrganizationDetails(BankDetails bankDetail, string contractorInfo = null, string emergencyPhoneNumber = null);
+        string OrganizationDetails(BankDetails bankDetail, string emergencyPhoneNumber = null);
 
         /// <summary>
         /// Генерирует строку для штрих кода
