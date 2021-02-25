@@ -163,8 +163,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                         // Заполнение таблицы балансов по типам услуг за один отчет
                         if (i + 1 == _periodBalances.Length || _periodBalances[i + 1].Period != _periodBalance.Period.AddMonths(1))
                         {
-                            _lastReportRow["SinceTillPeriods"] = 
-                                string.Format("{0}{1:MMMM yyyy}", _lastReportRow["SinceTillPeriods"], _periodBalance.Period);
+                            _lastReportRow["Till"] = $"{_periodBalance.Period:MMMM yyyy}";
 
                             foreach (KeyValuePair<ServiceBalanceKey, Balance> _serviceTypeBalance in _reportBalances.Balances)
                             {
