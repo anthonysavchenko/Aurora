@@ -557,7 +557,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Streets">
           <Key>
@@ -3359,7 +3359,7 @@
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Value" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Value" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Residents">
           <Key>
@@ -5402,7 +5402,7 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.TotalBillDocPoses_fk" ManuallyRouted="false">
           <edmx:ConnectorPoint PointX="6.75" PointY="43.2112939453125" />
           <edmx:ConnectorPoint PointX="7.5" PointY="43.2112939453125" /></edmx:AssociationConnector>
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Settings" Width="1.5" PointX="8.1362161543854583" PointY="23.075969468371927" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Settings" Width="1.5" PointX="14.5" PointY="22.125" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Residents" Width="1.5" PointX="6.7525906147214538" PointY="19.731255436190988" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Residents_BenefitTypes" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Residents_Customers" />
