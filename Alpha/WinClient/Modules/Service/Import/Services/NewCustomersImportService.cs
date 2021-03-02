@@ -128,22 +128,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         private ParsedRow ParseRow(int row, IExcelWorksheet sheet)
         {
-            decimal _area;
-            byte _entrance;
-            short _floor;
-            int _roomCount,
-                _residentCount;
+            string _name = sheet.Cell(row, Columns.NAME).Value;
 
             OwnerType _ownerType =
-                sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
-                    ? OwnerType.JuridicalPerson
-                    : OwnerType.PhysicalPerson;
+                string.IsNullOrEmpty(_name)
+                    ? OwnerType.Unknown
+                    : sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
+                        ? OwnerType.JuridicalPerson
+                        : OwnerType.PhysicalPerson;
 
-            sheet.Cell(row, Columns.AREA).TryGetValue(out _area);
-            sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out _entrance);
-            sheet.Cell(row, Columns.FLOOR).TryGetValue(out _floor);
-            sheet.Cell(row, Columns.ROOM_COUNT).TryGetValue(out _roomCount);
-            sheet.Cell(row, Columns.RESIDENT_COUNT).TryGetValue(out _residentCount);
+            sheet.Cell(row, Columns.AREA).TryGetValue(out decimal _area);
+            sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out byte _entrance);
+            sheet.Cell(row, Columns.FLOOR).TryGetValue(out short _floor);
+            sheet.Cell(row, Columns.ROOM_COUNT).TryGetValue(out int _roomCount);
+            sheet.Cell(row, Columns.RESIDENT_COUNT).TryGetValue(out int _residentCount);
 
             return new ParsedRow
             {
@@ -161,7 +159,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 ResidentCount = _residentCount,
                 IsPrivate = sheet.Cell(row, Columns.IS_PRIVATE).Value == CHECKED,
                 OwnerType = _ownerType,
-                Name = sheet.Cell(row, Columns.NAME).Value
+                Name = _name,
             };
         }
 
@@ -260,7 +258,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 };
 
 
-                            if (_row.OwnerType == OwnerType.PhysicalPerson)
+                            if (_row.OwnerType == OwnerType.Unknown)
+                            {
+                                _customer.JuridicalPersonFullName = string.Empty;
+                                _customer.PhysicalPersonFullName = string.Empty;
+                                _customer.PhysicalPersonShortName = string.Empty;
+                            }
+                            else if (_row.OwnerType == OwnerType.PhysicalPerson)
                             {
                                 _customer.PhysicalPersonFullName = FirstLettersToUpper(_row.Name);
                                 _customer.PhysicalPersonShortName = GetLastNameAndInitial(_row.Name);
