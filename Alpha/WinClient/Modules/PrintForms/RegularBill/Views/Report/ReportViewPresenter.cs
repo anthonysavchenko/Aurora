@@ -288,12 +288,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if (street == "уткинская"
-                || street == "прапорщика комарова"
-                || street == "станюковича"
-                || street == "западная"
-                || (street == "красного знамени проспект" && building == "114"))
+                || street == "прапорщика комарова")
             {
-                return "Управляющий по дому - Мошко Евгений Михайлович, тел. +7-994-009-22-22";
+                return "Управляющий по дому - Адрианова Варвара Георгиевна, тел. +7-914-703-97-87";
             }
 
             if (street == "космонавтов" || street == "борисенко")
@@ -302,10 +299,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if (street == "гульбиновича"
-               || street == "тунгусская"
-               || street == "тобольская"
-               || street == "терешковой"
-               || (street == "красного знамени проспект" && (building == "88" || building == "162")))
+                || street == "тунгусская"
+                || street == "тобольская"
+                || street == "терешковой"
+                || (street == "красного знамени проспект" 
+                    && (building == "88" || building == "162" || building == "114")))
             {
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
             }
@@ -313,7 +311,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             if (street == "окатовая" 
                 || street == "океанский проспект"
                 || street == "острякова проспект"
-                || street == "некрасовская" 
+                || street == "некрасовская"
+                || street == "станюковича"
+                || street == "западная"
                 || (street == "красного знамени проспект" && (building == "93" || building == "107")))
             {
                 return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
@@ -461,6 +461,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                 View.ShowMessage(
                     $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}", 
+                    "Результаты отправки");
+            }
+            else
+            {
+                View.ShowMessage(
+                    $"Нет абонентов, подписанных на получение квитанций",
                     "Результаты отправки");
             }
         }
