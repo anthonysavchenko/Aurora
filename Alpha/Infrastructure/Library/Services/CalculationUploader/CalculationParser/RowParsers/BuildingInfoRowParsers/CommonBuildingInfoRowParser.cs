@@ -5,25 +5,32 @@ using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calculati
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers
+namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers.BuildingInfoRowParsers
 {
-    public static class BuildingInfoRowParser
+    public static class CommonBuildingInfoRowParser
     {
         const string ADDRESS_COLUMN = "B";
-        const string DEBT_COLUMN = "J";
         const string CALCULATION_METHOD_COLUMN = "D";
-        const string VOLUME_COLUMN = "J";
         const string NORM_COLUMN = "E";
-        const string COLLECTIVE_VOLUME_COLUMN = "E";
-        const string NOT_DISTRIBUTED_VOLUME_COLUMN = "I";
         const string COLLECTIVE_SQUARE_COLUMN = "E";
 
-        public delegate bool TryParseRowMethod(
+        public delegate bool TryParseRowMethod1(
+            ExcelSheet source,
+            CalculationRows buildingAddressRow,
+            int rowNumber,
+            out CalculationMethod calculationMethod,
+            out CalculationRows row);
+
+        public delegate bool TryParseRowMethod2(
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             CalculationMethod calculationMethod,
             int rowNumber,
             out CalculationRows row);
+
+        public delegate bool CheckRowMethod(
+            ExcelSheet source,
+            int rowNumber);
 
         public static bool TryParseAddressRow(
             ExcelSheet source,
@@ -73,6 +80,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             int rowNumber,
+            string columnName,
             out CalculationRows row)
         {
             row = new CalculationRows()
@@ -84,13 +92,13 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             try
             {
                 if (!BuildingInfoCellParser.TryParseDebt(
-                    source.GetCellText($"{DEBT_COLUMN}{rowNumber}"),
+                    source.GetCellText($"{columnName}{rowNumber}"),
                     out decimal? debt,
                     out string description))
                 {
                     CalculationRowHandler.SetParsingError(
                         row,
-                        DEBT_COLUMN,
+                        columnName,
                         rowNumber,
                         description);
                     return false;
@@ -117,6 +125,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             int rowNumber,
+            string volumeColumnName,
             out CalculationMethod calculationMethod,
             out CalculationRows row)
         {
@@ -140,13 +149,13 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     if (calculationMethod == CalculationMethod.Avarage)
                     {
                         if (!BuildingInfoCellParser.TryParseVolume(
-                            source.GetCellText($"{VOLUME_COLUMN}{rowNumber}"),
+                            source.GetCellText($"{volumeColumnName}{rowNumber}"),
                             out volume,
                             out string description))
                         {
                             CalculationRowHandler.SetParsingError(
                                 row,
-                                VOLUME_COLUMN,
+                                volumeColumnName,
                                 rowNumber,
                                 description);
                             return false;
@@ -223,64 +232,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        public static bool TryParseCollectiveVolumeRow(
-            ExcelSheet source,
-            CalculationRows buildingAddressRow,
-            int rowNumber,
-            out CalculationRows row)
-        {
-            row = new CalculationRows()
-            {
-                RowType = (byte)CalculationRowType.BuildingInfo,
-                BuildingAddressRow = buildingAddressRow,
-            };
-
-            try
-            {
-                if (!BuildingInfoCellParser.TryParseCollectiveVolume(
-                    source.GetCellText($"{COLLECTIVE_VOLUME_COLUMN}{rowNumber}"),
-                    out decimal? collectiveVolume,
-                    out string description))
-                {
-                    CalculationRowHandler.SetParsingError(
-                        row,
-                        COLLECTIVE_VOLUME_COLUMN,
-                        rowNumber,
-                        description);
-                    return false;
-                }
-
-                if (!BuildingInfoCellParser.TryParseNotDistributedVolume(
-                    source.GetCellText($"{NOT_DISTRIBUTED_VOLUME_COLUMN}{rowNumber}"),
-                    out decimal? notDistributedVolume,
-                    out description))
-                {
-                    CalculationRowHandler.SetParsingError(
-                        row,
-                        NOT_DISTRIBUTED_VOLUME_COLUMN,
-                        rowNumber,
-                        description);
-                    return false;
-                }
-
-                row.BuildingInfo = new CalculationBuildingInfos()
-                {
-                    RowType = (byte)BuildingInfoRowType.CollectiveVolume,
-                    CollectiveVolume = collectiveVolume.Value,
-                    NotDistributedVolume = notDistributedVolume.Value,
-                };
-
-                row.ProcessingResult = (byte)RowProcessingResult.OK;
-            }
-            catch (Exception e)
-            {
-                CalculationRowHandler.SetParsingError(row, e);
-                return false;
-            }
-
-            return true;
-        }
-
         public static bool TryParseCollectiveSquareRow(
             ExcelSheet source,
             CalculationRows buildingAddressRow,
@@ -325,15 +276,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             }
 
             return true;
-        }
-
-        public static bool IsDebtCellEmpty(
-            ExcelSheet source,
-            int rowNumber)
-        {
-            return
-                string.IsNullOrEmpty(
-                    source.GetCellText($"{DEBT_COLUMN}{rowNumber}"));
         }
     }
 }

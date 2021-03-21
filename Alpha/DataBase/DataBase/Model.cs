@@ -3612,6 +3612,54 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Decimal> _CollectiveSquare;
         partial void OnCollectiveSquareChanging(Nullable<global::System.Decimal> value);
         partial void OnCollectiveSquareChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> PeriodVolume
+        {
+            get
+            {
+                return _PeriodVolume;
+            }
+            set
+            {
+                OnPeriodVolumeChanging(value);
+                ReportPropertyChanging("PeriodVolume");
+                _PeriodVolume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PeriodVolume");
+                OnPeriodVolumeChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _PeriodVolume;
+        partial void OnPeriodVolumeChanging(Nullable<global::System.Decimal> value);
+        partial void OnPeriodVolumeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Rest
+        {
+            get
+            {
+                return _Rest;
+            }
+            set
+            {
+                OnRestChanging(value);
+                ReportPropertyChanging("Rest");
+                _Rest = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Rest");
+                OnRestChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Rest;
+        partial void OnRestChanging(Nullable<global::System.Decimal> value);
+        partial void OnRestChanged();
 
         #endregion
 

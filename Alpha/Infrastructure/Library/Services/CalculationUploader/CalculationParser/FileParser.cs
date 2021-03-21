@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.FormParsers;
 using Taumis.Alpha.Infrastructure.Library.Services.Excel;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 
@@ -7,7 +8,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 {
     public static class FileParser
     {
-        public static void ParseFile(int uploadID, Excel2007Worker worker, string file)
+        public static void ParseFile(int uploadID, DateTime month, Excel2007Worker worker, string file)
         {
             var fileID = CalculationFileHandler.CreateFile(Path.GetFileName(file), uploadID);
 
@@ -19,10 +20,20 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 
                 if (rowsCount > 0)
                 {
-                    FormParser.ParseForm(
-                        fileID,
-                        sheet,
-                        rowsCount);
+                    if (month >= Constants.SINCE_012021)
+                    {
+                        Since012021FormParser.ParseForm(
+                            fileID,
+                            sheet,
+                            rowsCount);
+                    }
+                    else
+                    {
+                        Till012021FormParser.ParseForm(
+                            fileID,
+                            sheet,
+                            rowsCount);
+                    }
                 }
             }
             catch (Exception exception)

@@ -130,6 +130,8 @@
           <Property Name="CollectiveVolume" Type="decimal" Precision="11" Scale="3" />
           <Property Name="NotDistributedVolume" Type="decimal" Precision="11" Scale="3" />
           <Property Name="CollectiveSquare" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="PeriodVolume" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="Rest" Type="decimal" Precision="11" Scale="3" />
         </EntityType>
         <EntityType Name="CalculationCustomers">
           <Key>
@@ -1966,6 +1968,8 @@
           <Property Name="NotDistributedVolume" Type="Decimal" Precision="11" Scale="3" />
           <Property Name="CollectiveSquare" Type="Decimal" Precision="11" Scale="3" />
           <NavigationProperty Name="CalculationRow" Relationship="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos" FromRole="CalculationBuildingInfos" ToRole="CalculationRows" />
+          <Property Name="PeriodVolume" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="Rest" Type="Decimal" Precision="11" Scale="3" />
         </EntityType>
         <EntityType Name="CalculationCustomers">
           <Key>
@@ -2705,6 +2709,8 @@
           <EntitySetMapping Name="CalculationBuildingInfos">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationBuildingInfos">
               <MappingFragment StoreEntitySet="CalculationBuildingInfos">
+                <ScalarProperty Name="Rest" ColumnName="Rest" />
+                <ScalarProperty Name="PeriodVolume" ColumnName="PeriodVolume" />
                 <ScalarProperty Name="CollectiveSquare" ColumnName="CollectiveSquare" />
                 <ScalarProperty Name="NotDistributedVolume" ColumnName="NotDistributedVolume" />
                 <ScalarProperty Name="CollectiveVolume" ColumnName="CollectiveVolume" />

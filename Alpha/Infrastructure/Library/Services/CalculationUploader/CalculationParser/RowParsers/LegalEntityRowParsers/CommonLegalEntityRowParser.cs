@@ -6,18 +6,19 @@ using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers
+    .LegalEntityRowParsers
 {
-    public static class LegalEntityRowParser
+    public static class CommonLegalEntityRowParser
     {
         const string CONTRACT_COLUMN = "A";
         const string ENTITY_NAME_COLUMN = "D";
         const string CHARGED_VOLUME_COLUMN = "M";
-        const string SQUARE_COLUMN = "Q";
 
         public static bool TryParseRow(
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             int rowNumber,
+            string squareColumnName,
             out CalculationRows row)
         {
             row = new CalculationRows()
@@ -68,13 +69,13 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 }
 
                 if (!LegalEntityCellParser.TryParseSquare(
-                    source.GetCellText($"{SQUARE_COLUMN}{rowNumber}"),
+                    source.GetCellText($"{squareColumnName}{rowNumber}"),
                     out decimal? square,
                     out description))
                 {
                     CalculationRowHandler.SetParsingError(
                         row,
-                        SQUARE_COLUMN,
+                        squareColumnName,
                         rowNumber,
                         description);
                     return false;

@@ -74,6 +74,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
                 if (!Parser.Parse(
                     uploadID.Value,
                     path,
+                    month,
                     0,
                     30,
                     SetProgress))

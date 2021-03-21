@@ -10,6 +10,10 @@
     [CollectiveVolume]     DECIMAL (11, 3) NULL,
     [NotDistributedVolume] DECIMAL (11, 3) NULL,
     [CollectiveSquare]     DECIMAL (11, 3) NULL,
+    [PeriodVolume]         DECIMAL (11, 3) NULL,
+    [Rest]                 DECIMAL (11, 3) NULL,
     CONSTRAINT [PK_CalculationBuildingInfos] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
+
+
 

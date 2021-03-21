@@ -1,10 +1,12 @@
-﻿using Taumis.Alpha.Infrastructure.Interface.Enums;
+﻿using System;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Library.Services.CommonParsers;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.CellParsers
 {
     public static class BuildingInfoCellParser
     {
+        const string AVARAGE_TEXT = "по среднему";
         const string NORM_TEXT = "по нормативу";
 
         public static bool TryParseAddress(
@@ -55,11 +57,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             string sourceNoCR = CommonCellParser.ReplaceCaretReturn(source);
 
-            if (string.IsNullOrEmpty(sourceNoCR))
+            if (string.IsNullOrEmpty(sourceNoCR)
+                || sourceNoCR.Equals(AVARAGE_TEXT, StringComparison.OrdinalIgnoreCase))
             {
                 return CalculationMethod.Avarage;
             }
-            else if (sourceNoCR == NORM_TEXT)
+            else if (sourceNoCR.Equals(NORM_TEXT, StringComparison.OrdinalIgnoreCase))
             {
                 return CalculationMethod.Norm;
             }
@@ -232,6 +235,66 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 {
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        public static bool TryParsePeriodVolume(
+            string source,
+            out decimal? periodVolume,
+            out string errorDescription)
+        {
+            periodVolume = null;
+            string cellDataName = "ОДН по дому за период";
+            string sourceNoCR = CommonCellParser.ReplaceCaretReturn(source);
+
+            if (!CommonCellParser.HasValue(
+                sourceNoCR,
+                cellDataName,
+                out errorDescription))
+            {
+                return false;
+            }
+
+            if (!CommonCellParser.TryParseDecimal(
+                source,
+                sourceNoCR,
+                cellDataName,
+                out periodVolume,
+                out errorDescription))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool TryParseRest(
+            string source,
+            out decimal? rest,
+            out string errorDescription)
+        {
+            rest = null;
+            string cellDataName = "переходящий остаток";
+            string sourceNoCR = CommonCellParser.ReplaceCaretReturn(source);
+
+            if (!CommonCellParser.HasValue(
+                sourceNoCR,
+                cellDataName,
+                out errorDescription))
+            {
+                return false;
+            }
+
+            if (!CommonCellParser.TryParseDecimal(
+                source,
+                sourceNoCR,
+                cellDataName,
+                out rest,
+                out errorDescription))
+            {
+                return false;
             }
 
             return true;

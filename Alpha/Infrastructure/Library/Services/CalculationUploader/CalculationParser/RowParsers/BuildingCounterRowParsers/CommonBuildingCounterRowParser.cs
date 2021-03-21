@@ -6,19 +6,20 @@ using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers
+    .BuildingInfoRowParsers
 {
-    public static class BuildingCounterRowParser
+    public static class CommonBuildingCounterRowParser
     {
         const string MODEL_COLUMN = "C";
         const string COUNTER_NUMBER_COLUMN = "D";
         const string COEFFICIENT_COLUMN = "E";
-        const string CURRENT_VALUE_COLUMN = "G";
-        const string PREV_VALUE_COLUMN = "I";
 
         public static bool TryParseRow(
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             int rowNumber,
+            string currentValueColumnName,
+            string prevValueColumnName,
             out CalculationRows row)
         {
             row = new CalculationRows()
@@ -69,26 +70,26 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 }
 
                 if (!BuildingCounterCellParser.TryParseCurrentValue(
-                    source.GetCellText($"{CURRENT_VALUE_COLUMN}{rowNumber}"),
+                    source.GetCellText($"{currentValueColumnName}{rowNumber}"),
                     out decimal? currentValue,
                     out description))
                 {
                     CalculationRowHandler.SetParsingError(
                         row,
-                        CURRENT_VALUE_COLUMN,
+                        currentValueColumnName,
                         rowNumber,
                         description);
                     return false;
                 }
 
                 if (!BuildingCounterCellParser.TryParsePrevValue(
-                    source.GetCellText($"{PREV_VALUE_COLUMN}{rowNumber}"),
+                    source.GetCellText($"{prevValueColumnName}{rowNumber}"),
                     out decimal? prevValue,
                     out description))
                 {
                     CalculationRowHandler.SetParsingError(
                         row,
-                        PREV_VALUE_COLUMN,
+                        prevValueColumnName,
                         rowNumber,
                         description);
                     return false;

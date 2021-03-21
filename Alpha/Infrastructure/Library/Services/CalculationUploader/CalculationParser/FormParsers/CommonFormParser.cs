@@ -3,17 +3,37 @@ using System.Collections.Generic;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers;
+using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers
+    .BuildingInfoRowParsers;
+using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers
+    .CustomerRowParsers;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
-namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser
+namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.FormParsers
 {
-    public static class FormParser
+    public static class CommonFormParser
     {
+        public delegate bool TryParseBuildingInfoMethod(
+            ExcelSheet source,
+            CalculationRows buildingAddressRow,
+            CalculationMethod calculationMethod,
+            ref int rowNumber,
+            int rowsCount,
+            List<CalculationRows> rows);
+
         public static void ParseForm(
             int fileID,
             ExcelSheet source,
-            int rowsCount)
+            int rowsCount,
+            CommonRowParser.TryParseRowMethod tryParseDebtRow,
+            CommonBuildingInfoRowParser.TryParseRowMethod1 tryParseCalculationMethodRow,
+            CommonRowParser.TryParseRowMethod tryParseBuildingCounterRow,
+            CommonRowParser.TryParseRowMethod tryParseLegalEntityRow,
+            CommonRowParser.TryParseRowMethod tryParseCustomerRow,
+            TryParseBuildingInfoMethod tryParseBuildingInfo,
+            CommonBuildingInfoRowParser.CheckRowMethod isDebtHeaderCellPresent,
+            CommonBuildingInfoRowParser.CheckRowMethod isDebtCellEmpty)
         {
             var rows = new List<CalculationRows>();
             var rowNumber = 1;
@@ -43,7 +63,15 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                             buildingAddressRow,
                             ref rowNumber,
                             rowsCount,
-                            rows))
+                            rows,
+                            tryParseDebtRow,
+                            tryParseCalculationMethodRow,
+                            tryParseBuildingCounterRow,
+                            tryParseLegalEntityRow,
+                            tryParseCustomerRow,
+                            tryParseBuildingInfo,
+                            isDebtHeaderCellPresent,
+                            isDebtCellEmpty))
                         {
                             var rowsLeft = rowsCount - rowNumber + 1;
 
@@ -85,7 +113,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             }
 
             var parsedWithNoErrors =
-                BuildingInfoRowParser.TryParseAddressRow(
+                CommonBuildingInfoRowParser.TryParseAddressRow(
                     source,
                     rowNumber,
                     out buildingAddressRow);
@@ -106,7 +134,15 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             CalculationRows buildingAddressRow,
             ref int rowNumber,
             int rowsCount,
-            List<CalculationRows> rows)
+            List<CalculationRows> rows,
+            CommonRowParser.TryParseRowMethod tryParseDebtRow,
+            CommonBuildingInfoRowParser.TryParseRowMethod1 tryParseCalculationMethodRow,
+            CommonRowParser.TryParseRowMethod tryParseBuildingCounterRow,
+            CommonRowParser.TryParseRowMethod tryParseLegalEntityRow,
+            CommonRowParser.TryParseRowMethod tryParseCustomerRow,
+            TryParseBuildingInfoMethod tryParseBuildingInfo,
+            CommonBuildingInfoRowParser.CheckRowMethod isDebtHeaderCellPresent,
+            CommonBuildingInfoRowParser.CheckRowMethod isDebtCellEmpty)
         {
             if (!AddSkippedRows(
                 6,
@@ -119,8 +155,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             }
 
             if (rowNumber + 2 <= rowsCount
-                && BuildingCounterRowParser.IsCounterNumberCellEmpty(source, rowNumber)
-                && !BuildingInfoRowParser.IsDebtCellEmpty(source, rowNumber)
+                && isDebtHeaderCellPresent(source, rowNumber)
+                && !isDebtCellEmpty(source, rowNumber)
                 && !CommonRowParser.IsFirstCellTotal(source, rowNumber + 2))
             {
                 if (!TryParseBuildingDebt(
@@ -128,7 +164,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     buildingAddressRow,
                     ref rowNumber,
                     rowsCount,
-                    rows))
+                    rows,
+                    tryParseDebtRow))
                 {
                     return false;
                 }
@@ -140,7 +177,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 ref rowNumber,
                 rowsCount,
                 rows,
-                out CalculationMethod calculationMethod))
+                out CalculationMethod calculationMethod,
+                tryParseCalculationMethodRow))
             {
                 return false;
             }
@@ -152,7 +190,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     buildingAddressRow,
                     ref rowNumber,
                     rowsCount,
-                    rows))
+                    rows,
+                    tryParseBuildingCounterRow))
                 {
                     return false;
                 }
@@ -173,7 +212,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 buildingAddressRow,
                 ref rowNumber,
                 rowsCount,
-                rows))
+                rows,
+                tryParseLegalEntityRow))
             {
                 return false;
             }
@@ -183,7 +223,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 buildingAddressRow,
                 ref rowNumber,
                 rowsCount,
-                rows))
+                rows,
+                tryParseCustomerRow))
             {
                 return false;
             }
@@ -227,7 +268,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 }
             }
 
-            if (!TryParseBuildingInfo(
+            if (!tryParseBuildingInfo(
                 source,
                 buildingAddressRow,
                 calculationMethod,
@@ -246,7 +287,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             CalculationRows buildingAddressRow,
             ref int rowNumber,
             int rowsCount,
-            List<CalculationRows> rows)
+            List<CalculationRows> rows,
+            CommonRowParser.TryParseRowMethod tryParseDebtRow)
         {
             return
                 TryParseRow(
@@ -255,7 +297,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     ref rowNumber,
                     rowsCount,
                     rows,
-                    BuildingInfoRowParser.TryParseDebtRow);
+                    tryParseDebtRow);
         }
 
         private static bool TryParseCalculationMethod(
@@ -264,7 +306,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             ref int rowNumber,
             int rowsCount,
             List<CalculationRows> rows,
-            out CalculationMethod calculationMethod)
+            out CalculationMethod calculationMethod,
+            CommonBuildingInfoRowParser.TryParseRowMethod1 tryParseCalculationMethodRow)
         {
             calculationMethod = CalculationMethod.Unknown;
 
@@ -275,7 +318,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             }
 
             var parsedWithNoErrors =
-                BuildingInfoRowParser.TryParseCalculationMethodRow(
+                tryParseCalculationMethodRow(
                     source,
                     buildingAddressRow,
                     rowNumber,
@@ -302,7 +345,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             CalculationRows buildingAddressRow,
             ref int rowNumber,
             int rowsCount,
-            List<CalculationRows> rows)
+            List<CalculationRows> rows,
+            CommonRowParser.TryParseRowMethod tryParseBuildingCounterRow)
         {
             while (!AreBuildingCountersFinished(source, rowNumber, rowsCount))
             {
@@ -312,7 +356,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     ref rowNumber,
                     rowsCount,
                     rows,
-                    BuildingCounterRowParser.TryParseRow))
+                    tryParseBuildingCounterRow))
                 {
                     return false;
                 }
@@ -326,7 +370,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             CalculationRows buildingAddressRow,
             ref int rowNumber,
             int rowsCount,
-            List<CalculationRows> rows)
+            List<CalculationRows> rows,
+            CommonRowParser.TryParseRowMethod tryParseLegalEntityRow)
         {
             while (!AreLegalEntitiesFinished(source, rowNumber, rowsCount))
             {
@@ -336,7 +381,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     ref rowNumber,
                     rowsCount,
                     rows,
-                    LegalEntityRowParser.TryParseRow))
+                    tryParseLegalEntityRow))
                 {
                     return false;
                 }
@@ -350,7 +395,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             CalculationRows buildingAddressRow,
             ref int rowNumber,
             int rowsCount,
-            List<CalculationRows> rows)
+            List<CalculationRows> rows,
+            CommonRowParser.TryParseRowMethod tryParseCustomerRow)
         {
             while (!AreCustomersFinished(source, rowNumber, rowsCount))
             {
@@ -360,7 +406,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     ref rowNumber,
                     rowsCount,
                     rows,
-                    CustomerRowParser.TryParseRow))
+                    tryParseCustomerRow))
                 {
                     return false;
                 }
@@ -369,83 +415,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool TryParseBuildingInfo(
-            ExcelSheet source,
-            CalculationRows buildingAddressRow,
-            CalculationMethod calculationMethod,
-            ref int rowNumber,
-            int rowsCount,
-            List<CalculationRows> rows)
-        {
-            if (!AddSkippedRows(
-                1,
-                ref rowNumber,
-                rowsCount,
-                rows,
-                buildingAddressRow))
-            {
-                return false;
-            }
-
-            if (!TryParseRow(
-                source,
-                buildingAddressRow,
-                calculationMethod,
-                ref rowNumber,
-                rowsCount,
-                rows,
-                BuildingInfoRowParser.TryParseNormRow))
-            {
-                return false;
-            }
-
-            if (!AddSkippedRows(
-                4,
-                ref rowNumber,
-                rowsCount,
-                rows,
-                buildingAddressRow))
-            {
-                return false;
-            }
-
-            if (!TryParseRow(
-                source,
-                buildingAddressRow,
-                ref rowNumber,
-                rowsCount,
-                rows,
-                BuildingInfoRowParser.TryParseCollectiveVolumeRow))
-            {
-                return false;
-            }
-
-            if (!TryParseRow(
-                source,
-                buildingAddressRow,
-                calculationMethod,
-                ref rowNumber,
-                rowsCount,
-                rows,
-                BuildingInfoRowParser.TryParseCollectiveSquareRow))
-            {
-                return false;
-            }
-
-            if (!AddSkippedRows(
-                3,
-                ref rowNumber,
-                rowsCount,
-                rows,
-                buildingAddressRow))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static bool TryParseRow(
+        public static bool TryParseRow(
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             ref int rowNumber,
@@ -477,14 +447,14 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool TryParseRow(
+        public static bool TryParseRow(
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             CalculationMethod calculationMethod,
             ref int rowNumber,
             int rowsCount,
             List<CalculationRows> rows,
-            BuildingInfoRowParser.TryParseRowMethod tryParseRowMethod)
+            CommonBuildingInfoRowParser.TryParseRowMethod2 tryParseRowMethod)
         {
             if (rowNumber > rowsCount)
             {
@@ -511,7 +481,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool AddSkippedRows(
+        public static bool AddSkippedRows(
             int quantity,
             ref int rowNumber,
             int rowsCount,
@@ -576,7 +546,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             return
                 rowNumber <= rowsCount
-                    && CustomerRowParser.IsAppropriateCounterType(source, rowNumber);
+                    && CommonCustomerRowParser.IsAppropriateCounterType(source, rowNumber);
         }
 
         private static bool AreCustomersFinished(

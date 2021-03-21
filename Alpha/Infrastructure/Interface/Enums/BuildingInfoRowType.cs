@@ -9,5 +9,7 @@
         Norm,
         CollectiveVolume,
         CollectiveSquare,
+        PeriodVolume,
+        Rest,
     }
 }

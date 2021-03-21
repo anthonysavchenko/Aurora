@@ -1,4 +1,5 @@
 ﻿using System;
+using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationSaver.FormSavers;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationSaver
@@ -9,7 +10,14 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             try
             {
-                FormSaver.SaveForm(formID, month);
+                if (month >= Constants.SINCE_012021)
+                {
+                    Since012021FormSaver.SaveForm(formID, month);
+                }
+                else
+                {
+                    Till012021FormSaver.SaveForm(formID, month);
+                }
 
                 CalculationFileHandler.UpdateProcessingResult(fileID);
             }

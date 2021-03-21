@@ -31,5 +31,15 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return
                 source.GetCellText($"{FIRST_COLUMN}{rowNumber}") == TOTAL_TEXT;
         }
+
+        public static bool IsCellEmpty(
+            ExcelSheet source,
+            int rowNumber,
+            string columnName)
+        {
+            return
+                string.IsNullOrEmpty(
+                    source.GetCellText($"{columnName}{rowNumber}"));
+        }
     }
 }

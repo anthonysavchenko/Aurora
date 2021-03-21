@@ -11,6 +11,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         public static bool Parse(
             int uploadID,
             string directoryPath,
+            DateTime month,
             int progressFrom,
             int progressTill,
             Action<int, string> SetProgress)
@@ -33,6 +34,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             {
                 FileParser.ParseFile(
                     uploadID,
+                    month,
                     worker,
                     files[i]);
 

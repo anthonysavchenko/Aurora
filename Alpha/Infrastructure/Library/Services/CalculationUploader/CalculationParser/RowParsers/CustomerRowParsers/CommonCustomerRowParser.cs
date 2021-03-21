@@ -6,8 +6,9 @@ using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationParser.RowParsers
+    .CustomerRowParsers
 {
-    public static class CustomerRowParser
+    public static class CommonCustomerRowParser
     {
         const string ACCOUNT_COLUMN = "A";
         const string APARTMENT_COLUMN = "C";
@@ -16,8 +17,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         const string COUNTER_TYPE_COLUMN = "F";
         const string VOLUME_COLUMN = "G";
         const string RECALCULATION_COLUMN = "H";
-        const string SQUARE_COLUMN = "Q";
-        const string RESIDENTS_COLUMN = "R";
 
         const string COMMON_COUNTER_TYPE_TEXT = "суточная";
         const string DAY_COUNTER_TYPE_TEXT = "2-х зонн. день";
@@ -27,6 +26,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             ExcelSheet source,
             CalculationRows buildingAddressRow,
             int rowNumber,
+            string squareColumnName,
+            string residentsColumnName,
             out CalculationRows row)
         {
             row = new CalculationRows()
@@ -121,26 +122,26 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 }
 
                 if (!CustomerCellParser.TryParseSquare(
-                    source.GetCellText($"{SQUARE_COLUMN}{rowNumber}"),
+                    source.GetCellText($"{squareColumnName}{rowNumber}"),
                     out decimal? square,
                     out description))
                 {
                     CalculationRowHandler.SetParsingError(
                         row,
-                        SQUARE_COLUMN,
+                        squareColumnName,
                         rowNumber,
                         description);
                     return false;
                 }
 
                 if (!CustomerCellParser.TryParseResidents(
-                    source.GetCellText($"{RESIDENTS_COLUMN}{rowNumber}"),
+                    source.GetCellText($"{residentsColumnName}{rowNumber}"),
                     out byte? residents,
                     out description))
                 {
                     CalculationRowHandler.SetParsingError(
                         row,
-                        RESIDENTS_COLUMN,
+                        residentsColumnName,
                         rowNumber,
                         description);
                     return false;
