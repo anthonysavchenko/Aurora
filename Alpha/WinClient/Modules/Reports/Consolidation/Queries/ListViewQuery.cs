@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
 {
@@ -341,8 +342,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         table,
                         columns,
                         item.Address,
-                        "ОДПУ ДЭК",
-                        values: item.DecBuildingCounterVolumes));
+                        "ОДПУ ДЭК (объем для норм. и сред.)",
+                        values: item.DecBuildingCounterVolumes,
+                        checkValues: item.DecCalculationMethods,
+                        alternativeValues: item.DecCollectiveVolumes,
+                        comparison: (x, y, z) =>
+                        {
+                            return
+                                x == (decimal?)CalculationMethod.BuildingCounters
+                                    ? y
+                                    : z;
+                        },
+                        replaceNegativeValues: true));
 
                 table.Rows.Add(
                     CreateRow(
@@ -366,7 +377,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                                 x.HasValue
                                     ? x - (y ?? 0)
                                     : null;
-                        }));
+                        },
+                        checkValues: item.DecCalculationMethods,
+                        alternativeValues: item.DecCollectiveVolumes,
+                        comparison: (x, y, z) =>
+                        {
+                            return
+                                x == (decimal?)CalculationMethod.BuildingCounters
+                                    ? y
+                                    : z;
+                        },
+                        replaceNegativeValues: true));
 
                 /*table.Rows.Add(
                     CreateRow(
@@ -480,6 +501,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
             Dictionary<string, decimal?> thirdValues = null,
             Func<decimal?, decimal?, decimal?> operation = null,
             Func<decimal?, decimal?, decimal?> secondOperation = null,
+            Dictionary<string, decimal?> checkValues = null,
+            Dictionary<string, decimal?> alternativeValues = null,
+            Func<decimal?, decimal?, decimal?, decimal?> comparison = null,
             bool replaceNegativeValues = false,
             bool replacePositiveValues = false,
             bool calculateAvarageAndSum = true)
@@ -534,6 +558,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                 cellValue =
                     secondOperation != null
                         ? secondOperation(cellValue, thirdValue)
+                        : cellValue;
+
+                var checkValue =
+                    checkValues != null
+                        ? checkValues.ContainsKey(columnName)
+                            ? checkValues[columnName]
+                            : null
+                        : null;
+
+                var alternativeValue =
+                    alternativeValues != null
+                        ? alternativeValues.ContainsKey(columnName)
+                            ? alternativeValues[columnName]
+                            : null
+                        : null;
+
+                cellValue =
+                    comparison != null
+                        ? comparison(checkValue, cellValue, alternativeValue)
                         : cellValue;
 
                 cellValue =
