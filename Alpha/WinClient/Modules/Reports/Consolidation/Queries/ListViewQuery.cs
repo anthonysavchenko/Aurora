@@ -349,6 +349,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         table,
                         columns,
                         item.Address,
+                        "Показания юр. лиц",
+                        values: item.DecLegalEntityVolumes));
+
+                table.Rows.Add(
+                    CreateRow(
+                        table,
+                        columns,
+                        item.Address,
                         "К распределению ДЭК",
                         values: item.DecBuildingCounterVolumes,
                         secondValues: item.DecLegalEntityVolumes,
