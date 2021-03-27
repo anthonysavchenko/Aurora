@@ -6,10 +6,11 @@ using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
-    static public class CalculationFileHandler
+    public static class CalculationFileHandler
     {
-        static public int CreateFile(
+        public static int CreateFile(
             string fileName,
+            BuildingContract contract,
             int uploadID)
         {
             using (Entities db = new Entities())
@@ -18,7 +19,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
                     new CalculationFiles()
                     {
                         CalculationUploads = db.CalculationUploads.First(u => u.ID == uploadID),
-                        FileName = fileName.Length > 200 ? fileName.Substring(fileName.Length - 200, 200) : fileName,
+                        FileName = fileName,
+                        Contract = (byte)contract,
                     };
 
                 db.CalculationFiles.AddObject(file);
@@ -28,16 +30,41 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
             }
         }
 
+        public static void UpdateFile(
+            string fileName,
+            BuildingContract contract,
+            int fileID)
+        {
+            using (Entities db = new Entities())
+            {
+                var file = db.CalculationFiles.First(f => f.ID == fileID);
+
+                file.FileName = fileName;
+                file.Contract = (byte)contract;
+
+                db.SaveChanges();
+            }
+        }
+
         public static void UpdateProcessingResult(int fileID)
         {
             using (Entities db = new Entities())
             {
-                var upload = db.CalculationFiles.First(f => f.ID == fileID);
+                var file = db.CalculationFiles.First(f => f.ID == fileID);
 
-                upload.ProcessingResult = (byte)UploadProcessingResult.OK;
+                file.ProcessingResult = (byte)FileProcessingResult.OK;
 
                 db.SaveChanges();
             }
+        }
+
+        public static void UpdateParsingError(
+            int fileID,
+            string description)
+        {
+            UpdateError(
+                fileID,
+                $"Ошибка при распознавании файла. {description}");
         }
 
         public static void UpdateParsingError(

@@ -3,25 +3,34 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
 {
     public static class ListViewQuery
     {
+        private const string CONTRACT_COLUMN = "Contract";
         private const string BUILDING_COLUMN = "Building";
         private const string PARAMS_COLUMN = "Params";
         private const string AVARAGE_COLUMN = "Avarage";
         private const string SUM_COLUMN = "Sum";
 
         private const int MAX_MONTH_COUNT = 12;
-        private const int FIRST_EXTRA_COLUMN_INDEX = 2;
+        private const int FIRST_EXTRA_COLUMN_INDEX = 3;
         private const int FIXED_COLUMNS_COUNT = 2;
 
         public static List<Column> GetGridColumns(DateTime since, DateTime till)
         {
             var columns = new List<Column>()
             {
+                new Column()
+                {
+                    Caption = "Договор",
+                    ColumnFormat = ColumnFormat.String,
+                    FieldName = CONTRACT_COLUMN,
+                    ColumnType = typeof(string),
+                },
                 new Column()
                 {
                     Caption = "Дом",
@@ -199,6 +208,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                                         })
                                     .ToList(),
                         })
+                    .Where(i =>
+                        i.BuildingCounterValueVolumes.Count() != 0
+                            || i.BuildingCounterCalculationValueVolumes.Count() != 0
+                            || i.LegalEntityCalculationValueChargedVolumes.Count() != 0
+                            //|| i.FillFormValues.Count() != 0
+                            || i.CustomerCalculationValueVolumes.Count() != 0
+                            || i.CustomerCalculationValueRecalculations.Count() != 0
+                            || i.BuildingCalculationValues.Count() != 0)
                     .ToList();
 
             var toDictionariesItems =
@@ -207,6 +224,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         new
                         {
                             i.Address,
+
+                            MaxBuildingCalculationValue =
+                                i.BuildingCalculationValues
+                                    .FirstOrDefault(v =>
+                                        v.Month ==
+                                            i.BuildingCalculationValues
+                                                .Max(vv => vv.Month)),
 
                             BuildingCounterVolumes =
                                 i.BuildingCounterValueVolumes
@@ -273,6 +297,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         new
                         {
                             i.Address,
+
+                            Contract =
+                                i.MaxBuildingCalculationValue != null
+                                    ? (BuildingContract)i.MaxBuildingCalculationValue.Value.Contract
+                                        == BuildingContract.Contract6784
+                                        ? BuildingContractNames.CONTRACT_6784
+                                        : (BuildingContract)i.MaxBuildingCalculationValue.Value.Contract
+                                            == BuildingContract.Contract15297
+                                            ? BuildingContractNames.CONTRACT_15297
+                                            : null
+                                    : null,
+
                             i.BuildingCounterVolumes,
                             i.DecBuildingCounterVolumes,
                             i.DecLegalEntityVolumes,
@@ -311,7 +347,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                             i.DecCollectiveSquares,
                             i.DecCalculationMethods,
                         })
-                        .OrderBy(b => b.Address)
+                        .OrderBy(b => b.Contract)
+                        .ThenBy(b => b.Address)
                         .ToList();
 
             var table = new DataTable();
@@ -324,6 +361,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "Расчет ОДН",
                         values: item.DecCalculationMethods,
@@ -333,6 +371,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "ОДПУ УК",
                         values: item.BuildingCounterVolumes));
@@ -341,6 +380,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "ОДПУ ДЭК (объем для норм. и сред.)",
                         values: item.DecBuildingCounterVolumes,
@@ -359,6 +399,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "Показания юр. лиц",
                         values: item.DecLegalEntityVolumes));
@@ -367,6 +408,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "К распределению ДЭК",
                         values: item.DecBuildingCounterVolumes,
@@ -393,6 +435,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "ИПУ УК",
                         values: item.FillFormVolumes));*/
@@ -401,6 +444,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "ИПУ ДЭК",
                         values: item.DecCustomerVolumes));
@@ -409,6 +453,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "Перерасчет ИПУ ДЭК",
                         values: item.DecCustomerRecalculations));
@@ -417,6 +462,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "Процент ОДН ДЭК от ИПУ ДЭК",
                         values: item.DecCollectiveVolumes,
@@ -434,6 +480,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "ОДН ДЭК",
                         values: item.DecCollectiveVolumes,
@@ -443,6 +490,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "Баланс",
                         values: item.DecCollectiveVolumes,
@@ -452,6 +500,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "Проверка",
                         values: item.DecBuildingCounterVolumes,
@@ -476,6 +525,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         "Площадь МОП",
                         values: item.DecCollectiveSquares));
@@ -484,6 +534,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                     CreateRow(
                         table,
                         columns,
+                        item.Contract,
                         item.Address,
                         null));
             }
@@ -494,6 +545,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
         private static DataRow CreateRow(
             DataTable table,
             List<Column> columns,
+            string contract,
             string building,
             string param,
             Dictionary<string, decimal?> values = null,
@@ -513,6 +565,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
             decimal? sum = null;
 
             var row = table.NewRow();
+
+            row[CONTRACT_COLUMN] =
+                !string.IsNullOrEmpty(contract)
+                    ? contract
+                    : (object)DBNull.Value;
 
             row[BUILDING_COLUMN] =
                 !string.IsNullOrEmpty(building)

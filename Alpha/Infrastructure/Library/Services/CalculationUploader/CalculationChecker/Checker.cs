@@ -14,7 +14,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             public int FileID { get; set; }
         }
 
-        public static bool Check(
+        public static bool TryCheck(
             int uploadID,
             int progressFrom,
             int progressTill,
@@ -22,7 +22,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             SetProgress(progressFrom, "Подготовка к началу проверки распознанных файлов...");
 
-            if (!GetFiles(uploadID, out List<FileInfo> files))
+            if (!TryGetFiles(uploadID, out List<FileInfo> files))
             {
                 return false;
             }
@@ -45,7 +45,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool GetFiles(
+        private static bool TryGetFiles(
             int uploadID,
             out List<FileInfo> files)
         {

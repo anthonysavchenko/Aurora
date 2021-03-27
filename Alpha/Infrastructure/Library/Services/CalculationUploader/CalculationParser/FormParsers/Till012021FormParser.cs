@@ -14,23 +14,26 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 {
     public static class Till012021FormParser
     {
-        public static void ParseForm(
-            int fileID,
+        public static bool TryParseForm(
             ExcelSheet source,
-            int rowsCount)
+            ref int rowNumber,
+            int rowsCount,
+            out List<CalculationRows> rows)
         {
-            CommonFormParser.ParseForm(
-                fileID,
-                source,
-                rowsCount,
-                Till012021BuildingInfoRowParser.TryParseDebtRow,
-                Till012021BuildingInfoRowParser.TryParseCalculationMethodRow,
-                Till012021BuildingCounterRowParser.TryParseRow,
-                Till012021LegalEntityRowParser.TryParseRow,
-                Till012021CustomerRowParser.TryParseRow,
-                TryParseBuildingInfo,
-                Till012021BuildingInfoRowParser.IsDebtHeaderCellPresent,
-                Till012021BuildingInfoRowParser.IsDebtCellEmpty);
+            return
+                CommonFormParser.TryParseForm(
+                    source,
+                    ref rowNumber,
+                    rowsCount,
+                    out rows,
+                    Till012021BuildingInfoRowParser.TryParseDebtRow,
+                    Till012021BuildingInfoRowParser.TryParseCalculationMethodRow,
+                    Till012021BuildingCounterRowParser.TryParseRow,
+                    Till012021LegalEntityRowParser.TryParseRow,
+                    Till012021CustomerRowParser.TryParseRow,
+                    TryParseBuildingInfo,
+                    Till012021BuildingInfoRowParser.IsDebtHeaderCellPresent,
+                    Till012021BuildingInfoRowParser.IsDebtCellEmpty);
         }
 
         private static bool TryParseBuildingInfo(
@@ -41,7 +44,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             int rowsCount,
             List<CalculationRows> rows)
         {
-            if (!CommonFormParser.AddSkippedRows(
+            if (!CommonFormParser.TryAddSkippedRows(
                 1,
                 ref rowNumber,
                 rowsCount,
@@ -63,7 +66,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 return false;
             }
 
-            if (!CommonFormParser.AddSkippedRows(
+            if (!CommonFormParser.TryAddSkippedRows(
                 4,
                 ref rowNumber,
                 rowsCount,
@@ -96,7 +99,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 return false;
             }
 
-            if (!CommonFormParser.AddSkippedRows(
+            if (!CommonFormParser.TryAddSkippedRows(
                 3,
                 ref rowNumber,
                 rowsCount,

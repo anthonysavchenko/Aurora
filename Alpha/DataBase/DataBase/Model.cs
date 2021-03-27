@@ -1241,13 +1241,15 @@ namespace Taumis.Alpha.DataBase
         /// Create a new BuildingCalculationValues object.
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="contract">Initial value of the Contract property.</param>
         /// <param name="month">Initial value of the Month property.</param>
         /// <param name="calculationMethod">Initial value of the CalculationMethod property.</param>
         /// <param name="collectiveVolume">Initial value of the CollectiveVolume property.</param>
-        public static BuildingCalculationValues CreateBuildingCalculationValues(global::System.Int32 id, global::System.DateTime month, global::System.Byte calculationMethod, global::System.Decimal collectiveVolume)
+        public static BuildingCalculationValues CreateBuildingCalculationValues(global::System.Int32 id, global::System.Byte contract, global::System.DateTime month, global::System.Byte calculationMethod, global::System.Decimal collectiveVolume)
         {
             BuildingCalculationValues buildingCalculationValues = new BuildingCalculationValues();
             buildingCalculationValues.ID = id;
+            buildingCalculationValues.Contract = contract;
             buildingCalculationValues.Month = month;
             buildingCalculationValues.CalculationMethod = calculationMethod;
             buildingCalculationValues.CollectiveVolume = collectiveVolume;
@@ -1284,6 +1286,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.Int32 _ID;
         partial void OnIDChanging(global::System.Int32 value);
         partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte Contract
+        {
+            get
+            {
+                return _Contract;
+            }
+            set
+            {
+                OnContractChanging(value);
+                ReportPropertyChanging("Contract");
+                _Contract = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Contract");
+                OnContractChanged();
+            }
+        }
+        private global::System.Byte _Contract;
+        partial void OnContractChanging(global::System.Byte value);
+        partial void OnContractChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3990,11 +4016,15 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="processingResult">Initial value of the ProcessingResult property.</param>
-        public static CalculationFiles CreateCalculationFiles(global::System.Int32 id, global::System.Byte processingResult)
+        /// <param name="fileName">Initial value of the FileName property.</param>
+        /// <param name="contract">Initial value of the Contract property.</param>
+        public static CalculationFiles CreateCalculationFiles(global::System.Int32 id, global::System.Byte processingResult, global::System.String fileName, global::System.Byte contract)
         {
             CalculationFiles calculationFiles = new CalculationFiles();
             calculationFiles.ID = id;
             calculationFiles.ProcessingResult = processingResult;
+            calculationFiles.FileName = fileName;
+            calculationFiles.Contract = contract;
             return calculationFiles;
         }
 
@@ -4056,7 +4086,7 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String FileName
         {
@@ -4068,7 +4098,7 @@ namespace Taumis.Alpha.DataBase
             {
                 OnFileNameChanging(value);
                 ReportPropertyChanging("FileName");
-                _FileName = StructuralObject.SetValidValue(value, true);
+                _FileName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("FileName");
                 OnFileNameChanged();
             }
@@ -4076,6 +4106,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.String _FileName;
         partial void OnFileNameChanging(global::System.String value);
         partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte Contract
+        {
+            get
+            {
+                return _Contract;
+            }
+            set
+            {
+                OnContractChanging(value);
+                ReportPropertyChanging("Contract");
+                _Contract = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Contract");
+                OnContractChanged();
+            }
+        }
+        private global::System.Byte _Contract;
+        partial void OnContractChanging(global::System.Byte value);
+        partial void OnContractChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

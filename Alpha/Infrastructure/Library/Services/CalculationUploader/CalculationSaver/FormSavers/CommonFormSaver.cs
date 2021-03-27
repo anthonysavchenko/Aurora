@@ -7,14 +7,15 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 {
     public static class CommonFormSaver
     {
-        public delegate void CreateBuildingCalculationValuesMethod(int formID, DateTime month);
+        public delegate void CreateBuildingCalculationValuesMethod(int formID, byte contract, DateTime month);
 
         public static void SaveForm(
             int formID,
+            byte contract,
             DateTime month,
             CreateBuildingCalculationValuesMethod createBuildingCalculationValues)
         {
-            createBuildingCalculationValues(formID, month);
+            createBuildingCalculationValues(formID, contract, month);
 
             CreateBuildingCounters(formID);
             CreateBuildingCounterCalculationValues(formID, month);

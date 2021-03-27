@@ -6,17 +6,17 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 {
     public static class FileSaver
     {
-        public static void SaveFile(int fileID, int formID, DateTime month)
+        public static void SaveFile(int fileID, int formID, byte contract, DateTime month)
         {
             try
             {
                 if (month >= Constants.SINCE_012021)
                 {
-                    Since012021FormSaver.SaveForm(formID, month);
+                    Since012021FormSaver.SaveForm(formID, contract, month);
                 }
                 else
                 {
-                    Till012021FormSaver.SaveForm(formID, month);
+                    Till012021FormSaver.SaveForm(formID, contract, month);
                 }
 
                 CalculationFileHandler.UpdateProcessingResult(fileID);

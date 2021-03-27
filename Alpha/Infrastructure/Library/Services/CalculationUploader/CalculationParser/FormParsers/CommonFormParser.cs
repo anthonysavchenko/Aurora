@@ -22,10 +22,11 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             int rowsCount,
             List<CalculationRows> rows);
 
-        public static void ParseForm(
-            int fileID,
+        public static bool TryParseForm(
             ExcelSheet source,
+            ref int rowNumber,
             int rowsCount,
+            out List<CalculationRows> rows,
             CommonRowParser.TryParseRowMethod tryParseDebtRow,
             CommonBuildingInfoRowParser.TryParseRowMethod1 tryParseCalculationMethodRow,
             CommonRowParser.TryParseRowMethod tryParseBuildingCounterRow,
@@ -35,66 +36,57 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             CommonBuildingInfoRowParser.CheckRowMethod isDebtHeaderCellPresent,
             CommonBuildingInfoRowParser.CheckRowMethod isDebtCellEmpty)
         {
-            var rows = new List<CalculationRows>();
-            var rowNumber = 1;
+            rows = new List<CalculationRows>();
+            rowNumber = 1;
 
-            try
+            if (!TryAddSkippedRows(
+                1,
+                ref rowNumber,
+                rowsCount,
+                rows))
             {
-                if (!AddSkippedRows(
-                    1,
+                return false;
+            }
+
+            while (rowNumber <= rowsCount)
+            {
+                if (TryParseBuildingAddress(
+                    source,
                     ref rowNumber,
                     rowsCount,
-                    rows))
+                    rows,
+                    out CalculationRows buildingAddressRow))
                 {
-                    return;
-                }
-
-                while (rowNumber <= rowsCount)
-                {
-                    if (TryParseBuildingAddress(
+                    if (TryParseBuilding(
                         source,
+                        buildingAddressRow,
                         ref rowNumber,
                         rowsCount,
                         rows,
-                        out CalculationRows buildingAddressRow))
+                        tryParseDebtRow,
+                        tryParseCalculationMethodRow,
+                        tryParseBuildingCounterRow,
+                        tryParseLegalEntityRow,
+                        tryParseCustomerRow,
+                        tryParseBuildingInfo,
+                        isDebtHeaderCellPresent,
+                        isDebtCellEmpty))
                     {
-                        if (TryParseBuilding(
-                            source,
-                            buildingAddressRow,
+                        var rowsLeft = rowsCount - rowNumber + 1;
+
+                        if (!TryAddSkippedRows(
+                            rowsLeft < 3 ? rowsLeft : 3,
                             ref rowNumber,
                             rowsCount,
-                            rows,
-                            tryParseDebtRow,
-                            tryParseCalculationMethodRow,
-                            tryParseBuildingCounterRow,
-                            tryParseLegalEntityRow,
-                            tryParseCustomerRow,
-                            tryParseBuildingInfo,
-                            isDebtHeaderCellPresent,
-                            isDebtCellEmpty))
+                            rows))
                         {
-                            var rowsLeft = rowsCount - rowNumber + 1;
-
-                            if (!AddSkippedRows(
-                                rowsLeft < 3 ? rowsLeft : 3,
-                                ref rowNumber,
-                                rowsCount,
-                                rows))
-                            {
-                                break;
-                            }
+                            break;
                         }
                     }
                 }
             }
-            catch (Exception exception)
-            {
-                throw new Exception(
-                    $"Программная ошибка при распознавании файла, rowNumber: {rowNumber + 1}",
-                    exception);
-            }
 
-            CalculationFormHandler.CreateForm(fileID, rows);
+            return true;
         }
 
         private static bool TryParseBuildingAddress(
@@ -144,7 +136,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             CommonBuildingInfoRowParser.CheckRowMethod isDebtHeaderCellPresent,
             CommonBuildingInfoRowParser.CheckRowMethod isDebtCellEmpty)
         {
-            if (!AddSkippedRows(
+            if (!TryAddSkippedRows(
                 6,
                 ref rowNumber,
                 rowsCount,
@@ -197,7 +189,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 }
             }
 
-            if (!AddSkippedRows(
+            if (!TryAddSkippedRows(
                 4,
                 ref rowNumber,
                 rowsCount,
@@ -232,7 +224,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             if (rowNumber + 1 <= rowsCount
                 && CommonRowParser.IsFirstCellTotal(source, rowNumber + 1))
             {
-                if (!AddSkippedRows(
+                if (!TryAddSkippedRows(
                     3,
                     ref rowNumber,
                     rowsCount,
@@ -245,7 +237,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             else if (rowNumber + 2 <= rowsCount
                 && CommonRowParser.IsFirstCellTotal(source, rowNumber + 2))
             {
-                if (!AddSkippedRows(
+                if (!TryAddSkippedRows(
                     4,
                     ref rowNumber,
                     rowsCount,
@@ -257,7 +249,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             }
             else
             {
-                if (!AddSkippedRows(
+                if (!TryAddSkippedRows(
                     5,
                     ref rowNumber,
                     rowsCount,
@@ -481,7 +473,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        public static bool AddSkippedRows(
+        public static bool TryAddSkippedRows(
             int quantity,
             ref int rowNumber,
             int rowsCount,

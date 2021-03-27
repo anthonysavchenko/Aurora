@@ -14,23 +14,26 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 {
     public static class Since012021FormParser
     {
-        public static void ParseForm(
-            int fileID,
+        public static bool TryParseForm(
             ExcelSheet source,
-            int rowsCount)
+            ref int rowNumber,
+            int rowsCount,
+            out List<CalculationRows> rows)
         {
-            CommonFormParser.ParseForm(
-                fileID,
-                source,
-                rowsCount,
-                Since012021BuildingInfoRowParser.TryParseDebtRow,
-                Since012021BuildingInfoRowParser.TryParseCalculationMethodRow,
-                Since012021BuildingCounterRowParser.TryParseRow,
-                Since012021LegalEntityRowParser.TryParseRow,
-                Since012021CustomerRowParser.TryParseRow,
-                TryParseBuildingInfo,
-                Since012021BuildingInfoRowParser.IsDebtHeaderCellPresent,
-                Since012021BuildingInfoRowParser.IsDebtCellEmpty);
+            return
+                CommonFormParser.TryParseForm(
+                    source,
+                    ref rowNumber,
+                    rowsCount,
+                    out rows,
+                    Since012021BuildingInfoRowParser.TryParseDebtRow,
+                    Since012021BuildingInfoRowParser.TryParseCalculationMethodRow,
+                    Since012021BuildingCounterRowParser.TryParseRow,
+                    Since012021LegalEntityRowParser.TryParseRow,
+                    Since012021CustomerRowParser.TryParseRow,
+                    TryParseBuildingInfo,
+                    Since012021BuildingInfoRowParser.IsDebtHeaderCellPresent,
+                    Since012021BuildingInfoRowParser.IsDebtCellEmpty);
         }
 
         private static bool TryParseBuildingInfo(
@@ -41,7 +44,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             int rowsCount,
             List<CalculationRows> rows)
         {
-            if (!CommonFormParser.AddSkippedRows(
+            if (!CommonFormParser.TryAddSkippedRows(
                 1,
                 ref rowNumber,
                 rowsCount,
@@ -63,7 +66,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 return false;
             }
 
-            if (!CommonFormParser.AddSkippedRows(
+            if (!CommonFormParser.TryAddSkippedRows(
                 1,
                 ref rowNumber,
                 rowsCount,
@@ -84,7 +87,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 return false;
             }
 
-            if (!CommonFormParser.AddSkippedRows(
+            if (!CommonFormParser.TryAddSkippedRows(
                 2,
                 ref rowNumber,
                 rowsCount,
@@ -117,7 +120,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 return false;
             }
 
-            if (!CommonFormParser.AddSkippedRows(
+            if (!CommonFormParser.TryAddSkippedRows(
                 11,
                 ref rowNumber,
                 rowsCount,

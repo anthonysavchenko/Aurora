@@ -22,6 +22,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CalculationRow" Type="int" Nullable="false" />
           <Property Name="Building" Type="int" Nullable="false" />
+          <Property Name="Contract" Type="tinyint" Nullable="false" />
           <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="CalculationMethod" Type="tinyint" Nullable="false" />
           <Property Name="Debt" Type="decimal" Precision="11" Scale="3" />
@@ -154,7 +155,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CalculationUpload" Type="int" Nullable="false" />
           <Property Name="ProcessingResult" Type="tinyint" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="200" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Contract" Type="tinyint" Nullable="false" />
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
         </EntityType>
@@ -1893,7 +1895,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProcessingResult" Type="Byte" Nullable="false" />
-          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contract" Type="Byte" Nullable="false" />
           <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CalculationUploads" Relationship="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads" FromRole="CalculationFiles" ToRole="CalculationUploads" />
@@ -2018,6 +2021,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Contract" Type="Byte" Nullable="false" />
           <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CalculationMethod" Type="Byte" Nullable="false" />
           <Property Name="Debt" Type="Decimal" Precision="11" Scale="3" />
@@ -2644,6 +2648,7 @@
           <EntitySetMapping Name="CalculationFiles">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.CalculationFiles">
               <MappingFragment StoreEntitySet="CalculationFiles">
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
                 <ScalarProperty Name="ProcessingResult" ColumnName="ProcessingResult" />
                 <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
                 <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
@@ -2790,6 +2795,7 @@
           <EntitySetMapping Name="BuildingCalculationValues">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingCalculationValues">
               <MappingFragment StoreEntitySet="BuildingCalculationValues">
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
                 <ScalarProperty Name="CollectiveSquare" ColumnName="CollectiveSquare" />
                 <ScalarProperty Name="CollectiveVolume" ColumnName="CollectiveVolume" />
                 <ScalarProperty Name="Norm" ColumnName="Norm" />
@@ -3018,14 +3024,14 @@
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationUploads_Users" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationFiles" Width="2" PointX="21.625" PointY="4" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationForms" Width="2" PointX="21.625" PointY="6.875" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationForms" Width="2" PointX="21.625" PointY="7.25" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationForms_CalculationFiles" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationRows" Width="2" PointX="21.625" PointY="9.125" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationRows" Width="2" PointX="21.625" PointY="9.625" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationForms" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationBuildingCounters" Width="2" PointX="21.625" PointY="13.875" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationBuildingInfos" Width="2" PointX="19" PointY="13.875" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationCustomers" Width="2" PointX="26.875" PointY="13.875" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationLegalEntities" Width="2" PointX="24.25" PointY="13.875" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationBuildingCounters" Width="2" PointX="21.625" PointY="14.375" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationBuildingInfos" Width="2" PointX="19" PointY="14.375" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationCustomers" Width="2" PointX="26.875" PointY="14.375" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationLegalEntities" Width="2" PointX="24.25" PointY="14.375" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingCounters" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationBuildingInfos" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationCustomers" />

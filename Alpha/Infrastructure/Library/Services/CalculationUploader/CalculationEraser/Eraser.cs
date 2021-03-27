@@ -15,7 +15,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             public int FileID { get; set; }
         }
 
-        public static bool Erase(
+        public static bool TryErase(
             int uploadID,
             DateTime month,
             int progressFrom,
@@ -24,7 +24,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             SetProgress(progressFrom, "Подготовка к началу удаления неактуальных файлов, загруженных ранее...");
 
-            if (!GetFiles(uploadID, month, out List<FileInfo> files))
+            if (!TryGetFiles(uploadID, month, out List<FileInfo> files))
             {
                 return false;
             }
@@ -47,7 +47,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool GetFiles(
+        private static bool TryGetFiles(
             int uploadID,
             DateTime month,
             out List<FileInfo> files)

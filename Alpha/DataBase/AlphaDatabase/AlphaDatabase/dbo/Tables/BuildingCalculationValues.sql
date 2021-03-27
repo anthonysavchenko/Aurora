@@ -2,6 +2,7 @@
     [ID]                INT             IDENTITY (1, 1) NOT NULL,
     [CalculationRow]    INT             NOT NULL,
     [Building]          INT             NOT NULL,
+    [Contract]          TINYINT         NOT NULL,
     [Month]             DATETIME2 (0)   NOT NULL,
     [CalculationMethod] TINYINT         NOT NULL,
     [Debt]              DECIMAL (11, 3) NULL,
@@ -13,4 +14,6 @@
     CONSTRAINT [FK_BuildingCalculationValues_Buildings] FOREIGN KEY ([Building]) REFERENCES [dbo].[Buildings] ([ID]),
     CONSTRAINT [FK_BuildingCalculationValues_CalculationRows] FOREIGN KEY ([CalculationRow]) REFERENCES [dbo].[CalculationRows] ([ID])
 );
+
+
 

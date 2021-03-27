@@ -12,9 +12,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             public int FormID { get; set; }
             public int FileID { get; set; }
+            public byte Contract { get; set; }
         }
 
-        public static bool Save(
+        public static bool TrySave(
             int uploadID,
             DateTime month,
             int progressFrom,
@@ -23,7 +24,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             SetProgress(progressFrom, "Подготовка к началу сохранения распознанных файлов...");
 
-            if (!GetFiles(uploadID, out List<FileInfo> files))
+            if (!TryGetFiles(uploadID, out List<FileInfo> files))
             {
                 return false;
             }
@@ -35,6 +36,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 FileSaver.SaveFile(
                     files[i].FileID,
                     files[i].FormID,
+                    files[i].Contract,
                     month);
 
                 SetProgress(
@@ -47,7 +49,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool GetFiles(
+        private static bool TryGetFiles(
             int uploadID,
             out List<FileInfo> files)
         {
@@ -66,6 +68,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                             {
                                 FileID = f.CalculationFiles.ID,
                                 FormID = f.ID,
+                                Contract = f.CalculationFiles.Contract,
                             })
                             .ToList();
                 }

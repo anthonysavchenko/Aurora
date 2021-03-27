@@ -71,7 +71,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
 
             try
             {
-                if (!Parser.Parse(
+                if (!Parser.TryParse(
                     uploadID.Value,
                     path,
                     month,
@@ -82,7 +82,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
                     return uploadID;
                 }
 
-                if (!Checker.Check(
+                if (!Checker.TryCheck(
                     uploadID.Value,
                     30,
                     40,
@@ -91,7 +91,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
                     return uploadID;
                 }
 
-                if (!Eraser.Erase(
+                if (!Eraser.TryErase(
                     uploadID.Value,
                     month,
                     40,
@@ -101,7 +101,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
                     return uploadID;
                 }
 
-                if (!Saver.Save(
+                if (!Saver.TrySave(
                     uploadID.Value,
                     month,
                     70,

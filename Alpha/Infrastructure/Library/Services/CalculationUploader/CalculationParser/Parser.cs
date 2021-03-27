@@ -8,7 +8,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 {
     public static class Parser
     {
-        public static bool Parse(
+        public static bool TryParse(
             int uploadID,
             string directoryPath,
             DateTime month,
@@ -18,12 +18,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         {
             SetProgress(progressFrom, "Подготовка к началу распознавания файлов...");
 
-            if (!GetExcelWorker(uploadID, out Excel2007Worker worker))
+            if (!TryGetExcelWorker(uploadID, out Excel2007Worker worker))
             {
                 return false;
             }
 
-            if (!GetFiles(uploadID, directoryPath, out string[] files))
+            if (!TryGetFiles(uploadID, directoryPath, out string[] files))
             {
                 return false;
             }
@@ -33,10 +33,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             for (int i = 0; i < files.Length; i++)
             {
                 FileParser.ParseFile(
-                    uploadID,
-                    month,
+                    files[i],
                     worker,
-                    files[i]);
+                    uploadID,
+                    month);
 
                 SetProgress(
                     progressFrom + (i + 1) * (progressTill - progressFrom) / files.Length,
@@ -48,7 +48,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool GetFiles(int uploadID, string directoryPath, out string[] files)
+        private static bool TryGetFiles(int uploadID, string directoryPath, out string[] files)
         {
             files = null;
 
@@ -71,7 +71,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             return true;
         }
 
-        private static bool GetExcelWorker(int uploadID, out Excel2007Worker worker)
+        private static bool TryGetExcelWorker(int uploadID, out Excel2007Worker worker)
         {
             worker = null;
 

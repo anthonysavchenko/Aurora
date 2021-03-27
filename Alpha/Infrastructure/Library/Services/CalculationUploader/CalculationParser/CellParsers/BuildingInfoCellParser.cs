@@ -66,10 +66,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             {
                 return CalculationMethod.Norm;
             }
-            else
-            {
-                return CalculationMethod.BuildingCounters;
-            }
+
+            return CalculationMethod.BuildingCounters;
         }
 
         public static bool TryParseVolume(

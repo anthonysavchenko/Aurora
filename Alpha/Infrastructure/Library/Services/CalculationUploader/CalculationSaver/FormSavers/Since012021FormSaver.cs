@@ -7,14 +7,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 {
     public static class Since012021FormSaver
     {
-        public static void SaveForm(
-            int formID,
-            DateTime month)
+        public static void SaveForm(int formID, byte contract, DateTime month)
         {
-            CommonFormSaver.SaveForm(formID, month, CreateBuildingCalculationValues);
+            CommonFormSaver.SaveForm(formID, contract, month, CreateBuildingCalculationValues);
         }
 
-        private static void CreateBuildingCalculationValues(int formID, DateTime month)
+        private static void CreateBuildingCalculationValues(int formID, byte contract, DateTime month)
         {
             using (var db = new Entities())
             {
@@ -117,6 +115,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                         {
                             CalculationRows = v.CalculationRow,
                             Buildings = v.Building,
+                            Contract = contract,
                             Month = month,
                             CalculationMethod = v.CalculationMethod,
                             Debt = v.Debt,
