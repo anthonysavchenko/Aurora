@@ -357,7 +357,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Excel
         /// Создает файл и экземпляр приложения Excel 
         /// </summary>
         /// <param name="_fileName">Абсолютный путь к файлу</param>
-        public ExcelSheet CreateFile(string _fileName, string _sheetName)
+        public ExcelSheet CreateFile(string _fileName, string _sheetName = "Лист1")
         {
             Type APPLICATION_TYPE = ExcelAssembly.GetType("Microsoft.Office.Interop.Excel.ApplicationClass");
             Type WORKBOOKS_TYPE = ExcelAssembly.GetType("Microsoft.Office.Interop.Excel.Workbooks");

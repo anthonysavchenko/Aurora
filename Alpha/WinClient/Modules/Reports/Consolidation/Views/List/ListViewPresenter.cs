@@ -1,46 +1,136 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Practices.CompositeUI;
+using System;
 using System.Data;
+using System.Diagnostics;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Library.Services.Excel;
+using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models;
 using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries;
-using Taumis.EnterpriseLibrary.Infrastructure.Common.Services.ServerTimeService;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
+using Taumis.EnterpriseLibrary.Win.Services;
+using static Taumis.Alpha.Infrastructure.Library.Services.Excel.Excel2007Worker;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
 {
     public class ListViewPresenter : BaseReportForGridPresenter<IListView, EmptyReportParams>
     {
-        private List<Column> Columns;
-
         public override void OnViewReady()
         {
             base.OnViewReady();
 
-            DateTimeInfo dateTimeInfo = ServerTime.GetDateTimeInfo();
-
-            View.Since = dateTimeInfo.SinceYearBeginning;
-            View.Till = dateTimeInfo.TillToday;
+            View.Since = ServerTime.GetDateTimeInfo().SinceYearBeginning;
         }
 
         protected override DataTable GetGridData(EmptyReportParams _params)
         {
-            Columns = ListViewQuery.GetGridColumns(View.Since, View.Till);
+            View.DataSourceColumns = DataSource.GetDataSourceColumns(View.Since);
 
             using (var db = new Entities())
             {
-                return db.GetGridRows(Columns, View.Since, View.Till);
+                return db.GetDataTable(View.DataSourceColumns, View.Since);
             }
         }
 
         protected override void ProcessGridData()
         {
-            View.ClearColumns();
+            View.ClearGridColumns();
 
-            foreach (var column in Columns)
+            foreach (var column in View.DataSourceColumns)
             {
-                View.AddColumn(column);
+                if (column.Visible)
+                {
+                    View.AddGridColumn(column);
+                }
             }
 
             base.ProcessGridData();
+        }
+
+        public override void OnExportToExcelFired(object sender, EventArgs eventArgs)
+        {
+            if (WorkItem.Status == WorkItemStatus.Inactive)
+            {
+                return;
+            }
+
+            var filePath = View.GetExcelFilePath(ServerTime.GetDateTimeInfo().Now);
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            Excel2007Worker worker = null;
+
+            try
+            {
+                worker = new Excel2007Worker();
+                ExcelSheet sheet = worker.CreateFile(filePath);
+
+                int targetRowNumber = 1;
+
+                foreach (Column column in View.DataSourceColumns)
+                {
+                    sheet.SetCellValue($"{column.ExcelName}{targetRowNumber}", column.ExcelHeader);
+                    sheet.SetRangeFormat(
+                        $"{column.ExcelName}{targetRowNumber}",
+                        $"{column.ExcelName}{targetRowNumber}",
+                        column.ExcelHeaderFormat);
+                    sheet.SetColumnWidth(
+                        $"{column.ExcelName}{targetRowNumber}",
+                        $"{column.ExcelName}{targetRowNumber}",
+                        column.ExcelWidth);
+                }
+
+                targetRowNumber++;
+
+                foreach (DataRow sourceRow in View.GetDataTable().Rows)
+                {
+                    foreach (Column column in View.DataSourceColumns)
+                    {
+                        if (column.Visible
+                            && sourceRow[column.FieldName] != DBNull.Value)
+                        {
+                            string cell = $"{column.ExcelName}{targetRowNumber}";
+                            object value =
+                                DataSource.GetExcelCellValue(
+                                    sourceRow[column.FieldName],
+                                    column.ContentType,
+                                    (CellFormat)(sourceRow[DataSource.VALUE_CELLS_FORMAT_COLUMN]
+                                        ?? CellFormat.Numeric));
+                            string format =
+                                DataSource.GetExcelCellFormat(
+                                    column.ContentType,
+                                    (CellFormat)(sourceRow[DataSource.VALUE_CELLS_FORMAT_COLUMN]
+                                        ?? CellFormat.Numeric));
+
+                            sheet.SetCellValue(cell, value);
+                            sheet.SetRangeFormat(cell, cell, format);
+                        }
+                    }
+
+                    targetRowNumber++;
+                }
+
+                worker.Save();
+                worker.Close();
+
+                Process process = new Process();
+                process.StartInfo.FileName = filePath;
+                process.Start();
+            }
+            catch (Exception exception)
+            {
+                Logger.SimpleWrite($"Consolidation Reoprt. Export to Excel exception. {exception}");
+                View.ShowMessage("Произошла ошибка при экспорте данных в файл Excel", "Ошибка");
+            }
+            finally
+            {
+                if (worker != null)
+                {
+                    worker.Close();
+                }
+            }
         }
     }
 }

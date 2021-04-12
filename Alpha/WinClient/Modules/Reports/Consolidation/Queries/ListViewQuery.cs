@@ -1,90 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
 {
     public static class ListViewQuery
     {
-        private const string CONTRACT_COLUMN = "Contract";
-        private const string BUILDING_COLUMN = "Building";
-        private const string PARAMS_COLUMN = "Params";
-        private const string AVARAGE_COLUMN = "Avarage";
-        private const string SUM_COLUMN = "Sum";
-
-        private const int MAX_MONTH_COUNT = 12;
-        private const int FIRST_EXTRA_COLUMN_INDEX = 3;
-        private const int FIXED_COLUMNS_COUNT = 2;
-
-        public static List<Column> GetGridColumns(DateTime since, DateTime till)
+        public static DataTable GetDataTable(this Entities db, Column[] columns, DateTime since)
         {
-            var columns = new List<Column>()
-            {
-                new Column()
-                {
-                    Caption = "Договор",
-                    ColumnFormat = ColumnFormat.String,
-                    FieldName = CONTRACT_COLUMN,
-                    ColumnType = typeof(string),
-                },
-                new Column()
-                {
-                    Caption = "Дом",
-                    ColumnFormat = ColumnFormat.String,
-                    FieldName = BUILDING_COLUMN,
-                    ColumnType = typeof(string),
-                },
-                new Column()
-                {
-                    Caption = "Параметры",
-                    ColumnFormat = ColumnFormat.String,
-                    FieldName = PARAMS_COLUMN,
-                    ColumnType = typeof(string),
-                },
-            };
-
-            columns.AddRange(
-                Enumerable
-                    .Range(0, MAX_MONTH_COUNT)
-                    .Select(month => since.AddMonths(month))
-                    .TakeWhile(month => month <= till)
-                    .Select(month =>
-                        new Column
-                        {
-                            Caption = $"{month:MM.yyyy}",
-                            ColumnFormat = ColumnFormat.Numeric,
-                            FieldName = $"{month:MM.yyyy}",
-                            ColumnType = typeof(decimal),
-                        })
-                    .ToList());
-
-            columns.Add(
-                new Column()
-                {
-                    Caption = "Среднее",
-                    ColumnFormat = ColumnFormat.Numeric,
-                    FieldName = AVARAGE_COLUMN,
-                    ColumnType = typeof(decimal),
-                });
-
-            columns.Add(
-                new Column()
-                {
-                    Caption = "Сумма",
-                    ColumnFormat = ColumnFormat.Numeric,
-                    FieldName = SUM_COLUMN,
-                    ColumnType = typeof(decimal),
-                });
-
-            return columns;
-        }
-
-        public static DataTable GetGridRows(this Entities db, List<Column> columns, DateTime since, DateTime till)
-        {
+            DateTime till = since.AddMonths(DataSource.MONTH_COUNT);
             DateTime sinceMinusOneMonth = since.AddMonths(-1);
 
             var dbQueriedItems =
@@ -353,22 +281,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
 
             var table = new DataTable();
 
-            columns.ForEach(c => table.Columns.Add(c.FieldName, c.ColumnType));
+            DataSource.CreateDataTableColumns(table, columns);
 
             foreach (var item in processedItems)
             {
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
                         item.Address,
                         "Расчет ОДН",
+                        valueCellsFormat: CellFormat.CalculationMethod,
                         values: item.DecCalculationMethods,
                         calculateAvarageAndSum: false));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -377,7 +306,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         values: item.BuildingCounterVolumes));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -396,7 +325,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         replaceNegativeValues: true));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -405,7 +334,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         values: item.DecLegalEntityVolumes));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -432,7 +361,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         replaceNegativeValues: true));
 
                 /*table.Rows.Add(
-                    CreateRow(
+                    DataSourceTable.CreateRow(
                         table,
                         columns,
                         item.Contract,
@@ -441,7 +370,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         values: item.FillFormVolumes));*/
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -450,7 +379,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         values: item.DecCustomerVolumes));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -459,12 +388,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         values: item.DecCustomerRecalculations));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
                         item.Address,
                         "Процент ОДН ДЭК от ИПУ ДЭК",
+                        valueCellsFormat: CellFormat.Percent,
                         values: item.DecCollectiveVolumes,
                         secondValues: item.DecCustomerVolumes,
                         operation: (x, y) =>
@@ -477,7 +407,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         replaceNegativeValues: true));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -487,7 +417,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         replaceNegativeValues: true));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -497,7 +427,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         replacePositiveValues: true));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -522,7 +452,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         }));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -531,7 +461,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         values: item.DecCollectiveSquares));
 
                 table.Rows.Add(
-                    CreateRow(
+                    DataSource.CreateDataTableRow(
                         table,
                         columns,
                         item.Contract,
@@ -540,148 +470,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
             }
 
             return table;
-        }
-
-        private static DataRow CreateRow(
-            DataTable table,
-            List<Column> columns,
-            string contract,
-            string building,
-            string param,
-            Dictionary<string, decimal?> values = null,
-            Dictionary<string, decimal?> secondValues = null,
-            Dictionary<string, decimal?> thirdValues = null,
-            Func<decimal?, decimal?, decimal?> operation = null,
-            Func<decimal?, decimal?, decimal?> secondOperation = null,
-            Dictionary<string, decimal?> checkValues = null,
-            Dictionary<string, decimal?> alternativeValues = null,
-            Func<decimal?, decimal?, decimal?, decimal?> comparison = null,
-            bool replaceNegativeValues = false,
-            bool replacePositiveValues = false,
-            bool calculateAvarageAndSum = true)
-        {
-            int extraColumnsCount = columns.Count - FIXED_COLUMNS_COUNT;
-            int avarageCount = 0;
-            decimal? sum = null;
-
-            var row = table.NewRow();
-
-            row[CONTRACT_COLUMN] =
-                !string.IsNullOrEmpty(contract)
-                    ? contract
-                    : (object)DBNull.Value;
-
-            row[BUILDING_COLUMN] =
-                !string.IsNullOrEmpty(building)
-                    ? building
-                    : (object)DBNull.Value;
-
-            row[PARAMS_COLUMN] =
-                !string.IsNullOrEmpty(param)
-                    ? param
-                    : (object)DBNull.Value;
-
-
-            for (int i = FIRST_EXTRA_COLUMN_INDEX; i < extraColumnsCount; i++)
-            {
-                var columnName = columns.ElementAt(i).FieldName;
-
-                var value =
-                    values != null
-                        ? values.ContainsKey(columnName)
-                            ? values[columnName]
-                            : null
-                        : null;
-
-                var secondValue =
-                    secondValues != null
-                        ? secondValues.ContainsKey(columnName)
-                            ? secondValues[columnName]
-                            : null
-                        : null;
-
-                var thirdValue =
-                    thirdValues != null
-                        ? thirdValues.ContainsKey(columnName)
-                            ? thirdValues[columnName]
-                            : null
-                        : null;
-
-                var cellValue =
-                    operation != null
-                        ? operation(value, secondValue)
-                        : value;
-
-                cellValue =
-                    secondOperation != null
-                        ? secondOperation(cellValue, thirdValue)
-                        : cellValue;
-
-                var checkValue =
-                    checkValues != null
-                        ? checkValues.ContainsKey(columnName)
-                            ? checkValues[columnName]
-                            : null
-                        : null;
-
-                var alternativeValue =
-                    alternativeValues != null
-                        ? alternativeValues.ContainsKey(columnName)
-                            ? alternativeValues[columnName]
-                            : null
-                        : null;
-
-                cellValue =
-                    comparison != null
-                        ? comparison(checkValue, cellValue, alternativeValue)
-                        : cellValue;
-
-                cellValue =
-                    cellValue.HasValue
-                        ? replaceNegativeValues && cellValue < 0
-                            ? null
-                            : cellValue
-                        : null;
-
-                cellValue =
-                    cellValue.HasValue
-                        ? replacePositiveValues && cellValue > 0
-                            ? null
-                            : cellValue
-                        : null;
-
-                if (calculateAvarageAndSum)
-                {
-                    avarageCount += cellValue.HasValue ? 1 : 0;
-
-                    sum =
-                        sum.HasValue
-                            ? sum + (cellValue ?? 0)
-                            : cellValue;
-                }
-
-                row[columnName] =
-                    cellValue.HasValue
-                        ? cellValue
-                        : (object)DBNull.Value;
-            }
-
-            var avarage =
-                avarageCount > 0
-                    ? sum / avarageCount
-                    : null;
-
-            row[AVARAGE_COLUMN] =
-                avarage.HasValue
-                    ? avarage
-                        : (object)DBNull.Value;
-
-            row[SUM_COLUMN] =
-                sum.HasValue
-                    ? sum
-                    : (object)DBNull.Value;
-
-            return row;
         }
     }
 }

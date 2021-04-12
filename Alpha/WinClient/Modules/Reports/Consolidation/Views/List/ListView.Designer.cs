@@ -34,14 +34,10 @@
             this.GridViewOfListView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.TillDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.SinceDateEdit = new DevExpress.XtraEditors.DateEdit();
             ((System.ComponentModel.ISupportInitialize)(this.GridControlOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridViewOfListView)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TillDateEdit.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TillDateEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceDateEdit.Properties)).BeginInit();
             this.SuspendLayout();
@@ -84,8 +80,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.TillDateEdit);
             this.groupBox1.Controls.Add(this.SinceDateEdit);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -104,34 +98,6 @@
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 40;
             this.label1.Text = "Период с:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(195, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 13);
-            this.label2.TabIndex = 39;
-            this.label2.Text = "по:";
-            // 
-            // TillDateEdit
-            // 
-            this.TillDateEdit.EditValue = null;
-            this.TillDateEdit.Location = new System.Drawing.Point(223, 19);
-            this.TillDateEdit.Name = "TillDateEdit";
-            this.TillDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.TillDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.TillDateEdit.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
-            this.TillDateEdit.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
-            this.TillDateEdit.Properties.DisplayFormat.FormatString = "g";
-            this.TillDateEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.TillDateEdit.Properties.EditFormat.FormatString = "g";
-            this.TillDateEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.TillDateEdit.Properties.Mask.EditMask = "g";
-            this.TillDateEdit.Size = new System.Drawing.Size(120, 20);
-            this.TillDateEdit.TabIndex = 38;
             // 
             // SinceDateEdit
             // 
@@ -164,8 +130,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.GridViewOfListView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TillDateEdit.Properties.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TillDateEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceDateEdit.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SinceDateEdit.Properties)).EndInit();
             this.ResumeLayout(false);
@@ -178,8 +142,6 @@
         private DevExpress.XtraGrid.Views.Grid.GridView GridViewOfListView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private DevExpress.XtraEditors.DateEdit TillDateEdit;
         private DevExpress.XtraEditors.DateEdit SinceDateEdit;
     }
 }

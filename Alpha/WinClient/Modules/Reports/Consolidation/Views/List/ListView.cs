@@ -1,14 +1,13 @@
-﻿using DevExpress.Utils;
-using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
+﻿using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
 using System;
-using System.Drawing;
-using Taumis.Alpha.Infrastructure.Interface.Enums;
-using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries;
+using System.Data;
+using System.Windows.Forms;
+using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportForGridView = System.Windows.Forms.UserControl;
@@ -40,30 +39,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         #region Implementation of IListView
 
         /// <summary>
-        /// Добавляет колонку в таблицу
-        /// </summary>
-        public void AddColumn(Column column)
-        {
-            GridColumn gridColumn = GridViewOfListView.Columns.AddVisible(column.FieldName, column.Caption);
-
-            switch (column.ColumnFormat)
-            {
-                case ColumnFormat.Numeric:
-                    gridColumn.DisplayFormat.FormatType = FormatType.Numeric;
-                    gridColumn.DisplayFormat.FormatString = "{0:n2}";
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Удаляет все колонки
-        /// </summary>
-        public void ClearColumns()
-        {
-            GridViewOfListView.Columns.Clear();
-        }
-
-        /// <summary>
         /// Начальная дата периода
         /// </summary>
         public DateTime Since
@@ -79,53 +54,85 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         }
 
         /// <summary>
-        /// Конечная дата периода
+        /// Колонки источника данных для таблицы
         /// </summary>
-        public DateTime Till
+        public Column[] DataSourceColumns { get; set; }
+
+        /// <summary>
+        /// Добавляет колонку в таблицу
+        /// </summary>
+        public void AddGridColumn(Column column)
         {
-            get
+            GridViewOfListView.Columns.AddVisible(column.FieldName, column.GridHeader);
+        }
+
+        /// <summary>
+        /// Удаляет все колонки
+        /// </summary>
+        public void ClearGridColumns()
+        {
+            GridViewOfListView.Columns.Clear();
+        }
+
+        /// <summary>
+        /// Возвращает данные таблицы
+        /// </summary>
+        /// <returns>Отображаемая таблица</returns>
+        public DataTable GetDataTable()
+        {
+            return ((DataView)GridViewOfListView.DataSource ?? new DataView()).Table;
+        }
+
+        /// <summary>
+        /// Получает от пользователя путь для сохранения файла Excel
+        /// </summary>
+        /// <param name="now">время экспорта</param>
+        /// <returns>Полное имя файла (с путем)</returns>
+        public string GetExcelFilePath(DateTime now)
+        {
+            SaveFileDialog _saveFileDialog = new SaveFileDialog()
             {
-                return TillDateEdit.DateTime;
-            }
-            set
+                Title = "Сохранить в файл",
+                Filter = "Файл Excel 97-2003 (*.xls)|*.xls",
+                FilterIndex = 1,
+                DefaultExt = "xls",
+                AddExtension = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer),
+                FileName = $"{now:yyyy.MM.dd HH.mm} {ModuleUIExtensionSiteNames.TITLE} " +
+                    $"c {Since:yyyy.MM} по {Since.AddMonths(DataSource.MONTH_COUNT):yyyy.MM}",
+                RestoreDirectory = true,
+            };
+
+            if (_saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                TillDateEdit.DateTime = value;
+                return _saveFileDialog.FileName;
             }
+
+            return string.Empty;
         }
 
         #endregion
 
         private void GridViewOfListView_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
-            var value = e.CellValue;
-
-            if (value is decimal && (decimal)value < 0)
-            {
-                e.Appearance.ForeColor = Color.Red;
-            }
+            e.Appearance.ForeColor =
+                DataSource.GetGridCellTextColor(
+                    e.CellValue,
+                    DataSourceColumns[e.Column.AbsoluteIndex].ContentType);
         }
 
         private void GridViewOfListView_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
         {
             if (e.ListSourceRowIndex != GridControl.InvalidRowHandle
-                && e.Value is decimal)
+                && e.Value != DBNull.Value)
             {
-                switch (((ColumnView)sender).GetListSourceRowCellValue(e.ListSourceRowIndex, "Params")?.ToString())
-                {
-                    case "Процент ОДН ДЭК от ИПУ ДЭК":
-                        e.DisplayText = $"{e.Value:n2} %";
-                        break;
-                    case "Расчет ОДН":
-                        e.DisplayText =
-                            (decimal)e.Value == (decimal)CalculationMethod.BuildingCounters
-                                ? "ОДПУ"
-                                : (decimal)e.Value == (decimal)CalculationMethod.Norm
-                                    ? "Норматив"
-                                    : (decimal)e.Value == (decimal)CalculationMethod.Avarage
-                                        ? "Среднее"
-                                        : "Не определено";
-                        break;
-                }
+                e.DisplayText =
+                    DataSource.GetGridCellDisplayText(
+                        e.Value,
+                        DataSourceColumns[e.Column.AbsoluteIndex].ContentType,
+                        (CellFormat)(((ColumnView)sender)
+                            .GetListSourceRowCellValue(e.ListSourceRowIndex, DataSource.VALUE_CELLS_FORMAT_COLUMN)
+                                ?? CellFormat.Numeric));
             }
         }
     }
