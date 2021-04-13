@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.CompositeUI.Commands;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views.CalculationForm;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views.Item;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views.Wizard;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView;
@@ -118,6 +119,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
                         _view.ShowDomainOnView();
                     }
                     break;
+
+                case TabNames.CALCULATION_FORM:
+                    _cancelAction =
+                        !((string)WorkItem.State[Params.LeavingTabNameStateName] == TabNames.DETAIL);
+
+                    if (!_cancelAction)
+                    {
+                        string _curId = (string)WorkItem.State[ModuleStateNames.SELECTED_FILE_ID];
+                        _cancelAction = string.IsNullOrEmpty(_curId);
+                        if (!_cancelAction)
+                        {
+                            ICalculationFormView _view =
+                                (ICalculationFormView)WorkItem.SmartParts.Get(ModuleViewNames.CALCULATION_FORM_VIEW);
+                            _view.ShowDomainOnView();
+                            ManageCommandsForCalculationFormTab();
+                        }
+                    }
+                    break;
             }
         }
 
@@ -138,6 +157,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             WorkItem.RootWorkItem.Commands[CommonCommandNames.SaveItem].Status =
                 CommandStatus.Disabled;
             WorkItem.RootWorkItem.Commands[CommonCommandNames.RefreshRefBooks].Status =
+                CommandStatus.Disabled;
+        }
+
+        private void ManageCommandsForCalculationFormTab()
+        {
+            base.ManageCommandsForNotListTab();
+
+            WorkItem.RootWorkItem.Commands[CommonCommandNames.SaveItem].Status =
+                CommandStatus.Disabled;
+            WorkItem.RootWorkItem.Commands[CommonCommandNames.RefreshRefBooks].Status =
+                CommandStatus.Disabled;
+            WorkItem.RootWorkItem.Commands[CommonCommandNames.ExportToExcel].Status =
                 CommandStatus.Disabled;
         }
     }

@@ -35,11 +35,14 @@
             this.tabList = new System.Windows.Forms.TabPage();
             this._listViewPlaceholder = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this._tabWorkspace = new Microsoft.Practices.CompositeUI.WinForms.TabWorkspace();
+            this.tabCalculationForm = new System.Windows.Forms.TabPage();
+            this.smartPartPlaceholder1 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.tabWizard = new System.Windows.Forms.TabPage();
             this.smartPartPlaceholder2 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.tabDetail.SuspendLayout();
             this.tabList.SuspendLayout();
             this._tabWorkspace.SuspendLayout();
+            this.tabCalculationForm.SuspendLayout();
             this.tabWizard.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +96,7 @@
             // 
             this._tabWorkspace.Controls.Add(this.tabList);
             this._tabWorkspace.Controls.Add(this.tabDetail);
+            this._tabWorkspace.Controls.Add(this.tabCalculationForm);
             this._tabWorkspace.Controls.Add(this.tabWizard);
             this._tabWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
             this._tabWorkspace.Location = new System.Drawing.Point(0, 0);
@@ -100,6 +104,29 @@
             this._tabWorkspace.SelectedIndex = 0;
             this._tabWorkspace.Size = new System.Drawing.Size(729, 423);
             this._tabWorkspace.TabIndex = 0;
+            // 
+            // tabCalculationForm
+            // 
+            this.tabCalculationForm.Controls.Add(this.smartPartPlaceholder1);
+            this.tabCalculationForm.Location = new System.Drawing.Point(4, 22);
+            this.tabCalculationForm.Name = "tabCalculationForm";
+            this.tabCalculationForm.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCalculationForm.Size = new System.Drawing.Size(721, 397);
+            this.tabCalculationForm.TabIndex = 4;
+            this.tabCalculationForm.Text = "Расшифровка";
+            this.tabCalculationForm.UseVisualStyleBackColor = true;
+            // 
+            // smartPartPlaceholder1
+            // 
+            this.smartPartPlaceholder1.BackColor = System.Drawing.Color.Transparent;
+            this.smartPartPlaceholder1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smartPartPlaceholder1.Location = new System.Drawing.Point(3, 3);
+            this.smartPartPlaceholder1.Margin = new System.Windows.Forms.Padding(6);
+            this.smartPartPlaceholder1.Name = "smartPartPlaceholder1";
+            this.smartPartPlaceholder1.Size = new System.Drawing.Size(715, 391);
+            this.smartPartPlaceholder1.SmartPartName = "CalculationFormView";
+            this.smartPartPlaceholder1.TabIndex = 1;
+            this.smartPartPlaceholder1.Text = "smartPartPlaceholder1";
             // 
             // tabWizard
             // 
@@ -133,6 +160,7 @@
             this.tabDetail.ResumeLayout(false);
             this.tabList.ResumeLayout(false);
             this._tabWorkspace.ResumeLayout(false);
+            this.tabCalculationForm.ResumeLayout(false);
             this.tabWizard.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -141,13 +169,14 @@
         #endregion
 
         private System.Windows.Forms.TabPage tabDetail;
-        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder _itemViewPlaceholder;
         private System.Windows.Forms.TabPage tabList;
         private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder _listViewPlaceholder;
         private Microsoft.Practices.CompositeUI.WinForms.TabWorkspace _tabWorkspace;
         private System.Windows.Forms.TabPage tabWizard;
         private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder2;
-
+        private System.Windows.Forms.TabPage tabCalculationForm;
+        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder1;
+        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder _itemViewPlaceholder;
     }
 }
 

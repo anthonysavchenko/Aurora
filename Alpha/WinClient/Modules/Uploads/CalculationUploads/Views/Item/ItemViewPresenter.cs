@@ -25,7 +25,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             : base(
                 new BaseListViewParams
                 {
-                    CurrentItemIdStateName = ModuleStateNames.CURRENT_POS_ID,
+                    CurrentItemIdStateName = ModuleStateNames.SELECTED_FILE_ID,
                     UpdateWindowTitleOnRowChanged = false
                 })
         {

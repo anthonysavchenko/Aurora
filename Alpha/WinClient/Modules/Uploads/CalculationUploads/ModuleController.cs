@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Constants;
+using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views.CalculationForm;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views.Item;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views.Layout;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views.List;
@@ -48,6 +49,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads
             AddView<WizardView>(ModuleViewNames.WIZARD_VIEW);
             AddView<ListView>(ModuleViewNames.LIST_VIEW);
             AddView<ItemView>(ModuleViewNames.ITEM_VIEW);
+            AddView<CalculationFormView>(ModuleViewNames.CALCULATION_FORM_VIEW);
             AddView<TabbedView>(ModuleViewNames.TABBED_VIEW);
             AddView<LayoutView>(ModuleViewNames.LAYOUT_VIEW);
         }

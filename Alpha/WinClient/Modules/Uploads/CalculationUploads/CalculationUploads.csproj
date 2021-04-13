@@ -81,6 +81,14 @@
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetListQuery.cs" />
+    <Compile Include="Views\CalculationForm\CalculationFormView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CalculationForm\CalculationFormView.Designer.cs">
+      <DependentUpon>CalculationFormView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CalculationForm\CalculationFormViewPresenter.cs" />
+    <Compile Include="Views\CalculationForm\ICalculationFormView.cs" />
     <Compile Include="Views\Item\IItemView.cs" />
     <Compile Include="Views\Item\ItemView.cs">
       <SubType>UserControl</SubType>
@@ -168,6 +176,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\CalculationForm\CalculationFormView.resx">
+      <DependentUpon>CalculationFormView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Item\ItemView.resx">
       <DependentUpon>ItemView.cs</DependentUpon>
     </EmbeddedResource>
