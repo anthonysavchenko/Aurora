@@ -1,6 +1,5 @@
 ﻿using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 //using BaseItemView = System.Windows.Forms.UserControl;
@@ -59,7 +58,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         /// <summary>
         /// Месяц последнего МЛ
         /// </summary>
-        public string LastMonth { set => LastMonthTextBox.Text = value; }
+        public string RouteFormLastMonth { set => RouteFormLastMonthTextBox.Text = value; }
 
         /// <summary>
         /// Количество абонентов
@@ -72,19 +71,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         public int CountersCount { set => CountersCountTextBox.Text = value.ToString(); }
 
         /// <summary>
+        /// Норматив
+        /// </summary>
+        public decimal NormCoefficient
+        {
+            get => NormCoefficientUpDown.Value;
+            set => NormCoefficientUpDown.Value = value;
+        }
+
+        /// <summary>
+        /// МОП
+        /// </summary>
+        public decimal CollectiveSquare
+        {
+            get => CollectiveSquareUpDown.Value;
+            set => CollectiveSquareUpDown.Value = value;
+        }
+
+        /// <summary>
+        /// Месяц последней расшифровки
+        /// </summary>
+        public string CalculationFormLastMonth { set => CalculationFormLastMonthTextBox.Text = value; }
+
+        /// <summary>
         /// Договор
         /// </summary>
-        public BuildingContract BuildingContract
-        {
-            get => Contract15297RadioButton.Checked ? BuildingContract.Contract15297 : BuildingContract.Contract6784;
-            set
-            {
-                Contract6784RadioButton.Checked =
-                    value == BuildingContract.Contract6784
-                    || value == BuildingContract.Unknown;
-                Contract15297RadioButton.Checked = value == BuildingContract.Contract15297;
-            }
-        }
+        public string BuildingContract { set => BuildingContractTextBox.Text = value; }
 
         /// <summary>
         /// Примечание

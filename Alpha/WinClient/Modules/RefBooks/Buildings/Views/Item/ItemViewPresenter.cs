@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook;
+using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Counter;
@@ -40,42 +42,80 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
 
             if (_domItem.IsNew)
             {
-                View.LastMonth = "Нет данных";
+                View.RouteFormLastMonth = "Нет данных";
                 View.CustomersCount = 0;
                 View.CountersCount = 0;
+                View.CalculationFormLastMonth = "Нет данных";
+                View.BuildingContract = string.Empty;
             }
             else
             {
                 var buildingID = int.Parse(_domItem.ID);
-                var lastMonth = GetLastMonth(buildingID);
+                var routeFormLastMonth = GetRouteFormLastMonth(buildingID);
+                var calculationFormLastMonth = GetCalculationFormLastMonth(buildingID);
 
-                if (lastMonth <= DateTime.MinValue)
+                if (routeFormLastMonth <= DateTime.MinValue)
                 {
-                    View.LastMonth = "Нет данных";
+                    View.RouteFormLastMonth = "Нет данных";
                     View.CustomersCount = 0;
                     View.CountersCount = 0;
                 }
                 else
                 {
-                    View.LastMonth = lastMonth.ToString("MM.yyyy");
-                    View.CustomersCount = CountCustomers(buildingID, lastMonth);
-                    View.CountersCount = CountCounters(buildingID, lastMonth);
+                    View.RouteFormLastMonth = routeFormLastMonth.ToString("MM.yyyy");
+                    View.CustomersCount = CountCustomers(buildingID, routeFormLastMonth);
+                    View.CountersCount = CountCounters(buildingID, routeFormLastMonth);
+                }
+
+                if (calculationFormLastMonth <= DateTime.MinValue)
+                {
+                    View.CalculationFormLastMonth = "Нет данных";
+                    View.BuildingContract = string.Empty;
+                }
+                else
+                {
+                    View.CalculationFormLastMonth = calculationFormLastMonth.ToString("MM.yyyy");
+
+                    byte contract = GetContract(buildingID, calculationFormLastMonth);
+
+                    View.BuildingContract =
+                        (BuildingContract)contract == BuildingContract.Contract6784
+                            ? BuildingContractNames.CONTRACT_6784
+                            : (BuildingContract)contract == BuildingContract.Contract15297
+                                ? BuildingContractNames.CONTRACT_15297
+                                : string.Empty;
                 }
             }
 
-            View.BuildingContract = _domItem.BuildingContract;
+            View.NormCoefficient = _domItem.NormCoefficient;
+            View.CollectiveSquare = _domItem.CollectiveSquare;
             View.Note = _domItem.Note;
 
             ((ICounterView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VIEW]).RefreshList();
         }
 
-        private DateTime GetLastMonth(int buildingID)
+        private DateTime GetRouteFormLastMonth(int buildingID)
         {
             using (var db = new Entities())
             {
                 var lastMonth =
                     db.RouteFormValues
                         .Where(v => v.PrivateCounters.Customers.Buildings.ID == buildingID)
+                        .Select(v => v.Month)
+                        .DefaultIfEmpty(DateTime.MinValue)
+                        .Max();
+
+                return lastMonth;
+            }
+        }
+
+        private DateTime GetCalculationFormLastMonth(int buildingID)
+        {
+            using (var db = new Entities())
+            {
+                var lastMonth =
+                    db.BuildingCalculationValues
+                        .Where(v => v.Buildings.ID == buildingID)
                         .Select(v => v.Month)
                         .DefaultIfEmpty(DateTime.MinValue)
                         .Max();
@@ -114,6 +154,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
                         .Count();
 
                 return countersCount;
+            }
+        }
+
+        private byte GetContract(int buildingID, DateTime lastMonth)
+        {
+            using (var db = new Entities())
+            {
+                var contract =
+                    db.BuildingCalculationValues
+                        .FirstOrDefault(v =>
+                            v.Buildings.ID == buildingID
+                            && v.Month == lastMonth)
+                        .Contract;
+
+                return contract;
             }
         }
 
@@ -172,7 +227,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
                         ? building
                         : null;
 
-            _domItem.BuildingContract = View.BuildingContract;
+            _domItem.NormCoefficient = View.NormCoefficient;
+            _domItem.CollectiveSquare = View.CollectiveSquare;
             _domItem.Note = View.Note;
         }
 

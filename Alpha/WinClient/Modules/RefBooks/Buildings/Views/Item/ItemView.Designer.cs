@@ -38,10 +38,12 @@
             this.StreetTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.Contract6784RadioButton = new System.Windows.Forms.RadioButton();
-            this.Contract15297RadioButton = new System.Windows.Forms.RadioButton();
+            this.CollectiveSquareUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.NormCoefficientUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.LastMonthTextBox = new System.Windows.Forms.TextBox();
+            this.RouteFormLastMonthTextBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,10 +51,18 @@
             this.CustomersCountTextBox = new System.Windows.Forms.TextBox();
             this.noteTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.CalculationFormLastMonthTextBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.BuildingContractTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CollectiveSquareUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NormCoefficientUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -61,9 +71,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.counterViewPlaceholder);
-            this.groupBox1.Location = new System.Drawing.Point(3, 187);
+            this.groupBox1.Location = new System.Drawing.Point(3, 284);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(770, 355);
+            this.groupBox1.Size = new System.Drawing.Size(770, 258);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Приборы учета";
@@ -74,7 +84,7 @@
             this.counterViewPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.counterViewPlaceholder.Location = new System.Drawing.Point(3, 16);
             this.counterViewPlaceholder.Name = "counterViewPlaceholder";
-            this.counterViewPlaceholder.Size = new System.Drawing.Size(764, 336);
+            this.counterViewPlaceholder.Size = new System.Drawing.Size(764, 239);
             this.counterViewPlaceholder.SmartPartName = "CounterView";
             this.counterViewPlaceholder.TabIndex = 2;
             // 
@@ -88,14 +98,14 @@
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(227, 112);
+            this.groupBox4.Size = new System.Drawing.Size(255, 112);
             this.groupBox4.TabIndex = 29;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Адрес";
             // 
             // BuildingNumberTextBox
             // 
-            this.BuildingNumberTextBox.Location = new System.Drawing.Point(61, 49);
+            this.BuildingNumberTextBox.Location = new System.Drawing.Point(80, 49);
             this.BuildingNumberTextBox.MaxLength = 10;
             this.BuildingNumberTextBox.Name = "BuildingNumberTextBox";
             this.BuildingNumberTextBox.Size = new System.Drawing.Size(50, 20);
@@ -121,7 +131,7 @@
             // 
             // BuildingPartTextBox
             // 
-            this.BuildingPartTextBox.Location = new System.Drawing.Point(61, 75);
+            this.BuildingPartTextBox.Location = new System.Drawing.Point(80, 75);
             this.BuildingPartTextBox.MaxLength = 7;
             this.BuildingPartTextBox.Name = "BuildingPartTextBox";
             this.BuildingPartTextBox.Size = new System.Drawing.Size(50, 20);
@@ -129,7 +139,7 @@
             // 
             // StreetTextBox
             // 
-            this.StreetTextBox.Location = new System.Drawing.Point(61, 23);
+            this.StreetTextBox.Location = new System.Drawing.Point(80, 23);
             this.StreetTextBox.MaxLength = 50;
             this.StreetTextBox.Name = "StreetTextBox";
             this.StreetTextBox.Size = new System.Drawing.Size(150, 20);
@@ -146,59 +156,93 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.Contract6784RadioButton);
-            this.groupBox2.Controls.Add(this.Contract15297RadioButton);
-            this.groupBox2.Location = new System.Drawing.Point(469, 3);
+            this.groupBox2.Controls.Add(this.CalculationFormLastMonthTextBox);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.BuildingContractTextBox);
+            this.groupBox2.Location = new System.Drawing.Point(264, 121);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(172, 85);
+            this.groupBox2.Size = new System.Drawing.Size(264, 91);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Договор";
+            this.groupBox2.Text = "По данным последней расшифровки";
             // 
-            // Contract6784RadioButton
+            // CollectiveSquareUpDown
             // 
-            this.Contract6784RadioButton.AutoSize = true;
-            this.Contract6784RadioButton.Checked = true;
-            this.Contract6784RadioButton.Location = new System.Drawing.Point(18, 24);
-            this.Contract6784RadioButton.Name = "Contract6784RadioButton";
-            this.Contract6784RadioButton.Size = new System.Drawing.Size(134, 17);
-            this.Contract6784RadioButton.TabIndex = 29;
-            this.Contract6784RadioButton.TabStop = true;
-            this.Contract6784RadioButton.Text = "№ 6784 от 01.11.2012";
-            this.Contract6784RadioButton.UseVisualStyleBackColor = true;
+            this.CollectiveSquareUpDown.DecimalPlaces = 2;
+            this.CollectiveSquareUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.CollectiveSquareUpDown.Location = new System.Drawing.Point(80, 52);
+            this.CollectiveSquareUpDown.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.CollectiveSquareUpDown.Name = "CollectiveSquareUpDown";
+            this.CollectiveSquareUpDown.Size = new System.Drawing.Size(82, 20);
+            this.CollectiveSquareUpDown.TabIndex = 34;
             // 
-            // Contract15297RadioButton
+            // label8
             // 
-            this.Contract15297RadioButton.AutoSize = true;
-            this.Contract15297RadioButton.Location = new System.Drawing.Point(18, 50);
-            this.Contract15297RadioButton.Name = "Contract15297RadioButton";
-            this.Contract15297RadioButton.Size = new System.Drawing.Size(140, 17);
-            this.Contract15297RadioButton.TabIndex = 30;
-            this.Contract15297RadioButton.Text = "№ 15297 от 01.11.2019";
-            this.Contract15297RadioButton.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(16, 54);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(32, 13);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "МОП";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(16, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 13);
+            this.label6.TabIndex = 32;
+            this.label6.Text = "Норматив";
+            // 
+            // NormCoefficientUpDown
+            // 
+            this.NormCoefficientUpDown.DecimalPlaces = 2;
+            this.NormCoefficientUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.NormCoefficientUpDown.Location = new System.Drawing.Point(80, 26);
+            this.NormCoefficientUpDown.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.NormCoefficientUpDown.Name = "NormCoefficientUpDown";
+            this.NormCoefficientUpDown.Size = new System.Drawing.Size(82, 20);
+            this.NormCoefficientUpDown.TabIndex = 31;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.LastMonthTextBox);
+            this.groupBox3.Controls.Add(this.RouteFormLastMonthTextBox);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.CountersCountTextBox);
             this.groupBox3.Controls.Add(this.CustomersCountTextBox);
-            this.groupBox3.Location = new System.Drawing.Point(236, 3);
+            this.groupBox3.Location = new System.Drawing.Point(264, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(227, 112);
+            this.groupBox3.Size = new System.Drawing.Size(264, 112);
             this.groupBox3.TabIndex = 27;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "По данным последнего МЛ";
             // 
-            // LastMonthTextBox
+            // RouteFormLastMonthTextBox
             // 
-            this.LastMonthTextBox.Location = new System.Drawing.Point(143, 23);
-            this.LastMonthTextBox.Name = "LastMonthTextBox";
-            this.LastMonthTextBox.ReadOnly = true;
-            this.LastMonthTextBox.Size = new System.Drawing.Size(70, 20);
-            this.LastMonthTextBox.TabIndex = 17;
+            this.RouteFormLastMonthTextBox.Location = new System.Drawing.Point(172, 23);
+            this.RouteFormLastMonthTextBox.Name = "RouteFormLastMonthTextBox";
+            this.RouteFormLastMonthTextBox.ReadOnly = true;
+            this.RouteFormLastMonthTextBox.Size = new System.Drawing.Size(70, 20);
+            this.RouteFormLastMonthTextBox.TabIndex = 17;
             // 
             // label12
             // 
@@ -229,7 +273,7 @@
             // 
             // CountersCountTextBox
             // 
-            this.CountersCountTextBox.Location = new System.Drawing.Point(143, 75);
+            this.CountersCountTextBox.Location = new System.Drawing.Point(172, 75);
             this.CountersCountTextBox.Name = "CountersCountTextBox";
             this.CountersCountTextBox.ReadOnly = true;
             this.CountersCountTextBox.Size = new System.Drawing.Size(50, 20);
@@ -237,7 +281,7 @@
             // 
             // CustomersCountTextBox
             // 
-            this.CustomersCountTextBox.Location = new System.Drawing.Point(143, 49);
+            this.CustomersCountTextBox.Location = new System.Drawing.Point(172, 49);
             this.CustomersCountTextBox.Name = "CustomersCountTextBox";
             this.CustomersCountTextBox.ReadOnly = true;
             this.CustomersCountTextBox.Size = new System.Drawing.Size(50, 20);
@@ -247,7 +291,7 @@
             // 
             this.noteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.noteTextBox.Location = new System.Drawing.Point(3, 134);
+            this.noteTextBox.Location = new System.Drawing.Point(3, 231);
             this.noteTextBox.Multiline = true;
             this.noteTextBox.Name = "noteTextBox";
             this.noteTextBox.Size = new System.Drawing.Size(770, 47);
@@ -256,16 +300,64 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 118);
+            this.label4.Location = new System.Drawing.Point(3, 215);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 13);
             this.label4.TabIndex = 25;
             this.label4.Text = "Примечание";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Controls.Add(this.CollectiveSquareUpDown);
+            this.groupBox5.Controls.Add(this.NormCoefficientUpDown);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Location = new System.Drawing.Point(3, 121);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(255, 91);
+            this.groupBox5.TabIndex = 30;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Использовать в сводных данных";
+            // 
+            // CalculationLastMonthTextBox
+            // 
+            this.CalculationFormLastMonthTextBox.Location = new System.Drawing.Point(172, 25);
+            this.CalculationFormLastMonthTextBox.Name = "CalculationLastMonthTextBox";
+            this.CalculationFormLastMonthTextBox.ReadOnly = true;
+            this.CalculationFormLastMonthTextBox.Size = new System.Drawing.Size(70, 20);
+            this.CalculationFormLastMonthTextBox.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 28);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(151, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Последняя расшифровка за";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(15, 54);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Номер договора";
+            // 
+            // BuildingContractTextBox
+            // 
+            this.BuildingContractTextBox.Location = new System.Drawing.Point(172, 51);
+            this.BuildingContractTextBox.Name = "BuildingContractTextBox";
+            this.BuildingContractTextBox.ReadOnly = true;
+            this.BuildingContractTextBox.Size = new System.Drawing.Size(50, 20);
+            this.BuildingContractTextBox.TabIndex = 20;
+            // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
@@ -279,8 +371,12 @@
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CollectiveSquareUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NormCoefficientUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,10 +393,8 @@
         private System.Windows.Forms.TextBox StreetTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton Contract6784RadioButton;
-        private System.Windows.Forms.RadioButton Contract15297RadioButton;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox LastMonthTextBox;
+        private System.Windows.Forms.TextBox RouteFormLastMonthTextBox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
@@ -308,5 +402,14 @@
         private System.Windows.Forms.TextBox CustomersCountTextBox;
         private System.Windows.Forms.TextBox noteTextBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown CollectiveSquareUpDown;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown NormCoefficientUpDown;
+        private System.Windows.Forms.TextBox CalculationFormLastMonthTextBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox BuildingContractTextBox;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }

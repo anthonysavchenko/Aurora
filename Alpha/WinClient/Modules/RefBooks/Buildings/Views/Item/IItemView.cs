@@ -1,4 +1,5 @@
-﻿using Taumis.Alpha.Infrastructure.Interface.Enums;
+﻿using System.Data;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseItemView;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
@@ -35,7 +36,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         /// <summary>
         /// Месяц последнего МЛ
         /// </summary>
-        string LastMonth { set; }
+        string RouteFormLastMonth { set; }
 
         /// <summary>
         /// Количество абонентов
@@ -48,13 +49,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         int CountersCount { set; }
 
         /// <summary>
-        /// Договор
+        /// Норматив
         /// </summary>
-        BuildingContract BuildingContract
+        decimal NormCoefficient
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// МОП
+        /// </summary>
+        decimal CollectiveSquare
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Месяц последней расшифровки
+        /// </summary>
+        string CalculationFormLastMonth { set; }
+
+        /// <summary>
+        /// Договор
+        /// </summary>
+        string BuildingContract { set; }
 
         /// <summary>
         /// Примечание

@@ -61,6 +61,39 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             }
         }
 
+        private decimal _normCoefficient;
+
+        public decimal NormCoefficient
+        {
+            get
+            {
+                Load();
+                return _normCoefficient;
+            }
+            set
+            {
+                Load();
+                _normCoefficient = value;
+            }
+        }
+
+        private decimal _collectiveSquare;
+
+        public decimal CollectiveSquare
+        {
+            get
+            {
+                Load();
+                return _collectiveSquare;
+            }
+            set
+            {
+                Load();
+                _collectiveSquare = value;
+            }
+        }
+
+
         private string _note;
 
         public string Note
