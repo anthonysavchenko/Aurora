@@ -2296,13 +2296,17 @@ namespace Taumis.Alpha.DataBase
         /// <param name="street">Initial value of the Street property.</param>
         /// <param name="number">Initial value of the Number property.</param>
         /// <param name="buildingContract">Initial value of the BuildingContract property.</param>
-        public static Buildings CreateBuildings(global::System.Int32 id, global::System.String street, global::System.String number, global::System.Byte buildingContract)
+        /// <param name="normCoefficient">Initial value of the NormCoefficient property.</param>
+        /// <param name="collectiveSquare">Initial value of the CollectiveSquare property.</param>
+        public static Buildings CreateBuildings(global::System.Int32 id, global::System.String street, global::System.String number, global::System.Byte buildingContract, global::System.Decimal normCoefficient, global::System.Decimal collectiveSquare)
         {
             Buildings buildings = new Buildings();
             buildings.ID = id;
             buildings.Street = street;
             buildings.Number = number;
             buildings.BuildingContract = buildingContract;
+            buildings.NormCoefficient = normCoefficient;
+            buildings.CollectiveSquare = collectiveSquare;
             return buildings;
         }
 
@@ -2408,6 +2412,54 @@ namespace Taumis.Alpha.DataBase
         private global::System.Byte _BuildingContract;
         partial void OnBuildingContractChanging(global::System.Byte value);
         partial void OnBuildingContractChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal NormCoefficient
+        {
+            get
+            {
+                return _NormCoefficient;
+            }
+            set
+            {
+                OnNormCoefficientChanging(value);
+                ReportPropertyChanging("NormCoefficient");
+                _NormCoefficient = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NormCoefficient");
+                OnNormCoefficientChanged();
+            }
+        }
+        private global::System.Decimal _NormCoefficient;
+        partial void OnNormCoefficientChanging(global::System.Decimal value);
+        partial void OnNormCoefficientChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal CollectiveSquare
+        {
+            get
+            {
+                return _CollectiveSquare;
+            }
+            set
+            {
+                OnCollectiveSquareChanging(value);
+                ReportPropertyChanging("CollectiveSquare");
+                _CollectiveSquare = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectiveSquare");
+                OnCollectiveSquareChanged();
+            }
+        }
+        private global::System.Decimal _CollectiveSquare;
+        partial void OnCollectiveSquareChanging(global::System.Decimal value);
+        partial void OnCollectiveSquareChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

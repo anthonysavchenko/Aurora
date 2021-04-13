@@ -74,6 +74,8 @@
           <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="BuildingContract" Type="tinyint" Nullable="false" />
+          <Property Name="NormCoefficient" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="CollectiveSquare" Type="decimal" Precision="11" Scale="3" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="BuildingValuesUploadPoses">
@@ -1452,6 +1454,8 @@
           <Property Name="Number" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Customers" Relationship="AlphaDataBaseModel.FK_Customers_Buildings" FromRole="Buildings" ToRole="Customers" />
           <Property Name="BuildingContract" Type="Byte" Nullable="false" />
+          <Property Name="NormCoefficient" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="CollectiveSquare" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
           <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BuildingCounters" Relationship="AlphaDataBaseModel.FK_BuildingCounters_Buildings" FromRole="Buildings" ToRole="BuildingCounters" />
           <NavigationProperty Name="BuildingCalculationValues" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings" FromRole="Buildings" ToRole="BuildingCalculationValues" />
@@ -2123,6 +2127,8 @@
           <EntitySetMapping Name="Buildings">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Buildings)">
               <MappingFragment StoreEntitySet="Buildings">
+                <ScalarProperty Name="CollectiveSquare" ColumnName="CollectiveSquare" />
+                <ScalarProperty Name="NormCoefficient" ColumnName="NormCoefficient" />
                 <ScalarProperty Name="BuildingContract" ColumnName="BuildingContract" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
@@ -2950,8 +2956,8 @@
     <edmx:Diagrams>
       <edmx:Diagram Name="Model">
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Buildings" Width="2" PointX="16.375" PointY="4" Height="2.1725878906250031" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Customers" Width="2" PointX="16.375" PointY="7.375" Height="6.210917968749996" IsExpanded="true" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="16.375" PointY="10.25" Height="1.9802864583333388" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Customers" Width="2" PointX="16.375" PointY="7.75" Height="6.210917968749996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.PrivateCounters" Width="2" PointX="16.375" PointY="10.625" Height="1.9802864583333388" IsExpanded="true" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.Users" Width="2" PointX="0.625" PointY="0.625" Height="2.3648893229166674" IsExpanded="true" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_Customers_Buildings" ManuallyRouted="false">
           <edmx:ConnectorPoint PointX="2.25" PointY="21.230646972656253" />

@@ -1,9 +1,9 @@
 ﻿namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
 {
-    public enum ColumnContentType : byte
+    public enum ColumnFormat : byte
     {
-        Unknown,
-        Description,
-        Value
+        Default,
+        Decimal,
+        Special,
     }
 }

@@ -115,10 +115,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
 
         private void GridViewOfListView_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
-            e.Appearance.ForeColor =
-                DataSource.GetGridCellTextColor(
-                    e.CellValue,
-                    DataSourceColumns[e.Column.AbsoluteIndex].ContentType);
+            e.Appearance.ForeColor = DataSource.GetGridCellTextColor(e.CellValue);
         }
 
         private void GridViewOfListView_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
@@ -129,9 +126,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
                 e.DisplayText =
                     DataSource.GetGridCellDisplayText(
                         e.Value,
-                        DataSourceColumns[e.Column.AbsoluteIndex].ContentType,
+                        DataSourceColumns[e.Column.AbsoluteIndex].Format,
                         (CellFormat)(((ColumnView)sender)
-                            .GetListSourceRowCellValue(e.ListSourceRowIndex, DataSource.VALUE_CELLS_FORMAT_COLUMN)
+                            .GetListSourceRowCellValue(e.ListSourceRowIndex, DataSource.SPECIAL_CELLS_FORMAT_COLUMN)
                                 ?? CellFormat.Numeric));
             }
         }

@@ -20,9 +20,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
         public bool Visible { get; set; }
 
         /// <summary>
-        /// Тип данных в колонке для выбора формата отображения
+        /// Формат данных в колонке
         /// </summary>
-        public ColumnContentType ContentType { get; set; }
+        public ColumnFormat Format { get; set; }
         
         /// <summary>
         /// Заголовок колонки в GridView

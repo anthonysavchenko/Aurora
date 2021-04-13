@@ -11,13 +11,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
     {
         public const int MONTH_COUNT = 12;
         
-        public const string VALUE_CELLS_FORMAT_COLUMN = "ValueCellsFormat";
+        public const string SPECIAL_CELLS_FORMAT_COLUMN = "SpecialCellsFormat";
 
         private const int FIRST_MONTH_COLUMN_INDEX = 3;
 
         private const string CONTRACT_COLUMN = "Contract";
         private const string BUILDING_COLUMN = "Building";
         private const string PARAMS_COLUMN = "Params";
+        private const string NORM_COLUMN = "Norm";
         private const string AVARAGE_COLUMN = "Avarage";
         private const string SUM_COLUMN = "Sum";
 
@@ -30,7 +31,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                     FieldName = CONTRACT_COLUMN,
                     ColumnType = typeof(string),
                     Visible = true,
-                    ContentType = ColumnContentType.Description,
+                    Format = ColumnFormat.Default,
                     GridHeader = "Договор",
                     ExcelHeader = "Договор",
                     ExcelHeaderFormat = "@",
@@ -41,7 +42,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                     FieldName = BUILDING_COLUMN,
                     ColumnType = typeof(string),
                     Visible = true,
-                    ContentType = ColumnContentType.Description,
+                    Format = ColumnFormat.Default,
                     GridHeader = "Дом",
                     ExcelHeader = "Дом",
                     ExcelHeaderFormat = "@",
@@ -52,7 +53,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                     FieldName = PARAMS_COLUMN,
                     ColumnType = typeof(string),
                     Visible = true,
-                    ContentType = ColumnContentType.Description,
+                    Format = ColumnFormat.Default,
                     GridHeader = "Параметры",
                     ExcelHeader = "Параметры",
                     ExcelHeaderFormat = "@",
@@ -70,7 +71,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                             FieldName = $"{month:MM.yyyy}",
                             ColumnType = typeof(decimal),
                             Visible = true,
-                            ContentType = ColumnContentType.Value,
+                            Format = ColumnFormat.Special,
                             GridHeader = $"{month:MM.yyyy}",
                             ExcelHeader = month,
                             ExcelHeaderFormat = "MM.yyyy",
@@ -81,10 +82,23 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
             columns.Add(
                 new Column()
                 {
+                    FieldName = NORM_COLUMN,
+                    ColumnType = typeof(decimal),
+                    Visible = true,
+                    Format = ColumnFormat.Decimal,
+                    GridHeader = "Норматив",
+                    ExcelHeader = "Норматив",
+                    ExcelHeaderFormat = "@",
+                    ExcelWidth = 10,
+                });
+
+            columns.Add(
+                new Column()
+                {
                     FieldName = AVARAGE_COLUMN,
                     ColumnType = typeof(decimal),
                     Visible = true,
-                    ContentType = ColumnContentType.Value,
+                    Format = ColumnFormat.Special,
                     GridHeader = "Среднее",
                     ExcelHeader = "Среднее",
                     ExcelHeaderFormat = "@",
@@ -97,7 +111,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                     FieldName = SUM_COLUMN,
                     ColumnType = typeof(decimal),
                     Visible = true,
-                    ContentType = ColumnContentType.Value,
+                    Format = ColumnFormat.Special,
                     GridHeader = "Сумма",
                     ExcelHeader = "Сумма",
                     ExcelHeaderFormat = "@",
@@ -107,10 +121,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
             columns.Add(
                 new Column()
                 {
-                    FieldName = VALUE_CELLS_FORMAT_COLUMN,
+                    FieldName = SPECIAL_CELLS_FORMAT_COLUMN,
                     ColumnType = typeof(byte),
                     Visible = false,
-                    ContentType = ColumnContentType.Unknown,
+                    Format = ColumnFormat.Default,
                     GridHeader = string.Empty,
                     ExcelHeader = string.Empty,
                     ExcelHeaderFormat = string.Empty,
@@ -145,7 +159,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
             string contract,
             string building,
             string param,
-            CellFormat valueCellsFormat = CellFormat.Numeric,
+            decimal? norm = null,
+            CellFormat specialCellsFormat = CellFormat.Numeric,
             Dictionary<string, decimal?> values = null,
             Dictionary<string, decimal?> secondValues = null,
             Dictionary<string, decimal?> thirdValues = null,
@@ -261,6 +276,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                         : (object)DBNull.Value;
             }
 
+            row[NORM_COLUMN] =
+                norm.HasValue
+                    ? norm
+                    : (object)DBNull.Value;
+
             var avarage =
                 avarageCount > 0
                     ? sum / avarageCount
@@ -276,98 +296,104 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                     ? sum
                     : (object)DBNull.Value;
 
-            row[VALUE_CELLS_FORMAT_COLUMN] =
-                (byte)valueCellsFormat;
+            row[SPECIAL_CELLS_FORMAT_COLUMN] =
+                (byte)specialCellsFormat;
 
             return row;
         }
 
         public static string GetGridCellDisplayText(
             object source,
-            ColumnContentType columnContentType,
+            ColumnFormat columnFormat,
             CellFormat cellFormat)
         {
-            if (columnContentType == ColumnContentType.Value)
+            switch (columnFormat)
             {
-                switch (cellFormat)
-                {
-                    case CellFormat.CalculationMethod:
-                        return
-                            source is decimal && (decimal)source == (decimal)CalculationMethod.BuildingCounters
-                                ? "ОДПУ"
-                                : source is decimal && (decimal)source == (decimal)CalculationMethod.Norm
-                                    ? "Норматив"
-                                    : source is decimal && (decimal)source == (decimal)CalculationMethod.Avarage
-                                        ? "Среднее"
-                                        : "Не определено";
-                    case CellFormat.Percent:
-                        return $"{source:n2} %";
-                    case CellFormat.Numeric:
-                    default:
-                        return $"{source:n2}";
-                }
+                case ColumnFormat.Special:
+                    switch (cellFormat)
+                    {
+                        case CellFormat.CalculationMethod:
+                            return
+                                source is decimal && (decimal)source == (decimal)CalculationMethod.BuildingCounters
+                                    ? "ОДПУ"
+                                    : source is decimal && (decimal)source == (decimal)CalculationMethod.Norm
+                                        ? "Норматив"
+                                        : source is decimal && (decimal)source == (decimal)CalculationMethod.Avarage
+                                            ? "Среднее"
+                                            : "Не определено";
+                        case CellFormat.Percent:
+                            return $"{source:n2} %";
+                        case CellFormat.Numeric:
+                        default:
+                            return $"{source:n2}";
+                    }
+                case ColumnFormat.Decimal:
+                    return $"{source:n2}";
+                case ColumnFormat.Default:
+                default:
+                    return $"{source}";
             }
-            
-            return $"{source}";
         }
 
-        public static Color GetGridCellTextColor(object source, ColumnContentType columnContentType)
+        public static Color GetGridCellTextColor(object source)
         {
-            if (columnContentType == ColumnContentType.Value
-                && source is decimal
-                && (decimal)source < 0)
-            {
-                return Color.Red;
-            }
-
-            return Color.Black;
+            return
+                source is decimal && (decimal)source < 0
+                    ? Color.Red
+                    : Color.Black;
         }
 
         public static object GetExcelCellValue(
             object source,
-            ColumnContentType columnContentType,
+            ColumnFormat columnFormat,
             CellFormat cellFormat)
         {
-            if (columnContentType == ColumnContentType.Value)
+            switch (columnFormat)
             {
-                switch (cellFormat)
-                {
-                    case CellFormat.CalculationMethod:
-                        return
-                            source is decimal && (decimal)source == (decimal)CalculationMethod.BuildingCounters
-                                ? "ОДПУ"
-                                : source is decimal && (decimal)source == (decimal)CalculationMethod.Norm
-                                    ? "Норматив"
-                                    : source is decimal && (decimal)source == (decimal)CalculationMethod.Avarage
-                                        ? "Среднее"
-                                        : "Не определено";
-                    case CellFormat.Percent:
-                    case CellFormat.Numeric:
-                    default:
-                        return source;
-                }
+                case ColumnFormat.Special:
+                    switch (cellFormat)
+                    {
+                        case CellFormat.CalculationMethod:
+                            return
+                                source is decimal && (decimal)source == (decimal)CalculationMethod.BuildingCounters
+                                    ? "ОДПУ"
+                                    : source is decimal && (decimal)source == (decimal)CalculationMethod.Norm
+                                        ? "Норматив"
+                                        : source is decimal && (decimal)source == (decimal)CalculationMethod.Avarage
+                                            ? "Среднее"
+                                            : "Не определено";
+                        case CellFormat.Percent:
+                        case CellFormat.Numeric:
+                        default:
+                            return source;
+                    }
+                case ColumnFormat.Decimal:
+                default:
+                    return source;
             }
-
-            return source;
         }
 
-        public static string GetExcelCellFormat(ColumnContentType columnContentType, CellFormat cellFormat)
+        public static string GetExcelCellFormat(ColumnFormat columnFormat, CellFormat cellFormat)
         {
-            if (columnContentType == ColumnContentType.Value)
+            switch (columnFormat)
             {
-                switch (cellFormat)
-                {
-                    case CellFormat.CalculationMethod:
-                        return "@";
-                    case CellFormat.Percent:
-                        return "0.00 \"%\"";
-                    case CellFormat.Numeric:
-                    default:
-                        return "0.00;[Red]-0.00";
-                }
+                case ColumnFormat.Special:
+                    switch (cellFormat)
+                    {
+                        case CellFormat.CalculationMethod:
+                            return "@";
+                        case CellFormat.Percent:
+                            return "0.00 \"%\"";
+                        case CellFormat.Numeric:
+                        default:
+                            return "0.00;[Red]-0.00";
+                    }
+                case ColumnFormat.Decimal:
+                    return "0.00;[Red]-0.00";
+                case ColumnFormat.Default:
+                default:
+                    return "@";
             }
-
-            return "@";
         }
     }
 }

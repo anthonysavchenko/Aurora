@@ -79,7 +79,7 @@
   <ItemGroup>
     <Compile Include="Constants\ModuleUIExtensionSiteNames.cs" />
     <Compile Include="Models\CellFormat.cs" />
-    <Compile Include="Models\ColumnContentType.cs" />
+    <Compile Include="Models\ColumnFormat.cs" />
     <Compile Include="Models\DataSource.cs" />
     <Compile Include="ModuleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

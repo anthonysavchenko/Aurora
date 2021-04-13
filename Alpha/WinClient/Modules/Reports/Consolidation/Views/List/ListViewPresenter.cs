@@ -95,13 +95,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
                             object value =
                                 DataSource.GetExcelCellValue(
                                     sourceRow[column.FieldName],
-                                    column.ContentType,
-                                    (CellFormat)(sourceRow[DataSource.VALUE_CELLS_FORMAT_COLUMN]
+                                    column.Format,
+                                    (CellFormat)(sourceRow[DataSource.SPECIAL_CELLS_FORMAT_COLUMN]
                                         ?? CellFormat.Numeric));
                             string format =
                                 DataSource.GetExcelCellFormat(
-                                    column.ContentType,
-                                    (CellFormat)(sourceRow[DataSource.VALUE_CELLS_FORMAT_COLUMN]
+                                    column.Format,
+                                    (CellFormat)(sourceRow[DataSource.SPECIAL_CELLS_FORMAT_COLUMN]
                                         ?? CellFormat.Numeric));
 
                             sheet.SetCellValue(cell, value);

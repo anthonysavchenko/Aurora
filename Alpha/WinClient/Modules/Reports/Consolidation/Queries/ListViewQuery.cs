@@ -21,6 +21,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         new
                         {
                             Address = b.Street + ", д. " + b.Number,
+                            b.NormCoefficient,
+                            b.CollectiveSquare,
 
                             BuildingCounterValueVolumes =
                                 db.BuildingCounterValues
@@ -152,6 +154,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         new
                         {
                             i.Address,
+                            i.NormCoefficient,
+                            i.CollectiveSquare,
 
                             MaxBuildingCalculationValue =
                                 i.BuildingCalculationValues
@@ -225,6 +229,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         new
                         {
                             i.Address,
+                            i.NormCoefficient,
+                            i.CollectiveSquare,
 
                             Contract =
                                 i.MaxBuildingCalculationValue != null
@@ -292,7 +298,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         item.Contract,
                         item.Address,
                         "Расчет ОДН",
-                        valueCellsFormat: CellFormat.CalculationMethod,
+                        specialCellsFormat: CellFormat.CalculationMethod,
                         values: item.DecCalculationMethods,
                         calculateAvarageAndSum: false));
 
@@ -385,6 +391,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         item.Contract,
                         item.Address,
                         "Перерасчет ИПУ ДЭК",
+                        norm: item.NormCoefficient,
                         values: item.DecCustomerRecalculations));
 
                 table.Rows.Add(
@@ -394,7 +401,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         item.Contract,
                         item.Address,
                         "Процент ОДН ДЭК от ИПУ ДЭК",
-                        valueCellsFormat: CellFormat.Percent,
+                        norm: item.CollectiveSquare,
+                        specialCellsFormat: CellFormat.Percent,
                         values: item.DecCollectiveVolumes,
                         secondValues: item.DecCustomerVolumes,
                         operation: (x, y) =>
@@ -413,6 +421,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         item.Contract,
                         item.Address,
                         "ОДН ДЭК",
+                        norm: item.NormCoefficient * item.CollectiveSquare,
                         values: item.DecCollectiveVolumes,
                         replaceNegativeValues: true));
 
