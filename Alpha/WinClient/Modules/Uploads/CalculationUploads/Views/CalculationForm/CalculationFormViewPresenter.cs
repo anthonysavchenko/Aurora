@@ -103,11 +103,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
                                     CounterType =
                                         x.RowType == (byte)CalculationRowType.Customer
                                             ? x.Customer.CounterType == (byte)CalculationCounterType.Common
-                                                ? "Двухтарифный"
+                                                ? "Однотарифный"
                                                 : x.Customer.CounterType == (byte)CalculationCounterType.Day
-                                                    ? "Однотарифный (день)"
+                                                    ? "Двухтарифный (день)"
                                                     : x.Customer.CounterType == (byte)CalculationCounterType.Night
-                                                        ? "Однотарифный (ночь)"
+                                                        ? "Двухтарифный (ночь)"
                                                         : "Норматив"
                                             : string.Empty,
 

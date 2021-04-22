@@ -109,6 +109,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
                     View.DirectoryPath = item.DirectoryPath;
                     View.Note = item.Note;
                     View.Description = item.Description;
+                    View.MissingBuildings =
+                        string.Join(", ",
+                            db.Buildings
+                                .Where(b =>
+                                    !db.BuildingCalculationValues
+                                        .Where(bb => bb.Month == item.Month)
+                                        .Select(bb => bb.Buildings.ID)
+                                        .Contains(b.ID))
+                                .Select(b => b.Street + ", д. " + b.Number)
+                                .ToArray());
                 }
             }
             else
@@ -117,6 +127,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
                 View.DirectoryPath = string.Empty;
                 View.Note = string.Empty;
                 View.Description = string.Empty;
+                View.MissingBuildings = string.Empty;
             }
         }
     }

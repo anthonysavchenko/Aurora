@@ -31,7 +31,6 @@
         private void InitializeComponent()
         {
             DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraGrid.StyleFormatCondition();
-            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this._gridViewOfListView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.FileNameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -50,22 +49,17 @@
             this.MonthTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.MissingBuildingsTextBox = new System.Windows.Forms.TextBox();
             _gridControlOfListView = new DevExpress.XtraGrid.GridControl();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._gridViewOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(_gridControlOfListView)).BeginInit();
             this.TableGroupBox.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Caption = "Check";
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            this.repositoryItemCheckEdit1.ReadOnly = true;
             // 
             // _gridViewOfListView
             // 
@@ -145,9 +139,7 @@
             _gridControlOfListView.Location = new System.Drawing.Point(6, 16);
             _gridControlOfListView.MainView = this._gridViewOfListView;
             _gridControlOfListView.Name = "_gridControlOfListView";
-            _gridControlOfListView.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemCheckEdit1});
-            _gridControlOfListView.Size = new System.Drawing.Size(758, 200);
+            _gridControlOfListView.Size = new System.Drawing.Size(709, 191);
             _gridControlOfListView.TabIndex = 2;
             _gridControlOfListView.TabStop = false;
             _gridControlOfListView.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -158,11 +150,12 @@
             this.TableGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.TableGroupBox.Controls.Add(this.groupBox4);
             this.TableGroupBox.Controls.Add(this.groupBox3);
             this.TableGroupBox.Controls.Add(_gridControlOfListView);
             this.TableGroupBox.Location = new System.Drawing.Point(3, 191);
             this.TableGroupBox.Name = "TableGroupBox";
-            this.TableGroupBox.Size = new System.Drawing.Size(767, 300);
+            this.TableGroupBox.Size = new System.Drawing.Size(718, 369);
             this.TableGroupBox.TabIndex = 4;
             this.TableGroupBox.TabStop = false;
             this.TableGroupBox.Text = "Файлы";
@@ -172,9 +165,9 @@
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.FileDescriptionTextBox);
-            this.groupBox3.Location = new System.Drawing.Point(6, 222);
+            this.groupBox3.Location = new System.Drawing.Point(6, 291);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(758, 72);
+            this.groupBox3.Size = new System.Drawing.Size(709, 72);
             this.groupBox3.TabIndex = 52;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Результат обработки выбранного файла";
@@ -189,7 +182,7 @@
             this.FileDescriptionTextBox.Name = "FileDescriptionTextBox";
             this.FileDescriptionTextBox.ReadOnly = true;
             this.FileDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.FileDescriptionTextBox.Size = new System.Drawing.Size(749, 47);
+            this.FileDescriptionTextBox.Size = new System.Drawing.Size(700, 47);
             this.FileDescriptionTextBox.TabIndex = 48;
             // 
             // DirectoryPathTextBox
@@ -200,7 +193,7 @@
             this.DirectoryPathTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.DirectoryPathTextBox.Name = "DirectoryPathTextBox";
             this.DirectoryPathTextBox.ReadOnly = true;
-            this.DirectoryPathTextBox.Size = new System.Drawing.Size(533, 20);
+            this.DirectoryPathTextBox.Size = new System.Drawing.Size(484, 20);
             this.DirectoryPathTextBox.TabIndex = 50;
             // 
             // DescriptionTextBox
@@ -213,7 +206,7 @@
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.ReadOnly = true;
             this.DescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DescriptionTextBox.Size = new System.Drawing.Size(758, 47);
+            this.DescriptionTextBox.Size = new System.Drawing.Size(709, 47);
             this.DescriptionTextBox.TabIndex = 48;
             // 
             // DirectoryPathLabel
@@ -236,7 +229,7 @@
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ReadOnly = true;
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(758, 47);
+            this.NoteTextBox.Size = new System.Drawing.Size(709, 47);
             this.NoteTextBox.TabIndex = 45;
             // 
             // MonthLabel
@@ -265,7 +258,7 @@
             this.groupBox2.Controls.Add(this.DescriptionTextBox);
             this.groupBox2.Location = new System.Drawing.Point(3, 35);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(767, 72);
+            this.groupBox2.Size = new System.Drawing.Size(718, 72);
             this.groupBox2.TabIndex = 51;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Общий результат обработки";
@@ -277,10 +270,35 @@
             this.groupBox1.Controls.Add(this.NoteTextBox);
             this.groupBox1.Location = new System.Drawing.Point(3, 113);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(767, 72);
+            this.groupBox1.Size = new System.Drawing.Size(718, 72);
             this.groupBox1.TabIndex = 52;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Комментарий";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.MissingBuildingsTextBox);
+            this.groupBox4.Location = new System.Drawing.Point(6, 213);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(709, 72);
+            this.groupBox4.TabIndex = 53;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Дома, отсутствующие в файлах";
+            // 
+            // MissingBuildingsTextBox
+            // 
+            this.MissingBuildingsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MissingBuildingsTextBox.Location = new System.Drawing.Point(6, 19);
+            this.MissingBuildingsTextBox.MaxLength = 250;
+            this.MissingBuildingsTextBox.Multiline = true;
+            this.MissingBuildingsTextBox.Name = "MissingBuildingsTextBox";
+            this.MissingBuildingsTextBox.ReadOnly = true;
+            this.MissingBuildingsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.MissingBuildingsTextBox.Size = new System.Drawing.Size(700, 47);
+            this.MissingBuildingsTextBox.TabIndex = 48;
             // 
             // ItemView
             // 
@@ -294,8 +312,7 @@
             this.Controls.Add(this.DirectoryPathLabel);
             this.Controls.Add(this.TableGroupBox);
             this.Name = "ItemView";
-            this.Size = new System.Drawing.Size(773, 494);
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
+            this.Size = new System.Drawing.Size(724, 563);
             ((System.ComponentModel.ISupportInitialize)(this._gridViewOfListView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(_gridControlOfListView)).EndInit();
             this.TableGroupBox.ResumeLayout(false);
@@ -305,6 +322,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,7 +332,6 @@
         #endregion
 
         private DevExpress.XtraGrid.GridControl _gridControlOfListView;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraGrid.Views.Grid.GridView _gridViewOfListView;
         private DevExpress.XtraGrid.Columns.GridColumn ID;
         private DevExpress.XtraGrid.Columns.GridColumn FileNameColumn;
@@ -332,5 +350,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn BuildingsWithNoErrorsColumn;
         private DevExpress.XtraGrid.Columns.GridColumn BuildingsWithErrorsColumn;
         private DevExpress.XtraGrid.Columns.GridColumn ResultColumn;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox MissingBuildingsTextBox;
     }
 }

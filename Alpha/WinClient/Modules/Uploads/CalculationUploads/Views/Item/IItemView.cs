@@ -12,6 +12,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
 
         string Description { set; }
 
+        string MissingBuildings { set; }
+
         void ShowDomainOnView();
     }
 }

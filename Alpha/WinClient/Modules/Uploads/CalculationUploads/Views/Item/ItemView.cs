@@ -61,6 +61,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             }
         }
 
+        public string MissingBuildings
+        {
+            set
+            {
+                MissingBuildingsTextBox.Text = value;
+            }
+        }
+
         public void ShowDomainOnView()
         {
             Presenter.ShowDomainOnView();
