@@ -38,6 +38,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _dbItem.BuildingContract = (byte)domObj.BuildingContract;
                 _dbItem.NormCoefficient = domObj.NormCoefficient;
                 _dbItem.CollectiveSquare = domObj.CollectiveSquare;
+                _dbItem.IsArchived = domObj.IsArchived;
                 _dbItem.Note = domObj.Note;
 
                 _entities.SaveChanges();
@@ -69,6 +70,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.RefBook
                 _domItem.BuildingContract = (BuildingContract)_dbItem.BuildingContract;
                 _domItem.NormCoefficient = _dbItem.NormCoefficient;
                 _domItem.CollectiveSquare = _dbItem.CollectiveSquare;
+                _domItem.IsArchived = _dbItem.IsArchived;
                 _domItem.Note = _dbItem.Note;
 
                 IDataMapper counterDataMapper = DataMapperService.get(typeof(DomCounter));

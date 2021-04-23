@@ -13,6 +13,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         DateTime Since { get; set; }
 
         /// <summary>
+        /// Показывать архивные дома
+        /// </summary>
+        bool ShowArchived { get; set; }
+
+        /// <summary>
         /// Колонки источника данных для таблицы
         /// </summary>
         Column[] DataSourceColumns { get; set; }

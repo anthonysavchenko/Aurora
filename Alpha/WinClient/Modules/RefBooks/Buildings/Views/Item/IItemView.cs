@@ -77,6 +77,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         string BuildingContract { set; }
 
         /// <summary>
+        /// Архивный
+        /// </summary>
+        bool IsArchived
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Примечание
         /// </summary>
         string Note

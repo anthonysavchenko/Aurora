@@ -113,7 +113,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
                         string.Join(", ",
                             db.Buildings
                                 .Where(b =>
-                                    !db.BuildingCalculationValues
+                                    !b.IsArchived
+                                    && !db.BuildingCalculationValues
                                         .Where(bb => bb.Month == item.Month)
                                         .Select(bb => bb.Buildings.ID)
                                         .Contains(b.ID))

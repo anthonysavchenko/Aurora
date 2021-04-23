@@ -93,6 +93,22 @@ namespace Taumis.Alpha.Infrastructure.Interface.BusinessEntities.RefBook
             }
         }
 
+        private bool _isArchived;
+
+        public bool IsArchived
+        {
+            get
+            {
+                Load();
+                return _isArchived;
+            }
+            set
+            {
+                Load();
+                _isArchived = value;
+            }
+        }
+
 
         private string _note;
 

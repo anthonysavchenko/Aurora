@@ -76,6 +76,7 @@
           <Property Name="BuildingContract" Type="tinyint" Nullable="false" />
           <Property Name="NormCoefficient" Type="decimal" Precision="11" Scale="3" Nullable="false" />
           <Property Name="CollectiveSquare" Type="decimal" Precision="11" Scale="3" Nullable="false" />
+          <Property Name="IsArchived" Type="bit" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="BuildingValuesUploadPoses">
@@ -1456,6 +1457,7 @@
           <Property Name="BuildingContract" Type="Byte" Nullable="false" />
           <Property Name="NormCoefficient" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
           <Property Name="CollectiveSquare" Type="Decimal" Nullable="false" Precision="11" Scale="3" />
+          <Property Name="IsArchived" Type="Boolean" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BuildingCounters" Relationship="AlphaDataBaseModel.FK_BuildingCounters_Buildings" FromRole="Buildings" ToRole="BuildingCounters" />
           <NavigationProperty Name="BuildingCalculationValues" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings" FromRole="Buildings" ToRole="BuildingCalculationValues" />
@@ -2127,6 +2129,7 @@
           <EntitySetMapping Name="Buildings">
             <EntityTypeMapping TypeName="IsTypeOf(AlphaDataBaseModel.Buildings)">
               <MappingFragment StoreEntitySet="Buildings">
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
                 <ScalarProperty Name="CollectiveSquare" ColumnName="CollectiveSquare" />
                 <ScalarProperty Name="NormCoefficient" ColumnName="NormCoefficient" />
                 <ScalarProperty Name="BuildingContract" ColumnName="BuildingContract" />

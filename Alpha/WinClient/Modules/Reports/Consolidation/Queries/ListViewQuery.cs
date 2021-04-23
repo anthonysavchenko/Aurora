@@ -10,13 +10,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
 {
     public static class ListViewQuery
     {
-        public static DataTable GetDataTable(this Entities db, Column[] columns, DateTime since)
+        public static DataTable GetDataTable(this Entities db, Column[] columns, DateTime since, bool showArchived)
         {
             DateTime till = since.AddMonths(DataSource.MONTH_COUNT);
             DateTime sinceMinusOneMonth = since.AddMonths(-1);
 
+            var archivedConditionalItems =
+                showArchived
+                    ? db.Buildings
+                    : db.Buildings.Where(b => !b.IsArchived);
+
             var dbQueriedItems =
-                db.Buildings
+                archivedConditionalItems
                     .Select(b =>
                         new
                         {

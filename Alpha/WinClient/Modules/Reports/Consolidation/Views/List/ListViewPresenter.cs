@@ -19,6 +19,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
             base.OnViewReady();
 
             View.Since = ServerTime.GetDateTimeInfo().SinceYearBeginning;
+            View.ShowArchived = false;
         }
 
         protected override DataTable GetGridData(EmptyReportParams _params)
@@ -27,7 +28,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
 
             using (var db = new Entities())
             {
-                return db.GetDataTable(View.DataSourceColumns, View.Since);
+                return db.GetDataTable(View.DataSourceColumns, View.Since, View.ShowArchived);
             }
         }
 

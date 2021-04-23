@@ -54,6 +54,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
         }
 
         /// <summary>
+        /// Показывать архивные дома
+        /// </summary>
+        public bool ShowArchived
+        {
+            get
+            {
+                return ShowArchivedCheckBox.Checked;
+            }
+            set
+            {
+                ShowArchivedCheckBox.Checked = value;
+            }
+        }
+
+        /// <summary>
         /// Колонки источника данных для таблицы
         /// </summary>
         public Column[] DataSourceColumns { get; set; }

@@ -35,6 +35,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SinceDateEdit = new DevExpress.XtraEditors.DateEdit();
+            this.ShowArchivedCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.GridControlOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridViewOfListView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -79,6 +80,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ShowArchivedCheckBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.SinceDateEdit);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -118,6 +120,16 @@
             this.SinceDateEdit.Size = new System.Drawing.Size(120, 20);
             this.SinceDateEdit.TabIndex = 37;
             // 
+            // ShowArchivedCheckBox
+            // 
+            this.ShowArchivedCheckBox.AutoSize = true;
+            this.ShowArchivedCheckBox.Location = new System.Drawing.Point(195, 21);
+            this.ShowArchivedCheckBox.Name = "ShowArchivedCheckBox";
+            this.ShowArchivedCheckBox.Size = new System.Drawing.Size(170, 17);
+            this.ShowArchivedCheckBox.TabIndex = 41;
+            this.ShowArchivedCheckBox.Text = "Показывать архивные дома";
+            this.ShowArchivedCheckBox.UseVisualStyleBackColor = true;
+            // 
             // ListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,5 +155,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.DateEdit SinceDateEdit;
+        private System.Windows.Forms.CheckBox ShowArchivedCheckBox;
     }
 }

@@ -2298,7 +2298,8 @@ namespace Taumis.Alpha.DataBase
         /// <param name="buildingContract">Initial value of the BuildingContract property.</param>
         /// <param name="normCoefficient">Initial value of the NormCoefficient property.</param>
         /// <param name="collectiveSquare">Initial value of the CollectiveSquare property.</param>
-        public static Buildings CreateBuildings(global::System.Int32 id, global::System.String street, global::System.String number, global::System.Byte buildingContract, global::System.Decimal normCoefficient, global::System.Decimal collectiveSquare)
+        /// <param name="isArchived">Initial value of the IsArchived property.</param>
+        public static Buildings CreateBuildings(global::System.Int32 id, global::System.String street, global::System.String number, global::System.Byte buildingContract, global::System.Decimal normCoefficient, global::System.Decimal collectiveSquare, global::System.Boolean isArchived)
         {
             Buildings buildings = new Buildings();
             buildings.ID = id;
@@ -2307,6 +2308,7 @@ namespace Taumis.Alpha.DataBase
             buildings.BuildingContract = buildingContract;
             buildings.NormCoefficient = normCoefficient;
             buildings.CollectiveSquare = collectiveSquare;
+            buildings.IsArchived = isArchived;
             return buildings;
         }
 
@@ -2460,6 +2462,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.Decimal _CollectiveSquare;
         partial void OnCollectiveSquareChanging(global::System.Decimal value);
         partial void OnCollectiveSquareChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsArchived
+        {
+            get
+            {
+                return _IsArchived;
+            }
+            set
+            {
+                OnIsArchivedChanging(value);
+                ReportPropertyChanging("IsArchived");
+                _IsArchived = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsArchived");
+                OnIsArchivedChanged();
+            }
+        }
+        private global::System.Boolean _IsArchived;
+        partial void OnIsArchivedChanging(global::System.Boolean value);
+        partial void OnIsArchivedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

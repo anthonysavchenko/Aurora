@@ -99,6 +99,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
         public string BuildingContract { set => BuildingContractTextBox.Text = value; }
 
         /// <summary>
+        /// Архивный
+        /// </summary>
+        public bool IsArchived
+        {
+            get => IsArchivedCheckBox.Checked;
+            set => IsArchivedCheckBox.Checked = value;
+        }
+
+        /// <summary>
         /// Примечание
         /// </summary>
         public string Note

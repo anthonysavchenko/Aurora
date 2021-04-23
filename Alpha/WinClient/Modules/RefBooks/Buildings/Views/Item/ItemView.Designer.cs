@@ -38,6 +38,10 @@
             this.StreetTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CalculationFormLastMonthTextBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.BuildingContractTextBox = new System.Windows.Forms.TextBox();
             this.CollectiveSquareUpDown = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -52,10 +56,8 @@
             this.noteTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.CalculationFormLastMonthTextBox = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.BuildingContractTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.IsArchivedCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -63,6 +65,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.NormCoefficientUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -166,6 +169,40 @@
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "По данным последней расшифровки";
+            // 
+            // CalculationFormLastMonthTextBox
+            // 
+            this.CalculationFormLastMonthTextBox.Location = new System.Drawing.Point(172, 25);
+            this.CalculationFormLastMonthTextBox.Name = "CalculationFormLastMonthTextBox";
+            this.CalculationFormLastMonthTextBox.ReadOnly = true;
+            this.CalculationFormLastMonthTextBox.Size = new System.Drawing.Size(70, 20);
+            this.CalculationFormLastMonthTextBox.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 28);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(151, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Последняя расшифровка за";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(15, 54);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Номер договора";
+            // 
+            // BuildingContractTextBox
+            // 
+            this.BuildingContractTextBox.Location = new System.Drawing.Point(172, 51);
+            this.BuildingContractTextBox.Name = "BuildingContractTextBox";
+            this.BuildingContractTextBox.ReadOnly = true;
+            this.BuildingContractTextBox.Size = new System.Drawing.Size(50, 20);
+            this.BuildingContractTextBox.TabIndex = 20;
             // 
             // CollectiveSquareUpDown
             // 
@@ -319,44 +356,31 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Использовать в сводных данных";
             // 
-            // CalculationLastMonthTextBox
+            // groupBox6
             // 
-            this.CalculationFormLastMonthTextBox.Location = new System.Drawing.Point(172, 25);
-            this.CalculationFormLastMonthTextBox.Name = "CalculationLastMonthTextBox";
-            this.CalculationFormLastMonthTextBox.ReadOnly = true;
-            this.CalculationFormLastMonthTextBox.Size = new System.Drawing.Size(70, 20);
-            this.CalculationFormLastMonthTextBox.TabIndex = 21;
+            this.groupBox6.Controls.Add(this.IsArchivedCheckBox);
+            this.groupBox6.Location = new System.Drawing.Point(534, 3);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(227, 55);
+            this.groupBox6.TabIndex = 31;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Дополнительно";
             // 
-            // label9
+            // IsArchivedCheckBox
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 28);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(151, 13);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Последняя расшифровка за";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 54);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 13);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Номер договора";
-            // 
-            // BuildingContractTextBox
-            // 
-            this.BuildingContractTextBox.Location = new System.Drawing.Point(172, 51);
-            this.BuildingContractTextBox.Name = "BuildingContractTextBox";
-            this.BuildingContractTextBox.ReadOnly = true;
-            this.BuildingContractTextBox.Size = new System.Drawing.Size(50, 20);
-            this.BuildingContractTextBox.TabIndex = 20;
+            this.IsArchivedCheckBox.AutoSize = true;
+            this.IsArchivedCheckBox.Location = new System.Drawing.Point(18, 25);
+            this.IsArchivedCheckBox.Name = "IsArchivedCheckBox";
+            this.IsArchivedCheckBox.Size = new System.Drawing.Size(76, 17);
+            this.IsArchivedCheckBox.TabIndex = 14;
+            this.IsArchivedCheckBox.Text = "Архивный";
+            this.IsArchivedCheckBox.UseVisualStyleBackColor = true;
             // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
@@ -377,6 +401,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,5 +437,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox BuildingContractTextBox;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.CheckBox IsArchivedCheckBox;
     }
 }

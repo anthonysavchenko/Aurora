@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
@@ -89,6 +88,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
 
             View.NormCoefficient = _domItem.NormCoefficient;
             View.CollectiveSquare = _domItem.CollectiveSquare;
+            View.IsArchived = _domItem.IsArchived;
             View.Note = _domItem.Note;
 
             ((ICounterView)WorkItem.SmartParts[ModuleViewNames.COUNTER_VIEW]).RefreshList();
@@ -229,6 +229,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.RefBooks.Buildings.Views.Item
 
             _domItem.NormCoefficient = View.NormCoefficient;
             _domItem.CollectiveSquare = View.CollectiveSquare;
+            _domItem.IsArchived = View.IsArchived;
             _domItem.Note = View.Note;
         }
 
