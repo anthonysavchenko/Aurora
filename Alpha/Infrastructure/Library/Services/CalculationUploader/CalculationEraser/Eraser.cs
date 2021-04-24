@@ -18,10 +18,14 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
         public static bool TryErase(
             int uploadID,
             DateTime month,
+            bool useDrafts,
             int progressFrom,
             int progressTill,
+            out List<BuildingCalculationValueHandler.BuildingInfo> buildingInfos,
             Action<int, string> SetProgress)
         {
+            buildingInfos = null;
+
             SetProgress(progressFrom, "Подготовка к началу удаления неактуальных файлов, загруженных ранее...");
 
             if (!TryGetFiles(uploadID, month, out List<FileInfo> files))
@@ -31,11 +35,23 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
 
             SetProgress(progressFrom, "Удаление неактуальных файлов, загруженных ранее...");
 
+            buildingInfos =
+                useDrafts
+                    ? new List<BuildingCalculationValueHandler.BuildingInfo>()
+                    : null;
+
             for (int i = 0; i < files.Count; i++)
             {
                 FileEraser.EraseFile(
                     files[i].FileID,
-                    files[i].FormID);
+                    files[i].FormID,
+                    useDrafts,
+                    out List<BuildingCalculationValueHandler.BuildingInfo> currentBuildingInfos);
+
+                if (useDrafts && currentBuildingInfos != null)
+                {
+                    buildingInfos.AddRange(currentBuildingInfos);
+                }
 
                 SetProgress(
                     progressFrom + (i + 1) * (progressTill - progressFrom) / files.Count,

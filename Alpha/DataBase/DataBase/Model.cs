@@ -1478,6 +1478,30 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Decimal> _CollectiveSquare;
         partial void OnCollectiveSquareChanging(Nullable<global::System.Decimal> value);
         partial void OnCollectiveSquareChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> CollectiveVolumeDraft
+        {
+            get
+            {
+                return _CollectiveVolumeDraft;
+            }
+            set
+            {
+                OnCollectiveVolumeDraftChanging(value);
+                ReportPropertyChanging("CollectiveVolumeDraft");
+                _CollectiveVolumeDraft = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CollectiveVolumeDraft");
+                OnCollectiveVolumeDraftChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _CollectiveVolumeDraft;
+        partial void OnCollectiveVolumeDraftChanging(Nullable<global::System.Decimal> value);
+        partial void OnCollectiveVolumeDraftChanged();
 
         #endregion
 

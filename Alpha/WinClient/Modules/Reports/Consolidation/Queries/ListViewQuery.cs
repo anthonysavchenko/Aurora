@@ -214,6 +214,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                                         v => $"{v.Month:MM.yyyy}",
                                         vv => vv.Value?.CollectiveVolume),
 
+                            DecCollectiveVolumeDrafts =
+                                i.BuildingCalculationValues
+                                    .ToDictionary(
+                                        v => $"{v.Month:MM.yyyy}-Draft",
+                                        vv => vv.Value?.CollectiveVolumeDraft),
+
                             DecCollectiveSquares =
                                 i.BuildingCalculationValues
                                     .ToDictionary(
@@ -283,6 +289,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                             i.DecCustomerVolumes,
                             i.DecCustomerRecalculations,
                             i.DecCollectiveVolumes,
+                            i.DecCollectiveVolumeDrafts,
                             i.DecCollectiveSquares,
                             i.DecCalculationMethods,
                         })
@@ -428,6 +435,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Queries
                         "ОДН ДЭК",
                         norm: item.NormCoefficient * item.CollectiveSquare,
                         values: item.DecCollectiveVolumes,
+                        drafts: item.DecCollectiveVolumeDrafts,
                         replaceNegativeValues: true));
 
                 table.Rows.Add(

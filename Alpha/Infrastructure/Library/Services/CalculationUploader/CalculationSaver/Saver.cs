@@ -20,6 +20,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             DateTime month,
             int progressFrom,
             int progressTill,
+            List<BuildingCalculationValueHandler.BuildingInfo> buildingInfos,
             Action<int, string> SetProgress)
         {
             SetProgress(progressFrom, "Подготовка к началу сохранения распознанных файлов...");
@@ -37,7 +38,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                     files[i].FileID,
                     files[i].FormID,
                     files[i].Contract,
-                    month);
+                    month,
+                    buildingInfos);
 
                 SetProgress(
                     progressFrom + (i + 1) * (progressTill - progressFrom) / files.Count,

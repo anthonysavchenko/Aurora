@@ -46,14 +46,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.FinishWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.ResultValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.ResultLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithErrorsLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.BuildingsWithErrorsLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithNoErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.BuildingsWithErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithNoErrorsLabel = new DevExpress.XtraEditors.LabelControl();
             this.BuildingsWithNoErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.BuildingsWithNoErrorsLabel = new DevExpress.XtraEditors.LabelControl();
-            this.FilesWithNoErrorsLabel = new DevExpress.XtraEditors.LabelControl();
-            this.FilesWithNoErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
-            this.FilesWithErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
-            this.FilesWithErrorsLabel = new DevExpress.XtraEditors.LabelControl();
+            this.UseDraftsCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).BeginInit();
             this.WizardControl.SuspendLayout();
             this.ProcessingWizardPage.SuspendLayout();
@@ -125,6 +126,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             // 
             // ChoosePathWizardPage
             // 
+            this.ChoosePathWizardPage.Controls.Add(this.UseDraftsCheckBox);
             this.ChoosePathWizardPage.Controls.Add(this.MonthLabel);
             this.ChoosePathWizardPage.Controls.Add(this.NoteTextBox);
             this.ChoosePathWizardPage.Controls.Add(this.MonthDateEdit);
@@ -148,7 +150,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             // 
             this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.NoteTextBox.Location = new System.Drawing.Point(36, 101);
+            this.NoteTextBox.Location = new System.Drawing.Point(36, 125);
             this.NoteTextBox.MaxLength = 250;
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
@@ -179,7 +181,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             // 
             this.NoteLabel.AutoSize = true;
             this.NoteLabel.BackColor = System.Drawing.Color.Transparent;
-            this.NoteLabel.Location = new System.Drawing.Point(33, 85);
+            this.NoteLabel.Location = new System.Drawing.Point(33, 109);
             this.NoteLabel.Name = "NoteLabel";
             this.NoteLabel.Size = new System.Drawing.Size(77, 13);
             this.NoteLabel.TabIndex = 12;
@@ -247,6 +249,24 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.ResultLabel.TabIndex = 13;
             this.ResultLabel.Text = "Общий результат обработки";
             // 
+            // FilesWithErrorsLabel
+            // 
+            this.FilesWithErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithErrorsLabel.Location = new System.Drawing.Point(12, 32);
+            this.FilesWithErrorsLabel.Name = "FilesWithErrorsLabel";
+            this.FilesWithErrorsLabel.Size = new System.Drawing.Size(173, 13);
+            this.FilesWithErrorsLabel.TabIndex = 10;
+            this.FilesWithErrorsLabel.Text = "Файлов обработанно с ошибками";
+            // 
+            // FilesWithErrorsValueLabel
+            // 
+            this.FilesWithErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithErrorsValueLabel.Location = new System.Drawing.Point(216, 32);
+            this.FilesWithErrorsValueLabel.Name = "FilesWithErrorsValueLabel";
+            this.FilesWithErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
+            this.FilesWithErrorsValueLabel.TabIndex = 11;
+            this.FilesWithErrorsValueLabel.Text = "0";
+            // 
             // BuildingsWithErrorsLabel
             // 
             this.BuildingsWithErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -256,6 +276,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.BuildingsWithErrorsLabel.TabIndex = 10;
             this.BuildingsWithErrorsLabel.Text = "Домов обработанно с ошибками";
             // 
+            // FilesWithNoErrorsValueLabel
+            // 
+            this.FilesWithNoErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithNoErrorsValueLabel.Location = new System.Drawing.Point(216, 13);
+            this.FilesWithNoErrorsValueLabel.Name = "FilesWithNoErrorsValueLabel";
+            this.FilesWithNoErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
+            this.FilesWithNoErrorsValueLabel.TabIndex = 8;
+            this.FilesWithNoErrorsValueLabel.Text = "0";
+            // 
             // BuildingsWithErrorsValueLabel
             // 
             this.BuildingsWithErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -264,6 +293,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.BuildingsWithErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
             this.BuildingsWithErrorsValueLabel.TabIndex = 11;
             this.BuildingsWithErrorsValueLabel.Text = "0";
+            // 
+            // FilesWithNoErrorsLabel
+            // 
+            this.FilesWithNoErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithNoErrorsLabel.Location = new System.Drawing.Point(12, 13);
+            this.FilesWithNoErrorsLabel.Name = "FilesWithNoErrorsLabel";
+            this.FilesWithNoErrorsLabel.Size = new System.Drawing.Size(155, 13);
+            this.FilesWithNoErrorsLabel.TabIndex = 9;
+            this.FilesWithNoErrorsLabel.Text = "Файлов обработанно успешно";
             // 
             // BuildingsWithNoErrorsValueLabel
             // 
@@ -283,41 +321,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.BuildingsWithNoErrorsLabel.TabIndex = 9;
             this.BuildingsWithNoErrorsLabel.Text = "Домов обработанно успешно";
             // 
-            // FilesWithNoErrorsLabel
+            // UseDraftsCheckBox
             // 
-            this.FilesWithNoErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FilesWithNoErrorsLabel.Location = new System.Drawing.Point(12, 13);
-            this.FilesWithNoErrorsLabel.Name = "FilesWithNoErrorsLabel";
-            this.FilesWithNoErrorsLabel.Size = new System.Drawing.Size(155, 13);
-            this.FilesWithNoErrorsLabel.TabIndex = 9;
-            this.FilesWithNoErrorsLabel.Text = "Файлов обработанно успешно";
-            // 
-            // FilesWithNoErrorsValueLabel
-            // 
-            this.FilesWithNoErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FilesWithNoErrorsValueLabel.Location = new System.Drawing.Point(216, 13);
-            this.FilesWithNoErrorsValueLabel.Name = "FilesWithNoErrorsValueLabel";
-            this.FilesWithNoErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
-            this.FilesWithNoErrorsValueLabel.TabIndex = 8;
-            this.FilesWithNoErrorsValueLabel.Text = "0";
-            // 
-            // FilesWithErrorsValueLabel
-            // 
-            this.FilesWithErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FilesWithErrorsValueLabel.Location = new System.Drawing.Point(216, 32);
-            this.FilesWithErrorsValueLabel.Name = "FilesWithErrorsValueLabel";
-            this.FilesWithErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
-            this.FilesWithErrorsValueLabel.TabIndex = 11;
-            this.FilesWithErrorsValueLabel.Text = "0";
-            // 
-            // FilesWithErrorsLabel
-            // 
-            this.FilesWithErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FilesWithErrorsLabel.Location = new System.Drawing.Point(12, 32);
-            this.FilesWithErrorsLabel.Name = "FilesWithErrorsLabel";
-            this.FilesWithErrorsLabel.Size = new System.Drawing.Size(173, 13);
-            this.FilesWithErrorsLabel.TabIndex = 10;
-            this.FilesWithErrorsLabel.Text = "Файлов обработанно с ошибками";
+            this.UseDraftsCheckBox.AutoSize = true;
+            this.UseDraftsCheckBox.Location = new System.Drawing.Point(36, 82);
+            this.UseDraftsCheckBox.Name = "UseDraftsCheckBox";
+            this.UseDraftsCheckBox.Size = new System.Drawing.Size(521, 17);
+            this.UseDraftsCheckBox.TabIndex = 40;
+            this.UseDraftsCheckBox.Text = "Использовать данные из предыдущих загруженных файлов за этот месяц в качестве чер" +
+    "новика";
+            this.UseDraftsCheckBox.UseVisualStyleBackColor = true;
             // 
             // WizardView
             // 
@@ -365,6 +378,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
         private DevExpress.XtraEditors.LabelControl FilesWithErrorsValueLabel;
         private DevExpress.XtraEditors.LabelControl FilesWithNoErrorsValueLabel;
         private DevExpress.XtraEditors.LabelControl FilesWithNoErrorsLabel;
+        private System.Windows.Forms.CheckBox UseDraftsCheckBox;
     }
 }
 

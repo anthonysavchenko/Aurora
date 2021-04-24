@@ -20,6 +20,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
         public bool Visible { get; set; }
 
         /// <summary>
+        /// Отображение колонки как примечания в GridView и файле Excel
+        /// </summary>
+        public bool IsNote { get; set; }
+
+        /// <summary>
         /// Формат данных в колонке
         /// </summary>
         public ColumnFormat Format { get; set; }

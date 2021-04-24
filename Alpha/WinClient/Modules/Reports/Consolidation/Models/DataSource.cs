@@ -24,35 +24,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
 
         public static Column[] GetDataSourceColumns(DateTime since)
         {
-            var columns = new List<Column>()
+            var columns = new List<Column>
             {
-                new Column()
+                new Column
                 {
                     FieldName = CONTRACT_COLUMN,
                     ColumnType = typeof(string),
                     Visible = true,
+                    IsNote = false,
                     Format = ColumnFormat.Default,
                     GridHeader = "Договор",
                     ExcelHeader = "Договор",
                     ExcelHeaderFormat = "@",
                     ExcelWidth = 10,
                 },
-                new Column()
+                new Column
                 {
                     FieldName = BUILDING_COLUMN,
                     ColumnType = typeof(string),
                     Visible = true,
+                    IsNote = false,
                     Format = ColumnFormat.Default,
                     GridHeader = "Дом",
                     ExcelHeader = "Дом",
                     ExcelHeaderFormat = "@",
                     ExcelWidth = 35,
                 },
-                new Column()
+                new Column
                 {
                     FieldName = PARAMS_COLUMN,
                     ColumnType = typeof(string),
                     Visible = true,
+                    IsNote = false,
                     Format = ColumnFormat.Default,
                     GridHeader = "Параметры",
                     ExcelHeader = "Параметры",
@@ -65,84 +68,120 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                 Enumerable
                     .Range(0, MONTH_COUNT)
                     .Select(month => since.AddMonths(month))
-                    .Select(month =>
-                        new Column
+                    .SelectMany(month =>
+                        new List<Column>
                         {
-                            FieldName = $"{month:MM.yyyy}",
-                            ColumnType = typeof(decimal),
-                            Visible = true,
-                            Format = ColumnFormat.Special,
-                            GridHeader = $"{month:MM.yyyy}",
-                            ExcelHeader = month,
-                            ExcelHeaderFormat = "MM.yyyy",
-                            ExcelWidth = 10,
+                            new Column
+                            {
+                                FieldName = $"{month:MM.yyyy}",
+                                ColumnType = typeof(decimal),
+                                Visible = true,
+                                IsNote = false,
+                                Format = ColumnFormat.Special,
+                                GridHeader = $"{month:MM.yyyy}",
+                                ExcelHeader = month,
+                                ExcelHeaderFormat = "MM.yyyy",
+                                ExcelWidth = 10,
+                            },
+                            new Column
+                            {
+                                FieldName = $"{month:MM.yyyy}-Draft",
+                                ColumnType = typeof(decimal),
+                                Visible = false,
+                                IsNote = true,
+                                Format = ColumnFormat.Decimal,
+                                GridHeader = string.Empty,
+                                ExcelHeader = string.Empty,
+                                ExcelHeaderFormat = string.Empty,
+                                ExcelWidth = 0,
+                            },
                         })
                     .ToList());
 
-            columns.Add(
-                new Column()
+            columns.AddRange(
+                new List<Column>
                 {
-                    FieldName = NORM_COLUMN,
-                    ColumnType = typeof(decimal),
-                    Visible = true,
-                    Format = ColumnFormat.Decimal,
-                    GridHeader = "Норматив",
-                    ExcelHeader = "Норматив",
-                    ExcelHeaderFormat = "@",
-                    ExcelWidth = 10,
-                });
-
-            columns.Add(
-                new Column()
-                {
-                    FieldName = AVARAGE_COLUMN,
-                    ColumnType = typeof(decimal),
-                    Visible = true,
-                    Format = ColumnFormat.Special,
-                    GridHeader = "Среднее",
-                    ExcelHeader = "Среднее",
-                    ExcelHeaderFormat = "@",
-                    ExcelWidth = 10,
-                });
-
-            columns.Add(
-                new Column()
-                {
-                    FieldName = SUM_COLUMN,
-                    ColumnType = typeof(decimal),
-                    Visible = true,
-                    Format = ColumnFormat.Special,
-                    GridHeader = "Сумма",
-                    ExcelHeader = "Сумма",
-                    ExcelHeaderFormat = "@",
-                    ExcelWidth = 10,
-                });
-
-            columns.Add(
-                new Column()
-                {
-                    FieldName = SPECIAL_CELLS_FORMAT_COLUMN,
-                    ColumnType = typeof(byte),
-                    Visible = false,
-                    Format = ColumnFormat.Default,
-                    GridHeader = string.Empty,
-                    ExcelHeader = string.Empty,
-                    ExcelHeaderFormat = string.Empty,
-                    ExcelWidth = 0,
+                    new Column
+                    {
+                        FieldName = NORM_COLUMN,
+                        ColumnType = typeof(decimal),
+                        Visible = true,
+                        IsNote = false,
+                        Format = ColumnFormat.Decimal,
+                        GridHeader = "Норматив",
+                        ExcelHeader = "Норматив",
+                        ExcelHeaderFormat = "@",
+                        ExcelWidth = 10,
+                    },
+                    new Column
+                    {
+                        FieldName = AVARAGE_COLUMN,
+                        ColumnType = typeof(decimal),
+                        Visible = true,
+                        IsNote = false,
+                        Format = ColumnFormat.Special,
+                        GridHeader = "Среднее",
+                        ExcelHeader = "Среднее",
+                        ExcelHeaderFormat = "@",
+                        ExcelWidth = 10,
+                    },
+                    new Column
+                    {
+                        FieldName = SUM_COLUMN,
+                        ColumnType = typeof(decimal),
+                        Visible = true,
+                        IsNote = false,
+                        Format = ColumnFormat.Special,
+                        GridHeader = "Сумма",
+                        ExcelHeader = "Сумма",
+                        ExcelHeaderFormat = "@",
+                        ExcelWidth = 10,
+                    },
+                    new Column
+                    {
+                        FieldName = SPECIAL_CELLS_FORMAT_COLUMN,
+                        ColumnType = typeof(byte),
+                        Visible = false,
+                        IsNote = false,
+                        Format = ColumnFormat.Default,
+                        GridHeader = string.Empty,
+                        ExcelHeader = string.Empty,
+                        ExcelHeaderFormat = string.Empty,
+                        ExcelWidth = 0,
+                    },
                 });
 
             var excelColumnNames =
                 Enumerable
-                    .Range('a', columns.Count)
+                    .Range('a', columns.Where(c => c.Visible).Count())
                     .Select(c => ((char)c).ToString().ToUpperInvariant())
                     .ToList();
 
-            for (int i = 0; i < columns.Count; i++)
+            for (int i = 0, j = 0; i < columns.Count; i++)
             {
-                columns[i].ExcelName = excelColumnNames[i];
+                if (columns[i].Visible)
+                {
+                    columns[i].ExcelName = excelColumnNames[j];
+                    j++;
+                }
+                else if (!columns[i].Visible && columns[i].IsNote)
+                {
+                    columns[i].ExcelName = excelColumnNames[j - 1];
+                }
             }
 
             return columns.ToArray();
+        }
+
+        public static int FindIndex(int visibleIndex)
+        {
+            if (visibleIndex < FIRST_MONTH_COLUMN_INDEX)
+                return visibleIndex;
+
+            if (visibleIndex < FIRST_MONTH_COLUMN_INDEX + MONTH_COUNT)
+                return visibleIndex * 2 - FIRST_MONTH_COLUMN_INDEX;
+
+            return visibleIndex;
         }
 
         public static void CreateDataTableColumns(DataTable table, Column[] columns)
@@ -169,6 +208,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
             Dictionary<string, decimal?> checkValues = null,
             Dictionary<string, decimal?> alternativeValues = null,
             Func<decimal?, decimal?, decimal?, decimal?> comparison = null,
+            Dictionary<string, decimal?> drafts = null,
             bool replaceNegativeValues = false,
             bool replacePositiveValues = false,
             bool calculateAvarageAndSum = true)
@@ -194,7 +234,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                     : (object)DBNull.Value;
 
 
-            for (int i = FIRST_MONTH_COLUMN_INDEX; i < FIRST_MONTH_COLUMN_INDEX + MONTH_COUNT; i++)
+            for (int i = FIRST_MONTH_COLUMN_INDEX; i < FIRST_MONTH_COLUMN_INDEX + MONTH_COUNT * 2; i += 2)
             {
                 var value =
                     values != null
@@ -273,6 +313,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                 row[columns[i].FieldName] =
                     cellValue.HasValue
                         ? cellValue
+                        : (object)DBNull.Value;
+
+                var draft =
+                    drafts != null
+                        ? drafts.ContainsKey(columns[i + 1].FieldName)
+                            ? drafts[columns[i + 1].FieldName]
+                            : null
+                        : null;
+
+                row[columns[i + 1].FieldName] =
+                    draft.HasValue
+                        ? draft.Value
                         : (object)DBNull.Value;
             }
 
@@ -367,6 +419,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                         default:
                             return source;
                     }
+                case ColumnFormat.Default:
                 case ColumnFormat.Decimal:
                 default:
                     return source;
@@ -393,6 +446,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
                 case ColumnFormat.Default:
                 default:
                     return "@";
+            }
+        }
+
+        public static string GetNoteValue(object source, ColumnFormat columnFormat)
+        {
+            switch (columnFormat)
+            {
+                case ColumnFormat.Decimal:
+                    return $"{source:0.00}";
+                case ColumnFormat.Special:
+                case ColumnFormat.Default:
+                default:
+                    return $"{source}";
             }
         }
     }

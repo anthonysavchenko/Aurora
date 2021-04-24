@@ -1,21 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationSaver.FormSavers
 {
     public static class CommonFormSaver
     {
-        public delegate void CreateBuildingCalculationValuesMethod(int formID, byte contract, DateTime month);
+        public delegate void CreateBuildingCalculationValuesMethod(
+            int formID,
+            byte contract,
+            DateTime month,
+            List<BuildingCalculationValueHandler.BuildingInfo> buildingInfos);
 
         public static void SaveForm(
             int formID,
             byte contract,
             DateTime month,
+            List<BuildingCalculationValueHandler.BuildingInfo> buildingInfos,
             CreateBuildingCalculationValuesMethod createBuildingCalculationValues)
         {
-            createBuildingCalculationValues(formID, contract, month);
+            createBuildingCalculationValues(formID, contract, month, buildingInfos);
 
             CreateBuildingCounters(formID);
             CreateBuildingCounterCalculationValues(formID, month);

@@ -311,6 +311,21 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Excel
                 _RANGE_TYPE.GetMethod("Merge").Invoke(_range, new object[] { Type.Missing });
             }
 
+            public void SetNote(string _cellStart, string _cellEnd, string _note)
+            {
+                object[] _params =
+                {
+                    _cellStart, _cellEnd
+                };
+
+                Type _WORKSHEET_TYPE = ExcelAssembly.GetType("Microsoft.Office.Interop.Excel._Worksheet");
+
+                object _range = _WORKSHEET_TYPE.GetMethod("get_Range").Invoke(_sheet, _params);
+
+                Type _RANGE_TYPE = ExcelAssembly.GetType("Microsoft.Office.Interop.Excel.Range");
+                _RANGE_TYPE.GetMethod("NoteText").Invoke(_range, new object[] { _note, Type.Missing, Type.Missing });
+            }
+
             /// <summary>
             /// Количество использованых строк закладки
             /// </summary>

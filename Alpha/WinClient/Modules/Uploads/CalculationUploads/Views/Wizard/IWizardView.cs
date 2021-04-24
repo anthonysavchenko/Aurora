@@ -18,6 +18,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
         DateTime Month { get; set; }
 
         /// <summary>
+        /// Использовать черновики
+        /// </summary>
+        bool UseDrafts { get; set; }
+
+        /// <summary>
         /// Комментарий
         /// </summary>
         string Note { get; set; }

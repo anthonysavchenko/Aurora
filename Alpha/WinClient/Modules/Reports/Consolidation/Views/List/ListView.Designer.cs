@@ -32,10 +32,11 @@
         {
             this.GridControlOfListView = new DevExpress.XtraGrid.GridControl();
             this.GridViewOfListView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.ToolTipController = new DevExpress.Utils.ToolTipController();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ShowArchivedCheckBox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SinceDateEdit = new DevExpress.XtraEditors.DateEdit();
-            this.ShowArchivedCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.GridControlOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridViewOfListView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -57,6 +58,7 @@
             this.GridControlOfListView.Name = "GridControlOfListView";
             this.GridControlOfListView.Size = new System.Drawing.Size(750, 298);
             this.GridControlOfListView.TabIndex = 0;
+            this.GridControlOfListView.ToolTipController = this.ToolTipController;
             this.GridControlOfListView.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GridViewOfListView});
             // 
@@ -75,8 +77,13 @@
             this.GridViewOfListView.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.GridViewOfListView.OptionsSelection.MultiSelect = true;
             this.GridViewOfListView.OptionsView.ShowGroupPanel = false;
+            this.GridViewOfListView.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.GridViewOfListView_CustomDrawCell);
             this.GridViewOfListView.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.GridViewOfListView_RowCellStyle);
             this.GridViewOfListView.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.GridViewOfListView_CustomColumnDisplayText);
+            // 
+            // ToolTipController
+            // 
+            this.ToolTipController.GetActiveObjectInfo += new DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventHandler(this.ToolTipController_GetActiveObjectInfo);
             // 
             // groupBox1
             // 
@@ -91,6 +98,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры отчета";
+            // 
+            // ShowArchivedCheckBox
+            // 
+            this.ShowArchivedCheckBox.AutoSize = true;
+            this.ShowArchivedCheckBox.Location = new System.Drawing.Point(195, 21);
+            this.ShowArchivedCheckBox.Name = "ShowArchivedCheckBox";
+            this.ShowArchivedCheckBox.Size = new System.Drawing.Size(170, 17);
+            this.ShowArchivedCheckBox.TabIndex = 41;
+            this.ShowArchivedCheckBox.Text = "Показывать архивные дома";
+            this.ShowArchivedCheckBox.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -120,16 +137,6 @@
             this.SinceDateEdit.Size = new System.Drawing.Size(120, 20);
             this.SinceDateEdit.TabIndex = 37;
             // 
-            // ShowArchivedCheckBox
-            // 
-            this.ShowArchivedCheckBox.AutoSize = true;
-            this.ShowArchivedCheckBox.Location = new System.Drawing.Point(195, 21);
-            this.ShowArchivedCheckBox.Name = "ShowArchivedCheckBox";
-            this.ShowArchivedCheckBox.Size = new System.Drawing.Size(170, 17);
-            this.ShowArchivedCheckBox.TabIndex = 41;
-            this.ShowArchivedCheckBox.Text = "Показывать архивные дома";
-            this.ShowArchivedCheckBox.UseVisualStyleBackColor = true;
-            // 
             // ListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -156,5 +163,6 @@
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.DateEdit SinceDateEdit;
         private System.Windows.Forms.CheckBox ShowArchivedCheckBox;
+        private DevExpress.Utils.ToolTipController ToolTipController;
     }
 }

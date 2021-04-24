@@ -66,6 +66,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
         }
 
         /// <summary>
+        /// Использовать черновики
+        /// </summary>
+        public bool UseDrafts
+        {
+            get
+            {
+                return UseDraftsCheckBox.Checked;
+            }
+            set
+            {
+                UseDraftsCheckBox.Checked = value;
+            }
+        }
+
+
+        /// <summary>
         /// Комментарий
         /// </summary>
         public string Note

@@ -30,6 +30,7 @@
           <Property Name="Norm" Type="decimal" Precision="11" Scale="3" />
           <Property Name="CollectiveVolume" Type="decimal" Precision="11" Scale="3" Nullable="false" />
           <Property Name="CollectiveSquare" Type="decimal" Precision="11" Scale="3" />
+          <Property Name="CollectiveVolumeDraft" Type="decimal" Precision="11" Scale="3" />
         </EntityType>
         <EntityType Name="BuildingCounterCalculationValues">
           <Key>
@@ -2037,6 +2038,7 @@
           <Property Name="CollectiveSquare" Type="Decimal" Precision="11" Scale="3" />
           <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_Buildings" FromRole="BuildingCalculationValues" ToRole="Buildings" />
           <NavigationProperty Name="CalculationRows" Relationship="AlphaDataBaseModel.FK_BuildingCalculationValues_CalculationRows" FromRole="BuildingCalculationValues" ToRole="CalculationRows" />
+          <Property Name="CollectiveVolumeDraft" Type="Decimal" Precision="11" Scale="3" />
         </EntityType>
         <Association Name="FK_BuildingCalculationValues_Buildings">
           <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
@@ -2804,6 +2806,7 @@
           <EntitySetMapping Name="BuildingCalculationValues">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingCalculationValues">
               <MappingFragment StoreEntitySet="BuildingCalculationValues">
+                <ScalarProperty Name="CollectiveVolumeDraft" ColumnName="CollectiveVolumeDraft" />
                 <ScalarProperty Name="Contract" ColumnName="Contract" />
                 <ScalarProperty Name="CollectiveSquare" ColumnName="CollectiveSquare" />
                 <ScalarProperty Name="CollectiveVolume" ColumnName="CollectiveVolume" />

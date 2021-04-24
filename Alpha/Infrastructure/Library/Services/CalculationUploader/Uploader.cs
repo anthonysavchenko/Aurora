@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationChecker;
 using Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationEraser;
@@ -14,6 +15,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
             string path,
             int userID,
             DateTime month,
+            bool useDrafts,
             string note,
             Action<int, string> OnProgress,
             Action<int?> OnCompleted)
@@ -42,6 +44,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
                         path,
                         userID,
                         month,
+                        useDrafts,
                         note,
                         ((BackgroundWorker)sender).ReportProgress);
 
@@ -55,6 +58,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
             string path,
             int userID,
             DateTime month,
+            bool useDrafts,
             string note,
             Action<int, string> SetProgress)
         {
@@ -94,8 +98,10 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
                 if (!Eraser.TryErase(
                     uploadID.Value,
                     month,
+                    useDrafts,
                     40,
                     70,
+                    out List<BuildingCalculationValueHandler.BuildingInfo> buildingInfos,
                     SetProgress))
                 {
                     return uploadID;
@@ -106,6 +112,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
                     month,
                     70,
                     100,
+                    useDrafts ? buildingInfos : null,
                     SetProgress))
                 {
                     return uploadID;

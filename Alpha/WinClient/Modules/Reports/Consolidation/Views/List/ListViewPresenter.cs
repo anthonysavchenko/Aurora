@@ -72,15 +72,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
 
                 foreach (Column column in View.DataSourceColumns)
                 {
-                    sheet.SetCellValue($"{column.ExcelName}{targetRowNumber}", column.ExcelHeader);
-                    sheet.SetRangeFormat(
-                        $"{column.ExcelName}{targetRowNumber}",
-                        $"{column.ExcelName}{targetRowNumber}",
-                        column.ExcelHeaderFormat);
-                    sheet.SetColumnWidth(
-                        $"{column.ExcelName}{targetRowNumber}",
-                        $"{column.ExcelName}{targetRowNumber}",
-                        column.ExcelWidth);
+                    if (column.Visible)
+                    {
+                        sheet.SetCellValue($"{column.ExcelName}{targetRowNumber}", column.ExcelHeader);
+                        sheet.SetRangeFormat(
+                            $"{column.ExcelName}{targetRowNumber}",
+                            $"{column.ExcelName}{targetRowNumber}",
+                            column.ExcelHeaderFormat);
+                        sheet.SetColumnWidth(
+                            $"{column.ExcelName}{targetRowNumber}",
+                            $"{column.ExcelName}{targetRowNumber}",
+                            column.ExcelWidth);
+                    }
                 }
 
                 targetRowNumber++;
@@ -89,24 +92,37 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Views.List
                 {
                     foreach (Column column in View.DataSourceColumns)
                     {
-                        if (column.Visible
-                            && sourceRow[column.FieldName] != DBNull.Value)
+                        if (sourceRow[column.FieldName] != DBNull.Value)
                         {
                             string cell = $"{column.ExcelName}{targetRowNumber}";
-                            object value =
-                                DataSource.GetExcelCellValue(
-                                    sourceRow[column.FieldName],
-                                    column.Format,
-                                    (CellFormat)(sourceRow[DataSource.SPECIAL_CELLS_FORMAT_COLUMN]
-                                        ?? CellFormat.Numeric));
-                            string format =
-                                DataSource.GetExcelCellFormat(
-                                    column.Format,
-                                    (CellFormat)(sourceRow[DataSource.SPECIAL_CELLS_FORMAT_COLUMN]
-                                        ?? CellFormat.Numeric));
 
-                            sheet.SetCellValue(cell, value);
-                            sheet.SetRangeFormat(cell, cell, format);
+                            if (column.Visible)
+                            {
+                                object value =
+                                    DataSource.GetExcelCellValue(
+                                        sourceRow[column.FieldName],
+                                        column.Format,
+                                        (CellFormat)(sourceRow[DataSource.SPECIAL_CELLS_FORMAT_COLUMN]
+                                            ?? CellFormat.Numeric));
+                                string format =
+                                    DataSource.GetExcelCellFormat(
+                                        column.Format,
+                                        (CellFormat)(sourceRow[DataSource.SPECIAL_CELLS_FORMAT_COLUMN]
+                                            ?? CellFormat.Numeric));
+
+                                sheet.SetCellValue(cell, value);
+                                sheet.SetRangeFormat(cell, cell, format);
+                            }
+                            else if (column.IsNote)
+                            {
+                                string noteValue =
+                                    DataSource.GetNoteValue(
+                                        sourceRow[column.FieldName],
+                                        column.Format);
+
+                                sheet.SetNote(cell, cell, noteValue);
+
+                            }
                         }
                     }
 

@@ -1,18 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
+using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.CalculationSaver.FormSavers
 {
     public static class Since012021FormSaver
     {
-        public static void SaveForm(int formID, byte contract, DateTime month)
+        public static void SaveForm(
+            int formID,
+            byte contract,
+            DateTime month,
+            List<BuildingCalculationValueHandler.BuildingInfo> buildingInfos)
         {
-            CommonFormSaver.SaveForm(formID, contract, month, CreateBuildingCalculationValues);
+            CommonFormSaver.SaveForm(
+                formID,
+                contract,
+                month,
+                buildingInfos,
+                CreateBuildingCalculationValues);
         }
 
-        private static void CreateBuildingCalculationValues(int formID, byte contract, DateTime month)
+        private static void CreateBuildingCalculationValues(
+            int formID,
+            byte contract,
+            DateTime month,
+            List<BuildingCalculationValueHandler.BuildingInfo> buildingInfos)
         {
             using (var db = new Entities())
             {
@@ -109,21 +124,36 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                         })
                         .ToList();
 
-                newValues.ForEach(v =>
+                foreach (var value in newValues)
+                {
+                    decimal? collectiveVolumeDraft =
+                        buildingInfos != null
+                            ? buildingInfos
+                                .FirstOrDefault(i => i.BuildingID == value.Building.ID)
+                                ?.CollectiveVolume
+                            : (decimal?)null;
+
                     db.BuildingCalculationValues.AddObject(
                         new BuildingCalculationValues()
                         {
-                            CalculationRows = v.CalculationRow,
-                            Buildings = v.Building,
+                            CalculationRows = value.CalculationRow,
+                            Buildings = value.Building,
                             Contract = contract,
                             Month = month,
-                            CalculationMethod = v.CalculationMethod,
-                            Debt = v.Debt,
-                            Volume = v.Volume,
-                            Norm = v.Norm,
-                            CollectiveVolume = v.CollectiveVolume,
-                            CollectiveSquare = v.CollectiveSquare,
-                        }));
+                            CalculationMethod = value.CalculationMethod,
+                            Debt = value.Debt,
+                            Volume = value.Volume,
+                            Norm = value.Norm,
+                            CollectiveVolume = value.CollectiveVolume,
+                            CollectiveSquare = value.CollectiveSquare,
+                            CollectiveVolumeDraft =
+                                collectiveVolumeDraft.HasValue
+                                    && collectiveVolumeDraft.Value != value.CollectiveVolume
+                                    ? collectiveVolumeDraft
+                                    : null,
+                        });
+                }
+
 
                 db.SaveChanges();
             }

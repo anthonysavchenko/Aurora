@@ -39,6 +39,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
 
             View.DirectoryPath = string.Empty;
             View.Month = ServerTime.GetDateTimeInfo().Now;
+            View.UseDrafts = true;
             View.Note = string.Empty;
 
             View.Result = string.Empty;
@@ -158,6 +159,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
                 View.DirectoryPath,
                 int.Parse(UserHolder.User.ID),
                 View.Month,
+                View.UseDrafts,
                 View.Note,
                 OnProgress: (int percents, string jobName) => View.SetProgress(jobName, percents),
                 OnCompleted: (int? uploadID) =>
