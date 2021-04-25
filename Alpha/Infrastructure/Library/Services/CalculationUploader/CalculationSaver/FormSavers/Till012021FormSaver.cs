@@ -124,7 +124,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                             ? buildingInfos
                                 .FirstOrDefault(i => i.BuildingID == value.Building.ID)
                                 ?.CollectiveVolume
-                            : (decimal?)null;
+                            : null;
 
                     db.BuildingCalculationValues.AddObject(
                         new BuildingCalculationValues()

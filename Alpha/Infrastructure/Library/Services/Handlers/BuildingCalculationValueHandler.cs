@@ -22,7 +22,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
                             .Where(v => v.CalculationRows.CalculationForms.ID == formID)
                             .Select(v => new BuildingInfo()
                             {
-                                BuildingID = v.ID,
+                                BuildingID = v.Buildings.ID,
                                 CollectiveVolume = v.CollectiveVolume,
                             })
                             .ToList()
