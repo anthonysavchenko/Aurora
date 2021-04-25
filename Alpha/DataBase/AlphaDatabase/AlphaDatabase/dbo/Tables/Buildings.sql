@@ -5,9 +5,12 @@
     [BuildingContract] TINYINT         NOT NULL,
     [NormCoefficient]  DECIMAL (11, 3) NOT NULL,
     [CollectiveSquare] DECIMAL (11, 3) NOT NULL,
+    [IsArchived]       BIT             NOT NULL,
     [Note]             NVARCHAR (250)  NULL,
     CONSTRAINT [PK_Buildings] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
+
+
 
 
 

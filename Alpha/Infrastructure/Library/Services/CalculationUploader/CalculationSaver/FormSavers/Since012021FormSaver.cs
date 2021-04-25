@@ -154,7 +154,6 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                         });
                 }
 
-
                 db.SaveChanges();
             }
         }
