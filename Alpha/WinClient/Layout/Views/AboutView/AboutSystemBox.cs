@@ -21,7 +21,7 @@ namespace Taumis.Infrastructure.Layout
 
         private void DeveloperLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("mailto://anton.savchenko@taumis.ru");
+            Process.Start("mailto://anton.savchenko@mail.ru");
         }
     }
 }

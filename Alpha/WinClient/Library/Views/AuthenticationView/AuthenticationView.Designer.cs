@@ -111,7 +111,7 @@
             this.DeveloperLinkLabel.Size = new System.Drawing.Size(143, 13);
             this.DeveloperLinkLabel.TabIndex = 28;
             this.DeveloperLinkLabel.TabStop = true;
-            this.DeveloperLinkLabel.Text = "anton.savchenko@taumis.ru";
+            this.DeveloperLinkLabel.Text = "anton.savchenko@mail.ru";
             this.DeveloperLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.DeveloperLinkLabel_LinkClicked);
             // 
             // TitleLabel
