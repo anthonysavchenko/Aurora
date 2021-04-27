@@ -12,7 +12,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
     public static class Uploader
     {
         public static void UploadAsync(
-            string path,
+            string directoryPath,
             int userID,
             DateTime month,
             bool useDrafts,
@@ -41,7 +41,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
 
                 args.Result =
                     Upload(
-                        path,
+                        directoryPath,
                         userID,
                         month,
                         useDrafts,
@@ -55,7 +55,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
         }
 
         private static int? Upload(
-            string path,
+            string directoryPath,
             int userID,
             DateTime month,
             bool useDrafts,
@@ -63,7 +63,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
             Action<int, string> SetProgress)
         {
             int? uploadID = CalculationUploadHandler.CreateUpload(
-                path,
+                directoryPath,
                 month,
                 note,
                 userID);
@@ -77,7 +77,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader
             {
                 if (!Parser.TryParse(
                     uploadID.Value,
-                    path,
+                    directoryPath,
                     month,
                     0,
                     30,

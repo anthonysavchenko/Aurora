@@ -37,8 +37,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.CreatedColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.MonthColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.AuthorColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.BuildingCounterValuesColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ErrorsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ResultColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.BuildingsWithNoErrorsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.NoteColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.DescriptionColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -47,6 +47,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.tillDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.sinceDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BuildingsWithErrorsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.FilesWithNoErrorsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.FilesWithErrorsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             _gridControlOfListView = new DevExpress.XtraGrid.GridControl();
             ((System.ComponentModel.ISupportInitialize)(this._gridViewOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(_gridControlOfListView)).BeginInit();
@@ -66,10 +69,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.CreatedColumn,
             this.MonthColumn,
             this.AuthorColumn,
-            this.BuildingCounterValuesColumn,
-            this.ErrorsColumn,
-            this.NoteColumn,
-            this.DescriptionColumn});
+            this.ResultColumn,
+            this.FilesWithNoErrorsColumn,
+            this.FilesWithErrorsColumn,
+            this.BuildingsWithNoErrorsColumn,
+            this.BuildingsWithErrorsColumn,
+            this.DescriptionColumn,
+            this.NoteColumn});
             this._gridViewOfListView.GridControl = _gridControlOfListView;
             this._gridViewOfListView.GroupFormat = "";
             this._gridViewOfListView.Name = "_gridViewOfListView";
@@ -123,21 +129,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.AuthorColumn.Visible = true;
             this.AuthorColumn.VisibleIndex = 3;
             // 
-            // BuildingCounterValuesColumn
+            // ResultColumn
             // 
-            this.BuildingCounterValuesColumn.Caption = "Показаний ОДПУ";
-            this.BuildingCounterValuesColumn.FieldName = "BuildingCounterValues";
-            this.BuildingCounterValuesColumn.Name = "BuildingCounterValuesColumn";
-            this.BuildingCounterValuesColumn.Visible = true;
-            this.BuildingCounterValuesColumn.VisibleIndex = 4;
+            this.ResultColumn.Caption = "Общий результат обработки";
+            this.ResultColumn.FieldName = "Result";
+            this.ResultColumn.Name = "ResultColumn";
+            this.ResultColumn.Visible = true;
+            this.ResultColumn.VisibleIndex = 4;
             // 
-            // ErrorsColumn
+            // BuildingsWithNoErrorsColumn
             // 
-            this.ErrorsColumn.Caption = "Произошло ошибок";
-            this.ErrorsColumn.FieldName = "Errors";
-            this.ErrorsColumn.Name = "ErrorsColumn";
-            this.ErrorsColumn.Visible = true;
-            this.ErrorsColumn.VisibleIndex = 5;
+            this.BuildingsWithNoErrorsColumn.Caption = "Домов без ошибок";
+            this.BuildingsWithNoErrorsColumn.FieldName = "BuildingsWithNoErrors";
+            this.BuildingsWithNoErrorsColumn.Name = "BuildingsWithNoErrorsColumn";
+            this.BuildingsWithNoErrorsColumn.Visible = true;
+            this.BuildingsWithNoErrorsColumn.VisibleIndex = 7;
             // 
             // NoteColumn
             // 
@@ -147,7 +153,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             // 
             // DescriptionColumn
             // 
-            this.DescriptionColumn.Caption = "Результат обработки";
+            this.DescriptionColumn.Caption = "Общий результат обработки";
             this.DescriptionColumn.FieldName = "Discription";
             this.DescriptionColumn.Name = "DescriptionColumn";
             // 
@@ -241,6 +247,30 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.panel1.Size = new System.Drawing.Size(765, 65);
             this.panel1.TabIndex = 5;
             // 
+            // BuildingsWithErrorsColumn
+            // 
+            this.BuildingsWithErrorsColumn.Caption = "Домов с ошибками";
+            this.BuildingsWithErrorsColumn.FieldName = "BuildingsWithErrors";
+            this.BuildingsWithErrorsColumn.Name = "BuildingsWithErrorsColumn";
+            this.BuildingsWithErrorsColumn.Visible = true;
+            this.BuildingsWithErrorsColumn.VisibleIndex = 8;
+            // 
+            // FilesWithNoErrorsColumn
+            // 
+            this.FilesWithNoErrorsColumn.Caption = "Файлов без ошибок";
+            this.FilesWithNoErrorsColumn.FieldName = "FilesWithNoErrors";
+            this.FilesWithNoErrorsColumn.Name = "FilesWithNoErrorsColumn";
+            this.FilesWithNoErrorsColumn.Visible = true;
+            this.FilesWithNoErrorsColumn.VisibleIndex = 5;
+            // 
+            // FilesWithErrorsColumn
+            // 
+            this.FilesWithErrorsColumn.Caption = "Файлов с ошибками";
+            this.FilesWithErrorsColumn.FieldName = "FilesWithErrors";
+            this.FilesWithErrorsColumn.Name = "FilesWithErrorsColumn";
+            this.FilesWithErrorsColumn.Visible = true;
+            this.FilesWithErrorsColumn.VisibleIndex = 6;
+            // 
             // ListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,8 +308,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
         private DevExpress.XtraGrid.Columns.GridColumn NumberColumn;
         private DevExpress.XtraGrid.Columns.GridColumn AuthorColumn;
         private DevExpress.XtraGrid.Columns.GridColumn NoteColumn;
-        private DevExpress.XtraGrid.Columns.GridColumn BuildingCounterValuesColumn;
-        private DevExpress.XtraGrid.Columns.GridColumn ErrorsColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn ResultColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn BuildingsWithNoErrorsColumn;
         private DevExpress.XtraGrid.Columns.GridColumn DescriptionColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn BuildingsWithErrorsColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn FilesWithNoErrorsColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn FilesWithErrorsColumn;
     }
 }

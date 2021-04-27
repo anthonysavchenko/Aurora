@@ -13,6 +13,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CommonParsers
 
         public static bool TryParseBuildingAddress(
             string source,
+            string cellDataName,
             out string street,
             out string building,
             out string errorDescription)
@@ -25,7 +26,8 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CommonParsers
 
             if (string.IsNullOrWhiteSpace(sourceNoCR))
             {
-                errorDescription = $"Ячейка обязательно должна быть заполнена. В данном случае она пустая.";
+                errorDescription = $"Ячейка, содержащая {cellDataName}, обязательно должна быть заполнена. " +
+                    "В данном случае она пустая.";
                 return false;
             }
 
@@ -52,9 +54,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CommonParsers
                 && !withBuildingPartFormat)
             {
                 errorDescription = $"Прочитано значение: \"{source.Replace("\n", "<Перенос строки>")}\". " +
-                    "Предусмотрено распознавание адресов в формате: \"г. Владивосток, пер|пр-кт|ул. " +
-                    "<Название улицы>, д. <Номер дома>[, корп. <Номер корпуса>]\". В данном случае данные " +
-                    "не соответствуют этому формату, поэтому не могут быть распознаны.";
+                    $"Для ячейки, содержащей {cellDataName}, предусмотрено распознавание адресов в формате: " +
+                    "\"г. Владивосток, пер|пр-кт|ул. <Название улицы>, д. <Номер дома>[, корп. <Номер корпуса>]\". " +
+                    "В данном случае данные не соответствуют этому формату, поэтому не могут быть распознаны.";
                 return false;
             }
 
@@ -63,8 +65,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CommonParsers
             if (street.Length > STREET_DB_LENGTH)
             {
                 errorDescription = $"Распознано значение: \"{street}\". " +
-                    $"Предусмотрено сохранение улицы длиной не более {STREET_DB_LENGTH} " +
-                    "символов. В данном случае это ограничение превышено, поэтому данные не могут быть сохранены.";
+                    $"Для ячейки, содержащей {cellDataName}, предусмотрено сохранение улицы длиной не более " +
+                    $"{STREET_DB_LENGTH} символов. В данном случае это ограничение превышено, " +
+                    "поэтому данные не могут быть сохранены.";
                 return false;
             }
 
@@ -82,8 +85,9 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CommonParsers
             if (building.Length > BUILDING_DB_LENGTH)
             {
                 errorDescription = $"Распознано значение: \"{building}\". " +
-                    $"Предусмотрено сохранение номера дома длиной не более {BUILDING_DB_LENGTH} " +
-                    "символов. В данном случае это ограничение превышено, поэтому данные не могут быть сохранены.";
+                    $"Для ячейки, содержащей {cellDataName}, предусмотрено сохранение номера дома длиной не более " +
+                    $"{BUILDING_DB_LENGTH} символов. В данном случае это ограничение превышено, " +
+                    "поэтому данные не могут быть сохранены.";
                 return false;
             }
 

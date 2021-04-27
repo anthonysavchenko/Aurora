@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Queries
 {
@@ -10,40 +11,101 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Qu
         {
             DataTable table = CreateDataTable();
 
-            var uploadPoses =
-                db.BuildingValuesUploadPoses
+            var rawUploadFiles =
+                db.BuildingValuesFiles
                     .Where(x => x.BuildingValuesUploads.ID == uploadId)
                     .Select(x =>
                         new
                         {
                             x.ID,
-                            x.Street,
-                            Building = 
-                                !string.IsNullOrEmpty(x.Street) && !string.IsNullOrEmpty(x.Building)
-                                    ? x.Street + ", д. " + x.Building
-                                    : null,
-                            x.CounterNumber,
-                            x.Coefficient,
-                            x.CurrentValue,
-                            x.PrevValue,
-                            x.CurrentDate,
-                            x.ErrorDescription,
+                            x.FileName,
+                            Result =
+                                x.ProcessingResult != (byte)FileProcessingResult.OK
+                                    ? "Ошибка"
+                                    : "ОК",
+                            BuildingsWithNoErrors =
+                                db.BuildingValuesRows
+                                    .Where(r =>
+                                        x.ProcessingResult == (byte)FileProcessingResult.OK
+                                            && r.BuildingValuesForms.BuildingValuesFiles.ID == x.ID
+                                            && r.ProcessingResult == (byte)RowProcessingResult.OK)
+                                    .Select(r =>
+                                        new
+                                        {
+                                            r.Street,
+                                            r.Building,
+                                        })
+                                    .ToList(),
+                            BuildingsWithErrors =
+                                db.BuildingValuesRows
+                                    .Where(r =>
+                                        x.ProcessingResult == (byte)FileProcessingResult.OK
+                                            && r.BuildingValuesForms.BuildingValuesFiles.ID == x.ID
+                                            && r.ProcessingResult != (byte)RowProcessingResult.OK
+                                            && r.ProcessingResult != (byte)RowProcessingResult.Skipped)
+                                    .Select(r =>
+                                        new
+                                        {
+                                            r.Street,
+                                            r.Building,
+                                        })
+                                    .ToList(),
+                            Description =
+                                x.ProcessingResult != (byte)FileProcessingResult.OK
+                                    ? string.IsNullOrEmpty(x.ErrorDescription)
+                                        ? "Программная ошибка при обработке файла. " +
+                                            "Проверьте подключение к сети и серверу БД."
+                                        : x.ErrorDescription
+                                    : "ОК",
+                        })
+                    .ToList();
+
+            var uploadFiles =
+                rawUploadFiles
+                    .Select(x =>
+                        new
+                        {
+                            x.ID,
+                            x.FileName,
+                            x.Result,
+                            BuildingsWithNoErrors =
+                                x.BuildingsWithNoErrors
+                                    .GroupBy(g =>
+                                        new
+                                        {
+                                            Street = g.Street.ToLowerInvariant(),
+                                            Building = g.Building.ToLowerInvariant(),
+                                        })
+                                    .Count(),
+                            BuildingsWithErrors =
+                                x.BuildingsWithErrors
+                                    .GroupBy(g =>
+                                        new
+                                        {
+                                            Street =
+                                                !string.IsNullOrEmpty(g.Street)
+                                                    ? g.Street.ToLowerInvariant()
+                                                    : string.Empty,
+                                            Building =
+                                                !string.IsNullOrEmpty(g.Building)
+                                                    ? g.Building.ToLowerInvariant()
+                                                    : string.Empty,
+                                        })
+                                    .Count(),
+                            x.Description,
                         })
                     .ToList()
                     .OrderBy(x => x.ID);
 
-            foreach (var item in uploadPoses)
+            foreach (var item in uploadFiles)
             {
                 table.Rows.Add(
                     item.ID.ToString(),
-                    item.Building,
-                    item.CounterNumber,
-                    item.Coefficient,
-                    item.CurrentValue,
-                    item.PrevValue,
-                    item.CurrentDate.HasValue ? item.CurrentDate.Value.ToString("dd.MM.yyyy") : null,
-                    !string.IsNullOrEmpty(item.ErrorDescription) ? "Ошибка" : "ОК",
-                    item.ErrorDescription);
+                    item.FileName,
+                    item.Result,
+                    item.BuildingsWithNoErrors,
+                    item.BuildingsWithErrors,
+                    item.Description);
             }
 
             return table;
@@ -53,13 +115,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Qu
         {
             DataTable table = new DataTable();
             table.Columns.Add("ID");
-            table.Columns.Add("Building");
-            table.Columns.Add("CounterNumber");
-            table.Columns.Add("Coefficient");
-            table.Columns.Add("CurrentValue");
-            table.Columns.Add("PrevValue");
-            table.Columns.Add("CurrentDate");
+            table.Columns.Add("FileName");
             table.Columns.Add("Result");
+            table.Columns.Add("BuildingsWithNoErrors");
+            table.Columns.Add("BuildingsWithErrors");
             table.Columns.Add("Description");
 
             DataSet ds =

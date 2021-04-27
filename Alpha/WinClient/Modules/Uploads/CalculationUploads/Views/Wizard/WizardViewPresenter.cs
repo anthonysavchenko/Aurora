@@ -141,7 +141,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
                             {
                                 case "ChoosePathWizardPage":
                                     {
-                                        UploadFile();
+                                        UploadFiles();
                                     }
                                     break;
                             }
@@ -151,7 +151,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             }
         }
 
-        private void UploadFile()
+        private void UploadFiles()
         {
             View.IsMasterInProgress = true;
 

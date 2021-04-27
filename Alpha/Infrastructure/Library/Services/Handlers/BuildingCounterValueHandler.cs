@@ -1,21 +1,21 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Taumis.Alpha.DataBase;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
     static public class BuildingCounterValueHandler
     {
-        static public void ClearExistedValues(DateTime month)
+        static public void Delete(int formID)
         {
             using (var db = new Entities())
             {
-                var existedValues =
+                var values =
                     db.BuildingCounterValues
-                        .Where(v => v.Month == month)
+                        .Where(v => v.BuildingValuesRows.BuildingValuesForms.ID == formID)
                         .ToList();
 
-                existedValues.ForEach(v => db.BuildingCounterValues.DeleteObject(v));
+                values.ForEach(v =>
+                    db.BuildingCounterValues.DeleteObject(v));
 
                 db.SaveChanges();
             }

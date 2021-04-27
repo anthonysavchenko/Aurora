@@ -37,6 +37,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.ProgressLabel = new System.Windows.Forms.Label();
             this.ProgressBarControl = new DevExpress.XtraEditors.ProgressBarControl();
             this.ChoosePathWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.UseDraftsCheckBox = new System.Windows.Forms.CheckBox();
             this.MonthLabel = new DevExpress.XtraEditors.LabelControl();
             this.NoteTextBox = new System.Windows.Forms.TextBox();
             this.MonthDateEdit = new DevExpress.XtraEditors.DateEdit();
@@ -54,7 +55,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.FilesWithNoErrorsLabel = new DevExpress.XtraEditors.LabelControl();
             this.BuildingsWithNoErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.BuildingsWithNoErrorsLabel = new DevExpress.XtraEditors.LabelControl();
-            this.UseDraftsCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).BeginInit();
             this.WizardControl.SuspendLayout();
             this.ProcessingWizardPage.SuspendLayout();
@@ -137,6 +137,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.ChoosePathWizardPage.Name = "ChoosePathWizardPage";
             this.ChoosePathWizardPage.Size = new System.Drawing.Size(830, 464);
             this.ChoosePathWizardPage.Text = "Загрузка файлов с расшифровкой расчета ОДН.";
+            // 
+            // UseDraftsCheckBox
+            // 
+            this.UseDraftsCheckBox.AutoSize = true;
+            this.UseDraftsCheckBox.Location = new System.Drawing.Point(36, 82);
+            this.UseDraftsCheckBox.Name = "UseDraftsCheckBox";
+            this.UseDraftsCheckBox.Size = new System.Drawing.Size(521, 17);
+            this.UseDraftsCheckBox.TabIndex = 40;
+            this.UseDraftsCheckBox.Text = "Использовать данные из предыдущих загруженных файлов за этот месяц в качестве чер" +
+    "новика";
+            this.UseDraftsCheckBox.UseVisualStyleBackColor = true;
             // 
             // MonthLabel
             // 
@@ -320,17 +331,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
             this.BuildingsWithNoErrorsLabel.Size = new System.Drawing.Size(149, 13);
             this.BuildingsWithNoErrorsLabel.TabIndex = 9;
             this.BuildingsWithNoErrorsLabel.Text = "Домов обработанно успешно";
-            // 
-            // UseDraftsCheckBox
-            // 
-            this.UseDraftsCheckBox.AutoSize = true;
-            this.UseDraftsCheckBox.Location = new System.Drawing.Point(36, 82);
-            this.UseDraftsCheckBox.Name = "UseDraftsCheckBox";
-            this.UseDraftsCheckBox.Size = new System.Drawing.Size(521, 17);
-            this.UseDraftsCheckBox.TabIndex = 40;
-            this.UseDraftsCheckBox.Text = "Использовать данные из предыдущих загруженных файлов за этот месяц в качестве чер" +
-    "новика";
-            this.UseDraftsCheckBox.UseVisualStyleBackColor = true;
             // 
             // WizardView
             // 

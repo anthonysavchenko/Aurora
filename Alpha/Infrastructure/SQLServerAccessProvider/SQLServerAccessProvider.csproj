@@ -59,8 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataMappers\Doc\AttachmentDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\BuildingValuesUploadDataMapper.cs" />
-    <Compile Include="DataMappers\Doc\BuildingValuesUploadPosDataMapper.cs" />
     <Compile Include="DataMappers\Doc\CustomerDataMapper.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,7 +71,6 @@
     <Compile Include="DataMappers\Doc\RouteFormDataMapper.cs" />
     <Compile Include="DataMappers\Doc\DecFormsUploadDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\BuildingCounterDataMapper.cs" />
-    <Compile Include="DataMappers\RefBook\BuildingCounterValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\BuildingDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\FillFormValueDataMapper.cs" />
     <Compile Include="DataMappers\RefBook\PrivateCounterDataMapper.cs" />

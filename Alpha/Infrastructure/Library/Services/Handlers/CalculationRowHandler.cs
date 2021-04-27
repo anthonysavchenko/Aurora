@@ -12,8 +12,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
             string description)
         {
             row.ProcessingResult = (byte)RowProcessingResult.Error;
-            row.ErrorDescription =
-                $"Ошибка при распознавании строки файла. {description}";
+            row.ErrorDescription = $"Ошибка при распознавании строки файла. {description}";
         }
 
         public static void SetParsingError(
@@ -33,8 +32,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 
             row.ProcessingResult = (byte)RowProcessingResult.Exception;
             row.ExceptionMessage = exception.Message;
-            row.ErrorDescription =
-                "Программная ошибка при распознавании строки файла.";
+            row.ErrorDescription = "Программная ошибка при распознавании строки файла.";
         }
 
         public static void SetCheckingError(
@@ -42,8 +40,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
             string description)
         {
             row.ProcessingResult = (byte)RowProcessingResult.Error;
-            row.ErrorDescription =
-                $"Ошибка при проверке строки распознанного файла. {description}";
+            row.ErrorDescription = $"Ошибка при проверке строки распознанного файла. {description}";
         }
     }
 }

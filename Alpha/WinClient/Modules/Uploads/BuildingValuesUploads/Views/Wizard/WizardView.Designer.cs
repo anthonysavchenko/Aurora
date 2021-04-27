@@ -31,6 +31,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WizardView));
             this.WizardControl = new DevExpress.XtraWizard.WizardControl();
             this.ProcessingWizardPage = new DevExpress.XtraWizard.WizardPage();
             this.ProgressLabel = new System.Windows.Forms.Label();
@@ -43,10 +44,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.PathLabel = new System.Windows.Forms.Label();
             this.PathButtonEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.FinishWizardPage = new DevExpress.XtraWizard.WizardPage();
-            this.ErrorsCountLabel = new DevExpress.XtraEditors.LabelControl();
-            this.ErrorsCountValueLabel = new DevExpress.XtraEditors.LabelControl();
-            this.BuildingValuesCountValueLabel = new DevExpress.XtraEditors.LabelControl();
-            this.BuuildingValuesCountLabel = new DevExpress.XtraEditors.LabelControl();
+            this.ResultValueLabel = new DevExpress.XtraEditors.LabelControl();
+            this.ResultLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithErrorsLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
+            this.BuildingsWithErrorsLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithNoErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
+            this.BuildingsWithErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
+            this.FilesWithNoErrorsLabel = new DevExpress.XtraEditors.LabelControl();
+            this.BuildingsWithNoErrorsValueLabel = new DevExpress.XtraEditors.LabelControl();
+            this.BuildingsWithNoErrorsLabel = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).BeginInit();
             this.WizardControl.SuspendLayout();
             this.ProcessingWizardPage.SuspendLayout();
@@ -124,12 +131,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.ChoosePathWizardPage.Controls.Add(this.NoteLabel);
             this.ChoosePathWizardPage.Controls.Add(this.PathLabel);
             this.ChoosePathWizardPage.Controls.Add(this.PathButtonEdit);
-            this.ChoosePathWizardPage.DescriptionText = "Выберите файл, из которого будут загружаться показаниями ОДПУ. Укажите месяц, за " +
-    "который будут учитываться данные (конкретное число месяца не имеет значения). Ко" +
-    "мментарий можно указать по желанию.";
+            this.ChoosePathWizardPage.DescriptionText = resources.GetString("ChoosePathWizardPage.DescriptionText");
             this.ChoosePathWizardPage.Name = "ChoosePathWizardPage";
             this.ChoosePathWizardPage.Size = new System.Drawing.Size(822, 429);
-            this.ChoosePathWizardPage.Text = "Загрузка файла с показаниями ОДПУ.";
+            this.ChoosePathWizardPage.Text = "Загрузка файлов с показаниями ОДПУ.";
             // 
             // MonthLabel
             // 
@@ -186,9 +191,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             this.PathLabel.BackColor = System.Drawing.Color.Transparent;
             this.PathLabel.Location = new System.Drawing.Point(33, 31);
             this.PathLabel.Name = "PathLabel";
-            this.PathLabel.Size = new System.Drawing.Size(152, 13);
+            this.PathLabel.Size = new System.Drawing.Size(167, 13);
             this.PathLabel.TabIndex = 39;
-            this.PathLabel.Text = "Файл с показаниями ОДПУ";
+            this.PathLabel.Text = "Папка с файлами для загрузки";
             // 
             // PathButtonEdit
             // 
@@ -206,50 +211,113 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             // 
             this.FinishWizardPage.AllowBack = false;
             this.FinishWizardPage.AllowCancel = false;
-            this.FinishWizardPage.Controls.Add(this.ErrorsCountLabel);
-            this.FinishWizardPage.Controls.Add(this.ErrorsCountValueLabel);
-            this.FinishWizardPage.Controls.Add(this.BuildingValuesCountValueLabel);
-            this.FinishWizardPage.Controls.Add(this.BuuildingValuesCountLabel);
+            this.FinishWizardPage.Controls.Add(this.ResultValueLabel);
+            this.FinishWizardPage.Controls.Add(this.ResultLabel);
+            this.FinishWizardPage.Controls.Add(this.FilesWithErrorsLabel);
+            this.FinishWizardPage.Controls.Add(this.FilesWithErrorsValueLabel);
+            this.FinishWizardPage.Controls.Add(this.BuildingsWithErrorsLabel);
+            this.FinishWizardPage.Controls.Add(this.FilesWithNoErrorsValueLabel);
+            this.FinishWizardPage.Controls.Add(this.BuildingsWithErrorsValueLabel);
+            this.FinishWizardPage.Controls.Add(this.FilesWithNoErrorsLabel);
+            this.FinishWizardPage.Controls.Add(this.BuildingsWithNoErrorsValueLabel);
+            this.FinishWizardPage.Controls.Add(this.BuildingsWithNoErrorsLabel);
             this.FinishWizardPage.DescriptionText = "Для окончания нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
             this.FinishWizardPage.Size = new System.Drawing.Size(822, 429);
             this.FinishWizardPage.Text = "Обработка данных завершена";
             // 
-            // ErrorsCountLabel
+            // ResultValueLabel
             // 
-            this.ErrorsCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ErrorsCountLabel.Location = new System.Drawing.Point(12, 32);
-            this.ErrorsCountLabel.Name = "ErrorsCountLabel";
-            this.ErrorsCountLabel.Size = new System.Drawing.Size(99, 13);
-            this.ErrorsCountLabel.TabIndex = 10;
-            this.ErrorsCountLabel.Text = "Ошибок произошло";
+            this.ResultValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ResultValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ResultValueLabel.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.ResultValueLabel.Location = new System.Drawing.Point(216, 88);
+            this.ResultValueLabel.Name = "ResultValueLabel";
+            this.ResultValueLabel.Size = new System.Drawing.Size(592, 13);
+            this.ResultValueLabel.TabIndex = 24;
+            this.ResultValueLabel.Text = " ";
             // 
-            // ErrorsCountValueLabel
+            // ResultLabel
             // 
-            this.ErrorsCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ErrorsCountValueLabel.Location = new System.Drawing.Point(292, 32);
-            this.ErrorsCountValueLabel.Name = "ErrorsCountValueLabel";
-            this.ErrorsCountValueLabel.Size = new System.Drawing.Size(6, 13);
-            this.ErrorsCountValueLabel.TabIndex = 11;
-            this.ErrorsCountValueLabel.Text = "0";
+            this.ResultLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ResultLabel.Location = new System.Drawing.Point(12, 88);
+            this.ResultLabel.Name = "ResultLabel";
+            this.ResultLabel.Size = new System.Drawing.Size(145, 13);
+            this.ResultLabel.TabIndex = 23;
+            this.ResultLabel.Text = "Общий результат обработки";
             // 
-            // BuildingValuesCountValueLabel
+            // FilesWithErrorsLabel
             // 
-            this.BuildingValuesCountValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BuildingValuesCountValueLabel.Location = new System.Drawing.Point(292, 13);
-            this.BuildingValuesCountValueLabel.Name = "BuildingValuesCountValueLabel";
-            this.BuildingValuesCountValueLabel.Size = new System.Drawing.Size(6, 13);
-            this.BuildingValuesCountValueLabel.TabIndex = 8;
-            this.BuildingValuesCountValueLabel.Text = "0";
+            this.FilesWithErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithErrorsLabel.Location = new System.Drawing.Point(12, 31);
+            this.FilesWithErrorsLabel.Name = "FilesWithErrorsLabel";
+            this.FilesWithErrorsLabel.Size = new System.Drawing.Size(173, 13);
+            this.FilesWithErrorsLabel.TabIndex = 19;
+            this.FilesWithErrorsLabel.Text = "Файлов обработанно с ошибками";
             // 
-            // BuuildingValuesCountLabel
+            // FilesWithErrorsValueLabel
             // 
-            this.BuuildingValuesCountLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BuuildingValuesCountLabel.Location = new System.Drawing.Point(12, 13);
-            this.BuuildingValuesCountLabel.Name = "BuuildingValuesCountLabel";
-            this.BuuildingValuesCountLabel.Size = new System.Drawing.Size(274, 13);
-            this.BuuildingValuesCountLabel.TabIndex = 9;
-            this.BuuildingValuesCountLabel.Text = "Строк с показаниями ОДПУ распознано и сохранено";
+            this.FilesWithErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithErrorsValueLabel.Location = new System.Drawing.Point(216, 31);
+            this.FilesWithErrorsValueLabel.Name = "FilesWithErrorsValueLabel";
+            this.FilesWithErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
+            this.FilesWithErrorsValueLabel.TabIndex = 21;
+            this.FilesWithErrorsValueLabel.Text = "0";
+            // 
+            // BuildingsWithErrorsLabel
+            // 
+            this.BuildingsWithErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BuildingsWithErrorsLabel.Location = new System.Drawing.Point(12, 69);
+            this.BuildingsWithErrorsLabel.Name = "BuildingsWithErrorsLabel";
+            this.BuildingsWithErrorsLabel.Size = new System.Drawing.Size(167, 13);
+            this.BuildingsWithErrorsLabel.TabIndex = 20;
+            this.BuildingsWithErrorsLabel.Text = "Домов обработанно с ошибками";
+            // 
+            // FilesWithNoErrorsValueLabel
+            // 
+            this.FilesWithNoErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithNoErrorsValueLabel.Location = new System.Drawing.Point(216, 12);
+            this.FilesWithNoErrorsValueLabel.Name = "FilesWithNoErrorsValueLabel";
+            this.FilesWithNoErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
+            this.FilesWithNoErrorsValueLabel.TabIndex = 15;
+            this.FilesWithNoErrorsValueLabel.Text = "0";
+            // 
+            // BuildingsWithErrorsValueLabel
+            // 
+            this.BuildingsWithErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BuildingsWithErrorsValueLabel.Location = new System.Drawing.Point(216, 69);
+            this.BuildingsWithErrorsValueLabel.Name = "BuildingsWithErrorsValueLabel";
+            this.BuildingsWithErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
+            this.BuildingsWithErrorsValueLabel.TabIndex = 22;
+            this.BuildingsWithErrorsValueLabel.Text = "0";
+            // 
+            // FilesWithNoErrorsLabel
+            // 
+            this.FilesWithNoErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FilesWithNoErrorsLabel.Location = new System.Drawing.Point(12, 12);
+            this.FilesWithNoErrorsLabel.Name = "FilesWithNoErrorsLabel";
+            this.FilesWithNoErrorsLabel.Size = new System.Drawing.Size(155, 13);
+            this.FilesWithNoErrorsLabel.TabIndex = 17;
+            this.FilesWithNoErrorsLabel.Text = "Файлов обработанно успешно";
+            // 
+            // BuildingsWithNoErrorsValueLabel
+            // 
+            this.BuildingsWithNoErrorsValueLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BuildingsWithNoErrorsValueLabel.Location = new System.Drawing.Point(216, 50);
+            this.BuildingsWithNoErrorsValueLabel.Name = "BuildingsWithNoErrorsValueLabel";
+            this.BuildingsWithNoErrorsValueLabel.Size = new System.Drawing.Size(6, 13);
+            this.BuildingsWithNoErrorsValueLabel.TabIndex = 16;
+            this.BuildingsWithNoErrorsValueLabel.Text = "0";
+            // 
+            // BuildingsWithNoErrorsLabel
+            // 
+            this.BuildingsWithNoErrorsLabel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BuildingsWithNoErrorsLabel.Location = new System.Drawing.Point(12, 50);
+            this.BuildingsWithNoErrorsLabel.Name = "BuildingsWithNoErrorsLabel";
+            this.BuildingsWithNoErrorsLabel.Size = new System.Drawing.Size(149, 13);
+            this.BuildingsWithNoErrorsLabel.TabIndex = 18;
+            this.BuildingsWithNoErrorsLabel.Text = "Домов обработанно успешно";
             // 
             // WizardView
             // 
@@ -284,13 +352,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
         private DevExpress.XtraEditors.ButtonEdit PathButtonEdit;
         private System.Windows.Forms.Label PathLabel;
         private DevExpress.XtraWizard.WizardPage FinishWizardPage;
-        private DevExpress.XtraEditors.LabelControl ErrorsCountLabel;
-        private DevExpress.XtraEditors.LabelControl ErrorsCountValueLabel;
-        private DevExpress.XtraEditors.LabelControl BuildingValuesCountValueLabel;
-        private DevExpress.XtraEditors.LabelControl BuuildingValuesCountLabel;
         private DevExpress.XtraEditors.DateEdit MonthDateEdit;
         private DevExpress.XtraEditors.LabelControl MonthLabel;
         private System.Windows.Forms.Label ProgressLabel;
+        private DevExpress.XtraEditors.LabelControl ResultValueLabel;
+        private DevExpress.XtraEditors.LabelControl ResultLabel;
+        private DevExpress.XtraEditors.LabelControl FilesWithErrorsLabel;
+        private DevExpress.XtraEditors.LabelControl FilesWithErrorsValueLabel;
+        private DevExpress.XtraEditors.LabelControl BuildingsWithErrorsLabel;
+        private DevExpress.XtraEditors.LabelControl FilesWithNoErrorsValueLabel;
+        private DevExpress.XtraEditors.LabelControl BuildingsWithErrorsValueLabel;
+        private DevExpress.XtraEditors.LabelControl FilesWithNoErrorsLabel;
+        private DevExpress.XtraEditors.LabelControl BuildingsWithNoErrorsValueLabel;
+        private DevExpress.XtraEditors.LabelControl BuildingsWithNoErrorsLabel;
     }
 }
 

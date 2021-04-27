@@ -60,12 +60,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BuildingValuesUploadPos" Type="int" Nullable="false" />
+          <Property Name="BuildingValuesRow" Type="int" Nullable="false" />
           <Property Name="BuildingCounter" Type="int" Nullable="false" />
           <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="PrevValue" Type="decimal" Precision="11" Scale="3" />
           <Property Name="CurrentValue" Type="decimal" Precision="11" Scale="3" />
-          <Property Name="CurrentDate" Type="datetime2" Precision="0" />
         </EntityType>
         <EntityType Name="Buildings">
           <Key>
@@ -80,19 +79,37 @@
           <Property Name="IsArchived" Type="bit" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="BuildingValuesUploadPoses">
+        <EntityType Name="BuildingValuesFiles">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BuildingValuesUpload" Type="int" Nullable="false" />
+          <Property Name="ProcessingResult" Type="tinyint" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ErrorDescription" Type="nvarchar(max)" />
+          <Property Name="ExceptionMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BuildingValuesForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildingValuesFile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildingValuesRows">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildingValuesForm" Type="int" Nullable="false" />
+          <Property Name="ProcessingResult" Type="tinyint" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="50" />
           <Property Name="Building" Type="nvarchar" MaxLength="25" />
           <Property Name="CounterNumber" Type="nvarchar" MaxLength="25" />
           <Property Name="Coefficient" Type="tinyint" />
           <Property Name="CurrentValue" Type="decimal" Precision="11" Scale="3" />
           <Property Name="PrevValue" Type="decimal" Precision="11" Scale="3" />
-          <Property Name="CurrentDate" Type="datetime2" Precision="0" />
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
         </EntityType>
@@ -101,10 +118,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessingResult" Type="tinyint" Nullable="false" />
           <Property Name="Created" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="Month" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="Author" Type="int" Nullable="false" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="DirectoryPath" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="250" />
           <Property Name="ErrorDescription" Type="nvarchar(max)" />
           <Property Name="ExceptionMessage" Type="nvarchar(max)" />
@@ -539,27 +557,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BuildingCounterValues_BuildingValuesUploadPoses">
-          <End Role="BuildingValuesUploadPoses" Type="Self.BuildingValuesUploadPoses" Multiplicity="1" />
+        <Association Name="FK_BuildingCounterValues_BuildingValuesRows">
+          <End Role="BuildingValuesRows" Type="Self.BuildingValuesRows" Multiplicity="1" />
           <End Role="BuildingCounterValues" Type="Self.BuildingCounterValues" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BuildingValuesUploadPoses">
+            <Principal Role="BuildingValuesRows">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="BuildingCounterValues">
-              <PropertyRef Name="BuildingValuesUploadPos" />
+              <PropertyRef Name="BuildingValuesRow" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BuildingValuesUploadPoses_BuildingValuesUploads">
+        <Association Name="FK_BuildingValuesFiles_BuildingValuesUploads">
           <End Role="BuildingValuesUploads" Type="Self.BuildingValuesUploads" Multiplicity="1" />
-          <End Role="BuildingValuesUploadPoses" Type="Self.BuildingValuesUploadPoses" Multiplicity="*" />
+          <End Role="BuildingValuesFiles" Type="Self.BuildingValuesFiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BuildingValuesUploads">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="BuildingValuesUploadPoses">
+            <Dependent Role="BuildingValuesFiles">
               <PropertyRef Name="BuildingValuesUpload" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildingValuesForms_BuildingValuesFiles">
+          <End Role="BuildingValuesFiles" Type="Self.BuildingValuesFiles" Multiplicity="1" />
+          <End Role="BuildingValuesForms" Type="Self.BuildingValuesForms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuildingValuesFiles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BuildingValuesForms">
+              <PropertyRef Name="BuildingValuesFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildingValuesRows_BuildingValuesForms">
+          <End Role="BuildingValuesForms" Type="Self.BuildingValuesForms" Multiplicity="1" />
+          <End Role="BuildingValuesRows" Type="Self.BuildingValuesRows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuildingValuesForms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BuildingValuesRows">
+              <PropertyRef Name="BuildingValuesForm" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1007,7 +1049,9 @@
           <EntitySet Name="BuildingCounters" EntityType="Self.BuildingCounters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildingCounterValues" EntityType="Self.BuildingCounterValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Buildings" EntityType="Self.Buildings" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BuildingValuesUploadPoses" EntityType="Self.BuildingValuesUploadPoses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildingValuesFiles" EntityType="Self.BuildingValuesFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildingValuesForms" EntityType="Self.BuildingValuesForms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildingValuesRows" EntityType="Self.BuildingValuesRows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildingValuesUploads" EntityType="Self.BuildingValuesUploads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalculationBuildingCounters" EntityType="Self.CalculationBuildingCounters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalculationBuildingInfos" EntityType="Self.CalculationBuildingInfos" Schema="dbo" store:Type="Tables" />
@@ -1066,13 +1110,21 @@
             <End Role="BuildingCounters" EntitySet="BuildingCounters" />
             <End Role="BuildingCounterValues" EntitySet="BuildingCounterValues" />
           </AssociationSet>
-          <AssociationSet Name="FK_BuildingCounterValues_BuildingValuesUploadPoses" Association="Self.FK_BuildingCounterValues_BuildingValuesUploadPoses">
-            <End Role="BuildingValuesUploadPoses" EntitySet="BuildingValuesUploadPoses" />
+          <AssociationSet Name="FK_BuildingCounterValues_BuildingValuesRows" Association="Self.FK_BuildingCounterValues_BuildingValuesRows">
+            <End Role="BuildingValuesRows" EntitySet="BuildingValuesRows" />
             <End Role="BuildingCounterValues" EntitySet="BuildingCounterValues" />
           </AssociationSet>
-          <AssociationSet Name="FK_BuildingValuesUploadPoses_BuildingValuesUploads" Association="Self.FK_BuildingValuesUploadPoses_BuildingValuesUploads">
+          <AssociationSet Name="FK_BuildingValuesFiles_BuildingValuesUploads" Association="Self.FK_BuildingValuesFiles_BuildingValuesUploads">
             <End Role="BuildingValuesUploads" EntitySet="BuildingValuesUploads" />
-            <End Role="BuildingValuesUploadPoses" EntitySet="BuildingValuesUploadPoses" />
+            <End Role="BuildingValuesFiles" EntitySet="BuildingValuesFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingValuesForms_BuildingValuesFiles" Association="Self.FK_BuildingValuesForms_BuildingValuesFiles">
+            <End Role="BuildingValuesFiles" EntitySet="BuildingValuesFiles" />
+            <End Role="BuildingValuesForms" EntitySet="BuildingValuesForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingValuesRows_BuildingValuesForms" Association="Self.FK_BuildingValuesRows_BuildingValuesForms">
+            <End Role="BuildingValuesForms" EntitySet="BuildingValuesForms" />
+            <End Role="BuildingValuesRows" EntitySet="BuildingValuesRows" />
           </AssociationSet>
           <AssociationSet Name="FK_BuildingValuesUploads_Users" Association="Self.FK_BuildingValuesUploads_Users">
             <End Role="Users" EntitySet="Users" />
@@ -1342,12 +1394,7 @@
             <End Role="Buildings" EntitySet="Buildings" />
             <End Role="BuildingCounters" EntitySet="BuildingCounters" />
           </AssociationSet>
-          <EntitySet Name="BuildingValuesUploadPoses" EntityType="AlphaDataBaseModel.BuildingValuesUploadPoses" />
           <EntitySet Name="BuildingValuesUploads" EntityType="AlphaDataBaseModel.BuildingValuesUploads" />
-          <AssociationSet Name="FK_BuildingValuesUploadPoses_BuildingValuesUploads" Association="AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads">
-            <End Role="BuildingValuesUploads" EntitySet="BuildingValuesUploads" />
-            <End Role="BuildingValuesUploadPoses" EntitySet="BuildingValuesUploadPoses" />
-          </AssociationSet>
           <AssociationSet Name="FK_BuildingValuesUploads_Users" Association="AlphaDataBaseModel.FK_BuildingValuesUploads_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="BuildingValuesUploads" EntitySet="BuildingValuesUploads" />
@@ -1355,10 +1402,6 @@
           <EntitySet Name="BuildingCounterValues" EntityType="AlphaDataBaseModel.BuildingCounterValues" />
           <AssociationSet Name="FK_BuildingCounterValues_BuildingCounters" Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters">
             <End Role="BuildingCounters" EntitySet="BuildingCounters" />
-            <End Role="BuildingCounterValues" EntitySet="BuildingCounterValues" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BuildingCounterValues_BuildingValuesUploadPoses" Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses">
-            <End Role="BuildingValuesUploadPoses" EntitySet="BuildingValuesUploadPoses" />
             <End Role="BuildingCounterValues" EntitySet="BuildingCounterValues" />
           </AssociationSet>
           <EntitySet Name="CalculationUploads" EntityType="AlphaDataBaseModel.CalculationUploads" />
@@ -1445,6 +1488,25 @@
           <AssociationSet Name="FK_CustomerCalculationValues_Customers" Association="AlphaDataBaseModel.FK_CustomerCalculationValues_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="CustomerCalculationValues" EntitySet="CustomerCalculationValues" />
+          </AssociationSet>
+          <EntitySet Name="BuildingValuesFiles" EntityType="AlphaDataBaseModel.BuildingValuesFiles" />
+          <EntitySet Name="BuildingValuesForms" EntityType="AlphaDataBaseModel.BuildingValuesForms" />
+          <EntitySet Name="BuildingValuesRows" EntityType="AlphaDataBaseModel.BuildingValuesRows" />
+          <AssociationSet Name="FK_BuildingCounterValues_BuildingValuesRows" Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows">
+            <End Role="BuildingValuesRows" EntitySet="BuildingValuesRows" />
+            <End Role="BuildingCounterValues" EntitySet="BuildingCounterValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingValuesForms_BuildingValuesFiles" Association="AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles">
+            <End Role="BuildingValuesFiles" EntitySet="BuildingValuesFiles" />
+            <End Role="BuildingValuesForms" EntitySet="BuildingValuesForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingValuesRows_BuildingValuesForms" Association="AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms">
+            <End Role="BuildingValuesForms" EntitySet="BuildingValuesForms" />
+            <End Role="BuildingValuesRows" EntitySet="BuildingValuesRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildingValuesFiles_BuildingValuesUploads" Association="AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads">
+            <End Role="BuildingValuesUploads" EntitySet="BuildingValuesUploads" />
+            <End Role="BuildingValuesFiles" EntitySet="BuildingValuesFiles" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Buildings">
@@ -1818,41 +1880,21 @@
           <End Type="AlphaDataBaseModel.Buildings" Role="Buildings" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.BuildingCounters" Role="BuildingCounters" Multiplicity="*" />
         </Association>
-        <EntityType Name="BuildingValuesUploadPoses">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Building" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Coefficient" Type="Byte" />
-          <Property Name="CurrentValue" Type="Decimal" Precision="11" Scale="3" />
-          <Property Name="PrevValue" Type="Decimal" Precision="11" Scale="3" />
-          <Property Name="CurrentDate" Type="DateTime" Precision="0" />
-          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BuildingValuesUploads" Relationship="AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads" FromRole="BuildingValuesUploadPoses" ToRole="BuildingValuesUploads" />
-          <NavigationProperty Name="BuildingCounterValues" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses" FromRole="BuildingValuesUploadPoses" ToRole="BuildingCounterValues" />
-        </EntityType>
         <EntityType Name="BuildingValuesUploads">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessingResult" Type="Byte" Nullable="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="DirectoryPath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BuildingValuesUploadPoses" Relationship="AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads" FromRole="BuildingValuesUploads" ToRole="BuildingValuesUploadPoses" />
           <NavigationProperty Name="Author" Relationship="AlphaDataBaseModel.FK_BuildingValuesUploads_Users" FromRole="BuildingValuesUploads" ToRole="Users" />
+          <NavigationProperty Name="BuildingValuesFiles" Relationship="AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads" FromRole="BuildingValuesUploads" ToRole="BuildingValuesFiles" />
         </EntityType>
-        <Association Name="FK_BuildingValuesUploadPoses_BuildingValuesUploads">
-          <End Type="AlphaDataBaseModel.BuildingValuesUploads" Role="BuildingValuesUploads" Multiplicity="1" />
-          <End Type="AlphaDataBaseModel.BuildingValuesUploadPoses" Role="BuildingValuesUploadPoses" Multiplicity="*" />
-        </Association>
         <Association Name="FK_BuildingValuesUploads_Users">
           <End Type="AlphaDataBaseModel.Users" Role="Users" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.BuildingValuesUploads" Role="BuildingValuesUploads" Multiplicity="*" />
@@ -1865,16 +1907,11 @@
           <Property Name="Month" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PrevValue" Type="Decimal" Precision="11" Scale="3" />
           <Property Name="CurrentValue" Type="Decimal" Precision="11" Scale="3" />
-          <Property Name="CurrentDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="BuildingCounters" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters" FromRole="BuildingCounterValues" ToRole="BuildingCounters" />
-          <NavigationProperty Name="BuildingValuesUploadPoses" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses" FromRole="BuildingCounterValues" ToRole="BuildingValuesUploadPoses" />
+          <NavigationProperty Name="BuildingValuesRows" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows" FromRole="BuildingCounterValues" ToRole="BuildingValuesRows" />
         </EntityType>
         <Association Name="FK_BuildingCounterValues_BuildingCounters">
           <End Type="AlphaDataBaseModel.BuildingCounters" Role="BuildingCounters" Multiplicity="1" />
-          <End Type="AlphaDataBaseModel.BuildingCounterValues" Role="BuildingCounterValues" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_BuildingCounterValues_BuildingValuesUploadPoses">
-          <End Type="AlphaDataBaseModel.BuildingValuesUploadPoses" Role="BuildingValuesUploadPoses" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.BuildingCounterValues" Role="BuildingCounterValues" Multiplicity="*" />
         </Association>
         <EntityType Name="CalculationUploads">
@@ -2121,6 +2158,59 @@
         <Association Name="FK_CustomerCalculationValues_Customers">
           <End Type="AlphaDataBaseModel.Customers" Role="Customers" Multiplicity="1" />
           <End Type="AlphaDataBaseModel.CustomerCalculationValues" Role="CustomerCalculationValues" Multiplicity="*" />
+        </Association>
+        <EntityType Name="BuildingValuesFiles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessingResult" Type="Byte" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildingValuesUploads" Relationship="AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads" FromRole="BuildingValuesFiles" ToRole="BuildingValuesUploads" />
+          <NavigationProperty Name="BuildingValuesForms" Relationship="AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles" FromRole="BuildingValuesFiles" ToRole="BuildingValuesForms" />
+        </EntityType>
+        <EntityType Name="BuildingValuesForms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="BuildingValuesFiles" Relationship="AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles" FromRole="BuildingValuesForms" ToRole="BuildingValuesFiles" />
+          <NavigationProperty Name="BuildingValuesRows" Relationship="AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms" FromRole="BuildingValuesForms" ToRole="BuildingValuesRows" />
+        </EntityType>
+        <EntityType Name="BuildingValuesRows">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessingResult" Type="Byte" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Building" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CounterNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Coefficient" Type="Byte" />
+          <Property Name="CurrentValue" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="PrevValue" Type="Decimal" Precision="11" Scale="3" />
+          <Property Name="ErrorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildingCounterValues" Relationship="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows" FromRole="BuildingValuesRows" ToRole="BuildingCounterValues" />
+          <NavigationProperty Name="BuildingValuesForms" Relationship="AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms" FromRole="BuildingValuesRows" ToRole="BuildingValuesForms" />
+        </EntityType>
+        <Association Name="FK_BuildingCounterValues_BuildingValuesRows">
+          <End Type="AlphaDataBaseModel.BuildingValuesRows" Role="BuildingValuesRows" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingCounterValues" Role="BuildingCounterValues" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BuildingValuesForms_BuildingValuesFiles">
+          <End Type="AlphaDataBaseModel.BuildingValuesFiles" Role="BuildingValuesFiles" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingValuesForms" Role="BuildingValuesForms" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BuildingValuesRows_BuildingValuesForms">
+          <End Type="AlphaDataBaseModel.BuildingValuesForms" Role="BuildingValuesForms" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingValuesRows" Role="BuildingValuesRows" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BuildingValuesFiles_BuildingValuesUploads">
+          <End Type="AlphaDataBaseModel.BuildingValuesUploads" Role="BuildingValuesUploads" Multiplicity="1" />
+          <End Type="AlphaDataBaseModel.BuildingValuesFiles" Role="BuildingValuesFiles" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -2562,29 +2652,14 @@
               <ScalarProperty Name="ID" ColumnName="Building" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="BuildingValuesUploadPoses">
-            <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingValuesUploadPoses">
-              <MappingFragment StoreEntitySet="BuildingValuesUploadPoses">
-                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
-                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
-                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
-                <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
-                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
-                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
-                <ScalarProperty Name="CounterNumber" ColumnName="CounterNumber" />
-                <ScalarProperty Name="Building" ColumnName="Building" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BuildingValuesUploads">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingValuesUploads">
               <MappingFragment StoreEntitySet="BuildingValuesUploads">
+                <ScalarProperty Name="DirectoryPath" ColumnName="DirectoryPath" />
+                <ScalarProperty Name="ProcessingResult" ColumnName="ProcessingResult" />
                 <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
                 <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -2599,18 +2674,9 @@
               <ScalarProperty Name="ID" ColumnName="Author" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_BuildingValuesUploadPoses_BuildingValuesUploads" TypeName="AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads" StoreEntitySet="BuildingValuesUploadPoses">
-            <EndProperty Name="BuildingValuesUploadPoses">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-            <EndProperty Name="BuildingValuesUploads">
-              <ScalarProperty Name="ID" ColumnName="BuildingValuesUpload" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="BuildingCounterValues">
             <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingCounterValues">
               <MappingFragment StoreEntitySet="BuildingCounterValues">
-                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
                 <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
                 <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
@@ -2618,14 +2684,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_BuildingCounterValues_BuildingValuesUploadPoses" TypeName="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses" StoreEntitySet="BuildingCounterValues">
-            <EndProperty Name="BuildingCounterValues">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-            <EndProperty Name="BuildingValuesUploadPoses">
-              <ScalarProperty Name="ID" ColumnName="BuildingValuesUploadPos" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="FK_BuildingCounterValues_BuildingCounters" TypeName="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters" StoreEntitySet="BuildingCounterValues">
             <EndProperty Name="BuildingCounterValues">
               <ScalarProperty Name="ID" ColumnName="ID" />
@@ -2938,6 +2996,72 @@
               <ScalarProperty Name="ID" ColumnName="CalculationRow" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="BuildingValuesFiles">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingValuesFiles">
+              <MappingFragment StoreEntitySet="BuildingValuesFiles">
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ProcessingResult" ColumnName="ProcessingResult" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildingValuesForms">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingValuesForms">
+              <MappingFragment StoreEntitySet="BuildingValuesForms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildingValuesRows">
+            <EntityTypeMapping TypeName="AlphaDataBaseModel.BuildingValuesRows">
+              <MappingFragment StoreEntitySet="BuildingValuesRows">
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+                <ScalarProperty Name="PrevValue" ColumnName="PrevValue" />
+                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="CounterNumber" ColumnName="CounterNumber" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="ProcessingResult" ColumnName="ProcessingResult" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_BuildingValuesForms_BuildingValuesFiles" TypeName="AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles" StoreEntitySet="BuildingValuesForms">
+            <EndProperty Name="BuildingValuesForms">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="BuildingValuesFiles">
+              <ScalarProperty Name="ID" ColumnName="BuildingValuesFile" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BuildingValuesRows_BuildingValuesForms" TypeName="AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms" StoreEntitySet="BuildingValuesRows">
+            <EndProperty Name="BuildingValuesRows">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="BuildingValuesForms">
+              <ScalarProperty Name="ID" ColumnName="BuildingValuesForm" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BuildingCounterValues_BuildingValuesRows" TypeName="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows" StoreEntitySet="BuildingCounterValues">
+            <EndProperty Name="BuildingCounterValues">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="BuildingValuesRows">
+              <ScalarProperty Name="ID" ColumnName="BuildingValuesRow" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BuildingValuesFiles_BuildingValuesUploads" TypeName="AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads" StoreEntitySet="BuildingValuesFiles">
+            <EndProperty Name="BuildingValuesFiles">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="BuildingValuesUploads">
+              <ScalarProperty Name="ID" ColumnName="BuildingValuesUpload" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3024,19 +3148,16 @@
         </edmx:AssociationConnector>
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingCounters" Width="2" PointX="16.375" PointY="0.625" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounters_Buildings" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingValuesUploadPoses" Width="2" PointX="13.75" PointY="4" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingValuesUploads" Width="2" PointX="13.75" PointY="0.625" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingValuesUploads_Users" ManuallyRouted="false" >
         </edmx:AssociationConnector>
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingCounterValues" Width="2" PointX="13.75" PointY="8" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingCounterValues" Width="2" PointX="13.75" PointY="13.375" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingCounters" />
-        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationUploads" Width="2" PointX="21.625" PointY="0.625" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationUploads_Users" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationFiles" Width="2" PointX="21.625" PointY="4" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationFiles" Width="2" PointX="21.625" PointY="4.125" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationFiles_CalculationUploads" />
-        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationForms" Width="2" PointX="21.625" PointY="7.25" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationForms" Width="2" PointX="21.625" PointY="7.375" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationForms_CalculationFiles" />
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CalculationRows" Width="2" PointX="21.625" PointY="9.625" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CalculationRows_CalculationForms" />
@@ -3063,6 +3184,13 @@
         <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.CustomerCalculationValues" Width="2" PointX="19" PointY="8.5" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CustomerCalculationValues_CalculationRows" />
         <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_CustomerCalculationValues_Customers" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingValuesFiles" Width="2" PointX="13.75" PointY="4.125" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingValuesForms" Width="2" PointX="13.75" PointY="7.125" />
+        <edmx:EntityTypeShape EntityType="AlphaDataBaseModel.BuildingValuesRows" Width="2" PointX="13.75" PointY="9.375" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms" />
+        <edmx:AssociationConnector Association="AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads" />
         </edmx:Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

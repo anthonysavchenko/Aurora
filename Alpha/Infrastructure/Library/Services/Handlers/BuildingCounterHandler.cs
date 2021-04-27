@@ -4,9 +4,9 @@ using Taumis.Alpha.Infrastructure.Interface.Enums;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.Handlers
 {
-    static public class BuildingCounterHandler
+    public static class BuildingCounterHandler
     {
-        static public void DeleteWithNoValues()
+        public static void DeleteWithNoValues()
         {
             using (var db = new Entities())
             {

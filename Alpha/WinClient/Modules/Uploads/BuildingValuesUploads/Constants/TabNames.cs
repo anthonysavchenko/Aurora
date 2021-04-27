@@ -5,5 +5,6 @@
         public const string LIST = "tabList";
         public const string DETAIL = "tabDetail";
         public const string WIZARD = "tabWizard";
+        public const string FORM = "tabForm";
     }
 }

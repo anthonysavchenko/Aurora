@@ -8,9 +8,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
         #region ChoosePathPage
 
         /// <summary>
-        /// Имя файла
+        /// Полное имя папки
         /// </summary>
-        string FilePath { get; set; }
+        string DirectoryPath { get; set; }
 
         /// <summary>
         /// Дата платежа
@@ -34,15 +34,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
 
         #region FinishPage
 
-        /// <summary>
-        /// Итоговое количество Форма с показаниями ИПУ
-        /// </summary>
-        int BuildingValues { set; }
+        string Result { set; }
 
-        /// <summary>
-        /// Итоговое количество ошибок в процессе обработки
-        /// </summary>
-        int Errors { set; } 
+        int FilesWithNoErrors { set; }
+
+        int FilesWithErrors { set; }
+
+        int BuildingsWithNoErrors { set; }
+
+        int BuildingsWithErrors { set; }
 
         #endregion
 

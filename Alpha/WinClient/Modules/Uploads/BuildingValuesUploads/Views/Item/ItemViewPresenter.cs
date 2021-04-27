@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.BusinessEntities.Doc;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Constants;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Queries;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Views.Tabbed;
@@ -24,7 +25,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             : base(
                 new BaseListViewParams
                 {
-                    CurrentItemIdStateName = ModuleStateNames.CURRENT_POS_ID,
+                    CurrentItemIdStateName = ModuleStateNames.SELECTED_FILE_ID,
                     UpdateWindowTitleOnRowChanged = false
                 })
         {
@@ -92,41 +93,43 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
                                 new
                                 {
                                     x.Month,
-                                    x.FilePath,
+                                    x.DirectoryPath,
                                     x.Note,
-                                    x.ErrorDescription,
-                                    BuildingCounterValues = x
-                                        .BuildingValuesUploadPoses
-                                            .Count(p => string.IsNullOrEmpty(p.ErrorDescription)),
-                                    OuterError = !string.IsNullOrEmpty(x.ErrorDescription),
-                                    InnerErrors =
-                                        x.BuildingValuesUploadPoses.Count > 0
-                                            && x.BuildingValuesUploadPoses.Any(e =>
-                                                !string.IsNullOrEmpty(e.ErrorDescription)),
+                                    Description =
+                                        x.ProcessingResult != (byte)UploadProcessingResult.OK
+                                            ? string.IsNullOrEmpty(x.ErrorDescription)
+                                                ? "Программная ошибка во время загрузки расшифровок при обработке " +
+                                                    "данных. Проверьте подключение к сети и серверу БД."
+                                                : x.ErrorDescription
+                                            : "ОК",
                                 })
                             .First();
 
                     View.Month = item.Month.ToString("MM.yyyy");
-                    View.FilePath = item.FilePath;
+                    View.DirectoryPath = item.DirectoryPath;
                     View.Note = item.Note;
-                    View.Description =
-                        item.OuterError && item.InnerErrors
-                            ? $"{item.ErrorDescription} А также обнаружены ошибки при распознавании и/или " +
-                                "сохранении некоторых показаний ОДПУ."
-                            : item.OuterError && !item.InnerErrors
-                                ? item.ErrorDescription
-                                : !item.OuterError && item.InnerErrors
-                                    ? "Обнаружены ошибки при распознавании и/или сохранении некоторых показаний ОДПУ."
-                                    : item.BuildingCounterValues > 0
-                                        ? "Распознавание и сохранение показаний ОДПУ выполнено успешно."
-                                        : "Показаний ОДПУ для распознавания и сохранения не обнаружено.";
+                    View.Description = item.Description;
+
+                    View.MissingBuildings =
+                        string.Join(", ",
+                            db.Buildings
+                                .Where(b =>
+                                    !b.IsArchived
+                                    && !db.BuildingCounterValues
+                                        .Where(bb => bb.Month == item.Month)
+                                        .Select(bb => bb.BuildingCounters.Buildings.ID)
+                                        .Contains(b.ID))
+                                .Select(b => b.Street + ", д. " + b.Number)
+                                .ToArray());
                 }
             }
             else
             {
-                View.FilePath = string.Empty;
+                View.Month = string.Empty;
+                View.DirectoryPath = string.Empty;
                 View.Note = string.Empty;
                 View.Description = string.Empty;
+                View.MissingBuildings = string.Empty;
             }
         }
     }

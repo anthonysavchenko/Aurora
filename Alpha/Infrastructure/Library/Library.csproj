@@ -99,15 +99,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\BaseUnitOfWork.cs" />
-    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\BuildingValuesFormParser\ColumnParser.cs" />
-    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\BuildingValuesFormParser\FileParser.cs" />
-    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\BuildingValuesFormParser\RowParser.cs" />
-    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\ColumnParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\CellParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\RowParser.cs" />
     <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\FileParser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\FormParser.cs" />
     <Compile Include="Services\BuildingValuesUploader\BuildingValuesParser\Parser.cs" />
-    <Compile Include="Services\BuildingValuesUploader\BuildingValuesSaver\BuildingValuesFormSaver\FileSaver.cs" />
     <Compile Include="Services\BuildingValuesUploader\BuildingValuesSaver\FileSaver.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesSaver\FormSaver.cs" />
     <Compile Include="Services\BuildingValuesUploader\BuildingValuesSaver\Saver.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesChecker\Checker.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesChecker\FileChecker.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesChecker\FormChecker.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesEraser\Eraser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesEraser\FileEraser.cs" />
+    <Compile Include="Services\BuildingValuesUploader\BuildingValuesEraser\FormEraser.cs" />
     <Compile Include="Services\BuildingValuesUploader\Uploader.cs" />
     <Compile Include="Services\CalculationUploader\CalculationChecker\Checker.cs" />
     <Compile Include="Services\CalculationUploader\CalculationChecker\FileChecker.cs" />
@@ -160,6 +165,9 @@
     <Compile Include="Services\Handlers\BuildingCounterCalculationValuesHandler.cs" />
     <Compile Include="Services\Handlers\BuildingCounterHandler.cs" />
     <Compile Include="Services\Handlers\BuildingCounterValueHandler.cs" />
+    <Compile Include="Services\Handlers\BuildingValuesFileHandler.cs" />
+    <Compile Include="Services\Handlers\BuildingValuesFormHandler.cs" />
+    <Compile Include="Services\Handlers\BuildingValuesRowHandler.cs" />
     <Compile Include="Services\Handlers\BuildingValuesUploadHandler.cs" />
     <Compile Include="Services\Handlers\CalculationFileHandler.cs" />
     <Compile Include="Services\Handlers\CalculationFormHandler.cs" />

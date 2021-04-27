@@ -37,10 +37,13 @@
             this._tabWorkspace = new Microsoft.Practices.CompositeUI.WinForms.TabWorkspace();
             this.tabWizard = new System.Windows.Forms.TabPage();
             this.smartPartPlaceholder2 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
+            this.tabForm = new System.Windows.Forms.TabPage();
+            this.smartPartPlaceholder1 = new Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder();
             this.tabDetail.SuspendLayout();
             this.tabList.SuspendLayout();
             this._tabWorkspace.SuspendLayout();
             this.tabWizard.SuspendLayout();
+            this.tabForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabDetail
@@ -93,6 +96,7 @@
             // 
             this._tabWorkspace.Controls.Add(this.tabList);
             this._tabWorkspace.Controls.Add(this.tabDetail);
+            this._tabWorkspace.Controls.Add(this.tabForm);
             this._tabWorkspace.Controls.Add(this.tabWizard);
             this._tabWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
             this._tabWorkspace.Location = new System.Drawing.Point(0, 0);
@@ -123,6 +127,29 @@
             this.smartPartPlaceholder2.TabIndex = 2;
             this.smartPartPlaceholder2.Text = "WizardSmartPartPlaceholder";
             // 
+            // tabForm
+            // 
+            this.tabForm.Controls.Add(this.smartPartPlaceholder1);
+            this.tabForm.Location = new System.Drawing.Point(4, 22);
+            this.tabForm.Name = "tabForm";
+            this.tabForm.Padding = new System.Windows.Forms.Padding(3);
+            this.tabForm.Size = new System.Drawing.Size(721, 397);
+            this.tabForm.TabIndex = 4;
+            this.tabForm.Text = "Показания ОДПУ";
+            this.tabForm.UseVisualStyleBackColor = true;
+            // 
+            // smartPartPlaceholder1
+            // 
+            this.smartPartPlaceholder1.BackColor = System.Drawing.Color.Transparent;
+            this.smartPartPlaceholder1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.smartPartPlaceholder1.Location = new System.Drawing.Point(3, 3);
+            this.smartPartPlaceholder1.Margin = new System.Windows.Forms.Padding(6);
+            this.smartPartPlaceholder1.Name = "smartPartPlaceholder1";
+            this.smartPartPlaceholder1.Size = new System.Drawing.Size(715, 391);
+            this.smartPartPlaceholder1.SmartPartName = "FormView";
+            this.smartPartPlaceholder1.TabIndex = 2;
+            this.smartPartPlaceholder1.Text = "smartPartPlaceholder1";
+            // 
             // TabbedView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -134,6 +161,7 @@
             this.tabList.ResumeLayout(false);
             this._tabWorkspace.ResumeLayout(false);
             this.tabWizard.ResumeLayout(false);
+            this.tabForm.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -147,7 +175,8 @@
         private Microsoft.Practices.CompositeUI.WinForms.TabWorkspace _tabWorkspace;
         private System.Windows.Forms.TabPage tabWizard;
         private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder2;
-
+        private System.Windows.Forms.TabPage tabForm;
+        private Microsoft.Practices.CompositeUI.WinForms.SmartPartPlaceholder smartPartPlaceholder1;
     }
 }
 

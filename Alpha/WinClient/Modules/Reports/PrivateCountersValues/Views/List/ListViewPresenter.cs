@@ -358,8 +358,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.PrivateCountersValues.Vi
                             var value = item.Values[band.Month];
 
                             row[band.RouteFormPrevValue.FieldName] = value.PrevValue;
-                            row[band.PrivateValuesFormCurrentDate.FieldName] = value.CurrentDate
-                                ?.ToString("dd.MM.yyyy");
                             row[band.PrivateValuesFormCurrentValue.FieldName] = value.CurrentValue;
                         }
                     }

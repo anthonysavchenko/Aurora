@@ -36,9 +36,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
         #region ChooseDirectoryPage
 
         /// <summary>
-        /// Путь и название папки
+        /// Полное имя папки
         /// </summary>
-        public string FilePath
+        public string DirectoryPath
         {
             get
             {
@@ -106,27 +106,48 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
 
         #region FinishPage
 
-        /// <summary>
-        /// Итоговое количество Форма с показаниями ИПУ
-        /// </summary>
-        public int BuildingValues
+        public string Result
         {
             set
             {
-                BuildingValuesCountValueLabel.Invoke(
-                    new MethodInvoker(() => BuildingValuesCountValueLabel.Text = value.ToString()));
+                ResultValueLabel.Invoke(
+                    new MethodInvoker(() => ResultValueLabel.Text = value.ToString()));
             }
         }
 
-        /// <summary>
-        /// Итоговое количество ошибок в процессе обработки
-        /// </summary>
-        public int Errors
+        public int FilesWithNoErrors
         {
             set
             {
-                ErrorsCountValueLabel.Invoke(
-                    new MethodInvoker(() => ErrorsCountValueLabel.Text = value.ToString()));
+                FilesWithNoErrorsValueLabel.Invoke(
+                    new MethodInvoker(() => FilesWithNoErrorsValueLabel.Text = value.ToString()));
+            }
+        }
+
+        public int FilesWithErrors
+        {
+            set
+            {
+                FilesWithErrorsValueLabel.Invoke(
+                    new MethodInvoker(() => FilesWithErrorsValueLabel.Text = value.ToString()));
+            }
+        }
+
+        public int BuildingsWithNoErrors
+        {
+            set
+            {
+                BuildingsWithNoErrorsValueLabel.Invoke(
+                    new MethodInvoker(() => BuildingsWithNoErrorsValueLabel.Text = value.ToString()));
+            }
+        }
+
+        public int BuildingsWithErrors
+        {
+            set
+            {
+                BuildingsWithErrorsValueLabel.Invoke(
+                    new MethodInvoker(() => BuildingsWithErrorsValueLabel.Text = value.ToString()));
             }
         }
 
@@ -202,19 +223,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
         /// </summary>
         private void FileOpenButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            OpenFileDialog _dialog = new OpenFileDialog()
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer),
-                Title = "Выберите файл для загрузки",
-                Filter = "Книга Excel 97-2003 (*.xls)|*.xls",
-                FilterIndex = 1,
-                DefaultExt = "xls",
-                RestoreDirectory = true,
-            };
+            FolderBrowserDialog _dialog = new FolderBrowserDialog();
+
+            _dialog.Description = "Выберите папку для загрузки файлов из нее.";
+            _dialog.ShowNewFolderButton = false;
+            _dialog.RootFolder = Environment.SpecialFolder.MyComputer;
 
             if (_dialog.ShowDialog() == DialogResult.OK)
             {
-                PathButtonEdit.Text = _dialog.FileName;
+                PathButtonEdit.Text = _dialog.SelectedPath;
             }
         }
 

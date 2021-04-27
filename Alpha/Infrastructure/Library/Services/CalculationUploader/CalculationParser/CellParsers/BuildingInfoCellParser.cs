@@ -15,9 +15,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
             out string building,
             out string errorDescription)
         {
+            string cellDataName = "адрес дома";
+
             return
                 CommonCellParser.TryParseBuildingAddress(
                     source,
+                    cellDataName,
                     out street,
                     out building,
                     out errorDescription);

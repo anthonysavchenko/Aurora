@@ -8,7 +8,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.CalculationUploads.Views
         #region ChoosePathPage
 
         /// <summary>
-        /// Имя файла
+        /// Полное имя папки
         /// </summary>
         string DirectoryPath { get; set; }
 

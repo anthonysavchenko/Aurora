@@ -37,11 +37,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             }
         }
 
-        public string FilePath
+        public string DirectoryPath
         {
             set
             {
-                FilePathTextBox.Text = value;
+                DirectoryPathTextBox.Text = value;
             }
         }
 
@@ -61,6 +61,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             }
         }
 
+        public string MissingBuildings
+        {
+            set
+            {
+                MissingBuildingsTextBox.Text = value;
+            }
+        }
+
         public void ShowDomainOnView()
         {
             Presenter.ShowDomainOnView();
@@ -71,7 +79,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             var description = GridListView.GetFocusedRowCellDisplayText("Description");
-            PosDescriptionTextBox.Text = description;
+            FileDescriptionTextBox.Text = description;
         }
     }
 }

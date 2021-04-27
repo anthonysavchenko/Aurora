@@ -37,7 +37,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                         CalculationRowHandler.SetCheckingError(
                             r,
                             "В последующих строках файла с информацией по этому дому были обнаружены ошибки, " +
-                                "поэтому данных по этому дому не могут быть сохранены."));
+                                "поэтому данные по этому дому не могут быть сохранены."));
 
                 db.SaveChanges();
             }
@@ -69,7 +69,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                         CalculationRowHandler.SetCheckingError(
                             r,
                             "Распознанного адреса дома нет в справочнике обслуживаемых домов, " +
-                                "поэтому данных по этому дому не могут быть сохранены."));
+                                "поэтому данные по этому дому не могут быть сохранены."));
 
                 db.SaveChanges();
             }

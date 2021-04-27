@@ -6,11 +6,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
     {
         string Month { set;  }
 
-        string FilePath { set; }
+        string DirectoryPath { set; }
 
         string Note { set; }
 
         string Description { set; }
+
+        string MissingBuildings { set; }
 
         void ShowDomainOnView();
     }

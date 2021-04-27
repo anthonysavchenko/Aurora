@@ -1,40 +1,44 @@
 ﻿using System;
 using System.IO;
-using Taumis.Alpha.DataBase;
+using System.Linq;
 using Taumis.Alpha.Infrastructure.Library.Services.Excel;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
-using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.BuildingValuesUploader.BuildingValuesParser
 {
-    static public class Parser
+    public static class Parser
     {
-        static public bool Parse(
-            BuildingValuesUploads upload,
+        public static bool TryParse(
+            int uploadID,
+            string directoryPath,
             int progressFrom,
             int progressTill,
             Action<int, string> SetProgress)
         {
-            SetProgress(progressFrom, "Подготовка к началу распознавания файла...");
+            SetProgress(progressFrom, "Подготовка к началу распознавания файлов...");
 
-            if (!GetExcelWorker(upload, out Excel2007Worker worker))
+            if (!TryGetExcelWorker(uploadID, out Excel2007Worker worker))
             {
                 return false;
             }
 
-            if (!GetFile(upload, out string file))
+            if (!TryGetFiles(uploadID, directoryPath, out string[] files))
             {
                 return false;
             }
 
-            SetProgress(progressFrom, "Распознавание файла...");
+            SetProgress(progressFrom, "Распознавание файлов...");
 
-            if (!FileParser.ParseFile(
-                upload,
-                worker,
-                file))
+            for (int i = 0; i < files.Length; i++)
             {
-                return false;
+                FileParser.ParseFile(
+                    files[i],
+                    worker,
+                    uploadID);
+
+                SetProgress(
+                    progressFrom + (i + 1) * (progressTill - progressFrom) / files.Length,
+                    "Распознавание файлов...");
             }
 
             SetProgress(progressTill, "Распознавание файлов...");
@@ -42,27 +46,30 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.BuildingValuesUploader.Bu
             return true;
         }
 
-        static private bool GetFile(BuildingValuesUploads upload, out string file)
+        private static bool TryGetFiles(int uploadID, string directoryPath, out string[] files)
         {
-            file = null;
+            files = null;
 
-            if (File.Exists(upload.FilePath))
+            try
             {
-                file = upload.FilePath;
+                files = Directory
+                    .GetFiles(directoryPath, "*.xls", SearchOption.TopDirectoryOnly)
+                    .Where(f => f.EndsWith(".xls", StringComparison.OrdinalIgnoreCase))
+                    .ToArray();
             }
-            else
+            catch (Exception exception)
             {
-                BuildingValuesUploadHandler.UpdateUploadWithError(
-                    upload.ID,
-                    "Ошибка при поиске файлов в папке. " +
-                        "Попробуйте выбрать другую папку.");
+                BuildingValuesUploadHandler.UpdateParsingError(
+                    uploadID,
+                    "Ошибка при поиске файлов в папке. Попробуйте выбрать другую папку.",
+                    exception);
                 return false;
             }
 
             return true;
         }
 
-        static private bool GetExcelWorker(BuildingValuesUploads upload, out Excel2007Worker worker)
+        private static bool TryGetExcelWorker(int uploadID, out Excel2007Worker worker)
         {
             worker = null;
 
@@ -70,14 +77,12 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.BuildingValuesUploader.Bu
             {
                 worker = new Excel2007Worker();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Logger.SimpleWrite($"BuildingValuesParser.Parser GetExcelWorker error: {e}");
-                BuildingValuesUploadHandler.UpdateUploadWithError(
-                    upload.ID,
-                    "Ошибка при подготовке к работе с Excel. " +
-                        "Убедитесь, что на компьютере установлен MS Excel.",
-                    e.ToString());
+                BuildingValuesUploadHandler.UpdateParsingError(
+                    uploadID,
+                    "Ошибка при подготовке к работе с Excel. Убедитесь, что на компьютере установлен MS Excel.",
+                    exception);
                 return false;
             }
 

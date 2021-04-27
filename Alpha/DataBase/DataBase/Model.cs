@@ -42,10 +42,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesForms_PrivateValuesUploads", "PrivateValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.PrivateValuesUploads), "PrivateValuesForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesForms))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_PrivateValuesUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "PrivateValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.PrivateValuesUploads))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounters_Buildings", "Buildings", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Buildings), "BuildingCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounters))]
-[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingValuesUploads), "BuildingValuesUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingValuesUploadPoses))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingValuesUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "BuildingValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingValuesUploads))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingCounters", "BuildingCounters", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingCounters), "BuildingCounterValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounterValues))]
-[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingValuesUploadPoses", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingValuesUploadPoses), "BuildingCounterValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounterValues))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationUploads_Users", "Users", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Users), "CalculationUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationUploads))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationFiles_CalculationUploads", "CalculationUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationUploads), "CalculationFiles", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationFiles))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CalculationForms_CalculationFiles", "CalculationFiles", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationFiles), "CalculationForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CalculationForms))]
@@ -64,6 +62,10 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_LegalEntityCalculationValues_LegalEntities", "LegalEntities", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.LegalEntities), "LegalEntityCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.LegalEntityCalculationValues))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_CalculationRows", "CalculationRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.CalculationRows), "CustomerCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerCalculationValues))]
 [assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_CustomerCalculationValues_Customers", "Customers", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.Customers), "CustomerCalculationValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.CustomerCalculationValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingValuesRows", "BuildingValuesRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingValuesRows), "BuildingCounterValues", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingCounterValues))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesFiles", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingValuesFiles), "BuildingValuesForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingValuesForms))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesForms", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingValuesForms), "BuildingValuesRows", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingValuesRows))]
+[assembly: EdmRelationshipAttribute("AlphaDataBaseModel", "FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesUploads", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Taumis.Alpha.DataBase.BuildingValuesUploads), "BuildingValuesFiles", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Taumis.Alpha.DataBase.BuildingValuesFiles))]
 
 #endregion
 
@@ -451,22 +453,6 @@ namespace Taumis.Alpha.DataBase
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<BuildingValuesUploadPoses> BuildingValuesUploadPoses
-        {
-            get
-            {
-                if ((_BuildingValuesUploadPoses == null))
-                {
-                    _BuildingValuesUploadPoses = base.CreateObjectSet<BuildingValuesUploadPoses>("BuildingValuesUploadPoses");
-                }
-                return _BuildingValuesUploadPoses;
-            }
-        }
-        private ObjectSet<BuildingValuesUploadPoses> _BuildingValuesUploadPoses;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<BuildingValuesUploads> BuildingValuesUploads
         {
             get
@@ -703,6 +689,54 @@ namespace Taumis.Alpha.DataBase
             }
         }
         private ObjectSet<CustomerCalculationValues> _CustomerCalculationValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BuildingValuesFiles> BuildingValuesFiles
+        {
+            get
+            {
+                if ((_BuildingValuesFiles == null))
+                {
+                    _BuildingValuesFiles = base.CreateObjectSet<BuildingValuesFiles>("BuildingValuesFiles");
+                }
+                return _BuildingValuesFiles;
+            }
+        }
+        private ObjectSet<BuildingValuesFiles> _BuildingValuesFiles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BuildingValuesForms> BuildingValuesForms
+        {
+            get
+            {
+                if ((_BuildingValuesForms == null))
+                {
+                    _BuildingValuesForms = base.CreateObjectSet<BuildingValuesForms>("BuildingValuesForms");
+                }
+                return _BuildingValuesForms;
+            }
+        }
+        private ObjectSet<BuildingValuesForms> _BuildingValuesForms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BuildingValuesRows> BuildingValuesRows
+        {
+            get
+            {
+                if ((_BuildingValuesRows == null))
+                {
+                    _BuildingValuesRows = base.CreateObjectSet<BuildingValuesRows>("BuildingValuesRows");
+                }
+                return _BuildingValuesRows;
+            }
+        }
+        private ObjectSet<BuildingValuesRows> _BuildingValuesRows;
 
         #endregion
 
@@ -877,14 +911,6 @@ namespace Taumis.Alpha.DataBase
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the BuildingValuesUploadPoses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToBuildingValuesUploadPoses(BuildingValuesUploadPoses buildingValuesUploadPoses)
-        {
-            base.AddObject("BuildingValuesUploadPoses", buildingValuesUploadPoses);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the BuildingValuesUploads EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToBuildingValuesUploads(BuildingValuesUploads buildingValuesUploads)
@@ -1002,6 +1028,30 @@ namespace Taumis.Alpha.DataBase
         public void AddToCustomerCalculationValues(CustomerCalculationValues customerCalculationValues)
         {
             base.AddObject("CustomerCalculationValues", customerCalculationValues);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BuildingValuesFiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBuildingValuesFiles(BuildingValuesFiles buildingValuesFiles)
+        {
+            base.AddObject("BuildingValuesFiles", buildingValuesFiles);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BuildingValuesForms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBuildingValuesForms(BuildingValuesForms buildingValuesForms)
+        {
+            base.AddObject("BuildingValuesForms", buildingValuesForms);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BuildingValuesRows EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBuildingValuesRows(BuildingValuesRows buildingValuesRows)
+        {
+            base.AddObject("BuildingValuesRows", buildingValuesRows);
         }
 
         #endregion
@@ -2194,30 +2244,6 @@ namespace Taumis.Alpha.DataBase
         private Nullable<global::System.Decimal> _CurrentValue;
         partial void OnCurrentValueChanging(Nullable<global::System.Decimal> value);
         partial void OnCurrentValueChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> CurrentDate
-        {
-            get
-            {
-                return _CurrentDate;
-            }
-            set
-            {
-                OnCurrentDateChanging(value);
-                ReportPropertyChanging("CurrentDate");
-                _CurrentDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CurrentDate");
-                OnCurrentDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _CurrentDate;
-        partial void OnCurrentDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnCurrentDateChanged();
 
         #endregion
 
@@ -2267,16 +2293,16 @@ namespace Taumis.Alpha.DataBase
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingValuesUploadPoses")]
-        public BuildingValuesUploadPoses BuildingValuesUploadPoses
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingValuesRows", "BuildingValuesRows")]
+        public BuildingValuesRows BuildingValuesRows
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploadPoses>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingValuesUploadPoses").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesRows>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows", "BuildingValuesRows").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploadPoses>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingValuesUploadPoses").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesRows>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows", "BuildingValuesRows").Value = value;
             }
         }
         /// <summary>
@@ -2284,17 +2310,17 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<BuildingValuesUploadPoses> BuildingValuesUploadPosesReference
+        public EntityReference<BuildingValuesRows> BuildingValuesRowsReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploadPoses>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingValuesUploadPoses");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesRows>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows", "BuildingValuesRows");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BuildingValuesUploadPoses>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingValuesUploadPoses", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BuildingValuesRows>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows", "BuildingValuesRows", value);
                 }
             }
         }
@@ -2634,22 +2660,26 @@ namespace Taumis.Alpha.DataBase
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingValuesUploadPoses")]
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingValuesFiles")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class BuildingValuesUploadPoses : EntityObject
+    public partial class BuildingValuesFiles : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new BuildingValuesUploadPoses object.
+        /// Create a new BuildingValuesFiles object.
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
-        public static BuildingValuesUploadPoses CreateBuildingValuesUploadPoses(global::System.Int32 id)
+        /// <param name="processingResult">Initial value of the ProcessingResult property.</param>
+        /// <param name="fileName">Initial value of the FileName property.</param>
+        public static BuildingValuesFiles CreateBuildingValuesFiles(global::System.Int32 id, global::System.Byte processingResult, global::System.String fileName)
         {
-            BuildingValuesUploadPoses buildingValuesUploadPoses = new BuildingValuesUploadPoses();
-            buildingValuesUploadPoses.ID = id;
-            return buildingValuesUploadPoses;
+            BuildingValuesFiles buildingValuesFiles = new BuildingValuesFiles();
+            buildingValuesFiles.ID = id;
+            buildingValuesFiles.ProcessingResult = processingResult;
+            buildingValuesFiles.FileName = fileName;
+            return buildingValuesFiles;
         }
 
         #endregion
@@ -2682,6 +2712,368 @@ namespace Taumis.Alpha.DataBase
         private global::System.Int32 _ID;
         partial void OnIDChanging(global::System.Int32 value);
         partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ProcessingResult
+        {
+            get
+            {
+                return _ProcessingResult;
+            }
+            set
+            {
+                OnProcessingResultChanging(value);
+                ReportPropertyChanging("ProcessingResult");
+                _ProcessingResult = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcessingResult");
+                OnProcessingResultChanged();
+            }
+        }
+        private global::System.Byte _ProcessingResult;
+        partial void OnProcessingResultChanging(global::System.Byte value);
+        partial void OnProcessingResultChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorDescription
+        {
+            get
+            {
+                return _ErrorDescription;
+            }
+            set
+            {
+                OnErrorDescriptionChanging(value);
+                ReportPropertyChanging("ErrorDescription");
+                _ErrorDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorDescription");
+                OnErrorDescriptionChanged();
+            }
+        }
+        private global::System.String _ErrorDescription;
+        partial void OnErrorDescriptionChanging(global::System.String value);
+        partial void OnErrorDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ExceptionMessage
+        {
+            get
+            {
+                return _ExceptionMessage;
+            }
+            set
+            {
+                OnExceptionMessageChanging(value);
+                ReportPropertyChanging("ExceptionMessage");
+                _ExceptionMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ExceptionMessage");
+                OnExceptionMessageChanged();
+            }
+        }
+        private global::System.String _ExceptionMessage;
+        partial void OnExceptionMessageChanging(global::System.String value);
+        partial void OnExceptionMessageChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesUploads")]
+        public BuildingValuesUploads BuildingValuesUploads
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesUploads").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesUploads").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BuildingValuesUploads> BuildingValuesUploadsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesUploads");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesUploads", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesForms")]
+        public EntityCollection<BuildingValuesForms> BuildingValuesForms
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingValuesForms>("AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesForms");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingValuesForms>("AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesForms", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingValuesForms")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BuildingValuesForms : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BuildingValuesForms object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static BuildingValuesForms CreateBuildingValuesForms(global::System.Int32 id)
+        {
+            BuildingValuesForms buildingValuesForms = new BuildingValuesForms();
+            buildingValuesForms.ID = id;
+            return buildingValuesForms;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesFiles")]
+        public BuildingValuesFiles BuildingValuesFiles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesFiles>("AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesFiles").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesFiles>("AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesFiles").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BuildingValuesFiles> BuildingValuesFilesReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesFiles>("AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesFiles");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BuildingValuesFiles>("AlphaDataBaseModel.FK_BuildingValuesForms_BuildingValuesFiles", "BuildingValuesFiles", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesRows")]
+        public EntityCollection<BuildingValuesRows> BuildingValuesRows
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingValuesRows>("AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesRows");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingValuesRows>("AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesRows", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AlphaDataBaseModel", Name="BuildingValuesRows")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BuildingValuesRows : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BuildingValuesRows object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="processingResult">Initial value of the ProcessingResult property.</param>
+        public static BuildingValuesRows CreateBuildingValuesRows(global::System.Int32 id, global::System.Byte processingResult)
+        {
+            BuildingValuesRows buildingValuesRows = new BuildingValuesRows();
+            buildingValuesRows.ID = id;
+            buildingValuesRows.ProcessingResult = processingResult;
+            return buildingValuesRows;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ProcessingResult
+        {
+            get
+            {
+                return _ProcessingResult;
+            }
+            set
+            {
+                OnProcessingResultChanging(value);
+                ReportPropertyChanging("ProcessingResult");
+                _ProcessingResult = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcessingResult");
+                OnProcessingResultChanged();
+            }
+        }
+        private global::System.Byte _ProcessingResult;
+        partial void OnProcessingResultChanging(global::System.Byte value);
+        partial void OnProcessingResultChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2832,30 +3224,6 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> CurrentDate
-        {
-            get
-            {
-                return _CurrentDate;
-            }
-            set
-            {
-                OnCurrentDateChanging(value);
-                ReportPropertyChanging("CurrentDate");
-                _CurrentDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CurrentDate");
-                OnCurrentDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _CurrentDate;
-        partial void OnCurrentDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnCurrentDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.String ErrorDescription
         {
             get
@@ -2909,34 +3277,18 @@ namespace Taumis.Alpha.DataBase
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploads")]
-        public BuildingValuesUploads BuildingValuesUploads
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingValuesRows", "BuildingCounterValues")]
+        public EntityCollection<BuildingCounterValues> BuildingCounterValues
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploads").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploads").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<BuildingValuesUploads> BuildingValuesUploadsReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploads");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingCounterValues>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows", "BuildingCounterValues");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BuildingValuesUploads>("AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploads", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCounterValues>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesRows", "BuildingCounterValues", value);
                 }
             }
         }
@@ -2947,18 +3299,34 @@ namespace Taumis.Alpha.DataBase
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingCounterValues")]
-        public EntityCollection<BuildingCounterValues> BuildingCounterValues
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesForms")]
+        public BuildingValuesForms BuildingValuesForms
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingCounterValues>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingCounterValues");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesForms>("AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesForms").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesForms>("AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesForms").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BuildingValuesForms> BuildingValuesFormsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BuildingValuesForms>("AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesForms");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingCounterValues>("AlphaDataBaseModel.FK_BuildingCounterValues_BuildingValuesUploadPoses", "BuildingCounterValues", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BuildingValuesForms>("AlphaDataBaseModel.FK_BuildingValuesRows_BuildingValuesForms", "BuildingValuesForms", value);
                 }
             }
         }
@@ -2981,16 +3349,18 @@ namespace Taumis.Alpha.DataBase
         /// Create a new BuildingValuesUploads object.
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="processingResult">Initial value of the ProcessingResult property.</param>
         /// <param name="created">Initial value of the Created property.</param>
         /// <param name="month">Initial value of the Month property.</param>
-        /// <param name="filePath">Initial value of the FilePath property.</param>
-        public static BuildingValuesUploads CreateBuildingValuesUploads(global::System.Int32 id, global::System.DateTime created, global::System.DateTime month, global::System.String filePath)
+        /// <param name="directoryPath">Initial value of the DirectoryPath property.</param>
+        public static BuildingValuesUploads CreateBuildingValuesUploads(global::System.Int32 id, global::System.Byte processingResult, global::System.DateTime created, global::System.DateTime month, global::System.String directoryPath)
         {
             BuildingValuesUploads buildingValuesUploads = new BuildingValuesUploads();
             buildingValuesUploads.ID = id;
+            buildingValuesUploads.ProcessingResult = processingResult;
             buildingValuesUploads.Created = created;
             buildingValuesUploads.Month = month;
-            buildingValuesUploads.FilePath = filePath;
+            buildingValuesUploads.DirectoryPath = directoryPath;
             return buildingValuesUploads;
         }
 
@@ -3024,6 +3394,30 @@ namespace Taumis.Alpha.DataBase
         private global::System.Int32 _ID;
         partial void OnIDChanging(global::System.Int32 value);
         partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte ProcessingResult
+        {
+            get
+            {
+                return _ProcessingResult;
+            }
+            set
+            {
+                OnProcessingResultChanging(value);
+                ReportPropertyChanging("ProcessingResult");
+                _ProcessingResult = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcessingResult");
+                OnProcessingResultChanged();
+            }
+        }
+        private global::System.Byte _ProcessingResult;
+        partial void OnProcessingResultChanging(global::System.Byte value);
+        partial void OnProcessingResultChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3078,24 +3472,24 @@ namespace Taumis.Alpha.DataBase
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String FilePath
+        public global::System.String DirectoryPath
         {
             get
             {
-                return _FilePath;
+                return _DirectoryPath;
             }
             set
             {
-                OnFilePathChanging(value);
-                ReportPropertyChanging("FilePath");
-                _FilePath = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("FilePath");
-                OnFilePathChanged();
+                OnDirectoryPathChanging(value);
+                ReportPropertyChanging("DirectoryPath");
+                _DirectoryPath = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DirectoryPath");
+                OnDirectoryPathChanged();
             }
         }
-        private global::System.String _FilePath;
-        partial void OnFilePathChanging(global::System.String value);
-        partial void OnFilePathChanged();
+        private global::System.String _DirectoryPath;
+        partial void OnDirectoryPathChanging(global::System.String value);
+        partial void OnDirectoryPathChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3179,28 +3573,6 @@ namespace Taumis.Alpha.DataBase
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploadPoses")]
-        public EntityCollection<BuildingValuesUploadPoses> BuildingValuesUploadPoses
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingValuesUploadPoses>("AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploadPoses");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingValuesUploadPoses>("AlphaDataBaseModel.FK_BuildingValuesUploadPoses_BuildingValuesUploads", "BuildingValuesUploadPoses", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesUploads_Users", "Users")]
         public Users Author
         {
@@ -3229,6 +3601,28 @@ namespace Taumis.Alpha.DataBase
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("AlphaDataBaseModel.FK_BuildingValuesUploads_Users", "Users", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AlphaDataBaseModel", "FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesFiles")]
+        public EntityCollection<BuildingValuesFiles> BuildingValuesFiles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BuildingValuesFiles>("AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesFiles");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BuildingValuesFiles>("AlphaDataBaseModel.FK_BuildingValuesFiles_BuildingValuesUploads", "BuildingValuesFiles", value);
                 }
             }
         }

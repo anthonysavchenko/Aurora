@@ -180,7 +180,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.CalculationUploader.Calcu
                 TryCloseFile(worker, fileID);
                 CalculationFileHandler.UpdateParsingError(
                     fileID,
-                    $"Программная ошибка при распознавании строки файла с номером: {rowNumber + 1}",
+                    $"Программная ошибка при распознавании строки файла с номером: {rowNumber}",
                     exception);
                 return false;
             }

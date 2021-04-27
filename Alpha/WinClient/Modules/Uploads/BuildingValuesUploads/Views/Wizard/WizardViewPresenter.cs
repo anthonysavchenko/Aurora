@@ -1,6 +1,8 @@
 using DevExpress.XtraWizard;
 using System.IO;
 using System.Linq;
+using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
 using Taumis.Alpha.Infrastructure.Library.Services.BuildingValuesUploader;
 using Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Constants;
@@ -35,12 +37,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             View.IsMasterCompleted = false;
             View.IsMasterInProgress = false;
 
-            View.FilePath = string.Empty;
+            View.DirectoryPath = string.Empty;
             View.Month = ServerTime.GetDateTimeInfo().Now;
             View.Note = string.Empty;
 
-            View.BuildingValues = 0;
-            View.Errors = 0;
+            View.Result = string.Empty;
+            View.FilesWithNoErrors = 0;
+            View.FilesWithErrors = 0;
+            View.BuildingsWithNoErrors = 0;
+            View.BuildingsWithErrors = 0;
 
             View.SetInitialProgress("Поготовка к началу оработки данных...");
 
@@ -64,16 +69,27 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
                 {
                     case "ChoosePathWizardPage":
                         {
-                            if (string.IsNullOrEmpty(View.FilePath))
+                            if (string.IsNullOrEmpty(View.DirectoryPath))
                             {
-                                View.ShowMessage("Выберите файл для загрузки.", "Ошибка выбора файла");
+                                View.ShowMessage("Укажите папку для загрузки файлов.", "Ошибка выбора папки");
                                 _next = WizardSteps.Unknown;
                             }
-                            else if (!File.Exists(View.FilePath))
+                            else if (!Directory.Exists(View.DirectoryPath))
                             {
                                 View.ShowMessage(
-                                    "Некорректно указан файл. Такого файла не существует.",
-                                    "Ошибка выбора файла");
+                                    "Некорректно указана папка с файлами. Такой папки не существует.",
+                                    "Ошибка выбора папки");
+                                _next = WizardSteps.Unknown;
+                            }
+                            else if (Directory.GetFiles(
+                                View.DirectoryPath,
+                                "*.xls",
+                                SearchOption.TopDirectoryOnly).Length < 1)
+                            {
+                                View.ShowMessage(
+                                    "В указанной папке не найдено ни одного файла в формате Excel 97-2003 с " +
+                                        "расширением .xls.",
+                                    "Ошибка выбора папки");
                                 _next = WizardSteps.Unknown;
                             }
                             else
@@ -124,7 +140,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
                             {
                                 case "ChoosePathWizardPage":
                                     {
-                                        UploadFile();
+                                        UploadFiles();
                                     }
                                     break;
                             }
@@ -134,38 +150,113 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Uploads.BuildingValuesUploads.Vi
             }
         }
 
-        private void UploadFile()
+        private void UploadFiles()
         {
             View.IsMasterInProgress = true;
 
             Uploader.UploadAsync(
-                View.FilePath,
+                View.DirectoryPath,
                 int.Parse(UserHolder.User.ID),
                 View.Month,
                 View.Note,
                 OnProgress: (int percents, string jobName) => View.SetProgress(jobName, percents),
-                OnCompleted: (DataBase.BuildingValuesUploads upload) =>
+                OnCompleted: (int? uploadID) =>
                 {
-                    if (upload == null)
+                    if (!uploadID.HasValue)
                     {
-                        View.BuildingValues = 0;
-                        View.Errors = 1;
-                        View.ShowMessage(
-                            "Проверьте подключение к локальной сети УК ФР и серверу БД.",
-                            "Ошибка при подготовке к началу обработки данных");
+                        View.Result =
+                            "Программная ошибка во время загрузки показаний ОДПУ при подготовке к " +
+                                "началу обработки данных. Проверьте подключение к сети и серверу БД.";
+                        View.FilesWithNoErrors = 0;
+                        View.FilesWithErrors = 0;
+                        View.BuildingsWithNoErrors = 0;
+                        View.BuildingsWithErrors = 0;
                     }
                     else
                     {
-                        View.BuildingValues =
-                            upload
-                                .BuildingValuesUploadPoses
-                                .Count(p => string.IsNullOrEmpty(p.ErrorDescription));
+                        using (var db = new Entities())
+                        {
+                            var upload =
+                                db.BuildingValuesUploads
+                                    .First(u => u.ID == uploadID);
 
-                        View.Errors =
-                            (!string.IsNullOrEmpty(upload.ErrorDescription) ? 1 : 0) +
-                                upload
-                                    .BuildingValuesUploadPoses
-                                    .Count(p => !string.IsNullOrEmpty(p.ErrorDescription));
+                            if (upload.ProcessingResult != (byte)UploadProcessingResult.OK
+                                && string.IsNullOrEmpty(upload.ErrorDescription))
+                            {
+                                View.Result =
+                                    "Программная ошибка во время загрузки показаний ОДПУ при обработке данных. " +
+                                        "Проверьте подключение к сети и серверу БД.";
+                            }
+                            else if (upload.ProcessingResult != (byte)UploadProcessingResult.OK
+                                && !string.IsNullOrEmpty(upload.ErrorDescription))
+                            {
+                                View.Result = upload.ErrorDescription;
+                            }
+                            else
+                            {
+                                View.Result = "OK";
+                            }
+
+                            View.FilesWithNoErrors =
+                                db.BuildingValuesFiles
+                                    .Count(f =>
+                                        f.BuildingValuesUploads.ID == uploadID
+                                            && f.ProcessingResult == (byte)FileProcessingResult.OK);
+                            View.FilesWithErrors =
+                                db.BuildingValuesFiles
+                                    .Count(f =>
+                                        f.BuildingValuesUploads.ID == uploadID
+                                            && f.ProcessingResult != (byte)FileProcessingResult.OK);
+                            View.BuildingsWithNoErrors =
+                                db.BuildingValuesRows
+                                    .Where(r =>
+                                        r.BuildingValuesForms.BuildingValuesFiles.BuildingValuesUploads.ID == uploadID
+                                            && r.BuildingValuesForms.BuildingValuesFiles.ProcessingResult ==
+                                                (byte)FileProcessingResult.OK
+                                            && r.ProcessingResult == (byte)RowProcessingResult.OK)
+                                    .Select(r =>
+                                        new
+                                        {
+                                            r.Street,
+                                            r.Building,
+                                        })
+                                    .ToList()
+                                    .GroupBy(g =>
+                                        new
+                                        {
+                                            Street = g.Street.ToLowerInvariant(),
+                                            Building = g.Building.ToLowerInvariant(),
+                                        })
+                                    .Count();
+                            View.BuildingsWithErrors =
+                                db.BuildingValuesRows
+                                    .Where(r =>
+                                        r.BuildingValuesForms.BuildingValuesFiles.BuildingValuesUploads.ID == uploadID
+                                            && r.BuildingValuesForms.BuildingValuesFiles.ProcessingResult ==
+                                                (byte)FileProcessingResult.OK
+                                            && r.ProcessingResult != (byte)RowProcessingResult.OK
+                                            && r.ProcessingResult != (byte)RowProcessingResult.Skipped)
+                                    .Select(r =>
+                                        new
+                                        {
+                                            r.Street,
+                                            r.Building,
+                                        })
+                                    .ToList()
+                                    .GroupBy(g =>
+                                        new
+                                        {
+                                            Street =
+                                                !string.IsNullOrEmpty(g.Street)
+                                                    ? g.Street.ToLowerInvariant()
+                                                    : string.Empty,
+                                            Building =
+                                                !string.IsNullOrEmpty(g.Building)
+                                                    ? g.Building.ToLowerInvariant()
+                                                    : string.Empty,
+                                        })
+                                    .Count();
+                        }
                     }
 
                     View.IsMasterInProgress = false;

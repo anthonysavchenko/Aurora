@@ -1,25 +1,22 @@
 ﻿using System;
-using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Library.Services.Handlers;
-using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.Alpha.Infrastructure.Library.Services.BuildingValuesUploader.BuildingValuesSaver
 {
-    static public class FileSaver
+    public static class FileSaver
     {
-        static public void SaveFile(BuildingValuesUploads form, DateTime month)
+        public static void SaveFile(int fileID, int formID, DateTime month)
         {
             try
             {
-                BuildingValuesFormSaver.FileSaver.SaveFile(form.ID, month);
+                FormSaver.SaveForm(formID, month);
+                BuildingValuesFileHandler.UpdateProcessingResult(fileID);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Logger.SimpleWrite($"BuildingValuesSaver.FileSaver SaveFile error: {e}");
-                BuildingValuesUploadHandler.UpdateUploadWithError(
-                    form.ID,
-                    "Ошибка при сохранении распознанных данных.",
-                    e.ToString());
+                BuildingValuesFileHandler.UpdateSavingError(
+                    fileID,
+                    exception);
             }
         }
     }
