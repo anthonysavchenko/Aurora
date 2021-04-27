@@ -181,7 +181,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Consolidation.Models
             if (visibleIndex < FIRST_MONTH_COLUMN_INDEX + MONTH_COUNT)
                 return visibleIndex * 2 - FIRST_MONTH_COLUMN_INDEX;
 
-            return visibleIndex;
+            return MONTH_COUNT + visibleIndex;
         }
 
         public static void CreateDataTableColumns(DataTable table, Column[] columns)
