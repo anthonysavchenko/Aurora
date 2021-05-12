@@ -21,6 +21,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         {
             StringBuilder _builder = new StringBuilder();
 
+            _builder.AppendLine("Вас обслуживает ООО \"УК Фрунзенского района\"");
+            _builder.AppendLine("адрес: Рылеева, 8");
+            _builder.AppendLine("по агент.договору с МУП РКЦ");
+
             if (bankDetail != null)
             {
                 if (!string.IsNullOrEmpty(bankDetail.INN))
@@ -47,7 +51,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
 
             _builder.AppendLine("Юр. от. 279-15-81, отд. по раб. с нас. 279-15-85, ПТО 279-15-84,");
             _builder.Append(
-                $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72, адрес: Рылеева, 8");
+                $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}, аб. отд. 230-27-72");
 
             return _builder.ToString();
         }
