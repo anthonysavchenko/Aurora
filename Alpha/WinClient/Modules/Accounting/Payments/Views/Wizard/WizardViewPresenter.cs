@@ -228,7 +228,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                     case "CheckDataWizardPage":
                         {
                             // Проверяем наличие хоть одной записи
-                            if (Payments.Count == 1 && String.IsNullOrEmpty(Payments[0].Account))
+                            if (Payments.Count == 1
+                                && Payments.First().Value != null
+                                && string.IsNullOrEmpty(Payments.First().Value.Account))
                             {
                                 View.ShowMessage("Введите хотя бы один платеж.", "Ошибка ввода данных");
                                 _next = WizardSteps.Unknown;
