@@ -34,6 +34,9 @@
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraPrinting.BarCode.Code39Generator code39Generator1 = new DevExpress.XtraPrinting.BarCode.Code39Generator();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
+            this.xrLabel10 = new DevExpress.XtraReports.UI.XRLabel();
+            this.areaLabel = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrPanel3 = new DevExpress.XtraReports.UI.XRPanel();
@@ -67,7 +70,6 @@
             this.repNameLbl = new DevExpress.XtraReports.UI.XRLabel();
             this.peopleCountLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel7 = new DevExpress.XtraReports.UI.XRLabel();
-            this.areaLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.payerAddressLabel = new DevExpress.XtraReports.UI.XRLabel();
             this.payerAccountLabel = new DevExpress.XtraReports.UI.XRLabel();
@@ -92,6 +94,8 @@
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel10,
+            this.xrLabel8,
             this.xrLabel6,
             this.xrLabel4,
             this.xrPanel3,
@@ -118,6 +122,34 @@
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             this.Detail.StylePriority.UseTextAlignment = false;
+            // 
+            // xrLabel10
+            // 
+            this.xrLabel10.BookmarkParent = this.areaLabel;
+            resources.ApplyResources(this.xrLabel10, "xrLabel10");
+            this.xrLabel10.Name = "xrLabel10";
+            this.xrLabel10.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel10.StylePriority.UseFont = false;
+            this.xrLabel10.StylePriority.UseTextAlignment = false;
+            // 
+            // areaLabel
+            // 
+            this.areaLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.Area")});
+            resources.ApplyResources(this.areaLabel, "areaLabel");
+            this.areaLabel.Name = "areaLabel";
+            this.areaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.areaLabel.StylePriority.UseFont = false;
+            this.areaLabel.StylePriority.UseTextAlignment = false;
+            this.areaLabel.WordWrap = false;
+            // 
+            // xrLabel8
+            // 
+            resources.ApplyResources(this.xrLabel8, "xrLabel8");
+            this.xrLabel8.Name = "xrLabel8";
+            this.xrLabel8.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabel8.StylePriority.UseFont = false;
+            this.xrLabel8.StylePriority.UseTextAlignment = false;
             // 
             // xrLabel6
             // 
@@ -494,17 +526,6 @@
             this.xrLabel7.StylePriority.UseTextAlignment = false;
             this.xrLabel7.WordWrap = false;
             // 
-            // areaLabel
-            // 
-            this.areaLabel.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Customers.Area")});
-            resources.ApplyResources(this.areaLabel, "areaLabel");
-            this.areaLabel.Name = "areaLabel";
-            this.areaLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.areaLabel.StylePriority.UseFont = false;
-            this.areaLabel.StylePriority.UseTextAlignment = false;
-            this.areaLabel.WordWrap = false;
-            // 
             // xrLabel5
             // 
             resources.ApplyResources(this.xrLabel5, "xrLabel5");
@@ -723,5 +744,7 @@
         private DevExpress.XtraReports.UI.XRPanel xrPanel3;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
         private DevExpress.XtraReports.UI.XRLabel xrLabel6;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel10;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel8;
     }
 }
