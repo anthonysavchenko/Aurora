@@ -326,35 +326,41 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                 foreach (ChargeExportFormatType _format in formats)
                 {
-                    string _postfix =
-                        _format == ChargeExportFormatType.Sberbank
-                            ? DateTime.Now.ToString("_001_MMdd")
-                            : string.Empty;
+                    string formatString;
 
-                    string formatString =
-                        _format == ChargeExportFormatType.Sberbank
-                            ? "{0};{1};{2},{3};{4};Владивосток, {5}, {6}, {7};{8:MMyy};{9}"
-                            : "{0};Владивосток,{1},{2},{3};{4};{5}";
+                    switch (_format)
+                    {
+                        case ChargeExportFormatType.Sberbank:
+                        default:
+                            formatString = "{0}|{1}|{2},{3}|{4}|Владивосток, {5}, {6}, {7}|{8:MMyy}|{9}|";
+                            break;
+                        case ChargeExportFormatType.Primsocbank:
+                            formatString = "{0};Владивосток,{1},{2},{3};{4};{5}";
+                            break;
+                        case ChargeExportFormatType.Pochtabank:
+                            formatString = "{0};{1};Владивосток, {2}, {3}, {4};{5:MMyy};{6};";
+                            break;
+                    }
 
                     foreach (KeyValuePair<int, List<CustomerInfo>> _pair in _data)
                     {
                         BankDetailInfo _bInfo = _bankDetailData[_pair.Key];
 
-                        string _fileName = string.Empty;
+                        string _fileName;
 
-                        if (_format == ChargeExportFormatType.Sberbank)
+                        switch (_format)
                         {
-                            _fileName = $"{_bInfo.INN}_{_bInfo.Account}_{period:MMyyyy}";
-                        }
-                        else if (_format == ChargeExportFormatType.Primsocbank)
-                        {
-                            _fileName = $"{_bInfo.INN}_{_bInfo.Account}";
-                        }
-                        else // if (_format == ChargeExportFormatType.Pochtabank)
-                        {
-                            int _number = SettingsService.GetAndIncreasePochtabankExportFileNumber();
-                            
-                            _fileName = $"{_bInfo.INN}_{_bInfo.Account}_{_number}_{today:MMdd}";
+                            case ChargeExportFormatType.Sberbank:
+                            default:
+                                _fileName = $"{_bInfo.INN}_{_bInfo.Account}_{DateTime.Now:_001_MMdd}";
+                                break;
+                            case ChargeExportFormatType.Primsocbank:
+                               _fileName = $"{_bInfo.INN}_{_bInfo.Account}";
+                                break;
+                            case ChargeExportFormatType.Pochtabank:
+                                int _number = SettingsService.GetAndIncreasePochtabankExportFileNumber();
+                                _fileName = $"{_bInfo.INN}_{_bInfo.Account}_{_number}_{today:MMdd}";
+                                break;
                         }
 
                         string _filePath = $"{outputPath}\\{_fileName}.txt";
@@ -372,48 +378,47 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                             foreach (var _record in _pair.Value)
                             {
-                                string _apartment = string.IsNullOrEmpty(_record.Apartment)
-                                    ? string.Empty
-                                    : $", {_record.Apartment}";
-
-                                string _line = string.Empty;
-
-                                if (_format == ChargeExportFormatType.Sberbank)
+                                switch (_format)
                                 {
-                                    _file.WriteLine(
-                                        formatString,
-                                        _record.Account,      // Лицевой счет
-                                        _record.GisZhkhID,    // ЕЛС
-                                        _record.BuildingFias, // Код ФИАС, дом
-                                        _record.Apartment,    // Код ФИАС, квартира
-                                        _record.Owner,        // ФИО
-                                        _record.Street,       // Адрес, улица
-                                        _record.Building,     // Адрес, дом
-                                        _record.Apartment,    // Адрес, квартира
-                                        period,               // Период
-                                        _record.Value < 0     // Сумма
-                                            ? "0,00"
-                                            : _record.Value.ToString("0.00").Replace('.', ','));
+                                    case ChargeExportFormatType.Sberbank:
+                                    default:
+                                        _file.WriteLine(
+                                            formatString,
+                                            _record.Account,      // Лицевой счет
+                                            _record.GisZhkhID,    // ЕЛС
+                                            _record.BuildingFias, // Код ФИАС, дом
+                                            _record.Apartment,    // Код ФИАС, квартира
+                                            _record.Owner,        // ФИО
+                                            _record.Street,       // Адрес, улица
+                                            _record.Building,     // Адрес, дом
+                                            _record.Apartment,    // Адрес, квартира
+                                            period,               // Период
+                                            _record.Value < 0     // Сумма
+                                                ? "0,00"
+                                                : _record.Value.ToString("0.00").Replace('.', ','));
+                                        break;
+                                    case ChargeExportFormatType.Primsocbank:
+                                        _file.WriteLine(
+                                            formatString,
+                                            _record.Owner,
+                                            _record.Street,
+                                            _record.Building,
+                                            _record.Apartment,
+                                            _record.Account,
+                                            _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
+                                        break;
+                                    case ChargeExportFormatType.Pochtabank:
+                                        _file.WriteLine(
+                                            formatString,
+                                            _record.Account,
+                                            _record.Owner,
+                                            _record.Street,
+                                            _record.Building,
+                                            _record.Apartment,
+                                            period,
+                                            _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
+                                        break;
                                 }
-                                else if (_format == ChargeExportFormatType.Primsocbank)
-                                {
-                                    _file.WriteLine(
-                                        formatString,
-                                        _record.Owner,
-                                        _record.Street,
-                                        _record.Building,
-                                        _record.Apartment,
-                                        _record.Account,
-                                        _record.Value < 0 ? "0" : _record.Value.ToString().Replace(',', '.'));
-                                }
-                                else // if (_format == ChargeExportFormatType.Pochtabank)
-                                {
-                                    _line = $"{_record.Account};{_record.Owner};" +
-                                        $"Владивосток, {_record.Street}, {_record.Building}{_apartment};" +
-                                        $"{_period:MMyy};{ _record.Value};";
-                                }
-
-                                _file.WriteLine(_line);
                             }
                         }
                     }
