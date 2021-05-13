@@ -23,7 +23,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
 
             _builder.AppendLine("Вас обслуживает ООО \"УК Фрунзенского района\"");
             _builder.AppendLine("адрес: Рылеева, 8");
-            _builder.AppendLine("по агент.договору с МУП РКЦ");
+            _builder.AppendLine("по агент.договору с РКЦ");
 
             if (bankDetail != null)
             {

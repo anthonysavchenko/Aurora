@@ -127,10 +127,10 @@
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1535.26709, 142.000015</value>
+    <value>1514.10046, 142.000015</value>
   </data>
   <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>455.732056, 27.5</value>
+    <value>476.898682, 27.5</value>
   </data>
   <data name="xrLabel6.Text" xml:space="preserve">
     <value>xrLabel6</value>
@@ -148,7 +148,7 @@
     <value>1186.99927, 142.000015</value>
   </data>
   <data name="xrLabel4.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>348.267822, 27.5</value>
+    <value>327.1012, 27.5</value>
   </data>
   <data name="xrLabel4.Text" xml:space="preserve">
     <value>xrLabel4</value>
