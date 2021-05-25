@@ -181,7 +181,7 @@
     <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1545.85022, 169.500031</value>
+    <value>1545.85144, 197.000031</value>
   </data>
   <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>445.148926, 27.5</value>
@@ -199,7 +199,7 @@
     <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1186.99927, 169.500031</value>
+    <value>1186.99927, 197.000031</value>
   </data>
   <data name="xrLabel4.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>358.850952, 27.5</value>
@@ -1181,7 +1181,7 @@
     <value>1186.99915, 27.5000172</value>
   </data>
   <data name="bankDetailsLabel.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>804, 142</value>
+    <value>803.9999, 169.500015</value>
   </data>
   <data name="bankDetailsLabel.Text" xml:space="preserve">
     <value>bankDetailsLabel</value>

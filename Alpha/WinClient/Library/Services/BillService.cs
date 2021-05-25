@@ -21,7 +21,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         {
             StringBuilder _builder = new StringBuilder();
 
-            _builder.AppendLine("расчетно-кассовый центр, Рылеева, 8, тел. 230-27-72");
+            _builder.AppendLine("Получатель платежа: расчетно-кассовый центр");
+            _builder.AppendLine("Рылеева 8, тел. 230-27-72, ООО «Лига УК»");
 
             if (bankDetail != null)
             {
