@@ -332,7 +332,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     {
                         case ChargeExportFormatType.Sberbank:
                         default:
-                            formatString = "{0}|{1}|{2},{3}|{4}|Владивосток, {5}, {6}, {7}|{8:MMyy}|{9}|";
+                            formatString = "{0}|{1}|{2}|{3}|Владивосток, {4}, {5}, {6}|{7:MMyy}|{8}|";
                             break;
                         case ChargeExportFormatType.Primsocbank:
                             formatString = "{0};Владивосток,{1},{2},{3};{4};{5}";
@@ -386,8 +386,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                             formatString,
                                             _record.Account,      // Лицевой счет
                                             _record.GisZhkhID,    // ЕЛС
-                                            _record.BuildingFias, // Код ФИАС, дом
-                                            _record.Apartment,    // Код ФИАС, квартира
+                                            !string.IsNullOrEmpty(_record.BuildingFias) // Код ФИАС дома и квартира
+                                                ? $"{_record.BuildingFias},{_record.Apartment}"
+                                                : string.Empty,
                                             _record.Owner,        // ФИО
                                             _record.Street,       // Адрес, улица
                                             _record.Building,     // Адрес, дом
