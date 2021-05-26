@@ -17,7 +17,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
         /// <param name="bankDetail">Банковские реквизиты</param>
         /// <param name="contractorInfo">Данные подрядчика</param>
         /// <param name="emergencyPhoneNumber">Телефон аварийных служб</param>
-        public string OrganizationDetails(BankDetails bankDetail, string emergencyPhoneNumber)
+        public string OrganizationDetails(
+            BankDetails bankDetail,
+            string emergencyPhoneNumber = null,
+            string contractorLine = null)
         {
             StringBuilder _builder = new StringBuilder();
 
@@ -49,8 +52,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Library.Services
             }
 
             _builder.AppendLine("Юр. от. 279-15-81, отд. по раб. с нас. 279-15-85, ПТО 279-15-84,");
-            _builder.Append(
+            _builder.AppendLine(
                 $"Авар. служба {(string.IsNullOrEmpty(emergencyPhoneNumber) ? "298-09-81" : emergencyPhoneNumber)}");
+
+            if (contractorLine != null)
+            {
+                _builder.AppendLine(contractorLine);
+            }
 
             return _builder.ToString();
         }

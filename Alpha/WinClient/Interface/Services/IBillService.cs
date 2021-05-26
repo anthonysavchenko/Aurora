@@ -10,7 +10,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Interface.Services
         /// </summary>
         /// <param name="bankDetail">Банковские реквизиты</param>
         /// <param name="emergencyPhoneNumber">Телефон аварийных служб</param>
-        string OrganizationDetails(BankDetails bankDetail, string emergencyPhoneNumber = null);
+        string OrganizationDetails(
+            BankDetails bankDetail,
+            string emergencyPhoneNumber = null,
+            string contractorLine = null);
 
         /// <summary>
         /// Генерирует строку для штрих кода
