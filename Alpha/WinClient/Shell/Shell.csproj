@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>8EA24090FABD3959ACD4F2411DCC74565DC1E28F</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>D6337DB3CFEC7DAD0E0172FCDE9D9F50AC4EF279</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -281,10 +281,10 @@
     <Content Include="Templates\GisZhkh_Customer_Export.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Shell_TemporaryKey.pfx" />
     <Content Include="Templates\BuildingConsumptionImport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Shell_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
