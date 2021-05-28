@@ -40,23 +40,19 @@
   <ItemGroup>
     <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Data.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.Utils.v13.1.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.Utils.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraEditors.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\DevExpress 13.1\DevExpress.XtraGrid.v13.1.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraGrid.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\..\..\..\..\branches\AuroraRepair\ThirdParty\Packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>

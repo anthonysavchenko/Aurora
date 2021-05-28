@@ -119,7 +119,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
                         var _bills =
                             _entities.RegularBillDocs
-                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue != 0))
+                                .Where(b => _billIDs.Contains(b.ID) && (!View.RemoveEmptyBills || b.MonthChargeValue != 0)  && (!View.RemoveMunicipalBills || b.Customers.IsPrivate))
                                 .Select(b =>
                                     new
                                     {
@@ -275,19 +275,89 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             return null;
         }
 
+        private string GetBottomInfoString(string street, string building)
+        {
+            street = street.ToLower();
+
+            if (street == "остров русский, ул. зеленая"
+                || street == "остров русский, п. поспелово"
+                || street == "остров русский, п. подножье"
+                || street == "остров русский, ул. экипажная"
+                || street == "остров русский, поселок воевода")
+            {
+                return "Управляющий по дому - Елена Сергеевна, тел. +7-924-428-48-84";
+            }
+
+            if (street == "уткинская"
+                || street == "прапорщика комарова")
+            {
+                return "Управляющий по дому - Адрианова Варвара Георгиевна, тел. +7-914-703-97-87";
+            }
+
+            if (street == "космонавтов" || street == "борисенко")
+            {
+                return "Управляющий по дому - Милованова Оксана Васильевна, тел 271-80-55";
+            }
+
+            if (street == "гульбиновича"
+                || street == "тунгусская"
+                || street == "тобольская"
+                || street == "терешковой"
+                || (street == "красного знамени проспект" 
+                    && (building == "88" || building == "162" || building == "114")))
+            {
+                return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
+            }
+
+            if (street == "окатовая" 
+                || street == "океанский проспект"
+                || street == "острякова проспект"
+                || street == "некрасовская"
+                || street == "станюковича"
+                || street == "западная"
+                || (street == "красного знамени проспект" && (building == "93" || building == "107")))
+            {
+                return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
+            }
+
+            if (street == "адмирала спиридонова"
+                || street == "адмирала кузнецова"
+                || street == "луговая"
+                || street == "баляева")
+            {
+                return "Управляющий по дому - Горбачева Вера Александровна, тел 255-82-23";
+            }
+
+            if (street == "магнитогорская"
+                || street == "ульяновская"
+                || street == "енисейская"
+                || street == "шилкинская"
+                || street == "полетаева")
+            {
+                return "Управляющий по дому - Шевелева Надежда Дмитриевна, тел. 277-02-99";
+            }
+
+            return string.Empty;
+        }
+
         private string GetEmergencyPhoneNumber(string street, string building)
         {
             street = street.ToLower();
             building = building.ToLower();
 
+            if (street == "борисенко" && building == "100б"
+                || street == "космонавтов"
+                || street == "луговая"
+                || street == "адмирала кузнецова"
+                || street == "адмирала спиридонова"
+                || street == "терешковой"
+                || street == "окатовая")
+            {
+                return "206-03-20";
+            }
+
             if(street == "борисенко"
-                || street == "космонавтов"           
                 || street == "гульбиновича"           
-                || street == "окатовая"               
-                || street == "терешковой"             
-                || street == "адмирала кузнецова"     
-                || street == "адмирала спиридонова"   
-                || street == "луговая"                
                 || street == "баляева")                  
             {
                 return "2-614-714";
@@ -309,7 +379,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if(street == "магнитогорская"
-                || street == "енисейская")
+                || street == "енисейская"
+                || street == "полетаева")
             {
                 return "2-667-206, 2-666-964";
             }
@@ -393,6 +464,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}", 
                     "Результаты отправки");
             }
+            else
+            {
+                View.ShowMessage(
+                    $"Нет абонентов, подписанных на получение квитанций",
+                    "Результаты отправки");
+            }
         }
 
         private RegularBillDataSet CreateDataSet(DataRow _row)
@@ -453,15 +530,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             if (_billIDStrings.Count() > 1)
             {
                 View.RemoveEmptyBills = true;
+                View.RemoveMunicipalBills = true;
                 View.OneBillOnSheet = false;
                 View.RemoveEmptyBillsEnabled = true;
+                View.RemoveMunicipalBillsEnabled = true;
                 View.OneBillOnSheetEnabled = true;
             }
             else
             {
                 View.RemoveEmptyBills = false;
+                View.RemoveMunicipalBills = false;
                 View.OneBillOnSheet = true;
                 View.RemoveEmptyBillsEnabled = false;
+                View.RemoveMunicipalBillsEnabled = false;
                 View.OneBillOnSheetEnabled = false;
             }
 

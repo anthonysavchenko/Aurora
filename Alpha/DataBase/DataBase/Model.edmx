@@ -84,20 +84,20 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BuildingID" Type="int" Nullable="false" />
           <Property Name="Period" Type="date" Nullable="false" />
-          <Property Name="ElectrVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ElectrOdnVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ElectrCounterValue" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="HotWaterVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="HotWaterOdnVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="HotWaterCounterValue" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ColdWaterVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ColdWaterOdnVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ColdWaterCounterValue" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="WasteWaterVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="WasteWaterOdnVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="HeatingVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="HeatingOdnVol" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="HeatingCounterValue" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ElectrVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ElectrOdnVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ElectrCounterValue" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HotWaterVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HotWaterOdnVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HotWaterCounterValue" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ColdWaterVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ColdWaterOdnVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ColdWaterCounterValue" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="WasteWaterVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="WasteWaterOdnVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HeatingVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HeatingOdnVol" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HeatingCounterValue" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="Buildings">
           <Key>
@@ -578,7 +578,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Streets">
           <Key>
@@ -3404,7 +3404,7 @@
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Value" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Value" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Residents">
           <Key>
@@ -3679,20 +3679,20 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BuildingID" Type="Int32" Nullable="false" />
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ElectrVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ElectrOdnVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ElectrCounterValue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="HotWaterVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="HotWaterOdnVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="HotWaterCounterValue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ColdWaterVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ColdWaterOdnVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ColdWaterCounterValue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="WasteWaterVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="WasteWaterOdnVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="HeatingVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="HeatingOdnVol" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="HeatingCounterValue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ElectrVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ElectrOdnVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ElectrCounterValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HotWaterVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HotWaterOdnVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HotWaterCounterValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ColdWaterVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ColdWaterOdnVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ColdWaterCounterValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WasteWaterVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WasteWaterOdnVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HeatingVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HeatingOdnVol" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HeatingCounterValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Buildings" Relationship="AlphaDataBaseModel.FK_BuildingConsumptions_Buildings" FromRole="BuildingConsumptions" ToRole="Buildings" />
         </EntityType>
         <Association Name="FK_BuildingConsumptions_Buildings">
