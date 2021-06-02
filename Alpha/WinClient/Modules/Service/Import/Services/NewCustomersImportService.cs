@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Taumis.Alpha.DataBase;
@@ -12,6 +13,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
     public class NewCustomersImportService : IImportService
     {
         private const string CHECKED = "*";
+        private const string TEMPLATE_PATH = "Templates\\ImportNewCustomers.xlsx";
 
         private static class Columns
         {
@@ -64,7 +66,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
             List<ParsedRow> _rows = ParseFile(inputFileName, reportProgressAction, out _resultMessage);
 
-            if (_rows != null && _rows.Count > 0)
+            if (string.IsNullOrEmpty(_resultMessage) && _rows != null && _rows.Count > 0)
             {
                 Process(_rows, reportProgressAction, out _resultMessage);
             }
@@ -128,32 +130,69 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         private ParsedRow ParseRow(int row, IExcelWorksheet sheet)
         {
-            decimal _area;
-            byte _entrance;
-            short _floor;
-            int _roomCount,
-                _residentCount;
+            string _name = sheet.Cell(row, Columns.NAME).Value;
 
             OwnerType _ownerType =
-                sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
-                    ? OwnerType.JuridicalPerson
-                    : OwnerType.PhysicalPerson;
+                string.IsNullOrEmpty(_name)
+                    ? OwnerType.Unknown
+                    : sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
+                        ? OwnerType.JuridicalPerson
+                        : OwnerType.PhysicalPerson;
 
-            sheet.Cell(row, Columns.AREA).TryGetValue(out _area);
-            sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out _entrance);
-            sheet.Cell(row, Columns.FLOOR).TryGetValue(out _floor);
-            sheet.Cell(row, Columns.ROOM_COUNT).TryGetValue(out _roomCount);
-            sheet.Cell(row, Columns.RESIDENT_COUNT).TryGetValue(out _residentCount);
+            sheet.Cell(row, Columns.AREA).TryGetValue(out decimal _area);
+            sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out byte _entrance);
+            sheet.Cell(row, Columns.FLOOR).TryGetValue(out short _floor);
+            sheet.Cell(row, Columns.ROOM_COUNT).TryGetValue(out int _roomCount);
+            sheet.Cell(row, Columns.RESIDENT_COUNT).TryGetValue(out int _residentCount);
+
+            string street = sheet.Cell(row, Columns.STREET).Value;
+            string building = sheet.Cell(row, Columns.BUILDING).Value;
+            string apartment = sheet.Cell(row, Columns.APARTMENT).Value;
+            string account = sheet.Cell(row, Columns.ACCOUNT).Value;
+
+            if (string.IsNullOrEmpty(_name)
+                && string.IsNullOrEmpty(street)
+                && string.IsNullOrEmpty(building)
+                && string.IsNullOrEmpty(apartment)
+                && string.IsNullOrEmpty(account))
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(_name))
+            {
+                throw new Exception("Обязательное поле пусто: ФИО или название собственника");
+            }
+
+            if (string.IsNullOrEmpty(street))
+            {
+                throw new Exception("Обязательное поле пусто: Название улицы");
+            }
+
+            if (string.IsNullOrEmpty(building))
+            {
+                throw new Exception("Обязательное поле пусто: Номер дома");
+            }
+
+            if (string.IsNullOrEmpty(apartment))
+            {
+                throw new Exception("Обязательное поле пусто: Номер квартиры");
+            }
+
+            if (string.IsNullOrEmpty(account))
+            {
+                throw new Exception("Обязательное поле пусто: Номер лицевого счета");
+            }
 
             return new ParsedRow
             {
                 RowNumber = row,
-                Account = sheet.Cell(row, Columns.ACCOUNT).Value,
-                Apartment = sheet.Cell(row, Columns.APARTMENT).Value,
+                Account = account,
+                Apartment = apartment,
                 Area = _area,
                 ZipCode = sheet.Cell(row, Columns.ZIP_CODE).Value,
-                StreetName = sheet.Cell(row, Columns.STREET).Value,
-                BuildingNum = sheet.Cell(row, Columns.BUILDING).Value,
+                StreetName = street,
+                BuildingNum = building,
                 FiasID = sheet.Cell(row, Columns.FIAS_ID).Value,
                 Entrance = _entrance,
                 Floor = _floor,
@@ -161,7 +200,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 ResidentCount = _residentCount,
                 IsPrivate = sheet.Cell(row, Columns.IS_PRIVATE).Value == CHECKED,
                 OwnerType = _ownerType,
-                Name = sheet.Cell(row, Columns.NAME).Value
+                Name = _name,
             };
         }
 
@@ -176,11 +215,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 {
                     IExcelWorksheet _xws = _xwb.Worksheet(1);
                     int _rowCount = _xws.GetRowCount();
-                    _rows = new List<ParsedRow>(_rowCount);
+                    _rows = new List<ParsedRow>();
 
                     while (_currentRow < _rowCount)
                     {
-                        _rows.Add(ParseRow(++_currentRow, _xws));
+                        var row = ParseRow(++_currentRow, _xws);
+
+                        if (row != null)
+                        {
+                            _rows.Add(row);
+                        }
+
                         reportProgressAction(_currentRow * 50 / _rowCount);
                     }
                 }
@@ -260,7 +305,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 };
 
 
-                            if (_row.OwnerType == OwnerType.PhysicalPerson)
+                            if (_row.OwnerType == OwnerType.Unknown)
+                            {
+                                _customer.JuridicalPersonFullName = string.Empty;
+                                _customer.PhysicalPersonFullName = string.Empty;
+                                _customer.PhysicalPersonShortName = string.Empty;
+                            }
+                            else if (_row.OwnerType == OwnerType.PhysicalPerson)
                             {
                                 _customer.PhysicalPersonFullName = FirstLettersToUpper(_row.Name);
                                 _customer.PhysicalPersonShortName = GetLastNameAndInitial(_row.Name);
@@ -301,7 +352,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 {
                     _failedRows.Add(_row.RowNumber);
                     _errors.AppendLine($"Строка {_row.RowNumber}: {_ex}");
-                    Logger.SimpleWrite($"Ошибка при абонентов: {_ex}");
+                    Logger.SimpleWrite($"Ошибка при импорте абонентов: {_ex}");
                 }
 
                 reportProgressAction(_progress++ * 50 / rows.Count + 50);
@@ -323,7 +374,26 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         public bool GenerateImportTemplate(string path)
         {
-            throw new NotImplementedException();
+            bool _result = true;
+
+            try
+            {
+                using (IExcelWorkbook _xwb =
+                    _excelService.OpenWorkbook(
+                        Path.Combine(
+                            AppDomain.CurrentDomain.BaseDirectory,
+                            TEMPLATE_PATH)))
+                {
+                    _xwb.SaveAs(path);
+                }
+            }
+            catch (Exception ex)
+            {
+                _result = false;
+                Logger.SimpleWrite($"Шаблон импорта. Ошибка {ex}");
+            }
+
+            return _result;
         }
     }
 }

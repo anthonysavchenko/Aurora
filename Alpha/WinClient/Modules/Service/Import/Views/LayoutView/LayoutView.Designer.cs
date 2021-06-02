@@ -53,6 +53,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.filePathTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.ImportNewCustomersLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.ImportWizardControl)).BeginInit();
             this.ImportWizardControl.SuspendLayout();
             this.ProcessingWizardPage.SuspendLayout();
@@ -86,7 +87,7 @@
             this.ProcessingWizardPage,
             this.FinishWizardPage});
             this.ImportWizardControl.PreviousText = "< &Назад";
-            this.ImportWizardControl.Size = new System.Drawing.Size(2175, 879);
+            this.ImportWizardControl.Size = new System.Drawing.Size(1041, 1758);
             this.ImportWizardControl.Text = "Мастер импорта данных";
             this.ImportWizardControl.UseAcceptButton = false;
             this.ImportWizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.ImportWizardControl_SelectedPageChanged);
@@ -103,7 +104,7 @@
             this.ProcessingWizardPage.Controls.Add(this.panel1);
             this.ProcessingWizardPage.DescriptionText = "Дождитесь окончания обработки данных...";
             this.ProcessingWizardPage.Name = "ProcessingWizardPage";
-            this.ProcessingWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.ProcessingWizardPage.Size = new System.Drawing.Size(1009, 1613);
             this.ProcessingWizardPage.Text = "Обработка данных";
             // 
             // panel1
@@ -111,9 +112,9 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.ProgressBarControl);
             this.panel1.Controls.Add(this.progressProcentLabel);
-            this.panel1.Location = new System.Drawing.Point(0, 329);
+            this.panel1.Location = new System.Drawing.Point(0, 768);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2143, 55);
+            this.panel1.Size = new System.Drawing.Size(1009, 55);
             this.panel1.TabIndex = 2;
             // 
             // ProgressBarControl
@@ -123,7 +124,7 @@
             this.ProgressBarControl.Name = "ProgressBarControl";
             this.ProgressBarControl.Properties.Step = 1;
             this.ProgressBarControl.ShowProgressInTaskBar = true;
-            this.ProgressBarControl.Size = new System.Drawing.Size(2143, 34);
+            this.ProgressBarControl.Size = new System.Drawing.Size(1009, 34);
             this.ProgressBarControl.TabIndex = 0;
             // 
             // progressProcentLabel
@@ -131,13 +132,14 @@
             this.progressProcentLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressProcentLabel.Location = new System.Drawing.Point(0, 34);
             this.progressProcentLabel.Name = "progressProcentLabel";
-            this.progressProcentLabel.Size = new System.Drawing.Size(2143, 21);
+            this.progressProcentLabel.Size = new System.Drawing.Size(1009, 21);
             this.progressProcentLabel.TabIndex = 1;
             this.progressProcentLabel.Text = "Загрузка данных...";
             this.progressProcentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ChooseMethodWizardPage
             // 
+            this.ChooseMethodWizardPage.Controls.Add(this.ImportNewCustomersLinkLabel);
             this.ChooseMethodWizardPage.Controls.Add(this.importElectricityVolumesRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importCounterRadioButton);
             this.ChooseMethodWizardPage.Controls.Add(this.importBuildingConsumptionInfoTemplateLinkLabel);
@@ -149,7 +151,7 @@
             this.ChooseMethodWizardPage.Controls.Add(this.importCustomerPosesRadioButton);
             this.ChooseMethodWizardPage.DescriptionText = "Выберите действие";
             this.ChooseMethodWizardPage.Name = "ChooseMethodWizardPage";
-            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1009, 1613);
             this.ChooseMethodWizardPage.Text = "Мастер импорта данных";
             // 
             // importElectricityVolumesRadioButton
@@ -259,7 +261,7 @@
             this.FinishWizardPage.Controls.Add(this.resultTextBox);
             this.FinishWizardPage.DescriptionText = "Для окончания работы с мастером нажмите Завершить";
             this.FinishWizardPage.Name = "FinishWizardPage";
-            this.FinishWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.FinishWizardPage.Size = new System.Drawing.Size(1009, 1613);
             this.FinishWizardPage.Text = "Обработка данных завершена";
             // 
             // resultTextBox
@@ -270,7 +272,7 @@
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.ReadOnly = true;
             this.resultTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.resultTextBox.Size = new System.Drawing.Size(2143, 734);
+            this.resultTextBox.Size = new System.Drawing.Size(1009, 1613);
             this.resultTextBox.TabIndex = 16;
             // 
             // FileWizardPage
@@ -279,7 +281,7 @@
             this.FileWizardPage.Controls.Add(this.filePanel);
             this.FileWizardPage.DescriptionText = "Выберите файл, из которого будут импортированны данные";
             this.FileWizardPage.Name = "FileWizardPage";
-            this.FileWizardPage.Size = new System.Drawing.Size(2143, 734);
+            this.FileWizardPage.Size = new System.Drawing.Size(1009, 1613);
             this.FileWizardPage.Text = "Выбор файла";
             // 
             // periodPanel
@@ -295,7 +297,7 @@
             this.periodPanel.Name = "periodPanel";
             this.periodPanel.RowCount = 1;
             this.periodPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.periodPanel.Size = new System.Drawing.Size(2143, 28);
+            this.periodPanel.Size = new System.Drawing.Size(1009, 28);
             this.periodPanel.TabIndex = 39;
             // 
             // periodDateEdit
@@ -342,7 +344,7 @@
             this.filePanel.RowCount = 1;
             this.filePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.filePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.filePanel.Size = new System.Drawing.Size(2143, 28);
+            this.filePanel.Size = new System.Drawing.Size(1009, 28);
             this.filePanel.TabIndex = 38;
             // 
             // label7
@@ -358,7 +360,7 @@
             // selectFileButton
             // 
             this.selectFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectFileButton.Location = new System.Drawing.Point(2026, 3);
+            this.selectFileButton.Location = new System.Drawing.Point(892, 3);
             this.selectFileButton.Name = "selectFileButton";
             this.selectFileButton.Size = new System.Drawing.Size(114, 22);
             this.selectFileButton.TabIndex = 37;
@@ -373,8 +375,19 @@
             this.filePathTextEdit.Name = "filePathTextEdit";
             this.filePathTextEdit.Properties.Mask.EditMask = "\\d+";
             this.filePathTextEdit.Properties.ReadOnly = true;
-            this.filePathTextEdit.Size = new System.Drawing.Size(1817, 20);
+            this.filePathTextEdit.Size = new System.Drawing.Size(683, 20);
             this.filePathTextEdit.TabIndex = 36;
+            // 
+            // ImportNewCustomersLinkLabel
+            // 
+            this.ImportNewCustomersLinkLabel.AutoSize = true;
+            this.ImportNewCustomersLinkLabel.Location = new System.Drawing.Point(183, 23);
+            this.ImportNewCustomersLinkLabel.Name = "ImportNewCustomersLinkLabel";
+            this.ImportNewCustomersLinkLabel.Size = new System.Drawing.Size(46, 13);
+            this.ImportNewCustomersLinkLabel.TabIndex = 47;
+            this.ImportNewCustomersLinkLabel.TabStop = true;
+            this.ImportNewCustomersLinkLabel.Text = "Шаблон";
+            this.ImportNewCustomersLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ImportNewCustomersLinkLabel_LinkClicked);
             // 
             // LayoutView
             // 
@@ -384,7 +397,7 @@
             this.AutoSize = true;
             this.Controls.Add(this.ImportWizardControl);
             this.Name = "LayoutView";
-            this.Size = new System.Drawing.Size(2175, 879);
+            this.Size = new System.Drawing.Size(1041, 1758);
             ((System.ComponentModel.ISupportInitialize)(this.ImportWizardControl)).EndInit();
             this.ImportWizardControl.ResumeLayout(false);
             this.ProcessingWizardPage.ResumeLayout(false);
@@ -432,5 +445,6 @@
         private System.Windows.Forms.RadioButton importElectricityVolumesRadioButton;
         private System.Windows.Forms.LinkLabel importBuildingConsumptionInfoTemplateLinkLabel;
         private System.Windows.Forms.RadioButton importBuildingConsumptionInfoRadioButton;
+        private System.Windows.Forms.LinkLabel ImportNewCustomersLinkLabel;
     }
 }

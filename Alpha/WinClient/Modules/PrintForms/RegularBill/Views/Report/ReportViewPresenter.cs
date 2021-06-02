@@ -399,6 +399,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     $"Всего квитанций: \t{_subscriptedCustomers.Count}\nОтправлено: \t{_subscriptedCustomers.Count - _errorCount}\nНе отправлено: \t{_errorCount}",
                     "Результаты отправки");
             }
+            else
+            {
+                View.ShowMessage(
+                    $"Нет абонентов, подписанных на получение квитанций",
+                    "Результаты отправки");
+            }
         }
 
         private RegularBillDataSet CreateDataSet(DataRow _row)

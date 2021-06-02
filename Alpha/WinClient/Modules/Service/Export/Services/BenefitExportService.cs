@@ -63,6 +63,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             /// </summary>
             public const string RESTRDOLG = "T";
 
+            /// <summary>
+            /// Сумма оплаты граждан за ЖКУ.
+            /// Сумма оплаты граждан за ЖКУ в периоде предоставления 
+            /// (Сумма оплаты граждан с 17 числа месяца, предшедствующего 
+            /// периоду предоставления по 16 число месяца предоставления). 
+            /// </summary>
+            public const string FAKTOP = "V";
+
+            /// <summary>
+            /// Сумма оплаты граждан за ЖКУ.
+            /// Сумма оплаты граждан, учтенная поставщиком ЖКУ за месяц предоставления. 
+            /// </summary>
+            public const string FAKTOP2 = "W";
+
             public const string PERIOD_COLUMN = "O";
         }
 
@@ -96,6 +110,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public bool DebtsRepayment { get; set; }
             public Dictionary<int, int> DebtMonthCount { get; set; }
             public List<ServiceTypeData> DataByServiceType { get; set; }
+            public Dictionary<int, decimal> Payments { get; set; }
+            public Dictionary<int, decimal> Overpayments { get; set; }
         }
 
         [ServiceDependency]
@@ -502,6 +518,80 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         }
                     });
 
+                var prevPeriod = period.AddMonths(-1);
+                var paidSince = new DateTime(prevPeriod.Year, prevPeriod.Month, 17);
+                var paidTill = new DateTime(period.Year, period.Month, 16, 23, 59, 59);
+                var payments =
+                    _db.PaymentOperPoses
+                        .Where(o =>
+                            customerIds.Contains(o.PaymentOpers.Customers.ID)
+                                && o.PaymentOpers.PaymentSets.PaymentDate >= paidSince
+                                && o.PaymentOpers.PaymentSets.PaymentDate <= paidTill)
+                        .GroupBy(o => o.PaymentOpers.Customers.ID)
+                        .Select(o => new
+                        {
+                            Customer = o.Key,
+                            Services =
+                                o
+                                    .GroupBy(oo => oo.Services.ServiceTypes.ID)
+                                    .Select(oo => new
+                                    {
+                                        ServiceType = oo.Key,
+                                        Value = -1 * oo.Sum(ooo => ooo.Value),
+                                    })
+                                    .ToList(),
+                        })
+                        .ToList()
+                        .ToDictionary(
+                            oo => oo.Customer,
+                            ooo => ooo.Services.ToDictionary(
+                                y => y.ServiceType,
+                                yy => yy.Value));
+
+                _result
+                    .ForEach(x =>
+                    {
+                        if (payments.ContainsKey(x.ID))
+                        {
+                            x.Payments = payments[x.ID];
+                        }
+                    });
+
+                var overpayments =
+                    _db.OverpaymentOperPoses
+                        .Where(o =>
+                            customerIds.Contains(o.OverpaymentOpers.Customers.ID)
+                            && o.Period == period)
+                        .GroupBy(o => o.OverpaymentOpers.Customers.ID)
+                        .Select(o => new
+                        {
+                            Customer = o.Key,
+                            Services =
+                                o
+                                    .GroupBy(oo => oo.Services.ServiceTypes.ID)
+                                    .Select(oo => new
+                                    {
+                                        ServiceType = oo.Key,
+                                        Value = -1 * oo.Sum(ooo => ooo.Value),
+                                    })
+                                    .ToList(),
+                        })
+                        .ToList()
+                        .ToDictionary(
+                            oo => oo.Customer,
+                            ooo => ooo.Services.ToDictionary(
+                                y => y.ServiceType,
+                                yy => yy.Value));
+
+                _result
+                    .ForEach(x =>
+                    {
+                        if (overpayments.ContainsKey(x.ID))
+                        {
+                            x.Overpayments = overpayments[x.ID];
+                        }
+                    });
+
                 #endregion
             }
 
@@ -558,7 +648,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         {
                             if (!_accRowDict.ContainsKey(_customerId))
                             {
-                                _accRowDict.Add(_customerId, new Dictionary<int, int>(4));
+                                _accRowDict.Add(
+                                    _customerId,
+                                    new Dictionary<int, int>(ServiceTypes.SerivceTypeIDs.Length));
                             }
 
                             if (_accRowDict[_customerId].ContainsKey(_serviceTypeId.Value))
@@ -611,6 +703,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 _customerInfo.DebtMonthCount != null && _customerInfo.DebtMonthCount.ContainsKey(_serviceTypeID)
                                     ? _customerInfo.DebtMonthCount[_serviceTypeID].ToString()
                                     : "0",
+                                _customerInfo.Payments != null && _customerInfo.Payments.ContainsKey(_serviceTypeID)
+                                    ? _customerInfo.Payments[_serviceTypeID]
+                                    : 0,
+                                _customerInfo.Overpayments != null && _customerInfo.Overpayments.ContainsKey(_serviceTypeID)
+                                    ? _customerInfo.Overpayments[_serviceTypeID]
+                                    : 0,
                                 sheet);
 
                             reportProgressAction(++_processed * 50 / _count + 50);
@@ -627,6 +725,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             string residentCount, 
             string restrDebt, 
             string monthCount, 
+            decimal payment,
+            decimal overpayment,
             IExcelWorksheet sheet)
         {
             sheet.Cell(row, Columns.PL).SetValue(square);
@@ -646,9 +746,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 _rate += _data.Rate;
             }
 
-            sheet.Cell(row, Columns.FAKTP).SetValue(_charge);
-            sheet.Cell(row, Columns.FAKTPER).SetValue(_recharge);
-            sheet.Cell(row, Columns.TARIF).SetValue(_rate);
+            sheet.Cell(row, Columns.FAKTP).SetValue(_charge.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTPER).SetValue(_recharge.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.TARIF).SetValue(_rate.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTOP).SetValue(payment.ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTOP2).SetValue((payment + overpayment).ToString(CultureInfo.InvariantCulture));
         }
 
         #endregion
