@@ -248,5 +248,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
         {
             Presenter.GenerateBuildingConsumptionImportTemplate();
         }
+
+        private void ImportNewCustomersLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Presenter.GenerateImportNewCustomersTemplate();
+        }
     }
 }

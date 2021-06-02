@@ -177,6 +177,25 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
             }
         }
 
+        public void GenerateImportNewCustomersTemplate()
+        {
+            SaveFileDialog _dialog =
+                new SaveFileDialog
+                {
+                    Filter = "Excel 2007 (*.xlsx)|*.xlsx",
+                    RestoreDirectory = true,
+                    FileName = "Импорт новых абонентов.xlsx"
+                };
+
+            if (_dialog.ShowDialog() == DialogResult.OK)
+            {
+                string _info = _newCustomersImportService.GenerateImportTemplate(_dialog.FileName)
+                    ? "Шаблон успешно создан"
+                    : "Не удалось создать шаблон";
+                View.ShowMessage(_info, "Инфо");
+            }
+        }
+
         private BackgroundWorker CreateBackgroundWorker()
         {
             BackgroundWorker _worker = new BackgroundWorker { WorkerReportsProgress = true };
