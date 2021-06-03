@@ -128,7 +128,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             catch (Exception _ex)
             {
                 _result = false;
-                Logger.SimpleWrite($"Импорт. Шаблон импорта СОД. Ошибка {_ex}");
+                Logger.SimpleWrite($"Импорт. Шаблон импорта показаний ОДПУ для начислений. Ошибка {_ex}");
             }
 
             return _result;
@@ -167,7 +167,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             }
             catch (Exception _ex)
             {
-                Logger.SimpleWrite($"Импорт объемов СОД. Не удалось разобрать раздел с услугами: {_ex}");
+                Logger.SimpleWrite("Импорт показаний ОДПУ для начислений. " +
+                    $"Не удалось разобрать раздел с услугами: {_ex}");
             }
 
             return _result;
