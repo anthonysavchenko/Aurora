@@ -32,7 +32,7 @@ namespace Taumis.Alpha.Infrastructure.Library.Services.Excel.Epplus
             catch
             {
                 _result = false;
-                value = default(TValue);
+                value = default;
             }
 
             return _result;

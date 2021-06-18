@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Taumis.Alpha.DataBase;
+using Taumis.Alpha.Infrastructure.Interface.Constants;
 using Taumis.Alpha.Infrastructure.Interface.Services.Excel;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Enums;
 using Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services;
@@ -146,7 +147,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     Filter = "Excel 2007 (*.xlsx)|*.xlsx",
                     RestoreDirectory = true,
-                    FileName = "Импорт_СОД.xlsx"
+                    FileName =
+                        $"{ServerTime.GetDateTimeInfo().Now:yyyy.MM.dd HH.mm} " +
+                        $"{AppInfo.PRODUCT_NAME} " +
+                        "Импорт показаний ОДПУ для начислений.xlsx",
                 };
 
             if(_dialog.ShowDialog() == DialogResult.OK )
@@ -165,7 +169,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     Filter = "Excel 2007 (*.xlsx)|*.xlsx",
                     RestoreDirectory = true,
-                    FileName = "Import.xlsx"
+                    FileName =
+                        $"{ServerTime.GetDateTimeInfo().Now:yyyy.MM.dd HH.mm} " +
+                        $"{AppInfo.PRODUCT_NAME} " +
+                        "Импорт справочных данных по общедомовым объемам.xlsx",
                 };
 
             if (_dialog.ShowDialog() == DialogResult.OK)
@@ -184,7 +191,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import
                 {
                     Filter = "Excel 2007 (*.xlsx)|*.xlsx",
                     RestoreDirectory = true,
-                    FileName = "Импорт новых абонентов.xlsx"
+                    FileName =
+                        $"{ServerTime.GetDateTimeInfo().Now:yyyy.MM.dd HH.mm} " +
+                        $"{AppInfo.PRODUCT_NAME} " +
+                        "Импорт новых абонентов.xlsx"
                 };
 
             if (_dialog.ShowDialog() == DialogResult.OK)

@@ -405,6 +405,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                     $"Нет абонентов, подписанных на получение квитанций",
                     "Результаты отправки");
             }
+            else
+            {
+                View.ShowMessage(
+                    $"Нет абонентов, подписанных на получение квитанций",
+                    "Результаты отправки");
+            }
         }
 
         private RegularBillDataSet CreateDataSet(DataRow _row)

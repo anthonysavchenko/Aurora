@@ -128,7 +128,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             catch (Exception _ex)
             {
                 _result = false;
-                Logger.SimpleWrite($"Импорт. Шаблон импорта СОД. Ошибка {_ex}");
+                Logger.SimpleWrite($"Импорт. Шаблон импорта показаний ОДПУ для начислений. Ошибка {_ex}");
             }
 
             return _result;
@@ -167,7 +167,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
             }
             catch (Exception _ex)
             {
-                Logger.SimpleWrite($"Импорт объемов СОД. Не удалось разобрать раздел с услугами: {_ex}");
+                Logger.SimpleWrite("Импорт показаний ОДПУ для начислений. " +
+                    $"Не удалось разобрать раздел с услугами: {_ex}");
             }
 
             return _result;
@@ -198,13 +199,27 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 _serviceByColumn.Add(i, _ws.Cell(TITLE_ROW, i).Value);
                             }
 
-                            _data = new Dictionary<int, List<ServiceVolume>>(_rowCount - 1);
+                            _data = new Dictionary<int, List<ServiceVolume>>();
 
                             for (int r = 2; r <= _rowCount; r++)
                             {
                                 try
                                 {
-                                    int _buildingID = int.Parse(_ws.Cell(r, BuildingColumns.ID).Value);
+                                    _ws.Cell(r, BuildingColumns.ID).TryGetValue(out int buildingID);
+
+                                    if (buildingID == default
+                                        && string.IsNullOrEmpty(_ws.Cell(r, BuildingColumns.Address).Value))
+                                    {
+                                        continue;
+                                    }
+
+                                    if (buildingID == default)
+                                    {
+                                        errors.AppendLine(
+                                            $"Строка {r}, колонка {BuildingColumns.ID}: " +
+                                                "отсутствует идентификатор дома");
+                                        break;
+                                    }
 
                                     List<ServiceVolume> _svList = new List<ServiceVolume>();
                                     for (int c = SERVICE_FIRST_COLUMN; c <= _lastColumn; c++)
@@ -229,7 +244,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                         }
                                     }
 
-                                    _data.Add(_buildingID, _svList);
+                                    _data.Add(buildingID, _svList);
                                 }
                                 catch (Exception _ex)
                                 {
