@@ -34,6 +34,7 @@
             this.ProgressBarControl = new DevExpress.XtraEditors.ProgressBarControl();
             this.progressProcentLabel = new System.Windows.Forms.Label();
             this.ChooseMethodWizardPage = new DevExpress.XtraWizard.WizardPage();
+            this.ImportNewCustomersLinkLabel = new System.Windows.Forms.LinkLabel();
             this.importElectricityVolumesRadioButton = new System.Windows.Forms.RadioButton();
             this.importCounterRadioButton = new System.Windows.Forms.RadioButton();
             this.importBuildingConsumptionInfoTemplateLinkLabel = new System.Windows.Forms.LinkLabel();
@@ -154,6 +155,17 @@
             this.ChooseMethodWizardPage.Size = new System.Drawing.Size(1009, 1613);
             this.ChooseMethodWizardPage.Text = "Мастер импорта данных";
             // 
+            // ImportNewCustomersLinkLabel
+            // 
+            this.ImportNewCustomersLinkLabel.AutoSize = true;
+            this.ImportNewCustomersLinkLabel.Location = new System.Drawing.Point(183, 23);
+            this.ImportNewCustomersLinkLabel.Name = "ImportNewCustomersLinkLabel";
+            this.ImportNewCustomersLinkLabel.Size = new System.Drawing.Size(46, 13);
+            this.ImportNewCustomersLinkLabel.TabIndex = 47;
+            this.ImportNewCustomersLinkLabel.TabStop = true;
+            this.ImportNewCustomersLinkLabel.Text = "Шаблон";
+            this.ImportNewCustomersLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ImportNewCustomersLinkLabel_LinkClicked);
+            // 
             // importElectricityVolumesRadioButton
             // 
             this.importElectricityVolumesRadioButton.AutoSize = true;
@@ -179,7 +191,7 @@
             // importBuildingConsumptionInfoTemplateLinkLabel
             // 
             this.importBuildingConsumptionInfoTemplateLinkLabel.AutoSize = true;
-            this.importBuildingConsumptionInfoTemplateLinkLabel.Location = new System.Drawing.Point(484, 161);
+            this.importBuildingConsumptionInfoTemplateLinkLabel.Location = new System.Drawing.Point(339, 161);
             this.importBuildingConsumptionInfoTemplateLinkLabel.Name = "importBuildingConsumptionInfoTemplateLinkLabel";
             this.importBuildingConsumptionInfoTemplateLinkLabel.Size = new System.Drawing.Size(46, 13);
             this.importBuildingConsumptionInfoTemplateLinkLabel.TabIndex = 46;
@@ -193,15 +205,15 @@
             this.importBuildingConsumptionInfoRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.importBuildingConsumptionInfoRadioButton.Location = new System.Drawing.Point(23, 159);
             this.importBuildingConsumptionInfoRadioButton.Name = "importBuildingConsumptionInfoRadioButton";
-            this.importBuildingConsumptionInfoRadioButton.Size = new System.Drawing.Size(455, 17);
+            this.importBuildingConsumptionInfoRadioButton.Size = new System.Drawing.Size(310, 17);
             this.importBuildingConsumptionInfoRadioButton.TabIndex = 45;
-            this.importBuildingConsumptionInfoRadioButton.Text = "Импорт справочных данных об общедомовом потреблении коммунальных ресурсов";
+            this.importBuildingConsumptionInfoRadioButton.Text = "Импорт справочных данных по общедомовым объемам";
             this.importBuildingConsumptionInfoRadioButton.UseVisualStyleBackColor = false;
             // 
             // importPublicPlaceServiceVolumeTemplate
             // 
             this.importPublicPlaceServiceVolumeTemplate.AutoSize = true;
-            this.importPublicPlaceServiceVolumeTemplate.Location = new System.Drawing.Point(628, 92);
+            this.importPublicPlaceServiceVolumeTemplate.Location = new System.Drawing.Point(269, 92);
             this.importPublicPlaceServiceVolumeTemplate.Name = "importPublicPlaceServiceVolumeTemplate";
             this.importPublicPlaceServiceVolumeTemplate.Size = new System.Drawing.Size(46, 13);
             this.importPublicPlaceServiceVolumeTemplate.TabIndex = 44;
@@ -215,10 +227,9 @@
             this.importPublicPlaceServiceVolumesRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.importPublicPlaceServiceVolumesRadioButton.Location = new System.Drawing.Point(23, 90);
             this.importPublicPlaceServiceVolumesRadioButton.Name = "importPublicPlaceServiceVolumesRadioButton";
-            this.importPublicPlaceServiceVolumesRadioButton.Size = new System.Drawing.Size(599, 17);
+            this.importPublicPlaceServiceVolumesRadioButton.Size = new System.Drawing.Size(240, 17);
             this.importPublicPlaceServiceVolumesRadioButton.TabIndex = 4;
-            this.importPublicPlaceServiceVolumesRadioButton.Text = "Импорт данных по потребленным объемам коммунального ресурса при содержании общедо" +
-    "мового имущества";
+            this.importPublicPlaceServiceVolumesRadioButton.Text = "Импорт показаний ОДПУ для начислений";
             this.importPublicPlaceServiceVolumesRadioButton.UseVisualStyleBackColor = false;
             // 
             // importNewCustomersRadioButton
