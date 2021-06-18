@@ -2,6 +2,6 @@
 {
     public static class AppInfo
     {
-        public const string PRODUCT_NAME = "УКЖУ 1071";
+        public const string PRODUCT_NAME = "УКЖУ 1871";
     }
 }
