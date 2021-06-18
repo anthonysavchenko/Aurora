@@ -584,6 +584,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
                     
                     if (_intermediary.Contains(IntermediaryConstants.SBRF_ID))
                     {
+                        _lines = new List<string>(_lines.GetRange(0, _lines.Count - 1));
                         _elements = _lines.AsParallel().AsOrdered().Select(ProcessImportSbrfLine).ToList();
                     }
                     else if(_intermediary.Contains(IntermediaryConstants.PRIMSOCBANK_ID))

@@ -130,38 +130,22 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         private ParsedRow ParseRow(int row, IExcelWorksheet sheet)
         {
-            string _name = sheet.Cell(row, Columns.NAME).Value;
-
-            OwnerType _ownerType =
-                string.IsNullOrEmpty(_name)
-                    ? OwnerType.Unknown
-                    : sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
-                        ? OwnerType.JuridicalPerson
-                        : OwnerType.PhysicalPerson;
-
-            sheet.Cell(row, Columns.AREA).TryGetValue(out decimal _area);
-            sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out byte _entrance);
-            sheet.Cell(row, Columns.FLOOR).TryGetValue(out short _floor);
-            sheet.Cell(row, Columns.ROOM_COUNT).TryGetValue(out int _roomCount);
-            sheet.Cell(row, Columns.RESIDENT_COUNT).TryGetValue(out int _residentCount);
-
+            string account = sheet.Cell(row, Columns.ACCOUNT).Value;
             string street = sheet.Cell(row, Columns.STREET).Value;
             string building = sheet.Cell(row, Columns.BUILDING).Value;
             string apartment = sheet.Cell(row, Columns.APARTMENT).Value;
-            string account = sheet.Cell(row, Columns.ACCOUNT).Value;
 
-            if (string.IsNullOrEmpty(_name)
+            if (string.IsNullOrEmpty(account)
                 && string.IsNullOrEmpty(street)
                 && string.IsNullOrEmpty(building)
-                && string.IsNullOrEmpty(apartment)
-                && string.IsNullOrEmpty(account))
+                && string.IsNullOrEmpty(apartment))
             {
                 return null;
             }
 
-            if (string.IsNullOrEmpty(_name))
+            if (string.IsNullOrEmpty(account))
             {
-                throw new Exception("Обязательное поле пусто: ФИО или название собственника");
+                throw new Exception("Обязательное поле пусто: Номер лицевого счета");
             }
 
             if (string.IsNullOrEmpty(street))
@@ -179,10 +163,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 throw new Exception("Обязательное поле пусто: Номер квартиры");
             }
 
-            if (string.IsNullOrEmpty(account))
-            {
-                throw new Exception("Обязательное поле пусто: Номер лицевого счета");
-            }
+            string _name = sheet.Cell(row, Columns.NAME).Value;
+
+            OwnerType _ownerType =
+                string.IsNullOrEmpty(_name)
+                    ? OwnerType.Unknown
+                    : sheet.Cell(row, Columns.JUR_PERSON).Value == CHECKED
+                        ? OwnerType.JuridicalPerson
+                        : OwnerType.PhysicalPerson;
+
+            sheet.Cell(row, Columns.AREA).TryGetValue(out decimal _area);
+            sheet.Cell(row, Columns.ENTRANCE).TryGetValue(out byte _entrance);
+            sheet.Cell(row, Columns.FLOOR).TryGetValue(out short _floor);
+            sheet.Cell(row, Columns.ROOM_COUNT).TryGetValue(out int _roomCount);
+            sheet.Cell(row, Columns.RESIDENT_COUNT).TryGetValue(out int _residentCount);
 
             return new ParsedRow
             {
