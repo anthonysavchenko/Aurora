@@ -127,7 +127,7 @@
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>624.0207, 295.354218</value>
+    <value>751.0207, 295.3543</value>
   </data>
   <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>55.0623779, 63.99997</value>
@@ -151,7 +151,7 @@
     <value>424.02063, 295.3543</value>
   </data>
   <data name="xrLabel1.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>200, 63.99997</value>
+    <value>327, 63.99997</value>
   </data>
   <data name="xrLabel1.Text" xml:space="preserve">
     <value>xrLabel1</value>
@@ -331,10 +331,10 @@
     <value>Tahoma, 14.25pt</value>
   </data>
   <data name="xrLabel3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>679.083252, 295.354218</value>
+    <value>806.083069, 295.3542</value>
   </data>
   <data name="xrLabel3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>200, 63.99997</value>
+    <value>326.999939, 63.99997</value>
   </data>
   <data name="xrLabel3.Text" xml:space="preserve">
     <value>xrLabel3</value>

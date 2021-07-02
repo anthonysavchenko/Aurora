@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
@@ -20,6 +21,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
     /// </summary>
     public class ReportViewPresenter : BaseReportForReportObjectPresenter<IReportView, EmptyReportParams>
     {
+        public class Cstmr
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+        }
+
+        public List<Cstmr> customers;
+
+        public int customerIndex = 0;
+
+        public decimal Debt = 0;
+
         /// <summary>
         /// Данные
         /// </summary>
@@ -30,8 +43,60 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
         /// </summary>
         public override void OnViewReady()
         {
+            if (customers == null || customers.Count < 1)
+            {
+                using (Entities db = new Entities())
+                {
+                    customers =
+                        db.Customers
+                            .Select(c =>
+                                new
+                                {
+                                    c.ID,
+                                    Street = c.Buildings.Streets.Name,
+                                    Building = c.Buildings.Number,
+                                    c.Apartment,
+                                })
+                            .ToList()
+                            .Select(c =>
+                                new Cstmr()
+                                {
+                                    ID = c.ID,
+                                    Name =
+                                        $"{c.Street}, д. {c.Building}, кв. {c.Apartment}",
+                                })
+                            .OrderBy(c => c.Name)
+                            .ToList();
+                }
+            }
+
             base.OnViewReady();
+            WorkItem.State[ModuleStateNames.START_UP_PARAMS] = new MutualSettlementStartUpParams(
+                new DateTime(2012, 8, 1),
+                new DateTime(2021, 2, 1),
+                customers[customerIndex].ID.ToString());
             View.UpdateReport();
+        }
+
+        protected override void OnReportGenerationCompleted()
+        {
+            base.OnReportGenerationCompleted();
+
+            if (Debt >= 500)
+            {
+                string fileName = customers[customerIndex].Name;
+                Path.GetInvalidFileNameChars().ToList().ForEach(c => fileName = fileName.Replace(c, '.'));
+                Path.GetInvalidPathChars().ToList().ForEach(c => fileName = fileName.Replace(c, '.'));
+                View.ExportReport($"D:\\qvitex\\{fileName}.xlsx");
+            }
+
+            Debt = 0;
+
+            customerIndex++;
+            if (customerIndex < customers.Count)
+            {
+                OnViewReady();
+            }
         }
 
         /// <summary>
@@ -68,7 +133,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                     int _groupNumber = 0;
                     DataRow _lastReportRow = null;
                     DateTime _previousPeriod = DateTime.MinValue;
-                    DateTime _now = ServerTime.GetDateTimeInfo().Now;
+                    DateTime _now = new DateTime(2021, 2, 1);
                     ServiceBalances _yearBalances = new ServiceBalances();
                     ServiceBalances _reportBalances = new ServiceBalances();
                     
@@ -105,10 +170,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
                                      _customer.Apartment),
                                 string.Format("{0} кв.м.", _customer.Square),
                                 _customer.Residents.Count(),
-                                UserHolder.User.Aka,
+                                string.Empty,
                                 _debt,
                                 _totalDebt,
                                 _totalDebt + _debt);
+
+                            Debt = _totalDebt + _debt;
                         }
 
                         // Заполнение таблицы балансов по типам услуг за месяц

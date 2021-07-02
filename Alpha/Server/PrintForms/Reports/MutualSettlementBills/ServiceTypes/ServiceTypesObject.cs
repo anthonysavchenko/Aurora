@@ -41,12 +41,17 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.MutualSettlementBills.ServiceTy
 
         private void GroupHeader1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
-            e.Cancel = groupHeader == GetCurrentColumnValue("GroupHeader").ToString();
+            e.Cancel =
+                GetCurrentColumnValue("GroupHeader") == null ||
+                groupHeader == GetCurrentColumnValue("GroupHeader").ToString();
         }
 
         private void xrLabel4_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
-            groupHeader = GetCurrentColumnValue("GroupHeader").ToString();
+            groupHeader =
+                GetCurrentColumnValue("GroupHeader") != null
+                    ? GetCurrentColumnValue("GroupHeader").ToString()
+                    : string.Empty;
             ((XRLabel)sender).Text = groupHeader;
         }
     }

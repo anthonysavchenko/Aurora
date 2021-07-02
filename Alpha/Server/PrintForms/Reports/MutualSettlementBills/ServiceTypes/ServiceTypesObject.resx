@@ -583,10 +583,10 @@
     <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel12.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>489.6458, 172.0834</value>
+    <value>542.5625, 172.0834</value>
   </data>
   <data name="xrLabel12.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>425.062378, 53.416687</value>
+    <value>404.9792, 53.416687</value>
   </data>
   <data name="xrLabel12.Text" xml:space="preserve">
     <value>xrLabel12</value>
@@ -604,7 +604,7 @@
     <value>0, 172.0834</value>
   </data>
   <data name="xrLabel11.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>489.645752, 53.41667</value>
+    <value>542.562439, 53.416687</value>
   </data>
   <data name="xrLabel11.Text" xml:space="preserve">
     <value>Всего задолженность на</value>
@@ -637,7 +637,7 @@
     <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel8.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>914.7084, 105.937576</value>
+    <value>1185.8335, 105.937576</value>
   </data>
   <data name="xrLabel8.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>404.979126, 53.41667</value>
@@ -655,10 +655,10 @@
     <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel7.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>573.229248, 105.937576</value>
+    <value>809.9585, 105.937576</value>
   </data>
   <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>341.479, 53.4166679</value>
+    <value>375.874878, 53.41667</value>
   </data>
   <data name="xrLabel7.Text" xml:space="preserve">
     <value>по состоянию на</value>
@@ -673,10 +673,10 @@
     <value>Tahoma, 12pt</value>
   </data>
   <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>373.229156, 105.937576</value>
+    <value>404.9793, 105.937576</value>
   </data>
   <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>200, 53.4166756</value>
+    <value>404.9792, 53.41667</value>
   </data>
   <data name="xrLabel6.Text" xml:space="preserve">
     <value>xrLabel6</value>
@@ -694,7 +694,7 @@
     <value>0, 105.937576</value>
   </data>
   <data name="xrLabel5.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>373.229065, 53.4166679</value>
+    <value>404.9793, 53.41667</value>
   </data>
   <data name="xrLabel5.Text" xml:space="preserve">
     <value>Задолженность до</value>

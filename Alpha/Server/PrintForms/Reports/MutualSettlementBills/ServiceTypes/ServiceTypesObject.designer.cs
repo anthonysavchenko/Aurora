@@ -646,7 +646,7 @@
             // xrLabel6
             // 
             this.xrLabel6.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlement.Since", "{0:MM.yyyy}")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlement.Since", "{0:dd.MM.yyyy}")});
             resources.ApplyResources(this.xrLabel6, "xrLabel6");
             this.xrLabel6.Name = "xrLabel6";
             this.xrLabel6.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);

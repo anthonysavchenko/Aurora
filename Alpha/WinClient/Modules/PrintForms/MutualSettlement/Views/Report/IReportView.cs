@@ -17,5 +17,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
         /// ѕечатает отчет
         /// </summary>
         void PrintReport();
+
+        void ExportReport(string path);
     }
 }

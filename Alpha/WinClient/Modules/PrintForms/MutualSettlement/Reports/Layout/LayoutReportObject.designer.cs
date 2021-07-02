@@ -94,7 +94,7 @@
             // 
             resources.ApplyResources(this.xrLabel1, "xrLabel1");
             this.xrLabel1.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlement.Since", "{0:MM.yyyy}")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlement.Since", "{0:dd.MM.yyyy}")});
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel1.StylePriority.UseBackColor = false;
@@ -189,7 +189,7 @@
             // 
             resources.ApplyResources(this.xrLabel3, "xrLabel3");
             this.xrLabel3.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlement.Till", "{0:MM.yyyy}")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MutualSettlement.Till", "{0:dd.MM.yyyy}")});
             this.xrLabel3.Name = "xrLabel3";
             this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
             this.xrLabel3.StylePriority.UseBackColor = false;

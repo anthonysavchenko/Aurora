@@ -71,5 +71,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.MutualSettlement.View
             _printTool.Print();
         }
         #endregion
+
+        public void ExportReport(string path)
+        {
+            Report.ExportToXlsx(path);
+        }
     }
 }
