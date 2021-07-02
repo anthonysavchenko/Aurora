@@ -70,12 +70,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         /// </summary>
         public bool IsEditingAllowed { set => gridViewOfServicesListView.OptionsBehavior.Editable = value; }
 
+        public bool ShowAll => showAllCheckBox.Checked;
+
         /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>
         public void BindActivate(EventHandler handler)
         {
             Presenter.BindChangeHandlers(Controls, handler);
+            showAllCheckBox.CheckedChanged -= handler;
         }
 
         /// <summary>
@@ -127,6 +130,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         {
             gridViewOfServicesListView.PostEditor();
             gridViewOfServicesListView.SetFocusedRowCellValue("Counter", null);
+        }
+
+        private void showAllCheckBox_Click(object sender, EventArgs e)
+        {
+            Presenter.RefreshList();
         }
     }
 }
