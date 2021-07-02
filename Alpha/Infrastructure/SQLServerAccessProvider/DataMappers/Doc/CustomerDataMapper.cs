@@ -259,6 +259,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
             _table.Columns.Add("ResidentsNumber", typeof(int));
             _table.Columns.Add("Street", typeof(string));
             _table.Columns.Add("House", typeof(string));
+            _table.Columns.Add("Floor", typeof(string));
             _table.Columns.Add("Apartment", typeof(string));
             _table.Columns.Add("Square", typeof(string));
             _table.Columns.Add("Selected", typeof(bool));
@@ -282,6 +283,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                             ResidentsCount = c.Residents.Count,
                             Street = c.Buildings.Streets.Name,
                             Building = c.Buildings.Number,
+                            c.Floor,
                             c.Apartment,
                             c.Square
                         })
@@ -296,6 +298,7 @@ namespace Taumis.Alpha.Infrastructure.SQLAccessProvider.DataMappers.Doc
                         c.ResidentsCount,
                         c.Street,
                         c.Building,
+                        c.Floor,
                         c.Apartment,
                         c.Square,
                         false);
