@@ -2,6 +2,8 @@
 using Microsoft.Practices.ObjectBuilder;
 using Taumis.EnterpriseLibrary.Win.BaseViews.BaseListView.BaseMultipleListView;
 
+//using BaseMultipleListView = System.Windows.Forms.UserControl;
+
 namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
 {
     /// <summary>
