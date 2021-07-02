@@ -57,6 +57,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         /// </summary>
         decimal Rate { get; }
 
+        bool ShowAll { get; }
+
         /// <summary>
         /// Подключить общий обработчик изменений
         /// </summary>

@@ -44,6 +44,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.CounterGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.CounterItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.RateGridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.showAllCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfServicesListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOfServicesListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ServiceRepositoryItemLookUpEdit)).BeginInit();
@@ -51,12 +53,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContractorRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CounterItemLookUpEdit)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridControlOfServicesListView
             // 
             this.gridControlOfServicesListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlOfServicesListView.Location = new System.Drawing.Point(0, 0);
+            this.gridControlOfServicesListView.Location = new System.Drawing.Point(0, 24);
             this.gridControlOfServicesListView.MainView = this.gridViewOfServicesListView;
             this.gridControlOfServicesListView.Name = "gridControlOfServicesListView";
             this.gridControlOfServicesListView.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -64,7 +67,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.ContractorRepositoryItemLookUpEdit,
             this.SinceAndTillRepositoryItemDateEdit,
             this.CounterItemLookUpEdit});
-            this.gridControlOfServicesListView.Size = new System.Drawing.Size(707, 203);
+            this.gridControlOfServicesListView.Size = new System.Drawing.Size(707, 179);
             this.gridControlOfServicesListView.TabIndex = 0;
             this.gridControlOfServicesListView.UseEmbeddedNavigator = true;
             this.gridControlOfServicesListView.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -86,6 +89,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.gridViewOfServicesListView.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "", null, "")});
             this.gridViewOfServicesListView.Name = "gridViewOfServicesListView";
+            this.gridViewOfServicesListView.OptionsCustomization.AllowGroup = false;
+            this.gridViewOfServicesListView.OptionsView.ShowGroupPanel = false;
             this.gridViewOfServicesListView.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.ServiceGridColumn, DevExpress.Data.ColumnSortOrder.Ascending),
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.SinceGridColumn, DevExpress.Data.ColumnSortOrder.Ascending),
@@ -208,11 +213,32 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.RateGridColumn.Visible = true;
             this.RateGridColumn.VisibleIndex = 5;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.showAllCheckBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(707, 24);
+            this.panel1.TabIndex = 1;
+            // 
+            // showAllCheckBox
+            // 
+            this.showAllCheckBox.AutoSize = true;
+            this.showAllCheckBox.Location = new System.Drawing.Point(4, 4);
+            this.showAllCheckBox.Name = "showAllCheckBox";
+            this.showAllCheckBox.Size = new System.Drawing.Size(96, 17);
+            this.showAllCheckBox.TabIndex = 0;
+            this.showAllCheckBox.Text = "Показать все";
+            this.showAllCheckBox.UseVisualStyleBackColor = true;
+            this.showAllCheckBox.Click += new System.EventHandler(this.showAllCheckBox_Click);
+            // 
             // CustomerPosListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gridControlOfServicesListView);
+            this.Controls.Add(this.panel1);
             this.Name = "CustomerPosListView";
             this.Size = new System.Drawing.Size(707, 203);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfServicesListView)).EndInit();
@@ -222,6 +248,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             ((System.ComponentModel.ISupportInitialize)(this.SinceAndTillRepositoryItemDateEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContractorRepositoryItemLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CounterItemLookUpEdit)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -241,6 +269,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit SinceAndTillRepositoryItemDateEdit;
         private DevExpress.XtraGrid.Columns.GridColumn CounterGridColumn;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit CounterItemLookUpEdit;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox showAllCheckBox;
     }
 }
 
