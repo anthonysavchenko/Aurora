@@ -56,6 +56,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.stateLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.isTransItemCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.isArchCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.FloorColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOfListView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stateLookUpEdit)).BeginInit();
@@ -65,9 +66,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // 
             // gridControlOfListView
             // 
-            this.gridControlOfListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridControlOfListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridControlOfListView.EmbeddedNavigator.Buttons.Append.Enabled = false;
             this.gridControlOfListView.EmbeddedNavigator.Buttons.Append.Visible = false;
             this.gridControlOfListView.EmbeddedNavigator.Buttons.CancelEdit.Enabled = false;
@@ -103,6 +104,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.ResidentsNumberColumn,
             this.StreetColumn,
             this.HouseColumn,
+            this.FloorColumn,
             this.ApartmentColumn,
             this.SquareColumn});
             this.gridViewOfListView.GridControl = this.gridControlOfListView;
@@ -176,7 +178,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             this.SquareColumn.FieldName = "Square";
             this.SquareColumn.Name = "SquareColumn";
             this.SquareColumn.Visible = true;
-            this.SquareColumn.VisibleIndex = 6;
+            this.SquareColumn.VisibleIndex = 7;
             this.SquareColumn.Width = 55;
             // 
             // stateLookUpEdit
@@ -195,6 +197,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // isTransItemCheckEdit
             // 
             this.isTransItemCheckEdit.AutoHeight = false;
+            this.isTransItemCheckEdit.Caption = "Check";
             this.isTransItemCheckEdit.Name = "isTransItemCheckEdit";
             this.isTransItemCheckEdit.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
             this.isTransItemCheckEdit.ValueChecked = "1";
@@ -203,10 +206,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
             // isArchCheckEdit
             // 
             this.isArchCheckEdit.AutoHeight = false;
+            this.isArchCheckEdit.Caption = "Check";
             this.isArchCheckEdit.Name = "isArchCheckEdit";
             this.isArchCheckEdit.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
             this.isArchCheckEdit.ValueChecked = "1";
             this.isArchCheckEdit.ValueUnchecked = "0";
+            // 
+            // FloorColumn
+            // 
+            this.FloorColumn.Caption = "Этаж";
+            this.FloorColumn.FieldName = "Floor";
+            this.FloorColumn.Name = "FloorColumn";
+            this.FloorColumn.Visible = true;
+            this.FloorColumn.VisibleIndex = 6;
             // 
             // ListView
             // 
@@ -239,6 +251,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers
         private DevExpress.XtraGrid.Columns.GridColumn StreetColumn;
         private DevExpress.XtraGrid.Columns.GridColumn HouseColumn;
         private DevExpress.XtraGrid.Columns.GridColumn ResidentsNumberColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn FloorColumn;
     }
 }
 
