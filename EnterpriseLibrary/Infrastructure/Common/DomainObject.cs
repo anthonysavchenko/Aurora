@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Diagnostics;
 using Taumis.EnterpriseLibrary.Win.Services;
 
 namespace Taumis.EnterpriseLibrary.Win
@@ -223,6 +223,7 @@ namespace Taumis.EnterpriseLibrary.Win
             return this.ToString().GetHashCode();
         }
 
+        [DebuggerHidden]
         public static bool operator ==(DomainObject _obj1, DomainObject _obj2)
         {
             bool _res = false;
