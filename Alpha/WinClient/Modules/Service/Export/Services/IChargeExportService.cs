@@ -6,6 +6,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 {
     public interface IChargeExportService
     {
-        ExportResult Export(string outputPath, DateTime period, IEnumerable<ChargeExportFormatType> formats, Action<int> progressAction);
+        ExportResult Export(string outputPath, DateTime period, IEnumerable<ChargeExportFormatType> formats, bool includeWithoutGISID, Action<int> progressAction);
     }
 }

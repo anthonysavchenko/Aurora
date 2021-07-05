@@ -124,6 +124,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         }
 
         /// <summary>
+        /// Включить в файл абонентов без ЕЛС
+        /// </summary>
+        public bool IncludeWithoutGISIDChecked
+        {
+            get => IncludeWithoutGISIDCheckBox.Checked;
+            set => IncludeWithoutGISIDCheckBox.Checked = value;
+        }
+
+        /// <summary>
         /// Информация о результате экспорта
         /// </summary>
         public string ResultText { set => resultTextBox.Text = value; }
@@ -326,6 +335,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = false;
+                    tblIncludeWithoutGIDID.Visible = true;
                     break;
                 case WizardAction.ExportCustomersForGisZhkh:
                     tblPeriod.Visible = false;
@@ -334,6 +344,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = false;
+                    tblIncludeWithoutGIDID.Visible = false;
                     break;
                 case WizardAction.ExportBenefitData:
                     tblPeriod.Visible = false;
@@ -342,6 +353,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = true;
                     tblOutputPath.Visible = false;
                     tblTemplate.Visible = true;
+                    tblIncludeWithoutGIDID.Visible = false;
                     break;
                 case WizardAction.ExportChargesForGisZhkh:
                     tblPeriod.Visible = true;
@@ -350,6 +362,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = true;
+                    tblIncludeWithoutGIDID.Visible = false;
                     break;
                 default:
                     tblPeriod.Visible = false;
@@ -358,6 +371,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                     tblBenefitExportInfo.Visible = false;
                     tblOutputPath.Visible = true;
                     tblTemplate.Visible = true;
+                    tblIncludeWithoutGIDID.Visible = false;
                     break;
             }
         }
