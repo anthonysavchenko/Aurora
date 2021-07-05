@@ -47,6 +47,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
         bool PrimSocBankChecked { get; set; }
 
         /// <summary>
+        /// Включить в файл абонентов без ЕЛС
+        /// </summary>
+        bool IncludeWithoutGISIDChecked { get; set; }
+
+        /// <summary>
         /// Флаг экспорта данных ГИС ЖКХ: "только новые" / "все" абоненты
         /// </summary>
         bool GisZhkhOnlyNew { get; set; }

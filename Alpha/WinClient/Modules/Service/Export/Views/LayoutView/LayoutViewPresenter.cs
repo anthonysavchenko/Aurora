@@ -201,7 +201,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export
                             args.Result = BenefitExportService.Export(View.OutputPath, View.TemplatePath, View.StartPeriod, ((BackgroundWorker)sender).ReportProgress);
                             break;
                         case WizardAction.ExportChargesForBanks:
-                            args.Result = ChargeExportService.Export(View.OutputPath, View.Period, GetChargeExportFormatList(), ((BackgroundWorker)sender).ReportProgress);
+                            args.Result = ChargeExportService.Export(View.OutputPath, View.Period, GetChargeExportFormatList(), View.IncludeWithoutGISIDChecked, ((BackgroundWorker)sender).ReportProgress);
                             break;
                         case WizardAction.ExportCustomersForGisZhkh:
                             args.Result = GisZhkhCustomerExportService.Export(View.OutputPath, View.GisZhkhOnlyNew, ((BackgroundWorker)sender).ReportProgress);
