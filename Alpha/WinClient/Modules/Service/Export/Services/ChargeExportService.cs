@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
@@ -31,7 +32,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public string Account { get; set; }
         }
 
-        private Dictionary<int, List<CustomerInfo>> GetData(DateTime period)
+        private Dictionary<int, List<CustomerInfo>> GetData(
+            DateTime period,
+            Expression<Func<Customers, bool>> whereExpr)
         {
             Dictionary<int, List<CustomerInfo>> _dataByBankAccount = null;
 
@@ -41,6 +44,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                 var _customers =
                     _db.Customers
+                        .Where(whereExpr)
                         .Select(c =>
                             new
                             {
@@ -249,11 +253,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         new
                         {
                             x.BankDetailID,
-                            Account = x.Account,
-                            Apartment = x.Apartment,
-                            Owner = x.Owner,
+                            x.Account,
+                            x.Apartment,
+                            x.Owner,
                             x.GisZhkhID,
-                            Value = x.Value,
+                            x.Value,
                             Street = b.StreetName,
                             Building = b.Number,
                             BuildingFias = b.FiasID,
@@ -302,13 +306,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             return _data;
         }
 
-        public ExportResult Export(string outputPath, DateTime period, IEnumerable<ChargeExportFormatType> formats, Action<int> progressAction)
+        public ExportResult Export(string outputPath, DateTime period, IEnumerable<ChargeExportFormatType> formats, bool includeWithoutGISID, Action<int> progressAction)
         {
             ExportResult _result = new ExportResult();
 
             try
             {
-                Dictionary<int, List<CustomerInfo>> _data = GetData(period);
+                Dictionary<int, List<CustomerInfo>> _data =
+                    includeWithoutGISID
+                        ? GetData(period, c => true)
+                        : GetData(period, c => !string.IsNullOrEmpty(c.GisZhkhID));
                 Dictionary<int, BankDetailInfo> _bankDetailData = GetBankDetailData();
 
                 int _count = _data.Values.Sum(v => v.Count);
