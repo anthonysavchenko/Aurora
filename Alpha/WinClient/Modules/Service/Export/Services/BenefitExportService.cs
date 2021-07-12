@@ -765,8 +765,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 using (IExcelWorkbook _xwb = ExcelService.OpenWorkbook(templatePath))
                 {
                     IExcelWorksheet _xws = _xwb.Worksheet(1);
-                    string _periodStr = _xws.Cell(2, Columns.PERIOD_COLUMN).Value;
-                    DateTime _period = GetPeriod(_periodStr);
+
+                    if (!_xws.Cell(2, Columns.PERIOD_COLUMN).TryGetValue(out DateTime _period))
+                    {
+                        throw new ApplicationException($"Не удалось распознать конечный период отчета.");
+                    }
 
                     Dictionary<int, Dictionary<int, int>> _accRowDict = Parse(_xws, progressAction);
                     List<CustomerInfo> _data = GetCustomerInfoList(_period, startPeriod, _accRowDict.Keys.ToList());
