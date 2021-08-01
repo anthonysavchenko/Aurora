@@ -275,6 +275,69 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             return null;
         }
 
+        private string GetBottomInfoString(string street, string building)
+        {
+            street = street.ToLower();
+
+            if (street == "остров русский, ул. зеленая"
+                || street == "остров русский, п. поспелово"
+                || street == "остров русский, п. подножье"
+                || street == "остров русский, ул. экипажная"
+                || street == "остров русский, поселок воевода")
+            {
+                return "Управляющий по дому - Елена Сергеевна, тел. +7-924-428-48-84";
+            }
+
+            if (street == "уткинская"
+                || street == "прапорщика комарова")
+            {
+                return "Управляющий по дому - Адрианова Варвара Георгиевна, тел. +7-914-703-97-87";
+            }
+
+            if (street == "космонавтов" || street == "борисенко")
+            {
+                return "Управляющий по дому - Милованова Оксана Васильевна, тел 271-80-55";
+            }
+
+            if (street == "гульбиновича"
+                || street == "тунгусская"
+                || street == "тобольская"
+                || street == "терешковой"
+                || street == "шилкинская"
+                || (street == "красного знамени проспект" 
+                    && (building == "88" || building == "162" || building == "114")))
+            {
+                return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
+            }
+
+            if (street == "магнитогорская"
+                || street == "енисейская"
+                || street == "окатовая" 
+                || street == "океанский проспект"
+                || street == "острякова проспект"
+                || street == "некрасовская"
+                || (street == "красного знамени проспект" && (building == "93" || building == "107")))
+            {
+                return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
+            }
+
+            if (street == "адмирала спиридонова"
+                || street == "адмирала кузнецова"
+                || street == "луговая"
+                || street == "баляева")
+            {
+                return "Управляющий по дому - Горбачева Вера Александровна, тел 255-82-23";
+            }
+
+            if (street == "ульяновская"
+                || street == "полетаева")
+            {
+                return "Управляющий по дому - Шевелева Надежда Дмитриевна, тел. 277-02-99";
+            }
+
+            return string.Empty;
+        }
+
         private string GetEmergencyPhoneNumber(string street, string building)
         {
             street = street.ToLower();
