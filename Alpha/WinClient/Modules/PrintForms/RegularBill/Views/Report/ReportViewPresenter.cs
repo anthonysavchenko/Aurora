@@ -303,18 +303,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "тунгусская"
                 || street == "тобольская"
                 || street == "терешковой"
+                || street == "шилкинская"
                 || (street == "красного знамени проспект" 
                     && (building == "88" || building == "162" || building == "114")))
             {
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
             }
 
-            if (street == "окатовая" 
+            if (street == "магнитогорская"
+                || street == "енисейская"
+                || street == "окатовая" 
                 || street == "океанский проспект"
                 || street == "острякова проспект"
                 || street == "некрасовская"
-                || street == "станюковича"
-                || street == "западная"
                 || (street == "красного знамени проспект" && (building == "93" || building == "107")))
             {
                 return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
@@ -328,10 +329,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Горбачева Вера Александровна, тел 255-82-23";
             }
 
-            if (street == "магнитогорская"
-                || street == "ульяновская"
-                || street == "енисейская"
-                || street == "шилкинская"
+            if (street == "ульяновская"
                 || street == "полетаева")
             {
                 return "Управляющий по дому - Шевелева Надежда Дмитриевна, тел. 277-02-99";
