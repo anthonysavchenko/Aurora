@@ -147,7 +147,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                     int _rowCount = _xws.GetRowCount();
                     _rows = new List<ParsedRow>(_rowCount);
 
-                    while (_row <= _rowCount)
+                    for (; _row <= _rowCount; _row++)
                     {
                         _xws.Cell(_row, Columns.BUILDING_ID).TryGetValue(out int buildingID);
                         string electrVol = _xws.Cell(_row, Columns.ELECTR_VOL).Value;
@@ -181,6 +181,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             && string.IsNullOrEmpty(heatingOdnVol)
                             && string.IsNullOrEmpty(heatingCounterValue))
                         {
+                            reportProgressAction(_row * 50 / _rowCount);
                             continue;
                         }
 
