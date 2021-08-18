@@ -689,22 +689,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             FillSelectedPaymentsTotalLabels();
             FillPaymentsTotalLabels();
 
-                if (IsUseScanner)
-                {
-                    BarcodeTextEdit.Focus();
-                }
-                else
-                {
-                    AccountTextEdit.Focus();
-                }
+            if (IsUseScanner)
+            {
+                BarcodeTextEdit.Focus();
             }
+            else
+            {
+                AccountTextEdit.Focus();
+            }
+        }
 
-        /// <summary>
-        /// Обрабатывает нажатие на кнопку "Удалить"
-        /// </summary>
-        private void DeleteItemButton_Click(object sender, EventArgs e)
+        private void SetupAfterRowsDelete()
         {
-            Presenter.DeletePayments(PaymentsGridView.GetSelectedRows().Select(handle => Convert.ToInt32(PaymentsGridView.GetDataRow(handle)["ID"])).ToList());
             PaymentsGridView.FocusedRowHandle = 0;
             Presenter.OnProcesingDataRowChanged(Convert.ToInt32(PaymentsGridView.GetDataRow(0)["ID"]));
             PaymentsGridView.ClearSelection();
@@ -720,6 +716,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             {
                 AccountTextEdit.Focus();
             }
+        }
+
+        /// <summary>
+        /// Обрабатывает нажатие на кнопку "Удалить"
+        /// </summary>
+        private void DeleteItemButton_Click(object sender, EventArgs e)
+        {
+            Presenter.DeletePayments(PaymentsGridView.GetSelectedRows().Select(handle => Convert.ToInt32(PaymentsGridView.GetDataRow(handle)["ID"])).ToList());
+            SetupAfterRowsDelete();
+        }
+
+        private void DeleteErrorsButton_Click(object sender, EventArgs e)
+        {
+            Presenter.DeleteAllPaymentsWithError();
+            SetupAfterRowsDelete();
         }
 
         /// <summary>
