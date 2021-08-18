@@ -961,6 +961,29 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         }
 
         /// <summary>
+        /// Удаляет все платежи с ошибками
+        /// </summary>
+        internal void DeleteAllPaymentsWithError()
+        {
+            var idsToDelete = 
+                Payments
+                    .Where(p => p.Value.HasError)
+                    .Select(p => p.Key)
+                    .ToList();
+
+            foreach (int _ID in idsToDelete)
+            {
+                Payments.Remove(_ID);
+                View.ProcessingData.Rows.Remove(View.ProcessingData.Rows.Find(_ID));
+            }
+
+            if (!Payments.Any())
+            {
+                CreateNewPayment();
+            }
+        }
+
+        /// <summary>
         /// Возвращает сумму начислений для абонента за период
         /// </summary>
         /// <param name="account">Лицевой счет абонента</param>

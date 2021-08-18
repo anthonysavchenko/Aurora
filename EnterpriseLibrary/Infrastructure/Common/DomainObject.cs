@@ -247,6 +247,7 @@ namespace Taumis.EnterpriseLibrary.Win
             return _res;
         }
 
+        [DebuggerHidden]
         public static bool operator !=(DomainObject _obj1, DomainObject _obj2)
         {
             return !(_obj1 == _obj2);

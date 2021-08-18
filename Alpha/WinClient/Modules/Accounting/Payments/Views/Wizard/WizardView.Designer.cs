@@ -107,6 +107,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             this.TotalAmountLabel = new DevExpress.XtraEditors.LabelControl();
             this.TotalProcessedValueLabel = new DevExpress.XtraEditors.LabelControl();
             this.TotalProcessedLabel = new DevExpress.XtraEditors.LabelControl();
+            this.DeleteErrorsButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.PaymentWizardControl)).BeginInit();
             this.PaymentWizardControl.SuspendLayout();
             this.ProcessingWizardPage.SuspendLayout();
@@ -185,6 +186,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             // CheckDataWizardPage
             // 
             this.CheckDataWizardPage.AutoScroll = true;
+            this.CheckDataWizardPage.Controls.Add(this.DeleteErrorsButton);
             this.CheckDataWizardPage.Controls.Add(this.AddNewButton);
             this.CheckDataWizardPage.Controls.Add(this.barcodeGroupBox);
             this.CheckDataWizardPage.Controls.Add(this.DeleteItemButton);
@@ -201,7 +203,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             // 
             // AddNewButton
             // 
-            this.AddNewButton.Location = new System.Drawing.Point(187, 409);
+            this.AddNewButton.Location = new System.Drawing.Point(23, 409);
             this.AddNewButton.Name = "AddNewButton";
             this.AddNewButton.Size = new System.Drawing.Size(77, 23);
             this.AddNewButton.TabIndex = 5;
@@ -254,7 +256,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             // 
             // DeleteItemButton
             // 
-            this.DeleteItemButton.Location = new System.Drawing.Point(270, 409);
+            this.DeleteItemButton.Location = new System.Drawing.Point(105, 409);
             this.DeleteItemButton.Name = "DeleteItemButton";
             this.DeleteItemButton.Size = new System.Drawing.Size(76, 23);
             this.DeleteItemButton.TabIndex = 6;
@@ -980,6 +982,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
             this.TotalProcessedLabel.TabIndex = 9;
             this.TotalProcessedLabel.Text = "Всего обработано";
             // 
+            // DeleteErrorsButton
+            // 
+            this.DeleteErrorsButton.Location = new System.Drawing.Point(187, 409);
+            this.DeleteErrorsButton.Name = "DeleteErrorsButton";
+            this.DeleteErrorsButton.Size = new System.Drawing.Size(159, 23);
+            this.DeleteErrorsButton.TabIndex = 60;
+            this.DeleteErrorsButton.Text = "Удалить все с ошибками";
+            this.DeleteErrorsButton.Click += new System.EventHandler(this.DeleteErrorsButton_Click);
+            // 
             // WizardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1107,6 +1118,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Payments.Views.Wizard
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private DevExpress.XtraGrid.Columns.GridColumn IDGridColumn;
+        private DevExpress.XtraEditors.SimpleButton DeleteErrorsButton;
     }
 }
 
