@@ -304,19 +304,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "тобольская"
                 || street == "терешковой"
                 || street == "шилкинская"
+                || street == "магнитогорская"
+                || street == "енисейская"
+                || street == "окатовая"
+                || street == "некрасовская"
                 || (street == "красного знамени проспект" 
-                    && (building == "88" || building == "162" || building == "114")))
+                    && (building == "88" || building == "162" || building == "114" || building == "93")))
             {
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
             }
 
-            if (street == "магнитогорская"
-                || street == "енисейская"
-                || street == "окатовая" 
-                || street == "океанский проспект"
-                || street == "острякова проспект"
-                || street == "некрасовская"
-                || (street == "красного знамени проспект" && (building == "93" || building == "107")))
+            if (street == "красного знамени проспект" && building == "107")
             {
                 return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
             }
@@ -324,7 +322,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             if (street == "адмирала спиридонова"
                 || street == "адмирала кузнецова"
                 || street == "луговая"
-                || street == "баляева")
+                || street == "баляева"
+                || street == "океанский проспект"
+                || street == "острякова проспект")
             {
                 return "Управляющий по дому - Горбачева Вера Александровна, тел 255-82-23";
             }
