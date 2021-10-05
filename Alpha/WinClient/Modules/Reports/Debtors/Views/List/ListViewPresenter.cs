@@ -20,6 +20,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
             public const string APARTMENT_COLUMN = "Apartment";
             public const string ACCOUNT_COLUMN = "Account";
             public const string OWNER_AKA_COLUMN = "OwnerAka";
+            public const string CHARGES_COLUMN = "Charges";
+            public const string PAYMENTS_COLUMN = "Payments";
             public const string TOTAL = "Total";
             public const string CURRENT_MONTH_CHARGE = "CurrentMonthCharge";
         }
@@ -61,6 +63,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
             View.AddColumn(ColumnNames.APARTMENT_COLUMN, "Кв.");
             View.AddColumn(ColumnNames.ACCOUNT_COLUMN, "Номер счета");
             View.AddColumn(ColumnNames.OWNER_AKA_COLUMN, "Собственник");
+            View.AddColumn(ColumnNames.CHARGES_COLUMN, "Начислено");
+            View.AddColumn(ColumnNames.PAYMENTS_COLUMN, "Оплачено");
             View.AddMoneyColumn(ColumnNames.TOTAL, "Итого");
             base.ProcessGridData();
         }
@@ -78,6 +82,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
             _table.Columns.Add(ColumnNames.APARTMENT_COLUMN, typeof(string));
             _table.Columns.Add(ColumnNames.ACCOUNT_COLUMN, typeof(string));
             _table.Columns.Add(ColumnNames.OWNER_AKA_COLUMN, typeof(string));
+            _table.Columns.Add(ColumnNames.CHARGES_COLUMN, typeof(string));
+            _table.Columns.Add(ColumnNames.PAYMENTS_COLUMN, typeof(string));
             _table.Columns.Add(ColumnNames.TOTAL, typeof(decimal));
 
             decimal _debtMinSum = View.DebtMinSum;
@@ -91,6 +97,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                         .Select(x =>
                             new
                             {
+                                IsCharge = true,
                                 CustomerID = x.Customers.ID,
                                 StreetID = x.Customers.Buildings.Streets.ID,
                                 BuildingID = x.Customers.Buildings.ID,
@@ -102,6 +109,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                             .Select(x =>
                                 new
                                 {
+                                    IsCharge = true,
                                     CustomerID = x.Customers.ID,
                                     StreetID = x.Customers.Buildings.Streets.ID,
                                     BuildingID = x.Customers.Buildings.ID,
@@ -113,6 +121,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = true,
                                         CustomerID = x.Customers.ID,
                                         StreetID = x.Customers.Buildings.Streets.ID,
                                         BuildingID = x.Customers.Buildings.ID,
@@ -125,6 +134,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = true,
                                         CustomerID = x.Customers.ID,
                                         StreetID = x.Customers.Buildings.Streets.ID,
                                         BuildingID = x.Customers.Buildings.ID,
@@ -136,6 +146,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = true,
                                         CustomerID = x.ChargeOpers.Customers.ID,
                                         StreetID = x.ChargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.ChargeOpers.Customers.Buildings.ID,
@@ -148,6 +159,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = true,
                                         CustomerID = x.ChargeOpers.Customers.ID,
                                         StreetID = x.ChargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.ChargeOpers.Customers.Buildings.ID,
@@ -159,6 +171,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = true,
                                         CustomerID = x.RechargeOpers.Customers.ID,
                                         StreetID = x.RechargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.RechargeOpers.Customers.Buildings.ID,
@@ -171,6 +184,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = true,
                                         CustomerID = x.RechargeOpers.Customers.ID,
                                         StreetID = x.RechargeOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.RechargeOpers.Customers.Buildings.ID,
@@ -182,6 +196,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = false,
                                         CustomerID = x.Customers.ID,
                                         StreetID = x.Customers.Buildings.Streets.ID,
                                         BuildingID = x.Customers.Buildings.ID,
@@ -193,6 +208,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 .Select(x =>
                                     new
                                     {
+                                        IsCharge = false,
                                         CustomerID = x.PaymentOpers.Customers.ID,
                                         StreetID = x.PaymentOpers.Customers.Buildings.Streets.ID,
                                         BuildingID = x.PaymentOpers.Customers.Buildings.ID,
@@ -200,7 +216,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                         x.Value
                                     }));
 
-                if (!string.IsNullOrEmpty(View.BuildingId))
+                /*if (!string.IsNullOrEmpty(View.BuildingId))
                 {
                     int _id = int.Parse(View.BuildingId);
                     _raw = _raw.Where(x => x.BuildingID == _id);
@@ -216,7 +232,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                     DateTime _till = View.TillDateTime;
                     _till = new DateTime(_till.Year, _till.Month, DateTime.DaysInMonth(_till.Year, _till.Month), 23, 59, 59);
                     _raw = _raw.Where(x => x.Period <= _till);
-                }
+                }*/
 
                 var _raw2 = _raw
                     .GroupBy(c => c.CustomerID)
@@ -224,12 +240,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                         new
                         {
                             CustomerID = g.Key,
+                            Charged = g.Where(c => c.IsCharge).Sum(c => (decimal?)c.Value) ?? 0,
+                            Payed = g.Where(c => !c.IsCharge).Sum(c => (decimal?)c.Value) ?? 0,
                             Value = g.Sum(c => (decimal?)c.Value) ?? 0
                         })
-                    .Where(c => c.Value > _debtMinSum)
+                    //.Where(c => c.Value > _debtMinSum)
                     .ToList();
 
-                if(View.DebtMonthCount > 0)
+                /*if(View.DebtMonthCount > 0)
                 {
                     DateTime _lastChargedPeriod = ServerTime.GetPeriodInfo().LastCharged;
 
@@ -259,7 +277,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                 Value = x.DebtValue
                             })
                         .ToList();
-                }
+                }*/
 
                 int[] _customerIDs = _raw2.Select(x => x.CustomerID).ToArray();
                 StringAsNumbersComparer _comparer = new StringAsNumbersComparer();
@@ -291,6 +309,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                                     y.BuildingNumber,
                                     y.Apartment,
                                     y.Account,
+                                    x.Charged,
+                                    x.Payed,
                                     x.Value
                                 })
                         .OrderBy(x => x.StreetName)
@@ -306,6 +326,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Reports.Debtors.Views.List
                     _row[ColumnNames.APARTMENT_COLUMN] = _customer.Apartment;
                     _row[ColumnNames.ACCOUNT_COLUMN] = _customer.Account;
                     _row[ColumnNames.OWNER_AKA_COLUMN] = _customer.FullName;
+                    _row[ColumnNames.CHARGES_COLUMN] = _customer.Charged;
+                    _row[ColumnNames.PAYMENTS_COLUMN] = _customer.Payed;
                     _row[ColumnNames.TOTAL] = _customer.Value;
 
                     _table.Rows.Add(_row);
