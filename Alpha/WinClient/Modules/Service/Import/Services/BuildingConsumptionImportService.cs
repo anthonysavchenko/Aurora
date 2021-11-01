@@ -81,6 +81,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
 
         private string Save(List<ParsedRow> rows, DateTime period, Action<int> reportProgressAction)
         {
+            int saved = 0;
             StringBuilder _erorrs = new StringBuilder();
 
             foreach (ParsedRow _row in rows)
@@ -123,6 +124,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                         _item.HeatingCounterValue = _row.HeatingCounterValue;
 
                         _db.SaveChanges();
+                        saved++;
                     }
                     catch (Exception ex)
                     {
@@ -131,7 +133,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                 }
             }
 
-            return _erorrs.Length > 0 ? _erorrs.ToString() : "Импорт данных выполнен успешно";
+            return _erorrs.Length > 0 
+                ? _erorrs.ToString()
+                : $"Импорт данных выполнен успешно, сохранено строк: {saved}";
         }
 
         private List<ParsedRow> ParseFile(string inputFileName, Action<int> reportProgressAction, out string message)
@@ -185,6 +189,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                             continue;
                         }
 
+                        if (buildingID == default)
+                        {
+                            throw new Exception($"Указан неправильный ID (идентификатор дома) в строке {_row}.");
+                        }
+
                         _rows.Add(
                             new ParsedRow
                             {
@@ -206,7 +215,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Import.Services
                                 HeatingCounterValue = _xws.Cell(_row, Columns.HEATING_COUNTER_VALUE).Value,
                             });
                         reportProgressAction(_row * 50 / _rowCount);
-                        _row++;
                     }
 
                     message = string.Empty;
