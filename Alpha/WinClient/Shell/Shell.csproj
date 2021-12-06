@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>3C86AEF45300B3349C1D429ECC6D0483D2F62248</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E120981A0FF2183C412101442551A7DCA8B8862E</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora 1872</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.41.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.42.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>019.41.0.0</ApplicationVersion>
+    <ApplicationVersion>019.42.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -284,10 +284,10 @@
     <Content Include="Templates\BuildingConsumptionImport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Shell_TemporaryKey.pfx" />
     <Content Include="Templates\ImportNewCustomers.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Shell_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\EnterpriseLibrary\Infrastructure\Common\Common.csproj">
