@@ -118,6 +118,35 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         });
                 }
             }
+            else if (_rest > 0)
+            {
+                var prevPeriod = _chargePeriod.AddMonths(-1);
+                var prevPoses = cmd.Db.RegularBillDocSeviceTypePoses
+                    .Where(r =>
+                        r.RegularBillDocs.Customers.ID == cmd.DbCustomerStub.ID
+                            && r.RegularBillDocs.Period == prevPeriod)
+                    .Select(r => new
+                    {
+                        r.ServiceTypeID,
+                        r.ServiceTypeName,
+                    })
+                    .ToList();
+
+                foreach (var prevPos in prevPoses)
+                {
+                    cmd.Db.RegularBillDocSeviceTypePoses.AddObject(
+                        new RegularBillDocSeviceTypePoses
+                        {
+                            RegularBillDocs = _billDoc,
+                            ServiceTypeID = prevPos.ServiceTypeID,
+                            ServiceTypeName = prevPos.ServiceTypeName,
+                            Charge = 0,
+                            Benefit = 0,
+                            Recalculation = 0,
+                            Payable = 0,
+                        });
+                }
+            }
 
             _billSet.Quantity++;
             _billSet.ValueSum += cmd.ChargeOper.Value;
