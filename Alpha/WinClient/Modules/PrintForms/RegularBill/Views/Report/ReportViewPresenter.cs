@@ -372,7 +372,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "красного знамени проспект"
                 || street == "шилкинская"
                 || street == "тунгусская"
-                || street == "тобольская")
+                || street == "тобольская"
+                || street == "хабаровская")
             {
                 return "2-980-981";
             }
