@@ -350,14 +350,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "адмирала кузнецова"
                 || street == "адмирала спиридонова"
                 || street == "терешковой"
-                || street == "окатовая")
+                || street == "окатовая"
+                || street == "гульбиновича")
             {
                 return "206-03-20";
             }
 
-            if (street == "борисенко"
-                || street == "гульбиновича"
-                || street == "баляева")
+            if(street == "борисенко" || street == "баляева")
             {
                 return "2-614-714";
             }
@@ -388,6 +387,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             if (street == "ульяновская")
             {
                 return "2-340-141";
+            }
+
+            if (street == "светланская")
+            {
+                return "2-980-981";
             }
 
             return "2-614-714, 2-980-981";
