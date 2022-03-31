@@ -47,11 +47,44 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
                         ServiceTypeName = p.Services.ServiceTypes.Name,
                         ContractorId = p.Contractors.ID,
                         ChargeRule = p.Services.ChargeRule,
-                        Norm = p.Services.Norm ?? 0
+                        Norm = p.Services.Norm ?? 0,
+                        CounterVolume = p.Services.ChargeRule == (byte)ChargeRuleType.CounterRate
+                            ? GetPrivateCountersVolumes(db, customerId, p.Services.ID, period) : 0
                     })
                 .ToList();
 
             return _result;
+        }
+
+        /// <summary>
+        /// Вычисляет объем потребления абонента по всем счетчикам одной услуги
+        /// 
+        /// TODO: Для счетчиков абонента нужно сделать периоды действия (такие же, как есть у CustomerPoses).
+        /// А указывание счетчика в CustomerPos нужно убрать, так как по одной услуге может быть несколько счетчиков.
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="customerID">Абонент</param>
+        /// <param name="serviceID">Услуга</param>
+        /// <param name="period">Месяц начисления</param>
+        /// <returns></returns>
+        private static decimal GetPrivateCountersVolumes(Entities db, int customerID, int serviceID, DateTime period)
+        {
+            DateTime prevPeriod = period.AddMonths(-1);
+
+            return db.PrivateCounterValues
+                .Where(value =>
+                    value.PrivateCounters.Customers.ID == customerID &&
+                    value.PrivateCounters.Services.ID == serviceID &&
+                    // Возможно, для оптимизации можно добавит загрузку данных .ToList сразу после следующей строки.
+                    (value.Period == period || value.Period == prevPeriod))
+                .GroupBy(byCounter => byCounter.PrivateCounters.ID)
+                .Select(byCounter => new {
+                    CurrentValue = byCounter.FirstOrDefault(value => value.Period == period),
+                    PrevValue = byCounter.FirstOrDefault(value => value.Period == prevPeriod)
+                })
+                .Select(valuePair => valuePair.CurrentValue != null || valuePair.PrevValue != null
+                    ? valuePair.CurrentValue.Value - valuePair.PrevValue.Value : 0)
+                .Sum();
         }
     }
 }
