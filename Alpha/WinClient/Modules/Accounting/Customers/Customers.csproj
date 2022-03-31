@@ -73,9 +73,6 @@
       <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraGrid.v13.1.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v13.1.Design">
-      <HintPath>..\..\..\..\..\..\release\ThirdParty\DevExpress 13.1\Design\DevExpress.XtraGrid.v13.1.Design.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\ThirdParty\DevExpress 13.1\DevExpress.XtraPrinting.v13.1.dll</HintPath>
