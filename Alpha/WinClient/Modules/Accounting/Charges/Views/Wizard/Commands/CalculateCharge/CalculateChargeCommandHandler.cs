@@ -31,6 +31,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         break;
 
                     case ChargeRuleType.CounterRate:
+                        _value = _pos.Rate * _pos.CounterVolume;
                         break;
 
                     case ChargeRuleType.PublicPlaceAreaRate:
