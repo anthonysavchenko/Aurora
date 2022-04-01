@@ -70,7 +70,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
         /// <param name="customerID">Абонент</param>
         /// <param name="serviceID">Услуга</param>
         /// <param name="period">Месяц начисления</param>
-        /// <returns></returns>
+        /// <returns>Объем</returns>
         private static decimal GetPrivateCountersVolumes(Entities db, int customerID, int serviceID, DateTime period)
         {
             DateTime prevPeriod = period.AddMonths(-1);
