@@ -48,7 +48,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
                         ContractorId = p.Contractors.ID,
                         ChargeRule = p.Services.ChargeRule,
                         Norm = p.Services.Norm ?? 0,
-                        CounterVolume = p.Services.ChargeRule == (byte)ChargeRuleType.CounterRate
+                        CountersVolume = p.Services.ChargeRule == (byte)ChargeRuleType.CounterRate
                             ? GetPrivateCountersVolumes(db, customerId, p.Services.ID, period) : 0
                     })
                 .ToList();
@@ -82,8 +82,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
                     CurrentValue = byCounter.FirstOrDefault(value => value.Period == period),
                     PrevValue = byCounter.FirstOrDefault(value => value.Period == prevPeriod)
                 })
-                .Select(valuePair => valuePair.CurrentValue != null || valuePair.PrevValue != null
-                    ? valuePair.CurrentValue.Value - valuePair.PrevValue.Value : 0)
+                .Select(valuePair => 
+                    (valuePair.CurrentValue != null || valuePair.PrevValue != null) &&
+                    valuePair.CurrentValue.Value > valuePair.PrevValue.Value
+                        ? valuePair.CurrentValue.Value - valuePair.PrevValue.Value : 0)
                 .Sum();
         }
     }
