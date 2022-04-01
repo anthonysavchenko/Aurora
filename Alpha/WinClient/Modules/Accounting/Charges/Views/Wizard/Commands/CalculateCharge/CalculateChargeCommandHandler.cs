@@ -18,8 +18,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             foreach (var _pos in cmd.CustomerInfo.Poses)
             {
-                decimal _value = 0;
-
+                decimal _value;
                 switch ((ChargeRuleType)_pos.ChargeRule)
                 {
                     case ChargeRuleType.SquareRate:
@@ -31,7 +30,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         break;
 
                     case ChargeRuleType.CounterRate:
-                        _value = _pos.Rate * _pos.CounterVolume;
+                        _value = _pos.Rate * _pos.CountersVolume;
                         break;
 
                     case ChargeRuleType.PublicPlaceAreaRate:
