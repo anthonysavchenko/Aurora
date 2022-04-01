@@ -47,11 +47,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.View.Wizard.Q
                         ServiceTypeName = p.Services.ServiceTypes.Name,
                         ContractorId = p.Contractors.ID,
                         ChargeRule = p.Services.ChargeRule,
-                        Norm = p.Services.Norm ?? 0,
-                        CountersVolume = p.Services.ChargeRule == (byte)ChargeRuleType.CounterRate
-                            ? GetPrivateCountersVolumes(db, customerId, p.Services.ID, period) : 0
+                        Norm = p.Services.Norm ?? 0
                     })
                 .ToList();
+
+            foreach (var pos in _result.Poses)
+            {
+                pos.CountersVolume = pos.ChargeRule == (byte)ChargeRuleType.CounterRate
+                    ? GetPrivateCountersVolumes(db, customerId, pos.ServiceId, period) : 0;
+            }
 
             return _result;
         }
