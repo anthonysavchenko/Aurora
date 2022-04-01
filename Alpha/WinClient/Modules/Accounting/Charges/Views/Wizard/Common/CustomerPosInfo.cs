@@ -11,6 +11,10 @@
         public int ContractorId { get; set; }
         public byte ChargeRule { get; set; }
         public decimal Norm { get; set; }
-        public decimal CounterVolume { get; set; }
+
+        /// <summary>
+        /// Объем потребления по всем счетчикам, относящимся к услуге
+        /// </summary>
+        public decimal CountersVolume { get; set; }
     }
 }
