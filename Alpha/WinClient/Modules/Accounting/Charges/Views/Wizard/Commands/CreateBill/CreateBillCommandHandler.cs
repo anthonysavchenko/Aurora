@@ -20,13 +20,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                 + cmd.ChargePeriodBalance.Values.Sum(x => x.Benefit)
                 + cmd.ChargePeriodBalance.Values.Sum(x => x.Recharge);
 
-            DateTime _chargePeriod = cmd.ChargeOper.ChargeSets.Period;
+            DateTime chargePeriod = cmd.ChargeOper.ChargeSets.Period;
+            DateTime prevPeriod = chargePeriod.AddMonths(-1);
+            DateTime _payBefore = new DateTime(chargePeriod.Year, chargePeriod.Month, 10).AddMonths(1);
 
-            decimal _rest = cmd.Db.GetTotalForCustomer(cmd.CustomerInfo.Id, _chargePeriod);
+            decimal _rest = cmd.Db.GetTotalForCustomer(cmd.CustomerInfo.Id, chargePeriod);
 
-            DateTime _payBefore = new DateTime(_chargePeriod.Year, _chargePeriod.Month, 10).AddMonths(1);
-
-            RegularBillDocs _billDoc =
+            RegularBillDocs billDoc =
                 new RegularBillDocs
                 {
                     CreationDateTime = cmd.ChargeOper.CreationDateTime,
@@ -37,7 +37,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     ResidentsCount = cmd.CustomerInfo.ResidentsCount,
                     Customers = cmd.DbCustomerStub,
                     BillSets = _billSet,
-                    Period = _chargePeriod,
+                    Period = chargePeriod,
                     EmergencyPhoneNumber = cmd.CustomerInfo.Poses.Any(pos => pos.ContractorId == MADIX_CONTRACTOR_ID)
                         ? "261-47-14" : "298-09-81",
                     PayBeforeDateTime = _payBefore,
@@ -50,16 +50,16 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             if (_contractorPos != null)
             {
                 Contractors _cont = cmd.Contractors[_contractorPos.ContractorId];
-                _billDoc.ContractorContactInfo = $"{_cont.Name}, {_cont.ContactInfo}";
+                billDoc.ContractorContactInfo = $"{_cont.Name}, {_cont.ContactInfo}";
             }
             else
             {
-                _billDoc.ContractorContactInfo = string.Empty;
+                billDoc.ContractorContactInfo = string.Empty;
             }
 
-            cmd.Db.RegularBillDocs.AddObject(_billDoc);
+            cmd.Db.RegularBillDocs.AddObject(billDoc);
 
-            cmd.ChargeOper.RegularBillDocs = _billDoc;
+            cmd.ChargeOper.RegularBillDocs = billDoc;
 
             if (cmd.ChargePeriodBalance.Count > 0)
             {
@@ -107,7 +107,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     cmd.Db.RegularBillDocSeviceTypePoses.AddObject(
                         new RegularBillDocSeviceTypePoses
                         {
-                            RegularBillDocs = _billDoc,
+                            RegularBillDocs = billDoc,
                             ServiceTypeID = _pos.ServiceTypeId,
                             ServiceTypeName = _pos.ServiceTypeName,
                             PayRate = Math.Round(_pos.Charge / cmd.CustomerInfo.Area, 2, MidpointRounding.AwayFromZero),
@@ -120,7 +120,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
             }
             else if (_rest > 0)
             {
-                var prevPeriod = _chargePeriod.AddMonths(-1);
                 var prevPoses = cmd.Db.RegularBillDocSeviceTypePoses
                     .Where(r =>
                         r.RegularBillDocs.Customers.ID == cmd.DbCustomerStub.ID
@@ -137,7 +136,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     cmd.Db.RegularBillDocSeviceTypePoses.AddObject(
                         new RegularBillDocSeviceTypePoses
                         {
-                            RegularBillDocs = _billDoc,
+                            RegularBillDocs = billDoc,
                             ServiceTypeID = prevPos.ServiceTypeID,
                             ServiceTypeName = prevPos.ServiceTypeName,
                             Charge = 0,
@@ -146,6 +145,55 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                             Payable = 0,
                         });
                 }
+            }
+
+            var counters = cmd.Db.PrivateCounters
+                // TODO: Также тут нужно фильтровать по датам актуальности счетчика, которых пока нет
+                .Where(counter => counter.CustomerID == cmd.CustomerInfo.Id)
+                .Select(counter => new
+                {
+                    ServiceName = counter.Services.Name,
+                    CounterNumber = counter.Number,
+                    PrevValue = cmd.Db.PrivateCounterValues.FirstOrDefault(value =>
+                        value.PrivateCounters.ID == counter.ID && value.Period == prevPeriod),
+                    CurrentValue = cmd.Db.PrivateCounterValues.FirstOrDefault(value =>
+                        value.PrivateCounters.ID != counter.ID && value.Period == chargePeriod),
+                    CustomerPos = cmd.Db.CustomerPoses.FirstOrDefault(pos =>
+                        pos.Customers.ID == cmd.CustomerInfo.Id &&
+                        pos.Services.ID == counter.Services.ID &&
+                        pos.Since <= chargePeriod &&
+                        pos.Till >= chargePeriod),
+                    counter.Services.Measure
+                })
+                .Select(counter => new
+                {
+                    counter.ServiceName,
+                    counter.CounterNumber,
+                    counter.PrevValue,
+                    counter.CurrentValue,
+                    Consumption =
+                        counter.PrevValue != null &&
+                        counter.CurrentValue != null &&
+                        counter.CurrentValue.Value > counter.PrevValue.Value
+                            ? counter.CurrentValue.Value - counter.PrevValue.Value : 0,
+                    Rate = counter.CustomerPos != null ? counter.CustomerPos.Rate : 0,
+                    counter.Measure
+                })
+                .ToList();
+
+            foreach (var counter in counters)
+            {
+                cmd.Db.RegularBillDocCounterPoses.AddObject(new RegularBillDocCounterPoses()
+                {
+                    RegularBillDocs = billDoc,
+                    ServiceName = counter.ServiceName,
+                    Number = counter.CounterNumber,
+                    PrevValue = counter.PrevValue?.Value ?? 0,
+                    CurValue = counter.CurrentValue?.Value ?? 0,
+                    Consumption = counter.Consumption,
+                    Rate = counter.Rate,
+                    Measure = counter.Measure
+                });
             }
 
             _billSet.Quantity++;
