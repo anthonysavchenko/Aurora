@@ -157,7 +157,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                     PrevValue = cmd.Db.PrivateCounterValues.FirstOrDefault(value =>
                         value.PrivateCounters.ID == counter.ID && value.Period == prevPeriod),
                     CurrentValue = cmd.Db.PrivateCounterValues.FirstOrDefault(value =>
-                        value.PrivateCounters.ID != counter.ID && value.Period == chargePeriod),
+                        value.PrivateCounters.ID == counter.ID && value.Period == chargePeriod),
                     CustomerPos = cmd.Db.CustomerPoses.FirstOrDefault(pos =>
                         pos.Customers.ID == cmd.CustomerInfo.Id &&
                         pos.Services.ID == counter.Services.ID &&
