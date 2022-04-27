@@ -102,27 +102,33 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Customers.Views.Count
 
             if (curItem.Value < 0)
             {
-                message = string.Format("{0}- Показание должно быть больше или равно 0", message);
+                message = "Показание должно быть больше или равно 0";
+                return false;
             }
 
-            if (string.IsNullOrEmpty(message) && curItem.PrivateCounter.Values.Count > 1)
+            if (curItem.PrivateCounter.Values.Values.Any(v => v.ID != curItem.ID && v.Period == curItem.Period))
             {
-                if (curItem.PrivateCounter.Values.Values.Any(v => v.ID != curItem.ID && v.Period == curItem.Period))
-                {
-                    message = "- Показание за данный период уже внесены";
-                }
-                else
-                {
-                    var _values = curItem.PrivateCounter.Values.Values.Where(v => v.Period < curItem.Period);
-
-                    if (_values.Any() && curItem.Value < _values.Max(v => v.Value))
-                    {
-                        message = "- Новое значение должно быть больше или равно предыдущему";
-                    }
-                }
+                message = "Показание за данный период уже внесены";
+                return false;
             }
 
-            return string.IsNullOrEmpty(message);
+            var prevValues = curItem.PrivateCounter.Values.Values.Where(v => v.Period < curItem.Period);
+
+            if (prevValues.Any() && curItem.Value < prevValues.Max(v => v.Value))
+            {
+                message = "Новое значение должно быть больше или равно предыдущему";
+                return false;
+            }
+
+            var nextValues = curItem.PrivateCounter.Values.Values.Where(v => v.Period > curItem.Period);
+
+            if (nextValues.Any() && curItem.Value > nextValues.Min(v => v.Value))
+            {
+                message = "Новое значение должно быть меньше или равно следующему";
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
