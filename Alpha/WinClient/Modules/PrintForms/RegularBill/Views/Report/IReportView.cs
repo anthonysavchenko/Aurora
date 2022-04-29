@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.IO;
-using Taumis.Alpha.Server.PrintForms.Constants;
 using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
@@ -20,11 +19,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         /// Печатает отчет
         /// </summary>
         void PrintReport();
-
-        /// <summary>
-        /// Тип квитанции
-        /// </summary>
-        ReceiptTypes ReceiptType { set; }
 
         /// <summary>
         /// Принтеры

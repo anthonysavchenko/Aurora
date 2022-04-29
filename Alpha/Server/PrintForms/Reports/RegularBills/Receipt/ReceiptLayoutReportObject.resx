@@ -118,14 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BuildingConsumptionSubreport.Dpi" type="System.Single, mscorlib">
+  <data name="CountersSubreport.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <assembly alias="DevExpress.Data.v13.1" name="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="CountersSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
+    <value>0, 701.145935</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="CountersSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>1998, 59.74994</value>
+  </data>
+  <data name="BuildingConsumptionSubreport.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
   <data name="BuildingConsumptionSubreport.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>0, 760.8958</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="BuildingConsumptionSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>1998, 59.74994</value>
   </data>
@@ -136,7 +145,7 @@
     <value>0, 0</value>
   </data>
   <data name="TopReceiptSubreport.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1998, 760.8958</value>
+    <value>1998, 701.145935</value>
   </data>
   <data name="Detail.Dpi" type="System.Single, mscorlib">
     <value>254</value>
