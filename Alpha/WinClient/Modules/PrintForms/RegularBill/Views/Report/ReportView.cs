@@ -7,7 +7,6 @@ using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraReports.UI;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using Taumis.Alpha.Server.PrintForms.Constants;
 using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.Server.PrintForms.Reports.RegularBills;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
@@ -82,17 +81,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             _reportPrintTool.Print();
-        }
-
-        /// <summary>
-        /// Тип квитанции
-        /// </summary>
-        public ReceiptTypes ReceiptType
-        {
-            set
-            {
-                Report.ReceiptType = value;
-            }
         }
 
         /// <summary>
@@ -318,10 +306,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         public MemoryStream GeneratePdf(RegularBillDataSet dataSet)
         {
             LayoutReportObject _report = new LayoutReportObject();
-            _report.ReceiptType =
-                dataSet.Tables["CounterData"].Rows.Count == 0 && dataSet.Tables["SharedCounterData"].Rows.Count == 0
-                    ? ReceiptTypes.Standart
-                    : ReceiptTypes.WithCountsData;
 
             _report.ReportDataSource = dataSet;
             _report.ReportVisible = true;

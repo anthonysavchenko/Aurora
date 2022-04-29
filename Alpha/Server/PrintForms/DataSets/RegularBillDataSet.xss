@@ -8,9 +8,9 @@
   <Shapes>
     <Shape ID="DesignTable:ChargeData" ZOrder="9" X="219" Y="21" Height="162" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="158" />
     <Shape ID="DesignTable:Customers" ZOrder="8" X="28" Y="20" Height="295" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="291" />
-    <Shape ID="DesignTable:CounterData" ZOrder="6" X="219" Y="190" Height="144" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
-    <Shape ID="DesignTable:SharedCounterData" ZOrder="2" X="29" Y="461" Height="87" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="83" />
-    <Shape ID="DesignTable:BuildingConsumptionData" ZOrder="3" X="289" Y="399" Height="315" Width="219" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="311" />
+    <Shape ID="DesignTable:CounterData" ZOrder="1" X="219" Y="190" Height="181" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
+    <Shape ID="DesignTable:SharedCounterData" ZOrder="3" X="29" Y="461" Height="87" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="83" />
+    <Shape ID="DesignTable:BuildingConsumptionData" ZOrder="4" X="289" Y="399" Height="315" Width="219" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="311" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:FK_Customers_ChargeData" ZOrder="7" LineWidth="11">
@@ -25,7 +25,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:Customers_CounterData" ZOrder="5" LineWidth="11">
+    <Connector ID="DesignRelation:Customers_CounterData" ZOrder="6" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>178</X>
@@ -37,7 +37,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:Customers_SharedCounterData" ZOrder="4" LineWidth="11">
+    <Connector ID="DesignRelation:Customers_SharedCounterData" ZOrder="5" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>103</X>
@@ -49,7 +49,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:Customers_BuildingConsumptionData" ZOrder="1" LineWidth="11">
+    <Connector ID="DesignRelation:Customers_BuildingConsumptionData" ZOrder="2" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>161</X>

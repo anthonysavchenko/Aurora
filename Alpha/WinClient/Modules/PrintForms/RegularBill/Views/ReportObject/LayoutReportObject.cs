@@ -2,9 +2,7 @@
 using System.Data;
 using System.Drawing;
 using DevExpress.XtraReports.UI;
-using Taumis.Alpha.Server.PrintForms.Constants;
 using Taumis.Alpha.Server.PrintForms.Reports.RegularBills;
-using Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt;
 using Taumis.EnterpriseLibrary.Win.BaseViews.ReportView;
 
 //using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;
@@ -21,28 +19,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         public LayoutReportObject()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Тип квитанции
-        /// </summary>
-        public ReceiptTypes ReceiptType
-        {
-           set
-           {
-                switch (value)
-                {
-                    case ReceiptTypes.Standart:
-                        ReceiptSubreport.ReportSource = new ReceiptLayoutReportObject();
-                        cutLine.BeforePrint += cutLine_BeforePrint;
-                        break;
-
-                    case ReceiptTypes.WithCountsData:
-                        ReceiptSubreport.ReportSource = new ReceiptWithCountLayoutReportObject();
-                        cutLine.BeforePrint -= cutLine_BeforePrint;
-                        break;
-                }
-            }
         }
 
         /// <summary>
@@ -98,6 +74,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
             DataRow[] _rows = ((DataSet)DataSource).Tables["BuildingConsumptionData"].Select($"CustomerId = {_customerId}");
             _subreport.ShowBuildingConsumptionData = _rows.Length > 0;
+
+            _rows = ((DataSet)DataSource).Tables["CounterData"].Select($"CustomerId = {_customerId}");
+            _subreport.ShowCountersData = _rows.Length > 0;
         }
 
         private void cutLine_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
