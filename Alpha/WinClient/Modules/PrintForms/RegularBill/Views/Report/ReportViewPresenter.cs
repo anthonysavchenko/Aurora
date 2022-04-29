@@ -9,7 +9,6 @@ using System.Linq;
 using Taumis.Alpha.DataBase;
 using Taumis.Alpha.Infrastructure.Interface.Enums;
 using Taumis.Alpha.Infrastructure.Interface.Services;
-using Taumis.Alpha.Server.PrintForms.Constants;
 using Taumis.Alpha.Server.PrintForms.DataSets;
 using Taumis.Alpha.WinClient.Aurora.Interface.Services;
 using Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Constants;
@@ -77,10 +76,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         protected override void ProcessGridData()
         {
             bool _showReport = _data.Tables["Customers"].Rows.Count > 0;
-
-            View.ReceiptType = _data.Tables["CounterData"].Rows.Count == 0 && _data.Tables["SharedCounterData"].Rows.Count == 0
-                                   ? ReceiptTypes.Standart
-                                   : ReceiptTypes.WithCountsData;
 
             View.DataSource = _data;
             View.ReportVisible = _showReport;
@@ -170,7 +165,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                     _pos.CurValue,
                                     _pos.Consumption,
                                     _pos.Rate,
-                                    _bill.CustomerID);
+                                    _bill.CustomerID,
+                                    _pos.ServiceName,
+                                    _pos.Measure);
                             }
 
                             foreach (var _pos in _bill.RegularBillDocSharedCounterPoses)
@@ -185,7 +182,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                             {
                                 DataRow _row = _chargeDataTable.NewRow();
                                 _row["Service"] = _chargeData.ServiceTypeName;
-                                _row["PayRate"] = _chargeData.PayRate;
+                                _row["PayRate"] =
+                                    _chargeData.ServiceTypeName != "Электроэнергия" &&
+                                    _chargeData.ServiceTypeName != "Отопление" &&
+                                    _chargeData.ServiceTypeName != "Холодное водоснабжение" &&
+                                    _chargeData.ServiceTypeName != "Водоотведение"
+                                        ? _chargeData.PayRate.ToString()
+                                        : string.Empty;
                                 _row["Charge"] = _chargeData.Charge;
                                 _row["Benefit"] = _chargeData.Benefit;
                                 _row["Recalculation"] = _chargeData.Recalculation;

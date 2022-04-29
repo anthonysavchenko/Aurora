@@ -129,6 +129,18 @@
   <data name="xrTable2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>0, 0</value>
   </data>
+  <data name="xrTableCell7.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrTableCell7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 6.75pt</value>
+  </data>
+  <data name="xrTableCell7.Text" xml:space="preserve">
+    <value>xrTableCell7</value>
+  </data>
+  <data name="xrTableCell7.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleCenter</value>
+  </data>
   <data name="xrTableCell11.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
@@ -177,6 +189,18 @@
   <data name="xrTableCell17.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
   </data>
+  <data name="xrTableCell9.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrTableCell9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 6.75pt</value>
+  </data>
+  <data name="xrTableCell9.Text" xml:space="preserve">
+    <value>xrTableCell9</value>
+  </data>
+  <data name="xrTableCell9.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleCenter</value>
+  </data>
   <data name="xrTableCell19.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
@@ -193,7 +217,7 @@
     <value>254</value>
   </data>
   <data name="xrTable2.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1206, 50</value>
+    <value>1998, 50</value>
   </data>
   <data name="Detail.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -213,6 +237,18 @@
   <data name="xrTable1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
     <value>0, 0</value>
   </data>
+  <data name="xrTableCell6.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrTableCell6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 6.75pt</value>
+  </data>
+  <data name="xrTableCell6.Text" xml:space="preserve">
+    <value>Вид услуги</value>
+  </data>
+  <data name="xrTableCell6.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleCenter</value>
+  </data>
   <data name="xrTableCell1.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
@@ -220,7 +256,7 @@
     <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell1.Text" xml:space="preserve">
-    <value>Счетчик №</value>
+    <value>Номер счетчика</value>
   </data>
   <data name="xrTableCell1.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
@@ -232,7 +268,7 @@
     <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell2.Text" xml:space="preserve">
-    <value>Пред. показание</value>
+    <value>Предыдущие показ.</value>
   </data>
   <data name="xrTableCell2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
@@ -244,7 +280,7 @@
     <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell3.Text" xml:space="preserve">
-    <value>Текущее показание</value>
+    <value>Текущие показания</value>
   </data>
   <data name="xrTableCell3.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
@@ -256,9 +292,21 @@
     <value>Tahoma, 6.75pt</value>
   </data>
   <data name="xrTableCell4.Text" xml:space="preserve">
-    <value>Расход</value>
+    <value>Объем потребления</value>
   </data>
   <data name="xrTableCell4.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="xrTableCell8.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrTableCell8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 6.75pt</value>
+  </data>
+  <data name="xrTableCell8.Text" xml:space="preserve">
+    <value>Единицы измерения</value>
+  </data>
+  <data name="xrTableCell8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell5.Dpi" type="System.Single, mscorlib">
@@ -277,13 +325,13 @@
     <value>254</value>
   </data>
   <data name="xrTable1.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>1206, 50</value>
+    <value>1998, 50</value>
   </data>
   <data name="ReportHeader.Dpi" type="System.Single, mscorlib">
     <value>254</value>
   </data>
   <data name="ReportHeader.HeightF" type="System.Single, mscorlib">
-    <value>50</value>
+    <value>50.0000153</value>
   </data>
   <data name="topMarginBand1.Dpi" type="System.Single, mscorlib">
     <value>254</value>

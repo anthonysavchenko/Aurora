@@ -67,6 +67,7 @@
             this.cutLine.LineStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             this.cutLine.LineWidth = 3;
             this.cutLine.Name = "cutLine";
+            this.cutLine.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.cutLine_BeforePrint);
             // 
             // xrControlStyle1
             // 
