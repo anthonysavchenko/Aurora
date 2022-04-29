@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptLayoutReportObject));
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
+            this.BuildingConsumptionSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             this.TopReceiptSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.xrControlStyle2 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -38,13 +39,14 @@
             this.dataSet1 = new Taumis.Alpha.Server.PrintForms.DataSets.RegularBillDataSet();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
             this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
-            this.BuildingConsumptionSubreport = new DevExpress.XtraReports.UI.XRSubreport();
+            this.CountersSubreport = new DevExpress.XtraReports.UI.XRSubreport();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.CountersSubreport,
             this.BuildingConsumptionSubreport,
             this.TopReceiptSubreport});
             resources.ApplyResources(this.Detail, "Detail");
@@ -52,6 +54,13 @@
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
             this.Detail.StylePriority.UseTextAlignment = false;
+            // 
+            // BuildingConsumptionSubreport
+            // 
+            resources.ApplyResources(this.BuildingConsumptionSubreport, "BuildingConsumptionSubreport");
+            this.BuildingConsumptionSubreport.Id = 0;
+            this.BuildingConsumptionSubreport.Name = "BuildingConsumptionSubreport";
+            this.BuildingConsumptionSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.BuildingConsumptionReportObject();
             // 
             // TopReceiptSubreport
             // 
@@ -103,12 +112,12 @@
             resources.ApplyResources(this.bottomMarginBand1, "bottomMarginBand1");
             this.bottomMarginBand1.Name = "bottomMarginBand1";
             // 
-            // BuildingConsumptionSubreport
+            // CountersSubreport
             // 
-            resources.ApplyResources(this.BuildingConsumptionSubreport, "BuildingConsumptionSubreport");
-            this.BuildingConsumptionSubreport.Id = 0;
-            this.BuildingConsumptionSubreport.Name = "BuildingConsumptionSubreport";
-            this.BuildingConsumptionSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt.BuildingConsumptionReportObject();
+            resources.ApplyResources(this.CountersSubreport, "CountersSubreport");
+            this.CountersSubreport.Id = 0;
+            this.CountersSubreport.Name = "CountersSubreport";
+            this.CountersSubreport.ReportSource = new Taumis.Alpha.Server.PrintForms.Reports.RegularBills.CountReport.TableCountReportObject();
             // 
             // ReceiptLayoutReportObject
             // 
@@ -143,5 +152,6 @@
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
         private DevExpress.XtraReports.UI.XRSubreport BuildingConsumptionSubreport;
+        private DevExpress.XtraReports.UI.XRSubreport CountersSubreport;
     }
 }

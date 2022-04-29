@@ -2,8 +2,6 @@
 using System.Data;
 using System.Drawing;
 using DevExpress.XtraReports.UI;
-using Taumis.Alpha.Server.PrintForms.Constants;
-using Taumis.Alpha.Server.PrintForms.Reports.RegularBills.Receipt;
 
 //using BaseReportObject = DevExpress.XtraReports.UI.XtraReport;
 
@@ -19,28 +17,6 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.RegularBills
         public LayoutReportObject()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Тип квитанции
-        /// </summary>
-        public ReceiptTypes ReceiptType
-        {
-           set
-           {
-                switch (value)
-                {
-                    case ReceiptTypes.Standart:
-                        ReceiptSubreport.ReportSource = new ReceiptLayoutReportObject();
-                        cutLine.BeforePrint += cutLine_BeforePrint;
-                        break;
-
-                    case ReceiptTypes.WithCountsData:
-                        ReceiptSubreport.ReportSource = new ReceiptWithCountLayoutReportObject();
-                        cutLine.BeforePrint -= cutLine_BeforePrint;
-                        break;
-                }
-            }
         }
 
         /// <summary>

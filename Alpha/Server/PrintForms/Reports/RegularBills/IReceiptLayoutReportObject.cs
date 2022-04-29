@@ -13,5 +13,6 @@ namespace Taumis.Alpha.Server.PrintForms.Reports.RegularBills
         bool ReportVisible { set; }
 
         bool ShowBuildingConsumptionData { set; }
+        bool ShowCountersData { set; }
     }
 }

@@ -56,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\ReceiptTypes.cs" />
     <Compile Include="DataSets\TotalBillDataSet.cs">
       <DependentUpon>TotalBillDataSet.xsd</DependentUpon>
     </Compile>
