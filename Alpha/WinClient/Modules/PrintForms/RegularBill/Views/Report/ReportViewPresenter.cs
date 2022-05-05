@@ -354,7 +354,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "адмирала спиридонова"
                 || street == "терешковой"
                 || street == "окатовая"
-                || street == "гульбиновича")
+                || street == "гульбиновича"
+                || street == "остров русский, ул. зеленая"
+                || street == "остров русский, п. поспелово"
+                || street == "остров русский, п. подножье"
+                || street == "остров русский, ул. экипажная"
+                || street == "остров русский, поселок воевода"
+                || street == "калинина")
             {
                 return "206-03-20";
             }
