@@ -292,9 +292,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if (street == "уткинская"
+                || street == "светланская"
                 || street == "прапорщика комарова")
             {
-                return "Управляющий по дому - Адрианова Варвара Георгиевна, тел. +7-914-703-97-87";
+                return "Управляющий домом - Адрианова Варвара Георгиевна, тел. +7-914-703-97-87";
             }
 
             if (street == "космонавтов" || street == "борисенко")
@@ -312,6 +313,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "окатовая"
                 || street == "некрасовская"
                 || street == "калинина"
+                || street == "адмирала кузнецова"
                 || (street == "красного знамени проспект" 
                     && (building == "88" || building == "162" || building == "114" || building == "93")))
             {
@@ -324,7 +326,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if (street == "адмирала спиридонова"
-                || street == "адмирала кузнецова"
                 || street == "луговая"
                 || street == "баляева"
                 || street == "океанский проспект"
