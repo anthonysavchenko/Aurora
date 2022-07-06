@@ -551,13 +551,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard
 
                 var _privateCounters =
                     _entities.PrivateCounters
-                        .Where(
-                            c =>
+                        .Where(c =>
+                            _entities.CustomerPoses
+                                .Any(pos =>
+                                    pos.Services.ID == c.Services.ID &&
+                                    pos.Customers.ID == c.Customers.ID &&
+                                    pos.Since <= currentPeriod &&
+                                    pos.Till >= currentPeriod) &&
                             !_entities.PrivateCounterValues
                                 .Any(
                                     v =>
-                                    v.Period == currentPeriod &&
-                                    v.PrivateCounters.ID == c.ID))
+                                    v.PrivateCounters.ID == c.ID &&
+                                    v.Period == currentPeriod))
                         .ToList();
 
                 if (_commonCounters.Any() || _privateCounters.Any())
