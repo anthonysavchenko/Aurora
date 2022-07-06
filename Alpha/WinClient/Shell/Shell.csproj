@@ -51,12 +51,12 @@
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora Капремонт</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.50.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>019.51.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>019.50.0.0</ApplicationVersion>
+    <ApplicationVersion>019.51.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
