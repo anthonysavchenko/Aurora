@@ -774,8 +774,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             sheet.Cell(row, Columns.FAKTP).SetValue(_charge.ToString(CultureInfo.InvariantCulture));
             sheet.Cell(row, Columns.FAKTPER).SetValue(_recharge.ToString(CultureInfo.InvariantCulture));
             sheet.Cell(row, Columns.TARIF).SetValue(_rate.ToString(CultureInfo.InvariantCulture));
-            sheet.Cell(row, Columns.FAKTOP).SetValue(payment.ToString(CultureInfo.InvariantCulture));
-            sheet.Cell(row, Columns.FAKTOP2).SetValue((payment + overpayment).ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTOP).SetValue((payment + overpayment).ToString(CultureInfo.InvariantCulture));
+            sheet.Cell(row, Columns.FAKTOP2).SetValue(payment.ToString(CultureInfo.InvariantCulture));
         }
 
         #endregion
