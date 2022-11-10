@@ -39,7 +39,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
         private class Section3_6Sheet
         {
             public const int INDEX = 2;
-            public const int FIRST_ROW_NUM = 5;
+            public const int FIRST_ROW_NUM = 4;
 
             public const string PP_CALC_TYPE = "Норматив";
 
@@ -49,20 +49,20 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int SERVICE = 2;
                 public const int PP_VOLUME_TYPE = 5;
                 public const int PP_VOLUME = 6;
-                public const int RATE = 7;
-                public const int RECALCULATION = 13;
-                public const int BENEFIT = 14;
+                public const int RATE = 8;
+                public const int RECALCULATION = 12;
+                public const int BENEFIT = 13;
                 public const int INTS_PAYMENT_RUB = 26;
                 public const int INTS_PAYMENT_PERCENT = 27;
                 public const int INTS_PAYMENT_TOTAL = 28;
-                public const int TOTAL = 29;
+                public const int TOTAL = 15;
                 public const int PP_TOTAL = 31;
             }
         }
 
         private class ServiceSheet
         {
-            public const int INDEX = 8;
+            public const int INDEX = 10;
             public const int FIRST_ROW_NUM = 2;
 
             public class Columns
@@ -154,8 +154,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                         IExcelWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
                         IExcelWorksheet _section3_6 = _wb.Worksheet(Section3_6Sheet.INDEX);
                         
-                        //Ошибка в шаблоне - удаляем проверку на 5 листе
-                        IExcelWorksheet _temp = _wb.Worksheet(5);
+                        //Ошибка в шаблоне - удаляем проверку на листе "Составляющие стоимости ЭЭ"
+                        IExcelWorksheet _temp = _wb.Worksheet(7);
                         _temp.ClearDataValidations();
 
                         int _section1_2Row = Section1_2Sheet.FIRST_ROW_NUM;
@@ -168,11 +168,12 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.NUMBER).SetValue(_ci.BillID);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.PERIOD).SetValue(period.ToString("MM.yyyy"));
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_ci.Area);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_ci.Bik);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
-                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
+                            // TODO: Переделать под новый шаблон
+                            //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_ci.Bik);
+                            //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
+                            //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
+                            //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
+                            //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
                             
                             foreach (BillInfo _bi in _ci.Bills)
                             {
@@ -181,19 +182,21 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
 
                                 decimal _total = _bi.Total;
                                 decimal _rate = _bi.Rate;
-                                if (_bi.ServiceTypeID == _maintenanceServiceTypeID)
-                                {
-                                    _total += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Total);
-                                    _rate += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Rate);
-                                }
+                                // TODO: Разобраться, зачем оно добавляется
+                                //if (_bi.ServiceTypeID == _maintenanceServiceTypeID)
+                                //{
+                                //    _total += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Total);
+                                //    _rate += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Rate);
+                                //}
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.TOTAL).SetValue(_total);
                                 _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RATE).SetValue(_rate);
 
                                 if (_bi.IsPublicPlaceService)
                                 {
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME_TYPE).SetValue(Section3_6Sheet.PP_CALC_TYPE);
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME).SetValue(_ci.Area);
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_TOTAL).SetValue(_bi.Total);
+                                    // TODO: Переделать под новый шаблон
+                                    //_section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME_TYPE).SetValue(Section3_6Sheet.PP_CALC_TYPE);
+                                    //_section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME).SetValue(_ci.Area);
+                                    //_section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_TOTAL).SetValue(_bi.Total);
                                 }
 
                                 if (_bi.Recalculation != 0)
