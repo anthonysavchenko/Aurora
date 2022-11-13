@@ -28,35 +28,87 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                 public const int NUMBER = 3;
                 public const int PERIOD = 4;
                 public const int AREA = 5;
-                public const int BIK = 16;
-                public const int BANK_ACCOUNT = 17;
+                public const int REQ_DOC_NUMBER = 15;
+
                 public const int REPAIR_RATE = 18;
                 public const int REPAIR_CHARGE = 19;
                 public const int REPAIR_TOTAL = 23;
             }
         }
 
-        private class Section3_6Sheet
+        private static class Section3_6Sheet
         {
             public const int INDEX = 2;
             public const int FIRST_ROW_NUM = 4;
-
-            public const string PP_CALC_TYPE = "Норматив";
 
             public class Columns
             {
                 public const int NUMBER = 1;
                 public const int SERVICE = 2;
-                public const int PP_VOLUME_TYPE = 5;
-                public const int PP_VOLUME = 6;
                 public const int RATE = 8;
                 public const int RECALCULATION = 12;
                 public const int BENEFIT = 13;
-                public const int INTS_PAYMENT_RUB = 26;
-                public const int INTS_PAYMENT_PERCENT = 27;
-                public const int INTS_PAYMENT_TOTAL = 28;
                 public const int TOTAL = 15;
-                public const int PP_TOTAL = 31;
+            }
+
+            public static void WriteLine(
+                IExcelWorksheet sheet,
+                int row,
+                int docNumber,
+                string service,
+                decimal rate,
+                decimal recalculation,
+                decimal benefit,
+                decimal total)
+            {
+                sheet.Cell(row, Columns.NUMBER).SetValue(docNumber);
+                sheet.Cell(row, Columns.SERVICE).SetValue(service);
+                sheet.Cell(row, Columns.RATE).SetValue(rate);
+
+                if (recalculation != 0)
+                {
+                    sheet.Cell(row, Columns.RECALCULATION).SetValue(recalculation);
+                }
+
+                if (benefit != 0)
+                {
+                    sheet.Cell(row, Columns.BENEFIT).SetValue(Math.Abs(benefit));
+                }
+
+                sheet.Cell(row, Columns.TOTAL).SetValue(total);
+            }
+        }
+
+        private static class PaymentRequisiteSheet
+        {
+            public const int INDEX = 9;
+            public const int FIRST_ROW_NUM = 2;
+
+            public class Columns
+            {
+                public const int DOC_NUMBER = 1;
+                public const int REQ_NUMBER = 2;
+                public const int BIK = 3;
+                public const int BANK_ACCOUNT = 4;
+                public const int MONTH_TOTAL = 6;
+                public const int TOTAL = 8;
+            }
+
+            public static void WriteLine(
+                IExcelWorksheet sheet,
+                int row,
+                int docNumber,
+                string bik,
+                string bankAccount,
+                decimal monthTotal,
+                decimal total)
+            {
+                sheet.Cell(row, Columns.DOC_NUMBER).SetValue(docNumber);
+                sheet.Cell(row, Columns.REQ_NUMBER).SetValue($"{docNumber}-10");
+                sheet.Cell(row, Columns.BIK).SetValue(bik);
+                sheet.Cell(row, Columns.BANK_ACCOUNT).SetValue(bankAccount);
+                sheet.Cell(row, Columns.MONTH_TOTAL).SetValue(monthTotal);
+                sheet.Cell(row, Columns.TOTAL).SetValue(total);
             }
         }
 
@@ -85,6 +137,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             public string Bik { get; set; }
             public string BankAccount { get; set; }
             public int BillID { get; set; }
+            public decimal Total { get; set; }
             public List<BillInfo> Bills { get; set; }
         }
 
@@ -153,13 +206,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                     {
                         IExcelWorksheet _section1_2 = _wb.Worksheet(Section1_2Sheet.INDEX);
                         IExcelWorksheet _section3_6 = _wb.Worksheet(Section3_6Sheet.INDEX);
-                        
+                        IExcelWorksheet paymentRequisitesSheet = _wb.Worksheet(PaymentRequisiteSheet.INDEX);
+
                         //Ошибка в шаблоне - удаляем проверку на листе "Составляющие стоимости ЭЭ"
                         IExcelWorksheet _temp = _wb.Worksheet(7);
                         _temp.ClearDataValidations();
 
                         int _section1_2Row = Section1_2Sheet.FIRST_ROW_NUM;
                         int _section3_6Row = Section3_6Sheet.FIRST_ROW_NUM;
+                        int paymentRequisitesRow = PaymentRequisiteSheet.FIRST_ROW_NUM;
 
                         foreach(CustomerInfo _ci in _byBuilding.Value)
                         {
@@ -168,50 +223,54 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.NUMBER).SetValue(_ci.BillID);
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.PERIOD).SetValue(period.ToString("MM.yyyy"));
                             _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.AREA).SetValue(_ci.Area);
+                            _section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REQ_DOC_NUMBER).SetValue($"{_ci.BillID}-10");
+
                             // TODO: Переделать под новый шаблон
-                            //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BIK).SetValue(_ci.Bik);
-                            //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.BANK_ACCOUNT).SetValue(_ci.BankAccount);
                             //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_RATE).SetValue(0);
                             //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_CHARGE).SetValue(0);
                             //_section1_2.Cell(_section1_2Row, Section1_2Sheet.Columns.REPAIR_TOTAL).SetValue(0);
-                            
-                            foreach (BillInfo _bi in _ci.Bills)
+
+                            var mainPos = _ci.Bills.FirstOrDefault(b => b.ServiceTypeID == _maintenanceServiceTypeID);
+                            decimal rate = _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Rate);
+                            decimal total = _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Total);
+
+                            Section3_6Sheet.WriteLine(
+                                _section3_6,
+                                _section3_6Row,
+                                _ci.BillID,
+                                serviceMatchingDict[_maintenanceServiceTypeID],
+                                (mainPos != null ? mainPos.Rate : 0) + rate,
+                                mainPos != null ? mainPos.Recalculation : 0,
+                                mainPos != null ? mainPos.Benefit : 0,
+                                (mainPos != null ? mainPos.Total : 0) + total);
+
+                            _section3_6Row++;
+
+                            foreach (BillInfo _bi in _ci.Bills.Where(b => b.ServiceTypeID != _maintenanceServiceTypeID))
                             {
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.NUMBER).SetValue(_ci.BillID);
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.SERVICE).SetValue(serviceMatchingDict[_bi.ServiceTypeID]);
-
-                                decimal _total = _bi.Total;
-                                decimal _rate = _bi.Rate;
-                                // TODO: Разобраться, зачем оно добавляется
-                                //if (_bi.ServiceTypeID == _maintenanceServiceTypeID)
-                                //{
-                                //    _total += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Total);
-                                //    _rate += _ci.Bills.Where(b => b.IsPublicPlaceService).Sum(b => b.Rate);
-                                //}
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.TOTAL).SetValue(_total);
-                                _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RATE).SetValue(_rate);
-
-                                if (_bi.IsPublicPlaceService)
-                                {
-                                    // TODO: Переделать под новый шаблон
-                                    //_section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME_TYPE).SetValue(Section3_6Sheet.PP_CALC_TYPE);
-                                    //_section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_VOLUME).SetValue(_ci.Area);
-                                    //_section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.PP_TOTAL).SetValue(_bi.Total);
-                                }
-
-                                if (_bi.Recalculation != 0)
-                                {
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.RECALCULATION).SetValue(_bi.Recalculation);
-                                }
-
-                                if (_bi.Benefit != 0)
-                                {
-                                    _section3_6.Cell(_section3_6Row, Section3_6Sheet.Columns.BENEFIT).SetValue(Math.Abs(_bi.Benefit));
-                                }
+                                Section3_6Sheet.WriteLine(
+                                    _section3_6,
+                                    _section3_6Row,
+                                    _ci.BillID,
+                                    serviceMatchingDict[_bi.ServiceTypeID],
+                                    _bi.Rate,
+                                    _bi.Recalculation,
+                                    _bi.Benefit,
+                                    _bi.Total);
 
                                 _section3_6Row++;
                             }
 
+                            PaymentRequisiteSheet.WriteLine(
+                                paymentRequisitesSheet,
+                                paymentRequisitesRow,
+                                _ci.BillID,
+                                _ci.Bik,
+                                _ci.BankAccount,
+                                _ci.Bills.Sum(b => b.Total),
+                                _ci.Total);
+
+                            paymentRequisitesRow++;
                             _section1_2Row++;
                         }
 
@@ -271,7 +330,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                 Rate = p.PayRate,
                                 p.Recalculation,
                                 p.Benefit,
-                                Total = p.Payable
+                                Total = p.Payable,
+                                BillTotal = p.RegularBillDocs.Value
                             })
                         .Where(bi => serviceMatchingDict.Keys.Contains((int)bi.ServiceTypeID))
                         .ToList()
@@ -280,7 +340,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                             new
                             {
                                 BuildingID = g.Key,
-                                Data = g.GroupBy(bi => new { bi.CustomerGisZhkhID, bi.Area, bi.BIK, bi.BankAccount, bi.BillID })
+                                Data = g.GroupBy(bi => new { bi.CustomerGisZhkhID, bi.Area, bi.BIK, bi.BankAccount, bi.BillID, bi.BillTotal })
                                     .Select(gByGisZhkhID =>
                                         new CustomerInfo
                                         {
@@ -289,6 +349,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
                                             Bik = gByGisZhkhID.Key.BIK,
                                             BankAccount = gByGisZhkhID.Key.BankAccount,
                                             BillID = gByGisZhkhID.Key.BillID,
+                                            Total = gByGisZhkhID.Key.BillTotal,
                                             Bills = gByGisZhkhID.Select(bi =>
                                                 new BillInfo
                                                 {
