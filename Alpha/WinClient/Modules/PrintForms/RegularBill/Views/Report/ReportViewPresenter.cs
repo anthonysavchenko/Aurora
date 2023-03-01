@@ -292,7 +292,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if (street == "уткинская"
-                || street == "светланская"
                 || street == "прапорщика комарова")
             {
                 return "Управляющий домом - Адрианова Варвара Георгиевна, тел. +7-914-703-97-87";
@@ -302,21 +301,15 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "борисенко"
                 || street == "калинина"
                 || street == "гульбиновича"
+                || street == "светланская"
+                || street == "енисейская"
+                || street == "магнитогорская"
                 || street == "терешковой")
             {
                 return "Управляющий по дому - Вячеславова Надежда Сергеевна, тел.: +7 (984) 192-52-60";
             }
 
-            if (street == "тунгусская"
-                || street == "тобольская"
-                || street == "шилкинская"
-                || street == "магнитогорская"
-                || street == "енисейская"
-                || street == "окатовая"
-                || street == "некрасовская"
-                || street == "адмирала кузнецова"
-                || (street == "красного знамени проспект" 
-                    && (building == "88" || building == "162" || building == "114" || building == "93")))
+            if (street == "окатовая")
             {
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
             }
@@ -339,6 +332,17 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "полетаева")
             {
                 return "Управляющий по дому - Шевелева Надежда Дмитриевна, тел. 277-02-99";
+            }
+
+            if (street == "тобольская"
+                || street == "шилкинская"
+                || street == "тунгусская"
+                || street == "некрасовская"
+                || street == "адмирала кузнецова"
+                || (street == "красного знамени проспект" 
+                    && (building == "88" || building == "162" || building == "114" || building == "93")))
+            {
+                return "Управляющий по дому - Аблакатова Анна Леонидовна, тел. +7 (914) 328-22-26";
             }
 
             return string.Empty;
