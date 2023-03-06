@@ -345,6 +345,11 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Аблакатова Анна Леонидовна, тел. +7 (914) 328-22-26";
             }
 
+            if (street == "тунгусская")
+            {
+                return "Управляющий по дому - Копытовский Дмитрий Андреевич, тел. +7 (950) 290-77-24";
+            }
+
             return string.Empty;
         }
 
