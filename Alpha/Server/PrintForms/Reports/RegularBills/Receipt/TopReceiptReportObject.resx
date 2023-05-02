@@ -190,7 +190,7 @@
     <value>254</value>
   </data>
   <data name="xrTable3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v13.1">
-    <value>1190.00037, 325.999878</value>
+    <value>391.000122, 325.999878</value>
   </data>
   <data name="xrTableCell13.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -226,7 +226,7 @@
     <value>254</value>
   </data>
   <data name="OverpaymentLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 6.75pt</value>
+    <value>Tahoma, 6.75pt, style=Bold</value>
   </data>
   <data name="OverpaymentLabel.Text" xml:space="preserve">
     <value>OverpaymentLabel</value>
@@ -280,7 +280,7 @@
     <value>254</value>
   </data>
   <data name="xrTable3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>801, 126.000031</value>
+    <value>1600.00024, 126.000031</value>
   </data>
   <data name="xrLabel17.Dpi" type="System.Single, mscorlib">
     <value>254</value>
@@ -619,7 +619,7 @@
     <value>1600.00037, 285.687561</value>
   </data>
   <data name="xrLabel13.Text" xml:space="preserve">
-    <value>Оплата в любых филиалах Сбербанка, ОАО "Примсоцбанк", ОАО "АТБ" кассах и платежных терминалах ПАО АКБ "Приморья", "муниципальный Камчатпрофитбанк", ОАО "Россельхозбанк", почтовых отделениях, терминалах "Влад Плат", "Мой дельфин", ПАО "Роял Кредит Банк"</value>
+    <value>Оплата в любых филиалах Сбербанка</value>
   </data>
   <data name="xrLabel13.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v13.1">
     <value>MiddleCenter</value>

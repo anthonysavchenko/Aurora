@@ -189,7 +189,7 @@
             this.xrTableCell13.StylePriority.UseFont = false;
             this.xrTableCell13.StylePriority.UsePadding = false;
             this.xrTableCell13.StylePriority.UseTextAlignment = false;
-            this.xrTableCell13.Weight = 1.823718227686671D;
+            this.xrTableCell13.Weight = 4.24826289257957D;
             // 
             // monthChargeTableCell
             // 
@@ -229,7 +229,7 @@
             this.OverpaymentLabel.StylePriority.UseFont = false;
             this.OverpaymentLabel.StylePriority.UsePadding = false;
             this.OverpaymentLabel.StylePriority.UseTextAlignment = false;
-            this.OverpaymentLabel.Weight = 1.823718227686671D;
+            this.OverpaymentLabel.Weight = 4.24826289257957D;
             // 
             // overpaymentValue
             // 
@@ -265,7 +265,7 @@
             this.xrTableCell17.StylePriority.UseFont = false;
             this.xrTableCell17.StylePriority.UsePadding = false;
             this.xrTableCell17.StylePriority.UseTextAlignment = false;
-            this.xrTableCell17.Weight = 1.823718227686671D;
+            this.xrTableCell17.Weight = 4.24826289257957D;
             // 
             // totalChargeTableCell
             // 

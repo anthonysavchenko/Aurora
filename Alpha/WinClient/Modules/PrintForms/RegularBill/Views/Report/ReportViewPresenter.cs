@@ -250,7 +250,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.Value,
                                 _barcode,
                                 BillService.FormatBarcodeString(_barcode),
-                                $"Переплата(-)/Недоплата(+) на {_now:dd.MM.yyyy}",
+                                "Не оплачено на дату выпуска квитанции:",
                                 BillService.OrganizationDetails(_bill.BankDetails, _bill.ContractorContactInfo, GetEmergencyPhoneNumber(_bill.Street, _bill.Building)),
                                 _qrCode,
                                 GetBottomInfoString(_bill.Street, _bill.Building));
@@ -300,7 +300,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             if (street == "космонавтов"
                 || street == "борисенко"
                 || street == "калинина"
-                || street == "гульбиновича"
                 || street == "светланская"
                 || street == "енисейская"
                 || street == "магнитогорская"
