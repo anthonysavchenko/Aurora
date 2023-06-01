@@ -318,8 +318,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Скляр Алексей Олегович, тел. +7-914-662-35-92";
             }
 
-            if (street == "адмирала спиридонова"
-                || street == "луговая"
+            if (street == "луговая"
                 || street == "баляева"
                 || street == "океанский проспект"
                 || street == "острякова проспект")
