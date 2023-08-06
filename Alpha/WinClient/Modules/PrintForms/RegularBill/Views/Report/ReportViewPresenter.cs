@@ -299,24 +299,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Горбачева Вера Александровна, тел. 255-82-23";
             }
 
-            if (street == "тобольская"
-                || street == "шилкинская"
-                || street == "некрасовская"
-                || street == "адмирала кузнецова"
-                || (street == "красного знамени проспект" 
-                    && (building == "88" || building == "162" || building == "114" || building == "93" || building == "107"))
-                || street == "тунгусская"
-                || street == "адмирала спиридонова"
-                || street == "ульяновская"
-                || street == "полетаева"
-                || street == "окатовая"
-                || street == "уткинская"
-                || street == "прапорщика комарова")
-            {
-                return "Менеджер по санитарному обслуживанию - Надежда Сергеевна, тел. +7 (924) 132-91-53";
-            }
-
-            return string.Empty;
+            return "Менеджер по санитарному обслуживанию - Надежда Сергеевна, тел. +7 (924) 132-91-53";
         }
 
         private string GetEmergencyPhoneNumber(string street, string building)
