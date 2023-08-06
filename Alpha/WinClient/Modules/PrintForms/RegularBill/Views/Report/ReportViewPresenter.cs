@@ -282,8 +282,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         {
             street = street.ToLower();
 
-            if (street == "остров русский, ул. зеленая"
-                || street == "остров русский, п. поспелово"
+            if (street == "остров русский, ул. зеленая"
+                || street == "остров русский, п. поспелово"
                 || street == "остров русский, п. подножье"
                 || street == "остров русский, ул. экипажная"
                 || street == "остров русский, поселок воевода")
@@ -299,7 +299,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Горбачева Вера Александровна, тел. 255-82-23";
             }
 
-            return "Менеджер по санитарному обслуживанию - Надежда Сергеевна, тел. +7 (924) 132-91-53";
+            return "Менеджер по санитарному обслуживанию - Надежда Сергеевна, тел. +7 (914) 716-56-57";
         }
 
         private string GetEmergencyPhoneNumber(string street, string building)
