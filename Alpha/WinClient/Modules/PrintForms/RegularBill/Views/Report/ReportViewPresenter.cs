@@ -305,8 +305,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
 
             if (street == "некрасовская"
                 || street == "адмирала кузнецова"
+                || street == "адмирала спиридонова"
                 || street == "красного знамени проспект"
-                || street == "спиридонова"
                 || street == "шилкинская"
                 || street == "тунгусская"
                 || street == "тобольская")
