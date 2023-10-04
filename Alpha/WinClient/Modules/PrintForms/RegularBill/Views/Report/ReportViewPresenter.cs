@@ -298,6 +298,38 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             {
                 return "Управляющий по дому - Горбачева Вера Александровна, тел. 255-82-23";
             }
+            
+            if (street == "уткинская") {
+                return "Управляющий по дому - Варвара Георгиевна, тел. +7 (914) 703-97-87";
+            }
+
+            if (street == "некрасовская"
+                || street == "адмирала кузнецова"
+                || street == "красного знамени проспект"
+                || street == "спиридонова"
+                || street == "шилкинская"
+                || street == "тунгусская"
+                || street == "тобольская")
+            {
+                return "Управляющий по дому - Валентина Юрьевна, тел. +7 (924) 525-60-66";
+            }
+
+            if (street == "борисенко" && building == "100б"
+                || street == "космонавтов"
+                || street == "гульбиновича"
+                || street == "терешковой"
+                || street == "калинина"
+
+                || street == "магнитогорская"
+                || street == "енисейская"
+                || street == "бестужева"
+
+                || street == "хабаровская"
+                || street == "суханова"
+                || street == "светланская")
+            {
+                return "Управляющий по дому - Надежда Сергеевна, тел. +7 (924) 132-91-53";
+            }
 
             return "Менеджер по санитарному обслуживанию - Надежда Сергеевна, тел. +7 (914) 716-56-57";
         }
@@ -306,7 +338,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         {
             street = street.ToLower();
             building = building.ToLower();
-
+ 
             if (street == "борисенко" && building == "100б"
                 || street == "космонавтов"
                 || street == "луговая"
