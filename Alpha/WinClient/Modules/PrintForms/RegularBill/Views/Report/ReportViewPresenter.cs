@@ -314,7 +314,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Валентина Юрьевна, тел. +7 (924) 525-60-66";
             }
 
-            return "Менеджер по санитарному обслуживанию - Надежда Сергеевна, тел. +7 (914) 716-56-57";
+            return "";
         }
 
         private string GetEmergencyPhoneNumber(string street, string building)
