@@ -314,6 +314,19 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Валентина Юрьевна, тел. +7 (924) 525-60-66";
             }
 
+            if (street == "космонавтов"
+                || street == "терешковой"
+                || street == "калинина"
+                || street == "магнитогорская"
+                || street == "енисейская"
+                || street == "бестужева"
+                || street == "хабаровская"
+                || street == "суханова"
+                || street == "светланская")
+            {
+                return "Управляющий по дому - Надежда Сергеевна, тел. +7 (914) 716-56-57";
+            }
+
             return "";
         }
 
