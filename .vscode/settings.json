@@ -1,3 +1,4 @@
 {
-  "dotnet.defaultSolution": "Alpha/WinClient/Build/Aurora.sln"
+  "dotnet.defaultSolution": "Alpha/WinClient/Build/Aurora.sln",
+  "dotnet.preferCSharpExtension": true
 }
