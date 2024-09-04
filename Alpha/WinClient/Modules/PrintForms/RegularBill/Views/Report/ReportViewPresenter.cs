@@ -290,14 +290,6 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             {
                 return "Управляющий по дому - Елена Сергеевна, тел. +7-924-428-48-84";
             }
-
-            if (street == "луговая"
-                || street == "баляева"
-                || street == "океанский проспект"
-                || street == "острякова проспект")
-            {
-                return "Управляющий по дому - Горбачева Вера Александровна, тел. 255-82-23";
-            }
             
             if (street == "уткинская") {
                 return "Управляющий по дому - Варвара Георгиевна, тел. +7 (914) 703-97-87";
@@ -309,7 +301,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "красного знамени проспект"
                 || street == "шилкинская"
                 || street == "тунгусская"
-                || street == "тобольская")
+                || street == "тобольская"
+                || street == "гульбиновича")
             {
                 return "Управляющий по дому - Валентина Юрьевна, тел. +7 (924) 525-60-66";
             }
@@ -322,7 +315,9 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "бестужева"
                 || street == "хабаровская"
                 || street == "суханова"
-                || street == "светланская")
+                || street == "светланская"
+                || street == "острякова проспект"
+                || street == "океанский проспект")
             {
                 return "Управляющий по дому - Надежда Сергеевна, тел. +7 (914) 716-56-57";
             }
