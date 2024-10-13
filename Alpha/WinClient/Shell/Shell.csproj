@@ -47,16 +47,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://download.taumis.ru/aurora-zhilusl-1872/</InstallUrl>
+    <InstallUrl>http://download.taumis.ru.website.yandexcloud.net/aurora-zhilusl-1872/</InstallUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>Aurora 1872</ProductName>
     <PublisherName>Taumis</PublisherName>
-    <MinimumRequiredVersion>019.73.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>021.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>020.1.0.0</ApplicationVersion>
+    <ApplicationVersion>021.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
