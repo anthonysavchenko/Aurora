@@ -320,6 +320,18 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "Управляющий по дому - Надежда Сергеевна, тел. +7 (914) 716-56-57";
             }
 
+            if (street == "красного знамени проспект" && building == "93"
+                || street == "некрасовская" && building == "96/3")
+            {
+                return "Управляющий по дому - Надежда Сергеевна, тел. +7 (914) 962-20-12";
+            }
+
+            if (street == "адмирала кузнецова" && building == "74"
+                || street == "адмирала спиридонова" && building == "15")
+            {
+                return "Управляющий по дому - Инна Васильевна, тел. +7 (966) 277-37-58";
+            }
+
             return "";
         }
 
