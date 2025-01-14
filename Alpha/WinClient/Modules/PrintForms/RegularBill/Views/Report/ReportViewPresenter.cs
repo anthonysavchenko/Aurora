@@ -315,7 +315,8 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "хабаровская"
                 || street == "суханова"
                 || street == "светланская"
-                || street == "океанский проспект")
+                || street == "океанский проспект"
+                || street == "пушкинская")
             {
                 return "Управляющий по дому - Надежда Сергеевна, тел. +7 (914) 716-56-57";
             }
