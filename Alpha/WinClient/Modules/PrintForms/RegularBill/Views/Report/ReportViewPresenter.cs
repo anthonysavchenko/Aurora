@@ -328,9 +328,10 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             }
 
             if (street == "адмирала кузнецова" && building == "74"
-                || street == "адмирала спиридонова" && building == "15")
+                || street == "адмирала спиридонова" && building == "15"
+                || street == "красного знамени проспект" && building == "88")
             {
-                return "Управляющий по дому - Инна Васильевна, тел. +7 (966) 277-37-58";
+                return "Управляющий по дому - Анна Леонидовна, тел. +7 (914) 730-75-22";
             }
 
             return "";
