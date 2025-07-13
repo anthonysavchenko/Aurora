@@ -4,7 +4,7 @@
 ## Настройка среды разработки
 
 
-1. Установить Visual Studio 2022 или выше.
+1. Установить Visual Studio 2019 (не выше, иначе не будет работать редактор отчетов DevExpress).
 
 1. Для использования фрэймворка 4.0 нужно скачать его с nuget `https://www.nuget.org/packages/Microsoft.NETFramework.ReferenceAssemblies.net40/`, переименовать с расширением .zip, разархивировать, скопировать данные из папки `build\.NETFramework\v4.0` в `C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0`.
 
