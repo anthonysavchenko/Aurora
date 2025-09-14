@@ -21,47 +21,52 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             /// <summary>
             /// Тип услуги
             /// </summary>
-            public const string GKU = "H";
+            public const string GKU = "I";
 
             /// <summary>
             /// Площадь
             /// </summary>
-            public const string PL = "I";
+            public const string PL = "J";
 
             /// <summary>
             /// Количество проживающих
             /// </summary>
-            public const string KOLP = "J";
+            public const string KOLP = "K";
 
             /// <summary>
             /// Норматив
             /// </summary>
-            public const string NORM = "K";
+            public const string NORM = "L";
 
             /// <summary>
             /// Фактическое потребление ЖКУ за месяц
             /// </summary>
-            public const string FAKTP = "L";
+            public const string FAKTP = "M";
 
             /// <summary>
             /// Фактическое потребление ЖКУ с учетом перерасчетов за прошлый период
             /// </summary>
-            public const string FAKTPER = "M";
+            public const string FAKTPER = "N";
 
             /// <summary>
             /// Тариф
             /// </summary>
-            public const string TARIF = "N";
+            public const string TARIF = "O";
+
+            /// <summary>
+            /// Период (DATEP)
+            /// </summary>
+            public const string PERIOD_COLUMN = "P";
 
             /// <summary>
             /// Количество месяцев долга
             /// </summary>
-            public const string MESD = "S";
+            public const string MESD = "T";
 
             /// <summary>
             /// Флаг соглашения о реструктуризации долга
             /// </summary>
-            public const string RESTRDOLG = "T";
+            public const string RESTRDOLG = "U";
 
             /// <summary>
             /// Сумма оплаты граждан за ЖКУ.
@@ -69,15 +74,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Service.Export.Services
             /// (Сумма оплаты граждан с 17 числа месяца, предшедствующего 
             /// периоду предоставления по 16 число месяца предоставления). 
             /// </summary>
-            public const string FAKTOP = "V";
+            public const string FAKTOP = "W";
 
             /// <summary>
             /// Сумма оплаты граждан за ЖКУ.
             /// Сумма оплаты граждан, учтенная поставщиком ЖКУ за месяц предоставления. 
             /// </summary>
-            public const string FAKTOP2 = "W";
-
-            public const string PERIOD_COLUMN = "O";
+            public const string FAKTOP2 = "X";
         }
 
         private class ServiceTypes
