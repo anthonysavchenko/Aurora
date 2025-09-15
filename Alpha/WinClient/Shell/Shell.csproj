@@ -18,7 +18,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <ManifestCertificateThumbprint>7078213BAFBBD51E0864A45BC6C5F2BB09E9CAD1</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>BD809C4C995C4DD3EB580FEDE534CF025CB26EB7</ManifestCertificateThumbprint>
     <ManifestKeyFile>Shell_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
