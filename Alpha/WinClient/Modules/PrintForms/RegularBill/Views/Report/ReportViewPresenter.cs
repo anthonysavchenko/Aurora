@@ -331,7 +331,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
         {
             street = street.ToLower();
             building = building.ToLower();
- 
+
+            if (street == "остров русский, ул. шкиперская"
+                || street == "остров русский, ул. адмиральская"
+                || street == "остров русский, пер. поэтический")
+            {
+                return "206-03-20, 248-25-12";
+            }
+
             if (street == "борисенко" && building == "100б"
                 || street == "космонавтов"
                 || street == "луговая"
