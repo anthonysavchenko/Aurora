@@ -33,14 +33,14 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
 
             _cache.Init(cmd.Period);
 
-            int _chargeSetId = 2103;//CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
-            //Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
+            int _chargeSetId = CreateChargeSet(cmd.Now, cmd.Period, cmd.AuthorId);
+            Dictionary<int, int> _billSetByBuilding = CreateBillSets(cmd.Now);
 
-            int[] _customers = new int[] { 2130, 2131, 2132, 2133, 2134, 2135, 2136, 2137, 2138, 2139, 2140, 2141, 2142, 2143, 2144, 2145, 2146, 2147, 2148, 2149, 2150, 2151, 2152, 2153, 2154, 2155, 2156, 2157, 2158, 2159, 2160, 2161, 2162, 2163, 2164, 2165, 2166, 2167, 2168, 2169, 2170, 2171, 2172, 2173, 2174, 2175, 2176, 2177, 2178, 2179, 2180, 2181, 2182, 2183, 2184, 2185, 2186, 2187, 2188, 2189, 2190, 2191, 2192, 2193, 2194, 2195, 2196, 2197, 2198, 2199, 2200, 2201, 2202, 2203, 2204, 2205, 2206, 2207, 2208, 2209, 2210, 2211, 2212, 2213, 2214, 2215, 2216, 2217, 2218, 2219, 2220, 2221, 2222, 2223, 2224, 2225, 2226, 2227, 2228, 2229, 2230, 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239, 2240, 2241, 2242, 2243, 2244, 2245, 2246, 2247, 2248, 2249, 2250, 2251, 2252, 2253, 2254, 2255 };
-            //using (Entities _db = new Entities())
-            //{
-            //    _customers = _db.Customers.Select(c => c.ID).ToArray();
-            //}
+            int[] _customers;
+            using (Entities _db = new Entities())
+            {
+                _customers = _db.Customers.Select(c => c.ID).ToArray();
+            }
 
             cmd.ResetProgressBar(_customers.Length);
 
@@ -135,7 +135,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.Accounting.Charges.Views.Wizard.
                         _dispatcher.Execute(
                             new CreateBillCommand
                             {
-                                BillSetId = 3927,//_billSetByBuilding[_customerInfo.BuildingId],
+                                BillSetId = _billSetByBuilding[_customerInfo.BuildingId],
                                 ChargeOper = _createChargeOperCommand.Result,
                                 ChargePeriodBalance = _periodBalance,
                                 Contractors = _contractors,
