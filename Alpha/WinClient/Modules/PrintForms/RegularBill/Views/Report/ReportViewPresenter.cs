@@ -239,7 +239,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                                 _bill.CustomerID,
                                 _now.ToString("dd.MM.yyyy"),
                                 _bill.Period.ToString("MMMM yyyy (MM.yy)"),
-                                new DateTime(_bill.Period.Year, _bill.Period.Month, 10).AddMonths(1).ToString("dd.MM.yyyy"),
+                                new DateTime(_bill.Period.Year, _bill.Period.Month, 15).AddMonths(1).ToString("dd.MM.yyyy"),
                                 _bill.Account,
                                 _bill.Owner,
                                 _bill.Address,
