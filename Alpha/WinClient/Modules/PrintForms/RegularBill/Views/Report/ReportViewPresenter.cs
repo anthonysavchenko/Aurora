@@ -314,7 +314,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 || street == "некрасовская"
                 || street == "калинина"
                 || street == "адмирала кузнецова"
-                || (street == "красного знамени проспект" 
+                || (street == "красного знамени проспект"
                     && (building == "88" || building == "162" || building == "114" || building == "93")))
             {
                 return "Управляющий по дому - Милованова Оксана Васильевна, тел. +7-924-736-61-45";
@@ -348,6 +348,13 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
             street = street.ToLower();
             building = building.ToLower();
 
+            if (street == "остров русский, ул. шкиперская"
+                || street == "остров русский, ул. адмиральская"
+                || street == "остров русский, пер. поэтический")
+            {
+                return "206-03-20, 248-25-12";
+            }
+
             if (street == "борисенко" && building == "100б"
                 || street == "космонавтов"
                 || street == "луговая"
@@ -366,7 +373,7 @@ namespace Taumis.Alpha.WinClient.Aurora.Modules.PrintForms.RegularBill.Views.Rep
                 return "206-03-20";
             }
 
-            if(street == "борисенко" || street == "баляева")
+            if (street == "борисенко" || street == "баляева")
             {
                 return "2-614-714";
             }
